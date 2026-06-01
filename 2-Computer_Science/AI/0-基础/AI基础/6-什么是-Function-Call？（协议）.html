@@ -151,34 +151,23 @@ pre:hover > .expand-button {
 <h2 id="没有-function-calling-之前靠自然语言猜">没有 Function Calling 之前：靠自然语言“猜”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#没有-function-calling-之前靠自然语言猜" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
 <p>在 Function Calling 出现之前，开发者只能把工具的描述和调用规范，全部用 <strong>自然语言写进 System Prompt（系统提示词）</strong> 里。</p>
 <p>比如你想让 AI 能调用一个查天气的工具，System Prompt 里就得这样写：</p>
-<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="json" data-theme="github-light github-dark"><code data-language="json" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">你是一个智能助手，你可以使用以下工具：</span></span>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="text" data-theme="github-light github-dark"><code data-language="text" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>你是一个智能助手，你可以使用以下工具：</span></span>
 <span data-line> </span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">工具名：check_weather</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">功能：查询某个城市的天气</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">参数：</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  - city：城市名，中文，比如“上海”</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  - date：日期，格式必须是 YYYY-MM-DD，比如“</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2026-03-19</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">”</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  - date 是可选的，不填默认查今天</span></span>
+<span data-line><span>工具名：check_weather</span></span>
+<span data-line><span>功能：查询某个城市的天气</span></span>
+<span data-line><span>参数：</span></span>
+<span data-line><span>  - city：城市名，中文，比如&quot;上海&quot;</span></span>
+<span data-line><span>  - date：日期，格式必须是 YYYY-MM-DD，比如&quot;2026-03-19&quot;</span></span>
+<span data-line><span>  - date 是可选的，不填默认查今天</span></span>
 <span data-line> </span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">当用户需要查天气时，你要调用这个工具，告诉我工具名和参数。</span></span></code></pre></figure>
-<p>当用户需要查天气时，你要调用这个工具，告诉我工具名和参数。</p>
+<span data-line><span>当用户需要查天气时，你要调用这个工具，告诉我工具名和参数。</span></span></code></pre></figure>
 <p>听起来还好？但问题是，大模型是个自由发挥的选手，你约束不住它。你让它查「上海明天的天气」，它可能给你返回：</p>
 <ul>
-<li>
-<p><strong>散文式回复</strong>：“好的，我来帮你查询上海明天的天气，需要使用 check_weather 工具，城市是上海，时间是明天～”</p>
-</li>
-<li>
-<p><strong>参数顺序颠倒</strong>： <code>{&quot;date&quot;: &quot;明天&quot;, &quot;city&quot;: &quot;上海&quot;}</code> （“明天”完全不是 YYYY-MM-DD 格式，直接传进工具就报错）</p>
-</li>
-<li>
-<p><strong>直接编造天气</strong>：不调工具，根据训练数据给你生成一个“明天上海天气预报”</p>
-</li>
-<li>
-<p><strong>JSON 里混自然语言</strong>： <code>调用工具: check_weather, 参数 city=上海, date=2026-03-20</code></p>
-</li>
-<li>
-<p><strong>完全无视要求</strong>：给你一段介绍上海气候特点的科普文章</p>
-</li>
+<li><strong>散文式回复</strong>：“好的，我来帮你查询上海明天的天气，需要使用 check_weather 工具，城市是上海，时间是明天～”</li>
+<li><strong>参数顺序颠倒</strong>：<code>{&quot;date&quot;: &quot;明天&quot;, &quot;city&quot;: &quot;上海&quot;}</code>（“明天”完全不是 YYYY-MM-DD 格式，直接传进工具就报错）</li>
+<li><strong>直接编造天气</strong>：不调工具，根据训练数据给你生成一个“明天上海天气预报”</li>
+<li><strong>JSON 里混自然语言</strong>：<code>调用工具: check_weather, 参数 city=上海, date=2026-03-20</code></li>
+<li><strong>完全无视要求</strong>：给你一段介绍上海气候特点的科普文章</li>
 </ul>
 <p>这就是传统 System Prompt 模式的本质问题，<strong>全靠 AI 猜</strong>：猜要不要调工具、猜参数格式、猜回复结构。猜对了正常运行，猜错了整个流程就崩了。</p>
 <p>而开发者呢？就得写一大堆正则表达式和解析代码，尝试从 AI 五花八门的回复里“扒”出工具名和参数。工具越多，解析代码比业务代码还长。而且换个模型，还得重写一遍。这种开发体验，完全是噩梦级别的。</p>
@@ -186,41 +175,25 @@ pre:hover > .expand-button {
 <h2 id="function-calling-的出现告别猜谜统一规范">Function Calling 的出现：告别猜谜，统一规范<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#function-calling-的出现告别猜谜统一规范" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
 <p>这就是 Function Calling 诞生的背景。</p>
 <p><strong>Function Calling 的本质，是一套大模型和 Agent 之间的标准化工具调用协议</strong>，我们不再用自然语言告诉 AI「你可以用这个工具」，而是用一套固定的 JSON 格式把工具定义清楚；大模型也不再自由发挥，而是严格按固定的 JSON 结构返回调用指令。</p>
-<p><img src="../../../../images/什么是-Function-Call？-eae4436ac998b58db23067f53ef24db8.png" alt/></p>
 <p>整个过程变成了这样：你给我标准格式的工具说明书，我给你标准格式的调用指令，双向约定，零歧义，零猜测。</p>
 <p>这里很多同学会有个疑问：Tool 和 Function Call 有什么关系？简单来说，<strong>Tool 是「能力实体」，Function Call 是「调用机制」</strong>，大模型通过 Function Call 这个协议，去调用 Tool 这个具体的功能。解决的是完全不同层面的问题：</p>
 <ul>
-<li>
-<p><strong>工具（Tool）= 能力层，解决「有什么」</strong>：一个工具需要哪些要素才算完整、才能让大模型认识和使用它，函数本体是真正干活的，名称让大模型能精准识别，描述告诉大模型什么时候该用它，参数定义告诉大模型怎么构造调用参数。这是在定义一个能力本身。</p>
-</li>
-<li>
-<p><strong>Function Calling = 协议层，解决「怎么传」</strong>：工具写好之后，大模型和 Agent 之间要用什么格式来交换信息，大模型怎么告诉 Agent 要调哪个工具、传什么参数；Agent 执行完工具后怎么把结果回传给大模型。这是一套标准化通信规范。</p>
-</li>
+<li><strong>工具（Tool）= 能力层，解决「有什么」</strong>：一个工具需要哪些要素才算完整、才能让大模型认识和使用它，函数本体是真正干活的，名称让大模型能精准识别，描述告诉大模型什么时候该用它，参数定义告诉大模型怎么构造调用参数。这是在定义一个能力本身。</li>
+<li><strong>Function Calling = 协议层，解决「怎么传」</strong>：工具写好之后，大模型和 Agent 之间要用什么格式来交换信息，大模型怎么告诉 Agent 要调哪个工具、传什么参数；Agent 执行完工具后怎么把结果回传给大模型。这是一套标准化通信规范。</li>
 </ul>
-<p>打个比方：工具是外卖骑手（有姓名、有技能、能送餐），Function Calling 是美团的派单系统（规定了订单怎么下达、骑手怎么接单、送达后怎么确认）。骑手和派单系统缺一不可，但它们解决的是完全不同层面的两件事，骑手是「能力」，派单系统是「通信规范」。</p>
+<p>打个比方：工具是外卖骑手（有姓名、有技能、能送餐），Function Calling 是派单系统（规定了订单怎么下达、骑手怎么接单、送达后怎么确认）。骑手和派单系统缺一不可，但它们解决的是完全不同层面的两件事，骑手是「能力」，派单系统是「通信规范」。</p>
 <p>所以 Tool 章讲的「工具四要素」，是从概念层告诉你一个工具应该有什么；这章讲的 Function Calling，是从协议层告诉你这些要素以什么标准化格式在大模型和 Agent 之间流转。</p>
 <p>两者的协作流程，以「查询北京明天天气」为例：</p>
 <ol>
-<li>
-<p>用户提问：「北京明天天气怎么样？」</p>
-</li>
-<li>
-<p>大模型分析：需要调用天气 Tool，生成 Function Call 格式的指令。</p>
-</li>
-<li>
-<p>系统解析指令：调用 <code>get_weather(&quot;北京&quot;, &quot;2026-03-21&quot;)</code> 这个 Tool。</p>
-</li>
-<li>
-<p>Tool 执行并返回结果：「北京明天晴，10~20℃」。</p>
-</li>
-<li>
-<p>大模型把结果整理成自然语言，回复给用户。</p>
-</li>
+<li>用户提问：「北京明天天气怎么样？」</li>
+<li>大模型分析：需要调用天气 Tool，生成 Function Call 格式的指令。</li>
+<li>系统解析指令：调用 <code>get_weather(&quot;北京&quot;, &quot;2026-03-21&quot;)</code> 这个 Tool。</li>
+<li>Tool 执行并返回结果：「北京明天晴，10~20℃」。</li>
+<li>大模型把结果整理成自然语言，回复给用户。</li>
 </ol>
 <hr/>
 <h2 id="function-calling-三部分核心结构">Function Calling 三部分核心结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#function-calling-三部分核心结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
 <p>接下来，我们用天气查询的场景，把 Function Calling 完整的三部分结构拆解清楚，每一行都讲明白作用。</p>
-<p><img src="../../../../images/什么是-Function-Call？-1620207ed0fd1ff12167942d26d4411b.png" alt/></p>
 <h3 id="第一部分工具定义tool-definition给大模型的工具说明书">第一部分：工具定义（Tool Definition），给大模型的「工具说明书」<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#第一部分工具定义tool-definition给大模型的工具说明书" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
 <p>这一步是我们开发者要写的，相当于给大模型一份严格规范的工具说明书，大模型会完全按照这份说明书，判断要不要调用工具、怎么调用工具。</p>
 <figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="json" data-theme="github-light github-dark"><code data-language="json" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
@@ -244,18 +217,10 @@ pre:hover > .expand-button {
 <span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
 <p>这里每个字段都有明确作用：</p>
 <ul>
-<li>
-<p><code>name</code> ：工具的唯一标识，大模型调用时必须和这个名字完全一致</p>
-</li>
-<li>
-<p><code>description</code> ：工具功能说明，<strong>是大模型判断「要不要调这个工具」的核心依据</strong>，写得越精准，大模型做对决策的概率越高</p>
-</li>
-<li>
-<p><code>parameters</code> ：告诉大模型这个工具需要哪些参数、什么类型、什么格式，大模型会严格按照这里的约束来生成参数值</p>
-</li>
-<li>
-<p><code>required</code> ：必填参数清单，如果用户没提供必填信息，大模型会主动去问用户，而不是瞎猜一个</p>
-</li>
+<li><code>name</code>：工具的唯一标识，大模型调用时必须和这个名字完全一致。</li>
+<li><code>description</code>：工具功能说明，<strong>是大模型判断「要不要调这个工具」的核心依据</strong>，写得越精准，大模型做对决策的概率越高。</li>
+<li><code>parameters</code>：告诉大模型这个工具需要哪些参数、什么类型、什么格式，大模型会严格按照这里的约束来生成参数值。</li>
+<li><code>required</code>：必填参数清单，如果用户没提供必填信息，大模型会主动去问用户，而不是瞎猜一个。</li>
 </ul>
 <p>对比之前 System Prompt 里用自然语言描述的“松散约定”，这里的 JSON 格式是严格的机器可读规范，大模型在服务端就会做格式校验，不合规的参数直接拒绝，从源头杜绝了参数乱传的问题。</p>
 <h3 id="第二部分ai-调用格式function-call大模型给-agent-的标准化执行指令">第二部分：AI 调用格式（Function Call），大模型给 Agent 的「标准化执行指令」<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#第二部分ai-调用格式function-call大模型给-agent-的标准化执行指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
@@ -285,37 +250,27 @@ pre:hover > .expand-button {
 <h2 id="对应-agent-执行流程">对应 Agent 执行流程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#对应-agent-执行流程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
 <p>把这三部分放回之前讲过的 Agent 执行循环，对应关系就清晰了。</p>
 <p>先回忆一下 tools 文章里的那 7 步执行流程：</p>
-<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="json" data-theme="github-light github-dark"><code data-language="json" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：Agent 把「用户需求 + 工具清单」打包，发给大模型</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：大模型做决策，返回调用指令</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：Agent 执行指令，调用工具函数</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：Agent 把工具执行结果回传给大模型</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：大模型根据结果，决定下一步</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">6</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：循环执行，直到任务完成</span></span>
-<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">第 </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">7</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 步：Agent 把最终结果反馈给用户</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="text" data-theme="github-light github-dark"><code data-language="text" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>第 1 步：Agent 把「用户需求 + 工具清单」打包，发给大模型</span></span>
+<span data-line><span>第 2 步：大模型做决策，返回调用指令</span></span>
+<span data-line><span>第 3 步：Agent 执行指令，调用工具函数</span></span>
+<span data-line><span>第 4 步：Agent 把工具执行结果回传给大模型</span></span>
+<span data-line><span>第 5 步：大模型根据结果，决定下一步</span></span>
+<span data-line><span>第 6 步：循环执行，直到任务完成</span></span>
+<span data-line><span>第 7 步：Agent 把最终结果反馈给用户</span></span></code></pre></figure>
 <p>Function Calling 规范的是其中有「数据交换」的三步：</p>
 <p><strong>第 1 步 → 工具定义（Tool Definition）</strong></p>
 <p>Agent 要把工具清单传给大模型，这份清单就是用 Function Calling 规定的 JSON 格式写的，每个工具都有标准化的 name、description、parameters 字段。大模型收到的不是一段随意的文字描述，而是严格规范的结构化数据。</p>
 <p><strong>第 2 步 → AI 调用格式（Function Call）</strong></p>
-<p>大模型做出「调用工具」的决策后，它返回给 Agent 的不是一句自然语言（比如「你去帮我查一下天气」），而是严格的 JSON 格式指令， <code>function_call.name</code> 告诉 Agent 调哪个工具， <code>function_call.parameters</code> 告诉 Agent 传什么参数。Agent 直接解析，不用猜。</p>
+<p>大模型做出「调用工具」的决策后，它返回给 Agent 的不是一句自然语言（比如「你去帮我查一下天气」），而是严格的 JSON 格式指令，<code>function_call.name</code> 告诉 Agent 调哪个工具，<code>function_call.parameters</code> 告诉 Agent 传什么参数。Agent 直接解析，不用猜。</p>
 <p><strong>第 4 步 → 工具返回结果（Tool Response）</strong></p>
 <p>Agent 执行完工具（第 3 步），拿到结果，按规范格式打包回传给大模型。大模型收到这个结果，才能做出下一步决策，是继续调工具，还是直接回答用户。</p>
 <p><strong>第 3 步不在 Function Calling 的管辖范围内</strong>，那一步是 Agent 实际执行函数，是真正「干活」的部分，不涉及大模型和 Agent 之间的通信格式。</p>
-<p>用一张图把对应关系标出来：</p>
-<p><img src="../../../../images/什么是-Function-Call？-230b54c325e0db01696d9c5ed1af6a50.png" alt/></p>
 <p>Function Calling 把第 1、2、4 步的数据格式全部标准化了，这三步恰好是大模型和 Agent 之间所有的「信息交换点」。有了这套规范，双方说的是同一种语言，不再靠猜。</p>
 <ol>
-<li>
-<p><strong>解析工具名</strong>：从 <code>function_call.name</code> 拿到 <code>&quot;check_weather&quot;</code></p>
-</li>
-<li>
-<p><strong>查找对应函数</strong>：在工具注册表里，找到 <code>check_weather</code> 对应的实际函数</p>
-</li>
-<li>
-<p><strong>传入参数执行</strong>：把 <code>function_call.parameters</code> 里的 <code>city</code> 和 <code>date</code> 原样传进函数</p>
-</li>
-<li>
-<p><strong>拿到结果回传</strong>：函数执行完毕，把返回的天气数据回传给大模型</p>
-</li>
+<li><strong>解析工具名</strong>：从 <code>function_call.name</code> 拿到 <code>&quot;check_weather&quot;</code></li>
+<li><strong>查找对应函数</strong>：在工具注册表里，找到 <code>check_weather</code> 对应的实际函数</li>
+<li><strong>传入参数执行</strong>：把 <code>function_call.parameters</code> 里的 <code>city</code> 和 <code>date</code> 原样传进函数</li>
+<li><strong>拿到结果回传</strong>：函数执行完毕，把返回的天气数据回传给大模型</li>
 </ol>
 <p>整个过程干净利落，不需要任何猜测和解析，因为 Function Calling 已经保证了调用指令的格式是固定的、可预期的。Agent 只需要按格式拆开、对号入座、执行、回传，就完成了自己在这一轮循环中的全部工作。</p>
 <hr/>
@@ -360,24 +315,14 @@ pre:hover > .expand-button {
 <h2 id="总结">总结<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#总结" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
 <p>整理一下这一章的核心认知：</p>
 <ul>
-<li>
-<p><strong>Function Calling 是什么</strong>：大模型和 Agent 之间的标准化工具调用协议，解决的是「大模型做出调用决策后，如何精准传递指令」的问题，是整个 Agent 开发的底层基础。</p>
-</li>
-<li>
-<p><strong>为什么需要它</strong>：没有 Function Calling 之前，只能用自然语言在 System Prompt 里描述工具，大模型的回复格式完全不可控，开发者要写大量解析和纠错代码；有了 Function Calling，双方都遵循固定的 JSON 规范，彻底告别猜谜。</p>
-</li>
-<li>
-<p><strong>三部分结构</strong>：工具定义（我能用什么）→ AI 调用格式（我要调哪个）→ 工具返回结果（调完得到什么），对应 Agent 执行循环的第 1、2、4 步。</p>
-</li>
+<li><strong>Function Calling 是什么</strong>：大模型和 Agent 之间的标准化工具调用协议，解决的是「大模型做出调用决策后，如何精准传递指令」的问题，是整个 Agent 开发的底层基础。</li>
+<li><strong>为什么需要它</strong>：没有 Function Calling 之前，只能用自然语言在 System Prompt 里描述工具，大模型的回复格式完全不可控，开发者要写大量解析和纠错代码；有了 Function Calling，双方都遵循固定的 JSON 规范，彻底告别猜谜。</li>
+<li><strong>三部分结构</strong>：工具定义（我能用什么）→ AI 调用格式（我要调哪个）→ 工具返回结果（调完得到什么），对应 Agent 执行循环的第 1、2、4 步。</li>
 </ul>
 <p>后续章节呼应：</p>
 <ul>
-<li>
-<p><strong>RAG</strong>：一种特殊工具，专门解决「大模型看不到你私有数据」的问题，重要到单独一章</p>
-</li>
-<li>
-<p><strong>MCP</strong>：工具的标准化协议，不用每次都自己写工具定义，直接接入现成生态</p>
-</li>
+<li><strong>RAG</strong>：一种特殊工具，专门解决「大模型看不到你私有数据」的问题，重要到单独一章。</li>
+<li><strong>MCP</strong>：工具的标准化协议，不用每次都自己写工具定义，直接接入现成生态。</li>
 </ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
                 s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
                 c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562

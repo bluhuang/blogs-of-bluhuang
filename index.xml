@@ -6,6 +6,12 @@
       <description>Last 10 notes on blogs of bluhuang</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>2 ReAct - Reasoning + Acting</title>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/Agent/2-ReAct---Reasoning-+-Acting</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/Agent/2-ReAct---Reasoning-+-Acting</guid>
+    <description><![CDATA[ 1 什么是 ReAct ReAct（Reasoning + Acting）是由谷歌研究院和普林斯顿大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成推理轨迹与任务操作，模拟人类解决问题时的”思考-行动-观察”循环。 🧠 前言：从 CoT 到 ReAct COT：Chain-of-Thought，思维链 在只有基础对话能力的阶段，大模型更多像一个”一次性回答机”： User: 问题 → LLM: 一次性生成答案 即便加上了 Memory、RAG，智能体也只是多了”能记”和”会查”： Memory：记住过去发生了什么（多轮对话、历史任务状态） RAG：在回答前去查一查知识库或互... ]]></description>
+    <pubDate>Mon, 01 Jun 2026 10:49:59 GMT</pubDate>
+  </item><item>
     <title>1 LLM基础必知必会</title>
     <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</link>
     <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</guid>
@@ -21,7 +27,7 @@
     <title>11 什么是Harness工程？</title>
     <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</link>
     <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</guid>
-    <description><![CDATA[ 📌 本章重点总结 概念来源：由 Mitchell Hashimoto 在 2026 年 2 月提出，随后 OpenAI 官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。 AI 工程重心的三次演进： Prompt Engineering：让模型“听懂”任务（表达）。 Context Engineering：让模型“知道”该用什么信息（供给）。 Harness Engineering：让模型在真实执行中“持续做对”（驾驭）。 三者是包含关系：Prompt ⊂ Context ⊂ Harness。 Harness 的简洁定义：Agent 系统里除了模型本身之外，所... ]]></description>
+    <description><![CDATA[ 📌 本章重点总结（Harness Engineering） 概念来源：由 Mitchell Hashimoto 在 2026 年 2 月提出，随后官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。 AI 工程重心的三次演进： Prompt Engineering：让模型“听懂”任务（表达）。 Context Engineering：让模型“知道”该用什么信息（供给）。 Harness Engineering：让模型在真实执行中“持续做对”（驾驭）。 三者是包含关系：Prompt ⊂ Context ⊂ Harness。 Harness 的简洁定义：Agent ... ]]></description>
     <pubDate>Mon, 01 Jun 2026 09:46:46 GMT</pubDate>
   </item><item>
     <title>2 什么是大模型？</title>
@@ -58,12 +64,6 @@
     <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</link>
     <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（MCP） MCP 是什么：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。 为什么需要 MCP：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。 三大核心角色： Host：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。 Client：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。 Serv... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 09:46:46 GMT</pubDate>
-  </item><item>
-    <title>8 什么是 Skills？</title>
-    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</link>
-    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</guid>
-    <description><![CDATA[ 📌 本章重点总结（Skills） Skills 出现的背景：有了 Function Calling（底层机制）和 MCP（标准化接口）后，AI 能调用工具了，但每次执行复杂任务（如生成日报）仍需用户反复用自然语言指导执行步骤，沟通成本高、流程无法沉淀复用。 Skill 的定义：一份“标准作业程序（SOP）”，将解决特定任务所需的 背景设定（Prompt）、执行步骤 和 所需工具（MCP） 打包成一个可复用的代码文件（通常为 Markdown + YAML）。 Skill 的内部结构： 头部配置（Frontmatter）：YAML 格式，定义技能名称、描述，声明需要挂载的 MCP 工具。 技能... ]]></description>
     <pubDate>Mon, 01 Jun 2026 09:46:46 GMT</pubDate>
   </item>
     </channel>
