@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
     <channel>
-      <title>Quartz 4</title>
-      <link>https://quartz.jzhao.xyz</link>
-      <description>Last 10 notes on Quartz 4</description>
+      <title>blogs of bluhuang</title>
+      <link>https://bluhuang.github.io</link>
+      <description>Last 10 notes on blogs of bluhuang</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
     <title>1 LLM基础必知必会</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/1-LLM%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A</guid>
     <description><![CDATA[ LLM 学习笔记：核心概念与实践方法 参考：www.nowcoder.com/discuss/618031032440217600 1. ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>10 什么是向量数据库？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F</guid>
     <description><![CDATA[  上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。 你可能当时就想问： 为什么要专门用向量数据库？MySQL 不能存吗？ 这章就专门把这个问题讲清楚。 一、先别急，普通数据库能不能存向量？ 能存，但有个很大的问题。 普通数据库存向量没问题，向量本质上就是一串浮点数，MySQL 建个字段存下来完全没难度。 难的是 查。 二、普通数据库为什么查不了向量？ 咱们先聊聊 MySQL 是怎么查数据的。 你写 SELECT * FROM users WHERE id = 5 ，MySQL 走 B+ 树索引，几次跳转就找到了，极快。你写 WHERE age &g... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>11 什么是Harness工程？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</guid>
-    <description><![CDATA[ 📌 本章重点总结 概念来源：由 Mitchell Hashimoto 在 2026 年 2 月提出，随后官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。 AI 工程重心的三次演进： Prompt Engineering：让模型“听懂”任务（表达）。 Context Engineering：让模型“知道”该用什么信息（供给）。 Harness Engineering：让模型在真实执行中“持续做对”（驾驭）。 三者是包含关系：Prompt ⊂ Context ⊂ Harness。 Harness 的简洁定义：Agent 系统里除了模型本身之外，所有决定稳定性的东... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F</guid>
+    <description><![CDATA[ 📌 本章重点总结（Harness Engineering） 概念来源：由 Mitchell Hashimoto 在 2026 年 2 月提出，随后 OpenAI 官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。 AI 工程重心的三次演进： Prompt Engineering：让模型“听懂”任务（表达）。 Context Engineering：让模型“知道”该用什么信息（供给）。 Harness Engineering：让模型在真实执行中“持续做对”（驾驭）。 三者是包含关系：Prompt ⊂ Context ⊂ Harness。 Harness 的简洁定... ]]></description>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>2 什么是大模型？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（大模型基础） 大模型本质：一个基于海量数据训练、通过预测下一个词来生成文本的“超级助理”。 Token：大模型处理文本的最小单位（非字非词），决定模型输入上限和API费用。 上下文窗口：模型单次能“看到”的Token总量（如128K），相当于一块固定大小的白板，写满后会遗忘早期内容。 无状态性：大模型本身没有记忆，每次调用都是全新开始；多轮对话的“记忆”全靠应用代码传递历史消息列表。 对话角色：消息列表包含 system（系统提示，设定身份和规则）、user（用户输入）、assistant（模型历史回复）。 大模型的四大能力： 听懂人话，精准理解意图 逻辑思考，拆解任务、做... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>3 什么是Prompt？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（Prompt基础） Prompt定义：你发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。 Prompt的重要性：大模型是 next-token 预测机器，输入越精准，输出越稳定。在 Agent 开发中，输出稳定性直接决定流水线可靠性。 User Prompt三要素：目标明确、背景充足、输出要求。缺一不可。 System Prompt三大用途：身份设定、行为规则、输出格式约束。它比 User Prompt 更“稳”，是 Agent 行为可预测的核心保障。 写好Prompt的6个核心原则： 给模型角色 → 缩小搜索空间，输出更专业 正向约束优于负向... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>4 什么是 Agent？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-Agent%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-Agent%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-Agent%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-Agent%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（Agent 基础） Agent 定义：以大模型为“大脑”，能自主感知、决策、调用工具、完成多步骤任务的程序。核心公式：Agent = 大模型 + 工具 + 记忆 + 执行循环。 为什么需要 Agent：弥补大模型的三大短板（无执行能力、知识过期、无持久记忆），让大模型从“只能说”变成“能干”。 核心四组件： 大模型（大脑）：理解任务、推理决策。 工具（双手）：调用真实函数（查库、搜网页、发通知等）。 记忆（记事本）：短期（上下文窗口）+ 长期（外部存储）。 执行循环（节拍器）：不断重复“思考-行动-观察”。 主流工作模式： ReAct：边想边做，每一步实时决策，适合短任务（... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>5 什么是 Tool？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-Tool%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-Tool%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-Tool%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-Tool%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（Tool 基础） 问题背景：大模型被“关在盒子里”，只能输入输出文字，无法与外部世界交互。Tool 给大模型“装上手”，让它能执行真实操作。 Agent、大模型、Tool 的关系： 大模型：决策者（动脑），决定下一步做什么、调用哪个工具。 Tool：执行者（动手），真正去查数据库、发通知、读写文件等。 Agent：调度员，协调用户、大模型、工具之间的任务传递和流程推进。 Tool 的完整组成（四要素）： 函数本体：具体实现功能的代码（大模型看不到，Agent 执行）。 name（名称）：大模型识别工具的标签，需望名知意。 description（描述）：最重要的字段，写清楚... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>6 什么是 Function Call？（协议）</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-Function-Call%EF%BC%9F%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-Function-Call%EF%BC%9F%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-Function-Call%EF%BC%9F%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-Function-Call%EF%BC%9F%EF%BC%88%E5%8D%8F%E8%AE%AE%EF%BC%89</guid>
     <description><![CDATA[ 📌 本章重点总结（Function Calling） Function Calling 是什么：大模型与 Agent 之间的标准化工具调用协议，解决“大模型做出决策后如何精准传递指令给 Agent”的问题。 为什么需要 Function Calling：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），开发者需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。 Function Calling 的三部分结构： 工具定义（Tool Definition）：开发者提供标准 JSO... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>7 什么是MCP？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（MCP） MCP 是什么：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。 为什么需要 MCP：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。 三大核心角色： Host：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。 Client：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。 Serv... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item><item>
     <title>8 什么是 Skills？</title>
-    <link>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</link>
-    <guid>https://quartz.jzhao.xyz/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</guid>
+    <link>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</link>
+    <guid>https://bluhuang.github.io/2-Computer_Science/AI/0-%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-Skills%EF%BC%9F</guid>
     <description><![CDATA[ 📌 本章重点总结（Skills） Skills 出现的背景：有了 Function Calling（底层机制）和 MCP（标准化接口）后，AI 能调用工具了，但每次执行复杂任务（如生成日报）仍需用户反复用自然语言指导执行步骤，沟通成本高、流程无法沉淀复用。 Skill 的定义：一份“标准作业程序（SOP）”，将解决特定任务所需的 背景设定（Prompt）、执行步骤 和 所需工具（MCP） 打包成一个可复用的代码文件（通常为 Markdown + YAML）。 Skill 的内部结构： 头部配置（Frontmatter）：YAML 格式，定义技能名称、描述，声明需要挂载的 MCP 工具。 技能... ]]></description>
-    <pubDate>Mon, 01 Jun 2026 08:58:32 GMT</pubDate>
+    <pubDate>Mon, 01 Jun 2026 09:33:40 GMT</pubDate>
   </item>
     </channel>
   </rss>
