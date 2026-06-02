@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Codings on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/</link><description>Recent content in Codings on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/coding/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</guid><description>&lt;h1 id="排序算法速查笔记"&gt;排序算法速查笔记&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Codings on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/</link><description>Recent content in Codings on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/coding/index.xml" rel="self" type="application/rss+xml"/><item><title>0 必考排序</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</guid><description>&lt;h1 id="排序算法速查笔记"&gt;排序算法速查笔记&lt;/h1&gt;
 &lt;h2 id="一排序算法清单"&gt;一、排序算法清单&lt;/h2&gt;
 &lt;table&gt;
 	&lt;thead&gt;
@@ -42,7 +42,7 @@
 					&lt;td style="text-align: left"&gt;O(n²)&lt;/td&gt;
 					&lt;td style="text-align: left"&gt;O(1)&lt;/td&gt;
 					&lt;td style="text-align: left"&gt;✅&lt;/td&gt;
-					&lt;td style="text-align: left"&gt;基本有序/小数据&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;基本有序或小数据&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td style="text-align: left"&gt;归并排序&lt;/td&gt;
@@ -65,10 +65,10 @@
 &lt;hr&gt;
 &lt;h2 id="二各算法思路与代码实现"&gt;二、各算法思路与代码实现&lt;/h2&gt;
 &lt;h3 id="1-快速排序-lomuto-分区"&gt;1. 快速排序 (Lomuto 分区)&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;思路&lt;/strong&gt;: 随机选择 pivot 并交换至最右，用 &lt;code&gt;i&lt;/code&gt; 标记第一个大于 pivot 的位置，&lt;code&gt;j&lt;/code&gt; 扫描数组，最后将 pivot 归位并递归处理左右子数组。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</guid><description>&lt;h2 id="什么是前缀和"&gt;什么是前缀和？&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;前缀和&lt;/strong&gt;是一种数据预处理技术，用于快速计算数组中某个区间的和。其核心思想是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;思路&lt;/strong&gt;：随机选 pivot 换到最右，用 &lt;code&gt;i&lt;/code&gt; 标记第一个大于 pivot 的位置，&lt;code&gt;j&lt;/code&gt; 扫描，最后让 pivot 归位并递归。&lt;/p&gt;</description></item><item><title>1 前缀和</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</guid><description>&lt;h2 id="什么是前缀和"&gt;什么是前缀和？&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;前缀和&lt;/strong&gt;是一种数据预处理技术，用于快速计算数组中某个区间的和。它的核心思想是：&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;预先计算出从数组开头到每个位置的元素和，这样任意区间 [i, j] 的和就可以通过两个前缀和的差值快速得到。&lt;/p&gt;
+&lt;p&gt;预先计算出从数组开头到每个位置的元素和，这样任意区间[i, j]的和就可以通过两个前缀和的差值快速得到。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre tabindex="0"&gt;&lt;code&gt;prefix[0] = 0 (空数组的和)
 prefix[1] = a₀ = prefix[0] + nums[0]
@@ -81,8 +81,19 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;pre tabindex="0"&gt;&lt;code&gt;sum(i, j) = nums[i] + nums[i+1] + ... + nums[j]
  = prefix[j+1] - prefix[i]
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id="为什么前缀和有用"&gt;为什么前缀和有用？&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;传统方法&lt;/strong&gt;：每次计算区间和需要遍历该区间，时间复杂度 O(n)&lt;br&gt;
-&lt;strong&gt;前缀和方法&lt;/strong&gt;：只需一次减法操作，时间复杂度 O(1)（前提是已经计算出前缀和）&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p&gt;贪心算法是一种在每一步选择中都采取当前最优决策，以期获得全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能以极高的效率得到正确答案。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;传统方法&lt;/strong&gt;：每次计算区间和需要遍历该区间，时间复杂度O(n)
+&lt;strong&gt;前缀和方法&lt;/strong&gt;：只需一次减法操作，时间复杂度O(1)（前提是已经计算出前缀和）&lt;/p&gt;
+&lt;h2 id="计算区间和"&gt;计算区间和&lt;/h2&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;求 nums[1] + nums[2] + nums[3] = 2 + 3 + 4 = 9
+
+传统方法: 遍历索引1,2,3 → 2+3+4=9
+
+前缀和方法:
+sum(1, 3) = prefix[4] - prefix[1]
+ = 10 - 1 = 9
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="对应题目和为k的子数组"&gt;对应题目：和为K的子数组&lt;/h3&gt;
+&lt;h3 id="问题转换"&gt;问题转换&lt;/h3&gt;
+&lt;p&gt;我们要找的是连续子数组和为k，即：&lt;/p&gt;</description></item><item><title>10 贪心系列</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p&gt;贪心算法是一种在每一步选择中都采取当前最优决策，以期得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;一、贪心算法的适用特征&lt;/p&gt;
 &lt;ol&gt;
@@ -109,7 +120,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 · 按起始时间排序 → 合并区间
 · 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”&lt;/p&gt;
 &lt;ol start="2"&gt;
-&lt;li&gt;证明贪心正确性（可简化，但需理解）&lt;/li&gt;
+&lt;li&gt;证明贪心正确性（需理解）&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
 · 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。&lt;/p&gt;
@@ -134,7 +145,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 · 遍历原数组每个数 x：
 · 若 x 大于 tails 中所有数，则追加到末尾，长度增加。
 · 否则，用二分查找找到第一个 tails[i] &amp;gt;= x 的位置，并用 x 替换它。
-· 最终 tails 的长度即为 LIS 长度。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp"&gt;双状态 DP（Double-State DP）&lt;/h1&gt;
+· 最终 tails 的长度即为 LIS 长度。&lt;/p&gt;</description></item><item><title>11 双状态DP</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp"&gt;双状态 DP（Double-State DP）&lt;/h1&gt;
 &lt;h2 id="1-一句话定义"&gt;1. 一句话定义&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;同时维护“以当前位置结尾的最优值”和“最差值”&lt;/strong&gt;，解决因负数（或倒数）导致最优/最差互换的问题。&lt;/p&gt;
 &lt;h2 id="2-什么时候用这个套路"&gt;2. 什么时候用这个套路？&lt;/h2&gt;
@@ -164,7 +175,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;ul&gt;
 &lt;li&gt;最大乘积子数组&lt;/li&gt;
 &lt;li&gt;乘积为正的最长子数组长度&lt;/li&gt;
-&lt;li&gt;最大子数组和 &lt;strong&gt;不是&lt;/strong&gt;（加法无反转，单状态 DP 即可）&lt;/li&gt;
+&lt;li&gt;最大子数组和 &lt;strong&gt;不是&lt;/strong&gt;（加法无反转，单状态DP即可）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="3-与其他套路的对比"&gt;3. 与其他套路的对比&lt;/h2&gt;
 &lt;table&gt;
@@ -181,23 +192,23 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 					&lt;td&gt;&lt;strong&gt;单状态 DP&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;只维护最优值&lt;/td&gt;
 					&lt;td&gt;加法、无反转&lt;/td&gt;
-					&lt;td&gt;53. 最大子数组和&lt;/td&gt;
+					&lt;td&gt;LeetCode 53 最大子数组和&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;strong&gt;双状态 DP&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;维护最优+最差&lt;/td&gt;
 					&lt;td&gt;乘法、有负数&lt;/td&gt;
-					&lt;td&gt;152. 最大乘积子数组&lt;/td&gt;
+					&lt;td&gt;LeetCode 152 最大乘积子数组&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;strong&gt;贪心&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;每步局部最优，不依赖历史&lt;/td&gt;
 					&lt;td&gt;区间调度、部分背包、LIS&lt;/td&gt;
-					&lt;td&gt;300. 最长递增子序列（贪心+二分）&lt;/td&gt;
+					&lt;td&gt;LeetCode 300 最长递增子序列（贪心+二分）&lt;/td&gt;
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id="4-模板代码152无交换版"&gt;4. 模板代码（152，无交换版）&lt;/h2&gt;
+&lt;h2 id="4-模板代码leetcode-152无交换版"&gt;4. 模板代码（LeetCode 152，无交换版）&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;maxProduct&lt;/span&gt;(vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&amp;amp;&lt;/span&gt; nums) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; maxProd &lt;span style="color:#f92672"&gt;=&lt;/span&gt; nums[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;], minProd &lt;span style="color:#f92672"&gt;=&lt;/span&gt; nums[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;], ans &lt;span style="color:#f92672"&gt;=&lt;/span&gt; nums[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;];
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; nums.size(); i&lt;span style="color:#f92672"&gt;++&lt;/span&gt;) {
@@ -208,7 +219,8 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ans;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为什么需要保存 &lt;code&gt;prevMax&lt;/code&gt;？因为更新 &lt;code&gt;maxProd&lt;/code&gt; 后，原来的 &lt;code&gt;maxProd&lt;/code&gt; 就丢失了，而 &lt;code&gt;minProd&lt;/code&gt; 的更新还需要用到它。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为什么需要保存 prevMax？
+因为更新 maxProd 后，原来的 maxProd 就丢失了，而 minProd 的更新还需要用到它。&lt;/p&gt;</description></item><item><title>12 括号问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
 &lt;h2 id="一leetcode-32-最长有效括号--栈解法精要"&gt;一、LeetCode 32 最长有效括号 — 栈解法精要&lt;/h2&gt;
 &lt;h3 id="1-题目与题型"&gt;1. 题目与题型&lt;/h3&gt;
 &lt;ul&gt;
@@ -251,11 +263,224 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ans;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="5"&gt;
-&lt;li&gt;关键细节&lt;/li&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="5-关键细节"&gt;5. 关键细节&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;为什么存下标？ 因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。&lt;/li&gt;
+&lt;li&gt;为什么栈底预存 -1？ 统一长度计算公式。当有效子串从开头即匹配时（如 &amp;ldquo;()&amp;quot;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="二括号问题通用决策框架"&gt;二、括号问题通用决策框架&lt;/h2&gt;
+&lt;h3 id="核心三问"&gt;核心三问&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;用不用栈？&lt;/li&gt;
+&lt;li&gt;如果用栈，存什么（字符 or 下标）？&lt;/li&gt;
+&lt;li&gt;有没有更优的不用栈的解法？&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;· 为什么存下标？ 因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。
-· 为什么栈底预存 -1？ 统一长度计算公式。当有效子串从开头即匹配时（如 &amp;ldquo;()&amp;quot;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
+&lt;h3 id="决策表"&gt;决策表&lt;/h3&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;问题特征&lt;/th&gt;
+					&lt;th&gt;用栈？&lt;/th&gt;
+					&lt;th&gt;栈存什么&lt;/th&gt;
+					&lt;th&gt;替代解法&lt;/th&gt;
+					&lt;th&gt;典型题目&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;只判断整体有效性&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;字符（括号本身）&lt;/td&gt;
+					&lt;td&gt;无&lt;/td&gt;
+					&lt;td&gt;LC 20&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;求最长连续有效子串长度&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;下标&lt;/td&gt;
+					&lt;td&gt;DP、双向扫描&lt;/td&gt;
+					&lt;td&gt;LC 32&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;删除最少字符使有效&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;下标（标记待删位置）&lt;/td&gt;
+					&lt;td&gt;无&lt;/td&gt;
+					&lt;td&gt;LC 1249&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;含通配符 * 的有效性&lt;/td&gt;
+					&lt;td&gt;可选&lt;/td&gt;
+					&lt;td&gt;下标（双栈法）&lt;/td&gt;
+					&lt;td&gt;贪心（高低值）&lt;/td&gt;
+					&lt;td&gt;LC 678&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;求最少插入次数使有效&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;平衡计数器&lt;/td&gt;
+					&lt;td&gt;LC 921&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;生成所有有效括号组合&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;回溯/DFS&lt;/td&gt;
+					&lt;td&gt;LC 22&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="决策原则速记"&gt;决策原则速记&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;需要知道位置/长度/删除谁 → 用栈 + 存下标&lt;/li&gt;
+&lt;li&gt;只需知道是否合法 → 用栈 + 存字符&lt;/li&gt;
+&lt;li&gt;只需计数最少修改次数 → 不用栈，贪心平衡计数器&lt;/li&gt;
+&lt;li&gt;需要枚举所有组合 → 不用栈，回溯搜索&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="三同类题目解法速查"&gt;三、同类题目解法速查&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;题号&lt;/th&gt;
+					&lt;th&gt;题目&lt;/th&gt;
+					&lt;th&gt;解法关键字&lt;/th&gt;
+					&lt;th&gt;用栈&lt;/th&gt;
+					&lt;th&gt;存下标&lt;/th&gt;
+					&lt;th&gt;备注&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;20&lt;/td&gt;
+					&lt;td&gt;有效的括号&lt;/td&gt;
+					&lt;td&gt;栈消除&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;遇右弹栈匹配&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;32&lt;/td&gt;
+					&lt;td&gt;最长有效括号&lt;/td&gt;
+					&lt;td&gt;栈/DP/双向扫描&lt;/td&gt;
+					&lt;td&gt;✅(栈法)&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;栈底存断点下标&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;678&lt;/td&gt;
+					&lt;td&gt;有效的括号字符串&lt;/td&gt;
+					&lt;td&gt;双栈/贪心&lt;/td&gt;
+					&lt;td&gt;可选&lt;/td&gt;
+					&lt;td&gt;✅(若用栈)&lt;/td&gt;
+					&lt;td&gt;贪心法 O(1) 空间&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;921&lt;/td&gt;
+					&lt;td&gt;使括号有效的最少添加&lt;/td&gt;
+					&lt;td&gt;平衡计数器&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;维护 balance 变量&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;1249&lt;/td&gt;
+					&lt;td&gt;移除无效的括号&lt;/td&gt;
+					&lt;td&gt;栈标记删除&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;✅&lt;/td&gt;
+					&lt;td&gt;最后统一删除&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;22&lt;/td&gt;
+					&lt;td&gt;括号生成&lt;/td&gt;
+					&lt;td&gt;回溯&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;DFS + 剪枝&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;301&lt;/td&gt;
+					&lt;td&gt;删除无效的括号&lt;/td&gt;
+					&lt;td&gt;BFS/DFS&lt;/td&gt;
+					&lt;td&gt;❌&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;求最少删除数&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id="四典型题目解法要点"&gt;四、典型题目解法要点&lt;/h2&gt;
+&lt;h3 id="lc-20-有效的括号"&gt;LC 20 有效的括号&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;栈存：字符&lt;/li&gt;
+&lt;li&gt;操作：遇左压入，遇右弹栈并检查匹配。&lt;/li&gt;
+&lt;li&gt;无需下标：只返回布尔值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="lc-32-最长有效括号栈解法"&gt;LC 32 最长有效括号（栈解法）&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;栈存：下标&lt;/li&gt;
+&lt;li&gt;操作：初始 -1，遇 ( 压入 i，遇 ) 先弹栈，栈空则压入 i，否则计算 i - stk.top()。&lt;/li&gt;
+&lt;li&gt;必须存下标：长度依赖索引差。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="lc-678-有效的括号字符串"&gt;LC 678 有效的括号字符串&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;双栈法：一个存 ( 下标，一个存 * 下标。遇 ) 优先匹配 (，其次用 *。最后检查剩余 ( 能否被后面的 * 抵消。&lt;/li&gt;
+&lt;li&gt;贪心法（不用栈）：维护 low、high 表示可能的最小/最大未匹配左括号数。遇 * 时 high++，low&amp;ndash;（low 不低于 0）。最后 low == 0 即有效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="lc-921-使括号有效的最少添加"&gt;LC 921 使括号有效的最少添加&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;不用栈：balance 计数。遇 ( 加一，遇 ) 减一；若 balance 变负，答案加一且重置 balance 为 0。最后答案加上剩余 balance。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="lc-1249-移除无效的括号"&gt;LC 1249 移除无效的括号&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;栈存：待删除括号的下标&lt;/li&gt;
+&lt;li&gt;操作：
+&lt;ol&gt;
+&lt;li&gt;遍历，遇 ( 压栈；遇 ) 若栈非空则弹栈，否则标记当前 ) 待删。&lt;/li&gt;
+&lt;li&gt;遍历后栈中剩余下标对应的 ( 也标记待删。&lt;/li&gt;
+&lt;li&gt;构造新字符串，跳过所有标记位置。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="五通用解法套路对比针对连续有效括号长度"&gt;五、通用解法套路对比（针对连续有效括号长度）&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;方法&lt;/th&gt;
+					&lt;th&gt;核心&lt;/th&gt;
+					&lt;th&gt;时间复杂度&lt;/th&gt;
+					&lt;th&gt;空间复杂度&lt;/th&gt;
+					&lt;th&gt;能否输出子串内容&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;栈&lt;/td&gt;
+					&lt;td&gt;存下标，用断点计算长度&lt;/td&gt;
+					&lt;td&gt;O(n)&lt;/td&gt;
+					&lt;td&gt;O(n)&lt;/td&gt;
+					&lt;td&gt;✅ 可以&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;动态规划&lt;/td&gt;
+					&lt;td&gt;dp[i] 以 i 结尾的最长长度&lt;/td&gt;
+					&lt;td&gt;O(n)&lt;/td&gt;
+					&lt;td&gt;O(n)&lt;/td&gt;
+					&lt;td&gt;❌ 只有长度&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;双向扫描&lt;/td&gt;
+					&lt;td&gt;左右各扫一次，left/right 相等时更新&lt;/td&gt;
+					&lt;td&gt;O(n)&lt;/td&gt;
+					&lt;td&gt;O(1)&lt;/td&gt;
+					&lt;td&gt;❌ 只有长度&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;</description></item><item><title>13 回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别与核心特征"&gt;一、题型识别与核心特征&lt;/h2&gt;
 &lt;p&gt;所有回文串问题都围绕一个核心定义：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -267,7 +492,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;li&gt;&lt;strong&gt;构造/分割型&lt;/strong&gt;：分割出所有回文子串（回溯）、最少分割次数（DP）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;最长/极值型&lt;/strong&gt;：找最长的回文子串。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;所有问题的核心都是&lt;strong&gt;如何高效判断一个子串是回文&lt;/strong&gt;。一旦掌握了子串回文的判断，所有问题都可以在此基础上&lt;strong&gt;遍历、计数、分割或求极值&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;所有问题的根基都是&lt;strong&gt;如何高效判断一个子串是回文&lt;/strong&gt;。一旦熟练掌握子串回文的判断，所有问题无非是在此基础上&lt;strong&gt;遍历、计数、分割或求极值&lt;/strong&gt;。&lt;/p&gt;
 &lt;table&gt;
 	&lt;thead&gt;
 			&lt;tr&gt;
@@ -321,20 +546,20 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/table&gt;
 &lt;hr&gt;
 &lt;h2 id="二常见误区为什么从两边向中间验证不能用来找最长子串"&gt;二、常见误区：为什么“从两边向中间验证”不能用来找最长子串？&lt;/h2&gt;
-&lt;p&gt;可能会想：&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</guid><description>&lt;h1 id="排列permutation类题型算法复习笔记"&gt;排列（Permutation）类题型算法复习笔记&lt;/h1&gt;
+&lt;p&gt;可能会想：&lt;/p&gt;</description></item><item><title>14 下一个排列与排列题型</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</guid><description>&lt;h1 id="排列permutation类题型算法复习笔记"&gt;排列（Permutation）类题型算法复习笔记&lt;/h1&gt;
 &lt;h2 id="1-题型识别"&gt;1. 题型识别&lt;/h2&gt;
 &lt;h3 id="共同特征"&gt;共同特征&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;输入通常是一个数组或数字序列。&lt;/li&gt;
 &lt;li&gt;要求对元素进行&lt;strong&gt;重新排列&lt;/strong&gt;，满足某种顺序（如字典序、下一个排列、所有排列、第 k 个排列等）。&lt;/li&gt;
-&lt;li&gt;核心考察点往往是&lt;strong&gt;字典序（lexicographical order）&lt;/strong&gt;、&lt;strong&gt;回溯&lt;/strong&gt;、&lt;strong&gt;数学（阶乘）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;核心考察点通常是&lt;strong&gt;字典序（lexicographical order）&lt;/strong&gt;、&lt;strong&gt;回溯&lt;/strong&gt;、&lt;strong&gt;数学（阶乘）&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="常见题目一览"&gt;常见题目一览&lt;/h3&gt;
+&lt;h3 id="高频题号一览"&gt;高频题号一览&lt;/h3&gt;
 &lt;table&gt;
 	&lt;thead&gt;
 			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;题号&lt;/th&gt;
 					&lt;th style="text-align: left"&gt;题目&lt;/th&gt;
-					&lt;th style="text-align: left"&gt;关键词&lt;/th&gt;
 					&lt;th style="text-align: left"&gt;一句话概括&lt;/th&gt;
 			&lt;/tr&gt;
 	&lt;/thead&gt;
@@ -387,7 +612,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;从右向左找第一个大于 &lt;code&gt;nums[i]&lt;/code&gt; 的数 &lt;code&gt;j&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;
 在 &lt;code&gt;(i+1, end)&lt;/code&gt; 区间从右向左扫描，找到第一个 &lt;code&gt;nums[j] &amp;gt; nums[i]&lt;/code&gt;。&lt;br&gt;
-交换 &lt;code&gt;nums[i]&lt;/code&gt; 和 &lt;code&gt;nums[j]&lt;/code&gt;。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</guid><description>&lt;h1 id="环形链表题型笔记"&gt;环形链表题型笔记&lt;/h1&gt;
+交换 &lt;code&gt;nums[i]&lt;/code&gt; 和 &lt;code&gt;nums[j]&lt;/code&gt;。&lt;/p&gt;</description></item><item><title>15 环形链表与隐式环形链表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</guid><description>&lt;h1 id="环形链表题型笔记"&gt;环形链表题型笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别环形链表"&gt;一、题型识别：环形链表&lt;/h2&gt;
 &lt;p&gt;环形链表问题有三个层次：&lt;/p&gt;
 &lt;table&gt;
@@ -418,9 +643,9 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;一个节点通过 &lt;code&gt;next&lt;/code&gt; 指针（或映射规则）指向下一个节点&lt;/li&gt;
+&lt;li&gt;节点通过 &lt;code&gt;next&lt;/code&gt; 指针（或映射规则）指向下一个节点&lt;/li&gt;
 &lt;li&gt;如果存在环，快慢指针一定相遇&lt;/li&gt;
-&lt;li&gt;从起点到环入口的距离 = 从相遇点绕回入口的距离&lt;/li&gt;
+&lt;li&gt;从起点到环入口的距离等于从相遇点绕回入口的距离&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id="二141-环形链表判断有无环"&gt;二、141. 环形链表（判断有无环）&lt;/h2&gt;
@@ -429,9 +654,9 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;h3 id="思路"&gt;思路&lt;/h3&gt;
 &lt;p&gt;快指针每次走两步，慢指针每次走一步。如果存在环，快指针一定会在环内追上慢指针。&lt;/p&gt;
 &lt;h3 id="为什么快慢指针一定相遇"&gt;为什么快慢指针一定相遇？&lt;/h3&gt;
-&lt;p&gt;快指针比慢指针速度快 1 步/次。当慢指针进入环后，快指针已经在环内。每移动一次，快指针和慢指针的距离缩短 1。因为环的长度有限，快指针一定会从后面追上慢指针。&lt;/p&gt;
+&lt;p&gt;快指针每次比慢指针多走一步。当慢指针进入环后，快指针已经在环内。每移动一次，快指针和慢指针的距离缩短1。因为环的长度有限，快指针一定会从后面追上慢指针。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;反直觉的一点&lt;/strong&gt;：快指针可能跳过慢指针吗？
-不会。因为每次只差 1 步，快指针要么在慢指针后面（距离 -1），要么重合（距离 0），要么超过（距离 +1）。如果超过，下一步慢指针走 1 步，快指针走 2 步，它们刚好交换位置，不会跳过。最终必然在某点相遇。&lt;/p&gt;
+不会。因为每次只差1步，快指针要么在慢指针后面（距离-1），要么重合（距离0），要么超过（距离+1）。如果超过，下一步慢指针走1步，快指针走2步，它们刚好交换位置，不会跳过。最终必然在某点相遇。&lt;/p&gt;
 &lt;h3 id="如果无环呢"&gt;如果无环呢？&lt;/h3&gt;
 &lt;p&gt;快指针走到 &lt;code&gt;nullptr&lt;/code&gt;（或 &lt;code&gt;fast-&amp;gt;next == nullptr&lt;/code&gt;），循环结束。&lt;/p&gt;
 &lt;h3 id="代码"&gt;代码&lt;/h3&gt;
@@ -447,21 +672,21 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h2 id="三142-环形链表-ii找环的入口"&gt;三、142. 环形链表 II（找环的入口）&lt;/h2&gt;
 &lt;h3 id="题目要求-1"&gt;题目要求&lt;/h3&gt;
-&lt;p&gt;给定一个链表，返回环的入口节点。如果无环，返回 &lt;code&gt;nullptr&lt;/code&gt;。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</guid><description>&lt;p&gt;差分数组（Difference Array）详解&lt;/p&gt;
-&lt;p&gt;差分数组是一种用于高效处理区间更新操作的数据结构。它主要解决以下这类问题：&lt;/p&gt;
+&lt;p&gt;给定一个链表，返回环的入口节点。如果无环，返回 &lt;code&gt;nullptr&lt;/code&gt;。&lt;/p&gt;</description></item><item><title>2 差分数组</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</guid><description>&lt;p&gt;差分数组（Difference Array）详解&lt;/p&gt;
+&lt;p&gt;差分数组是一种用于高效处理区间更新操作的数据结构。它主要解决这类问题：&lt;/p&gt;
 &lt;p&gt;给定一个数组，需要多次对某个区间进行加减操作，最后查询数组的最终状态。&lt;/p&gt;
-&lt;h2 id="什么是差分数组"&gt;什么是差分数组？&lt;/h2&gt;
-&lt;h3 id="基本概念"&gt;基本概念&lt;/h3&gt;
+&lt;p&gt;什么是差分数组？&lt;/p&gt;
+&lt;p&gt;基本概念&lt;/p&gt;
 &lt;p&gt;对于原始数组 &lt;code&gt;arr&lt;/code&gt;，它的差分数组 &lt;code&gt;diff&lt;/code&gt; 定义为：&lt;/p&gt;
 &lt;pre tabindex="0"&gt;&lt;code&gt;diff[0] = arr[0]
 diff[i] = arr[i] - arr[i-1] (i ≥ 1)
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="关键特性"&gt;关键特性&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;特性1&lt;/strong&gt;：通过差分数组可以恢复原始数组&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;关键特性&lt;/p&gt;
+&lt;p&gt;特性1：通过差分数组可以恢复原始数组&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;arr[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; diff[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;]
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;arr[i] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; diff[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;] &lt;span style="color:#f92672"&gt;+&lt;/span&gt; diff[&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;] &lt;span style="color:#f92672"&gt;+&lt;/span&gt; ... &lt;span style="color:#f92672"&gt;+&lt;/span&gt; diff[i] &lt;span style="color:#75715e"&gt;// 对差分数组求前缀和
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;特性2&lt;/strong&gt;：区间加减操作可以转换为差分数组的两个点的操作&lt;/p&gt;
-&lt;h2 id="图解差分数组"&gt;图解差分数组&lt;/h2&gt;
-&lt;h3 id="例子1构建差分数组"&gt;例子1：构建差分数组&lt;/h3&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;特性2：区间加减操作可以转换为差分数组的两个点的操作&lt;/p&gt;
+&lt;p&gt;图解差分数组&lt;/p&gt;
+&lt;p&gt;例子1：构建差分数组&lt;/p&gt;
 &lt;pre tabindex="0"&gt;&lt;code&gt;原始数组 arr: [1, 3, 6, 10, 15]
 索引: 0 1 2 3 4
 
@@ -473,24 +698,13 @@ diff[3] = arr[3] - arr[2] = 10 - 6 = 4
 diff[4] = arr[4] - arr[3] = 15 - 10 = 5
 
 所以 diff = [1, 2, 3, 4, 5]
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="例子2从差分数组恢复原始数组"&gt;例子2：从差分数组恢复原始数组&lt;/h3&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;差分数组 diff: [1, 2, 3, 4, 5]
-
-恢复 arr:
-arr[0] = diff[0] = 1
-arr[1] = arr[0] + diff[1] = 1 + 2 = 3
-arr[2] = arr[1] + diff[2] = 3 + 3 = 6
-arr[3] = arr[2] + diff[3] = 6 + 4 = 10
-arr[4] = arr[3] + diff[4] = 10 + 5 = 15
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="差分数组的威力区间更新"&gt;差分数组的威力：区间更新&lt;/h2&gt;
-&lt;h3 id="传统方法与差分数组的对比"&gt;传统方法与差分数组的对比&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：将数组 &lt;code&gt;arr&lt;/code&gt; 中区间 &lt;code&gt;[l, r]&lt;/code&gt; 的所有元素都加上 &lt;code&gt;val&lt;/code&gt;&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例子2：从差分数组恢复原始数组&lt;/p&gt;</description></item><item><title>3 连续子数组极值问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;数组&lt;/strong&gt;：一维数组、环（变种）、可重复等&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：求&lt;strong&gt;连续子数组&lt;/strong&gt;的极值（和、乘积、长度）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;约束&lt;/strong&gt;：子数组是连续的（子序列不要求连续，相对顺序一致即可）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="2-解题套路总结a"&gt;2 解题套路总结a&lt;/h1&gt;
+&lt;h1 id="2-解题套路总结"&gt;2 解题套路总结&lt;/h1&gt;
 &lt;h2 id="21-一维数组-连续子数组-问题"&gt;2.1 一维数组 连续子数组 问题&lt;/h2&gt;
 &lt;h3 id="解题思路"&gt;解题思路&lt;/h3&gt;
 &lt;ul&gt;
@@ -529,7 +743,7 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; count;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;滑动窗口（长度最小的子数组）&lt;/strong&gt;&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/4-%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/4-%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86/</guid><description>&lt;h2 id="1-什么是堆"&gt;1. 什么是堆？&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;滑动窗口（长度最小的子数组）&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>4 最大堆与最小堆</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/4-%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/4-%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86/</guid><description>&lt;h2 id="1-什么是堆"&gt;1. 什么是堆？&lt;/h2&gt;
 &lt;p&gt;堆（Heap）是一种特殊的&lt;strong&gt;完全二叉树&lt;/strong&gt;，通常用数组存储。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;最大堆&lt;/strong&gt;：每个父节点的值 &lt;strong&gt;大于等于&lt;/strong&gt; 其子节点的值，堆顶为最大值。&lt;/li&gt;
@@ -537,7 +751,7 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/ul&gt;
 &lt;p&gt;堆的核心操作（插入、删除）时间复杂度均为 &lt;strong&gt;O(log n)&lt;/strong&gt;，获取极值为 &lt;strong&gt;O(1)&lt;/strong&gt;。&lt;/p&gt;
 &lt;h2 id="2-c-中的使用方式"&gt;2. C++ 中的使用方式&lt;/h2&gt;
-&lt;p&gt;C++ 提供了两种主要方式操作堆：&lt;code&gt;priority_queue&lt;/code&gt; 容器适配器和 &lt;code&gt;std::make_heap&lt;/code&gt; 等算法。其中 &lt;strong&gt;&lt;code&gt;priority_queue&lt;/code&gt; 最常用&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;C++ 提供了两种主要方式操作堆：&lt;code&gt;priority_queue&lt;/code&gt; 容器适配器和 &lt;code&gt;std::make_heap&lt;/code&gt; 等算法。&lt;/p&gt;
 &lt;h3 id="21-容器适配器-priority_queue"&gt;2.1 容器适配器 &lt;code&gt;priority_queue&lt;/code&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;priority_queue&lt;/code&gt; &lt;strong&gt;默认是最大堆&lt;/strong&gt;，通过模板参数可调整为最小堆。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;queue&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
@@ -556,7 +770,7 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;bool&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;operator&lt;/span&gt;()(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; a, &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; b) { &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; a &lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; b; } &lt;span style="color:#75715e"&gt;// 最小堆
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;priority_queue&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;, vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt;, cmp&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; heap;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;2. 函数指针 + decltype&lt;/strong&gt;&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;p&gt;本文对滑动窗口经典题目进行了详细解释，包括为什么 424 题需要维护 &lt;code&gt;maxCount&lt;/code&gt;，以及为什么 992 题不能直接找恰好 K 个而必须转换为「最多 K 个」减去「最多 K-1 个」。以下是完整笔记。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;2. 函数指针 + decltype&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>5 滑动窗口</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;p&gt;笔记中已对这两道题的思路部分进行了&lt;strong&gt;详细解释&lt;/strong&gt;，用通俗语言说明了为什么 424 要维护 &lt;code&gt;maxCount&lt;/code&gt;，以及为什么 992 不能直接找恰好 K 个而必须转换为「最多 K 个」减去「最多 K-1 个」。以下是完整笔记。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id="滑动窗口题型总结笔记"&gt;滑动窗口题型总结笔记&lt;/h1&gt;
 &lt;h2 id="1-题型特征与适用条件"&gt;1. 题型特征与适用条件&lt;/h2&gt;
@@ -639,20 +853,20 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;li&gt;当 &lt;code&gt;valid == need.size()&lt;/code&gt; 时，窗口已完全覆盖目标字符串的所有需求。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;为什么用 &lt;code&gt;valid&lt;/code&gt; 而不是直接比较两个哈希表？&lt;/strong&gt;&lt;br&gt;
-因为每次检查都需要遍历 &lt;code&gt;need&lt;/code&gt;，而用 &lt;code&gt;valid&lt;/code&gt; 可以在 O(1) 时间内判断是否满足条件，提高效率。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历"&gt;一、什么是 Morris 遍历？&lt;/h3&gt;
-&lt;p&gt;Morris 遍历是一种利用线索二叉树思想的二叉树遍历算法，由某研究者于 1979 年提出。其&lt;strong&gt;核心特点&lt;/strong&gt;是：&lt;/p&gt;
+因为每次检查都需要遍历 &lt;code&gt;need&lt;/code&gt;，而用 &lt;code&gt;valid&lt;/code&gt; 可以在 O(1) 时间内判断是否满足条件，提高效率。&lt;/p&gt;</description></item><item><title>6 二叉树的Morris展开与中序遍历</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历"&gt;一、什么是 Morris 遍历？&lt;/h3&gt;
+&lt;p&gt;Morris 遍历是一种&lt;strong&gt;使用线索二叉树（threaded binary tree）思想&lt;/strong&gt;的二叉树遍历算法，由某位研究者提出。其&lt;strong&gt;核心特点&lt;/strong&gt;包括：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;空间复杂度 O(1)&lt;/strong&gt;：不使用递归栈或队列，只利用二叉树中大量的空闲指针（右指针）来临时记录遍历的后继节点，从而实现遍历。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;时间复杂度 O(n)&lt;/strong&gt;：每个节点最多被访问两次。
-Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍历，但最经典和常用的是&lt;strong&gt;中序遍历&lt;/strong&gt;。&lt;/li&gt;
+Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍历，但最经典和最常用的是&lt;strong&gt;中序遍历&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="二为什么可以用-morris-遍历"&gt;二、为什么可以用 Morris 遍历？&lt;/h3&gt;
-&lt;p&gt;在普通递归或迭代遍历中，需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。&lt;/p&gt;
+&lt;p&gt;在普通递归或迭代遍历中，我们需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;适用条件&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;要求 O(1) 空间遍历或修改二叉树&lt;/li&gt;
 &lt;li&gt;允许修改树结构&lt;/li&gt;
-&lt;li&gt;要求不能使用递归或栈&lt;/li&gt;
+&lt;li&gt;要求不能使用递归或栈（递归是 O(h) 空间）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="三morris-遍历的核心思想"&gt;三、Morris 遍历的核心思想&lt;/h3&gt;
 &lt;h4 id="1-将树线性展开"&gt;1. 将树线性展开&lt;/h4&gt;
@@ -667,8 +881,7 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;/li&gt;
 &lt;li&gt;然后 &lt;code&gt;cur&lt;/code&gt; 移动到下一个右节点（&lt;code&gt;cur = cur-&amp;gt;right&lt;/code&gt;），重复。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// LeetCode 相关题目
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; flatten(TreeNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; root) {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TreeNode&lt;span style="color:#f92672"&gt;*&lt;/span&gt; cur &lt;span style="color:#f92672"&gt;=&lt;/span&gt; root;
@@ -691,7 +904,7 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;h3 id="核心思想"&gt;核心思想&lt;/h3&gt;
 &lt;p&gt;想象你在走一个迷宫（二叉树），每次遇到有左岔路时，你想先走完左边再回来。但你没有栈（不能记路），怎么办呢？&lt;br&gt;
 你可以在进入左边之前，在左路的最深处（最右边的节点）放一根绳子，绳子另一头系在当前节点上。这样你走完左边后，顺着绳子就能回来。回来后再把绳子解开，然后继续往右走。
-这就是 Morris 遍历的本质：利用叶子节点的空右指针作为“绳子”（线索），临时指向后继节点，从而在 O(1) 空间内完成遍历。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p&gt;我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p&gt;
+这就是 Morris 遍历的本质：利用叶子节点的空右指针作为“绳子”（线索），临时指向后继节点，从而在 O(1) 空间内完成遍历。&lt;/p&gt;</description></item><item><title>7 拓扑排序-Kahn算法与课程表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p&gt;我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;一、拓扑排序的基本概念&lt;/p&gt;
 &lt;ol&gt;
@@ -747,7 +960,7 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;三、Kahn算法的代码实现（C++模板）&lt;/p&gt;
-&lt;p&gt;下面是适用于LeetCode 207的Kahn算法实现，包含了常见的建图方式和细节处理。&lt;/p&gt;
+&lt;p&gt;下面是适用于题目207的Kahn算法实现，包含了常见的建图方式和细节处理。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Solution&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;public&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;bool&lt;/span&gt; canFinish(&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; numCourses, vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&amp;gt;&amp;amp;&lt;/span&gt; prerequisites) {
@@ -788,50 +1001,144 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; count &lt;span style="color:#f92672"&gt;==&lt;/span&gt; numCourses; &lt;span style="color:#75715e"&gt;// 如果全部输出，说明无环
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;};
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;代码说明：&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p&gt;以下是完整的单调栈笔记，Markdown 格式，可直接复制到 Obsidian 中使用：&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;单调栈笔记&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;代码说明：&lt;/p&gt;</description></item><item><title>8 单调栈</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p&gt;单调栈笔记&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;单调栈简介&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边/右边第一个比它大（或小）的元素位置，时间复杂度 O(n)。&lt;/p&gt;
+&lt;p&gt;单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边或右边第一个比它大（或小）的元素位置，时间复杂度为 O(n)。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol start="2"&gt;
 &lt;li&gt;什么时候使用单调栈？&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;· 问题中需要为每个元素找到“下一个更大/更小”的元素
+&lt;ul&gt;
+&lt;li&gt;问题中需要为每个元素找到“下一个更大”或“下一个更小”的元素。&lt;br&gt;
 例如：
-· 739 每日温度（找下一个更高温度）
-· 496 下一个更大元素 I（找数组中下一个更大元素）
-· 问题可转化为求每个元素作为最小/最大值时的区间范围
+&lt;ul&gt;
+&lt;li&gt;LeetCode 739 每日温度（找下一个更高温度）&lt;/li&gt;
+&lt;li&gt;LeetCode 496 下一个更大元素 I（找数组中下一个更大元素）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;问题可转化为求每个元素作为最小值或最大值时的区间范围。&lt;br&gt;
 例如：
-· 84 柱状图中最大的矩形（以每个柱子的高度为高，找左右边界）
-· 42 接雨水（每个位置形成凹槽的宽度由左右边界决定）
-· 需要以 O(n) 时间求出每个元素的左右边界，这些边界由“第一个比它大/小的元素”决定。&lt;/p&gt;
-&lt;p&gt;典型标志：题目中出现“柱状图”、“矩形面积”、“接雨水”、“温度”、“下一个更大”等关键词，且暴力解法需要 O(n²) 时，可以考虑单调栈。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LeetCode 84 柱状图中最大的矩形（以每个柱子的高度为高，找左右边界）&lt;/li&gt;
+&lt;li&gt;LeetCode 42 接雨水（每个位置形成凹槽的宽度由左右边界决定）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;需要以 O(n) 时间求出每个元素的左右边界，这些边界由“第一个比它大或小的元素”决定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;典型标志：题目中出现“柱状图”、“矩形面积”、“接雨水”、“温度”、“下一个更大”等字眼，且暴力解法需要 O(n²) 时，可以考虑使用单调栈。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol start="3"&gt;
 &lt;li&gt;核心思想&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;· 递增栈（栈底到栈顶递增）：用于找左边/右边第一个比当前元素小的位置。
-· 递减栈（栈底到栈顶递减）：用于找左边/右边第一个比当前元素大的位置。&lt;/p&gt;
-&lt;p&gt;在遍历过程中，当遇到破坏单调性的元素时，就弹出栈顶元素，此时可以确定弹出元素的边界（例如，弹出元素右边第一个比它小的就是当前元素，左边第一个比它小的就是栈内下一个元素）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;递增栈（栈底到栈顶递增）：用于找左边或右边第一个比当前元素小的位置。&lt;/li&gt;
+&lt;li&gt;递减栈（栈底到栈顶递减）：用于找左边或右边第一个比当前元素大的位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在遍历过程中，当遇到破坏单调性的元素时，弹出栈顶元素，此时可以确定弹出元素的边界（例如，弹出元素右边第一个比它小的就是当前元素，左边第一个比它小的就是栈内下一个元素）。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol start="4"&gt;
-&lt;li&gt;例题：84. 柱状图中最大的矩形&lt;/li&gt;
+&lt;li&gt;例题：LeetCode 84. 柱状图中最大的矩形&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;问题描述&lt;/p&gt;
 &lt;p&gt;给定 n 个非负整数表示柱子的高度，每个柱子宽度为 1，求柱状图中能勾勒出的最大矩形面积。&lt;/p&gt;
 &lt;p&gt;思路&lt;/p&gt;
 &lt;p&gt;对于每个柱子，以它的高度作为矩形的高，矩形的宽就是它能向左和向右延伸的距离，直到遇到比它矮的柱子。因此我们需要知道每个柱子左边第一个比它矮的位置和右边第一个比它矮的位置。&lt;/p&gt;
-&lt;p&gt;用单调递增栈（栈内索引对应高度递增）：&lt;/p&gt;
-&lt;p&gt;· 遍历每个柱子：
-· 当当前柱子高度小于栈顶柱子高度时，弹出栈顶，计算以栈顶柱子为高的矩形面积：
-· 右边界 = 当前索引
-· 左边界 = 栈内下一个索引（如果栈为空则为 -1）
-· 宽度 = 右边界 - 左边界 - 1
-· 将当前索引压栈。
-· 遍历结束后，栈内剩余元素同样处理，右边界 = n（数组长度）。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
+&lt;p&gt;使用单调递增栈（栈内索引对应高度递增）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;遍历每个柱子：
+&lt;ul&gt;
+&lt;li&gt;当当前柱子高度小于栈顶柱子高度时，弹出栈顶，计算以栈顶柱子为高的矩形面积：
+&lt;ul&gt;
+&lt;li&gt;右边界 = 当前索引&lt;/li&gt;
+&lt;li&gt;左边界 = 栈内下一个索引（如果栈为空则为 -1）&lt;/li&gt;
+&lt;li&gt;宽度 = 右边界 - 左边界 - 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;将当前索引压栈。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;遍历结束后，栈内剩余元素同样处理，右边界 = n（数组长度）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;largestRectangleArea&lt;/span&gt;(vector&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&amp;amp;&lt;/span&gt; heights) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; stack&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt;&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; st; &lt;span style="color:#75715e"&gt;// 存储索引
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; n &lt;span style="color:#f92672"&gt;=&lt;/span&gt; heights.size();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; maxArea &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; (&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; i &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;; i &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; n; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;i) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;st.empty() &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; heights[i] &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; heights[st.top()]) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; h &lt;span style="color:#f92672"&gt;=&lt;/span&gt; heights[st.top()];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; st.pop();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; left &lt;span style="color:#f92672"&gt;=&lt;/span&gt; st.empty() &lt;span style="color:#f92672"&gt;?&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;:&lt;/span&gt; st.top();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; width &lt;span style="color:#f92672"&gt;=&lt;/span&gt; i &lt;span style="color:#f92672"&gt;-&lt;/span&gt; left &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; maxArea &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(maxArea, h &lt;span style="color:#f92672"&gt;*&lt;/span&gt; width);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; st.push(i);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;while&lt;/span&gt; (&lt;span style="color:#f92672"&gt;!&lt;/span&gt;st.empty()) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; h &lt;span style="color:#f92672"&gt;=&lt;/span&gt; heights[st.top()];
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; st.pop();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; left &lt;span style="color:#f92672"&gt;=&lt;/span&gt; st.empty() &lt;span style="color:#f92672"&gt;?&lt;/span&gt; &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;:&lt;/span&gt; st.top();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; width &lt;span style="color:#f92672"&gt;=&lt;/span&gt; n &lt;span style="color:#f92672"&gt;-&lt;/span&gt; left &lt;span style="color:#f92672"&gt;-&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; maxArea &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(maxArea, h &lt;span style="color:#f92672"&gt;*&lt;/span&gt; width);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; maxArea;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;ol start="5"&gt;
+&lt;li&gt;同类题目及思路&lt;/li&gt;
+&lt;/ol&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;题目&lt;/th&gt;
+					&lt;th&gt;核心思路&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 42. 接雨水&lt;/td&gt;
+					&lt;td&gt;每个位置能接的雨水量 = min(左边最高, 右边最高) - 当前高度。可用单调递减栈维护，当遇到比栈顶高的柱子时，栈顶元素形成凹槽，计算雨水量。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 739. 每日温度&lt;/td&gt;
+					&lt;td&gt;找每个元素右边第一个比它大的元素。用单调递减栈，栈内元素等待升温。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 496. 下一个更大元素 I&lt;/td&gt;
+					&lt;td&gt;同 739，使用单调递减栈预先处理 nums2 的“下一个更大”映射。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 503. 下一个更大元素 II&lt;/td&gt;
+					&lt;td&gt;循环数组的“下一个更大”。将数组复制一遍，用单调栈处理。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 901. 股票价格跨度&lt;/td&gt;
+					&lt;td&gt;找当前价格之前连续小于等于它的天数。单调递减栈存（价格，跨度）或索引。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 402. 移掉 K 位数字&lt;/td&gt;
+					&lt;td&gt;要得到最小数，需要从左到右移除高位的大数字。单调递增栈保证栈内递增。&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;LeetCode 316. 去除重复字母&lt;/td&gt;
+					&lt;td&gt;保证字典序最小且保留相对顺序。单调递增栈 + 计数判断。&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;ol start="6"&gt;
+&lt;li&gt;总结&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;单调栈适合处理“下一个更大/更小元素”及衍生问题。&lt;/li&gt;
+&lt;li&gt;关键步骤：维护栈的单调性，在弹出时确定边界信息。&lt;/li&gt;
+&lt;li&gt;练习上述题目可以加深理解，做到举一反三。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;掌握单调栈后，许多原本需要 O(n²) 的问题都能用 O(n) 解决。&lt;/p&gt;</description></item><item><title>9 背包问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
 &lt;h2 id="1-核心区别"&gt;1. 核心区别&lt;/h2&gt;
 &lt;table&gt;
 	&lt;thead&gt;
@@ -861,26 +1168,26 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;p&gt;&lt;strong&gt;一维 DP 必须外层遍历物品，内层遍历容量&lt;/strong&gt;（完全背包求排列数时例外，见第4节）&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id="2-为什么内层必须倒序正序彻底理解"&gt;2. 为什么内层必须倒序/正序？（彻底理解）&lt;/h2&gt;
+&lt;h2 id="2-为什么内层必须倒序正序深入理解"&gt;2. 为什么内层必须倒序/正序？（深入理解）&lt;/h2&gt;
 &lt;h3 id="21-0-1-背包倒序的原因"&gt;2.1 0-1 背包倒序的原因&lt;/h3&gt;
-&lt;p&gt;用一个物品（重量2，价值10，容量4）模拟：&lt;/p&gt;
+&lt;p&gt;以物品重量2、价值10、容量4为例：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;正序（错误）：
 &lt;ul&gt;
 &lt;li&gt;j=2 → dp[2]=10&lt;/li&gt;
-&lt;li&gt;j=4 → 用到 dp[2]（刚更新过）→ dp[4]=20 ❌ 一个物品用了两次&lt;/li&gt;
+&lt;li&gt;j=4 → 用到 dp[2]（刚更新过）→ dp[4]=20 ❌ 同一物品被使用了两次&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;倒序（正确）：
 &lt;ul&gt;
-&lt;li&gt;j=4 → 用到 dp[2]（还是旧值0）→ dp[4]=0&lt;/li&gt;
+&lt;li&gt;j=4 → 用到 dp[2]（仍为旧值0）→ dp[4]=0&lt;/li&gt;
 &lt;li&gt;j=2 → dp[2]=10 ✅&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：倒序保证 &lt;code&gt;dp[j - weight[i]]&lt;/code&gt; 是上一轮（未使用当前物品）的状态。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：倒序确保 &lt;code&gt;dp[j - weight[i]]&lt;/code&gt; 取自上一轮（未使用当前物品）的状态。&lt;/p&gt;
 &lt;h3 id="22-完全背包正序的原因"&gt;2.2 完全背包正序的原因&lt;/h3&gt;
-&lt;p&gt;同一个物品（重量2，价值10，容量4）：&lt;/p&gt;
+&lt;p&gt;同一物品（重量2，价值10，容量4）：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;正序：
 &lt;ul&gt;
@@ -895,7 +1202,7 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：正序允许同一物品多次叠加。&lt;/p&gt;</description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</guid><description>&lt;h1 id="1-c官方文档"&gt;1 C++官方文档&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：正序允许同一物品多次叠加。&lt;/p&gt;</description></item><item><title>全排列 std, next_permutation</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</guid><description>&lt;h1 id="1-c官方文档"&gt;1 C++官方文档&lt;/h1&gt;
 &lt;p&gt;&lt;a href="https://en.cppreference.com/w/cpp/algorithm/next_permutation.html"&gt;https://en.cppreference.com/w/cpp/algorithm/next_permutation.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="2-原理"&gt;2 原理&lt;/h1&gt;
 &lt;h2 id="21-一句话总结原理"&gt;2.1 一句话总结原理&lt;/h2&gt;
@@ -956,4 +1263,4 @@ Morris 遍历可用于&lt;strong&gt;前序、中序、后序&lt;/strong&gt;遍�
 	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id="为什么最后可以反转"&gt;为什么最后可以反转？&lt;/h2&gt;
-&lt;p&gt;因为交换的两个元素，就是找到的正好比原先i要正好大一点的数字，交换后元素3（j位置）的左边都比它大（不然不会交换j），右边都比它小（因为是找到第一个比3大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字。交换后，元素 3（j 位置）的左边都比它大（否则不会交换 j），右边都比它小（因为是找到第一个比 3 大的元素进行的交换）。所以交换后，右边的这些元素依然保持降序，反转后会变成升序。&lt;/p&gt;</description></item></channel></rss>
