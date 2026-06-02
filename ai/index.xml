@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AIs on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/</link><description>Recent content in AIs on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="1-什么是agent">1 什么是Agent&lt;/h1>
-&lt;p>&lt;strong>Agent（智能体）&lt;/strong> 以 LLM 为核心推理引擎，结合&lt;strong>规划、记忆和工具使用&lt;/strong>能力，能够自主地感知环境、制定计划、使用工具、执行行动，并根据执行结果动态调整后续策略。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AIs on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/</link><description>Recent content in AIs on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;p>好的，已按照您的要求对Markdown内容进行脱敏、润色，并删除与“面试”相关的内容（原文中无相关内容）。所有图片链接语法均保持原样。&lt;/p>
+&lt;hr>
+&lt;h1 id="1-什么是agent">1 什么是Agent&lt;/h1>
+&lt;p>&lt;strong>Agent（智能体）&lt;/strong> 是以 LLM 为核心推理引擎，结合&lt;strong>规划、记忆和工具使用&lt;/strong>能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果来动态调整后续策略。
 换句话说，LLM 在 Agent 架构中不再只是一个&amp;quot;回答问题的机器&amp;quot;，而是充当了整个系统的&amp;quot;大脑&amp;quot;，负责理解任务、推理决策、协调各种外部能力来完成复杂的目标。
 一句话总结：&lt;strong>Agent = LLM + 工具 + 循环&lt;/strong>。&lt;/p>
 &lt;p>&lt;strong>Agent 与普通 LLM 调用的区别&lt;/strong>：&lt;/p>
@@ -51,42 +53,43 @@
 &lt;h2 id="21-llm大脑">2.1 LLM（大脑）&lt;/h2>
 &lt;p>中枢系统，负责理解用户意图、逻辑推理、生成行动计划、解读工具返回结果。Agent 的智能水平上限取决于底层 LLM 的能力。&lt;/p>
 &lt;h2 id="22-规划模块planning">2.2 规划模块（Planning）&lt;/h2>
-&lt;p>规划能力是 Agent 区别于简单 LLM 应用的关键标志。当 Agent 接收到一个复杂任务时，它不会试图一步到位地解决，而是把任务分解成多个可执行的子步骤，然后按照逻辑顺序逐步执行。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react">1 什么是 ReAct&lt;/h1>
-&lt;p>ReAct（Reasoning + Acting）是由某研究机构与某大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong>推理轨迹&lt;/strong>与&lt;strong>任务操作&lt;/strong>，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p>
+&lt;p>规划能力是 Agent 区别于简单 LLM 应用的关键标志。当 Agent 接收到一个复杂任务时，它不会试图一步到位地解决，而是会把任务分解成多个可执行的子步骤，然后按照逻辑顺序逐步执行。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react">1 什么是 ReAct&lt;/h1>
+&lt;p>ReAct（Reasoning + Acting）是由某研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong>推理轨迹&lt;/strong>与&lt;strong>任务操作&lt;/strong>，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p>
 &lt;h3 id="-前言从-cot-到-react">🧠 前言：从 CoT 到 ReAct&lt;/h3>
-&lt;p>COT：Chain-of-Thought，思维链&lt;/p>
-&lt;p>在仅有基础对话能力的阶段，大模型更多像一个“一次性回答机”：&lt;/p>
-&lt;p>&lt;code>User: 问题 LLM : 一次性生成答案&lt;/code>&lt;/p>
-&lt;p>即便我们加上了 Memory、RAG，智能体也只是多了“能记”和“会查”：&lt;/p>
+&lt;p>COT：Chain-of-Thought, 思维链
+在只有基础对话能力的阶段，大模型更多像一个&amp;quot;一次性回答器&amp;quot;：
+&lt;code>User: 问题 LLM : 一次性生成答案&lt;/code>
+即便我们加上了 Memory、RAG，智能体也只是多了&amp;quot;能记&amp;quot;和&amp;quot;会查&amp;quot;：&lt;/p>
 &lt;ul>
 &lt;li>Memory：记住过去发生了什么（多轮对话、历史任务状态）&lt;/li>
-&lt;li>RAG：在回答前去查一查知识库或互联网&lt;/li>
+&lt;li>RAG：在回答前去查一查知识库或互联网
+但这仍然是&amp;quot;一问一答&amp;quot;的模式，缺少真正的多步决策与行动能力。
+ReAct（Reasoning + Acting）正是为了解决这个问题提出的：
+在推理过程中，显式地交替输出&amp;quot;思考内容（Thought）&amp;ldquo;和&amp;quot;行动指令（Action）&amp;quot;，再利用环境反馈（Observation）更新后续推理。&lt;/li>
 &lt;/ul>
-&lt;p>但这仍然是“问一答一”的模式，缺少真正的多步决策与行动能力。&lt;/p>
-&lt;p>ReAct（Reasoning + Acting）正是为了解决这个问题提出的：在推理过程中，显式地交替输出“思考内容（Thought）”和“行动指令（Action）”，再利用环境反馈（Observation）更新后续推理。&lt;/p>
 &lt;blockquote>
 &lt;p>一句话概括：&lt;strong>ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的 prompting 技术&lt;/strong>&lt;/p>&lt;/blockquote>
 &lt;h1 id="2-为什么需要-react">2 为什么需要 ReAct&lt;/h1>
 &lt;p>在 ReAct 出现之前，利用 LLM 解决复杂任务主要有两种独立方法，各有局限：&lt;a href="https://systems-analysis.ru/int/index.php?title=ReAct_Prompting_%E2%80%94_ReAct_%E6%8F%90%E7%A4%BA%E6%B3%95&amp;amp;oldid=6038">&lt;/a>&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>思维链（CoT）&lt;/strong>：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和&amp;quot;幻觉&amp;quot;。&lt;/li>
-&lt;li>&lt;strong>仅行动规划（Act-Only）&lt;/strong>：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。&lt;/li>
+&lt;li>&lt;strong>思维链（CoT）&lt;/strong>：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和&amp;quot;幻觉&amp;rdquo;。&lt;/li>
+&lt;li>&lt;strong>仅行动规划（Act-Only）&lt;/strong>：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。
+ReAct 将两者的优点结合：模型能够推理，并将其推理&amp;quot;植根于&amp;quot;外部世界的事实，根据反馈调整行动。&lt;/li>
 &lt;/ul>
-&lt;p>ReAct 将两者的优点结合：模型能够推理，并将其推理&amp;quot;植根于&amp;quot;外部世界的事实，根据反馈调整行动。&lt;/p>
 &lt;h1 id="3-react-的工作机制思考行动观察循环">3 ReAct 的工作机制：&amp;ldquo;思考—行动—观察&amp;quot;循环&lt;/h1>
 &lt;h2 id="31-工作机制">3.1 工作机制&lt;/h2>
-&lt;p>![[Pasted image 20260413144128.png]]&lt;/p>
-&lt;p>模型在一个迭代循环中生成由&lt;strong>思考（Thought）&lt;/strong>、&lt;strong>行动（Action）&lt;/strong> 和 &lt;strong>观察（Observation）&lt;/strong> 步骤组成的轨迹。&lt;/p>
+&lt;p>![[Pasted image 20260413144128.png]]
+模型在一个迭代循环中生成由&lt;strong>思考（Thought）&lt;/strong>、&lt;strong>行动（Action）&lt;/strong> 和 &lt;strong>观察（Observation）&lt;/strong> 步骤组成的轨迹。&lt;/p>
 &lt;p>&lt;strong>典型轨迹示例&lt;/strong>：&lt;/p>
 &lt;pre tabindex="0">&lt;code>Question: 以交流电闻名的发明家出生于哪个首都城市？
 Thought 1: 我需要查明交流电的发明者，然后找到他的出生地，并核实该城市是否为首都。
 Action 1: Search[交流电发明者]
 Observation 1: 交流电（AC）由某发明家开发和推广。
-Thought 2: 现在我需要找出某发明家的出生地。
-Action 2: Search[某发明家出生地]
-Observation 2: 某发明家出生于某帝国的某村（现属某国）。
-Thought 3: 该村不是首都。他的出生地不是首都。
-Final Answer: 某发明家出生于某村（某国），该地不是首都。
+Thought 2: 现在我需要找出该发明家的出生地。
+Action 2: Search[发明家出生地]
+Observation 2: 该发明家出生于某帝国的某村庄（现属某国）。
+Thought 3: 该村庄不是首都。他的出生地不是首都。
+Final Answer: 该发明家出生于某村庄（某国），该地不是首都。
 &lt;/code>&lt;/pre>&lt;h2 id="32-三个核心元素的区别">3.2 三个核心元素的区别&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -129,9 +132,15 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>&lt;strong>信息获取&lt;/strong>：与外部环境交互，获取实时信息&lt;/li>
 &lt;li>&lt;strong>动态调整&lt;/strong>：根据环境反馈更新操作计划，处理异常情况&lt;/li>
 &lt;li>&lt;strong>可解释性&lt;/strong>：生成的推理轨迹让人类能理解决策过程&lt;/li>
-&lt;li>&lt;strong>减少幻觉&lt;/strong>：基于外部事实而非内部知识&lt;/li>
+&lt;li>&lt;strong>减少幻觉&lt;/strong>：基于外部事实而非内部知识
+ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工具，是一种更高级的 prompting 技术。&lt;/li>
 &lt;/ul>
-&lt;p>ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工具，是一种更高级的 prompting 技术。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法">LLM 学习笔记：核心概念与实践方法&lt;/h1>
+&lt;h1 id="4-react-实现">4 ReAct 实现&lt;/h1>
+&lt;p>手撕简化版 ReAct 循环（伪代码，逻辑关键）&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;p>好的，这是根据您的要求对原文进行脱敏、润色并删除所有与“面试”相关内容的版本。原文中未发现需要删除的“面试”内容，也未发现具体的公司名或人名，因此主要进行了语句润色和结构优化，同时保留了所有图片链接原样。&lt;/p>
+&lt;hr>
+&lt;h1 id="llm-学习笔记核心概念与实践方法">LLM 学习笔记：核心概念与实践方法&lt;/h1>
+&lt;blockquote>
+&lt;p>参考：&lt;a href="https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic">通用技术讨论&lt;/a>&lt;/p>&lt;/blockquote>
 &lt;h2 id="1-大语言模型基础">1. 大语言模型基础&lt;/h2>
 &lt;h3 id="11-什么是-llm">1.1 什么是 LLM&lt;/h3>
 &lt;p>大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p>
@@ -149,32 +158,34 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 ![[IMG_4304.png]]&lt;/p>
 &lt;p>&lt;strong>补充解释：&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>有监督微调（SFT）&lt;/strong>：利用标注好的“（用户指令，正确回复）”配对数据，让模型在预训练已有语言能力的基础上，通过对比自身输出与标准答案的差异来调整参数，从而对新指令生成类似风格的回复。可以理解为“模仿老师给出的标准答案”。&lt;/li>
-&lt;li>&lt;strong>强化学习（RLHF，Reinforcement Learning from Human Feedback）&lt;/strong>：SFT 后，模型仍可能生成不安全或不理想的回复。RLHF 引入一个由人类偏好得分训练而来的“奖励模型”，LLM 通过尝试生成回复并根据奖励分数优化，逐渐学会更符合人类期待的互动方式（如更有用、更无害）。可以理解为“通过奖惩机制让模型自己摸索出更好的回答策略”。&lt;/li>
+&lt;li>&lt;strong>有监督微调（SFT）&lt;/strong>：这是一种利用已标注数据调整模型的方法。数据以“（用户指令，正确回复）”的配对形式呈现。模型在预训练（Base 模型）已掌握语言的基础上，通过对比自身输出与标准答案的差异，逐步调整参数，使得面对新指令时也能生成类似风格的回复。可以理解为“模仿老师给出的标准答案”。&lt;/li>
+&lt;li>&lt;strong>强化学习（RLHF，Reinforcement Learning from Human Feedback）&lt;/strong>：经过 SFT 后，模型仍可能生成不安全或不理想的回复。RLHF 引入一个“奖励模型”，它基于人类对大量不同回复的偏好评分进行训练。然后，LLM 通过尝试生成回复，并根据奖励模型给出的分数进行优化，学会更符合人类偏好的行为（例如更有用、更无害）。可以理解为“通过奖惩机制让模型自行探索更好的回答策略”。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="13-多模态模型">1.3 多模态模型&lt;/h3>
-&lt;p>多模态 LLM 能同时处理文本与其他模态信息（图像、音频、视频）。通过在多种类型数据上联合训练，模型学习不同模态之间的对齐关系，从而完成单文本模型无法实现的任务，例如：图片描述生成、根据视频内容回答问题、从音频中提取信息等。&lt;/p>
+&lt;p>多模态 LLM 能够同时处理文本及其他模态信息（如图像、音频、视频）。通过在多种类型的数据上进行联合训练，模型可以学习不同模态之间的对齐关系，从而完成单文本模型无法实现的任务，例如：图片描述生成、根据视频内容回答问题、从音频中提取信息等。&lt;/p>
 &lt;p>![[IMG_4305.png]]&lt;/p>
 &lt;h3 id="14-agent智能体模型">1.4 Agent（智能体）模型&lt;/h3>
 &lt;p>以 LLM 为核心的智能体系统通过集成以下组件来执行复杂任务：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>规划&lt;/strong>：将复杂目标拆解为可执行的子任务，并支持反思和纠错。&lt;/li>
-&lt;li>&lt;strong>记忆&lt;/strong>：包括利用上下文窗口的短期记忆，以及通过向量数据库等外部存储实现的长期记忆。&lt;/li>
-&lt;li>&lt;strong>工具使用&lt;/strong>：模型学习调用外部 API 或工具（如搜索引擎、计算器、代码解释器）来扩展能力。&lt;/li>
-&lt;/ul>
+&lt;li>
+&lt;p>&lt;strong>规划&lt;/strong>：将复杂目标拆解为可执行的子任务，并支持反思和纠错。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>记忆&lt;/strong>：包括利用上下文窗口的短期记忆，以及通过向量数据库等外部存储实现的长期记忆。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>工具使用&lt;/strong>：模型学习调用外部 API 或工具（如搜索引擎、计算器、代码解释器）来扩展自身能力。&lt;/p>
 &lt;p>![[IMG_4306.png]]&lt;/p>
+&lt;/li>
+&lt;/ul>
 &lt;h3 id="15-code-模型">1.5 Code 模型&lt;/h3>
-&lt;p>Code 模型在预训练和指令微调阶段显著增加了代码数据的占比。因此，它们在代码相关任务上表现优异，如代码生成与补全、代码纠错、根据自然语言描述完成编程任务。部分模型还针对特定语言（Python、Java 等）进行了专门优化。&lt;/p>
-&lt;h2 id="2-使用-llm-及优化输出效果">2. 使用 LLM 及优化输出效果&lt;/h2>
-&lt;h3 id="21-模型推理文本生成">2.1 模型推理（文本生成）&lt;/h3>
-&lt;p>&lt;strong>什么是模型推理？&lt;/strong>&lt;br>
-模型推理是指利用&lt;strong>已经训练好&lt;/strong>的模型，根据输入（如提示词）来生成新内容的过程。在这个阶段，模型参数不再更新，只进行前向计算。它可以理解为“模型在回答问题时的运作状态”。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p>好的，这是根据您的要求处理后的Markdown内容：&lt;/p>
+&lt;p>Code 模型在预训练和指令微调阶段显著增加了代码数据的占比。因此，它们在代码相关任务上表现优异，如代码生成与补全、代码纠错、根据自然语言描述完成编程任务。部分模型还针对特定语言（如 Python、Java 等）进行了专门优化。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p>好的，已根据您的要求对原文进行了脱敏（删除公司名、人名等）、润色语句，并删除了所有与“面试”相关的内容。同时，所有图片链接语法（`&lt;img src="alt" alt="">）均保持原样未修改。&lt;/p>
 &lt;hr>
 &lt;p>上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F-e3e2c7b799cc5b65291a9c49d28398fe.png" alt="">&lt;/p>
-&lt;p>你可能当时就想问： &lt;strong>为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong>&lt;/p>
+&lt;p>你可能当时就想问：&lt;strong>为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong>&lt;/p>
 &lt;p>这章就专门把这个问题讲清楚。&lt;/p>
 &lt;hr>
 &lt;h2 id="一先别急普通数据库能不能存向量">一、先别急，普通数据库能不能存向量？&lt;/h2>
@@ -185,20 +196,20 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;h2 id="二普通数据库为什么查不了向量">二、普通数据库为什么查不了向量？&lt;/h2>
 &lt;p>咱们先聊聊 MySQL 是怎么查数据的。&lt;/p>
 &lt;p>你写 &lt;code>SELECT * FROM users WHERE id = 5&lt;/code> ，MySQL 走 B+ 树索引，几次跳转就找到了，极快。你写 &lt;code>WHERE age &amp;gt; 18&lt;/code> ，同样走索引，范围扫描，也很快。&lt;/p>
-&lt;p>MySQL 的索引本质上是为两类操作优化的： &lt;strong>精确匹配&lt;/strong> 和 &lt;strong>范围比较&lt;/strong>。&lt;/p>
+&lt;p>MySQL 的索引本质上是为两类操作优化的：&lt;strong>精确匹配&lt;/strong> 和 &lt;strong>范围比较&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F-687e8c304aaf094fd4232c28efc12a82.png" alt="">&lt;/p>
 &lt;p>但向量搜索是完全另一回事。&lt;/p>
-&lt;p>向量搜索要做的事情是： &lt;strong>给你一个向量，找出和它最相似的 top-k 个向量&lt;/strong>。&lt;/p>
+&lt;p>向量搜索要做的事情是：&lt;strong>给你一个向量，找出和它最相似的 top-k 个向量&lt;/strong>。&lt;/p>
 &lt;p>「最相似」意味着要算距离，余弦相似度、欧氏距离……这类计算，需要拿着你的查询向量，和库里每一条向量都算一遍距离，然后排序，取最小的几个。&lt;/p>
 &lt;p>MySQL 的 B+ 树索引完全帮不上这个忙。它压根不知道怎么在多维空间里找「最近邻」。&lt;/p>
 &lt;p>&lt;strong>那就暴力遍历呗？&lt;/strong>&lt;/p>
 &lt;p>来感受一下规模：&lt;/p>
-&lt;p>假设某个嵌入模型，每个块转化出来的向量是 &lt;strong>1536 维&lt;/strong>。你的知识库有 100 万条块，那么每次查询要算的浮点运算量是：&lt;/p>
-&lt;p>1536 维 × 100 万条 = 15.36 亿次浮点运算&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;p>好的，我将按照您的要求对原文进行脱敏、润色，并移除与“面试”相关的内容（经检查原文无相关内容）。所有图片链接语法均保持原样。&lt;/p>
+&lt;p>某模型的每个 chunk 转化出来的向量是 &lt;strong>1536 维&lt;/strong>。知识库有 100 万条 chunk，那么每次查询要算的浮点运算量是：&lt;/p>
+&lt;p>1536 维 × 100 万条 = 15.36 亿次浮点运算&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;p>好的，以下是对原文的脱敏、润色及删除与“面试”相关内容的处理结果。原文中未发现“面试”相关内容，因此无需删除。脱敏处理删除了具体公司名（如 OpenAI、Anthropic、LangChain、Cognition 等）和人名（如 Mitchell Hashimoto），并对相关语句进行了润色，使其保持通顺和专业性。所有图片链接语法（&lt;img src="url" alt="alt"> 和 ![[filename]]）均未修改。&lt;/p>
 &lt;hr>
 &lt;h3 id="-本章重点总结harness-engineering">📌 本章重点总结（Harness Engineering）&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>概念来源&lt;/strong>：由某位工程师在 2026 年 2 月提出，随后某知名 AI 机构官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li>
+&lt;li>&lt;strong>概念来源&lt;/strong>：由某人在 2026 年 2 月提出，随后有官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li>
 &lt;li>&lt;strong>AI 工程重心的三次演进&lt;/strong>：
 &lt;ul>
 &lt;li>&lt;strong>Prompt Engineering&lt;/strong>：让模型“听懂”任务（表达）。&lt;/li>
@@ -218,7 +229,7 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>⑥ 约束与恢复：模型出错了能不能爬起来？&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>五大难题与大厂解法（对应五条原则）&lt;/strong>：
+&lt;li>&lt;strong>五大难题与典型解法（对应五条原则）&lt;/strong>：
 &lt;ul>
 &lt;li>&lt;strong>难题1：Agent 跑久了越走越偏&lt;/strong> → 解决方案：Context Reset，状态外化到文件系统，每轮用干净上下文接手。原则：&lt;strong>重启胜过修补，状态沉到文件里&lt;/strong>。&lt;/li>
 &lt;li>&lt;strong>难题2：Agent 自评总是偏乐观&lt;/strong> → 解决方案：Planner + Generator + Evaluator 三角分工，验收与生产分离。原则：&lt;strong>生产和验收必须分家，验收方要能摸到真实世界&lt;/strong>。&lt;/li>
@@ -258,51 +269,46 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>&lt;strong>学习意义&lt;/strong>：后续的Prompt、Function Calling、RAG、Agent等技术，都是在弥补大模型的这些短板。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>正文：&lt;/p>
-&lt;p>学Agent开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong>大模型&lt;/strong>。&lt;/p>
-&lt;p>你不需要先搞懂它背后的数学原理，但你必须清楚它能做什么、不能做什么，以及它是怎么&amp;quot;看&amp;quot;你发给它的文字的。搞清楚这些，后面学Prompt、Function Calling、RAG、Agent时，你才能知道&amp;quot;为什么要这么做&amp;quot;。&lt;/p>
+&lt;p>正文：
+学 Agent 开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong>大模型&lt;/strong>&lt;/p>
+&lt;p>你无需精通其背后的数学原理，但必须清楚它能做什么、不能做什么，以及它是如何&amp;quot;阅读&amp;quot;你发给它的文字的。理解这些后，后续学习Prompt、Function Calling、RAG、Agent时，你才能明白&amp;quot;为何要这样做&amp;quot;。&lt;/p>
 &lt;h2 id="大模型是什么">大模型是什么&lt;/h2>
-&lt;p>我们平时说的「AI对话」「AI助手」，核心都是 &lt;strong>大模型&lt;/strong>，英文叫 &lt;strong>LLM&lt;/strong>（Large Language Model，大语言模型）。
-用大白话讲，大模型就像 &lt;strong>一个从小读了海量书、见识极广、逻辑又好的超级助理&lt;/strong>。&lt;/p>
+&lt;p>我们日常所说的「AI 对话」「AI 助手」，核心都是 &lt;strong>大模型&lt;/strong>，英文简称 &lt;strong>LLM&lt;/strong>（Large Language Model，大语言模型）。
+通俗地讲，大模型就像 &lt;strong>一位从小博览群书、见识广博、逻辑清晰的超级助理&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F-b705b8c12f49b00982a7087315749e0f.png" alt="">&lt;/p>
-&lt;p>它&amp;quot;大&amp;quot;在哪里？两点：&lt;/p>
+&lt;p>它&amp;quot;大&amp;quot;在两个方面：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>参数量大&lt;/strong>：模型内部有数千亿个参数，可以理解为它&amp;quot;记住了&amp;quot;海量知识的精华。&lt;/li>
-&lt;li>&lt;strong>训练数据大&lt;/strong>：研发人员提前给它喂了互联网上的书籍、文章、新闻、代码、论坛讨论等大量内容，让它学会了语言规律、通用常识和各行各业的基础知识。&lt;/li>
+&lt;li>&lt;strong>参数量大&lt;/strong>：模型内部有数千亿个参数，可理解为它&amp;quot;记住了&amp;quot;海量知识的精华&lt;/li>
+&lt;li>&lt;strong>训练数据大&lt;/strong>：研发人员预先为其喂入互联网上的书籍、文章、新闻、代码、论坛讨论等大量内容，使其掌握了语言规律、通用常识和各行业的基础知识&lt;/li>
 &lt;/ul>
-&lt;p>学会之后，它能干什么？说白了就是 &lt;strong>根据你给的上下文，预测接下来最合理的文字是什么&lt;/strong>。你问它「今天天气怎么样」，它不是真的去查天气，而是根据过去学过的语言模式，生成一个&amp;quot;看起来最合理的回答&amp;quot;。&lt;/p>
-&lt;p>我们平时用的ChatGPT、豆包、通义千问、文心一言，背后核心都是这样的大模型。&lt;/p>
+&lt;p>经过学习后，它能做什么？本质上是 &lt;strong>根据你提供的上下文，预测接下来最合理的文字内容&lt;/strong>。比如你问它「今天天气怎么样」，它并非真的查询天气，而是基于已学习的语言模式，生成一个&amp;quot;看起来最合理的回答&amp;quot;。&lt;/p>
+&lt;p>目前常见的AI助手（如某些主流对话产品），其核心都是这样的大模型。&lt;/p>
 &lt;hr>
 &lt;h2 id="token大模型读文字的方式">Token：大模型读文字的方式&lt;/h2>
-&lt;p>在讲大模型能做什么之前，有一个基础概念必须先搞清楚，因为后面所有的东西都跟它有关，那就是 &lt;strong>Token&lt;/strong>。&lt;/p>
-&lt;p>&lt;strong>Token是大模型处理文本的&amp;quot;基本单位&amp;quot;&lt;/strong>，它既不是一个字，也不是一个词，你可以理解为把文字&amp;quot;切碎&amp;quot;后的一个个小碎片。&lt;/p>
+&lt;p>在讨论大模型的能力之前，必须先理解一个基础概念，因为它与后续所有内容息息相关，那就是 &lt;strong>Token&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>Token 是大模型处理文本的&amp;quot;基本单位&amp;quot;&lt;/strong>，它既不是一个字，也不是一个词，可以理解为将文字&amp;quot;切碎&amp;quot;后的一个个小碎片。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F-2c33ce44947270329f9fc8f4ea558fcf.png" alt="">&lt;/p>
-&lt;p>举个例子，「我今天心情很好」这句话，大模型不是一个字一个字地读，而是先把它切成若干个Token，比如可能切成：「我」「今天」「心情」「很好」，每个碎片就是一个Token。&lt;/p>
-&lt;p>英文的切法更直观：&lt;code>&amp;quot;Hello world&amp;quot;&lt;/code> 通常会被切成 &lt;code>[&amp;quot;Hello&amp;quot;, &amp;quot; world&amp;quot;]&lt;/code>，大约每个单词对应1个Token。中文切法不太一样，通常每个汉字对应1～2个Token。&lt;/p>
-&lt;p>你为什么要了解Token？有两个原因：&lt;/p>
+&lt;p>举例来说，「我今天心情很好」这句话，大模型并非逐个字符读取，而是先将其切分为若干Token，比如：「我」「今天」「心情」「很好」，每个碎片就是一个Token。&lt;/p>
+&lt;p>英文的切分更直观：&lt;code>&amp;quot;Hello world&amp;quot;&lt;/code> 通常被切分为 &lt;code>[&amp;quot;Hello&amp;quot;, &amp;quot; world&amp;quot;]&lt;/code>，大约每个单词对应1个Token。中文则不同，通常每个汉字对应1～2个Token。&lt;/p>
+&lt;p>为什么要了解Token？有两个原因：&lt;/p>
 &lt;ol>
-&lt;li>&lt;strong>决定模型能处理的文本长度上限&lt;/strong>：每个大模型都有&amp;quot;最多能处理多少Token&amp;quot;的上限，后面马上会讲到。&lt;/li>
-&lt;li>&lt;strong>决定API调用费用&lt;/strong>：调用大模型的API是按Token计费的，你发给它的文字越长、它回复的越多，花的钱越多。&lt;/li>
+&lt;li>&lt;strong>决定模型能处理的文本长度上限&lt;/strong>：每个大模型都有&amp;quot;最多能处理多少Token&amp;quot;的上限，后续会详细说明&lt;/li>
+&lt;li>&lt;strong>决定API调用费用&lt;/strong>：调用大模型的API按Token计费，你发送的文字越长，它回复的内容越多，费用相应增加&lt;/li>
 &lt;/ol>
-&lt;p>记住这个概念，我们继续。&lt;/p>
-&lt;hr>
-&lt;h2 id="上下文窗口大模型的短期记忆">上下文窗口：大模型的&amp;quot;短期记忆&amp;quot;&lt;/h2>
-&lt;p>理解了Token，你就能理解大模型最重要的一个限制，那就是 &lt;strong>上下文窗口（Context Window）&lt;/strong>。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;p>好的，以下是按照您要求处理后的内容。已进行脱敏（未发现具体公司名、人名，保持原有角色名称如“OnCall 助理”等）、润色语句、删除与“面试”相关的内容（原文无相关词汇）。所有图片链接格式保持不变。&lt;/p>
-&lt;hr>
-&lt;h3 id="-本章重点总结prompt基础">📌 本章重点总结（Prompt基础）&lt;/h3>
+&lt;p>请记住这个概念，继续往下。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础">📌 本章重点总结（Prompt基础）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Prompt定义&lt;/strong>：你发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。&lt;/li>
 &lt;li>&lt;strong>Prompt的重要性&lt;/strong>：大模型是 next-token 预测机器，输入越精准，输出越稳定。在 Agent 开发中，输出稳定性直接决定流水线可靠性。&lt;/li>
 &lt;li>&lt;strong>User Prompt三要素&lt;/strong>：目标明确、背景充足、输出要求。缺一不可。&lt;/li>
 &lt;li>&lt;strong>System Prompt三大用途&lt;/strong>：身份设定、行为规则、输出格式约束。它比 User Prompt 更“稳”，是 Agent 行为可预测的核心保障。&lt;/li>
-&lt;li>&lt;strong>写好Prompt的6个核心原则&lt;/strong>：
+&lt;li>&lt;strong>==写好Prompt的6个核心原则==&lt;/strong>：
 &lt;ul>
-&lt;li>给模型角色 → 缩小搜索空间，输出更专业&lt;/li>
-&lt;li>正向约束优于负向禁止 → 明确“要做什么”&lt;/li>
-&lt;li>喂足背景信息 → 减少幻觉&lt;/li>
-&lt;li>指定输出格式（最好给JSON示例）→ Agent 解析的关键&lt;/li>
-&lt;li>使用 Few-shot（给例子）→ 胜过写规则&lt;/li>
-&lt;li>要求“先思考再回答”（思维链）→ 提升复杂问题准确率&lt;/li>
+&lt;li>==给模型角色 → 缩小搜索空间，输出更专业==&lt;/li>
+&lt;li>==正向约束优于负向禁止 → 明确“要做什么”==&lt;/li>
+&lt;li>==喂足背景信息 → 减少幻觉==&lt;/li>
+&lt;li>==指定输出格式（最好给JSON示例）→ Agent 解析的关键==&lt;/li>
+&lt;li>==使用 Few-shot（给例子）→ 胜过写规则==&lt;/li>
+&lt;li>==要求“先思考再回答”（思维链）→ 提升复杂问题准确率==&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>Prompt迭代调试&lt;/strong>：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。&lt;/li>
@@ -311,13 +317,13 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;hr>
 &lt;p>&lt;strong>正文&lt;/strong>：
 上一章你已经搞清楚了大模型的底层逻辑：它是一个超级助理，你通过 messages 列表把内容传给它，它根据你给的上下文预测并生成回答。&lt;/p>
-&lt;p>但这里有个现象你可能早已察觉：&lt;strong>同一个大模型，不同的人使用，结果天差地别&lt;/strong>。有人问出来的答案精准、稳定，拿来就能用；有人问出来的东西东拉西扯、废话连篇，完全不符合预期。&lt;/p>
-&lt;p>差在哪里？差在 &lt;strong>你怎么跟它说话&lt;/strong>。&lt;/p>
-&lt;p>这件事有一个专门的名称，叫做 &lt;strong>Prompt&lt;/strong>（提示词）。你写给大模型的那些文字——你的指令、你的问题、你给的背景、你的格式要求——这一切统称 Prompt。这一章，就是专门讲解如何做好这件事。&lt;/p>
+&lt;p>但这里有个现象你可能早就发现了：&lt;strong>同一个大模型，不同的人用，结果天差地别&lt;/strong>。有人问出来的答案精准、稳定，拿来就能用；有人问出来的东西东拉西扯，废话连篇，完全不符合预期。&lt;/p>
+&lt;p>差在哪里？差在你 &lt;strong>怎么跟它说话&lt;/strong>。&lt;/p>
+&lt;p>这件事有个专门的名字，叫做 &lt;strong>Prompt&lt;/strong>（提示词）。你写给大模型的那些文字，你的指令、你的问题、你给的背景、你的格式要求，这一切统称 Prompt。这一章，就是专门讲怎么把这件事做好。&lt;/p>
 &lt;h2 id="什么是-prompt">什么是 Prompt&lt;/h2>
-&lt;p>&lt;strong>Prompt 就是你发给大模型的所有输入内容&lt;/strong>，它不只是一句简单的问题，而是你塞进 messages 列表里的所有文字：指令、背景信息、参考资料、示例、格式要求……全部算在内，总称 Prompt。&lt;/p>
+&lt;p>&lt;strong>Prompt 就是你发给大模型的所有输入内容&lt;/strong>，不只是一句简单的问题，而是你塞进 messages 列表里的所有文字：指令、背景信息、参考资料、示例、格式要求……全部算在内，总称 Prompt。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png" alt="">&lt;/p>
-&lt;p>回顾上一节中的 messages 结构：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础">📌 本章重点总结（Agent 基础）&lt;/h3>
+&lt;p>回想上一节中的 messages 结构：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础">📌 本章重点总结（Agent 基础）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Agent 定义&lt;/strong>：以大模型为“大脑”，能自主感知、决策、调用工具、完成多步骤任务的程序。核心公式：&lt;strong>Agent = 大模型 + 工具 + 记忆 + 执行循环&lt;/strong>。&lt;/li>
 &lt;li>&lt;strong>为什么需要 Agent&lt;/strong>：弥补大模型的三大短板（无执行能力、知识过期、无持久记忆），让大模型从“只能说”变成“能干”。&lt;/li>
@@ -331,14 +337,14 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;/li>
 &lt;li>&lt;strong>主流工作模式&lt;/strong>：
 &lt;ul>
-&lt;li>&lt;strong>ReAct&lt;/strong>：边想边做，每一步实时决策，适合短任务（≤3步）。&lt;/li>
-&lt;li>&lt;strong>Plan and Execute&lt;/strong>：先一次性规划完整步骤清单，再逐步执行，适合长任务（≥5步）。支持 Re‑planning 动态调整。&lt;/li>
+&lt;li>&lt;strong>ReAct&lt;/strong>：边想边做，每一步实时决策，适合短任务（≤3 步）。&lt;/li>
+&lt;li>&lt;strong>Plan and Execute&lt;/strong>：先一次性规划完整步骤清单，再逐步执行，适合长任务（≥5 步）。支持 Re‑planning 动态调整。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>ReAct vs Plan &amp;amp; Execute&lt;/strong>：
 &lt;ul>
-&lt;li>ReAct：灵活、适合步骤少、目标模糊；token 消耗随步数增长。&lt;/li>
-&lt;li>Plan &amp;amp; Execute：全局视野、适合步骤多、目标明确；规划阶段集中消耗 token。&lt;/li>
+&lt;li>ReAct：灵活，适合步骤少、目标模糊；token 消耗随步数增长。&lt;/li>
+&lt;li>Plan &amp;amp; Execute：全局视野，适合步骤多、目标明确；规划阶段集中消耗 token。&lt;/li>
 &lt;li>实际生产常混合使用：外层 Plan &amp;amp; Execute，内层子任务用 ReAct。&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -360,44 +366,44 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>&lt;strong>极简 Agent 骨架&lt;/strong>：&lt;code>while&lt;/code> 循环 → 调用 LLM 决策 → 若完成则退出 → 否则执行工具 → 结果追加到消息列表 → 继续循环。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>正文：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础">📌 本章重点总结（Tool 基础）&lt;/h3>
+&lt;p>前两章讲了大模型的底层逻辑，也讲了怎么写好 Prompt。到现在，你已经知道大模型是个“超级大脑”，能理解意图、会逻辑推理、能生成高质量内容。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础">📌 本章重点总结（Tool 基础）&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>问题背景&lt;/strong>：大模型被限制在封闭环境中，仅能进行文字输入输出，无法与外部世界交互。Tool 为大模型提供了“双手”，使其能执行真实操作。&lt;/li>
+&lt;li>&lt;strong>问题背景&lt;/strong>：大模型被“关在盒子里”，只能输入输出文字，无法与外部世界交互。Tool 给大模型“装上手”，让它能执行真实操作。&lt;/li>
 &lt;li>&lt;strong>Agent、大模型、Tool 的关系&lt;/strong>：
 &lt;ul>
-&lt;li>大模型：决策者（动脑），决定下一步行动及调用哪个工具。&lt;/li>
-&lt;li>Tool：执行者（动手），负责查询数据库、发送通知、读写文件等具体操作。&lt;/li>
-&lt;li>Agent：调度员，协调用户、大模型和工具之间的任务传递与流程推进。&lt;/li>
+&lt;li>大模型：决策者（动脑），决定下一步做什么、调用哪个工具。&lt;/li>
+&lt;li>Tool：执行者（动手），真正去查数据库、发通知、读写文件等。&lt;/li>
+&lt;li>Agent：调度员，协调用户、大模型、工具之间的任务传递和流程推进。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>Tool 的完整组成（四要素）&lt;/strong>：
 &lt;ul>
-&lt;li>函数本体：实现具体功能的代码（大模型不可见，由 Agent 执行）。&lt;/li>
-&lt;li>&lt;code>name&lt;/code>（名称）：大模型识别工具的标签，需具有语义明确性。&lt;/li>
-&lt;li>&lt;code>description&lt;/code>（描述）：最重要的字段，需清晰说明工具的用途、适用场景及返回信息。&lt;/li>
-&lt;li>&lt;code>parameters&lt;/code>（参数定义）：使用 JSON Schema 定义参数名、类型、必填项及示例，类似于填写表单。&lt;/li>
+&lt;li>函数本体：具体实现功能的代码（大模型看不到，Agent 执行）。&lt;/li>
+&lt;li>&lt;code>name&lt;/code>（名称）：大模型识别工具的标签，需望名知意。&lt;/li>
+&lt;li>&lt;code>description&lt;/code>（描述）：最重要的字段，写清楚工具能做什么、什么场景用、返回什么信息。&lt;/li>
+&lt;li>&lt;code>parameters&lt;/code>（参数定义）：用 JSON Schema 定义参数名、类型、必填项、示例，类似“填写表单”。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>大模型如何“认识”工具&lt;/strong>：Agent 在每次对话开始时，将所有可用工具的 &lt;code>name&lt;/code> + &lt;code>description&lt;/code> + &lt;code>parameters&lt;/code> 打包成工具清单，通过 API 的 &lt;code>tools&lt;/code> 参数传递给大模型。大模型依据清单判断调用哪个工具。&lt;/li>
+&lt;li>&lt;strong>大模型如何“认识”工具&lt;/strong>：Agent 在每次对话开始时，将所有可用工具的 &lt;code>name&lt;/code> + &lt;code>description&lt;/code> + &lt;code>parameters&lt;/code> 打包成工具清单，通过 API 的 &lt;code>tools&lt;/code> 参数传给大模型。大模型根据清单判断调用哪个工具。&lt;/li>
 &lt;li>&lt;strong>工具分类（按风险从低到高）&lt;/strong>：
 &lt;ul>
 &lt;li>&lt;strong>查询类（只读）&lt;/strong>：查天气、读文件、搜索网页 → 风险低，可自主调用。&lt;/li>
 &lt;li>&lt;strong>写入类（有副作用）&lt;/strong>：发通知、写数据库、改配置 → 风险中，高风险操作需人工确认。&lt;/li>
 &lt;li>&lt;strong>执行类（高风险）&lt;/strong>：执行 shell 命令、重启服务、部署代码 → 风险高，必须人工审批。&lt;/li>
-&lt;li>&lt;strong>AI 辅助类&lt;/strong>：RAG 检索、调用子模型 → 风险低至中，通常可自主，需关注结果质量。&lt;/li>
+&lt;li>&lt;strong>AI 辅助类&lt;/strong>：RAG 检索、调用子模型 → 风险低～中，通常可自主，需关注结果质量。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>核心原则&lt;/strong>：工具描述的清晰度决定了 Agent 选工具的准确率，而非模型本身的聪明程度。&lt;code>description&lt;/code> 必须明确使用场景，否则模型可能误选或漏选。&lt;/li>
+&lt;li>&lt;strong>核心原则&lt;/strong>：工具描述的清晰度决定了 Agent 选工具的准确率，而不是模型本身的聪明程度。&lt;code>description&lt;/code> 必须写清楚使用场景，否则模型可能误选或漏选。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>有没有遇到过这种情况？&lt;/p>
-&lt;p>让 AI 帮你整理电脑里的文件，它给你写出一整套整理方案，分类规则写得头头是道，但最后还是得你自己一个个打开文件夹、手动移动；让它帮你查今天的天气，它说「我的知识截止到某年某月，无法获取实时天气」；让它帮你订明天的机票，它只能告诉你去哪个网站、怎么操作，然后你默默打开了出行平台。&lt;/p>
-&lt;p>这不是大模型不够聪明。大模型非常聪明，&lt;strong>但它天生就被关在一个“小盒子”里&lt;/strong>：它只能接收文字、输出文字，它的“手”根本伸不出来，无法与外部世界产生任何交互。&lt;/p>
-&lt;p>这就引出了本章的主角：&lt;strong>Tool（工具）&lt;/strong>。Tool 就是给大模型“装上手”的方案，让它从“只动嘴的参谋”变成“能落地干活的实干家”。&lt;/p>
+&lt;p>你现在可能遇到过这样的情况：让 AI 帮你整理电脑里的文件，它给你写出一整套整理方案，分类规则写得头头是道，但最后还是得你自己一个个打开文件夹、手动移动；让它帮你查今天的天气，它回答“我的知识截止到某年某月，无法获取实时天气”；让它帮你订明天的机票，它只能告诉你去哪个网站、怎么操作，然后你默默打开了订票平台。&lt;/p>
+&lt;p>这不是大模型不够聪明。大模型非常聪明，但它天生就被关在一个“小盒子”里——它只能接收文字、输出文字，它的“手”根本伸不出来，无法与外部世界产生任何交互。&lt;/p>
+&lt;p>这就引出了我们这章的主角：&lt;strong>Tool（工具）&lt;/strong>。Tool 就是给大模型“装上手”的方案，让它从“只动嘴的参谋”变成“能落地干活的实干家”。&lt;/p>
 &lt;hr>
-&lt;h2 id="一agent--tool两个角色如何配合干活">一、Agent + Tool：两个角色如何配合干活&lt;/h2>
-&lt;p>在聊 Tool 之前，先澄清另一个容易混淆的概念：&lt;strong>Agent&lt;/strong>。&lt;/p>
-&lt;p>很多同学以为“Agent 就是更厉害的大模型”。这个理解有偏差。&lt;strong>Agent 本质上是我们开发者编写的一套程序&lt;/strong>，它不是更聪明的 AI，而是一个全程在线的“调度员”，负责在用户、大模型和工具之间协调任务、传递信息、推进流程。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;p>以下是经过脱敏、润色并删除与“面试”相关内容后的Markdown内容。图片链接保持不变，公司名“美团”已替换为通用“外卖平台”，语句更加流畅专业。&lt;/p>
+&lt;h2 id="一agent--tool两个角色怎么配合干活">一、Agent + Tool：两个角色怎么配合干活&lt;/h2>
+&lt;p>在聊 Tool 之前，先把另一个容易混淆的概念说清楚：&lt;strong>Agent&lt;/strong>。&lt;/p>
+&lt;p>很多同学以为“Agent 就是更厉害的大模型”，这个理解有些偏差。&lt;strong>Agent 本质上是我们开发者写的一套程序&lt;/strong>，它不是更聪明的 AI，而是一个全程在线的“调度员”，负责在用户、大模型、工具之间协调任务、传递信息、推进流程。&lt;/p>
+&lt;p>用一个外卖平台来类比这三个角色的关系：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;p>好的，我已经按照您的要求对该Markdown内容进行了脱敏、语句润色，并删除了所有与&amp;quot;面试&amp;quot;相关的内容（经检查原文无相关内容）。所有图片链接语法保持原样。以下是处理后的结果：&lt;/p>
 &lt;hr>
 &lt;h3 id="-本章重点总结function-calling">📌 本章重点总结（Function Calling）&lt;/h3>
 &lt;ol>
@@ -427,24 +433,15 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>上一章你已经知道了，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型靠工具描述来判断要不要调这个工具。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;p>好的，已根据您的要求对原文进行以下处理：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>脱敏&lt;/strong>：删除“Anthropic”，替换为通用表述。&lt;/li>
-&lt;li>&lt;strong>润色语句&lt;/strong>：在保持原意的基础上优化部分表达，使行文更流畅。&lt;/li>
-&lt;li>&lt;strong>删除与“面试”相关的内容&lt;/strong>：原文中无相关内容，无需操作。&lt;/li>
-&lt;li>&lt;strong>保留所有图片链接语法&lt;/strong>：&lt;code>![alt](url)&lt;/code> 和 &lt;code>![[filename]]&lt;/code> 格式原样不变。&lt;/li>
-&lt;/ul>
-&lt;p>以下是修改后的 Markdown 内容：&lt;/p>
-&lt;hr>
-&lt;h3 id="-本章重点总结mcp">📌 本章重点总结（MCP）&lt;/h3>
+&lt;p>上一章你已经知道了，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型靠工具描述来判断要不要调这个工具。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;h3 id="-本章重点总结mcp">📌 本章重点总结（MCP）&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>MCP 是什么&lt;/strong>：某团队推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li>
+&lt;li>&lt;strong>MCP 是什么&lt;/strong>：由某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li>
 &lt;li>&lt;strong>为什么需要 MCP&lt;/strong>：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。&lt;/li>
 &lt;li>&lt;strong>三大核心角色&lt;/strong>：
 &lt;ul>
-&lt;li>&lt;strong>Host&lt;/strong>：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。&lt;/li>
+&lt;li>&lt;strong>Host&lt;/strong>：用户使用的 AI 应用（如 AI 桌面应用、VS Code），负责发起任务。&lt;/li>
 &lt;li>&lt;strong>Client&lt;/strong>：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。&lt;/li>
-&lt;li>&lt;strong>Server&lt;/strong>：暴露工具能力的轻量服务程序，负责实际执行工具。&lt;/li>
+&lt;li>&lt;strong>Server&lt;/strong>：暴露工具能力的轻量级服务程序，负责实际执行工具。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>MCP Server 的三种能力&lt;/strong>：
@@ -466,7 +463,11 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>只有 Function Calling，没有 MCP&lt;/strong>：&lt;br>
-大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</guid><description>&lt;h3 id="-本章重点总结skills">📌 本章重点总结（Skills）&lt;/h3>
+大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>只有 MCP，没有 Function Calling&lt;/strong>：&lt;br>
+Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能不规范（例如“用 check_the_weather 工具，城市=上海明天”），Host 没法可靠地转换成 MCP 请求。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</guid><description>&lt;h3 id="-本章重点总结skills">📌 本章重点总结（Skills）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Skills 出现的背景&lt;/strong>：有了 Function Calling（底层机制）和 MCP（标准化接口）后，AI 能调用工具了，但每次执行复杂任务（如生成日报）仍需用户反复用自然语言指导执行步骤，沟通成本高、流程无法沉淀复用。&lt;/li>
 &lt;li>&lt;strong>Skill 的定义&lt;/strong>：一份“标准作业程序（SOP）”，将解决特定任务所需的 &lt;strong>背景设定（Prompt）&lt;/strong>、&lt;strong>执行步骤&lt;/strong> 和 &lt;strong>所需工具（MCP）&lt;/strong> 打包成一个可复用的代码文件（通常为 Markdown + YAML）。&lt;/li>
@@ -489,12 +490,14 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>&lt;strong>Skills&lt;/strong>：上层业务封装，将 Prompt 和 MCP 工具组合成&lt;strong>标准工作流&lt;/strong>，实现工程化沉淀与复用。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>实战示例（某编程工具）&lt;/strong>：在项目 &lt;code>.claude/skills/&lt;/code> 目录下按结构放置 &lt;code>SKILL.md&lt;/code> 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li>
+&lt;li>&lt;strong>实战示例（Claude Code）&lt;/strong>：在项目 &lt;code>.claude/skills/&lt;/code> 目录下按结构放置 &lt;code>SKILL.md&lt;/code> 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li>
 &lt;li>&lt;strong>核心价值&lt;/strong>：Skills 让 AI 从“临时问一句”升级为“按标准化流程自动执行”，降低重复沟通成本，实现经验沉淀和团队协作。&lt;/li>
 &lt;/ol>
 &lt;hr>
 &lt;h3 id="第一阶段ai-的破壁人--function-calling函数调用">第一阶段：AI 的“破壁人” ， Function Calling（函数调用）&lt;/h3>
-&lt;p>让我们回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong>被关在小黑屋里的超级学霸&lt;/strong>：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;h3 id="-本章重点总结rag">📌 本章重点总结（RAG）&lt;/h3>
+&lt;p>咱们先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong>被关在小黑屋里的超级学霸&lt;/strong>：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容。已脱敏、润色语句，并删除了所有与“面试”相关的内容。图片链接保持原样。&lt;/p>
+&lt;hr>
+&lt;h3 id="-本章重点总结rag">📌 本章重点总结（RAG）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>RAG 是什么&lt;/strong>：Retrieval-Augmented Generation（检索增强生成）。先检索私有知识库中最相关的内容，再将其注入 Prompt，让大模型基于有据可查的资料生成回答。&lt;/li>
 &lt;li>&lt;strong>为什么需要 RAG&lt;/strong>：大模型知识静态、封闭（截止日期、无私有数据、无实时数据），全量塞入 Prompt 受限于上下文窗口、成本高、注意力稀释。RAG 实现“按需检索 + 动态注入”。&lt;/li>
@@ -515,41 +518,34 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;li>&lt;strong>对比优势&lt;/strong>：可访问私有数据、知识更新快（更新文档即生效）、Token 消耗低、回答有据可查、扩展性好。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>前几章我们把 Agent 的工具体系搭清楚了：Function Calling 让大模型能开口下指令，MCP 让工具标准化接入，Skills 让专业知识按需加载。到这里，Agent 能干活了，工具也能跑起来了。&lt;/p>
-&lt;p>但有一个根本问题，前面几章都没正面回答：&lt;strong>大模型无法直接获取你的私有数据，这该如何解决？&lt;/strong>&lt;/p>
-&lt;p>你的公司内部有几千页运维手册、几百个历史故障报告、一套只有内部才知道的排查 SOP，这些大模型从未接触过。你让它帮你做 OnCall 排查，它能给出通用的思路，但无法针对你们系统给出精准答案。&lt;/p>
+&lt;p>前几章我们把 Agent 的工具体系搭清楚了：Function Calling 让大模型能开口下指令，MCP 让工具标准化接入，Skills 让专业知识按需加载。至此，Agent 已具备执行能力，工具也能顺利运转。&lt;/p>
+&lt;p>然而，一个根本问题在前几章始终未正面回答：&lt;strong>大模型根本看不到你的私有数据，怎么办？&lt;/strong>&lt;/p>
+&lt;p>公司内部有数千页运维手册、数百份历史故障报告、以及一套只有内部才知道的排查 SOP。大模型从未见过这些内容。你希望它协助 OnCall 排查，它能给出通用的思路，但无法给出针对你们系统的精准答案。&lt;/p>
 &lt;p>这就是 &lt;strong>RAG&lt;/strong> 要解决的核心问题。&lt;/p>
 &lt;hr>
 &lt;h2 id="一大模型为什么看不到你的数据">一、大模型为什么「看不到」你的数据？&lt;/h2>
-&lt;p>咱们先把问题说清楚，有三类「看不到」，每一类的原因都不同。&lt;/p>
+&lt;p>我们先把问题说清楚。有三类「看不到」，每一类的原因都不同。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%20RAG%EF%BC%9F-36e920b9eec4dde61012702484969045.png" alt="">&lt;/p>
 &lt;p>&lt;strong>第一类：知识截止日期&lt;/strong>&lt;/p>
-&lt;p>大模型是用历史数据训练的，训练完成后其知识就冻结了。例如 Claude 的训练数据截止到某个时间点，之后发生的事情它一概不知。你问它「我们系统今天凌晨发生了什么故障」，它根本没有这份信息，只能猜测。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</guid><description>&lt;p>&lt;a href="https://transformers.run/">https://transformers.run/&lt;/a>&lt;/p>
+&lt;p>大模型基于历史数据训练，训练完成后知识便冻结。例如，Claude 的训练数据截止到 2025 年某个时间点，之后发生的事情它一概不知。你问它“我们系统今天凌晨发生了什么故障”，它根本没有这份信息，只能猜测。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</guid><description>&lt;p>&lt;a href="https://transformers.run/">https://transformers.run/&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/1911433727810208973">https://zhuanlan.zhihu.com/p/1911433727810208973&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9E%84%E5%BB%BA">https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9E%84%E5%BB%BA&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning">https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://bbs.huaweicloud.com/blogs/405750">https://bbs.huaweicloud.com/blogs/405750&lt;/a>&lt;/p>
-&lt;p>hello-agent, pdf&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;p>好的，已收到您的指令。作为专业的博客编辑器，我将对您提供的Markdown内容进行以下处理：&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>脱敏&lt;/strong>：删除或替换其中可能出现的公司名、人名等具体信息（原文中此类信息较少，主要针对“产品A”、“公司A”等示例性名称进行泛化处理）。&lt;/li>
-&lt;li>&lt;strong>润色&lt;/strong>：优化语句，使其更流畅、专业，更符合技术博客的阅读习惯。&lt;/li>
-&lt;li>&lt;strong>删除面试相关内容&lt;/strong>：移除所有与“面试”、“求职”等直接相关的文字，包括标题、提示、问答章节等。&lt;/li>
-&lt;/ol>
-&lt;p>同时，我将严格遵循您的要求，&lt;strong>不修改任何图片链接语法&lt;/strong>，保持 &lt;code>![alt](url)&lt;/code> 和 &lt;code>![[filename]]&lt;/code> 格式原样。&lt;/p>
-&lt;p>以下是为您处理后的内容：&lt;/p>
+&lt;p>hello-agent, pdf&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;p>以下是按照你的要求进行脱敏、润色并删除所有与“面试”相关内容后的完整学习笔记。内容已删除公司名、人名等敏感信息，保留通用技术术语，语句经润色更流畅，且未修改任何图片链接语法。&lt;/p>
 &lt;hr>
-&lt;h2 id="rag-学习笔记深度版">RAG 学习笔记（深度版）&lt;/h2>
+&lt;h2 id="rag-学习笔记">RAG 学习笔记&lt;/h2>
 &lt;h3 id="一为什么需要-rag">一、为什么需要 RAG？&lt;/h3>
 &lt;p>&lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483.png" alt="">&lt;/p>
-&lt;p>大模型的知识边界受限于其训练数据。对于企业私有文档、实时信息、长尾知识，大模型无法直接回答。尝试把整本手册作为 prompt 输入存在三大问题：&lt;/p>
+&lt;p>大模型的知识边界受限于训练数据（截止日期前公开资料）。对于企业私有文档、实时信息、长尾知识，大模型无法直接回答。尝试把整本手册作为 prompt 输入存在三大问题：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>上下文窗口有限&lt;/strong>：即便模型支持长文本输入，在处理超长文本时性能依然会下降，且无法容纳极大型文档。&lt;/li>
-&lt;li>&lt;strong>成本高&lt;/strong>：每次请求发送所有文档，会消耗大量 token（尤其在使用商业 API 时）。&lt;/li>
-&lt;li>&lt;strong>大海捞针&lt;/strong>：大量噪声会分散模型的注意力，使其难以定位关键信息，并容易产生幻觉。&lt;/li>
+&lt;li>&lt;strong>上下文窗口有限&lt;/strong>：即便模型支持 128K tokens，长文本中性能会下降，且无法容纳极大型文档。&lt;/li>
+&lt;li>&lt;strong>成本高&lt;/strong>：每次请求发送所有文档，token 消耗巨大（尤其使用商业 API）。&lt;/li>
+&lt;li>&lt;strong>大海捞针&lt;/strong>：大量噪声中模型注意力分散，难以定位关键信息，容易产生幻觉。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>RAG（Retrieval-Augmented Generation）&lt;/strong> 的解决方案：检索相关片段 + 基于片段生成答案。其本质是“开卷考试”，让回答有据可依。&lt;/p>
+&lt;p>&lt;strong>RAG（Retrieval-Augmented Generation）&lt;/strong> 的解决方案：检索相关片段 + 基于片段生成答案。本质是“开卷考试”，让回答有据可依。&lt;/p>
 &lt;blockquote>
-&lt;p>应用场景：企业知识库、智能客服、垂直领域问答、实时数据增强 —— 这是 AI 落地的标配技术。&lt;/p>&lt;/blockquote>
+&lt;p>应用场景：企业知识库、智能客服、垂直领域问答、实时数据增强 —— AI 落地标配技术。&lt;/p>&lt;/blockquote>
 &lt;p>| &lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-3b954008b068c5ff42836afaaa834a69.png" alt=""> | &lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-b84313e9bba5352c278fe2720ff5e02f.png" alt=""> |&lt;/p>
 &lt;hr>
 &lt;h3 id="二rag-核心流程两条链路">二、RAG 核心流程（两条链路）&lt;/h3>
@@ -614,7 +610,7 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
  &lt;/tbody>
 &lt;/table>
 &lt;h5 id="12-分片核心原则语义完整性">1.2 分片核心原则：语义完整性&lt;/h5>
-&lt;p>切分时，不能让一个完整的语义单元（如一个步骤、一个定义）被切断。例如：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</guid><description>&lt;p>好的，已按照您的要求对Markdown内容进行了脱敏、润色，并删除了所有与“面试”相关的内容，同时保留了所有图片链接的原始语法。&lt;/p>
+&lt;p>切分时不能让一个完整的语义单元（如一个步骤、一个定义）被切断。例如：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容。已删除所有与“面试”相关的内容，并对语句进行了适度润色，同时保持了所有图片链接语法原样。&lt;/p>
 &lt;hr>
 &lt;h2 id="1-rag-评估体系层级">1 RAG 评估体系层级&lt;/h2>
 &lt;p>RAG 评估可分为三个层级，每个层级回答不同的问题：&lt;/p>
@@ -646,7 +642,7 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 &lt;/table>
 &lt;hr>
 &lt;h3 id="11-检索层评估--衡量能不能精准找到相关信息">1.1 检索层评估 —— 衡量“能不能精准找到相关信息”&lt;/h3>
-&lt;p>检索是 RAG 的基础。若检索到的文档片段（Chunk）与用户问题无关，生成环节再优也会导致“答非所问”。&lt;/p>
+&lt;p>检索是 RAG 的基础。若检索到的文档片段（Chunk）与用户问题无关，即使生成环节再优，最终回答也可能“答非所问”。&lt;/p>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -713,15 +709,14 @@ Final Answer: 某发明家出生于某村（某国），该地不是首都。
 $$
 H = \frac{2}{\frac{1}{a} + \frac{1}{b}} = \frac{2ab}{a + b}
 $$
-更一般地，对于 $n$ 个数，调和平均是 $\frac{n}{\sum \frac{1}{x_i}}$。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>以下是脱敏、润色后并删除了所有与“面试”相关内容的Markdown文本。请注意，原文中的第5节“知识复习（面试题与回答）”已被整体移除，总结表格中的“面试核心”已被替换为“核心能力”。语句在保持原意的基础上进行了适量优化，未修改任何图片链接语法（原文也无此类链接）。&lt;/p>
-&lt;hr>
+更一般地，对于 $n$ 个数，调和平均是 $\frac{n}{\sum \frac{1}{x_i}}$。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，这是根据您的要求对原文进行脱敏、润色并删除面试相关内容后的结果。&lt;/p>
 &lt;h1 id="rag-系统中的文本分块chunking学习笔记">RAG 系统中的文本分块（Chunking）学习笔记&lt;/h1>
 &lt;h2 id="1-引言为什么分块是-rag-的基石">1. 引言：为什么分块是 RAG 的基石？&lt;/h2>
-&lt;p>在 RAG 系统中，文档进入检索环节前必须经过&lt;strong>文本分块&lt;/strong>处理——即将大文档切分成更小、有意义的片段。每个分块应当是&lt;strong>连贯且自包含&lt;/strong>的，这样检索器才能快速定位并返回最相关的信息。&lt;/p>
-&lt;p>分块的重要性体现在三个层面：&lt;/p>
+&lt;p>RAG 系统在文档进入检索环节之前，必须经过&lt;strong>文本分块&lt;/strong>处理——把大文档切分成更小的、有意义的片段。每个分块应当是&lt;strong>连贯且自包含&lt;/strong>的，这样检索器才能快速定位并返回最相关的信息。&lt;/p>
+&lt;p>分块之所以重要，体现在三个层面：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>突破嵌入模型的输入长度限制&lt;/strong>：多数 Embedding 模型对输入长度有严格限制（如 512 token），分块是必要的工程前提。&lt;/li>
-&lt;li>&lt;strong>提升检索的信噪比&lt;/strong>：块过大时无关内容会稀释信号；块过小时语境不足，容易“只命中词不命中义”。&lt;/li>
+&lt;li>&lt;strong>提升检索的信噪比&lt;/strong>：块过大时无关内容稀释信号；块过小时语境不足，容易“只命中词不命中义”。&lt;/li>
 &lt;li>&lt;strong>维护语义连续性&lt;/strong>：跨段落、跨章节的语义关系常在边界处被切断，劣质分块会导致上下文断裂、幻觉频发。&lt;/li>
 &lt;/ul>
 &lt;blockquote>
@@ -792,7 +787,7 @@ $$
 &lt;li>&lt;strong>精确查找&lt;/strong>：粘贴错误码、API 路径、配置项、类名等。要求精确匹配，不能泛化。&lt;/li>
 &lt;li>&lt;strong>概念性查找&lt;/strong>：用自然语言描述症状，如“数据库连不上怎么办”。需要语义理解。&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>精确标识符查找要求高精度，概念性故障排查需要语义理解。&lt;/strong> 单一的检索器很难同时兼顾两者。因此需要混合检索，让 BM25 处理精确匹配，向量检索处理语义理解。&lt;/p>
+&lt;p>&lt;strong>精确标识符查找要的是精度，概念性故障排查要的是语义理解。&lt;/strong> 单一的检索器很难同时兼顾两者。因此需要混合检索，让 BM25 处理精确匹配，向量检索处理语义理解。&lt;/p>
 &lt;h2 id="二bm25">二、BM25&lt;/h2>
 &lt;p>BM25 是一个基于词频和文档长度的排序函数，属于词法匹配（lexical matching）引擎。它根据查询词在文档中出现的频率打分，同时惩罚过于常见的词和过长的文档。它是 TF-IDF 的演化：根据查询词项在文档中出现的频率打分，同时惩罚那些在整个 corpus 中过于常见的词。&lt;/p>
 &lt;blockquote>
@@ -809,8 +804,7 @@ $$
 &lt;h3 id="21-bm25-完整公式">2.1 BM25 完整公式&lt;/h3>
 &lt;p>$$
 \text{BM25}(q,d) = \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i,d) \cdot (k_1+1)}{f(q_i,d) + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}
-$$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，以下是按照您的要求对原文进行脱敏（删除公司名、人名等）、润色语句、并删除所有与“面试”相关的内容后的Markdown内容。所有图片链接语法保持原样未修改。&lt;/p>
-&lt;hr>
+$$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容：&lt;/p>
 &lt;h2 id="1-核心概念什么是-rerank">1. 核心概念：什么是 Rerank&lt;/h2>
 &lt;p>Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索（向量检索 / BM25）从大规模知识库中快速召回大量候选文档（如 Top-100），Rerank 对这些候选进行精细的二次评分和排序，只将最相关的少量文档（如 Top-5）传递给 LLM 用于生成答案。检索和 Rerank 的核心定位区别如下：&lt;/p>
 &lt;table>
@@ -824,8 +818,8 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;tbody>
  &lt;tr>
  &lt;td>目标&lt;/td>
- &lt;td>“宁可错杀一千，绝不放过一个”（高召回）&lt;/td>
- &lt;td>“精挑细选，去粗取精”（高精度）&lt;/td>
+ &lt;td>&amp;ldquo;宁可错杀一千，绝不放过一个&amp;rdquo;（高召回）&lt;/td>
+ &lt;td>&amp;ldquo;精挑细选，去粗取精&amp;rdquo;（高精度）&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>输入&lt;/td>
@@ -849,9 +843,9 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;p>&lt;strong>为什么检索的排序不够用？&lt;/strong> 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种“粗略相似度”缺乏精细的语义交互。常见现象是：检索结果中真正回答问题的文档排在第 3 位，前 2 篇只是泛泛的背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。&lt;/p>
+&lt;p>&lt;strong>为什么检索的排序不够用？&lt;/strong> 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种“粗略相似度”缺乏精细的语义交互。例如，检索结果中真正回答问题的文档可能排在第 3 位，而前两篇仅为背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。&lt;/p>
 &lt;blockquote>
-&lt;p>可以把 Rerank 理解为两个阶段——“初筛（海选）+精排（决赛）”。检索是“快手阿姨”，30 秒抓 10 个苹果（看外表）；Rerank 是“品果大师”，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。&lt;/p>&lt;/blockquote>
+&lt;p>可以理解为两个阶段——“初筛（海选）+精排（决赛）”。检索是“快手阿姨”，30 秒抓 10 个苹果（看外表）；Rerank 是“品果大师”，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。&lt;/p>&lt;/blockquote>
 &lt;h2 id="2-技术原理bi-encoder-vs-cross-encoder">2. 技术原理：Bi-Encoder vs Cross-Encoder&lt;/h2>
 &lt;p>理解 Rerank，必须理解两种编码架构的根本区别。&lt;/p>
 &lt;h3 id="21-biencoder检索用">2.1 Bi‑Encoder（检索用）&lt;/h3>
@@ -905,7 +899,7 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
-&lt;p>正确用法是&lt;strong>串联&lt;/strong>而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。用一个通俗的例子说明：Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位">1. Cross‑Encoder 的核心定位&lt;/h2>
+&lt;p>正确用法是&lt;strong>串联&lt;/strong>而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。通俗地说：“Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。”&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位">1. Cross‑Encoder 的核心定位&lt;/h2>
 &lt;h3 id="11-一句话定义">1.1 一句话定义&lt;/h3>
 &lt;p>Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 Document &lt;strong>拼接成一个序列&lt;/strong>，通过多头自注意力（Multi‑Head Self‑Attention）让两个文本的 &lt;strong>每一个 token 都与对方的所有 token 进行交互&lt;/strong>，最终输出一个 [0, 1] 范围内的相关性分数。&lt;/p>
 &lt;h3 id="12-rag-中的定位">1.2 RAG 中的定位&lt;/h3>
@@ -914,7 +908,7 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
 &lt;li>&lt;strong>第二阶段（重排序）&lt;/strong> ：Cross‑Encoder 对这些候选文档逐一精细打分并重新排序，输出 &lt;strong>Top‑3 / Top‑5&lt;/strong> 最相关的文档（高精度）&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>注意：Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算；必须用 Bi‑Encoder 先做粗筛。&lt;/p>&lt;/blockquote>
+&lt;p>Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。由于 Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算，因此必须先用 Bi‑Encoder 进行粗筛。&lt;/p>&lt;/blockquote>
 &lt;h2 id="2-与-biencoder-的根本区别">2. 与 Bi‑Encoder 的根本区别&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -958,55 +952,32 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
-&lt;p>Bi‑Encoder 与 Cross‑Encoder 选择的关键是&lt;strong>速度与精度的权衡&lt;/strong>。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="关于rag评估实现">关于RAG评估实现&lt;/h1>
-&lt;pre tabindex="0">&lt;code>我正在学习一个项目，并从原始项目迁移了 RAG 部分代码。现在我需要为 RAG 部分增加自动化评估能力，以便量化检索和生成质量，支撑后续优化。
-
-当前项目已有：
-- 向量检索服务：`app/services/vector_search_service.py` 提供 `vector_search_service.search_similar_documents(query, top_k)`，返回 `List[SearchResult]`，每个结果有 `.content`、`.metadata` 等属性。
-- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用云模型服务。
-- 配置：`.env` 中有 `API_KEY`。
-
-目标：实现 `tests/evaluate.py`，能够加载公开测试集，调用现有 RAG 系统得到 `contexts` 和 `answer`，用评估框架计算指标，输出汇总报告。
-
-下面是我的整体思路，请你先判断思路是否正确，然后我们一起讨论具体实现细节。
-
-## 一、最终目标
-1. 一个可执行的脚本 `tests/evaluate.py`，运行后：
- - 加载测试集（例如公开数据集平台上的 `explodinggradients/ragas-wikiqa` 或评估框架内置的 `amnesty_qa`）。
- - 对测试集中每个问题，调用我的 RAG 系统得到：
- - `contexts`（字符串列表，每个元素是检索返回的文档片段原文）
- - `answer`（最终答案）
- - 使用评估框架计算指标：Faithfulness, Answer Relevancy, Context Relevancy（如果测试集有 ground_truth，还可计算 Context Recall）。
- - 输出汇总指标（平均值、标准差）到控制台，并保存为 JSON + Markdown 报告。
- - 报告放在 `docs/benchmarks/` 下，包含：测试集描述、当前 RAG 配置、各指标均值±标准差、可选失败案例。
-
-2. 评估流程可扩展：后续能切换不同测试集、记录多次实验对比。
-
-## 二、实现计划
-1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配评估框架。我不知道不同的数据集之间我们选择哪个更合适，通用RAG数据集如何？
-1. **集成评估框架**：安装所需依赖包。评判 LLM 使用云模型服务（已有 API Key），通过兼容接口接入。嵌入模型暂时用第三方闭源模型（需要 key）还是换用云模型服务自己的嵌入？我倾向于先使用外部额度（或临时申请）以保证快速跑通，你也可以建议免费替代方案。
-2. **自动化脚本结构**：
- - 加载配置（从 `config` 或环境变量读取 `rag_top_k` 等参数）。
- - 加载测试集（限制样本数，如前 20 条）。
- - 循环每个样本：
- - 调用 `vector_search_service.search_similar_documents(question, top_k=config.rag_top_k)` 得到检索结果，提取 `contexts = [r.content for r in results]`
- - 调用 `rag_agent_service.query(question)` 得到 `answer`
- - 暂存 (question, contexts, answer, ground_truth)
- - 转换为评估框架需要的 `Dataset` 格式。
- - 调用 `evaluate()` 计算指标，打印并保存结果。
-4. **报告生成**：Markdown 表格 + JSON 文件。
-
-## 三、我需要你（助手）帮助判断和实现的点
-1. 上述思路是否可行？有没有遗漏的重要步骤（比如需要处理异步？`rag_agent_service.query` 是同步的，没问题）？
-2. 使用云模型服务作为评判 LLM 时，评估框架的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
-3. 嵌入模型如果用云模型服务而不是第三方闭源模型，应该如何配置？评估框架是否支持？
-4. 请根据我的项目结构（已提供关键服务类）生成一份完整的 `tests/evaluate.py` 代码。代码应该：
- - 包含必要的 import 和异常处理。
- - 正确调用现有的 `vector_search_service` 和 `rag_agent_service`。
- - 使用 `amnesty_qa` 数据集作为示例（限制前 20 条）。
- - 输出美观的 Markdown 报告（包含测试配置信息、各指标均值和标准差）。
- - 保存 JSON 结果。
-5. 提供运行评估的命令和预期输出示例。
-
-请先确认思路，然后我们进入具体代码生成。如果某些细节需要我提供更多信息（例如配置参数名、模型名称等），请指出，我会补充。现在请开始你的分析和建议。
-&lt;/code>&lt;/pre></description></item></channel></rss>
+&lt;p>Bi‑Encoder 与 Cross‑Encoder 选择的关键是 &lt;strong>速度与精度的权衡&lt;/strong>。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="0528-关于ragp评估实现">0528, 关于RAGp评估实现&lt;/h1>
+&lt;p>我正在学习一个 Agent 项目，并从原始项目迁移了 RAG 部分代码。现在需要为 RAG 部分增加自动化评估能力，以量化检索和生成质量，支撑后续优化。&lt;/p>
+&lt;p>当前项目已有：&lt;/p>
+&lt;ul>
+&lt;li>向量检索服务：&lt;code>app/services/vector_search_service.py&lt;/code> 提供 &lt;code>vector_search_service.search_similar_documents(query, top_k)&lt;/code>，返回 &lt;code>List[SearchResult]&lt;/code>，每个结果有 &lt;code>.content&lt;/code>、&lt;code>.metadata&lt;/code> 等属性。&lt;/li>
+&lt;li>RAG 生成服务：&lt;code>app/services/rag_agent_service.py&lt;/code> 提供 &lt;code>rag_agent_service.query(question)&lt;/code>，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用某LLM服务。&lt;/li>
+&lt;li>配置：&lt;code>.env&lt;/code> 中有对应的 API Key。&lt;/li>
+&lt;/ul>
+&lt;p>目标：实现 &lt;code>tests/evaluate.py&lt;/code>，能够加载公开测试集，调用现有 RAG 系统得到 &lt;code>contexts&lt;/code> 和 &lt;code>answer&lt;/code>，用 Ragas 框架计算指标，输出汇总报告。&lt;/p>
+&lt;p>下面是我的整体思路，请先判断思路是否正确，然后一起讨论具体实现细节。&lt;/p>
+&lt;h2 id="一最终目标">一、最终目标&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>一个可执行的脚本 &lt;code>tests/evaluate.py&lt;/code>，运行后：&lt;/p>
+&lt;ul>
+&lt;li>加载测试集（例如 Hugging Face 上的 &lt;code>explodinggradients/ragas-wikiqa&lt;/code> 或 RAGAs 内置的 &lt;code>amnesty_qa&lt;/code>）。&lt;/li>
+&lt;li>对测试集中每个问题，调用我的 RAG 系统得到：
+&lt;ul>
+&lt;li>&lt;code>contexts&lt;/code>（字符串列表，每个元素是检索返回的文档片段原文）&lt;/li>
+&lt;li>&lt;code>answer&lt;/code>（最终答案）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>使用 Ragas 计算指标：Faithfulness, Answer Relevancy, Context Relevancy（如果测试集有 ground_truth，还可计算 Context Recall）。&lt;/li>
+&lt;li>输出汇总指标（平均值、标准差）到控制台，并保存为 JSON + Markdown 报告。&lt;/li>
+&lt;li>报告放在 &lt;code>docs/benchmarks/&lt;/code> 下，包含：测试集描述、当前 RAG 配置、各指标均值±标准差、可选失败案例。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>评估流程可扩展：后续能切换不同测试集、记录多次实验对比。&lt;/p></description></item></channel></rss>
