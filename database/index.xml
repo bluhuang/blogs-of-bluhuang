@@ -2,9 +2,9 @@
 &lt;p>source: &lt;a href="https://sqlite.org/appfunc.html">https://sqlite.org/appfunc.html&lt;/a>&lt;/p>
 &lt;h1 id="1-简介">1 简介&lt;/h1>
 &lt;ol>
-&lt;li>SQLite 支持用户实现自定义回调方法，以扩展特殊功能，类似于用户自定义函数（UDF）。&lt;/li>
-&lt;li>自定义的 SQLite UDF 可以是标量函数、聚合函数，也可以是窗口函数。&lt;/li>
-&lt;li>用户可创建在 SQL 查询中使用的自定义函数，这些函数可用 C 语言编写，或通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li>
+&lt;li>SQLite允许用户实现自定义回调函数（类似用户自定义函数UDF），以扩展其功能。&lt;/li>
+&lt;li>自定义的SQLite UDF可以是标量函数（scalar functions）、聚合函数（aggregate functions）或窗口函数（window functions）。&lt;/li>
+&lt;li>开发者可以创建在SQL查询中使用的自定义函数，这些函数可以用C语言编写，也可以通过各种语言绑定（如Python、Java等）实现。&lt;/li>
 &lt;/ol>
 &lt;h1 id="2-相关接口">2 相关接口&lt;/h1>
 &lt;h2 id="sqlite3_create_function-系列">sqlite3_create_function 系列&lt;/h2>
@@ -17,13 +17,13 @@
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
  void (*xFunc)(sqlite3_context*,int,sqlite3_value**), /* 标量函数 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合 step 函数 */
- void (*xFinal)(sqlite3_context*) /* 聚合 finalize 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合step函数 */
+ void (*xFinal)(sqlite3_context*) /* 聚合finalize函数 */
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点">特点&lt;/h4>
 &lt;ul>
 &lt;li>&lt;strong>基础版本&lt;/strong>：最早引入的函数注册接口&lt;/li>
-&lt;li>&lt;strong>文本编码指定&lt;/strong>：通过 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好&lt;/li>
+&lt;li>&lt;strong>编码指定&lt;/strong>：使用 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好&lt;/li>
 &lt;li>&lt;strong>函数类型&lt;/strong>：
 &lt;ul>
 &lt;li>如果 &lt;code>xFunc&lt;/code> 非 NULL，注册标量函数&lt;/li>
@@ -85,10 +85,10 @@
  int nArg, /* 参数个数 */
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step 函数 */
- void (*xFinal)(sqlite3_context*), /* finalize 函数 */
- void (*xValue)(sqlite3_context*), /* value 函数 */
- void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step函数 */
+ void (*xFinal)(sqlite3_context*), /* finalize函数 */
+ void (*xValue)(sqlite3_context*), /* value函数 */
+ void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse函数 */
  void (*xDestroy)(void*) /* 析构函数 */
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-3">特点&lt;/h4>
@@ -98,7 +98,7 @@
 &lt;li>&lt;strong>反向处理&lt;/strong>：支持 &lt;code>xInverse&lt;/code> 用于优化窗口函数性能&lt;/li>
 &lt;li>&lt;strong>复杂功能&lt;/strong>：支持滑动窗口、排序、分组等高级功能&lt;/li>
 &lt;/ul>
-&lt;h1 id="3-udf-类型">3 UDF 类型&lt;/h1>
+&lt;h1 id="3-udf类型">3 UDF类型&lt;/h1>
 &lt;h2 id="31-标量函数-scalar-functions">3.1 标量函数 (Scalar Functions)&lt;/h2>
 &lt;ul>
 &lt;li>接受参数，返回单个值&lt;/li>
@@ -131,14 +131,14 @@
 );
 &lt;/code>&lt;/pre>&lt;h2 id="41-zfunctionname">4.1 zFunctionName&lt;/h2>
 &lt;ol>
-&lt;li>此参数传入函数名：第二个参数是正在创建的 SQL 函数的名称，通常为 UTF8 编码，但对于 &lt;code>sqlite3_create_function16()&lt;/code> 需使用本地字节序的 UTF16 编码。&lt;/li>
-&lt;li>函数名长度限制为 255 字节：SQL 函数名的最大长度为 255 字节（UTF8），尝试创建更长名称的函数将导致 &lt;code>SQLITE_MISUSE&lt;/code> 错误。&lt;/li>
-&lt;li>UDF 注册支持重载：同一函数名可多次调用创建接口，例如两个调用使用相同函数名但参数个数不同，则会注册同一函数的不同变体，分别接受不同数量的参数。&lt;/li>
+&lt;li>该参数指定SQL函数名称。通常为UTF-8编码，但对于 &lt;code>sqlite3_create_function16()&lt;/code> 则需使用本机字节序的UTF-16。&lt;/li>
+&lt;li>函数名长度限制为255字节（UTF-8）。若尝试创建更长的函数名，将返回 &lt;code>SQLITE_MISUSE&lt;/code> 错误。&lt;/li>
+&lt;li>UDF注册支持重载：允许使用相同的函数名多次调用创建接口。例如，若两次调用具有相同的函数名但参数个数不同，则会注册该SQL函数的两个变体，分别接受不同数量的参数。&lt;/li>
 &lt;/ol>
 &lt;h2 id="42-narg">4.2 nArg&lt;/h2>
 &lt;ol>
-&lt;li>表示参数数量，类型为 int&lt;/li>
-&lt;li>参数取值范围为 -1 到 127（最大值 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code> 为 32767），其中 -1 表示可变参数&lt;/li>
+&lt;li>表示参数数量，int类型。&lt;/li>
+&lt;li>参数范围：-1表示可变参数，默认最大值为127（实际上限为 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code>，即32767）。&lt;/li>
 &lt;/ol>
 &lt;h2 id="43-etextrep-文本编码">4.3 eTextRep 文本编码&lt;/h2>
 &lt;ul>
@@ -183,36 +183,35 @@
 &lt;/ol>
 &lt;/li>
 &lt;/ul></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</guid><description>&lt;p>[[sqlite]]&lt;br>
-用于链接。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>（原文为空，处理结果也为空。）&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>链接：[[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>好的，作为一名专业的博客编辑器，我将严格遵循您的要求对原文进行以下处理：1) 脱敏（删除公司名、人名等）；2) 润色语句；3) 删除所有与“面试”相关的内容。同时，保持所有图片链接语法（&lt;code>![alt](url)&lt;/code>）和 &lt;code>![[filename]]&lt;/code> 格式原样（尽管原文没有此类内容）。&lt;/p>
-&lt;p>以下是处理后的内容：&lt;/p>
+用于链接&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>请提供需要处理的Markdown内容原文，以便我进行脱敏、润色和删除面试相关内容。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>for link [[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>好的，这是根据您的要求处理后的Markdown内容。已执行脱敏（未发现明显公司名或人名）、润色语句、并删除所有与“面试”相关的内容（原文无此类内容）。图片链接语法保持原样。&lt;/p>
 &lt;hr>
-&lt;h1 id="hnsw-算法完全学习笔记">HNSW 算法完全学习笔记&lt;/h1>
+&lt;p>HNSW 算法完全学习笔记&lt;/p>
 &lt;p>基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p>
 &lt;hr>
-&lt;h2 id="1-概述">1. 概述&lt;/h2>
-&lt;p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。该算法广泛应用于向量数据库（如一些主流方案）和检索增强生成系统。&lt;/p>
+&lt;ol>
+&lt;li>概述&lt;/li>
+&lt;/ol>
+&lt;p>HNSW（Hierarchical Navigable Small World）是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如 Chroma、Milvus、Weaviate）和 RAG 系统。&lt;/p>
 &lt;hr>
-&lt;h2 id="2-核心数据结构">2. 核心数据结构&lt;/h2>
-&lt;h3 id="21-多层图">2.1 多层图&lt;/h3>
-&lt;ul>
-&lt;li>&lt;strong>第 0 层（底层）&lt;/strong>：包含所有数据节点，连接稠密（每个节点有 M 个邻居）。&lt;/li>
-&lt;li>&lt;strong>第 1 层&lt;/strong>：包含约 50% 的节点，连接较稀疏。&lt;/li>
-&lt;li>&lt;strong>第 2 层&lt;/strong>：包含约 25% 的节点，连接更稀疏。&lt;/li>
-&lt;li>&lt;strong>……&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>顶层&lt;/strong>：只有极少数节点（通常 1~2 个），连接极少。&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>类比&lt;/strong>：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>顶层&lt;/strong> = 高速公路（节点少，跨度大，快速定位区域）。&lt;/li>
-&lt;li>&lt;strong>底层&lt;/strong> = 街道（节点多，连接细，精确搜索）。&lt;/li>
-&lt;/ul>
-&lt;h3 id="22-节点与边">2.2 节点与边&lt;/h3>
-&lt;ul>
-&lt;li>每个节点代表一个向量。&lt;/li>
-&lt;li>节点在每一层有一个“代表”（若该节点出现在该层）。&lt;/li>
-&lt;li>边是双向的，表示节点间的“邻居关系”。&lt;/li>
-&lt;li>每个节点的最大邻居数由参数 &lt;strong>M&lt;/strong> 限制（默认 16）。&lt;/li>
-&lt;/ul>
+&lt;ol start="2">
+&lt;li>核心数据结构&lt;/li>
+&lt;/ol>
+&lt;p>2.1 多层图&lt;/p>
+&lt;p>· 第 0 层（底层）：包含所有数据节点，连接较为稠密（每个节点有 M 个邻居）。
+· 第 1 层：包含约 50% 的节点，连接较稀疏。
+· 第 2 层：包含约 25% 的节点，连接更稀疏。
+· ……
+· 顶层：只有极少数节点（通常 1~2 个），连接极少。&lt;/p>
+&lt;p>类比说明：&lt;/p>
+&lt;p>· 顶层 = 高速公路（节点少，跨度大，快速定位区域）
+· 底层 = 街道（节点多，连接细，精确搜索）&lt;/p>
+&lt;p>2.2 节点与边&lt;/p>
+&lt;p>· 每个节点代表一个向量。
+· 节点在每一层有一个“代表”（若该节点出现在该层）。
+· 边是双向的，表示节点间的“邻居关系”。
+· 每个节点的最大邻居数由参数 M 限制（默认 16）。&lt;/p>
 &lt;hr>
-&lt;h2 id="3-关键参数ef_construction-与-ef_search">3. 关键参数：ef_construction 与 ef_search&lt;/h2>
-&lt;p>这两个参数主要控制搜索的广度，是 HNSW 速度-精度权衡的核心。&lt;/p></description></item></channel></rss>
+&lt;ol start="3">
+&lt;li>关键参数：ef_construction 与 ef_search&lt;/li>
+&lt;/ol>
+&lt;p>这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。&lt;/p></description></item></channel></rss>
