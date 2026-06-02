@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;p>好的，已按照您的要求对Markdown内容进行脱敏、润色，并删除与“面试”相关的内容（原文中无相关内容）。所有图片链接语法均保持原样。&lt;/p>
-&lt;hr>
-&lt;h1 id="1-什么是agent">1 什么是Agent&lt;/h1>
-&lt;p>&lt;strong>Agent（智能体）&lt;/strong> 是以 LLM 为核心推理引擎，结合&lt;strong>规划、记忆和工具使用&lt;/strong>能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果来动态调整后续策略。
-换句话说，LLM 在 Agent 架构中不再只是一个&amp;quot;回答问题的机器&amp;quot;，而是充当了整个系统的&amp;quot;大脑&amp;quot;，负责理解任务、推理决策、协调各种外部能力来完成复杂的目标。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="1-什么是agent">1 什么是Agent&lt;/h1>
+&lt;p>&lt;strong>Agent（智能体）&lt;/strong> 是以 LLM 为核心推理引擎，结合&lt;strong>规划、记忆和工具使用&lt;/strong>能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果动态调整后续策略。&lt;/p>
+&lt;p>换句话说，LLM 在 Agent 架构中不再只是一个“回答问题的机器”，而是充当了整个系统的“大脑”，负责理解任务、推理决策、协调各种外部能力来完成复杂的目标。
 一句话总结：&lt;strong>Agent = LLM + 工具 + 循环&lt;/strong>。&lt;/p>
-&lt;p>&lt;strong>Agent 与普通 LLM 调用的区别&lt;/strong>：&lt;/p>
+&lt;p>&lt;strong>Agent vs 普通 LLM 调用的区别&lt;/strong>：&lt;/p>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -16,8 +14,8 @@
  &lt;tbody>
  &lt;tr>
  &lt;td>&lt;strong>交互模式&lt;/strong>&lt;/td>
- &lt;td>&amp;ldquo;一问一答&amp;rdquo;，一次输入一次输出&lt;/td>
- &lt;td>&amp;ldquo;感知-思考-行动&amp;quot;循环，多步迭代&lt;/td>
+ &lt;td>“一问一答”，一次输入一次输出&lt;/td>
+ &lt;td>“感知-思考-行动”循环，多步迭代&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>决策能力&lt;/strong>&lt;/td>
@@ -53,41 +51,43 @@
 &lt;h2 id="21-llm大脑">2.1 LLM（大脑）&lt;/h2>
 &lt;p>中枢系统，负责理解用户意图、逻辑推理、生成行动计划、解读工具返回结果。Agent 的智能水平上限取决于底层 LLM 的能力。&lt;/p>
 &lt;h2 id="22-规划模块planning">2.2 规划模块（Planning）&lt;/h2>
-&lt;p>规划能力是 Agent 区别于简单 LLM 应用的关键标志。当 Agent 接收到一个复杂任务时，它不会试图一步到位地解决，而是会把任务分解成多个可执行的子步骤，然后按照逻辑顺序逐步执行。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react">1 什么是 ReAct&lt;/h1>
-&lt;p>ReAct（Reasoning + Acting）是由某研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong>推理轨迹&lt;/strong>与&lt;strong>任务操作&lt;/strong>，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p>
+&lt;p>规划能力是 Agent 区别于简单 LLM 应用的关键标志。当 Agent 接收到一个复杂任务时，它不会试图一步到位地解决，而是会把任务分解成多个可执行的子步骤，然后按照逻辑顺序逐步执行。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;p>以下是对原文脱敏、润色并删除所有与“面试”相关内容后的版本。图片链接保持不变。&lt;/p>
+&lt;hr>
+&lt;h1 id="1-什么是-react">1 什么是 ReAct&lt;/h1>
+&lt;p>ReAct（Reasoning + Acting）是由某研究机构和某大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong>推理轨迹&lt;/strong>与&lt;strong>任务操作&lt;/strong>，模拟人类解决问题时的“思考-行动-观察”循环。&lt;/p>
 &lt;h3 id="-前言从-cot-到-react">🧠 前言：从 CoT 到 ReAct&lt;/h3>
-&lt;p>COT：Chain-of-Thought, 思维链
-在只有基础对话能力的阶段，大模型更多像一个&amp;quot;一次性回答器&amp;quot;：
-&lt;code>User: 问题 LLM : 一次性生成答案&lt;/code>
-即便我们加上了 Memory、RAG，智能体也只是多了&amp;quot;能记&amp;quot;和&amp;quot;会查&amp;quot;：&lt;/p>
+&lt;p>COT：Chain-of-Thought，思维链&lt;/p>
+&lt;p>在只有基础对话能力的阶段，大模型更多像一个“一次性回答机”：&lt;br>
+&lt;code>User: 问题 LLM : 一次性生成答案&lt;/code>&lt;br>
+即便我们加上了 Memory、RAG，智能体也只是多了“能记”和“会查”：&lt;/p>
 &lt;ul>
 &lt;li>Memory：记住过去发生了什么（多轮对话、历史任务状态）&lt;/li>
-&lt;li>RAG：在回答前去查一查知识库或互联网
-但这仍然是&amp;quot;一问一答&amp;quot;的模式，缺少真正的多步决策与行动能力。
-ReAct（Reasoning + Acting）正是为了解决这个问题提出的：
-在推理过程中，显式地交替输出&amp;quot;思考内容（Thought）&amp;ldquo;和&amp;quot;行动指令（Action）&amp;quot;，再利用环境反馈（Observation）更新后续推理。&lt;/li>
+&lt;li>RAG：在回答前去查一查知识库或互联网&lt;/li>
 &lt;/ul>
+&lt;p>但这仍然是“问一答一”的模式，缺少真正的多步决策与行动能力。&lt;br>
+ReAct（Reasoning + Acting）正是为了解决这个问题提出的：&lt;br>
+在推理过程中，显式地交替输出“思考内容（Thought）”和“行动指令（Action）”，再利用环境反馈（Observation）更新后续推理。&lt;/p>
 &lt;blockquote>
-&lt;p>一句话概括：&lt;strong>ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的 prompting 技术&lt;/strong>&lt;/p>&lt;/blockquote>
+&lt;p>一句话概括：ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更加高级的 prompting 技术。&lt;/p>&lt;/blockquote>
 &lt;h1 id="2-为什么需要-react">2 为什么需要 ReAct&lt;/h1>
 &lt;p>在 ReAct 出现之前，利用 LLM 解决复杂任务主要有两种独立方法，各有局限：&lt;a href="https://systems-analysis.ru/int/index.php?title=ReAct_Prompting_%E2%80%94_ReAct_%E6%8F%90%E7%A4%BA%E6%B3%95&amp;amp;oldid=6038">&lt;/a>&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>思维链（CoT）&lt;/strong>：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和&amp;quot;幻觉&amp;rdquo;。&lt;/li>
-&lt;li>&lt;strong>仅行动规划（Act-Only）&lt;/strong>：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。
-ReAct 将两者的优点结合：模型能够推理，并将其推理&amp;quot;植根于&amp;quot;外部世界的事实，根据反馈调整行动。&lt;/li>
+&lt;li>&lt;strong>思维链（CoT）&lt;/strong>：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和“幻觉”。&lt;/li>
+&lt;li>&lt;strong>仅行动规划（Act-Only）&lt;/strong>：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。&lt;/li>
 &lt;/ul>
-&lt;h1 id="3-react-的工作机制思考行动观察循环">3 ReAct 的工作机制：&amp;ldquo;思考—行动—观察&amp;quot;循环&lt;/h1>
+&lt;p>ReAct 将两者的优点结合：模型能够推理，并将其推理“植根于”外部世界的事实，根据反馈调整行动。&lt;/p>
+&lt;h1 id="3-react-的工作机制思考行动观察循环">3 ReAct 的工作机制：“思考—行动—观察”循环&lt;/h1>
 &lt;h2 id="31-工作机制">3.1 工作机制&lt;/h2>
-&lt;p>![[Pasted image 20260413144128.png]]
-模型在一个迭代循环中生成由&lt;strong>思考（Thought）&lt;/strong>、&lt;strong>行动（Action）&lt;/strong> 和 &lt;strong>观察（Observation）&lt;/strong> 步骤组成的轨迹。&lt;/p>
+&lt;p>![[Pasted image 20260413144128.png]]&lt;/p>
+&lt;p>模型在一个迭代循环中生成由&lt;strong>思考（Thought）&lt;/strong>、&lt;strong>行动（Action）&lt;/strong> 和 &lt;strong>观察（Observation）&lt;/strong> 步骤组成的轨迹。&lt;/p>
 &lt;p>&lt;strong>典型轨迹示例&lt;/strong>：&lt;/p>
 &lt;pre tabindex="0">&lt;code>Question: 以交流电闻名的发明家出生于哪个首都城市？
 Thought 1: 我需要查明交流电的发明者，然后找到他的出生地，并核实该城市是否为首都。
 Action 1: Search[交流电发明者]
-Observation 1: 交流电（AC）由某发明家开发和推广。
+Observation 1: 交流电（AC）由该发明家开发和推广。
 Thought 2: 现在我需要找出该发明家的出生地。
-Action 2: Search[发明家出生地]
-Observation 2: 该发明家出生于某帝国的某村庄（现属某国）。
+Action 2: Search[该发明家出生地]
+Observation 2: 该发明家出生于某帝国的某个村庄（现属某国）。
 Thought 3: 该村庄不是首都。他的出生地不是首都。
 Final Answer: 该发明家出生于某村庄（某国），该地不是首都。
 &lt;/code>&lt;/pre>&lt;h2 id="32-三个核心元素的区别">3.2 三个核心元素的区别&lt;/h2>
@@ -104,14 +104,14 @@ Final Answer: 该发明家出生于某村庄（某国），该地不是首都。
  &lt;tr>
  &lt;td>&lt;strong>Thought（思考）&lt;/strong>&lt;/td>
  &lt;td>❌ 不改变环境&lt;/td>
- &lt;td>作为&amp;quot;内心独白&amp;rdquo;，规划下一步、整理信息、解释为什么调用某个工具&lt;/td>
- &lt;td>&amp;ldquo;我需要先查一下2024年奥运会的举办城市。&amp;rdquo;&lt;/td>
+ &lt;td>作为“内心独白”，规划下一步、整理信息、解释为什么调用某个工具&lt;/td>
+ &lt;td>“我需要先查一下2024年奥运会的举办城市。”&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>Action（行动）&lt;/strong>&lt;/td>
  &lt;td>✅ 通过调用工具间接改变环境&lt;/td>
- &lt;td>发出结构化&amp;quot;命令&amp;quot;，触发具体操作&lt;/td>
- &lt;td>search[&amp;ldquo;query&amp;rdquo;]、lookup[&amp;ldquo;entity&amp;rdquo;]&lt;/td>
+ &lt;td>发出结构化“命令”，触发具体操作&lt;/td>
+ &lt;td>search[“query”]、lookup[“entity”]&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>Observation（观察）&lt;/strong>&lt;/td>
@@ -123,7 +123,7 @@ Final Answer: 该发明家出生于某村庄（某国），该地不是首都。
  &lt;td>&lt;strong>Final Answer&lt;/strong>&lt;/td>
  &lt;td>❌ 自身不再行动&lt;/td>
  &lt;td>标志推理/行动序列结束，给出最终对用户的回答&lt;/td>
- &lt;td>&amp;ldquo;2024年奥运会&amp;rdquo;&lt;/td>
+ &lt;td>“2024年奥运会”&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
@@ -132,15 +132,11 @@ Final Answer: 该发明家出生于某村庄（某国），该地不是首都。
 &lt;li>&lt;strong>信息获取&lt;/strong>：与外部环境交互，获取实时信息&lt;/li>
 &lt;li>&lt;strong>动态调整&lt;/strong>：根据环境反馈更新操作计划，处理异常情况&lt;/li>
 &lt;li>&lt;strong>可解释性&lt;/strong>：生成的推理轨迹让人类能理解决策过程&lt;/li>
-&lt;li>&lt;strong>减少幻觉&lt;/strong>：基于外部事实而非内部知识
-ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工具，是一种更高级的 prompting 技术。&lt;/li>
+&lt;li>&lt;strong>减少幻觉&lt;/strong>：基于外部事实而非内部知识&lt;/li>
 &lt;/ul>
-&lt;h1 id="4-react-实现">4 ReAct 实现&lt;/h1>
-&lt;p>手撕简化版 ReAct 循环（伪代码，逻辑关键）&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;p>好的，这是根据您的要求对原文进行脱敏、润色并删除所有与“面试”相关内容的版本。原文中未发现需要删除的“面试”内容，也未发现具体的公司名或人名，因此主要进行了语句润色和结构优化，同时保留了所有图片链接原样。&lt;/p>
-&lt;hr>
-&lt;h1 id="llm-学习笔记核心概念与实践方法">LLM 学习笔记：核心概念与实践方法&lt;/h1>
+&lt;p>ReAct 让 LLM 一边“自言自语”地推理，一边调用工具，是一种更高级的 prompting 技术。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法">LLM 学习笔记：核心概念与实践方法&lt;/h1>
 &lt;blockquote>
-&lt;p>参考：&lt;a href="https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic">通用技术讨论&lt;/a>&lt;/p>&lt;/blockquote>
+&lt;p>参考：在线讨论&lt;/p>&lt;/blockquote>
 &lt;h2 id="1-大语言模型基础">1. 大语言模型基础&lt;/h2>
 &lt;h3 id="11-什么是-llm">1.1 什么是 LLM&lt;/h3>
 &lt;p>大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p>
@@ -148,7 +144,7 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;ul>
 &lt;li>
 &lt;p>&lt;strong>Base 模型（基础模型）&lt;/strong>&lt;br>
-在海量、多样化的纯文本语料上进行训练，目标是最小化下一个词的预测误差。它本质上是一个“文本续写器”，生成的后续内容并不一定遵循对话或指令格式。例如，给它输入“你好，我”，它可能补全“是一个学生”，而不是回答“有什么可以帮您”。&lt;/p>
+在海量、多样化的纯文本语料上进行训练，目标是最小化下一个词的预测误差。它本质上是一个“文本续写器”，生成的后续内容并不一定遵循对话或指令格式。例如，输入“你好，我”，模型可能补全“是一个学生”，而不是回答“有什么可以帮您”。&lt;/p>
 &lt;p>![[IMG_4302.png]]&lt;/p>
 &lt;/li>
 &lt;li>
@@ -158,34 +154,28 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 ![[IMG_4304.png]]&lt;/p>
 &lt;p>&lt;strong>补充解释：&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>有监督微调（SFT）&lt;/strong>：这是一种利用已标注数据调整模型的方法。数据以“（用户指令，正确回复）”的配对形式呈现。模型在预训练（Base 模型）已掌握语言的基础上，通过对比自身输出与标准答案的差异，逐步调整参数，使得面对新指令时也能生成类似风格的回复。可以理解为“模仿老师给出的标准答案”。&lt;/li>
-&lt;li>&lt;strong>强化学习（RLHF，Reinforcement Learning from Human Feedback）&lt;/strong>：经过 SFT 后，模型仍可能生成不安全或不理想的回复。RLHF 引入一个“奖励模型”，它基于人类对大量不同回复的偏好评分进行训练。然后，LLM 通过尝试生成回复，并根据奖励模型给出的分数进行优化，学会更符合人类偏好的行为（例如更有用、更无害）。可以理解为“通过奖惩机制让模型自行探索更好的回答策略”。&lt;/li>
+&lt;li>&lt;strong>有监督微调（SFT）&lt;/strong>：使用标注好的数据来调整模型，数据为“（用户指令，正确的回复）”配对。模型在预训练（Base模型）已学会语言的基础上，通过对比自身输出与标准答案的差异，逐步调整参数，从而对新指令也能生成类似风格的回复。可以理解为“模仿标准答案”。&lt;/li>
+&lt;li>&lt;strong>强化学习（RLHF，Reinforcement Learning from Human Feedback）&lt;/strong>：在 SFT 之后，模型可能仍会生成一些不安全或不理想的回复。RLHF 引入一个“奖励模型”，由人类对大量不同回复的偏好打分训练而来。LLM 通过尝试生成回复，并根据奖励模型给出的分数进行优化，学会更符合人类偏好的行为（例如更有用、更无害）。可以理解为“通过奖惩机制让模型自己摸索出更好的回答策略”。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="13-多模态模型">1.3 多模态模型&lt;/h3>
-&lt;p>多模态 LLM 能够同时处理文本及其他模态信息（如图像、音频、视频）。通过在多种类型的数据上进行联合训练，模型可以学习不同模态之间的对齐关系，从而完成单文本模型无法实现的任务，例如：图片描述生成、根据视频内容回答问题、从音频中提取信息等。&lt;/p>
+&lt;p>多模态 LLM 同时处理文本和其他模态信息（图像、音频、视频）。通过在多种类型的数据上联合训练，模型能够学习不同模态之间的对齐关系，从而完成单文本模型无法实现的任务，例如：图片描述生成、根据视频内容回答问题、从音频中提取信息等。&lt;/p>
 &lt;p>![[IMG_4305.png]]&lt;/p>
 &lt;h3 id="14-agent智能体模型">1.4 Agent（智能体）模型&lt;/h3>
 &lt;p>以 LLM 为核心的智能体系统通过集成以下组件来执行复杂任务：&lt;/p>
 &lt;ul>
-&lt;li>
-&lt;p>&lt;strong>规划&lt;/strong>：将复杂目标拆解为可执行的子任务，并支持反思和纠错。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>记忆&lt;/strong>：包括利用上下文窗口的短期记忆，以及通过向量数据库等外部存储实现的长期记忆。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>工具使用&lt;/strong>：模型学习调用外部 API 或工具（如搜索引擎、计算器、代码解释器）来扩展自身能力。&lt;/p>
-&lt;p>![[IMG_4306.png]]&lt;/p>
-&lt;/li>
+&lt;li>&lt;strong>规划&lt;/strong>：将复杂目标拆解为可执行的子任务，并支持反思和纠错。&lt;/li>
+&lt;li>&lt;strong>记忆&lt;/strong>：包括利用上下文窗口的短期记忆，以及通过向量数据库等外部存储实现的长期记忆。&lt;/li>
+&lt;li>&lt;strong>工具使用&lt;/strong>：模型学习调用外部 API 或工具（如搜索引擎、计算器、代码解释器）来扩展能力。&lt;/li>
 &lt;/ul>
+&lt;p>![[IMG_4306.png]]&lt;/p>
 &lt;h3 id="15-code-模型">1.5 Code 模型&lt;/h3>
-&lt;p>Code 模型在预训练和指令微调阶段显著增加了代码数据的占比。因此，它们在代码相关任务上表现优异，如代码生成与补全、代码纠错、根据自然语言描述完成编程任务。部分模型还针对特定语言（如 Python、Java 等）进行了专门优化。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p>好的，已根据您的要求对原文进行了脱敏（删除公司名、人名等）、润色语句，并删除了所有与“面试”相关的内容。同时，所有图片链接语法（`&lt;img src="alt" alt="">）均保持原样未修改。&lt;/p>
+&lt;p>Code 模型在预训练和指令微调阶段显著增加了代码数据的占比，因此在代码相关任务上表现优异，如代码生成与补全、代码纠错、根据自然语言描述完成编程任务。部分模型还针对特定语言（Python、Java 等）进行了专门优化。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p>以下是脱敏、润色并删除所有与“面试”相关内容后的Markdown内容。注意：原文中无与“面试”相关的内容，故无需删除；已删除公司名（如OpenAI、Zilliz）并进行语句润色，图片链接保持原样。&lt;/p>
 &lt;hr>
 &lt;p>上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F-e3e2c7b799cc5b65291a9c49d28398fe.png" alt="">&lt;/p>
-&lt;p>你可能当时就想问：&lt;strong>为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong>&lt;/p>
+&lt;p>你可能当时就想问： &lt;strong>为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong>&lt;/p>
 &lt;p>这章就专门把这个问题讲清楚。&lt;/p>
 &lt;hr>
 &lt;h2 id="一先别急普通数据库能不能存向量">一、先别急，普通数据库能不能存向量？&lt;/h2>
@@ -196,20 +186,21 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;h2 id="二普通数据库为什么查不了向量">二、普通数据库为什么查不了向量？&lt;/h2>
 &lt;p>咱们先聊聊 MySQL 是怎么查数据的。&lt;/p>
 &lt;p>你写 &lt;code>SELECT * FROM users WHERE id = 5&lt;/code> ，MySQL 走 B+ 树索引，几次跳转就找到了，极快。你写 &lt;code>WHERE age &amp;gt; 18&lt;/code> ，同样走索引，范围扫描，也很快。&lt;/p>
-&lt;p>MySQL 的索引本质上是为两类操作优化的：&lt;strong>精确匹配&lt;/strong> 和 &lt;strong>范围比较&lt;/strong>。&lt;/p>
+&lt;p>MySQL 的索引本质上是为两类操作优化的： &lt;strong>精确匹配&lt;/strong> 和 &lt;strong>范围比较&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F-687e8c304aaf094fd4232c28efc12a82.png" alt="">&lt;/p>
 &lt;p>但向量搜索是完全另一回事。&lt;/p>
-&lt;p>向量搜索要做的事情是：&lt;strong>给你一个向量，找出和它最相似的 top-k 个向量&lt;/strong>。&lt;/p>
+&lt;p>向量搜索要做的事情是： &lt;strong>给你一个向量，找出和它最相似的 top-k 个向量&lt;/strong>。&lt;/p>
 &lt;p>「最相似」意味着要算距离，余弦相似度、欧氏距离……这类计算，需要拿着你的查询向量，和库里每一条向量都算一遍距离，然后排序，取最小的几个。&lt;/p>
 &lt;p>MySQL 的 B+ 树索引完全帮不上这个忙。它压根不知道怎么在多维空间里找「最近邻」。&lt;/p>
 &lt;p>&lt;strong>那就暴力遍历呗？&lt;/strong>&lt;/p>
 &lt;p>来感受一下规模：&lt;/p>
-&lt;p>某模型的每个 chunk 转化出来的向量是 &lt;strong>1536 维&lt;/strong>。知识库有 100 万条 chunk，那么每次查询要算的浮点运算量是：&lt;/p>
-&lt;p>1536 维 × 100 万条 = 15.36 亿次浮点运算&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;p>好的，以下是对原文的脱敏、润色及删除与“面试”相关内容的处理结果。原文中未发现“面试”相关内容，因此无需删除。脱敏处理删除了具体公司名（如 OpenAI、Anthropic、LangChain、Cognition 等）和人名（如 Mitchell Hashimoto），并对相关语句进行了润色，使其保持通顺和专业性。所有图片链接语法（&lt;img src="url" alt="alt"> 和 ![[filename]]）均未修改。&lt;/p>
+&lt;p>某流行的 embedding 模型（如 text-embedding-ada-002）生成的每个 chunk 向量维度为 &lt;strong>1536 维&lt;/strong>。你的知识库有 100 万条 chunk，那么每次查询要算的浮点运算量是：&lt;/p>
+&lt;p>1536 维 × 100 万条 = 15.36 亿次浮点运算&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;p>好的，作为专业的博客编辑器，我已经根据您的要求对原文进行了处理：脱敏（删除了公司名、人名等敏感信息）、润色语句、删除了所有与“面试”相关的内容，并严格保留了所有图片链接语法。&lt;/p>
+&lt;p>以下是处理后的内容：&lt;/p>
 &lt;hr>
-&lt;h3 id="-本章重点总结harness-engineering">📌 本章重点总结（Harness Engineering）&lt;/h3>
+&lt;h3 id="-本章重点总结">📌 本章重点总结&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>概念来源&lt;/strong>：由某人在 2026 年 2 月提出，随后有官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li>
+&lt;li>&lt;strong>概念来源&lt;/strong>：由业内专家在 2026 年 2 月提出，随后被主流 AI 博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li>
 &lt;li>&lt;strong>AI 工程重心的三次演进&lt;/strong>：
 &lt;ul>
 &lt;li>&lt;strong>Prompt Engineering&lt;/strong>：让模型“听懂”任务（表达）。&lt;/li>
@@ -244,7 +235,9 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;/ol>
 &lt;hr>
 &lt;h2 id="这个新词到底从哪儿冒出来的">这个新词到底从哪儿冒出来的？&lt;/h2>
-&lt;p>在开讲之前，我想先带你去「追个源」。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;h3 id="-本章重点总结大模型基础">📌 本章重点总结（大模型基础）&lt;/h3>
+&lt;p>在开讲之前，我想先带你去「追个源」。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;p>好的，以下是脱敏、润色并删除“面试”相关内容后的Markdown内容。请注意，所有图片链接语法均保持原样，未做任何修改。&lt;/p>
+&lt;hr>
+&lt;h3 id="-本章重点总结大模型基础">📌 本章重点总结（大模型基础）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>大模型本质&lt;/strong>：一个基于海量数据训练、通过预测下一个词来生成文本的“超级助理”。&lt;/li>
 &lt;li>&lt;strong>Token&lt;/strong>：大模型处理文本的最小单位（非字非词），决定模型输入上限和API费用。&lt;/li>
@@ -271,59 +264,53 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;hr>
 &lt;p>正文：
 学 Agent 开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong>大模型&lt;/strong>&lt;/p>
-&lt;p>你无需精通其背后的数学原理，但必须清楚它能做什么、不能做什么，以及它是如何&amp;quot;阅读&amp;quot;你发给它的文字的。理解这些后，后续学习Prompt、Function Calling、RAG、Agent时，你才能明白&amp;quot;为何要这样做&amp;quot;。&lt;/p>
+&lt;p>你不需要先搞懂它背后的数学原理，但必须清楚它能做什么、不能做什么，以及它是如何处理你输入的文字的。搞清楚这些，后面学 Prompt、Function Calling、RAG、Agent，你才能知道“为什么要这么做”。&lt;/p>
 &lt;h2 id="大模型是什么">大模型是什么&lt;/h2>
-&lt;p>我们日常所说的「AI 对话」「AI 助手」，核心都是 &lt;strong>大模型&lt;/strong>，英文简称 &lt;strong>LLM&lt;/strong>（Large Language Model，大语言模型）。
-通俗地讲，大模型就像 &lt;strong>一位从小博览群书、见识广博、逻辑清晰的超级助理&lt;/strong>。&lt;/p>
+&lt;p>我们平时说的「AI 对话」「AI 助手」，核心都是 &lt;strong>大模型&lt;/strong>，英文叫 &lt;strong>LLM&lt;/strong>（Large Language Model，大语言模型）。
+用大白话讲，大模型就像一个从小读了海量书籍、见识广博、逻辑清晰的超级助理。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F-b705b8c12f49b00982a7087315749e0f.png" alt="">&lt;/p>
-&lt;p>它&amp;quot;大&amp;quot;在两个方面：&lt;/p>
+&lt;p>它“大”在哪里？两点：&lt;/p>
 &lt;ul>
-&lt;li>&lt;strong>参数量大&lt;/strong>：模型内部有数千亿个参数，可理解为它&amp;quot;记住了&amp;quot;海量知识的精华&lt;/li>
-&lt;li>&lt;strong>训练数据大&lt;/strong>：研发人员预先为其喂入互联网上的书籍、文章、新闻、代码、论坛讨论等大量内容，使其掌握了语言规律、通用常识和各行业的基础知识&lt;/li>
+&lt;li>&lt;strong>参数量大&lt;/strong>：模型内部有数千亿个参数，可以理解为它“记住了”海量知识的精华&lt;/li>
+&lt;li>&lt;strong>训练数据大&lt;/strong>：研发人员提前给它喂了互联网上的书籍、文章、新闻、代码、论坛讨论等大量内容，让它学会了语言规律、通用常识和各行各业的基础知识&lt;/li>
 &lt;/ul>
-&lt;p>经过学习后，它能做什么？本质上是 &lt;strong>根据你提供的上下文，预测接下来最合理的文字内容&lt;/strong>。比如你问它「今天天气怎么样」，它并非真的查询天气，而是基于已学习的语言模式，生成一个&amp;quot;看起来最合理的回答&amp;quot;。&lt;/p>
-&lt;p>目前常见的AI助手（如某些主流对话产品），其核心都是这样的大模型。&lt;/p>
+&lt;p>学会之后，它能干什么？说白了就是 &lt;strong>根据你给的上下文，预测接下来最合理的文字是什么&lt;/strong>。你问它「今天天气怎么样」，它不是真的去查天气，而是根据过去学过的语言模式，生成一个“看起来最合理的回答”。&lt;/p>
+&lt;p>我们平时用的各类大模型产品，背后核心都是这样的大模型。&lt;/p>
 &lt;hr>
 &lt;h2 id="token大模型读文字的方式">Token：大模型读文字的方式&lt;/h2>
-&lt;p>在讨论大模型的能力之前，必须先理解一个基础概念，因为它与后续所有内容息息相关，那就是 &lt;strong>Token&lt;/strong>。&lt;/p>
-&lt;p>&lt;strong>Token 是大模型处理文本的&amp;quot;基本单位&amp;quot;&lt;/strong>，它既不是一个字，也不是一个词，可以理解为将文字&amp;quot;切碎&amp;quot;后的一个个小碎片。&lt;/p>
+&lt;p>在探讨大模型能力之前，有一个核心概念需要理解，那就是 &lt;strong>Token&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>Token是大模型处理文本的最小单位&lt;/strong>，它既不是一个字，也不是一个词，你可以理解为把文字“切碎”后的一个个小碎片。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B%EF%BC%9F-2c33ce44947270329f9fc8f4ea558fcf.png" alt="">&lt;/p>
-&lt;p>举例来说，「我今天心情很好」这句话，大模型并非逐个字符读取，而是先将其切分为若干Token，比如：「我」「今天」「心情」「很好」，每个碎片就是一个Token。&lt;/p>
-&lt;p>英文的切分更直观：&lt;code>&amp;quot;Hello world&amp;quot;&lt;/code> 通常被切分为 &lt;code>[&amp;quot;Hello&amp;quot;, &amp;quot; world&amp;quot;]&lt;/code>，大约每个单词对应1个Token。中文则不同，通常每个汉字对应1～2个Token。&lt;/p>
-&lt;p>为什么要了解Token？有两个原因：&lt;/p>
+&lt;p>举个例子，「我今天心情很好」这句话，大模型不是一个字一个字地读，而是先把它切成若干个 Token，比如可能切成：「我」「今天」「心情」「很好」，每个碎片就是一个 Token。&lt;/p>
+&lt;p>英文的切法更直观：&lt;code>&amp;quot;Hello world&amp;quot;&lt;/code> 通常会被切成 &lt;code>[&amp;quot;Hello&amp;quot;, &amp;quot; world&amp;quot;]&lt;/code>，大约每个单词对应 1 个 Token。中文切法不太一样，通常每个汉字对应 1～2 个 Token。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;p>好的，我已按照您的要求对原文进行了脱敏、润色，并删除了所有与“面试”相关的内容（原文中未发现此类内容）。以下为处理后的版本：&lt;/p>
+&lt;hr>
+&lt;h3 id="-本章重点总结prompt基础">📌 本章重点总结（Prompt基础）&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>决定模型能处理的文本长度上限&lt;/strong>：每个大模型都有&amp;quot;最多能处理多少Token&amp;quot;的上限，后续会详细说明&lt;/li>
-&lt;li>&lt;strong>决定API调用费用&lt;/strong>：调用大模型的API按Token计费，你发送的文字越长，它回复的内容越多，费用相应增加&lt;/li>
-&lt;/ol>
-&lt;p>请记住这个概念，继续往下。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础">📌 本章重点总结（Prompt基础）&lt;/h3>
-&lt;ol>
-&lt;li>&lt;strong>Prompt定义&lt;/strong>：你发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。&lt;/li>
+&lt;li>&lt;strong>Prompt定义&lt;/strong>：您发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只限于单句问题）。&lt;/li>
 &lt;li>&lt;strong>Prompt的重要性&lt;/strong>：大模型是 next-token 预测机器，输入越精准，输出越稳定。在 Agent 开发中，输出稳定性直接决定流水线可靠性。&lt;/li>
-&lt;li>&lt;strong>User Prompt三要素&lt;/strong>：目标明确、背景充足、输出要求。缺一不可。&lt;/li>
-&lt;li>&lt;strong>System Prompt三大用途&lt;/strong>：身份设定、行为规则、输出格式约束。它比 User Prompt 更“稳”，是 Agent 行为可预测的核心保障。&lt;/li>
-&lt;li>&lt;strong>==写好Prompt的6个核心原则==&lt;/strong>：
+&lt;li>&lt;strong>User Prompt三要素&lt;/strong>：目标明确、背景充分、输出要求明确。三者缺一不可。&lt;/li>
+&lt;li>&lt;strong>System Prompt三大用途&lt;/strong>：身份设定、行为规则、输出格式约束。它比 User Prompt 更“稳定”，是 Agent 行为可预测的核心保障。&lt;/li>
+&lt;li>&lt;strong>写好Prompt的6个核心原则&lt;/strong>：
 &lt;ul>
-&lt;li>==给模型角色 → 缩小搜索空间，输出更专业==&lt;/li>
-&lt;li>==正向约束优于负向禁止 → 明确“要做什么”==&lt;/li>
-&lt;li>==喂足背景信息 → 减少幻觉==&lt;/li>
-&lt;li>==指定输出格式（最好给JSON示例）→ Agent 解析的关键==&lt;/li>
-&lt;li>==使用 Few-shot（给例子）→ 胜过写规则==&lt;/li>
-&lt;li>==要求“先思考再回答”（思维链）→ 提升复杂问题准确率==&lt;/li>
+&lt;li>给模型角色 → 缩小搜索空间，输出更专业&lt;/li>
+&lt;li>正向约束优于负向禁止 → 明确“要做什么”&lt;/li>
+&lt;li>喂足背景信息 → 减少幻觉&lt;/li>
+&lt;li>指定输出格式（最好给出 JSON 示例）→ 便于 Agent 解析&lt;/li>
+&lt;li>使用 Few-shot（提供样例）→ 胜过写规则&lt;/li>
+&lt;li>要求“先思考再回答”（思维链）→ 提升复杂问题准确率&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>Prompt迭代调试&lt;/strong>：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。&lt;/li>
 &lt;li>&lt;strong>总结&lt;/strong>：Prompt 是 Agent 的控制面板。System Prompt 定义身份边界，User Prompt 提供具体任务。后续的 Function Calling、RAG、Agent 都依赖于 Prompt 的设计质量。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>&lt;strong>正文&lt;/strong>：
-上一章你已经搞清楚了大模型的底层逻辑：它是一个超级助理，你通过 messages 列表把内容传给它，它根据你给的上下文预测并生成回答。&lt;/p>
-&lt;p>但这里有个现象你可能早就发现了：&lt;strong>同一个大模型，不同的人用，结果天差地别&lt;/strong>。有人问出来的答案精准、稳定，拿来就能用；有人问出来的东西东拉西扯，废话连篇，完全不符合预期。&lt;/p>
-&lt;p>差在哪里？差在你 &lt;strong>怎么跟它说话&lt;/strong>。&lt;/p>
-&lt;p>这件事有个专门的名字，叫做 &lt;strong>Prompt&lt;/strong>（提示词）。你写给大模型的那些文字，你的指令、你的问题、你给的背景、你的格式要求，这一切统称 Prompt。这一章，就是专门讲怎么把这件事做好。&lt;/p>
+&lt;p>&lt;strong>正文&lt;/strong>：&lt;/p>
+&lt;p>上一章您已了解大模型的底层逻辑：它是一个超级助理，您通过 messages 列表将内容传递给它，它根据上下文预测并生成回答。&lt;/p>
+&lt;p>但有一个现象您可能早已发现：&lt;strong>同一个大模型，不同的人使用，结果天差地别&lt;/strong>。有人得到的答案精准、稳定，拿来就能用；有人得到的却东拉西扯、废话连篇，完全不符合预期。&lt;/p>
+&lt;p>差别在哪里？就在于您 &lt;strong>如何与它沟通&lt;/strong>。&lt;/p>
+&lt;p>这件事有专门的名称，叫做 &lt;strong>Prompt&lt;/strong>（提示词）。您写给大模型的文字——指令、问题、背景、格式要求——这一切统称 Prompt。本章专门讲解如何做好这件事。&lt;/p>
 &lt;h2 id="什么是-prompt">什么是 Prompt&lt;/h2>
-&lt;p>&lt;strong>Prompt 就是你发给大模型的所有输入内容&lt;/strong>，不只是一句简单的问题，而是你塞进 messages 列表里的所有文字：指令、背景信息、参考资料、示例、格式要求……全部算在内，总称 Prompt。&lt;/p>
-&lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png" alt="">&lt;/p>
-&lt;p>回想上一节中的 messages 结构：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础">📌 本章重点总结（Agent 基础）&lt;/h3>
+&lt;p>&lt;strong>Prompt 就是您发给大模型的所有输入内容&lt;/strong>，不只是一句简单的问题，而是您塞进 messages 列表里的所有文字：指令、背景信息、参考资料、示例、格式要求……全部包含在内，总称 Prompt。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础">📌 本章重点总结（Agent 基础）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Agent 定义&lt;/strong>：以大模型为“大脑”，能自主感知、决策、调用工具、完成多步骤任务的程序。核心公式：&lt;strong>Agent = 大模型 + 工具 + 记忆 + 执行循环&lt;/strong>。&lt;/li>
 &lt;li>&lt;strong>为什么需要 Agent&lt;/strong>：弥补大模型的三大短板（无执行能力、知识过期、无持久记忆），让大模型从“只能说”变成“能干”。&lt;/li>
@@ -337,14 +324,14 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;/li>
 &lt;li>&lt;strong>主流工作模式&lt;/strong>：
 &lt;ul>
-&lt;li>&lt;strong>ReAct&lt;/strong>：边想边做，每一步实时决策，适合短任务（≤3 步）。&lt;/li>
-&lt;li>&lt;strong>Plan and Execute&lt;/strong>：先一次性规划完整步骤清单，再逐步执行，适合长任务（≥5 步）。支持 Re‑planning 动态调整。&lt;/li>
+&lt;li>&lt;strong>ReAct&lt;/strong>：边想边做，每一步实时决策，适合短任务（≤3步）。&lt;/li>
+&lt;li>&lt;strong>Plan and Execute&lt;/strong>：先一次性规划完整步骤清单，再逐步执行，适合长任务（≥5步）。支持 Re‑planning 动态调整。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>ReAct vs Plan &amp;amp; Execute&lt;/strong>：
 &lt;ul>
-&lt;li>ReAct：灵活，适合步骤少、目标模糊；token 消耗随步数增长。&lt;/li>
-&lt;li>Plan &amp;amp; Execute：全局视野，适合步骤多、目标明确；规划阶段集中消耗 token。&lt;/li>
+&lt;li>ReAct：灵活、适合步骤少、目标模糊；token 消耗随步数增长。&lt;/li>
+&lt;li>Plan &amp;amp; Execute：全局视野、适合步骤多、目标明确；规划阶段集中消耗 token。&lt;/li>
 &lt;li>实际生产常混合使用：外层 Plan &amp;amp; Execute，内层子任务用 ReAct。&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -365,8 +352,7 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;/li>
 &lt;li>&lt;strong>极简 Agent 骨架&lt;/strong>：&lt;code>while&lt;/code> 循环 → 调用 LLM 决策 → 若完成则退出 → 否则执行工具 → 结果追加到消息列表 → 继续循环。&lt;/li>
 &lt;/ol>
-&lt;hr>
-&lt;p>前两章讲了大模型的底层逻辑，也讲了怎么写好 Prompt。到现在，你已经知道大模型是个“超级大脑”，能理解意图、会逻辑推理、能生成高质量内容。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础">📌 本章重点总结（Tool 基础）&lt;/h3>
+&lt;p>正文：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础">📌 本章重点总结（Tool 基础）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>问题背景&lt;/strong>：大模型被“关在盒子里”，只能输入输出文字，无法与外部世界交互。Tool 给大模型“装上手”，让它能执行真实操作。&lt;/li>
 &lt;li>&lt;strong>Agent、大模型、Tool 的关系&lt;/strong>：
@@ -396,16 +382,14 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;li>&lt;strong>核心原则&lt;/strong>：工具描述的清晰度决定了 Agent 选工具的准确率，而不是模型本身的聪明程度。&lt;code>description&lt;/code> 必须写清楚使用场景，否则模型可能误选或漏选。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>你现在可能遇到过这样的情况：让 AI 帮你整理电脑里的文件，它给你写出一整套整理方案，分类规则写得头头是道，但最后还是得你自己一个个打开文件夹、手动移动；让它帮你查今天的天气，它回答“我的知识截止到某年某月，无法获取实时天气”；让它帮你订明天的机票，它只能告诉你去哪个网站、怎么操作，然后你默默打开了订票平台。&lt;/p>
-&lt;p>这不是大模型不够聪明。大模型非常聪明，但它天生就被关在一个“小盒子”里——它只能接收文字、输出文字，它的“手”根本伸不出来，无法与外部世界产生任何交互。&lt;/p>
-&lt;p>这就引出了我们这章的主角：&lt;strong>Tool（工具）&lt;/strong>。Tool 就是给大模型“装上手”的方案，让它从“只动嘴的参谋”变成“能落地干活的实干家”。&lt;/p>
+&lt;p>你有没有遇到过这种情况。&lt;/p>
+&lt;p>让 AI 帮你整理电脑里的文件，它给你写出一整套整理方案，分类规则写得头头是道，但最后还是得你自己一个个打开文件夹、手动移动；让它帮你查今天的天气，它说「我的知识截止到某年某月，无法获取实时天气」；让它帮你订明天的机票，它只能告诉你去哪个网站、怎么操作，然后你默默打开了某订票网站。&lt;/p>
+&lt;p>这不是大模型不够聪明。大模型非常聪明，&lt;strong>但它天生就被关在一个「小盒子」里&lt;/strong>，它只能接收文字、输出文字，它的「手」根本伸不出来，没有办法和外部世界产生任何交互。&lt;/p>
+&lt;p>这就引出了我们这章的主角：&lt;strong>Tool（工具）&lt;/strong>。Tool 就是给大模型「装上手」的方案，让它从「只动嘴的参谋」，变成「能落地干活的实干家」。&lt;/p>
 &lt;hr>
 &lt;h2 id="一agent--tool两个角色怎么配合干活">一、Agent + Tool：两个角色怎么配合干活&lt;/h2>
 &lt;p>在聊 Tool 之前，先把另一个容易混淆的概念说清楚：&lt;strong>Agent&lt;/strong>。&lt;/p>
-&lt;p>很多同学以为“Agent 就是更厉害的大模型”，这个理解有些偏差。&lt;strong>Agent 本质上是我们开发者写的一套程序&lt;/strong>，它不是更聪明的 AI，而是一个全程在线的“调度员”，负责在用户、大模型、工具之间协调任务、传递信息、推进流程。&lt;/p>
-&lt;p>用一个外卖平台来类比这三个角色的关系：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;p>好的，我已经按照您的要求对该Markdown内容进行了脱敏、语句润色，并删除了所有与&amp;quot;面试&amp;quot;相关的内容（经检查原文无相关内容）。所有图片链接语法保持原样。以下是处理后的结果：&lt;/p>
-&lt;hr>
-&lt;h3 id="-本章重点总结function-calling">📌 本章重点总结（Function Calling）&lt;/h3>
+&lt;p>很多同学以为「Agent 就是更厉害的大模型」。这个理解偏了。&lt;strong>Agent 本质上是我们开发者写的一套程序&lt;/strong>，它不是更聪明的 AI，而是一个全程在线的「调度员」，负责在用户、大模型、工具之间协调任务、传递信息、推进流程。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;h3 id="-本章重点总结function-calling">📌 本章重点总结（Function Calling）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Function Calling 是什么&lt;/strong>：大模型与 Agent 之间的&lt;strong>标准化工具调用协议&lt;/strong>，解决“大模型做出决策后如何精准传递指令给 Agent”的问题。&lt;/li>
 &lt;li>&lt;strong>为什么需要 Function Calling&lt;/strong>：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），开发者需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。&lt;/li>
@@ -433,13 +417,15 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>上一章你已经知道了，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型靠工具描述来判断要不要调这个工具。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;h3 id="-本章重点总结mcp">📌 本章重点总结（MCP）&lt;/h3>
+&lt;p>上一章你已经了解到，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型依靠工具描述来判断是否需要调用这个工具。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;p>以下是脱敏、润色并删除与“面试”相关内容后的Markdown内容（原文中没有出现“面试”一词，因此无需额外删除；已删除公司名、人名等，并优化语句，同时保留所有图片链接语法不变）：&lt;/p>
+&lt;hr>
+&lt;h3 id="-本章重点总结mcp">📌 本章重点总结（MCP）&lt;/h3>
 &lt;ol>
-&lt;li>&lt;strong>MCP 是什么&lt;/strong>：由某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li>
+&lt;li>&lt;strong>MCP 是什么&lt;/strong>：某AI公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li>
 &lt;li>&lt;strong>为什么需要 MCP&lt;/strong>：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。&lt;/li>
 &lt;li>&lt;strong>三大核心角色&lt;/strong>：
 &lt;ul>
-&lt;li>&lt;strong>Host&lt;/strong>：用户使用的 AI 应用（如 AI 桌面应用、VS Code），负责发起任务。&lt;/li>
+&lt;li>&lt;strong>Host&lt;/strong>：用户使用的 AI 应用（如某AI助手桌面版、某代码编辑器），负责发起任务。&lt;/li>
 &lt;li>&lt;strong>Client&lt;/strong>：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。&lt;/li>
 &lt;li>&lt;strong>Server&lt;/strong>：暴露工具能力的轻量级服务程序，负责实际执行工具。&lt;/li>
 &lt;/ul>
@@ -461,13 +447,19 @@ ReAct 让 LLM 一边&amp;quot;自言自语&amp;quot;地推理，一边调用工�
 &lt;/ol>
 &lt;h3 id="为什么需要两者配合缺一不可">为什么需要两者配合，缺一不可？&lt;/h3>
 &lt;ul>
-&lt;li>
-&lt;p>&lt;strong>只有 Function Calling，没有 MCP&lt;/strong>：&lt;br>
-大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>只有 MCP，没有 Function Calling&lt;/strong>：&lt;br>
-Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能不规范（例如“用 check_the_weather 工具，城市=上海明天”），Host 没法可靠地转换成 MCP 请求。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</guid><description>&lt;h3 id="-本章重点总结skills">📌 本章重点总结（Skills）&lt;/h3>
+&lt;li>&lt;strong>只有Function Calling，没有MCP&lt;/strong>：&lt;br>
+大模型能说出“调用天气工具”，但Host还是要自己写代码去连接天气API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/li>
+&lt;li>&lt;strong>只有MCP，没有Function Calling&lt;/strong>：&lt;br>
+Host能通过MCP调用工具，但大模型输出的工具名和参数可能乱七八糟（比如“用check_the_weather工具，城市=上海明天”），Host没法可靠地转换成MCP请求。&lt;/li>
+&lt;li>&lt;strong>两者配合&lt;/strong>：&lt;br>
+Function Calling 保证大模型&lt;strong>说得准&lt;/strong>（工具名、参数格式都正确）。&lt;br>
+MCP 保证Host&lt;strong>找得到、调得对&lt;/strong>（按统一协议连接工具服务）。&lt;br>
+大模型只管“&lt;strong>说&lt;/strong>”，MCP Server只管“&lt;strong>做&lt;/strong>”，Host只管“&lt;strong>传&lt;/strong>”。各司其职，形成标准化流水线。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;strong>Function Calling 是“嘴”，大模型用它下指令；&lt;br>
+MCP 是“手”，Host 用它去执行。&lt;br>
+嘴说标准话，手干标准活，配合起来才高效。&lt;/strong>&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/8-%E4%BB%80%E4%B9%88%E6%98%AF-skills/</guid><description>&lt;h3 id="-本章重点总结skills">📌 本章重点总结（Skills）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>Skills 出现的背景&lt;/strong>：有了 Function Calling（底层机制）和 MCP（标准化接口）后，AI 能调用工具了，但每次执行复杂任务（如生成日报）仍需用户反复用自然语言指导执行步骤，沟通成本高、流程无法沉淀复用。&lt;/li>
 &lt;li>&lt;strong>Skill 的定义&lt;/strong>：一份“标准作业程序（SOP）”，将解决特定任务所需的 &lt;strong>背景设定（Prompt）&lt;/strong>、&lt;strong>执行步骤&lt;/strong> 和 &lt;strong>所需工具（MCP）&lt;/strong> 打包成一个可复用的代码文件（通常为 Markdown + YAML）。&lt;/li>
@@ -490,14 +482,12 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 &lt;li>&lt;strong>Skills&lt;/strong>：上层业务封装，将 Prompt 和 MCP 工具组合成&lt;strong>标准工作流&lt;/strong>，实现工程化沉淀与复用。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>实战示例（Claude Code）&lt;/strong>：在项目 &lt;code>.claude/skills/&lt;/code> 目录下按结构放置 &lt;code>SKILL.md&lt;/code> 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li>
+&lt;li>&lt;strong>实战示例（某AI编程工具）&lt;/strong>：在项目 &lt;code>.ai-tool/skills/&lt;/code> 目录下按结构放置 &lt;code>SKILL.md&lt;/code> 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li>
 &lt;li>&lt;strong>核心价值&lt;/strong>：Skills 让 AI 从“临时问一句”升级为“按标准化流程自动执行”，降低重复沟通成本，实现经验沉淀和团队协作。&lt;/li>
 &lt;/ol>
 &lt;hr>
 &lt;h3 id="第一阶段ai-的破壁人--function-calling函数调用">第一阶段：AI 的“破壁人” ， Function Calling（函数调用）&lt;/h3>
-&lt;p>咱们先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong>被关在小黑屋里的超级学霸&lt;/strong>：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容。已脱敏、润色语句，并删除了所有与“面试”相关的内容。图片链接保持原样。&lt;/p>
-&lt;hr>
-&lt;h3 id="-本章重点总结rag">📌 本章重点总结（RAG）&lt;/h3>
+&lt;p>先回想一下早期的 AI 对话模型。当时的它就像是一个 &lt;strong>被关在小黑屋里的超级学霸&lt;/strong>：虽然上知天文下知地理，但它没有网络（没法查实时数据），也没有手（没法真正执行操作，比如发邮件、查数据库）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;h3 id="-本章重点总结rag">📌 本章重点总结（RAG）&lt;/h3>
 &lt;ol>
 &lt;li>&lt;strong>RAG 是什么&lt;/strong>：Retrieval-Augmented Generation（检索增强生成）。先检索私有知识库中最相关的内容，再将其注入 Prompt，让大模型基于有据可查的资料生成回答。&lt;/li>
 &lt;li>&lt;strong>为什么需要 RAG&lt;/strong>：大模型知识静态、封闭（截止日期、无私有数据、无实时数据），全量塞入 Prompt 受限于上下文窗口、成本高、注意力稀释。RAG 实现“按需检索 + 动态注入”。&lt;/li>
@@ -518,21 +508,29 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 &lt;li>&lt;strong>对比优势&lt;/strong>：可访问私有数据、知识更新快（更新文档即生效）、Token 消耗低、回答有据可查、扩展性好。&lt;/li>
 &lt;/ol>
 &lt;hr>
-&lt;p>前几章我们把 Agent 的工具体系搭清楚了：Function Calling 让大模型能开口下指令，MCP 让工具标准化接入，Skills 让专业知识按需加载。至此，Agent 已具备执行能力，工具也能顺利运转。&lt;/p>
-&lt;p>然而，一个根本问题在前几章始终未正面回答：&lt;strong>大模型根本看不到你的私有数据，怎么办？&lt;/strong>&lt;/p>
-&lt;p>公司内部有数千页运维手册、数百份历史故障报告、以及一套只有内部才知道的排查 SOP。大模型从未见过这些内容。你希望它协助 OnCall 排查，它能给出通用的思路，但无法给出针对你们系统的精准答案。&lt;/p>
-&lt;p>这就是 &lt;strong>RAG&lt;/strong> 要解决的核心问题。&lt;/p>
+&lt;p>前几章我们把 Agent 的工具体系搭清楚了：Function Calling 让大模型能开口下指令，MCP 让工具标准化接入，Skills 让专业知识按需加载。到这里，Agent 能干活了，工具也能跑起来了。&lt;/p>
+&lt;p>但有一个根本问题，前面几章都没正面回答： &lt;strong>大模型压根看不到你的私有数据，怎么办？&lt;/strong>&lt;/p>
+&lt;p>你的公司内部有几千页运维手册、几百个历史故障报告、一套只有内部才知道的排查 SOP，这些大模型从来没见过。你让它帮你做 OnCall 排查，它能给出很通用的思路，但就是没法给出针对你们系统的精准答案。&lt;/p>
+&lt;p>这正是 &lt;strong>RAG&lt;/strong> 要解决的核心问题。&lt;/p>
 &lt;hr>
 &lt;h2 id="一大模型为什么看不到你的数据">一、大模型为什么「看不到」你的数据？&lt;/h2>
-&lt;p>我们先把问题说清楚。有三类「看不到」，每一类的原因都不同。&lt;/p>
+&lt;p>咱们先把问题说清楚，有三类「看不到」，每一类的原因都不同。&lt;/p>
 &lt;p>&lt;img src="%E4%BB%80%E4%B9%88%E6%98%AF%20RAG%EF%BC%9F-36e920b9eec4dde61012702484969045.png" alt="">&lt;/p>
 &lt;p>&lt;strong>第一类：知识截止日期&lt;/strong>&lt;/p>
-&lt;p>大模型基于历史数据训练，训练完成后知识便冻结。例如，Claude 的训练数据截止到 2025 年某个时间点，之后发生的事情它一概不知。你问它“我们系统今天凌晨发生了什么故障”，它根本没有这份信息，只能猜测。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</guid><description>&lt;p>&lt;a href="https://transformers.run/">https://transformers.run/&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/1911433727810208973">https://zhuanlan.zhihu.com/p/1911433727810208973&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9E%84%E5%BB%BA">https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9E%84%E5%BB%BA&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning">https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://bbs.huaweicloud.com/blogs/405750">https://bbs.huaweicloud.com/blogs/405750&lt;/a>&lt;/p>
-&lt;p>hello-agent, pdf&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;p>以下是按照你的要求进行脱敏、润色并删除所有与“面试”相关内容后的完整学习笔记。内容已删除公司名、人名等敏感信息，保留通用技术术语，语句经润色更流畅，且未修改任何图片链接语法。&lt;/p>
+&lt;p>大模型是用历史数据训练的，训练完之后它的知识就冻结了。例如，某个大模型的训练数据截止到某个时间点，之后发生的事情它一概不知。你去问它「我们系统今天凌晨发生了什么故障」，它根本没有这份信息，只能瞎猜。&lt;/p>
+&lt;p>&lt;strong>第二类：私有数据&lt;/strong>&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/link/</guid><description>&lt;p>以下是对原文的脱敏、润色及删除面试相关内容的处理结果。原文中无公司名、人名等敏感信息，无需要润色的语句，也无任何与“面试”相关的内容，因此未作修改。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>https://transformers.run/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>https://zhuanlan.zhihu.com/p/1911433727810208973
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9E%84%E5%BB%BA
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>https://bbs.huaweicloud.com/blogs/405750
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hello-agent, pdf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;p>好的，这是根据您的要求处理后的Markdown内容。已执行脱敏、润色和删除“面试”相关内容，并保留了所有图片链接语法。&lt;/p>
 &lt;hr>
 &lt;h2 id="rag-学习笔记">RAG 学习笔记&lt;/h2>
 &lt;h3 id="一为什么需要-rag">一、为什么需要 RAG？&lt;/h3>
@@ -545,7 +543,7 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 &lt;/ul>
 &lt;p>&lt;strong>RAG（Retrieval-Augmented Generation）&lt;/strong> 的解决方案：检索相关片段 + 基于片段生成答案。本质是“开卷考试”，让回答有据可依。&lt;/p>
 &lt;blockquote>
-&lt;p>应用场景：企业知识库、智能客服、垂直领域问答、实时数据增强 —— AI 落地标配技术。&lt;/p>&lt;/blockquote>
+&lt;p>应用场景：企业知识库、智能客服、垂直领域问答、实时数据增强。&lt;/p>&lt;/blockquote>
 &lt;p>| &lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-3b954008b068c5ff42836afaaa834a69.png" alt=""> | &lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-b84313e9bba5352c278fe2720ff5e02f.png" alt=""> |&lt;/p>
 &lt;hr>
 &lt;h3 id="二rag-核心流程两条链路">二、RAG 核心流程（两条链路）&lt;/h3>
@@ -558,7 +556,7 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 &lt;h3 id="三第一阶段数据准备离线">三、第一阶段：数据准备（离线）&lt;/h3>
 &lt;p>目标：把原始文档转化为可检索的向量数据库。&lt;/p>
 &lt;p>&lt;img src="images/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-ea96a7f3c7762a35f03fe37b5f4653a4.png" alt="">&lt;/p>
-&lt;h4 id="1-分片chunking-深入详解">1. 分片（Chunking）—— 深入详解&lt;/h4>
+&lt;h4 id="1-分片chunking">1. 分片（Chunking）&lt;/h4>
 &lt;p>&lt;strong>定义&lt;/strong>：将长文档切分成适合 Embedding 模型输入长度限制的小文本块（chunk）。分片质量直接影响检索的精度和生成的效果。&lt;/p>
 &lt;h5 id="11-常见分片策略">1.1 常见分片策略&lt;/h5>
 &lt;table>
@@ -610,9 +608,7 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
  &lt;/tbody>
 &lt;/table>
 &lt;h5 id="12-分片核心原则语义完整性">1.2 分片核心原则：语义完整性&lt;/h5>
-&lt;p>切分时不能让一个完整的语义单元（如一个步骤、一个定义）被切断。例如：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容。已删除所有与“面试”相关的内容，并对语句进行了适度润色，同时保持了所有图片链接语法原样。&lt;/p>
-&lt;hr>
-&lt;h2 id="1-rag-评估体系层级">1 RAG 评估体系层级&lt;/h2>
+&lt;p>切分时不能让一个完整的语义单元（如一个步骤、一个定义）被切断。例如：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/2-rag%E8%AF%84%E4%BC%B0%E4%BD%93%E7%B3%BB/</guid><description>&lt;h2 id="1-rag-评估体系层级">1 RAG 评估体系层级&lt;/h2>
 &lt;p>RAG 评估可分为三个层级，每个层级回答不同的问题：&lt;/p>
 &lt;table>
  &lt;thead>
@@ -642,7 +638,7 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 &lt;/table>
 &lt;hr>
 &lt;h3 id="11-检索层评估--衡量能不能精准找到相关信息">1.1 检索层评估 —— 衡量“能不能精准找到相关信息”&lt;/h3>
-&lt;p>检索是 RAG 的基础。若检索到的文档片段（Chunk）与用户问题无关，即使生成环节再优，最终回答也可能“答非所问”。&lt;/p>
+&lt;p>检索是 RAG 的基础。若检索到的文档片段（Chunk）与用户问题无关，生成环节再优也会导致“答非所问”。&lt;/p>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -709,14 +705,13 @@ Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能�
 $$
 H = \frac{2}{\frac{1}{a} + \frac{1}{b}} = \frac{2ab}{a + b}
 $$
-更一般地，对于 $n$ 个数，调和平均是 $\frac{n}{\sum \frac{1}{x_i}}$。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，这是根据您的要求对原文进行脱敏、润色并删除面试相关内容后的结果。&lt;/p>
-&lt;h1 id="rag-系统中的文本分块chunking学习笔记">RAG 系统中的文本分块（Chunking）学习笔记&lt;/h1>
+更一般地，对于 $n$ 个数，调和平均是 $\frac{n}{\sum \frac{1}{x_i}}$。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="rag-系统中的文本分块chunking学习笔记">RAG 系统中的文本分块（Chunking）学习笔记&lt;/h1>
 &lt;h2 id="1-引言为什么分块是-rag-的基石">1. 引言：为什么分块是 RAG 的基石？&lt;/h2>
-&lt;p>RAG 系统在文档进入检索环节之前，必须经过&lt;strong>文本分块&lt;/strong>处理——把大文档切分成更小的、有意义的片段。每个分块应当是&lt;strong>连贯且自包含&lt;/strong>的，这样检索器才能快速定位并返回最相关的信息。&lt;/p>
-&lt;p>分块之所以重要，体现在三个层面：&lt;/p>
+&lt;p>RAG 系统在文档进入检索环节之前，必须经过&lt;strong>文本分块&lt;/strong>处理——将大文档切分为更小、有意义的片段。每个分块应当&lt;strong>连贯且自包含&lt;/strong>，以便检索器快速定位并返回最相关的信息。&lt;/p>
+&lt;p>分块的重要性体现在三个层面：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>突破嵌入模型的输入长度限制&lt;/strong>：多数 Embedding 模型对输入长度有严格限制（如 512 token），分块是必要的工程前提。&lt;/li>
-&lt;li>&lt;strong>提升检索的信噪比&lt;/strong>：块过大时无关内容稀释信号；块过小时语境不足，容易“只命中词不命中义”。&lt;/li>
+&lt;li>&lt;strong>提升检索的信噪比&lt;/strong>：块过大时，无关内容会稀释有效信号；块过小时，语境不足，容易“只命中词不命中义”。&lt;/li>
 &lt;li>&lt;strong>维护语义连续性&lt;/strong>：跨段落、跨章节的语义关系常在边界处被切断，劣质分块会导致上下文断裂、幻觉频发。&lt;/li>
 &lt;/ul>
 &lt;blockquote>
@@ -804,7 +799,8 @@ $$
 &lt;h3 id="21-bm25-完整公式">2.1 BM25 完整公式&lt;/h3>
 &lt;p>$$
 \text{BM25}(q,d) = \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i,d) \cdot (k_1+1)}{f(q_i,d) + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}
-$$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，以下是按照您的要求处理后的Markdown内容：&lt;/p>
+$$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</guid><description>&lt;p>好的，已根据您的要求对原文进行了脱敏（删除公司名、人名等）、润色语句，并删除了所有与“面试”相关的内容。同时，未修改任何图片链接语法。&lt;/p>
+&lt;hr>
 &lt;h2 id="1-核心概念什么是-rerank">1. 核心概念：什么是 Rerank&lt;/h2>
 &lt;p>Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索（向量检索 / BM25）从大规模知识库中快速召回大量候选文档（如 Top-100），Rerank 对这些候选进行精细的二次评分和排序，只将最相关的少量文档（如 Top-5）传递给 LLM 用于生成答案。检索和 Rerank 的核心定位区别如下：&lt;/p>
 &lt;table>
@@ -843,9 +839,8 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;p>&lt;strong>为什么检索的排序不够用？&lt;/strong> 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种“粗略相似度”缺乏精细的语义交互。例如，检索结果中真正回答问题的文档可能排在第 3 位，而前两篇仅为背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。&lt;/p>
-&lt;blockquote>
-&lt;p>可以理解为两个阶段——“初筛（海选）+精排（决赛）”。检索是“快手阿姨”，30 秒抓 10 个苹果（看外表）；Rerank 是“品果大师”，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。&lt;/p>&lt;/blockquote>
+&lt;p>&lt;strong>为什么检索的排序不够用？&lt;/strong> 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种“粗略相似度”缺乏精细的语义交互。常见现象是：检索结果中真正回答问题的文档排在第 3 位，前 2 篇只是泛泛的背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。&lt;/p>
+&lt;p>可以将 Rerank 理解为两个阶段——“初筛（海选）+精排（决赛）”。检索像快速抓取苹果，Rerank 则像仔细检查每个苹果，最终选出最优质的几个。&lt;/p>
 &lt;h2 id="2-技术原理bi-encoder-vs-cross-encoder">2. 技术原理：Bi-Encoder vs Cross-Encoder&lt;/h2>
 &lt;p>理解 Rerank，必须理解两种编码架构的根本区别。&lt;/p>
 &lt;h3 id="21-biencoder检索用">2.1 Bi‑Encoder（检索用）&lt;/h3>
@@ -898,8 +893,7 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;blockquote>
-&lt;p>正确用法是&lt;strong>串联&lt;/strong>而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。通俗地说：“Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。”&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位">1. Cross‑Encoder 的核心定位&lt;/h2>
+&lt;p>正确用法是&lt;strong>串联&lt;/strong>而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。一个通俗的类比是：Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位">1. Cross‑Encoder 的核心定位&lt;/h2>
 &lt;h3 id="11-一句话定义">1.1 一句话定义&lt;/h3>
 &lt;p>Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 Document &lt;strong>拼接成一个序列&lt;/strong>，通过多头自注意力（Multi‑Head Self‑Attention）让两个文本的 &lt;strong>每一个 token 都与对方的所有 token 进行交互&lt;/strong>，最终输出一个 [0, 1] 范围内的相关性分数。&lt;/p>
 &lt;h3 id="12-rag-中的定位">1.2 RAG 中的定位&lt;/h3>
@@ -908,7 +902,7 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
 &lt;li>&lt;strong>第二阶段（重排序）&lt;/strong> ：Cross‑Encoder 对这些候选文档逐一精细打分并重新排序，输出 &lt;strong>Top‑3 / Top‑5&lt;/strong> 最相关的文档（高精度）&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。由于 Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算，因此必须先用 Bi‑Encoder 进行粗筛。&lt;/p>&lt;/blockquote>
+&lt;p>Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。由于 Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算；必须用 Bi‑Encoder 先做粗筛。&lt;/p>&lt;/blockquote>
 &lt;h2 id="2-与-biencoder-的根本区别">2. 与 Bi‑Encoder 的根本区别&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -952,35 +946,58 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;/tbody>
 &lt;/table>
 &lt;blockquote>
-&lt;p>Bi‑Encoder 与 Cross‑Encoder 选择的关键是 &lt;strong>速度与精度的权衡&lt;/strong>。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="0528-关于ragp评估实现">0528, 关于RAGp评估实现&lt;/h1>
-&lt;p>我正在学习一个 Agent 项目，并从原始项目迁移了 RAG 部分代码。现在需要为 RAG 部分增加自动化评估能力，以量化检索和生成质量，支撑后续优化。&lt;/p>
-&lt;p>当前项目已有：&lt;/p>
-&lt;ul>
-&lt;li>向量检索服务：&lt;code>app/services/vector_search_service.py&lt;/code> 提供 &lt;code>vector_search_service.search_similar_documents(query, top_k)&lt;/code>，返回 &lt;code>List[SearchResult]&lt;/code>，每个结果有 &lt;code>.content&lt;/code>、&lt;code>.metadata&lt;/code> 等属性。&lt;/li>
-&lt;li>RAG 生成服务：&lt;code>app/services/rag_agent_service.py&lt;/code> 提供 &lt;code>rag_agent_service.query(question)&lt;/code>，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用某LLM服务。&lt;/li>
-&lt;li>配置：&lt;code>.env&lt;/code> 中有对应的 API Key。&lt;/li>
-&lt;/ul>
-&lt;p>目标：实现 &lt;code>tests/evaluate.py&lt;/code>，能够加载公开测试集，调用现有 RAG 系统得到 &lt;code>contexts&lt;/code> 和 &lt;code>answer&lt;/code>，用 Ragas 框架计算指标，输出汇总报告。&lt;/p>
-&lt;p>下面是我的整体思路，请先判断思路是否正确，然后一起讨论具体实现细节。&lt;/p>
-&lt;h2 id="一最终目标">一、最终目标&lt;/h2>
-&lt;ol>
-&lt;li>
-&lt;p>一个可执行的脚本 &lt;code>tests/evaluate.py&lt;/code>，运行后：&lt;/p>
-&lt;ul>
-&lt;li>加载测试集（例如 Hugging Face 上的 &lt;code>explodinggradients/ragas-wikiqa&lt;/code> 或 RAGAs 内置的 &lt;code>amnesty_qa&lt;/code>）。&lt;/li>
-&lt;li>对测试集中每个问题，调用我的 RAG 系统得到：
-&lt;ul>
-&lt;li>&lt;code>contexts&lt;/code>（字符串列表，每个元素是检索返回的文档片段原文）&lt;/li>
-&lt;li>&lt;code>answer&lt;/code>（最终答案）&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>使用 Ragas 计算指标：Faithfulness, Answer Relevancy, Context Relevancy（如果测试集有 ground_truth，还可计算 Context Recall）。&lt;/li>
-&lt;li>输出汇总指标（平均值、标准差）到控制台，并保存为 JSON + Markdown 报告。&lt;/li>
-&lt;li>报告放在 &lt;code>docs/benchmarks/&lt;/code> 下，包含：测试集描述、当前 RAG 配置、各指标均值±标准差、可选失败案例。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>评估流程可扩展：后续能切换不同测试集、记录多次实验对比。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</guid><description>&lt;h1 id="排序算法速查笔记">排序算法速查笔记&lt;/h1>
+&lt;p>Bi‑Encoder 与 Cross‑Encoder 选择的关键是&lt;strong>速度与精度的权衡&lt;/strong>。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="0528-关于-rag-评估实现">0528, 关于 RAG 评估实现&lt;/h1>
+&lt;pre tabindex="0">&lt;code>我正在学习一个 Agent 项目，并从原始项目迁移了 RAG 部分代码。现在需要为 RAG 部分增加自动化评估能力，以便量化检索和生成质量，支撑后续优化。
+
+当前项目已有：
+- 向量检索服务：`app/services/vector_search_service.py` 提供 `vector_search_service.search_similar_documents(query, top_k)`，返回 `List[SearchResult]`，每个结果有 `.content`、`.metadata` 等属性。
+- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用 LLM 服务。
+- 配置：`.env` 中有 `LLM_API_KEY`。
+
+目标：实现 `tests/evaluate.py`，能够加载公开测试集，调用现有 RAG 系统得到 `contexts` 和 `answer`，用评估框架计算指标，输出汇总报告。
+
+下面是我的整体思路，请先判断思路是否正确，然后一起讨论具体实现细节。
+
+## 一、最终目标
+1. 一个可执行的脚本 `tests/evaluate.py`，运行后：
+ - 加载测试集（例如数据集平台上的 `某组织/某数据集` 或评估框架内置的 `示例数据集`）。
+ - 对测试集中每个问题，调用我的 RAG 系统得到：
+ - `contexts`（字符串列表，每个元素是检索返回的文档片段原文）
+ - `answer`（最终答案）
+ - 使用评估框架计算指标：Faithfulness, Answer Relevancy, Context Relevancy（如果测试集有 ground_truth，还可计算 Context Recall）。
+ - 输出汇总指标（平均值、标准差）到控制台，并保存为 JSON + Markdown 报告。
+ - 报告放在 `docs/benchmarks/` 下，包含：测试集描述、当前 RAG 配置、各指标均值±标准差、可选失败案例。
+
+2. 评估流程可扩展：后续能切换不同测试集、记录多次实验对比。
+
+## 二、实现计划
+1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配评估框架。我不知道不同的数据集之间如何选择更合适，某个 RAG 项目如何？
+2. **集成评估框架**：安装评估框架、数据集加载库、模型接口库等。评判 LLM 使用已有的 API Key，通过通用模型接口（如 `ChatModel(base_url=&amp;#34;&amp;lt;API_ENDPOINT&amp;gt;&amp;#34;)`）接入。嵌入模型暂时用第三方模型（需要 API key）还是换用已有服务的嵌入？倾向于先使用已有服务的小额度以保证快速跑通，也可建议免费替代方案。
+3. **自动化脚本结构**：
+ - 加载配置（从 `config` 或环境变量读取 `rag_top_k` 等参数）。
+ - 加载测试集（限制样本数，如前 20 条）。
+ - 循环每个样本：
+ - 调用 `vector_search_service.search_similar_documents(question, top_k=config.rag_top_k)` 得到检索结果，提取 `contexts = [r.content for r in results]`
+ - 调用 `rag_agent_service.query(question)` 得到 `answer`
+ - 暂存 (question, contexts, answer, ground_truth)
+ - 转换为评估框架需要的 `Dataset` 格式。
+ - 调用 `evaluate()` 计算指标，打印并保存结果。
+4. **报告生成**：Markdown 表格 + JSON 文件。
+
+## 三、需要帮助判断和实现的点
+1. 上述思路是否可行？有没有遗漏的重要步骤（比如需要处理异步？`rag_agent_service.query` 是同步的，没问题）？
+2. 使用已有 LLM 服务作为评判模型时，评估框架的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
+3. 嵌入模型如果用已有服务而不是第三方模型，应该如何配置？评估框架是否支持？
+4. 请根据我的项目结构（已提供关键服务类）生成一份完整的 `tests/evaluate.py` 代码。代码应该：
+ - 包含必要的 import 和异常处理。
+ - 正确调用现有的 `vector_search_service` 和 `rag_agent_service`。
+ - 使用示例数据集作为示例（限制前 20 条）。
+ - 输出美观的 Markdown 报告（包含测试配置信息、各指标均值和标准差）。
+ - 保存 JSON 结果。
+5. 提供运行评估的命令和预期输出示例。
+
+请先确认思路，然后进入具体代码生成。如果某些细节需要提供更多信息（例如配置参数名、模型名称等），请指出，我会补充。现在请开始分析和建议。
+&lt;/code>&lt;/pre></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/0-%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F/</guid><description>&lt;h1 id="排序算法速查笔记">排序算法速查笔记&lt;/h1>
 &lt;h2 id="一排序算法清单">一、排序算法清单&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -1040,17 +1057,17 @@ $$&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blo
  &lt;td style="text-align: left">O(n log n)&lt;/td>
  &lt;td style="text-align: left">O(n)&lt;/td>
  &lt;td style="text-align: left">❌&lt;/td>
- &lt;td style="text-align: left">STL 快捷实现&lt;/td>
+ &lt;td style="text-align: left">快捷实现&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
 &lt;hr>
 &lt;h2 id="二各算法思路与代码实现">二、各算法思路与代码实现&lt;/h2>
 &lt;h3 id="1-快速排序-lomuto-分区">1. 快速排序 (Lomuto 分区)&lt;/h3>
-&lt;p>&lt;strong>思路&lt;/strong>：随机选 pivot 换到最右，用 &lt;code>i&lt;/code> 标记第一个 &amp;gt; pivot 的位置，&lt;code>j&lt;/code> 扫描，最后 pivot 归位并递归。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</guid><description>&lt;h2 id="什么是前缀和">什么是前缀和？&lt;/h2>
-&lt;p>&lt;strong>前缀和&lt;/strong>是一种数据预处理技术，用于快速计算数组中某个区间的和。其核心思想是：&lt;/p>
+&lt;p>&lt;strong>思路&lt;/strong>：随机选 pivot 换到最右，用 &lt;code>i&lt;/code> 标记第一个大于 pivot 的位置，&lt;code>j&lt;/code> 扫描，最后 pivot 归位并递归。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/1-%E5%89%8D%E7%BC%80%E5%92%8C/</guid><description>&lt;h2 id="什么是前缀和">什么是前缀和？&lt;/h2>
+&lt;p>&lt;strong>前缀和&lt;/strong>是一种数据预处理技术，用于快速计算数组中某个区间的和。它的核心思想是：&lt;/p>
 &lt;blockquote>
-&lt;p>预先计算出从数组开头到每个位置的元素和，这样任意区间 [i, j] 的和便可通过两个前缀和的差值快速得到。&lt;/p>&lt;/blockquote>
+&lt;p>预先计算出从数组开头到每个位置的元素和，这样任意区间[i, j]的和就可以通过两个前缀和的差值快速得到。&lt;/p>&lt;/blockquote>
 &lt;pre tabindex="0">&lt;code>prefix[0] = 0 (空数组的和)
 prefix[1] = a₀ = prefix[0] + nums[0]
 prefix[2] = a₀ + a₁ = prefix[1] + nums[1]
@@ -1062,16 +1079,24 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;pre tabindex="0">&lt;code>sum(i, j) = nums[i] + nums[i+1] + ... + nums[j]
  = prefix[j+1] - prefix[i]
 &lt;/code>&lt;/pre>&lt;h2 id="为什么前缀和有用">为什么前缀和有用？&lt;/h2>
-&lt;p>&lt;strong>传统方法&lt;/strong>：每次计算区间和需要遍历该区间，时间复杂度为 O(n)。&lt;br>
-&lt;strong>前缀和方法&lt;/strong>：只需一次减法操作，时间复杂度为 O(1)（前提是已计算出前缀和）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p>以下是根据要求处理后的内容，已删除与“面试”相关的表述，并对语句进行了润色，同时保持了所有图片链接语法不变。&lt;/p>
-&lt;hr>
-&lt;p>贪心算法是一种在每一步选择中都采取当前最优决策，以期获得全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。&lt;/p>
+&lt;p>&lt;strong>传统方法&lt;/strong>：每次计算区间和需要遍历该区间，时间复杂度O(n)&lt;br>
+&lt;strong>前缀和方法&lt;/strong>：只需一次减法操作，时间复杂度O(1)（前提是已经计算出前缀和）&lt;/p>
+&lt;h2 id="计算区间和">计算区间和&lt;/h2>
+&lt;pre tabindex="0">&lt;code>求 nums[1] + nums[2] + nums[3] = 2 + 3 + 4 = 9
+
+传统方法: 遍历索引1,2,3 → 2+3+4=9
+
+前缀和方法:
+sum(1, 3) = prefix[4] - prefix[1] 
+ = 10 - 1 = 9
+&lt;/code>&lt;/pre>&lt;h3 id="问题转换">问题转换&lt;/h3>
+&lt;p>我们要找的是连续子数组和为k，即：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p>贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。&lt;/p>
 &lt;hr>
 &lt;p>一、贪心算法的适用特征&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>贪心选择性质&lt;br>
-局部最优选择可以导致全局最优解，即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。&lt;/p>
+局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>最优子结构&lt;br>
@@ -1090,8 +1115,8 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;p>二、贪心算法的解题套路&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>确定贪心策略&lt;br>
-· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？&lt;br>
+&lt;p>确定贪心策略&lt;/p>
+&lt;p>· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？&lt;br>
 · 常见策略：&lt;br>
 · 按结束时间排序 → 区间调度&lt;br>
 · 按价值/重量比排序 → 部分背包&lt;br>
@@ -1099,13 +1124,13 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 · 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>证明贪心正确性（笔试可简化，但需理解）&lt;br>
-· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。&lt;br>
+&lt;p>证明贪心正确性（可简化，但需理解）&lt;/p>
+&lt;p>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。&lt;br>
 · 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>实现技巧&lt;br>
-· 排序：大多数贪心题需要先排序。&lt;br>
+&lt;p>实现技巧&lt;/p>
+&lt;p>· 排序：大多数贪心题需要先排序。&lt;br>
 · 数据结构优化：&lt;br>
 · 堆（优先队列）用于动态取最小/最大。&lt;br>
 · 平衡树 / 二分查找 用于维护有序序列。&lt;br>
@@ -1116,18 +1141,18 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;p>三、典型案例：最长递增子序列（LIS）的贪心+二分&lt;/p>
 &lt;ol>
 &lt;li>
-&lt;p>问题&lt;br>
-给定一个未排序的整数数组，求最长严格递增子序列的长度。&lt;/p>
+&lt;p>问题&lt;/p>
+&lt;p>给定一个未排序的整数数组，求最长严格递增子序列的长度。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>贪心思路&lt;br>
-· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。&lt;br>
-· 遍历原数组每个数 x：&lt;br>
-· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。&lt;br>
-· 否则，用二分查找找到第一个 tails[i] &amp;gt;= x 的位置，并用 x 替换它。&lt;br>
-· 最终 tails 的长度即为 LIS 长度。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp">双状态 DP（Double-State DP）&lt;/h1>
+&lt;p>贪心思路&lt;/p>
+&lt;p>· 维护一个数组 &lt;code>tails&lt;/code>，其中 &lt;code>tails[i]&lt;/code> 表示长度为 &lt;code>i+1&lt;/code> 的递增子序列的最小末尾元素。&lt;br>
+· 遍历原数组每个数 &lt;code>x&lt;/code>：&lt;br>
+· 若 &lt;code>x&lt;/code> 大于 &lt;code>tails&lt;/code> 中所有数，则追加到末尾，长度增加。&lt;br>
+· 否则，用二分查找找到第一个 &lt;code>tails[i] &amp;gt;= x&lt;/code> 的位置，并用 &lt;code>x&lt;/code> 替换它。&lt;br>
+· 最终 &lt;code>tails&lt;/code> 的长度即为 LIS 长度。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp">双状态 DP（Double-State DP）&lt;/h1>
 &lt;h2 id="1-一句话定义">1. 一句话定义&lt;/h2>
-&lt;p>&lt;strong>同时维护“以当前位置结尾的最优值”和“最差值”&lt;/strong>，以解决因负数（或倒数）导致最优、最值互换的问题。&lt;/p>
+&lt;p>&lt;strong>同时维护“以当前位置结尾的最优值”和“最差值”&lt;/strong>，解决因负数（或倒数）导致最优/最差互换的问题。&lt;/p>
 &lt;h2 id="2-什么时候用这个套路">2. 什么时候用这个套路？&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -1138,15 +1163,15 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;/thead>
  &lt;tbody>
  &lt;tr>
- &lt;td>运算包含乘法（或除法、取模）&lt;/td>
- &lt;td>负负得正，大小关系会发生反转&lt;/td>
+ &lt;td>运算含乘法（或除法、模）&lt;/td>
+ &lt;td>负负得正，大小关系会反转&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>求最大/最小/最长&lt;/td>
  &lt;td>连续子数组/子序列&lt;/td>
  &lt;/tr>
  &lt;tr>
- &lt;td>状态仅依赖前一个位置&lt;/td>
+ &lt;td>状态只依赖前一个位置&lt;/td>
  &lt;td>可用滚动变量 O(1) 空间&lt;/td>
  &lt;/tr>
  &lt;/tbody>
@@ -1172,23 +1197,23 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;td>&lt;strong>单状态 DP&lt;/strong>&lt;/td>
  &lt;td>只维护最优值&lt;/td>
  &lt;td>加法、无反转&lt;/td>
- &lt;td>53. 最大子数组和&lt;/td>
+ &lt;td>LeetCode 53 最大子数组和&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>双状态 DP&lt;/strong>&lt;/td>
  &lt;td>维护最优+最差&lt;/td>
  &lt;td>乘法、有负数&lt;/td>
- &lt;td>152. 最大乘积子数组&lt;/td>
+ &lt;td>LeetCode 152 最大乘积子数组&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>贪心&lt;/strong>&lt;/td>
  &lt;td>每步局部最优，不依赖历史&lt;/td>
  &lt;td>区间调度、部分背包、LIS&lt;/td>
- &lt;td>300. 最长递增子序列（贪心+二分）&lt;/td>
+ &lt;td>LeetCode 300 最长递增子序列（贪心+二分）&lt;/td>
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h2 id="4-模板代码152-最大乘积子数组无交换版">4. 模板代码（152. 最大乘积子数组，无交换版）&lt;/h2>
+&lt;h2 id="4-模板代码leetcode-152无交换版">4. 模板代码（LeetCode 152，无交换版）&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">int&lt;/span> &lt;span style="color:#a6e22e">maxProduct&lt;/span>(vector&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span>&lt;span style="color:#f92672">&amp;gt;&amp;amp;&lt;/span> nums) {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">int&lt;/span> maxProd &lt;span style="color:#f92672">=&lt;/span> nums[&lt;span style="color:#ae81ff">0&lt;/span>], minProd &lt;span style="color:#f92672">=&lt;/span> nums[&lt;span style="color:#ae81ff">0&lt;/span>], ans &lt;span style="color:#f92672">=&lt;/span> nums[&lt;span style="color:#ae81ff">0&lt;/span>];
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> (&lt;span style="color:#66d9ef">int&lt;/span> i &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>; i &lt;span style="color:#f92672">&amp;lt;&lt;/span> nums.size(); i&lt;span style="color:#f92672">++&lt;/span>) {
@@ -1199,8 +1224,8 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> ans;
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为什么需要保存 prevMax？&lt;br>
-因为更新 maxProd 后，原来的 maxProd 就丢失了，而 minProd 的更新还需要用到它。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架">括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>为什么需要保存 &lt;code>prevMax&lt;/code>？&lt;br>
+因为更新 &lt;code>maxProd&lt;/code> 后，原来的 &lt;code>maxProd&lt;/code> 会丢失，而 &lt;code>minProd&lt;/code> 的更新仍需要用到它。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架">括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1>
 &lt;h2 id="一leetcode-32-最长有效括号--栈解法精要">一、LeetCode 32 最长有效括号 — 栈解法精要&lt;/h2>
 &lt;h3 id="1-题目与题型">1. 题目与题型&lt;/h3>
 &lt;ul>
@@ -1249,14 +1274,14 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;li>为什么栈底预存 -1？统一长度计算公式。当有效子串从开头即匹配时（如 &lt;code>&amp;quot;()&amp;quot;&lt;/code>），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h2 id="二括号问题通用决策框架">二、括号问题通用决策框架&lt;/h2>
-&lt;h3 id="核心三问">核心三问&lt;/h3>
+&lt;h1 id="二括号问题通用决策框架">二、括号问题通用决策框架&lt;/h1>
+&lt;h2 id="核心三问">核心三问&lt;/h2>
 &lt;ol>
 &lt;li>用不用栈？&lt;/li>
-&lt;li>如果用栈，存什么（字符或下标）？&lt;/li>
+&lt;li>如果用栈，存什么（字符 or 下标）？&lt;/li>
 &lt;li>有没有更优的不用栈的解法？&lt;/li>
 &lt;/ol>
-&lt;h3 id="决策表">决策表&lt;/h3>
+&lt;h2 id="决策表">决策表&lt;/h2>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -1312,7 +1337,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="决策原则速记">决策原则速记&lt;/h3>
+&lt;h2 id="决策原则速记">决策原则速记&lt;/h2>
 &lt;ul>
 &lt;li>需要知道位置/长度/删除谁 → 用栈 + 存下标&lt;/li>
 &lt;li>只需知道是否合法 → 用栈 + 存字符&lt;/li>
@@ -1320,7 +1345,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;li>需要枚举所有组合 → 不用栈，回溯搜索&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h2 id="三同类题目解法速查">三、同类题目解法速查&lt;/h2>
+&lt;h1 id="三同类题目解法速查">三、同类题目解法速查&lt;/h1>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -1345,7 +1370,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;td>32&lt;/td>
  &lt;td>最长有效括号&lt;/td>
  &lt;td>栈/DP/双向扫描&lt;/td>
- &lt;td>✅（栈法）&lt;/td>
+ &lt;td>✅(栈法)&lt;/td>
  &lt;td>✅&lt;/td>
  &lt;td>栈底存断点下标&lt;/td>
  &lt;/tr>
@@ -1354,7 +1379,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;td>有效的括号字符串&lt;/td>
  &lt;td>双栈/贪心&lt;/td>
  &lt;td>可选&lt;/td>
- &lt;td>✅（若用栈）&lt;/td>
+ &lt;td>✅(若用栈)&lt;/td>
  &lt;td>贪心法 O(1) 空间&lt;/td>
  &lt;/tr>
  &lt;tr>
@@ -1392,29 +1417,29 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;/tbody>
 &lt;/table>
 &lt;hr>
-&lt;h2 id="四典型题目解法要点">四、典型题目解法要点&lt;/h2>
-&lt;h3 id="lc-20-有效的括号">LC 20 有效的括号&lt;/h3>
+&lt;h1 id="四典型题目解法要点">四、典型题目解法要点&lt;/h1>
+&lt;h2 id="lc-20-有效的括号">LC 20 有效的括号&lt;/h2>
 &lt;ul>
 &lt;li>栈存：字符&lt;/li>
 &lt;li>操作：遇左压入，遇右弹栈并检查匹配。&lt;/li>
 &lt;li>无需下标：只返回布尔值。&lt;/li>
 &lt;/ul>
-&lt;h3 id="lc-32-最长有效括号栈解法">LC 32 最长有效括号（栈解法）&lt;/h3>
+&lt;h2 id="lc-32-最长有效括号栈解法">LC 32 最长有效括号（栈解法）&lt;/h2>
 &lt;ul>
 &lt;li>栈存：下标&lt;/li>
 &lt;li>操作：初始 -1，遇 &lt;code>(&lt;/code> 压入 &lt;code>i&lt;/code>，遇 &lt;code>)&lt;/code> 先弹栈，栈空则压入 &lt;code>i&lt;/code>，否则计算 &lt;code>i - stk.top()&lt;/code>。&lt;/li>
 &lt;li>必须存下标：长度依赖索引差。&lt;/li>
 &lt;/ul>
-&lt;h3 id="lc-678-有效的括号字符串">LC 678 有效的括号字符串&lt;/h3>
+&lt;h2 id="lc-678-有效的括号字符串">LC 678 有效的括号字符串&lt;/h2>
 &lt;ul>
 &lt;li>双栈法：一个存 &lt;code>(&lt;/code> 下标，一个存 &lt;code>*&lt;/code> 下标。遇 &lt;code>)&lt;/code> 优先匹配 &lt;code>(&lt;/code>，其次用 &lt;code>*&lt;/code>。最后检查剩余 &lt;code>(&lt;/code> 能否被后面的 &lt;code>*&lt;/code> 抵消。&lt;/li>
 &lt;li>贪心法（不用栈）：维护 &lt;code>low&lt;/code>、&lt;code>high&lt;/code> 表示可能的最小/最大未匹配左括号数。遇 &lt;code>*&lt;/code> 时 &lt;code>high++&lt;/code>，&lt;code>low--&lt;/code>（&lt;code>low&lt;/code> 不低于 0）。最后 &lt;code>low == 0&lt;/code> 即有效。&lt;/li>
 &lt;/ul>
-&lt;h3 id="lc-921-使括号有效的最少添加">LC 921 使括号有效的最少添加&lt;/h3>
+&lt;h2 id="lc-921-使括号有效的最少添加">LC 921 使括号有效的最少添加&lt;/h2>
 &lt;ul>
 &lt;li>不用栈：&lt;code>balance&lt;/code> 计数。遇 &lt;code>(&lt;/code> 加一，遇 &lt;code>)&lt;/code> 减一；若 &lt;code>balance&lt;/code> 变负，答案加一且重置 &lt;code>balance&lt;/code> 为 0。最后答案加上剩余 &lt;code>balance&lt;/code>。&lt;/li>
 &lt;/ul>
-&lt;h3 id="lc-1249-移除无效的括号">LC 1249 移除无效的括号&lt;/h3>
+&lt;h2 id="lc-1249-移除无效的括号">LC 1249 移除无效的括号&lt;/h2>
 &lt;ul>
 &lt;li>栈存：待删除括号的下标&lt;/li>
 &lt;li>操作：
@@ -1426,7 +1451,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h2 id="五通用解法套路对比针对连续有效括号长度">五、通用解法套路对比（针对连续有效括号长度）&lt;/h2>
+&lt;h1 id="五通用解法套路对比针对连续有效括号长度">五、通用解法套路对比（针对连续有效括号长度）&lt;/h1>
 &lt;table>
  &lt;thead>
  &lt;tr>
@@ -1447,7 +1472,7 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;/tr>
  &lt;tr>
  &lt;td>动态规划&lt;/td>
- &lt;td>&lt;code>dp[i]&lt;/code> 以 &lt;code>i&lt;/code> 结尾的最长长度&lt;/td>
+ &lt;td>dp[i] 以 i 结尾的最长长度&lt;/td>
  &lt;td>O(n)&lt;/td>
  &lt;td>O(n)&lt;/td>
  &lt;td>❌ 只有长度&lt;/td>
@@ -1460,9 +1485,11 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
  &lt;td>❌ 只有长度&lt;/td>
  &lt;/tr>
  &lt;/tbody>
-&lt;/table></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记">回文（Palindrome）串题型完整笔记&lt;/h1>
+&lt;/table></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;p>以下是对原文进行脱敏、润色并删除所有与“面试”相关内容（原文中未出现“面试”一词，故无需额外删除）后的版本：&lt;/p>
+&lt;hr>
+&lt;h1 id="回文palindrome串题型完整笔记">回文（Palindrome）串题型完整笔记&lt;/h1>
 &lt;h2 id="一题型识别与核心特征">一、题型识别与核心特征&lt;/h2>
-&lt;p>LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p>
+&lt;p>编程题库中所有回文串问题都围绕一个核心定义：&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>回文串&lt;/strong>：正着读和倒着读一样的字符串。&lt;/p>&lt;/blockquote>
 &lt;p>问题类型通常分为三类：&lt;/p>
@@ -1525,13 +1552,13 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;/table>
 &lt;hr>
 &lt;h2 id="二常见误区为什么从两边向中间验证不能用来找最长子串">二、常见误区：为什么“从两边向中间验证”不能用来找最长子串？&lt;/h2>
-&lt;p>你可能会下意识想：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</guid><description>&lt;h1 id="排列permutation类题型复习笔记">排列（Permutation）类题型复习笔记&lt;/h1>
-&lt;h2 id="1-题型识别">1. 题型识别&lt;/h2>
+&lt;p>可能会下意识想到：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</guid><description>&lt;h1 id="排列permutation类题型算法复习笔记">排列（Permutation）类题型算法复习笔记&lt;/h1>
+&lt;h2 id="1-题型特征">1. 题型特征&lt;/h2>
 &lt;h3 id="共同特征">共同特征&lt;/h3>
 &lt;ul>
 &lt;li>输入通常是一个数组或数字序列。&lt;/li>
 &lt;li>要求对元素进行&lt;strong>重新排列&lt;/strong>，满足某种顺序（如字典序、下一个排列、所有排列、第 k 个排列等）。&lt;/li>
-&lt;li>核心考察点往往是&lt;strong>字典序（lexicographical order）&lt;/strong>、&lt;strong>回溯&lt;/strong>、&lt;strong>数学（阶乘）&lt;/strong>。&lt;/li>
+&lt;li>核心考察点通常包括&lt;strong>字典序（lexicographical order）&lt;/strong>、&lt;strong>回溯&lt;/strong>、&lt;strong>数学（阶乘）&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;h3 id="高频题号一览">高频题号一览&lt;/h3>
 &lt;table>
@@ -1633,8 +1660,8 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;h3 id="思路">思路&lt;/h3>
 &lt;p>快指针每次走两步，慢指针每次走一步。如果存在环，快指针一定会在环内追上慢指针。&lt;/p>
 &lt;h3 id="为什么快慢指针一定相遇">为什么快慢指针一定相遇？&lt;/h3>
-&lt;p>快指针比慢指针速度快 1 步/次。当慢指针进入环后，快指针已经在环内。每移动一次，快指针和慢指针的距离缩短 1。因为环的长度有限，快指针一定会从后面追上慢指针。&lt;/p>
-&lt;p>&lt;strong>一个反直觉的观察&lt;/strong>：快指针可能跳过慢指针吗？
+&lt;p>快指针每次比慢指针多走一步。当慢指针进入环后，快指针已经在环内。每移动一次，快指针和慢指针的距离缩短 1。因为环的长度有限，快指针一定会从后面追上慢指针。&lt;/p>
+&lt;p>&lt;strong>一个反直觉的点&lt;/strong>：快指针可能跳过慢指针吗？
 不会。因为每次只差 1 步，快指针要么在慢指针后面（距离 -1），要么重合（距离 0），要么超过（距离 +1）。如果超过，下一步慢指针走 1 步，快指针走 2 步，它们刚好交换位置，不会跳过。最终必然在某点相遇。&lt;/p>
 &lt;h3 id="如果无环呢">如果无环呢？&lt;/h3>
 &lt;p>快指针走到 &lt;code>nullptr&lt;/code>（或 &lt;code>fast-&amp;gt;next == nullptr&lt;/code>），循环结束。&lt;/p>
@@ -1654,18 +1681,18 @@ prefix[i] = a₀ + a₁ + ... + aᵢ₋₁ = prefix[i-1] + nums[i-1]
 &lt;p>给定一个链表，返回环的入口节点。如果无环，返回 &lt;code>nullptr&lt;/code>。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</guid><description>&lt;p>差分数组（Difference Array）详解&lt;/p>
 &lt;p>差分数组是一种用于高效处理区间更新操作的数据结构。它主要解决这类问题：&lt;/p>
 &lt;p>给定一个数组，需要多次对某个区间进行加减操作，最后查询数组的最终状态。&lt;/p>
-&lt;h2 id="什么是差分数组">什么是差分数组？&lt;/h2>
-&lt;h3 id="基本概念">基本概念&lt;/h3>
-&lt;p>对于原始数组 &lt;code>arr&lt;/code>，其差分数组 &lt;code>diff&lt;/code> 定义为：&lt;/p>
+&lt;p>什么是差分数组？&lt;/p>
+&lt;p>基本概念&lt;/p>
+&lt;p>对于原始数组 arr，它的差分数组 diff 定义为：&lt;/p>
 &lt;pre tabindex="0">&lt;code>diff[0] = arr[0]
 diff[i] = arr[i] - arr[i-1] (i ≥ 1)
-&lt;/code>&lt;/pre>&lt;h3 id="关键特性">关键特性&lt;/h3>
-&lt;p>&lt;strong>特性1&lt;/strong>：通过差分数组可以恢复原始数组&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>关键特性&lt;/p>
+&lt;p>特性1：通过差分数组可以恢复原始数组&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>arr[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">=&lt;/span> diff[&lt;span style="color:#ae81ff">0&lt;/span>]
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>arr[i] &lt;span style="color:#f92672">=&lt;/span> diff[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">+&lt;/span> diff[&lt;span style="color:#ae81ff">1&lt;/span>] &lt;span style="color:#f92672">+&lt;/span> ... &lt;span style="color:#f92672">+&lt;/span> diff[i] &lt;span style="color:#75715e">// 对差分数组求前缀和
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>特性2&lt;/strong>：区间加减操作可以转换为差分数组的两个点的操作&lt;/p>
-&lt;h2 id="图解差分数组">图解差分数组&lt;/h2>
-&lt;h3 id="例子1构建差分数组">例子1：构建差分数组&lt;/h3>
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>特性2：区间加减操作可以转换为差分数组的两个点的操作&lt;/p>
+&lt;p>图解差分数组&lt;/p>
+&lt;p>例子1：构建差分数组&lt;/p>
 &lt;pre tabindex="0">&lt;code>原始数组 arr: [1, 3, 6, 10, 15]
 索引: 0 1 2 3 4
 
@@ -1677,30 +1704,19 @@ diff[3] = arr[3] - arr[2] = 10 - 6 = 4
 diff[4] = arr[4] - arr[3] = 15 - 10 = 5
 
 所以 diff = [1, 2, 3, 4, 5]
-&lt;/code>&lt;/pre>&lt;h3 id="例子2从差分数组恢复原始数组">例子2：从差分数组恢复原始数组&lt;/h3>
-&lt;pre tabindex="0">&lt;code>差分数组 diff: [1, 2, 3, 4, 5]
-
-恢复 arr:
-arr[0] = diff[0] = 1
-arr[1] = arr[0] + diff[1] = 1 + 2 = 3
-arr[2] = arr[1] + diff[2] = 3 + 3 = 6
-arr[3] = arr[2] + diff[3] = 6 + 4 = 10
-arr[4] = arr[3] + diff[4] = 10 + 5 = 15
-&lt;/code>&lt;/pre>&lt;h2 id="差分数组的威力区间更新">差分数组的威力：区间更新&lt;/h2>
-&lt;h3 id="传统方法-vs-差分数组">传统方法 vs 差分数组&lt;/h3>
-&lt;p>&lt;strong>问题&lt;/strong>：将数组 &lt;code>arr&lt;/code> 中区间 &lt;code>[l, r]&lt;/code> 的所有元素都加上 &lt;code>val&lt;/code>&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征">1 题型特征&lt;/h1>
+&lt;/code>&lt;/pre>&lt;p>例子2：从差分数组恢复原始数组&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征">1 题型特征&lt;/h1>
 &lt;ul>
-&lt;li>&lt;strong>数组&lt;/strong>：一维数组、环形（变种）、可重复等&lt;/li>
+&lt;li>&lt;strong>数组&lt;/strong>：一维数组、环（变种）、可重复等&lt;/li>
 &lt;li>&lt;strong>目标&lt;/strong>：求&lt;strong>连续子数组&lt;/strong>的极值（和、乘积、长度）&lt;/li>
 &lt;li>&lt;strong>约束&lt;/strong>：子数组是连续的（子序列不要求连续，相对顺序一致即可）&lt;/li>
 &lt;/ul>
 &lt;h1 id="2-解题套路总结">2 解题套路总结&lt;/h1>
-&lt;h2 id="21-一维数组-连续子数组-问题">2.1 一维数组 连续子数组 问题&lt;/h2>
+&lt;h2 id="21-一维数组连续子数组问题">2.1 一维数组连续子数组问题&lt;/h2>
 &lt;h3 id="解题思路">解题思路&lt;/h3>
 &lt;ul>
 &lt;li>&lt;strong>动态规划&lt;/strong>
 &lt;ul>
-&lt;li>&lt;strong>Kadane算法&lt;/strong>：用于求解最&lt;strong>大子数组和&lt;/strong>的动态规划算法，它通过遍历数组，&lt;strong>维护以当前元素结尾的最大子数组和&lt;/strong>，并不断更新全局最大值，从而在O(n)时间内得到结果。&lt;/li>
+&lt;li>&lt;strong>Kadane算法&lt;/strong>：用于求解最&lt;strong>大子数组和&lt;/strong>的动态规划算法，通过遍历数组，&lt;strong>维护以当前元素结尾的最大子数组和&lt;/strong>，并不断更新全局最大值，从而在O(n)时间内得到结果。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;strong>前缀和 + 哈希表&lt;/strong>&lt;/li>
@@ -1741,7 +1757,7 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/ul>
 &lt;p>堆的核心操作（插入、删除）时间复杂度均为 &lt;strong>O(log n)&lt;/strong>，获取极值为 &lt;strong>O(1)&lt;/strong>。&lt;/p>
 &lt;h2 id="2-c-中的使用方式">2. C++ 中的使用方式&lt;/h2>
-&lt;p>C++ 提供了两种主要方式操作堆：&lt;code>priority_queue&lt;/code> 容器适配器和 &lt;code>std::make_heap&lt;/code> 等算法。&lt;strong>&lt;code>priority_queue&lt;/code> 最常用&lt;/strong>。&lt;/p>
+&lt;p>C++ 提供了两种主要方式操作堆：&lt;code>priority_queue&lt;/code> 容器适配器和 &lt;code>std::make_heap&lt;/code> 等算法。其中 &lt;strong>&lt;code>priority_queue&lt;/code> 最常用&lt;/strong>。&lt;/p>
 &lt;h3 id="21-容器适配器-priority_queue">2.1 容器适配器 &lt;code>priority_queue&lt;/code>&lt;/h3>
 &lt;p>&lt;code>priority_queue&lt;/code> &lt;strong>默认是最大堆&lt;/strong>，通过模板参数可调整为最小堆。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">#include&lt;/span> &lt;span style="color:#75715e">&amp;lt;queue&amp;gt;&lt;/span>&lt;span style="color:#75715e">
@@ -1760,9 +1776,7 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">bool&lt;/span> &lt;span style="color:#a6e22e">operator&lt;/span>()(&lt;span style="color:#66d9ef">int&lt;/span> a, &lt;span style="color:#66d9ef">int&lt;/span> b) { &lt;span style="color:#66d9ef">return&lt;/span> a &lt;span style="color:#f92672">&amp;gt;&lt;/span> b; } &lt;span style="color:#75715e">// 最小堆
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>};
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>priority_queue&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span>, vector&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>, cmp&lt;span style="color:#f92672">&amp;gt;&lt;/span> heap;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>2. 函数指针 + decltype&lt;/strong>&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;p>好的，我已对笔记内容进行了脱敏（删除公司名、人名等）、语句润色，并删除了所有与“面试”相关的内容（原文中未出现相关表述）。以下是修改后的完整笔记。&lt;/p>
-&lt;hr>
-&lt;h1 id="滑动窗口题型总结笔记">滑动窗口题型总结笔记&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>2. 函数指针 + decltype&lt;/strong>&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;h1 id="滑动窗口题型总结笔记">滑动窗口题型总结笔记&lt;/h1>
 &lt;h2 id="1-题型特征与适用条件">1. 题型特征与适用条件&lt;/h2>
 &lt;p>&lt;strong>什么时候使用滑动窗口？&lt;/strong>&lt;br>
 滑动窗口适用于解决 &lt;strong>子串/子数组&lt;/strong> 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：&lt;/p>
@@ -1844,19 +1858,19 @@ arr[4] = arr[3] + diff[4] = 10 + 5 = 15
 &lt;/ul>
 &lt;p>&lt;strong>为什么用 &lt;code>valid&lt;/code> 而不是直接比较两个哈希表？&lt;/strong>&lt;br>
 因为每次检查都需要遍历 &lt;code>need&lt;/code>，而用 &lt;code>valid&lt;/code> 可以在 O(1) 时间内判断是否满足条件，提高效率。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历">一、什么是 Morris 遍历？&lt;/h3>
-&lt;p>Morris 遍历是一种&lt;strong>使用线索二叉树（threaded binary tree）思想&lt;/strong>的二叉树遍历算法。它的&lt;strong>核心特点&lt;/strong>是：&lt;/p>
+&lt;p>Morris 遍历是一种&lt;strong>使用线索二叉树（threaded binary tree）思想&lt;/strong>的二叉树遍历算法。其&lt;strong>核心特点&lt;/strong>包括：&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>空间复杂度 O(1)&lt;/strong>：不使用递归栈或队列，只利用二叉树中大量的空闲指针（右指针）来临时记录遍历的后继节点，从而实现遍历。&lt;/li>
 &lt;li>&lt;strong>时间复杂度 O(n)&lt;/strong>：每个节点最多被访问两次。
 Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，但最经典和最常用的是&lt;strong>中序遍历&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;h3 id="二为什么可以用-morris-遍历">二、为什么可以用 Morris 遍历？&lt;/h3>
-&lt;p>在普通的递归或迭代遍历中，我们需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。&lt;/p>
+&lt;p>在普通递归或迭代遍历中，我们需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。&lt;/p>
 &lt;p>&lt;strong>适用条件&lt;/strong>：&lt;/p>
 &lt;ul>
 &lt;li>要求 O(1) 空间遍历或修改二叉树&lt;/li>
 &lt;li>允许修改树结构&lt;/li>
-&lt;li>要求不能使用递归或栈（递归是 O(h) 空间）&lt;/li>
+&lt;li>不能使用栈或递归（递归本质上是 O(h) 空间）&lt;/li>
 &lt;/ul>
 &lt;h3 id="三morris-遍历的核心思想">三、Morris 遍历的核心思想&lt;/h3>
 &lt;h4 id="1-将树线性展开">1. 将树线性展开&lt;/h4>
@@ -1871,7 +1885,7 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;/li>
 &lt;li>然后 &lt;code>cur&lt;/code> 移动到下一个右节点（&lt;code>cur = cur-&amp;gt;right&lt;/code>），重复。&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 示例：二叉树展开为链表
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 题目114：二叉树展开为链表
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Solution&lt;/span> {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">public&lt;/span>&lt;span style="color:#f92672">:&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">void&lt;/span> flatten(TreeNode&lt;span style="color:#f92672">*&lt;/span> root) {
@@ -1892,32 +1906,29 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>};
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-中序遍历经典">2. 中序遍历（经典）&lt;/h4>
-&lt;p>&lt;strong>核心思想&lt;/strong>：通过利用叶子节点的空右指针作为线索，临时指向后继节点，从而在 O(1) 空间内完成遍历。具体来说，当需要进入左子树前，在左子树最右节点和当前节点之间建立线索（右指针指向当前节点），遍历完左子树后再恢复。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p>我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p>
+&lt;h3 id="核心思想">核心思想&lt;/h3>
+&lt;p>想象你在走一个迷宫（二叉树），每次遇到有左岔路时，你想先走完左边再回来。但你没有栈（不能记路），怎么办呢？&lt;br>
+你可以在进入左边之前，在左路的最深处（最右边的节点）放一根绳子，绳子另一头系在当前节点上。这样你走完左边后，顺着绳子就能回来。回来后再把绳子解开，然后继续往右走。
+这就是 Morris 遍历的本质：利用叶子节点的空右指针作为“绳子”（线索），临时指向后继节点，从而在 O(1) 空间内完成遍历。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p>我们深入详细地讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p>
 &lt;hr>
-&lt;p>一、拓扑排序的基本概念&lt;/p>
-&lt;ol>
-&lt;li>定义&lt;/li>
-&lt;/ol>
+&lt;h2 id="一拓扑排序的基本概念">一、拓扑排序的基本概念&lt;/h2>
+&lt;h3 id="1-定义">1. 定义&lt;/h3>
 &lt;p>拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。&lt;/p>
 &lt;p>直观理解：
 在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。&lt;/p>
-&lt;ol start="2">
-&lt;li>存在条件&lt;/li>
-&lt;/ol>
+&lt;h3 id="2-存在条件">2. 存在条件&lt;/h3>
 &lt;ul>
 &lt;li>图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。&lt;/li>
 &lt;li>同一个 DAG 可能存在多个不同的拓扑排序。&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;p>二、Kahn算法详解&lt;/p>
+&lt;h2 id="二kahn算法详解">二、Kahn算法详解&lt;/h2>
 &lt;p>Kahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。&lt;/p>
+&lt;h3 id="1-算法步骤">1. 算法步骤&lt;/h3>
 &lt;ol>
-&lt;li>
-&lt;p>算法步骤&lt;/p>
-&lt;ol>
-&lt;li>计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。&lt;/li>
-&lt;li>初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。&lt;/li>
-&lt;li>循环处理：
+&lt;li>&lt;strong>计算入度&lt;/strong>：统计每个顶点的入度（即有多少条边指向该顶点）。&lt;/li>
+&lt;li>&lt;strong>初始化队列&lt;/strong>：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。&lt;/li>
+&lt;li>&lt;strong>循环处理&lt;/strong>：
 &lt;ul>
 &lt;li>从队列中取出一个顶点 u，将其输出（加入拓扑序列）。&lt;/li>
 &lt;li>遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。&lt;/li>
@@ -1925,26 +1936,22 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;li>如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>判断结果：
+&lt;li>&lt;strong>判断结果&lt;/strong>：
 &lt;ul>
 &lt;li>如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。&lt;/li>
 &lt;li>否则，图中存在环，拓扑排序不存在。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ol>
-&lt;/li>
-&lt;li>
-&lt;p>算法正确性&lt;/p>
-&lt;/li>
-&lt;/ol>
+&lt;h3 id="2-算法正确性">2. 算法正确性&lt;/h3>
 &lt;ul>
 &lt;li>入度为0的顶点没有前置依赖，可以立即输出。&lt;/li>
 &lt;li>删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。&lt;/li>
 &lt;li>如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;p>三、Kahn算法的代码实现（C++模板）&lt;/p>
-&lt;p>下面是适用于LeetCode 207的Kahn算法实现，包含了常见的建图方式和细节处理。&lt;/p>
+&lt;h2 id="三kahn算法的代码实现c模板">三、Kahn算法的代码实现（C++模板）&lt;/h2>
+&lt;p>下面是一种常用的Kahn算法实现，包含了常见的建图方式和细节处理。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-cpp" data-lang="cpp">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Solution&lt;/span> {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">public&lt;/span>&lt;span style="color:#f92672">:&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">bool&lt;/span> canFinish(&lt;span style="color:#66d9ef">int&lt;/span> numCourses, vector&lt;span style="color:#f92672">&amp;lt;&lt;/span>vector&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span>&lt;span style="color:#f92672">&amp;gt;&amp;gt;&amp;amp;&lt;/span> prerequisites) {
@@ -1985,7 +1992,7 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> count &lt;span style="color:#f92672">==&lt;/span> numCourses; &lt;span style="color:#75715e">// 如果全部输出，说明无环
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>};
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>代码说明：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p>好的，以下是根据您的要求处理后的Markdown内容：&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>代码说明&lt;/strong>：&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p>是的，这是 Markdown 格式，你可以直接复制到 Obsidian 中使用。以下是完整内容：&lt;/p>
 &lt;hr>
 &lt;p>单调栈笔记&lt;/p>
 &lt;ol>
@@ -1996,39 +2003,41 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;ol start="2">
 &lt;li>什么时候使用单调栈？&lt;/li>
 &lt;/ol>
-&lt;p>· 问题中需要为每个元素找到“下一个更大/更小”的元素
-例如：
-· 739. 每日温度（找下一个更高温度）
-· 496. 下一个更大元素 I（找数组中下一个更大元素）
-· 问题可转化为求每个元素作为最小/最大值时的区间范围
-例如：
-· 84. 柱状图中最大的矩形（以每个柱子的高度为高，找左右边界）
-· 42. 接雨水（每个位置形成凹槽的宽度由左右边界决定）
+&lt;p>· 问题中需要为每个元素找到“下一个更大/更小”的元素&lt;br>
+例如：&lt;br>
+· 每日温度（找下一个更高温度）&lt;br>
+· 下一个更大元素 I（找数组中下一个更大元素）&lt;br>
+· 问题可转化为求每个元素作为最小/最大值时的区间范围&lt;br>
+例如：&lt;br>
+· 柱状图中最大的矩形（以每个柱子的高度为高，找左右边界）&lt;br>
+· 接雨水（每个位置形成凹槽的宽度由左右边界决定）&lt;br>
 · 需要以 O(n) 时间求出每个元素的左右边界，这些边界由“第一个比它大/小的元素”决定。&lt;/p>
-&lt;p>典型标志：题目中出现“柱状图”、“矩形面积”、“接雨水”、“温度”、“下一个更大”等字眼，且暴力解法需要 O(n²) 时，可以考虑单调栈。&lt;/p>
+&lt;p>典型标志：题目中出现“柱状图”、“矩形面积”、“接雨水”、“温度”、“下一个更大”等字眼，且暴力解法需要 O(n²) 时，可优先考虑单调栈。&lt;/p>
 &lt;hr>
 &lt;ol start="3">
 &lt;li>核心思想&lt;/li>
 &lt;/ol>
-&lt;p>· 递增栈（栈底到栈顶递增）：用于找左边/右边第一个比当前元素小的位置。
+&lt;p>· 递增栈（栈底到栈顶递增）：用于找左边/右边第一个比当前元素小的位置。&lt;br>
 · 递减栈（栈底到栈顶递减）：用于找左边/右边第一个比当前元素大的位置。&lt;/p>
 &lt;p>在遍历过程中，当遇到破坏单调性的元素时，就弹出栈顶元素，此时可以确定弹出元素的边界（例如，弹出元素右边第一个比它小的就是当前元素，左边第一个比它小的就是栈内下一个元素）。&lt;/p>
 &lt;hr>
 &lt;ol start="4">
-&lt;li>例题：84. 柱状图中最大的矩形&lt;/li>
+&lt;li>例题：柱状图中最大的矩形&lt;/li>
 &lt;/ol>
 &lt;p>问题描述&lt;/p>
 &lt;p>给定 n 个非负整数表示柱子的高度，每个柱子宽度为 1，求柱状图中能勾勒出的最大矩形面积。&lt;/p>
 &lt;p>思路&lt;/p>
-&lt;p>对于每个柱子，以它的高度作为矩形的高，矩形的宽就是它能向左和向右延伸的距离，直到遇到比它矮的柱子。因此我们需要知道每个柱子左边第一个比它矮的位置和右边第一个比它矮的位置。&lt;/p>
+&lt;p>对于每个柱子，以它的高度作为矩形的高，矩形的宽就是它能向左和向右延伸的距离，直到遇到第一个比它矮的柱子。因此我们需要知道每个柱子左边第一个比它矮的位置和右边第一个比它矮的位置。&lt;/p>
 &lt;p>用单调递增栈（栈内索引对应高度递增）：&lt;/p>
-&lt;p>· 遍历每个柱子：
-· 当当前柱子高度小于栈顶柱子高度时，弹出栈顶，计算以栈顶柱子为高的矩形面积：
-· 右边界 = 当前索引
-· 左边界 = 栈内下一个索引（如果栈为空则为 -1）
-· 宽度 = 右边界 - 左边界 - 1
-· 将当前索引压栈。
-· 遍历结束后，栈内剩余元素同样处理，右边界 = n（数组长度）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全">背包问题速查笔记（0-1 + 完全）&lt;/h1>
+&lt;p>· 遍历每个柱子：&lt;br>
+· 当当前柱子高度小于栈顶柱子高度时，弹出栈顶，计算以栈顶柱子为高的矩形面积：&lt;br>
+· 右边界 = 当前索引&lt;br>
+· 左边界 = 栈内下一个索引（如果栈为空则为 -1）&lt;br>
+· 宽度 = 右边界 - 左边界 - 1&lt;br>
+· 将当前索引压栈。&lt;br>
+· 遍历结束后，栈内剩余元素同样处理，右边界 = n（数组长度）。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;p>以下是对原文进行脱敏、润色，并删除与“面试”相关内容后的版本。原文未出现公司名、人名，也未包含“面试”相关内容，因此主要进行了语句润色和格式优化，保持所有Markdown语法及图片链接（如有）不变。&lt;/p>
+&lt;hr>
+&lt;h1 id="背包问题速查笔记0-1--完全">背包问题速查笔记（0-1 + 完全）&lt;/h1>
 &lt;h2 id="1-核心区别">1. 核心区别&lt;/h2>
 &lt;table>
  &lt;thead>
@@ -2057,19 +2066,19 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;blockquote>
 &lt;p>&lt;strong>一维 DP 必须外层遍历物品，内层遍历容量&lt;/strong>（完全背包求排列数时例外，见第4节）&lt;/p>&lt;/blockquote>
 &lt;hr>
-&lt;h2 id="2-为什么内层必须倒序正序彻底理解原因">2. 为什么内层必须倒序/正序？（彻底理解原因）&lt;/h2>
+&lt;h2 id="2-为什么内层必须倒序正序彻底理解">2. 为什么内层必须倒序/正序？（彻底理解）&lt;/h2>
 &lt;h3 id="21-0-1-背包倒序的原因">2.1 0-1 背包倒序的原因&lt;/h3>
-&lt;p>用一个物品（重量2，价值10，容量4）模拟：&lt;/p>
+&lt;p>以一个物品为例（重量2，价值10，容量4）：&lt;/p>
 &lt;ul>
-&lt;li>正序（错误）：
+&lt;li>&lt;strong>正序（错误）&lt;/strong>：
 &lt;ul>
 &lt;li>j=2 → dp[2]=10&lt;/li>
 &lt;li>j=4 → 用到 dp[2]（刚更新过）→ dp[4]=20 ❌ 一个物品用了两次&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>倒序（正确）：
+&lt;li>&lt;strong>倒序（正确）&lt;/strong>：
 &lt;ul>
-&lt;li>j=4 → 用到 dp[2]（还是旧值0）→ dp[4]=0&lt;/li>
+&lt;li>j=4 → 用到 dp[2]（仍是旧值0）→ dp[4]=10&lt;/li>
 &lt;li>j=2 → dp[2]=10 ✅&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -2078,15 +2087,15 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;h3 id="22-完全背包正序的原因">2.2 完全背包正序的原因&lt;/h3>
 &lt;p>同一个物品（重量2，价值10，容量4）：&lt;/p>
 &lt;ul>
-&lt;li>正序：
+&lt;li>&lt;strong>正序&lt;/strong>：
 &lt;ul>
 &lt;li>j=2 → dp[2]=10&lt;/li>
 &lt;li>j=4 → 用到 dp[2]=10 → dp[4]=20 ✅ 允许重复，正确&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>倒序（错误）：
+&lt;li>&lt;strong>倒序（错误）&lt;/strong>：
 &lt;ul>
-&lt;li>j=4 → 用到 dp[2]=0 → dp[4]=0&lt;/li>
+&lt;li>j=4 → 用到 dp[2]=0 → dp[4]=10&lt;/li>
 &lt;li>j=2 → dp[2]=10 → 最终只能得到10 ❌ 无法重复使用&lt;/li>
 &lt;/ul>
 &lt;/li>
@@ -2120,12 +2129,12 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>1. 找 i&lt;/strong>&lt;/td>
- &lt;td>从右向左找 &lt;code>nums[i] &amp;lt; nums[i+1]&lt;/code>： &lt;!-- raw HTML omitted -->&lt;code>2&lt;/code> 无右；&lt;code>4&amp;gt;2&lt;/code> 不成立；&lt;code>5&amp;gt;4&lt;/code> 不成立；&lt;code>3&amp;lt;5&lt;/code> ✅，所以 &lt;code>i = 1&lt;/code>（指向 &lt;code>3&lt;/code>）&lt;/td>
+ &lt;td>从右向左找 &lt;code>nums[i] &amp;lt; nums[i+1]&lt;/code>：&lt;code>2&lt;/code> 无右；&lt;code>4&amp;gt;2&lt;/code> 不成立；&lt;code>5&amp;gt;4&lt;/code> 不成立；&lt;code>3&amp;lt;5&lt;/code> ✅，所以 &lt;code>i = 1&lt;/code>（指向 &lt;code>3&lt;/code>）&lt;/td>
  &lt;td>找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】&lt;/td>
  &lt;/tr>
  &lt;tr>
  &lt;td>&lt;strong>2. 找 j&lt;/strong>&lt;/td>
- &lt;td>在 i 右边 &lt;code>[5,4,2]&lt;/code> 中从右向左找第一个大于 3 的数： &lt;!-- raw HTML omitted -->&lt;code>2&lt;/code> 不大于；&lt;code>4&lt;/code> 大于，所以 &lt;code>j = 3&lt;/code>（指向 &lt;code>4&lt;/code>）&lt;/td>
+ &lt;td>在 i 右边 &lt;code>[5,4,2]&lt;/code> 中从右向左找第一个大于 3 的数：&lt;code>2&lt;/code> 不大于；&lt;code>4&lt;/code> 大于，所以 &lt;code>j = 3&lt;/code>（指向 &lt;code>4&lt;/code>）&lt;/td>
  &lt;td>找到刚好比 3 大的数 4&lt;/td>
  &lt;/tr>
  &lt;tr>
@@ -2145,41 +2154,41 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
  &lt;/tr>
  &lt;/tbody>
 &lt;/table>
-&lt;h3 id="为什么最后可以反转">为什么最后可以反转？&lt;/h3>
-&lt;p>因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字。交换后元素3（j 位置）的左边都比它大（不然不会交换 j），右边都比它小（因为是找到第一个比3大的元素进行的交换）。所以交换后，右边的这些元素依然保持降序，反转后会变成升序。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</guid><description>&lt;p>for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p>[[programming interfaces]]&lt;/p>
+&lt;h2 id="为什么最后可以反转">为什么最后可以反转？&lt;/h2>
+&lt;p>因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字，交换后元素3（j 位置）的左边都比它大（不然不会交换 j），右边都比它小（因为是找到第一个比3大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</guid><description>&lt;p>for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p>[[programming interfaces]]&lt;/p>
 &lt;p>source: &lt;a href="https://sqlite.org/appfunc.html">https://sqlite.org/appfunc.html&lt;/a>&lt;/p>
 &lt;h1 id="1-简介">1 简介&lt;/h1>
 &lt;ol>
-&lt;li>SQLite 支持用户实现自定义回调方法，以扩展特殊功能，类似于用户自定义函数（UDF）。&lt;/li>
-&lt;li>自定义的 SQLite UDF 可以是标量函数、聚合函数，也可以是窗口函数。&lt;/li>
-&lt;li>这些函数可在 SQL 查询中使用，支持用 C 语言编写，也可通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li>
+&lt;li>SQLite支持用户实现自定义回调函数，以完成特定的定制功能，类似于用户自定义函数（UDF）。&lt;/li>
+&lt;li>自定义的SQLite UDF可以是标量函数、聚合函数或窗口函数。&lt;/li>
+&lt;li>这些函数可在SQL查询中使用，通过C语言编写，或借助绑定在其他语言中实现（如Python、Java等）。&lt;/li>
 &lt;/ol>
 &lt;h1 id="2-相关接口">2 相关接口&lt;/h1>
-&lt;h2 id="sqlite3_create_function-家族">sqlite3_create_function 家族&lt;/h2>
+&lt;h2 id="sqlite3_create_function-系列">sqlite3_create_function 系列&lt;/h2>
 &lt;h3 id="1-sqlite3_create_function">1 sqlite3_create_function()&lt;/h3>
 &lt;h4 id="基本信息">基本信息&lt;/h4>
 &lt;pre tabindex="0">&lt;code>int sqlite3_create_function(
  sqlite3 *db, /* 数据库连接 */
  const char *zFuncName, /* 函数名 (UTF-8) */
- int nArg, /* 参数个数 (-1 表示可变) */
+ int nArg, /* 参数个数 (-1 = 可变) */
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
  void (*xFunc)(sqlite3_context*,int,sqlite3_value**), /* 标量函数 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合 step 函数 */
- void (*xFinal)(sqlite3_context*) /* 聚合 finalize 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合step函数 */
+ void (*xFinal)(sqlite3_context*) /* 聚合finalize函数 */
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>基础版本&lt;/strong>：最早引入的函数注册接口&lt;/li>
-&lt;li>&lt;strong>编码指定&lt;/strong>：通过 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好&lt;/li>
+&lt;li>&lt;strong>基础版本&lt;/strong>：最早引入的函数注册接口。&lt;/li>
+&lt;li>&lt;strong>编码指定&lt;/strong>：通过 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好。&lt;/li>
 &lt;li>&lt;strong>函数类型&lt;/strong>：
 &lt;ul>
-&lt;li>如果 &lt;code>xFunc&lt;/code> 非 NULL，注册为标量函数&lt;/li>
-&lt;li>如果 &lt;code>xStep&lt;/code> 和 &lt;code>xFinal&lt;/code> 非 NULL，注册为聚合函数&lt;/li>
+&lt;li>若 &lt;code>xFunc&lt;/code> 非 NULL，则注册标量函数；&lt;/li>
+&lt;li>若 &lt;code>xStep&lt;/code> 和 &lt;code>xFinal&lt;/code> 非 NULL，则注册聚合函数。&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>应用数据&lt;/strong>：通过 &lt;code>pApp&lt;/code> 传递用户数据&lt;/li>
-&lt;li>&lt;strong>内存管理&lt;/strong>：无自动清理机制，需手动管理内存&lt;/li>
+&lt;li>&lt;strong>应用数据&lt;/strong>：使用 &lt;code>pApp&lt;/code> 传递用户数据。&lt;/li>
+&lt;li>&lt;strong>内存管理&lt;/strong>：无自动清理机制，需手动管理内存。&lt;/li>
 &lt;/ul>
 &lt;h3 id="2-sqlite3_create_function16">2 sqlite3_create_function16()&lt;/h3>
 &lt;h4 id="基本信息-1">基本信息&lt;/h4>
@@ -2195,13 +2204,13 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-1">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>UTF-16 支持&lt;/strong>：函数名使用 UTF-16 编码&lt;/li>
-&lt;li>&lt;strong>兼容性&lt;/strong>：为需要 UTF-16 函数名的应用提供支持&lt;/li>
-&lt;li>&lt;strong>功能相同&lt;/strong>：与 &lt;code>sqlite3_create_function()&lt;/code> 功能一致，仅函数名编码不同&lt;/li>
+&lt;li>&lt;strong>UTF-16 支持&lt;/strong>：函数名使用 UTF-16 编码。&lt;/li>
+&lt;li>&lt;strong>向后兼容&lt;/strong>：为需要 UTF-16 函数名的应用提供支持。&lt;/li>
+&lt;li>&lt;strong>功能相同&lt;/strong>：与 &lt;code>sqlite3_create_function()&lt;/code> 功能相同，仅函数名编码不同。&lt;/li>
 &lt;li>&lt;strong>使用场景&lt;/strong>：
 &lt;ul>
-&lt;li>与 Windows API 集成（Windows 原生使用 UTF-16）&lt;/li>
-&lt;li>需要处理宽字符的遗留系统&lt;/li>
+&lt;li>集成 Windows API（Windows 原生使用 UTF-16）；&lt;/li>
+&lt;li>需要处理宽字符的遗留系统。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -2220,10 +2229,10 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-2">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>增强版本&lt;/strong>：在基础版本上增加了析构函数&lt;/li>
-&lt;li>&lt;strong>自动清理&lt;/strong>：通过 &lt;code>xDestroy&lt;/code> 回调自动清理 &lt;code>pApp&lt;/code> 数据&lt;/li>
-&lt;li>&lt;strong>内存安全&lt;/strong>：避免内存泄漏，更加安全&lt;/li>
-&lt;li>&lt;strong>推荐使用&lt;/strong>：SQLite 官方推荐使用此版本&lt;/li>
+&lt;li>&lt;strong>增强版本&lt;/strong>：在基础版本上增加了析构函数。&lt;/li>
+&lt;li>&lt;strong>自动清理&lt;/strong>：通过 &lt;code>xDestroy&lt;/code> 回调自动清理 &lt;code>pApp&lt;/code> 数据。&lt;/li>
+&lt;li>&lt;strong>内存安全&lt;/strong>：可避免内存泄漏，更安全。&lt;/li>
+&lt;li>&lt;strong>推荐使用&lt;/strong>：SQLite 官方推荐使用此版本。&lt;/li>
 &lt;/ul>
 &lt;h3 id="4-sqlite3_create_window_function">4 sqlite3_create_window_function&lt;/h3>
 &lt;h4 id="基本信息-3">基本信息&lt;/h4>
@@ -2233,37 +2242,37 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
  int nArg, /* 参数个数 */
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step 函数 */
- void (*xFinal)(sqlite3_context*), /* finalize 函数 */
- void (*xValue)(sqlite3_context*), /* value 函数 */
- void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step函数 */
+ void (*xFinal)(sqlite3_context*), /* finalize函数 */
+ void (*xValue)(sqlite3_context*), /* value函数 */
+ void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse函数 */
  void (*xDestroy)(void*) /* 析构函数 */
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-3">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>窗口函数专用&lt;/strong>：专门用于注册窗口函数（SQLite 3.25.0+）&lt;/li>
-&lt;li>&lt;strong>额外回调&lt;/strong>：需实现更多回调函数&lt;/li>
-&lt;li>&lt;strong>反向处理&lt;/strong>：支持 &lt;code>xInverse&lt;/code> 以优化窗口函数性能&lt;/li>
-&lt;li>&lt;strong>复杂功能&lt;/strong>：支持滑动窗口、排序、分组等高级功能&lt;/li>
+&lt;li>&lt;strong>窗口函数专用&lt;/strong>：专门用于注册窗口函数（SQLite 3.25.0+）。&lt;/li>
+&lt;li>&lt;strong>额外回调&lt;/strong>：需实现更多回调函数。&lt;/li>
+&lt;li>&lt;strong>反向处理&lt;/strong>：支持 &lt;code>xInverse&lt;/code> 以优化窗口函数性能。&lt;/li>
+&lt;li>&lt;strong>复杂功能&lt;/strong>：支持滑动窗口、排序、分组等高级功能。&lt;/li>
 &lt;/ul>
 &lt;h1 id="3-udf-类型">3 UDF 类型&lt;/h1>
-&lt;h2 id="31-标量函数scalar-functions">3.1 标量函数（Scalar Functions）&lt;/h2>
+&lt;h2 id="31-标量函数-scalar-functions">3.1 标量函数 (Scalar Functions)&lt;/h2>
 &lt;ul>
-&lt;li>接受参数，返回单个值&lt;/li>
-&lt;li>对每一行数据独立计算&lt;/li>
-&lt;li>示例：&lt;code>UPPER()&lt;/code>、&lt;code>ABS()&lt;/code>、&lt;code>DATE()&lt;/code>&lt;/li>
+&lt;li>接受参数，返回单个值。&lt;/li>
+&lt;li>对每一行数据独立计算。&lt;/li>
+&lt;li>示例：&lt;code>UPPER()&lt;/code>, &lt;code>ABS()&lt;/code>, &lt;code>DATE()&lt;/code>。&lt;/li>
 &lt;/ul>
-&lt;h2 id="32-聚合函数aggregate-functions">3.2 聚合函数（Aggregate Functions）&lt;/h2>
+&lt;h2 id="32-聚合函数-aggregate-functions">3.2 聚合函数 (Aggregate Functions)&lt;/h2>
 &lt;ul>
-&lt;li>跨多行数据操作，返回聚合结果&lt;/li>
-&lt;li>需维护状态信息&lt;/li>
-&lt;li>示例：&lt;code>SUM()&lt;/code>、&lt;code>AVG()&lt;/code>、&lt;code>COUNT()&lt;/code>&lt;/li>
+&lt;li>跨多行数据操作，返回聚合结果。&lt;/li>
+&lt;li>需要维护状态信息。&lt;/li>
+&lt;li>示例：&lt;code>SUM()&lt;/code>, &lt;code>AVG()&lt;/code>, &lt;code>COUNT()&lt;/code>。&lt;/li>
 &lt;/ul>
-&lt;h2 id="33-窗口函数window-functions">3.3 窗口函数（Window Functions）&lt;/h2>
+&lt;h2 id="33-窗口函数-window-functions">3.3 窗口函数 (Window Functions)&lt;/h2>
 &lt;ul>
-&lt;li>SQLite 3.25.0+ 支持&lt;/li>
-&lt;li>在窗口帧上执行计算&lt;/li>
-&lt;li>示例：&lt;code>ROW_NUMBER()&lt;/code>、&lt;code>RANK()&lt;/code>&lt;/li>
+&lt;li>SQLite 3.25.0+ 支持。&lt;/li>
+&lt;li>在窗口帧上执行计算。&lt;/li>
+&lt;li>示例：&lt;code>ROW_NUMBER()&lt;/code>, &lt;code>RANK()&lt;/code>。&lt;/li>
 &lt;/ul>
 &lt;h1 id="4-参数含义">4 参数含义&lt;/h1>
 &lt;pre tabindex="0">&lt;code>int sqlite3_create_function_v2(
@@ -2279,41 +2288,41 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 );
 &lt;/code>&lt;/pre>&lt;h2 id="41-zfunctionname">4.1 zFunctionName&lt;/h2>
 &lt;ol>
-&lt;li>该参数指定函数名：第二个参数是所创建的 SQL 函数的名称。名称通常采用 UTF-8 编码，但 &lt;code>sqlite3_create_function16()&lt;/code> 要求使用本地字节序的 UTF-16 编码。&lt;/li>
-&lt;li>函数名长度最多 255 字节（UTF-8）。任何尝试创建超过此长度函数名的操作都会导致 &lt;code>SQLITE_MISUSE&lt;/code> 错误。&lt;/li>
-&lt;li>UDF 注册支持重载：同一函数名可被多次注册。例如，若两次调用使用相同的函数名但参数个数不同，则会注册该函数的不同变体，各自接受不同数量的参数。&lt;/li>
+&lt;li>该参数传入方法名：第二个参数是要创建的 SQL 函数名。通常采用 UTF8 编码，但 &lt;code>sqlite3_create_function16()&lt;/code> 要求使用本机字节顺序的 UTF16。&lt;/li>
+&lt;li>函数名长度限制为 255 字节（UTF8）。任何创建更长函数名的尝试将导致 &lt;code>SQLITE_MISUSE&lt;/code> 错误。&lt;/li>
+&lt;li>UDF 注册支持重载：同一函数名可多次调用创建接口。例如，若两次调用参数个数不同，则会注册两个不同参数数量的变体。&lt;/li>
 &lt;/ol>
 &lt;h2 id="42-narg">4.2 nArg&lt;/h2>
 &lt;ol>
-&lt;li>表示参数个数，&lt;code>int&lt;/code> 类型。&lt;/li>
-&lt;li>参数个数可设为 -1（表示可变），默认最大值为 127（实际最大值由 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code> 定义，通常为 32767）。&lt;/li>
+&lt;li>表示参数数量，&lt;code>int&lt;/code> 类型。&lt;/li>
+&lt;li>参数个数范围为 -1 到 127（最大值为 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code>，即 32767）。&lt;/li>
 &lt;/ol>
 &lt;h2 id="43-etextrep-文本编码">4.3 eTextRep 文本编码&lt;/h2>
 &lt;ul>
-&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>int&lt;/code>（位掩码）&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：指定函数的文本编码偏好&lt;/li>
+&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>int&lt;/code>，位掩码。&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：指定函数的文本编码偏好。&lt;/li>
 &lt;li>&lt;strong>取值&lt;/strong>：
 &lt;ol>
-&lt;li>&lt;code>SQLITE_UTF8&lt;/code>（0x01）：UTF-8 编码&lt;/li>
-&lt;li>&lt;code>SQLITE_UTF16LE&lt;/code>（0x02）：UTF-16 小端序&lt;/li>
-&lt;li>&lt;code>SQLITE_UTF16BE&lt;/code>（0x03）：UTF-16 大端序&lt;/li>
-&lt;li>&lt;code>SQLITE_UTF16&lt;/code>（0x04）：使用本地字节序的 UTF-16&lt;/li>
+&lt;li>&lt;code>SQLITE_UTF8&lt;/code> (0x01)：UTF-8 编码&lt;/li>
+&lt;li>&lt;code>SQLITE_UTF16LE&lt;/code> (0x02)：UTF-16 小端序&lt;/li>
+&lt;li>&lt;code>SQLITE_UTF16BE&lt;/code> (0x03)：UTF-16 大端序&lt;/li>
+&lt;li>&lt;code>SQLITE_UTF16&lt;/code> (0x04)：使用本地字节序的 UTF-16&lt;/li>
 &lt;li>&lt;code>SQLITE_ANY&lt;/code>：接受任意编码（已废弃）&lt;/li>
-&lt;li>&lt;strong>组合标志&lt;/strong>：可与确定性标志一起使用&lt;/li>
+&lt;li>组合标志：可与确定性标志组合使用。&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="44-papp">4.4 pApp&lt;/h2>
 &lt;h3 id="详细说明">详细说明&lt;/h3>
 &lt;ul>
-&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>void*&lt;/code>（任意类型指针）&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：传递用户自定义数据到函数&lt;/li>
-&lt;li>&lt;strong>生命周期&lt;/strong>：由 &lt;code>xDestroy&lt;/code> 回调管理&lt;/li>
+&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>void*&lt;/code>，任意类型指针。&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：传递用户自定义数据到函数。&lt;/li>
+&lt;li>&lt;strong>生命周期&lt;/strong>：由 &lt;code>xDestroy&lt;/code> 回调管理。&lt;/li>
 &lt;li>&lt;strong>使用场景&lt;/strong>：
 &lt;ol>
-&lt;li>传递配置参数&lt;/li>
-&lt;li>传递共享资源（如缓存、文件句柄）&lt;/li>
-&lt;li>传递状态信息&lt;/li>
+&lt;li>传递配置参数。&lt;/li>
+&lt;li>传递共享资源（如缓存、文件句柄）。&lt;/li>
+&lt;li>传递状态信息。&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;/ul>
@@ -2321,25 +2330,24 @@ Morris 遍历可用于&lt;strong>前序、中序、后序&lt;/strong>遍历，�
 &lt;h3 id="详细说明-1">详细说明&lt;/h3>
 &lt;ul>
 &lt;li>&lt;strong>类型&lt;/strong>：函数指针 &lt;code>void (*)(sqlite3_context*, int, sqlite3_value**)&lt;/code>&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：标量函数的实现&lt;/li>
-&lt;li>&lt;strong>调用时机&lt;/strong>：每次 SQL 查询需要函数值时调用&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：标量函数的实现。&lt;/li>
+&lt;li>&lt;strong>调用时机&lt;/strong>：每次 SQL 查询需要函数值时调用。&lt;/li>
 &lt;li>&lt;strong>参数&lt;/strong>：
 &lt;ol>
-&lt;li>&lt;code>sqlite3_context*&lt;/code>：函数上下文，用于设置结果和错误信息&lt;/li>
-&lt;li>&lt;code>int&lt;/code>：实际参数个数&lt;/li>
-&lt;li>&lt;code>sqlite3_value**&lt;/code>：参数值数组&lt;/li>
+&lt;li>&lt;code>sqlite3_context*&lt;/code>：函数上下文，用于设置结果和错误。&lt;/li>
+&lt;li>&lt;code>int&lt;/code>：实际参数个数。&lt;/li>
+&lt;li>&lt;code>sqlite3_value**&lt;/code>：参数值数组。&lt;/li>
 &lt;/ol>
 &lt;/li>
-&lt;/ul></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</guid><description>&lt;p>[[sqlite]]
-for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>请提供需要处理的Markdown内容，以便进行脱敏、润色和删除面试相关内容。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>Link to [[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>好的，我已根据您的要求对原文进行了脱敏处理（移除公司名/人名）、语句润色，并删除了所有与“面试”相关的内容（原文中未涉及）。同时，所有图片链接语法 &lt;code>![alt](url)&lt;/code> 和 &lt;code>![[filename]]&lt;/code> 均保持原样。&lt;/p>
-&lt;hr>
-&lt;p>HNSW 算法完全学习笔记&lt;/p>
+&lt;/ul></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</guid><description>&lt;p>[[数据库]]
+用于链接&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>请提供需要处理的Markdown原文内容，我将按照要求进行脱敏、润色和删除与面试相关的内容，同时保留所有图片链接语法原样。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>for link
+[[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>HNSW 算法完全学习笔记&lt;/p>
 &lt;p>基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p>
 &lt;hr>
 &lt;ol>
 &lt;li>概述&lt;/li>
 &lt;/ol>
-&lt;p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于各类向量数据库（如基于 HNSW 实现的主流方案）和 RAG 系统。&lt;/p>
+&lt;p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p>
 &lt;hr>
 &lt;ol start="2">
 &lt;li>核心数据结构&lt;/li>
@@ -2357,4 +2365,9 @@ for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.
 &lt;p>· 每个节点代表一个向量。
 · 节点在每一层有一个“代表”（若该节点出现在该层）。
 · 边是双向的，表示节点间的“邻居关系”。
-· 每个节点的最大邻居数由参数 M 限制（默认 16）。&lt;/p></description></item></channel></rss>
+· 每个节点的最大邻居数由参数 M 限制（默认 16）。&lt;/p>
+&lt;hr>
+&lt;ol start="3">
+&lt;li>关键参数：ef_construction 与 ef_search&lt;/li>
+&lt;/ol>
+&lt;p>这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。&lt;/p></description></item></channel></rss>
