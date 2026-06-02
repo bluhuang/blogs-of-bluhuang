@@ -2,15 +2,15 @@
 <rss version="2.0">
     <channel>
       <title>bluhuang</title>
-      <link>https://bluhuang.github.io</link>
+      <link>https://bluhuang.github.io/blogs-of-bluhuang</link>
       <description>Last 10 notes on bluhuang</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
     <title>bluhuang</title>
-    <link>https://bluhuang.github.io/</link>
-    <guid>https://bluhuang.github.io/</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/</guid>
     <description><![CDATA[ bluhuang 欢迎来到我的技术博客！这里汇集了我在计算机科学领域的学习笔记与思考。 分类 AI 学习笔记 Coding 算法 数据库 . ]]></description>
-    <pubDate>Tue, 02 Jun 2026 04:53:04 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 05:32:31 GMT</pubDate>
   </item>
     </channel>
   </rss>
