@@ -1,16 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Databases on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/</link><description>Recent content in Databases on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/database/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</guid><description>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>关于链接
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p>[[programming interfaces]]&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Databases on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/</link><description>Recent content in Databases on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/database/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/database/</guid><description>&lt;p>for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p>[[programming interfaces]]&lt;/p>
 &lt;p>source: &lt;a href="https://sqlite.org/appfunc.html">https://sqlite.org/appfunc.html&lt;/a>&lt;/p>
 &lt;h1 id="1-简介">1 简介&lt;/h1>
 &lt;ol>
-&lt;li>SQLite支持用户实现自定义回调方法，以满足特定功能需求，类似于用户自定义函数（UDF）。&lt;/li>
-&lt;li>自定义的SQLite UDF可以是标量函数、聚合函数或窗口函数。&lt;/li>
-&lt;li>可以创建在SQL查询中使用的自定义函数，这些函数既可以用C语言编写，也可以通过绑定在其他语言（如Python、Java等）中实现。&lt;/li>
+&lt;li>SQLite支持用户实现自定义回调方法，以支持特殊的自定义功能，类似于用户自定义函数（UDF）。&lt;/li>
+&lt;li>自定义的SQLite UDF可以是标量函数、聚合函数，也可以是窗口函数。&lt;/li>
+&lt;li>创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言中实现（如 Python、Java 等）。&lt;/li>
 &lt;/ol>
 &lt;h1 id="2-相关接口">2 相关接口&lt;/h1>
-&lt;h2 id="sqlite3_create_function-系列">sqlite3_create_function 系列&lt;/h2>
+&lt;h2 id="sqlite3_create_function-系列函数">sqlite3_create_function 系列函数&lt;/h2>
 &lt;h3 id="1-sqlite3_create_function">1 sqlite3_create_function()&lt;/h3>
 &lt;h4 id="基本信息">基本信息&lt;/h4>
 &lt;pre tabindex="0">&lt;code>int sqlite3_create_function(
@@ -25,16 +22,16 @@
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>最基础版本&lt;/strong>：最早引入的函数注册接口。&lt;/li>
-&lt;li>&lt;strong>编码指定&lt;/strong>：通过 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好。&lt;/li>
+&lt;li>&lt;strong>最基础版本&lt;/strong>：最早引入的函数注册接口&lt;/li>
+&lt;li>&lt;strong>编码指定&lt;/strong>：使用 &lt;code>eTextRep&lt;/code> 参数指定文本编码偏好&lt;/li>
 &lt;li>&lt;strong>函数类型&lt;/strong>：
 &lt;ul>
-&lt;li>若 &lt;code>xFunc&lt;/code> 非 NULL，则注册为标量函数；&lt;/li>
-&lt;li>若 &lt;code>xStep&lt;/code> 和 &lt;code>xFinal&lt;/code> 非 NULL，则注册为聚合函数。&lt;/li>
+&lt;li>如果 &lt;code>xFunc&lt;/code> 非 NULL，注册标量函数&lt;/li>
+&lt;li>如果 &lt;code>xStep&lt;/code> 和 &lt;code>xFinal&lt;/code> 非 NULL，注册聚合函数&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>&lt;strong>应用数据&lt;/strong>：通过 &lt;code>pApp&lt;/code> 传递用户数据。&lt;/li>
-&lt;li>&lt;strong>内存管理&lt;/strong>：无自动清理机制，需手动管理内存。&lt;/li>
+&lt;li>&lt;strong>应用数据&lt;/strong>：通过 &lt;code>pApp&lt;/code> 传递用户数据&lt;/li>
+&lt;li>&lt;strong>内存管理&lt;/strong>：无自动清理机制，需要手动管理内存&lt;/li>
 &lt;/ul>
 &lt;h3 id="2-sqlite3_create_function16">2 sqlite3_create_function16()&lt;/h3>
 &lt;h4 id="基本信息-1">基本信息&lt;/h4>
@@ -50,13 +47,13 @@
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-1">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>UTF-16 支持&lt;/strong>：函数名使用 UTF-16 编码。&lt;/li>
-&lt;li>&lt;strong>向后兼容&lt;/strong>：为需要 UTF-16 函数名的应用提供支持。&lt;/li>
-&lt;li>&lt;strong>功能相同&lt;/strong>：与 &lt;code>sqlite3_create_function()&lt;/code> 功能相同，仅函数名编码不同。&lt;/li>
+&lt;li>&lt;strong>UTF-16 支持&lt;/strong>：函数名使用 UTF-16 编码&lt;/li>
+&lt;li>&lt;strong>向后兼容&lt;/strong>：为需要 UTF-16 函数名的应用提供支持&lt;/li>
+&lt;li>&lt;strong>功能相同&lt;/strong>：与 &lt;code>sqlite3_create_function()&lt;/code> 功能相同，只是函数名编码不同&lt;/li>
 &lt;li>&lt;strong>使用场景&lt;/strong>：
 &lt;ul>
-&lt;li>Windows API 集成（Windows 原生使用 UTF-16）；&lt;/li>
-&lt;li>需要处理宽字符的遗留系统。&lt;/li>
+&lt;li>Windows API 集成（Windows 原生使用 UTF-16）&lt;/li>
+&lt;li>需要处理宽字符的遗留系统&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -75,10 +72,10 @@
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-2">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>增强版本&lt;/strong>：在基础版本上增加了析构函数。&lt;/li>
-&lt;li>&lt;strong>自动清理&lt;/strong>：通过 &lt;code>xDestroy&lt;/code> 回调自动清理 &lt;code>pApp&lt;/code> 数据。&lt;/li>
-&lt;li>&lt;strong>内存安全&lt;/strong>：避免内存泄漏，更加安全。&lt;/li>
-&lt;li>&lt;strong>推荐使用&lt;/strong>：SQLite 官方推荐使用此版本。&lt;/li>
+&lt;li>&lt;strong>增强版本&lt;/strong>：在基础版本上增加了析构函数&lt;/li>
+&lt;li>&lt;strong>自动清理&lt;/strong>：通过 &lt;code>xDestroy&lt;/code> 回调自动清理 &lt;code>pApp&lt;/code> 数据&lt;/li>
+&lt;li>&lt;strong>内存安全&lt;/strong>：避免内存泄漏，更安全&lt;/li>
+&lt;li>&lt;strong>推荐使用&lt;/strong>：SQLite 官方推荐使用此版本&lt;/li>
 &lt;/ul>
 &lt;h3 id="4-sqlite3_create_window_function">4 sqlite3_create_window_function&lt;/h3>
 &lt;h4 id="基本信息-3">基本信息&lt;/h4>
@@ -96,29 +93,29 @@
 );
 &lt;/code>&lt;/pre>&lt;h4 id="特点-3">特点&lt;/h4>
 &lt;ul>
-&lt;li>&lt;strong>窗口函数专用&lt;/strong>：专门用于注册窗口函数（SQLite 3.25.0+）。&lt;/li>
-&lt;li>&lt;strong>额外回调&lt;/strong>：需要实现更多回调函数。&lt;/li>
-&lt;li>&lt;strong>反向处理&lt;/strong>：支持 &lt;code>xInverse&lt;/code> 用于优化窗口函数性能。&lt;/li>
-&lt;li>&lt;strong>复杂功能&lt;/strong>：支持滑动窗口、排序、分组等高级功能。&lt;/li>
+&lt;li>&lt;strong>窗口函数专用&lt;/strong>：专门用于注册窗口函数（SQLite 3.25.0+）&lt;/li>
+&lt;li>&lt;strong>额外回调&lt;/strong>：需要实现更多回调函数&lt;/li>
+&lt;li>&lt;strong>反向处理&lt;/strong>：支持 &lt;code>xInverse&lt;/code> 用于优化窗口函数性能&lt;/li>
+&lt;li>&lt;strong>复杂功能&lt;/strong>：支持滑动窗口、排序、分组等高级功能&lt;/li>
 &lt;/ul>
-&lt;h1 id="3-udf类型">3 UDF类型&lt;/h1>
+&lt;h1 id="3-udf-类型">3 UDF 类型&lt;/h1>
 &lt;h2 id="31-标量函数-scalar-functions">3.1 标量函数 (Scalar Functions)&lt;/h2>
 &lt;ul>
-&lt;li>接受参数，返回单个值。&lt;/li>
-&lt;li>对每一行数据独立计算。&lt;/li>
-&lt;li>示例：&lt;code>UPPER()&lt;/code>、&lt;code>ABS()&lt;/code>、&lt;code>DATE()&lt;/code>。&lt;/li>
+&lt;li>接受参数，返回单个值&lt;/li>
+&lt;li>对每一行数据独立计算&lt;/li>
+&lt;li>示例：&lt;code>UPPER()&lt;/code>, &lt;code>ABS()&lt;/code>, &lt;code>DATE()&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;h2 id="32-聚合函数-aggregate-functions">3.2 聚合函数 (Aggregate Functions)&lt;/h2>
 &lt;ul>
-&lt;li>跨多行数据操作，返回聚合结果。&lt;/li>
-&lt;li>需要维护状态信息。&lt;/li>
-&lt;li>示例：&lt;code>SUM()&lt;/code>、&lt;code>AVG()&lt;/code>、&lt;code>COUNT()&lt;/code>。&lt;/li>
+&lt;li>跨多行数据操作，返回聚合结果&lt;/li>
+&lt;li>需要维护状态信息&lt;/li>
+&lt;li>示例：&lt;code>SUM()&lt;/code>, &lt;code>AVG()&lt;/code>, &lt;code>COUNT()&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;h2 id="33-窗口函数-window-functions">3.3 窗口函数 (Window Functions)&lt;/h2>
 &lt;ul>
-&lt;li>SQLite 3.25.0+ 支持。&lt;/li>
-&lt;li>在窗口帧上执行计算。&lt;/li>
-&lt;li>示例：&lt;code>ROW_NUMBER()&lt;/code>、&lt;code>RANK()&lt;/code>。&lt;/li>
+&lt;li>SQLite 3.25.0+ 支持&lt;/li>
+&lt;li>在窗口帧上执行计算&lt;/li>
+&lt;li>示例：&lt;code>ROW_NUMBER()&lt;/code>, &lt;code>RANK()&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;h1 id="4-参数含义">4 参数含义&lt;/h1>
 &lt;pre tabindex="0">&lt;code>int sqlite3_create_function_v2(
@@ -134,19 +131,19 @@
 );
 &lt;/code>&lt;/pre>&lt;h2 id="41-zfunctionname">4.1 zFunctionName&lt;/h2>
 &lt;ol>
-&lt;li>该参数传入方法名：第二个参数是所创建的 SQL 函数的名称。名称通常使用 UTF-8 编码，但对于 &lt;code>sqlite3_create_function16()&lt;/code>，名称应为本地字节序的 UTF-16 编码。&lt;/li>
-&lt;li>函数名长度限制为 255 字节（UTF-8）。任何尝试创建更长名称的函数将导致 &lt;code>SQLITE_MISUSE&lt;/code> 错误。&lt;/li>
-&lt;li>UDF 注册支持重载：可以使用相同的函数名多次调用函数创建接口。例如，若两次调用具有相同的函数名但参数数量不同，则会注册该 SQL 函数的两个变体，分别接受不同数量的参数。&lt;/li>
+&lt;li>该参数传入方法名：第二个参数是正在创建的 SQL 函数的名称。名称通常为 UTF8 编码，但对于 &lt;a href="https://sqlite.org/c3ref/create_function.html">sqlite3_create_function16()&lt;/a>，应使用本地字节序的 UTF16 编码。&lt;/li>
+&lt;li>函数名长度限制为 255 字节：SQL 函数名的最大长度是 255 字节（UTF8）。尝试创建超过该长度的函数名会导致 &lt;a href="https://sqlite.org/rescode.html#misuse">SQLITE_MISUSE&lt;/a> 错误。&lt;/li>
+&lt;li>UDF 注册支持重载：同一函数名可以多次调用创建接口。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册该 SQL 函数的两个变体，分别接受不同数量的参数。&lt;/li>
 &lt;/ol>
 &lt;h2 id="42-narg">4.2 nArg&lt;/h2>
 &lt;ol>
-&lt;li>表示参数数量，类型为 &lt;code>int&lt;/code>。&lt;/li>
-&lt;li>参数大小范围为 -1（表示可变参数），默认为 127，最大值为 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code>（32767）。&lt;/li>
+&lt;li>表示参数数量，&lt;code>int&lt;/code> 类型。&lt;/li>
+&lt;li>参数大小范围为 -1 到 127（最大值为 &lt;code>SQLITE_MAX_FUNCTION_ARG&lt;/code>，即 32767）。&lt;/li>
 &lt;/ol>
 &lt;h2 id="43-etextrep-文本编码">4.3 eTextRep 文本编码&lt;/h2>
 &lt;ul>
-&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>int&lt;/code> - 位掩码&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：指定函数的文本编码偏好。&lt;/li>
+&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>int&lt;/code> （位掩码）&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：指定函数的文本编码偏好&lt;/li>
 &lt;li>&lt;strong>取值&lt;/strong>：
 &lt;ol>
 &lt;li>&lt;code>SQLITE_UTF8&lt;/code> (0x01)：UTF-8 编码&lt;/li>
@@ -154,21 +151,21 @@
 &lt;li>&lt;code>SQLITE_UTF16BE&lt;/code> (0x03)：UTF-16 大端序&lt;/li>
 &lt;li>&lt;code>SQLITE_UTF16&lt;/code> (0x04)：使用本地字节序的 UTF-16&lt;/li>
 &lt;li>&lt;code>SQLITE_ANY&lt;/code>：接受任何编码（已废弃）&lt;/li>
-&lt;li>&lt;strong>组合标志&lt;/strong>：可与确定性标志组合使用&lt;/li>
+&lt;li>&lt;strong>组合标志&lt;/strong>：可与确定性标志组合&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="44-papp">4.4 pApp&lt;/h2>
 &lt;h3 id="详细说明">详细说明&lt;/h3>
 &lt;ul>
-&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>void*&lt;/code> - 任意类型指针&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：传递用户自定义数据到函数。&lt;/li>
-&lt;li>&lt;strong>生命周期&lt;/strong>：由 &lt;code>xDestroy&lt;/code> 回调管理。&lt;/li>
+&lt;li>&lt;strong>类型&lt;/strong>：&lt;code>void*&lt;/code>（任意类型指针）&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：传递用户自定义数据到函数&lt;/li>
+&lt;li>&lt;strong>生命周期&lt;/strong>：由 &lt;code>xDestroy&lt;/code> 回调管理&lt;/li>
 &lt;li>&lt;strong>使用场景&lt;/strong>：
 &lt;ol>
-&lt;li>传递配置参数；&lt;/li>
-&lt;li>传递共享资源（如缓存、文件句柄）；&lt;/li>
-&lt;li>传递状态信息。&lt;/li>
+&lt;li>传递配置参数&lt;/li>
+&lt;li>传递共享资源（如缓存、文件句柄）&lt;/li>
+&lt;li>传递状态信息&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;/ul>
@@ -176,25 +173,24 @@
 &lt;h3 id="详细说明-1">详细说明&lt;/h3>
 &lt;ul>
 &lt;li>&lt;strong>类型&lt;/strong>：函数指针 &lt;code>void (*)(sqlite3_context*, int, sqlite3_value**)&lt;/code>&lt;/li>
-&lt;li>&lt;strong>作用&lt;/strong>：标量函数的实现。&lt;/li>
-&lt;li>&lt;strong>调用时机&lt;/strong>：每次 SQL 查询需要函数值时调用。&lt;/li>
+&lt;li>&lt;strong>作用&lt;/strong>：标量函数的实现&lt;/li>
+&lt;li>&lt;strong>调用时机&lt;/strong>：每次 SQL 查询需要函数值时调用&lt;/li>
 &lt;li>&lt;strong>参数&lt;/strong>：
 &lt;ol>
-&lt;li>&lt;code>sqlite3_context*&lt;/code>：函数上下文，用于设置结果和错误；&lt;/li>
-&lt;li>&lt;code>int&lt;/code>：实际参数个数；&lt;/li>
-&lt;li>&lt;code>sqlite3_value**&lt;/code>：参数值数组。&lt;/li>
+&lt;li>&lt;code>sqlite3_context*&lt;/code>：函数上下文，用于设置结果和错误&lt;/li>
+&lt;li>&lt;code>int&lt;/code>：实际参数个数&lt;/li>
+&lt;li>&lt;code>sqlite3_value**&lt;/code>：参数值数组&lt;/li>
 &lt;/ol>
 &lt;/li>
-&lt;/ul></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</guid><description>&lt;p>[[sqlite]] 用作链接。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>请提供需要处理的Markdown原文内容，我才能按照您的要求进行脱敏、润色和删除与“面试”相关的内容。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>for link&lt;br>
-[[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>好的，作为专业的博客编辑器，我已根据您的要求对原文进行了脱敏、润色以及删除所有与“面试”相关内容的处理。以下是处理后的版本，所有图片链接语法均保持原样。&lt;/p>
+&lt;/ul></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/programming-interfaces/</guid><description>&lt;p>[[sqlite]] for link&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p>请您提供需要处理的Markdown原文内容，我会按照要求进行脱敏、润色并删除与“面试”相关的内容，同时保留所有图片链接语法不变。&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/sqlite/</guid><description>&lt;p>链接到 [[database]]&lt;/p></description></item><item><title/><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p>好的，以下是根据您的要求处理后的 Markdown 内容。已删除具体公司名（如 Chroma、Milvus、Weaviate），并对语句进行了润色，同时保留了所有图片链接语法原样。原文中未出现与“面试”相关的内容，故无需处理。&lt;/p>
 &lt;hr>
 &lt;p>HNSW 算法完全学习笔记&lt;/p>
-&lt;p>基于项目实践与深入探讨整理，涵盖原理、操作、参数调优与工程实现。&lt;/p>
+&lt;p>基于理论与实践整理，涵盖原理、操作、参数调优与工程实现。&lt;/p>
 &lt;hr>
 &lt;ol>
 &lt;li>概述&lt;/li>
 &lt;/ol>
-&lt;p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。该算法广泛应用于向量数据库和 RAG 系统。&lt;/p>
+&lt;p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p>
 &lt;hr>
 &lt;ol start="2">
 &lt;li>核心数据结构&lt;/li>
@@ -210,11 +206,6 @@
 · 底层 = 街道（节点多，连接细，精确搜索）&lt;/p>
 &lt;p>2.2 节点与边&lt;/p>
 &lt;p>· 每个节点代表一个向量。
-· 每个节点在所属的每一层都有一个代表。
+· 节点在每一层有一个“代表”（若该节点出现在该层）。
 · 边是双向的，表示节点间的“邻居关系”。
-· 每个节点的最大邻居数由参数 M 限制（默认值为 16）。&lt;/p>
-&lt;hr>
-&lt;ol start="3">
-&lt;li>关键参数：ef_construction 与 ef_search&lt;/li>
-&lt;/ol>
-&lt;p>这两个参数控制搜索的广度，是 HNSW 速度与精度权衡的核心。&lt;/p></description></item></channel></rss>
+· 每个节点的最大邻居数由参数 M 限制（默认 16）。&lt;/p></description></item></channel></rss>
