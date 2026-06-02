@@ -1,0 +1,345 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>BluHuang's Blog</title><meta name=keywords content><meta name=description content="本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 maxCount 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。
+
+滑动窗口题型总结笔记
+1. 题型特征与适用条件
+什么时候使用滑动窗口？
+滑动窗口适用于解决 子串/子数组 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：
+
+输入是线性结构（字符串或数组）
+问题涉及连续区间，且需要动态调整边界
+条件通常与元素计数、和、乘积、字符种类等有关
+往往需要在线性时间内求解
+
+关键点：
+
+何时扩大窗口：右指针移动，将新元素加入窗口。
+何时收缩窗口：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。
+
+典型场景：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。
+2. 为什么可以用滑动窗口？
+滑动窗口本质是 双指针技术 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：
+
+右指针负责 扩展窗口，纳入新元素
+左指针负责 收缩窗口，当窗口满足条件时尝试缩小以寻找更优解
+通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件
+
+由于每个元素最多被左右指针各访问一次，时间复杂度为 O(n)。
+3. 通用解题模板（基于 LeetCode 76 最小覆盖子串）
+题目描述：给定字符串 s 和 t，在 s 中找出包含 t 所有字符的最短子串。
+void slidingWindow(string s, string t) {
+    unordered_map<char, int> need, window;
+    for (char c : t) need[c]++;          // 记录目标需求
+    int left = 0, right = 0;
+    int valid = 0;                        // 已满足的字符种类数
+    while (right < s.size()) {
+        char c = s[right];
+        right++;                          // 扩大窗口
+        
+        // 窗口内数据更新
+        if (need.count(c)) {
+            window[c]++;
+            if (window[c] == need[c])
+                valid++;
+        }
+        
+        // 判断左侧窗口是否需要收缩
+        while (valid == need.size()) {    // 满足条件时收缩
+            // 更新最优解（如记录最小窗口）
+            
+            char d = s[left];
+            left++;                       // 收缩窗口
+            
+            // 窗口内数据更新
+            if (need.count(d)) {
+                if (window[d] == need[d])
+                    valid--;
+                window[d]--;
+            }
+        }
+    }
+}
+4. 关键概念解析
+4.1 need 哈希表
+
+记录目标字符串中每个字符的 需求次数。
+例如 t = &#34;AABC&#34; → need['A']=2, need['B']=1, need['C']=1。
+它的 size() 表示需要满足的字符种类数。
+
+4.2 window 哈希表
+
+记录当前窗口内每个字符的 实际出现次数。
+
+4.3 valid 变量
+
+统计 当前窗口中已经刚好满足 need 数量要求的字符种类数。
+更新规则：
+
+右指针移入字符 c：若 window[c] == need[c]，则 valid++。
+左指针移出字符 d：若 window[d] == need[d]，则 valid--。
+
+
+当 valid == need.size() 时，窗口已完全覆盖目标字符串的所有需求。
+
+为什么用 valid 而不是直接比较两个哈希表？
+因为每次检查都需要遍历 need，而用 valid 可以在 O(1) 时间内判断是否满足条件，提高效率。"><meta name=author content><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/><link crossorigin=anonymous href=/blogs-of-bluhuang/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as=style><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-32x32.png><link rel=apple-touch-icon href=https://bluhuang.github.io/blogs-of-bluhuang/apple-touch-icon.png><link rel=mask-icon href=https://bluhuang.github.io/blogs-of-bluhuang/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"><meta property="og:site_name" content="BluHuang's Blog"><meta property="og:title" content="BluHuang's Blog"><meta property="og:description" content="本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 maxCount 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。
+滑动窗口题型总结笔记 1. 题型特征与适用条件 什么时候使用滑动窗口？
+滑动窗口适用于解决 子串/子数组 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：
+输入是线性结构（字符串或数组） 问题涉及连续区间，且需要动态调整边界 条件通常与元素计数、和、乘积、字符种类等有关 往往需要在线性时间内求解 关键点：
+何时扩大窗口：右指针移动，将新元素加入窗口。 何时收缩窗口：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。 典型场景：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。
+2. 为什么可以用滑动窗口？ 滑动窗口本质是 双指针技术 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：
+右指针负责 扩展窗口，纳入新元素 左指针负责 收缩窗口，当窗口满足条件时尝试缩小以寻找更优解 通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件 由于每个元素最多被左右指针各访问一次，时间复杂度为 O(n)。
+3. 通用解题模板（基于 LeetCode 76 最小覆盖子串） 题目描述：给定字符串 s 和 t，在 s 中找出包含 t 所有字符的最短子串。
+void slidingWindow(string s, string t) { unordered_map<char, int> need, window; for (char c : t) need[c]++; // 记录目标需求 int left = 0, right = 0; int valid = 0; // 已满足的字符种类数 while (right < s.size()) { char c = s[right]; right++; // 扩大窗口 // 窗口内数据更新 if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } // 判断左侧窗口是否需要收缩 while (valid == need.size()) { // 满足条件时收缩 // 更新最优解（如记录最小窗口） char d = s[left]; left++; // 收缩窗口 // 窗口内数据更新 if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } } 4. 关键概念解析 4.1 need 哈希表 记录目标字符串中每个字符的 需求次数。 例如 t = &#34;AABC&#34; → need['A']=2, need['B']=1, need['C']=1。 它的 size() 表示需要满足的字符种类数。 4.2 window 哈希表 记录当前窗口内每个字符的 实际出现次数。 4.3 valid 变量 统计 当前窗口中已经刚好满足 need 数量要求的字符种类数。 更新规则： 右指针移入字符 c：若 window[c] == need[c]，则 valid++。 左指针移出字符 d：若 window[d] == need[d]，则 valid--。 当 valid == need.size() 时，窗口已完全覆盖目标字符串的所有需求。 为什么用 valid 而不是直接比较两个哈希表？
+因为每次检查都需要遍历 need，而用 valid 可以在 O(1) 时间内判断是否满足条件，提高效率。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="coding"><meta name=twitter:card content="summary"><meta name=twitter:title content="BluHuang's Blog"><meta name=twitter:description content="本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 maxCount 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。
+滑动窗口题型总结笔记 1. 题型特征与适用条件 什么时候使用滑动窗口？
+滑动窗口适用于解决 子串/子数组 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：
+输入是线性结构（字符串或数组） 问题涉及连续区间，且需要动态调整边界 条件通常与元素计数、和、乘积、字符种类等有关 往往需要在线性时间内求解 关键点：
+何时扩大窗口：右指针移动，将新元素加入窗口。 何时收缩窗口：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。 典型场景：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。
+2. 为什么可以用滑动窗口？ 滑动窗口本质是 双指针技术 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：
+右指针负责 扩展窗口，纳入新元素 左指针负责 收缩窗口，当窗口满足条件时尝试缩小以寻找更优解 通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件 由于每个元素最多被左右指针各访问一次，时间复杂度为 O(n)。
+3. 通用解题模板（基于 LeetCode 76 最小覆盖子串） 题目描述：给定字符串 s 和 t，在 s 中找出包含 t 所有字符的最短子串。
+void slidingWindow(string s, string t) { unordered_map<char, int> need, window; for (char c : t) need[c]++; // 记录目标需求 int left = 0, right = 0; int valid = 0; // 已满足的字符种类数 while (right < s.size()) { char c = s[right]; right++; // 扩大窗口 // 窗口内数据更新 if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } // 判断左侧窗口是否需要收缩 while (valid == need.size()) { // 满足条件时收缩 // 更新最优解（如记录最小窗口） char d = s[left]; left++; // 收缩窗口 // 窗口内数据更新 if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } } 4. 关键概念解析 4.1 need 哈希表 记录目标字符串中每个字符的 需求次数。 例如 t = &#34;AABC&#34; → need['A']=2, need['B']=1, need['C']=1。 它的 size() 表示需要满足的字符种类数。 4.2 window 哈希表 记录当前窗口内每个字符的 实际出现次数。 4.3 valid 变量 统计 当前窗口中已经刚好满足 need 数量要求的字符种类数。 更新规则： 右指针移入字符 c：若 window[c] == need[c]，则 valid++。 左指针移出字符 d：若 window[d] == need[d]，则 valid--。 当 valid == need.size() 时，窗口已完全覆盖目标字符串的所有需求。 为什么用 valid 而不是直接比较两个哈希表？
+因为每次检查都需要遍历 need，而用 valid 可以在 O(1) 时间内判断是否满足条件，提高效率。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Codings","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/"},{"@type":"ListItem","position":2,"name":"","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"","name":"","description":"本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 maxCount 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。\n滑动窗口题型总结笔记 1. 题型特征与适用条件 什么时候使用滑动窗口？\n滑动窗口适用于解决 子串/子数组 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：\n输入是线性结构（字符串或数组） 问题涉及连续区间，且需要动态调整边界 条件通常与元素计数、和、乘积、字符种类等有关 往往需要在线性时间内求解 关键点：\n何时扩大窗口：右指针移动，将新元素加入窗口。 何时收缩窗口：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。 典型场景：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。\n2. 为什么可以用滑动窗口？ 滑动窗口本质是 双指针技术 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：\n右指针负责 扩展窗口，纳入新元素 左指针负责 收缩窗口，当窗口满足条件时尝试缩小以寻找更优解 通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件 由于每个元素最多被左右指针各访问一次，时间复杂度为 O(n)。\n3. 通用解题模板（基于 LeetCode 76 最小覆盖子串） 题目描述：给定字符串 s 和 t，在 s 中找出包含 t 所有字符的最短子串。\nvoid slidingWindow(string s, string t) { unordered_map\u0026lt;char, int\u0026gt; need, window; for (char c : t) need[c]++; // 记录目标需求 int left = 0, right = 0; int valid = 0; // 已满足的字符种类数 while (right \u0026lt; s.size()) { char c = s[right]; right++; // 扩大窗口 // 窗口内数据更新 if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } // 判断左侧窗口是否需要收缩 while (valid == need.size()) { // 满足条件时收缩 // 更新最优解（如记录最小窗口） char d = s[left]; left++; // 收缩窗口 // 窗口内数据更新 if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } } 4. 关键概念解析 4.1 need 哈希表 记录目标字符串中每个字符的 需求次数。 例如 t = \u0026quot;AABC\u0026quot; → need['A']=2, need['B']=1, need['C']=1。 它的 size() 表示需要满足的字符种类数。 4.2 window 哈希表 记录当前窗口内每个字符的 实际出现次数。 4.3 valid 变量 统计 当前窗口中已经刚好满足 need 数量要求的字符种类数。 更新规则： 右指针移入字符 c：若 window[c] == need[c]，则 valid++。 左指针移出字符 d：若 window[d] == need[d]，则 valid--。 当 valid == need.size() 时，窗口已完全覆盖目标字符串的所有需求。 为什么用 valid 而不是直接比较两个哈希表？\n因为每次检查都需要遍历 need，而用 valid 可以在 O(1) 时间内判断是否满足条件，提高效率。\n","keywords":[],"articleBody":"本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 maxCount 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。\n滑动窗口题型总结笔记 1. 题型特征与适用条件 什么时候使用滑动窗口？\n滑动窗口适用于解决 子串/子数组 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：\n输入是线性结构（字符串或数组） 问题涉及连续区间，且需要动态调整边界 条件通常与元素计数、和、乘积、字符种类等有关 往往需要在线性时间内求解 关键点：\n何时扩大窗口：右指针移动，将新元素加入窗口。 何时收缩窗口：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。 典型场景：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。\n2. 为什么可以用滑动窗口？ 滑动窗口本质是 双指针技术 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：\n右指针负责 扩展窗口，纳入新元素 左指针负责 收缩窗口，当窗口满足条件时尝试缩小以寻找更优解 通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件 由于每个元素最多被左右指针各访问一次，时间复杂度为 O(n)。\n3. 通用解题模板（基于 LeetCode 76 最小覆盖子串） 题目描述：给定字符串 s 和 t，在 s 中找出包含 t 所有字符的最短子串。\nvoid slidingWindow(string s, string t) { unordered_map\u003cchar, int\u003e need, window; for (char c : t) need[c]++; // 记录目标需求 int left = 0, right = 0; int valid = 0; // 已满足的字符种类数 while (right \u003c s.size()) { char c = s[right]; right++; // 扩大窗口 // 窗口内数据更新 if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } // 判断左侧窗口是否需要收缩 while (valid == need.size()) { // 满足条件时收缩 // 更新最优解（如记录最小窗口） char d = s[left]; left++; // 收缩窗口 // 窗口内数据更新 if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } } 4. 关键概念解析 4.1 need 哈希表 记录目标字符串中每个字符的 需求次数。 例如 t = \"AABC\" → need['A']=2, need['B']=1, need['C']=1。 它的 size() 表示需要满足的字符种类数。 4.2 window 哈希表 记录当前窗口内每个字符的 实际出现次数。 4.3 valid 变量 统计 当前窗口中已经刚好满足 need 数量要求的字符种类数。 更新规则： 右指针移入字符 c：若 window[c] == need[c]，则 valid++。 左指针移出字符 d：若 window[d] == need[d]，则 valid--。 当 valid == need.size() 时，窗口已完全覆盖目标字符串的所有需求。 为什么用 valid 而不是直接比较两个哈希表？\n因为每次检查都需要遍历 need，而用 valid 可以在 O(1) 时间内判断是否满足条件，提高效率。\n5. LeetCode 经典题型（含完整代码，已逐题验证） 5.1 LeetCode 76. 最小覆盖子串 题目描述：给定字符串 s 和 t，返回 s 中涵盖 t 所有字符的最小子串。如果不存在，返回空字符串。\n思路：滑动窗口 + need/window/valid。右指针不断扩展，当窗口满足条件时，收缩左边界并更新最小长度和起始位置。\nclass Solution { public: string minWindow(string s, string t) { unordered_map\u003cchar, int\u003e need, window; for (char c : t) need[c]++; int left = 0, right = 0; int valid = 0; int start = 0, minLen = INT_MAX; while (right \u003c s.size()) { char c = s[right]; right++; if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } while (valid == need.size()) { if (right - left \u003c minLen) { start = left; minLen = right - left; } char d = s[left]; left++; if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } return minLen == INT_MAX ? \"\" : s.substr(start, minLen); } }; 5.2 LeetCode 3. 无重复字符的最长子串 题目描述：给定一个字符串 s，找出其中不含有重复字符的最长子串的长度。\n思路：滑动窗口 + 哈希表记录字符出现次数。右指针扩展，当出现重复字符时，收缩左边界直到重复消失。\nclass Solution { public: int lengthOfLongestSubstring(string s) { unordered_map\u003cchar, int\u003e window; int left = 0, right = 0; int maxLen = 0; while (right \u003c s.size()) { char c = s[right]; right++; window[c]++; while (window[c] \u003e 1) { char d = s[left]; left++; window[d]--; } maxLen = max(maxLen, right - left); } return maxLen; } }; 5.3 LeetCode 209. 长度最小的子数组 题目描述：给定一个含有 n 个正整数的数组和一个正整数 target，找出该数组中满足其和 ≥ target 的长度最小的连续子数组，并返回其长度。如果不存在，返回 0。\n思路：滑动窗口维护窗口和。右指针扩展累加，当和 ≥ target 时，收缩左边界并更新最小长度。\nclass Solution { public: int minSubArrayLen(int target, vector\u003cint\u003e\u0026 nums) { int left = 0, right = 0; int sum = 0, minLen = INT_MAX; while (right \u003c nums.size()) { sum += nums[right]; right++; while (sum \u003e= target) { minLen = min(minLen, right - left); sum -= nums[left]; left++; } } return minLen == INT_MAX ? 0 : minLen; } }; 5.4 LeetCode 567. 字符串的排列 题目描述：给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。即 s1 的某个排列是 s2 的子串。\n思路：固定窗口大小为 s1.size()，滑动窗口 + need/window/valid。当窗口长度等于 s1 长度时判断 valid，然后收缩左边界继续滑动。\nclass Solution { public: bool checkInclusion(string s1, string s2) { unordered_map\u003cchar, int\u003e need, window; for (char c : s1) need[c]++; int left = 0, right = 0; int valid = 0; while (right \u003c s2.size()) { char c = s2[right]; right++; if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } while (right - left \u003e= s1.size()) { if (valid == need.size()) return true; char d = s2[left]; left++; if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } return false; } }; 5.5 LeetCode 438. 找到字符串中所有字母异位词 题目描述：给定两个字符串 s 和 p，找到 s 中所有 p 的异位词的子串，返回这些子串的起始索引。异位词指字母相同但排列不同的字符串。\n思路：与 567 完全一致，只是将返回 true 改为记录起始索引到 res。\nclass Solution { public: vector\u003cint\u003e findAnagrams(string s, string p) { unordered_map\u003cchar, int\u003e need, window; for (char c : p) need[c]++; int left = 0, right = 0; int valid = 0; vector\u003cint\u003e res; while (right \u003c s.size()) { char c = s[right]; right++; if (need.count(c)) { window[c]++; if (window[c] == need[c]) valid++; } while (right - left \u003e= p.size()) { if (valid == need.size()) { res.push_back(left); // 记录起始索引 } char d = s[left]; left++; if (need.count(d)) { if (window[d] == need[d]) valid--; window[d]--; } } } return res; } }; 5.6 LeetCode 340. 至多包含 K 个不同字符的最长子串 题目描述：给定一个字符串 s 和一个整数 k，找出至多包含 k 个不同字符的最长子串的长度。\n思路：滑动窗口 + 哈希表记录字符频次。当不同字符数 \u003e k 时，收缩左边界。\nclass Solution { public: int lengthOfLongestSubstringKDistinct(string s, int k) { unordered_map\u003cchar, int\u003e window; int left = 0, right = 0; int maxLen = 0; while (right \u003c s.size()) { char c = s[right]; right++; window[c]++; while (window.size() \u003e k) { char d = s[left]; left++; window[d]--; if (window[d] == 0) window.erase(d); } maxLen = max(maxLen, right - left); } return maxLen; } }; 5.7 LeetCode 424. 替换后的最长重复字符 题目描述：给定一个字符串 s 和一个整数 k，你可以将字符串中的任意字符替换为其他字符，最多执行 k 次。求替换后包含相同字母的最长子串的长度。\n核心思路（通俗解释）：\n我们想要一个全部由同一个字母组成的最长子串。在任意窗口内，要把所有字符变成同一个字母，需要替换的次数 = 窗口长度 - 窗口内出现次数最多的那个字母的频次。\n例如窗口 \"AABBC\"，长度 5，最多字母是 'A' 出现了 2 次，那么把其他 3 个字母变成 'A' 需要 3 次替换。只要这个替换次数 ≤ k，这个窗口就可以通过不超过 k 次替换变成全部相同字母。\n因此我们维护窗口内最大频次 maxCount，当 窗口长度 - maxCount \u003e k 时，说明当前窗口无法通过 k 次替换变成全相同，需要收缩左边界。\n注意：maxCount 在收缩时可能不会立即减小，但这不影响结果正确性，因为我们只需要在满足条件时记录最大窗口长度。\nclass Solution { public: int characterReplacement(string s, int k) { vector\u003cint\u003e count(26, 0); int left = 0, right = 0; int maxCount = 0, maxLen = 0; while (right \u003c s.size()) { char c = s[right]; right++; count[c - 'A']++; maxCount = max(maxCount, count[c - 'A']); // 判断是否需要收缩：窗口长度 - 最多频次 \u003e k 则无法满足 while (right - left - maxCount \u003e k) { char d = s[left]; left++; count[d - 'A']--; // 注意：maxCount 不用更新，因为收缩不会增加 maxCount } maxLen = max(maxLen, right - left); } return maxLen; } }; 5.8 LeetCode 992. K 个不同整数的子数组 题目描述：给定一个正整数数组 nums 和一个整数 k，返回 nums 中「恰好由 k 个不同整数组成」的连续子数组的个数。\n为什么不能直接找恰好 K 个？\n滑动窗口在收缩时，我们通常用 while (window.size() \u003e k) 来维持窗口内不同元素个数 ≤ k。但是如果要维护 恰好 k 个，当窗口内不同元素个数变为 k 时，我们无法判断应该收缩左边界还是继续扩展右边界，因为扩展可能会变成 k+1，收缩可能会变成 k-1。窗口状态的变化没有单调性，无法用简单的双指针直接维护“恰好等于”。\n解决方案：转换思路\n恰好 K 个不同整数的子数组个数 = 最多 K 个不同整数的子数组个数 - 最多 K-1 个不同整数的子数组个数。\n这两个“最多”问题都可以用标准滑动窗口轻松解决。每次右指针移动后，以当前右指针结尾的满足条件的子数组个数恰好等于窗口长度（因为左指针可以取 [left, right-1] 中任意位置作为起点，窗口内不同元素个数都 ≤ K）。\nclass Solution { public: int subarraysWithKDistinct(vector\u003cint\u003e\u0026 nums, int k) { return atMostK(nums, k) - atMostK(nums, k - 1); } // 计算最多包含 k 个不同整数的子数组个数 int atMostK(vector\u003cint\u003e\u0026 nums, int k) { unordered_map\u003cint, int\u003e window; int left = 0, right = 0; int count = 0; while (right \u003c nums.size()) { int c = nums[right]; right++; window[c]++; while (window.size() \u003e k) { int d = nums[left]; ","wordCount":"998","inLanguage":"en","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/"},"publisher":{"@type":"Organization","name":"BluHuang's Blog","logo":{"@type":"ImageObject","url":"https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://bluhuang.github.io/blogs-of-bluhuang/ accesskey=h title="BluHuang's Blog (Alt + H)">BluHuang's Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent"></h1><div class=post-meta></div></header><div class="post-content md-content"><p>本笔记对滑动窗口题型进行了系统总结，其中重点解释了424题中维护 <code>maxCount</code> 的原因，以及992题为何不能直接找恰好K个而需转换为「最多K个」减去「最多K-1个」。以下为完整笔记。</p><hr><h1 id=滑动窗口题型总结笔记>滑动窗口题型总结笔记<a hidden class=anchor aria-hidden=true href=#滑动窗口题型总结笔记>#</a></h1><h2 id=1-题型特征与适用条件>1. 题型特征与适用条件<a hidden class=anchor aria-hidden=true href=#1-题型特征与适用条件>#</a></h2><p><strong>什么时候使用滑动窗口？</strong><br>滑动窗口适用于解决 <strong>子串/子数组</strong> 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：</p><ul><li>输入是线性结构（字符串或数组）</li><li>问题涉及连续区间，且需要动态调整边界</li><li>条件通常与元素计数、和、乘积、字符种类等有关</li><li>往往需要在线性时间内求解</li></ul><p><strong>关键点</strong>：</p><ul><li><strong>何时扩大窗口</strong>：右指针移动，将新元素加入窗口。</li><li><strong>何时收缩窗口</strong>：当窗口满足题目条件时，尝试收缩左边界以寻找更优解（如最小长度），或当窗口不满足条件时收缩（如求最长无重复子串）。</li></ul><p><strong>典型场景</strong>：最小覆盖子串、无重复字符的最长子串、长度最小的子数组、字符串排列、字母异位词、最多包含 K 个不同字符的子串、替换后的最长重复字符等。</p><h2 id=2-为什么可以用滑动窗口>2. 为什么可以用滑动窗口？<a hidden class=anchor aria-hidden=true href=#2-为什么可以用滑动窗口>#</a></h2><p>滑动窗口本质是 <strong>双指针技术</strong> 的一种，它利用窗口内数据的单调性或条件的变化，通过移动左右指针来遍历所有可能的连续子区间，同时避免重复计算。核心思想：</p><ul><li>右指针负责 <strong>扩展窗口</strong>，纳入新元素</li><li>左指针负责 <strong>收缩窗口</strong>，当窗口满足条件时尝试缩小以寻找更优解</li><li>通过维护窗口内的状态（如哈希表、计数等），在 O(1) 时间内判断是否满足条件</li></ul><p>由于每个元素最多被左右指针各访问一次，时间复杂度为 <strong>O(n)</strong>。</p><h2 id=3-通用解题模板基于-leetcode-76-最小覆盖子串>3. 通用解题模板（基于 LeetCode 76 最小覆盖子串）<a hidden class=anchor aria-hidden=true href=#3-通用解题模板基于-leetcode-76-最小覆盖子串>#</a></h2><p><strong>题目描述</strong>：给定字符串 <code>s</code> 和 <code>t</code>，在 <code>s</code> 中找出包含 <code>t</code> 所有字符的最短子串。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>slidingWindow</span>(string s, string t) {
+</span></span><span style=display:flex><span>    unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> need, window;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>char</span> c : t) need[c]<span style=color:#f92672>++</span>;          <span style=color:#75715e>// 记录目标需求
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;                        <span style=color:#75715e>// 已满足的字符种类数
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>        right<span style=color:#f92672>++</span>;                          <span style=color:#75715e>// 扩大窗口
+</span></span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 窗口内数据更新
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (need.count(c)) {
+</span></span><span style=display:flex><span>            window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (window[c] <span style=color:#f92672>==</span> need[c])
+</span></span><span style=display:flex><span>                valid<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 判断左侧窗口是否需要收缩
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (valid <span style=color:#f92672>==</span> need.size()) {    <span style=color:#75715e>// 满足条件时收缩
+</span></span></span><span style=display:flex><span>            <span style=color:#75715e>// 更新最优解（如记录最小窗口）
+</span></span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>            left<span style=color:#f92672>++</span>;                       <span style=color:#75715e>// 收缩窗口
+</span></span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 窗口内数据更新
+</span></span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (need.count(d)) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (window[d] <span style=color:#f92672>==</span> need[d])
+</span></span><span style=display:flex><span>                    valid<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=4-关键概念解析>4. 关键概念解析<a hidden class=anchor aria-hidden=true href=#4-关键概念解析>#</a></h2><h3 id=41-need-哈希表>4.1 <code>need</code> 哈希表<a hidden class=anchor aria-hidden=true href=#41-need-哈希表>#</a></h3><ul><li>记录目标字符串中每个字符的 <strong>需求次数</strong>。</li><li>例如 <code>t = "AABC"</code> → <code>need['A']=2, need['B']=1, need['C']=1</code>。</li><li>它的 <code>size()</code> 表示需要满足的字符种类数。</li></ul><h3 id=42-window-哈希表>4.2 <code>window</code> 哈希表<a hidden class=anchor aria-hidden=true href=#42-window-哈希表>#</a></h3><ul><li>记录当前窗口内每个字符的 <strong>实际出现次数</strong>。</li></ul><h3 id=43-valid-变量>4.3 <code>valid</code> 变量<a hidden class=anchor aria-hidden=true href=#43-valid-变量>#</a></h3><ul><li>统计 <strong>当前窗口中已经刚好满足 <code>need</code> 数量要求的字符种类数</strong>。</li><li>更新规则：<ul><li>右指针移入字符 <code>c</code>：若 <code>window[c] == need[c]</code>，则 <code>valid++</code>。</li><li>左指针移出字符 <code>d</code>：若 <code>window[d] == need[d]</code>，则 <code>valid--</code>。</li></ul></li><li>当 <code>valid == need.size()</code> 时，窗口已完全覆盖目标字符串的所有需求。</li></ul><p><strong>为什么用 <code>valid</code> 而不是直接比较两个哈希表？</strong><br>因为每次检查都需要遍历 <code>need</code>，而用 <code>valid</code> 可以在 O(1) 时间内判断是否满足条件，提高效率。</p><h2 id=5-leetcode-经典题型含完整代码已逐题验证>5. LeetCode 经典题型（含完整代码，已逐题验证）<a hidden class=anchor aria-hidden=true href=#5-leetcode-经典题型含完整代码已逐题验证>#</a></h2><h3 id=51-leetcode-76-最小覆盖子串>5.1 LeetCode 76. 最小覆盖子串<a hidden class=anchor aria-hidden=true href=#51-leetcode-76-最小覆盖子串>#</a></h3><p><strong>题目描述</strong>：给定字符串 <code>s</code> 和 <code>t</code>，返回 <code>s</code> 中涵盖 <code>t</code> 所有字符的最小子串。如果不存在，返回空字符串。</p><p><strong>思路</strong>：滑动窗口 + <code>need</code>/<code>window</code>/<code>valid</code>。右指针不断扩展，当窗口满足条件时，收缩左边界并更新最小长度和起始位置。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    string minWindow(string s, string t) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> need, window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>char</span> c : t) need[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> start <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, minLen <span style=color:#f92672>=</span> INT_MAX;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (need.count(c)) {
+</span></span><span style=display:flex><span>                window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (window[c] <span style=color:#f92672>==</span> need[c]) valid<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (valid <span style=color:#f92672>==</span> need.size()) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (right <span style=color:#f92672>-</span> left <span style=color:#f92672>&lt;</span> minLen) {
+</span></span><span style=display:flex><span>                    start <span style=color:#f92672>=</span> left;
+</span></span><span style=display:flex><span>                    minLen <span style=color:#f92672>=</span> right <span style=color:#f92672>-</span> left;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (need.count(d)) {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>if</span> (window[d] <span style=color:#f92672>==</span> need[d]) valid<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                    window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> minLen <span style=color:#f92672>==</span> INT_MAX <span style=color:#f92672>?</span> <span style=color:#e6db74>&#34;&#34;</span> <span style=color:#f92672>:</span> s.substr(start, minLen);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=52-leetcode-3-无重复字符的最长子串>5.2 LeetCode 3. 无重复字符的最长子串<a hidden class=anchor aria-hidden=true href=#52-leetcode-3-无重复字符的最长子串>#</a></h3><p><strong>题目描述</strong>：给定一个字符串 <code>s</code>，找出其中不含有重复字符的最长子串的长度。</p><p><strong>思路</strong>：滑动窗口 + 哈希表记录字符出现次数。右指针扩展，当出现重复字符时，收缩左边界直到重复消失。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> lengthOfLongestSubstring(string s) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> maxLen <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (window[c] <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            maxLen <span style=color:#f92672>=</span> max(maxLen, right <span style=color:#f92672>-</span> left);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> maxLen;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=53-leetcode-209-长度最小的子数组>5.3 LeetCode 209. 长度最小的子数组<a hidden class=anchor aria-hidden=true href=#53-leetcode-209-长度最小的子数组>#</a></h3><p><strong>题目描述</strong>：给定一个含有 <code>n</code> 个正整数的数组和一个正整数 <code>target</code>，找出该数组中满足其和 ≥ <code>target</code> 的长度最小的连续子数组，并返回其长度。如果不存在，返回 0。</p><p><strong>思路</strong>：滑动窗口维护窗口和。右指针扩展累加，当和 ≥ target 时，收缩左边界并更新最小长度。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> minSubArrayLen(<span style=color:#66d9ef>int</span> target, vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&amp;</span> nums) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> sum <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, minLen <span style=color:#f92672>=</span> INT_MAX;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> nums.size()) {
+</span></span><span style=display:flex><span>            sum <span style=color:#f92672>+=</span> nums[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (sum <span style=color:#f92672>&gt;=</span> target) {
+</span></span><span style=display:flex><span>                minLen <span style=color:#f92672>=</span> min(minLen, right <span style=color:#f92672>-</span> left);
+</span></span><span style=display:flex><span>                sum <span style=color:#f92672>-=</span> nums[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> minLen <span style=color:#f92672>==</span> INT_MAX <span style=color:#f92672>?</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>:</span> minLen;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=54-leetcode-567-字符串的排列>5.4 LeetCode 567. 字符串的排列<a hidden class=anchor aria-hidden=true href=#54-leetcode-567-字符串的排列>#</a></h3><p><strong>题目描述</strong>：给定两个字符串 <code>s1</code> 和 <code>s2</code>，写一个函数来判断 <code>s2</code> 是否包含 <code>s1</code> 的排列。即 <code>s1</code> 的某个排列是 <code>s2</code> 的子串。</p><p><strong>思路</strong>：固定窗口大小为 <code>s1.size()</code>，滑动窗口 + <code>need</code>/<code>window</code>/<code>valid</code>。当窗口长度等于 <code>s1</code> 长度时判断 <code>valid</code>，然后收缩左边界继续滑动。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>bool</span> checkInclusion(string s1, string s2) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> need, window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>char</span> c : s1) need[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s2.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s2[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (need.count(c)) {
+</span></span><span style=display:flex><span>                window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (window[c] <span style=color:#f92672>==</span> need[c]) valid<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>-</span> left <span style=color:#f92672>&gt;=</span> s1.size()) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (valid <span style=color:#f92672>==</span> need.size()) <span style=color:#66d9ef>return</span> true;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s2[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (need.count(d)) {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>if</span> (window[d] <span style=color:#f92672>==</span> need[d]) valid<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                    window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> false;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=55-leetcode-438-找到字符串中所有字母异位词>5.5 LeetCode 438. 找到字符串中所有字母异位词<a hidden class=anchor aria-hidden=true href=#55-leetcode-438-找到字符串中所有字母异位词>#</a></h3><p><strong>题目描述</strong>：给定两个字符串 <code>s</code> 和 <code>p</code>，找到 <code>s</code> 中所有 <code>p</code> 的异位词的子串，返回这些子串的起始索引。异位词指字母相同但排列不同的字符串。</p><p><strong>思路</strong>：与 567 完全一致，只是将返回 <code>true</code> 改为记录起始索引到 <code>res</code>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> findAnagrams(string s, string p) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> need, window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>char</span> c : p) need[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> valid <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> res;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (need.count(c)) {
+</span></span><span style=display:flex><span>                window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (window[c] <span style=color:#f92672>==</span> need[c]) valid<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>-</span> left <span style=color:#f92672>&gt;=</span> p.size()) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (valid <span style=color:#f92672>==</span> need.size()) {
+</span></span><span style=display:flex><span>                    res.push_back(left);  <span style=color:#75715e>// 记录起始索引
+</span></span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (need.count(d)) {
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>if</span> (window[d] <span style=color:#f92672>==</span> need[d]) valid<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                    window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> res;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=56-leetcode-340-至多包含-k-个不同字符的最长子串>5.6 LeetCode 340. 至多包含 K 个不同字符的最长子串<a hidden class=anchor aria-hidden=true href=#56-leetcode-340-至多包含-k-个不同字符的最长子串>#</a></h3><p><strong>题目描述</strong>：给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，找出至多包含 <code>k</code> 个不同字符的最长子串的长度。</p><p><strong>思路</strong>：滑动窗口 + 哈希表记录字符频次。当不同字符数 > k 时，收缩左边界。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> lengthOfLongestSubstringKDistinct(string s, <span style=color:#66d9ef>int</span> k) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>char</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> maxLen <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (window.size() <span style=color:#f92672>&gt;</span> k) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                window[d]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (window[d] <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) window.erase(d);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            maxLen <span style=color:#f92672>=</span> max(maxLen, right <span style=color:#f92672>-</span> left);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> maxLen;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=57-leetcode-424-替换后的最长重复字符>5.7 LeetCode 424. 替换后的最长重复字符<a hidden class=anchor aria-hidden=true href=#57-leetcode-424-替换后的最长重复字符>#</a></h3><p><strong>题目描述</strong>：给定一个字符串 <code>s</code> 和一个整数 <code>k</code>，你可以将字符串中的任意字符替换为其他字符，最多执行 <code>k</code> 次。求替换后包含相同字母的最长子串的长度。</p><p><strong>核心思路（通俗解释）</strong>：<br>我们想要一个全部由同一个字母组成的最长子串。在任意窗口内，要把所有字符变成同一个字母，需要替换的次数 = <strong>窗口长度 - 窗口内出现次数最多的那个字母的频次</strong>。<br>例如窗口 <code>"AABBC"</code>，长度 5，最多字母是 <code>'A'</code> 出现了 2 次，那么把其他 3 个字母变成 <code>'A'</code> 需要 3 次替换。只要这个替换次数 ≤ k，这个窗口就可以通过不超过 k 次替换变成全部相同字母。<br>因此我们维护窗口内最大频次 <code>maxCount</code>，当 <code>窗口长度 - maxCount > k</code> 时，说明当前窗口无法通过 k 次替换变成全相同，需要收缩左边界。</p><p><strong>注意</strong>：<code>maxCount</code> 在收缩时可能不会立即减小，但这不影响结果正确性，因为我们只需要在满足条件时记录最大窗口长度。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> characterReplacement(string s, <span style=color:#66d9ef>int</span> k) {
+</span></span><span style=display:flex><span>        vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> count(<span style=color:#ae81ff>26</span>, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> maxCount <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, maxLen <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> s.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>char</span> c <span style=color:#f92672>=</span> s[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            count[c <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;A&#39;</span>]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            maxCount <span style=color:#f92672>=</span> max(maxCount, count[c <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;A&#39;</span>]);
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 判断是否需要收缩：窗口长度 - 最多频次 &gt; k 则无法满足
+</span></span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>-</span> left <span style=color:#f92672>-</span> maxCount <span style=color:#f92672>&gt;</span> k) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>char</span> d <span style=color:#f92672>=</span> s[left];
+</span></span><span style=display:flex><span>                left<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>                count[d <span style=color:#f92672>-</span> <span style=color:#e6db74>&#39;A&#39;</span>]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                <span style=color:#75715e>// 注意：maxCount 不用更新，因为收缩不会增加 maxCount
+</span></span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            maxLen <span style=color:#f92672>=</span> max(maxLen, right <span style=color:#f92672>-</span> left);
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> maxLen;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><h3 id=58-leetcode-992-k-个不同整数的子数组>5.8 LeetCode 992. K 个不同整数的子数组<a hidden class=anchor aria-hidden=true href=#58-leetcode-992-k-个不同整数的子数组>#</a></h3><p><strong>题目描述</strong>：给定一个正整数数组 <code>nums</code> 和一个整数 <code>k</code>，返回 <code>nums</code> 中「恰好由 <code>k</code> 个不同整数组成」的连续子数组的个数。</p><p><strong>为什么不能直接找恰好 K 个？</strong><br>滑动窗口在收缩时，我们通常用 <code>while (window.size() > k)</code> 来维持窗口内不同元素个数 ≤ k。但是如果要维护 <strong>恰好 k 个</strong>，当窗口内不同元素个数变为 k 时，我们无法判断应该收缩左边界还是继续扩展右边界，因为扩展可能会变成 k+1，收缩可能会变成 k-1。窗口状态的变化没有单调性，无法用简单的双指针直接维护“恰好等于”。</p><p><strong>解决方案：转换思路</strong><br>恰好 K 个不同整数的子数组个数 = <strong>最多 K 个不同整数的子数组个数</strong> - <strong>最多 K-1 个不同整数的子数组个数</strong>。<br>这两个“最多”问题都可以用标准滑动窗口轻松解决。每次右指针移动后，以当前右指针结尾的满足条件的子数组个数恰好等于窗口长度（因为左指针可以取 <code>[left, right-1]</code> 中任意位置作为起点，窗口内不同元素个数都 ≤ K）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> subarraysWithKDistinct(vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&amp;</span> nums, <span style=color:#66d9ef>int</span> k) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>atMostK</span>(nums, k) <span style=color:#f92672>-</span> atMostK(nums, k <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 计算最多包含 k 个不同整数的子数组个数
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> <span style=color:#a6e22e>atMostK</span>(vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&amp;</span> nums, <span style=color:#66d9ef>int</span> k) {
+</span></span><span style=display:flex><span>        unordered_map<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span>, <span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> window;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> left <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, right <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (right <span style=color:#f92672>&lt;</span> nums.size()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> c <span style=color:#f92672>=</span> nums[right];
+</span></span><span style=display:flex><span>            right<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            window[c]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>while</span> (window.size() <span style=color:#f92672>&gt;</span> k) {
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>int</span> d <span style=color:#f92672>=</span> nums[left];
+</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://bluhuang.github.io/blogs-of-bluhuang/>BluHuang's Blog</a></span> ·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>

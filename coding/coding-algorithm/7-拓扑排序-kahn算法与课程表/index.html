@@ -1,0 +1,206 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>BluHuang's Blog</title><meta name=keywords content><meta name=description content="以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。
+
+我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。
+
+一、拓扑排序的基本概念
+
+定义
+
+拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。
+直观理解：
+在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。
+
+存在条件
+
+· 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。
+· 同一个 DAG 可能存在多个不同的拓扑排序。
+
+二、Kahn算法详解
+Kahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。
+
+
+算法步骤
+
+
+计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。
+
+
+初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。
+
+
+循环处理：
+· 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。
+· 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。
+· 将 v 的入度减1，因为它的一个前置条件 u 已经完成。
+· 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。
+
+
+判断结果：
+· 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。
+· 否则，图中存在环，拓扑排序不存在。
+
+
+算法正确性
+
+
+· 入度为0的顶点没有前置依赖，可以立即输出。
+· 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。
+· 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。
+
+三、Kahn算法的代码实现（C++模板）
+下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        // 邻接表：graph[u] 存储 u 指向的所有顶点
+        vector<vector<int>> graph(numCourses);
+        // 入度数组
+        vector<int> indegree(numCourses, 0);
+
+        // 建图并计算入度
+        for (const auto& pre : prerequisites) {
+            int a = pre[0]; // 要学 a 必须先学 b
+            int b = pre[1];
+            graph[b].push_back(a); // b -> a
+            indegree[a]++;
+        }
+
+        queue<int> q;
+        // 将所有入度为0的顶点入队
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.push(i);
+            }
+        }
+
+        int count = 0; // 记录已经输出的顶点数
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            count++;
+            // 遍历 u 的所有后继
+            for (int v : graph[u]) {
+                indegree[v]--;
+                if (indegree[v] == 0) {
+                    q.push(v);
+                }
+            }
+        }
+        return count == numCourses; // 如果全部输出，说明无环
+    }
+};
+代码说明："><meta name=author content><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/><link crossorigin=anonymous href=/blogs-of-bluhuang/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as=style><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-32x32.png><link rel=apple-touch-icon href=https://bluhuang.github.io/blogs-of-bluhuang/apple-touch-icon.png><link rel=mask-icon href=https://bluhuang.github.io/blogs-of-bluhuang/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/"><meta property="og:site_name" content="BluHuang's Blog"><meta property="og:title" content="BluHuang's Blog"><meta property="og:description" content="以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。
+我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。
+一、拓扑排序的基本概念
+定义 拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。
+直观理解： 在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。
+存在条件 · 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。 · 同一个 DAG 可能存在多个不同的拓扑排序。
+二、Kahn算法详解
+Kahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。
+算法步骤
+计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。
+初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。
+循环处理： · 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。 · 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。 · 将 v 的入度减1，因为它的一个前置条件 u 已经完成。 · 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。
+判断结果： · 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。 · 否则，图中存在环，拓扑排序不存在。
+算法正确性
+· 入度为0的顶点没有前置依赖，可以立即输出。 · 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。 · 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。
+三、Kahn算法的代码实现（C++模板）
+下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。
+class Solution { public: bool canFinish(int numCourses, vector<vector<int>>& prerequisites) { // 邻接表：graph[u] 存储 u 指向的所有顶点 vector<vector<int>> graph(numCourses); // 入度数组 vector<int> indegree(numCourses, 0); // 建图并计算入度 for (const auto& pre : prerequisites) { int a = pre[0]; // 要学 a 必须先学 b int b = pre[1]; graph[b].push_back(a); // b -> a indegree[a]++; } queue<int> q; // 将所有入度为0的顶点入队 for (int i = 0; i < numCourses; i++) { if (indegree[i] == 0) { q.push(i); } } int count = 0; // 记录已经输出的顶点数 while (!q.empty()) { int u = q.front(); q.pop(); count++; // 遍历 u 的所有后继 for (int v : graph[u]) { indegree[v]--; if (indegree[v] == 0) { q.push(v); } } } return count == numCourses; // 如果全部输出，说明无环 } }; 代码说明："><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="coding"><meta name=twitter:card content="summary"><meta name=twitter:title content="BluHuang's Blog"><meta name=twitter:description content="以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。
+我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。
+一、拓扑排序的基本概念
+定义 拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。
+直观理解： 在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。
+存在条件 · 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。 · 同一个 DAG 可能存在多个不同的拓扑排序。
+二、Kahn算法详解
+Kahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。
+算法步骤
+计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。
+初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。
+循环处理： · 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。 · 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。 · 将 v 的入度减1，因为它的一个前置条件 u 已经完成。 · 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。
+判断结果： · 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。 · 否则，图中存在环，拓扑排序不存在。
+算法正确性
+· 入度为0的顶点没有前置依赖，可以立即输出。 · 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。 · 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。
+三、Kahn算法的代码实现（C++模板）
+下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。
+class Solution { public: bool canFinish(int numCourses, vector<vector<int>>& prerequisites) { // 邻接表：graph[u] 存储 u 指向的所有顶点 vector<vector<int>> graph(numCourses); // 入度数组 vector<int> indegree(numCourses, 0); // 建图并计算入度 for (const auto& pre : prerequisites) { int a = pre[0]; // 要学 a 必须先学 b int b = pre[1]; graph[b].push_back(a); // b -> a indegree[a]++; } queue<int> q; // 将所有入度为0的顶点入队 for (int i = 0; i < numCourses; i++) { if (indegree[i] == 0) { q.push(i); } } int count = 0; // 记录已经输出的顶点数 while (!q.empty()) { int u = q.front(); q.pop(); count++; // 遍历 u 的所有后继 for (int v : graph[u]) { indegree[v]--; if (indegree[v] == 0) { q.push(v); } } } return count == numCourses; // 如果全部输出，说明无环 } }; 代码说明："><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Codings","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/"},{"@type":"ListItem","position":2,"name":"","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"","name":"","description":"以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。\n我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。\n一、拓扑排序的基本概念\n定义 拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。\n直观理解： 在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。\n存在条件 · 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。 · 同一个 DAG 可能存在多个不同的拓扑排序。\n二、Kahn算法详解\nKahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。\n算法步骤\n计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。\n初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。\n循环处理： · 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。 · 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。 · 将 v 的入度减1，因为它的一个前置条件 u 已经完成。 · 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。\n判断结果： · 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。 · 否则，图中存在环，拓扑排序不存在。\n算法正确性\n· 入度为0的顶点没有前置依赖，可以立即输出。 · 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。 · 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。\n三、Kahn算法的代码实现（C++模板）\n下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。\nclass Solution { public: bool canFinish(int numCourses, vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt;\u0026amp; prerequisites) { // 邻接表：graph[u] 存储 u 指向的所有顶点 vector\u0026lt;vector\u0026lt;int\u0026gt;\u0026gt; graph(numCourses); // 入度数组 vector\u0026lt;int\u0026gt; indegree(numCourses, 0); // 建图并计算入度 for (const auto\u0026amp; pre : prerequisites) { int a = pre[0]; // 要学 a 必须先学 b int b = pre[1]; graph[b].push_back(a); // b -\u0026gt; a indegree[a]++; } queue\u0026lt;int\u0026gt; q; // 将所有入度为0的顶点入队 for (int i = 0; i \u0026lt; numCourses; i++) { if (indegree[i] == 0) { q.push(i); } } int count = 0; // 记录已经输出的顶点数 while (!q.empty()) { int u = q.front(); q.pop(); count++; // 遍历 u 的所有后继 for (int v : graph[u]) { indegree[v]--; if (indegree[v] == 0) { q.push(v); } } } return count == numCourses; // 如果全部输出，说明无环 } }; 代码说明：\n","keywords":[],"articleBody":"以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。\n我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。\n一、拓扑排序的基本概念\n定义 拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。\n直观理解： 在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。\n存在条件 · 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。 · 同一个 DAG 可能存在多个不同的拓扑排序。\n二、Kahn算法详解\nKahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。\n算法步骤\n计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。\n初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。\n循环处理： · 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。 · 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。 · 将 v 的入度减1，因为它的一个前置条件 u 已经完成。 · 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。\n判断结果： · 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。 · 否则，图中存在环，拓扑排序不存在。\n算法正确性\n· 入度为0的顶点没有前置依赖，可以立即输出。 · 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。 · 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。\n三、Kahn算法的代码实现（C++模板）\n下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。\nclass Solution { public: bool canFinish(int numCourses, vector\u003cvector\u003cint\u003e\u003e\u0026 prerequisites) { // 邻接表：graph[u] 存储 u 指向的所有顶点 vector\u003cvector\u003cint\u003e\u003e graph(numCourses); // 入度数组 vector\u003cint\u003e indegree(numCourses, 0); // 建图并计算入度 for (const auto\u0026 pre : prerequisites) { int a = pre[0]; // 要学 a 必须先学 b int b = pre[1]; graph[b].push_back(a); // b -\u003e a indegree[a]++; } queue\u003cint\u003e q; // 将所有入度为0的顶点入队 for (int i = 0; i \u003c numCourses; i++) { if (indegree[i] == 0) { q.push(i); } } int count = 0; // 记录已经输出的顶点数 while (!q.empty()) { int u = q.front(); q.pop(); count++; // 遍历 u 的所有后继 for (int v : graph[u]) { indegree[v]--; if (indegree[v] == 0) { q.push(v); } } } return count == numCourses; // 如果全部输出，说明无环 } }; 代码说明：\n· 使用 vector","wordCount":"371","inLanguage":"en","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/"},"publisher":{"@type":"Organization","name":"BluHuang's Blog","logo":{"@type":"ImageObject","url":"https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://bluhuang.github.io/blogs-of-bluhuang/ accesskey=h title="BluHuang's Blog (Alt + H)">BluHuang's Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent"></h1><div class=post-meta></div></header><div class="post-content md-content"><p>以下是脱敏、润色并删除面试相关内容后的Markdown内容。注意：原文中未出现明确的人名或公司名，但提及的“LeetCode 207/210”作为平台题目编号，已替换为通用描述，以符合脱敏要求。同时删除了可能暗示面试的语句（如“多练习，形成肌肉记忆”），并对部分语句进行了润色。</p><hr><p>我们来详细讲解拓扑排序和Kahn算法，包括其原理、实现步骤、代码模板、常见技巧以及应用场景。</p><hr><p>一、拓扑排序的基本概念</p><ol><li>定义</li></ol><p>拓扑排序（Topological Sorting）是针对有向无环图（DAG）的一种排序算法。它将图中的所有顶点排成一个线性序列，使得对于图中任意一条有向边 u → v，顶点 u 在序列中都出现在顶点 v 之前。</p><p>直观理解：
+在工程或任务调度中，很多任务之间存在依赖关系（例如：必须先完成A才能开始B）。拓扑排序给出一个可行的任务执行顺序，保证所有依赖都被满足。</p><ol start=2><li>存在条件</li></ol><p>· 图必须是有向无环图（DAG）。如果图中有环，则不可能存在拓扑排序（因为环上的任务互相依赖，无法确定先后）。
+· 同一个 DAG 可能存在多个不同的拓扑排序。</p><hr><p>二、Kahn算法详解</p><p>Kahn算法是一种基于贪心策略和BFS思想的拓扑排序实现方法，核心是不断删除入度为0的顶点。</p><ol><li><p>算法步骤</p></li><li><p>计算入度：统计每个顶点的入度（即有多少条边指向该顶点）。</p></li><li><p>初始化队列：将所有入度为0的顶点加入队列（这些顶点没有前置依赖，可以直接输出）。</p></li><li><p>循环处理：
+· 从队列中取出一个顶点 u，将其输出（加入拓扑序列）。
+· 遍历 u 的所有后继顶点 v（即从 u 出发的边所指向的顶点）。
+· 将 v 的入度减1，因为它的一个前置条件 u 已经完成。
+· 如果 v 的入度变为0，说明 v 的所有前置都已满足，将其加入队列。</p></li><li><p>判断结果：
+· 如果输出的顶点数等于图中的顶点总数，则拓扑排序成功（图无环）。
+· 否则，图中存在环，拓扑排序不存在。</p></li><li><p>算法正确性</p></li></ol><p>· 入度为0的顶点没有前置依赖，可以立即输出。
+· 删除一个顶点及其出边后，剩下的图仍然是一个DAG，新的入度为0的顶点可以继续输出。
+· 如果图中有环，环上的顶点入度永远不会变为0，因此最终输出的顶点数会少于总数。</p><hr><p>三、Kahn算法的代码实现（C++模板）</p><p>下面是一个适用于有向无环图判环的Kahn算法实现，包含了常见的建图方式和细节处理。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Solution</span> {
+</span></span><span style=display:flex><span><span style=color:#66d9ef>public</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>bool</span> canFinish(<span style=color:#66d9ef>int</span> numCourses, vector<span style=color:#f92672>&lt;</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;&amp;</span> prerequisites) {
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 邻接表：graph[u] 存储 u 指向的所有顶点
+</span></span></span><span style=display:flex><span>        vector<span style=color:#f92672>&lt;</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;</span> graph(numCourses);
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 入度数组
+</span></span></span><span style=display:flex><span>        vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> indegree(numCourses, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 建图并计算入度
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>const</span> <span style=color:#66d9ef>auto</span><span style=color:#f92672>&amp;</span> pre : prerequisites) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> a <span style=color:#f92672>=</span> pre[<span style=color:#ae81ff>0</span>]; <span style=color:#75715e>// 要学 a 必须先学 b
+</span></span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> b <span style=color:#f92672>=</span> pre[<span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>            graph[b].push_back(a); <span style=color:#75715e>// b -&gt; a
+</span></span></span><span style=display:flex><span>            indegree[a]<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        queue<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> q;
+</span></span><span style=display:flex><span>        <span style=color:#75715e>// 将所有入度为0的顶点入队
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; i <span style=color:#f92672>&lt;</span> numCourses; i<span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> (indegree[i] <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>                q.push(i);
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> count <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>// 记录已经输出的顶点数
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> (<span style=color:#f92672>!</span>q.empty()) {
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>int</span> u <span style=color:#f92672>=</span> q.front();
+</span></span><span style=display:flex><span>            q.pop();
+</span></span><span style=display:flex><span>            count<span style=color:#f92672>++</span>;
+</span></span><span style=display:flex><span>            <span style=color:#75715e>// 遍历 u 的所有后继
+</span></span></span><span style=display:flex><span>            <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> v : graph[u]) {
+</span></span><span style=display:flex><span>                indegree[v]<span style=color:#f92672>--</span>;
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> (indegree[v] <span style=color:#f92672>==</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>                    q.push(v);
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> count <span style=color:#f92672>==</span> numCourses; <span style=color:#75715e>// 如果全部输出，说明无环
+</span></span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>代码说明：</p><p>· 使用 vector&lt;vector> 作为邻接表，节省空间且访问快。
+· 入度数组 indegree 记录每个顶点的入度。
+· 队列可以用 queue，也可以改用 vector 模拟（如需要按字典序输出时，可能用优先队列）。
+· 最后比较 count 和 numCourses，若相等则成功。</p><hr><p>四、实现技巧与注意事项</p><ol><li>建图方式</li></ol><p>· 如果顶点编号是连续的（如0~n-1），用邻接表（vector&lt;vector>）最方便。
+· 如果顶点不是连续的，可以用 unordered_map&lt;int, vector> 存储邻接关系，同时记录入度。
+· 注意边的方向：根据问题确定是从先修指向后续，还是反过来。</p><ol start=2><li>处理重复边</li></ol><p>· 题目一般不会给出重复边，但如果出现，入度会重复增加，导致逻辑错误。可以在建图前用 set 或 unordered_set 去重，或直接忽略（根据题意，如果重复边意味着相同的依赖多次出现，入度累加可能不合理，但通常题目会保证没有重复边）。</p><ol start=3><li>队列选择</li></ol><p>· 普通队列即可满足一般需求。
+· 如果需要输出字典序最小的拓扑序列，可以使用优先队列（最小堆）替换普通队列，每次取出编号最小的入度为0的顶点。</p><ol start=4><li>检测环的其他方式</li></ol><p>· 如果只需要判断是否有环，DFS染色法也可行（状态0未访问，1访问中，2已完成）。
+· 但Kahn算法不仅判环，还能输出拓扑序，更直观。</p><ol start=5><li>空间优化</li></ol><p>· 如果图很大，可以使用 vector 的邻接表，避免使用 list 等额外指针开销。
+· 入度数组可以用 int 类型，一般足够。</p><ol start=6><li>孤立节点</li></ol><p>· 没有依赖的孤立节点（入度为0）也会被加入队列并输出，不影响算法。</p><hr><p>五、复杂度分析</p><p>· 时间复杂度：O(V + E)，其中 V 是顶点数，E 是边数。因为每个顶点入队出队一次，每条边被访问一次（减入度时）。
+· 空间复杂度：O(V + E)，存储邻接表和入度数组。</p><hr><p>六、举例说明</p><p>考虑一个更复杂的例子：
+课程数 = 6，依赖关系：[5,2], [5,0], [4,0], [4,1], [2,3], [3,1]
+解释：</p><p>· 5 依赖 2 和 0
+· 4 依赖 0 和 1
+· 2 依赖 3
+· 3 依赖 1
+· 0 和 1 没有依赖</p><p>图结构：</p><pre tabindex=0><code>0 → 4 ← 1
+↑    ↑    ↑
+|    |    |
+5 → 2 → 3
+</code></pre><p>边：0→4，1→4，1→3，3→2，2→5，0→5（注意方向：依赖关系是“学a必须先学b”，所以边b→a）</p><p>手动模拟Kahn算法：</p><ol><li>初始入度：0:0, 1:0, 2:1(来自3), 3:1(来自1), 4:2(来自0,1), 5:2(来自2,0)</li><li>队列：0,1</li><li>弹出0：count=1，后继4和5的入度减1 → 4入度=1，5入度=1</li><li>弹出1：count=2，后继4和3的入度减1 → 4入度=0（入队4），3入度=0（入队3）</li><li>弹出4：count=3，无后继</li><li>弹出3：count=4，后继2的入度减1 → 2入度=0（入队2）</li><li>弹出2：count=5，后继5的入度减1 → 5入度=0（入队5）</li><li>弹出5：count=6，结束</li></ol><p>输出序列：0,1,4,3,2,5（满足依赖关系）</p><hr><p>七、常见问题</p><p>Q1：拓扑排序的结果唯一吗？</p><p>A：不一定。如果图中存在多个入度为0的顶点，选择顺序不同会导致不同的拓扑序列。</p><p>Q2：如何判断图中是否有环？</p><p>A：Kahn算法最终输出的顶点数小于总顶点数，则存在环。</p><p>Q3：如何处理带权图？</p><p>A：拓扑排序只关心依赖顺序，不关心权重。权重不影响拓扑序。</p><p>Q4：拓扑排序只能用于课程表吗？</p><p>A：不，它广泛用于任务调度、编译依赖、数据流分析、项目管理等。</p><hr><p>八、扩展：按字典序输出拓扑排序</p><p>当要求输出字典序最小的拓扑序列时，只需将普通队列改为优先队列（最小堆）。C++中可用 priority_queue&lt;int, vector, greater>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>priority_queue<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span>, vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span>, greater<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;</span> pq;
+</span></span><span style=display:flex><span><span style=color:#75715e>// 其余逻辑类似，每次从 pq 中取出最小的入度为0顶点
+</span></span></span></code></pre></div><hr><p>九、总结</p><p>· 拓扑排序：DAG的线性排序，满足依赖关系。
+· Kahn算法：通过不断删除入度为0的节点实现拓扑排序，简单高效。
+· 实现框架：建图 → 计算入度 → 队列存放入度为0的节点 → BFS更新 → 判断输出数量。
+· 技巧：注意入度更新、重复边处理、队列选择等。</p><p>掌握这个模板，可以解决一系列有关有向无环图判环和拓扑排序的典型问题。建议通过实际编码练习加深理解。</p></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://bluhuang.github.io/blogs-of-bluhuang/>BluHuang's Blog</a></span> ·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>

@@ -1,0 +1,141 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>BluHuang's Blog</title><meta name=keywords content><meta name=description content="贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。
+
+一、贪心算法的适用特征
+
+
+贪心选择性质
+局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。
+
+
+最优子结构
+问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。
+
+
+常见问题类型
+· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。
+· 资源分配：最小化等待时间、最大化收益等。
+· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。
+· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。
+· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。
+
+
+
+二、贪心算法的解题套路
+
+
+确定贪心策略
+· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？
+· 常见策略：
+· 按结束时间排序 → 区间调度
+· 按价值/重量比排序 → 部分背包
+· 按起始时间排序 → 合并区间
+· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”
+
+
+证明贪心正确性（可通过交换论证或归纳法理解）
+· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
+· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。
+
+
+实现技巧
+· 排序：大多数贪心题需要先排序。
+· 数据结构优化：
+· 堆（优先队列）用于动态取最小/最大。
+· 平衡树 / 二分查找 用于维护有序序列。
+· 双指针 / 单调栈 等辅助。
+
+
+
+三、典型案例：最长递增子序列（LIS）的贪心+二分
+
+
+问题
+给定一个未排序的整数数组，求最长严格递增子序列的长度。
+
+
+贪心思路
+· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。
+· 遍历原数组每个数 x：
+· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。
+· 否则，用二分查找找到第一个 tails[i] >= x 的位置，并用 x 替换它。
+· 最终 tails 的长度即为 LIS 长度。"><meta name=author content><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/><link crossorigin=anonymous href=/blogs-of-bluhuang/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as=style><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-32x32.png><link rel=apple-touch-icon href=https://bluhuang.github.io/blogs-of-bluhuang/apple-touch-icon.png><link rel=mask-icon href=https://bluhuang.github.io/blogs-of-bluhuang/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/"><meta property="og:site_name" content="BluHuang's Blog"><meta property="og:title" content="BluHuang's Blog"><meta property="og:description" content="贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。
+一、贪心算法的适用特征
+贪心选择性质
+局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。
+最优子结构
+问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。
+常见问题类型
+· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。
+· 资源分配：最小化等待时间、最大化收益等。
+· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。
+· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。
+· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。
+二、贪心算法的解题套路
+确定贪心策略
+· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？
+· 常见策略：
+· 按结束时间排序 → 区间调度
+· 按价值/重量比排序 → 部分背包
+· 按起始时间排序 → 合并区间
+· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”
+证明贪心正确性（可通过交换论证或归纳法理解）
+· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
+· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。
+实现技巧
+· 排序：大多数贪心题需要先排序。
+· 数据结构优化：
+· 堆（优先队列）用于动态取最小/最大。
+· 平衡树 / 二分查找 用于维护有序序列。
+· 双指针 / 单调栈 等辅助。
+三、典型案例：最长递增子序列（LIS）的贪心+二分
+问题
+给定一个未排序的整数数组，求最长严格递增子序列的长度。
+贪心思路
+· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。
+· 遍历原数组每个数 x：
+· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。
+· 否则，用二分查找找到第一个 tails[i] >= x 的位置，并用 x 替换它。
+· 最终 tails 的长度即为 LIS 长度。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="coding"><meta name=twitter:card content="summary"><meta name=twitter:title content="BluHuang's Blog"><meta name=twitter:description content="贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。
+一、贪心算法的适用特征
+贪心选择性质
+局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。
+最优子结构
+问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。
+常见问题类型
+· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。
+· 资源分配：最小化等待时间、最大化收益等。
+· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。
+· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。
+· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。
+二、贪心算法的解题套路
+确定贪心策略
+· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？
+· 常见策略：
+· 按结束时间排序 → 区间调度
+· 按价值/重量比排序 → 部分背包
+· 按起始时间排序 → 合并区间
+· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”
+证明贪心正确性（可通过交换论证或归纳法理解）
+· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
+· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。
+实现技巧
+· 排序：大多数贪心题需要先排序。
+· 数据结构优化：
+· 堆（优先队列）用于动态取最小/最大。
+· 平衡树 / 二分查找 用于维护有序序列。
+· 双指针 / 单调栈 等辅助。
+三、典型案例：最长递增子序列（LIS）的贪心+二分
+问题
+给定一个未排序的整数数组，求最长严格递增子序列的长度。
+贪心思路
+· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。
+· 遍历原数组每个数 x：
+· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。
+· 否则，用二分查找找到第一个 tails[i] >= x 的位置，并用 x 替换它。
+· 最终 tails 的长度即为 LIS 长度。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Codings","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/"},{"@type":"ListItem","position":2,"name":"","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"","name":"","description":"贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。\n一、贪心算法的适用特征\n贪心选择性质\n局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。\n最优子结构\n问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。\n常见问题类型\n· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。\n· 资源分配：最小化等待时间、最大化收益等。\n· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。\n· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。\n· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。\n二、贪心算法的解题套路\n确定贪心策略\n· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？\n· 常见策略：\n· 按结束时间排序 → 区间调度\n· 按价值/重量比排序 → 部分背包\n· 按起始时间排序 → 合并区间\n· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”\n证明贪心正确性（可通过交换论证或归纳法理解）\n· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。\n· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。\n实现技巧\n· 排序：大多数贪心题需要先排序。\n· 数据结构优化：\n· 堆（优先队列）用于动态取最小/最大。\n· 平衡树 / 二分查找 用于维护有序序列。\n· 双指针 / 单调栈 等辅助。\n三、典型案例：最长递增子序列（LIS）的贪心+二分\n问题\n给定一个未排序的整数数组，求最长严格递增子序列的长度。\n贪心思路\n· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。\n· 遍历原数组每个数 x：\n· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。\n· 否则，用二分查找找到第一个 tails[i] \u0026gt;= x 的位置，并用 x 替换它。\n· 最终 tails 的长度即为 LIS 长度。\n","keywords":[],"articleBody":"贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。\n一、贪心算法的适用特征\n贪心选择性质\n局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。\n最优子结构\n问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。\n常见问题类型\n· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。\n· 资源分配：最小化等待时间、最大化收益等。\n· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。\n· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。\n· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。\n二、贪心算法的解题套路\n确定贪心策略\n· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？\n· 常见策略：\n· 按结束时间排序 → 区间调度\n· 按价值/重量比排序 → 部分背包\n· 按起始时间排序 → 合并区间\n· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”\n证明贪心正确性（可通过交换论证或归纳法理解）\n· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。\n· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。\n实现技巧\n· 排序：大多数贪心题需要先排序。\n· 数据结构优化：\n· 堆（优先队列）用于动态取最小/最大。\n· 平衡树 / 二分查找 用于维护有序序列。\n· 双指针 / 单调栈 等辅助。\n三、典型案例：最长递增子序列（LIS）的贪心+二分\n问题\n给定一个未排序的整数数组，求最长严格递增子序列的长度。\n贪心思路\n· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。\n· 遍历原数组每个数 x：\n· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。\n· 否则，用二分查找找到第一个 tails[i] \u003e= x 的位置，并用 x 替换它。\n· 最终 tails 的长度即为 LIS 长度。\n贪心选择性质解释\n· 对于相同长度的递增子序列，我们只关心最小的末尾元素，因为末尾越小，后续元素越容易接在后面形成更长的序列。\n· 每次用当前数替换掉第一个不小于它的末尾，就是“用当前数去优化某个长度的最小末尾”，这是一种局部最优策略，最终得到全局最长长度。\n为什么是贪心？\n· 每一步都在维护一组“最有潜力”的末尾值，并不需要回溯或枚举所有子序列。\n· 局部最优（使每个长度的末尾尽可能小）累积成全局最优（最长长度）。\n四、贪心+二分模式识别\n这类题目通常具有以下特征：\n需要在序列中维护一个有序结构，并且对每个元素进行“定位插入”或“替换”操作。 问题可以转化为：在某种约束下，最大化/最小化某个指标，而约束条件允许我们只保留“最有可能”的候选。 典型例题：\n· 最长递增子序列（贪心+二分，O(n log n)）\n· 俄罗斯套娃信封问题（先按宽排序，高求 LIS）\n· 使数组递增的最小操作数（如保留最长非递减子序列）\n· 最小递增子序列长度（变形） 识别关键：\n· 题目要求序列中的某种顺序约束（递增、递减、非降等）。\n· 常规 DP 为 O(n²)，数据范围较大时（如 1e5），应考虑贪心+二分。\n· 思考能否通过“维护一个最优候选集”来简化问题。\n五、贪心算法的局限与对比\n· 贪心 vs 动态规划\n贪心是动态规划的一种特例，当子问题无后效性且局部最优能导出全局最优时，贪心更高效。若不确定，可先思考 DP 再优化为贪心。\n· 贪心不能解决的问题\n例如 0-1 背包、最短路径中存在负权边（Dijkstra 失效）等，贪心会出错。\n六、小结：贪心题解题步骤\n分析问题是否具有最优子结构。 提出贪心策略（通常基于排序、极值、某种顺序）。 尝试用交换论证或归纳法证明策略正确性。 选择合适的数据结构实现（排序、堆、二分查找、平衡树等）。 编写代码并测试边界情况。 对于“贪心+二分”这类题目，核心在于维护一个有序序列，并不断用当前元素更新该序列中符合条件的位置，以达到全局最优。\n","wordCount":"151","inLanguage":"en","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/"},"publisher":{"@type":"Organization","name":"BluHuang's Blog","logo":{"@type":"ImageObject","url":"https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://bluhuang.github.io/blogs-of-bluhuang/ accesskey=h title="BluHuang's Blog (Alt + H)">BluHuang's Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent"></h1><div class=post-meta></div></header><div class="post-content md-content"><p>贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。</p><hr><p>一、贪心算法的适用特征</p><ol><li><p>贪心选择性质<br>局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。</p></li><li><p>最优子结构<br>问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。</p></li><li><p>常见问题类型<br>· 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。<br>· 资源分配：最小化等待时间、最大化收益等。<br>· 图论：最小生成树（Prim、Kruskal）、最短路径（Dijkstra）。<br>· 序列问题：最长递增子序列（贪心+二分）、跳跃游戏、加油站等。<br>· 排序后贪心：通常先将数据按某种规则排序，再顺序决策。</p></li></ol><hr><p>二、贪心算法的解题套路</p><ol><li><p>确定贪心策略<br>· 思考方向：每一步要选择什么？是选“最小/最大”、“最早结束/最晚开始”、“价值/重量比最高”？<br>· 常见策略：<br>· 按结束时间排序 → 区间调度<br>· 按价值/重量比排序 → 部分背包<br>· 按起始时间排序 → 合并区间<br>· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”</p></li><li><p>证明贪心正确性（可通过交换论证或归纳法理解）<br>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。<br>· 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。</p></li><li><p>实现技巧<br>· 排序：大多数贪心题需要先排序。<br>· 数据结构优化：<br>· 堆（优先队列）用于动态取最小/最大。<br>· 平衡树 / 二分查找 用于维护有序序列。<br>· 双指针 / 单调栈 等辅助。</p></li></ol><hr><p>三、典型案例：最长递增子序列（LIS）的贪心+二分</p><ol><li><p>问题<br>给定一个未排序的整数数组，求最长严格递增子序列的长度。</p></li><li><p>贪心思路<br>· 维护一个数组 tails，其中 tails[i] 表示长度为 i+1 的递增子序列的最小末尾元素。<br>· 遍历原数组每个数 x：<br>· 若 x 大于 tails 中所有数，则追加到末尾，长度增加。<br>· 否则，用二分查找找到第一个 tails[i] >= x 的位置，并用 x 替换它。<br>· 最终 tails 的长度即为 LIS 长度。</p></li><li><p>贪心选择性质解释<br>· 对于相同长度的递增子序列，我们只关心最小的末尾元素，因为末尾越小，后续元素越容易接在后面形成更长的序列。<br>· 每次用当前数替换掉第一个不小于它的末尾，就是“用当前数去优化某个长度的最小末尾”，这是一种局部最优策略，最终得到全局最长长度。</p></li><li><p>为什么是贪心？<br>· 每一步都在维护一组“最有潜力”的末尾值，并不需要回溯或枚举所有子序列。<br>· 局部最优（使每个长度的末尾尽可能小）累积成全局最优（最长长度）。</p></li></ol><hr><p>四、贪心+二分模式识别</p><p>这类题目通常具有以下特征：</p><ol><li>需要在序列中维护一个有序结构，并且对每个元素进行“定位插入”或“替换”操作。</li><li>问题可以转化为：在某种约束下，最大化/最小化某个指标，而约束条件允许我们只保留“最有可能”的候选。</li><li>典型例题：<br>· 最长递增子序列（贪心+二分，O(n log n)）<br>· 俄罗斯套娃信封问题（先按宽排序，高求 LIS）<br>· 使数组递增的最小操作数（如保留最长非递减子序列）<br>· 最小递增子序列长度（变形）</li></ol><p>识别关键：<br>· 题目要求序列中的某种顺序约束（递增、递减、非降等）。<br>· 常规 DP 为 O(n²)，数据范围较大时（如 1e5），应考虑贪心+二分。<br>· 思考能否通过“维护一个最优候选集”来简化问题。</p><hr><p>五、贪心算法的局限与对比</p><p>· 贪心 vs 动态规划<br>贪心是动态规划的一种特例，当子问题无后效性且局部最优能导出全局最优时，贪心更高效。若不确定，可先思考 DP 再优化为贪心。<br>· 贪心不能解决的问题<br>例如 0-1 背包、最短路径中存在负权边（Dijkstra 失效）等，贪心会出错。</p><hr><p>六、小结：贪心题解题步骤</p><ol><li>分析问题是否具有最优子结构。</li><li>提出贪心策略（通常基于排序、极值、某种顺序）。</li><li>尝试用交换论证或归纳法证明策略正确性。</li><li>选择合适的数据结构实现（排序、堆、二分查找、平衡树等）。</li><li>编写代码并测试边界情况。</li></ol><p>对于“贪心+二分”这类题目，核心在于维护一个有序序列，并不断用当前元素更新该序列中符合条件的位置，以达到全局最优。</p></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://bluhuang.github.io/blogs-of-bluhuang/>BluHuang's Blog</a></span> ·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>

@@ -1,0 +1,109 @@
+<!doctype html><html lang=en dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>BluHuang's Blog</title><meta name=keywords content><meta name=description content="1 C++官方文档
+https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
+2 原理
+2.1 一句话总结原理
+从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。
+next_permutation 算法的核心在于以下三步：
+
+从右找第一个升序对（确定要变动的位置）。
+从右找第一个大于该位置的数（确定交换的位置）。
+交换，然后反转后面的部分。
+
+2.2 原理拆解
+图解例子：[1, 3, 5, 4, 2]
+
+	
+			
+					步骤
+					数组状态
+					说明
+			
+	
+	
+			
+					初始
+					[1, 3, 5, 4, 2]
+					
+			
+			
+					1. 找 i
+					从右向左找 nums[i] < nums[i+1]：  2 无右；4>2 不成立；5>4 不成立；3<5 ✅，所以 i = 1（指向 3）
+					找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】
+			
+			
+					2. 找 j
+					在 i 右边 [5,4,2] 中从右向左找第一个大于 3 的数：  2 不大于；4 大于，所以 j = 3（指向 4）
+					找到刚好比 3 大的数 4
+			
+			
+					3. 交换
+					交换 nums[1] 和 nums[3] → [1, 4, 5, 3, 2]
+					
+			
+			
+					4. 反转
+					将 i+1（索引2）到末尾 [5,3,2] 反转 → [2,3,5]
+					最终 [1,4,2,3,5]
+			
+			
+					结果 14235 确实是 13542 的下一个排列。
+					
+					
+			
+	
+
+为什么最后可以反转？
+因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。"><meta name=author content><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/><link crossorigin=anonymous href=/blogs-of-bluhuang/assets/css/stylesheet.cd9298b33628769aa1bc1acebbbfd7aa11ce81dfe03484d479e1907760249a1d.css integrity="sha256-zZKYszYodpqhvBrOu7/XqhHOgd/gNITUeeGQd2Akmh0=" rel="preload stylesheet" as=style><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://bluhuang.github.io/blogs-of-bluhuang/favicon-32x32.png><link rel=apple-touch-icon href=https://bluhuang.github.io/blogs-of-bluhuang/apple-touch-icon.png><link rel=mask-icon href=https://bluhuang.github.io/blogs-of-bluhuang/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/"><meta property="og:site_name" content="BluHuang's Blog"><meta property="og:title" content="BluHuang's Blog"><meta property="og:description" content="1 C++官方文档 https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
+2 原理 2.1 一句话总结原理 从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。
+next_permutation 算法的核心在于以下三步：
+从右找第一个升序对（确定要变动的位置）。 从右找第一个大于该位置的数（确定交换的位置）。 交换，然后反转后面的部分。 2.2 原理拆解 图解例子：[1, 3, 5, 4, 2] 步骤 数组状态 说明 初始 [1, 3, 5, 4, 2] 1. 找 i 从右向左找 nums[i] < nums[i+1]： 2 无右；4>2 不成立；5>4 不成立；3<5 ✅，所以 i = 1（指向 3） 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 2. 找 j 在 i 右边 [5,4,2] 中从右向左找第一个大于 3 的数： 2 不大于；4 大于，所以 j = 3（指向 4） 找到刚好比 3 大的数 4 3. 交换 交换 nums[1] 和 nums[3] → [1, 4, 5, 3, 2] 4. 反转 将 i+1（索引2）到末尾 [5,3,2] 反转 → [2,3,5] 最终 [1,4,2,3,5] 结果 14235 确实是 13542 的下一个排列。 为什么最后可以反转？ 因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="coding"><meta name=twitter:card content="summary"><meta name=twitter:title content="BluHuang's Blog"><meta name=twitter:description content="1 C++官方文档 https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
+2 原理 2.1 一句话总结原理 从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。
+next_permutation 算法的核心在于以下三步：
+从右找第一个升序对（确定要变动的位置）。 从右找第一个大于该位置的数（确定交换的位置）。 交换，然后反转后面的部分。 2.2 原理拆解 图解例子：[1, 3, 5, 4, 2] 步骤 数组状态 说明 初始 [1, 3, 5, 4, 2] 1. 找 i 从右向左找 nums[i] < nums[i+1]： 2 无右；4>2 不成立；5>4 不成立；3<5 ✅，所以 i = 1（指向 3） 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 2. 找 j 在 i 右边 [5,4,2] 中从右向左找第一个大于 3 的数： 2 不大于；4 大于，所以 j = 3（指向 4） 找到刚好比 3 大的数 4 3. 交换 交换 nums[1] 和 nums[3] → [1, 4, 5, 3, 2] 4. 反转 将 i+1（索引2）到末尾 [5,3,2] 反转 → [2,3,5] 最终 [1,4,2,3,5] 结果 14235 确实是 13542 的下一个排列。 为什么最后可以反转？ 因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Codings","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/"},{"@type":"ListItem","position":2,"name":"","item":"https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"","name":"","description":"1 C++官方文档 https://en.cppreference.com/w/cpp/algorithm/next_permutation.html\n2 原理 2.1 一句话总结原理 从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。\nnext_permutation 算法的核心在于以下三步：\n从右找第一个升序对（确定要变动的位置）。 从右找第一个大于该位置的数（确定交换的位置）。 交换，然后反转后面的部分。 2.2 原理拆解 图解例子：[1, 3, 5, 4, 2] 步骤 数组状态 说明 初始 [1, 3, 5, 4, 2] 1. 找 i 从右向左找 nums[i] \u0026lt; nums[i+1]： 2 无右；4\u0026gt;2 不成立；5\u0026gt;4 不成立；3\u0026lt;5 ✅，所以 i = 1（指向 3） 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 2. 找 j 在 i 右边 [5,4,2] 中从右向左找第一个大于 3 的数： 2 不大于；4 大于，所以 j = 3（指向 4） 找到刚好比 3 大的数 4 3. 交换 交换 nums[1] 和 nums[3] → [1, 4, 5, 3, 2] 4. 反转 将 i+1（索引2）到末尾 [5,3,2] 反转 → [2,3,5] 最终 [1,4,2,3,5] 结果 14235 确实是 13542 的下一个排列。 为什么最后可以反转？ 因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。\n","keywords":[],"articleBody":"1 C++官方文档 https://en.cppreference.com/w/cpp/algorithm/next_permutation.html\n2 原理 2.1 一句话总结原理 从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。\nnext_permutation 算法的核心在于以下三步：\n从右找第一个升序对（确定要变动的位置）。 从右找第一个大于该位置的数（确定交换的位置）。 交换，然后反转后面的部分。 2.2 原理拆解 图解例子：[1, 3, 5, 4, 2] 步骤 数组状态 说明 初始 [1, 3, 5, 4, 2] 1. 找 i 从右向左找 nums[i] \u003c nums[i+1]： 2 无右；4\u003e2 不成立；5\u003e4 不成立；3\u003c5 ✅，所以 i = 1（指向 3） 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 2. 找 j 在 i 右边 [5,4,2] 中从右向左找第一个大于 3 的数： 2 不大于；4 大于，所以 j = 3（指向 4） 找到刚好比 3 大的数 4 3. 交换 交换 nums[1] 和 nums[3] → [1, 4, 5, 3, 2] 4. 反转 将 i+1（索引2）到末尾 [5,3,2] 反转 → [2,3,5] 最终 [1,4,2,3,5] 结果 14235 确实是 13542 的下一个排列。 为什么最后可以反转？ 因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。\n为什么步骤必须这样？ 找 i：保证改动的是尽可能靠右的位置，这样整体增大最小。 找 j：保证换到 i 位置的数是右边最小的大数，这样增大刚好一点点。 反转：因为 i 右边原本是降序（最大顺序），现在 i 变大后，右边需要变成升序（最小顺序）才能得到刚好比当前大的下一个排列。 3 代码实现（简洁版） bool nextPermutation(vector\u0026 nums) { int n = nums.size(); int i = n - 2; while (i \u003e= 0 \u0026\u0026 nums[i] \u003e= nums[i + 1]) i--; if (i \u003e= 0) { int j = n - 1; while (nums[j] \u003c= nums[i]) j--; swap(nums[i], nums[j]); } reverse(nums.begin() + i + 1, nums.end()); return i \u003e= 0; } 注意用 \u003e= 和 \u003c= 是为了跳过相等元素，确保严格递增/递减。\n4 用法 头文件 #include 函数原型 // 使用 operator\u003c 比较元素 bool next_permutation (BidirectionalIterator first, BidirectionalIterator last); // 使用自定义比较函数 comp bool next_permutation (BidirectionalIterator first, BidirectionalIterator last, Compare comp); 作用 将序列 [first, last) 重新排列为字典序中的下一个排列。\n如果存在下一个排列（即当前排列不是最大排列），则将其变换为下一个排列，并返回 true。 如果当前排列已经是字典序最大的排列（即完全降序），则将其变换为最小的排列（即完全升序），并返回 false。 示例代码：生成全排列 #include #include #include using namespace std; int main() { vector nums = {1, 2, 3}; // 初始为升序（最小排列） do { for (int x : nums) cout \u003c\u003c x \u003c\u003c ' '; cout \u003c\u003c '\\n'; } while (next_permutation(nums.begin(), nums.end())); return 0; } 自定义比较函数 例如，对字符串按长度排序（长度小的在前，相同长度按字典序）：\nvector words = {\"apple\", \"banana\", \"cherry\"}; auto comp = [](const string\u0026 a, const string\u0026 b) { return a.length() \u003c b.length(); // 按长度升序 }; sort(words.begin(), words.end(), comp); // 先排序 do { for (const auto\u0026 w : words) cout \u003c\u003c w \u003c\u003c ' '; cout \u003c\u003c '\\n'; } while (next_permutation(words.begin(), words.end(), comp)); ","wordCount":"315","inLanguage":"en","datePublished":"0001-01-01T00:00:00Z","dateModified":"0001-01-01T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/"},"publisher":{"@type":"Organization","name":"BluHuang's Blog","logo":{"@type":"ImageObject","url":"https://bluhuang.github.io/blogs-of-bluhuang/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://bluhuang.github.io/blogs-of-bluhuang/ accesskey=h title="BluHuang's Blog (Alt + H)">BluHuang's Blog</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent"></h1><div class=post-meta></div></header><div class="post-content md-content"><h1 id=1-c官方文档>1 C++官方文档<a hidden class=anchor aria-hidden=true href=#1-c官方文档>#</a></h1><p><a href=https://en.cppreference.com/w/cpp/algorithm/next_permutation.html>https://en.cppreference.com/w/cpp/algorithm/next_permutation.html</a></p><h1 id=2-原理>2 原理<a hidden class=anchor aria-hidden=true href=#2-原理>#</a></h1><h2 id=21-一句话总结原理>2.1 一句话总结原理<a hidden class=anchor aria-hidden=true href=#21-一句话总结原理>#</a></h2><p>从右向左找到第一个可以变大的元素的位置，将其换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。</p><p><code>next_permutation</code> 算法的核心在于以下<strong>三步</strong>：</p><ol><li>从右找第一个升序对（确定要变动的位置）。</li><li>从右找第一个大于该位置的数（确定交换的位置）。</li><li>交换，然后反转后面的部分。</li></ol><h2 id=22-原理拆解>2.2 原理拆解<a hidden class=anchor aria-hidden=true href=#22-原理拆解>#</a></h2><h2 id=图解例子1-3-5-4-2>图解例子：<code>[1, 3, 5, 4, 2]</code><a hidden class=anchor aria-hidden=true href=#图解例子1-3-5-4-2>#</a></h2><table><thead><tr><th>步骤</th><th>数组状态</th><th>说明</th></tr></thead><tbody><tr><td>初始</td><td><code>[1, 3, 5, 4, 2]</code></td><td></td></tr><tr><td><strong>1. 找 i</strong></td><td>从右向左找 <code>nums[i] &lt; nums[i+1]</code>： <code>2</code> 无右；<code>4>2</code> 不成立；<code>5>4</code> 不成立；<code>3&lt;5</code> ✅，所以 <code>i = 1</code>（指向 <code>3</code>）</td><td>找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】</td></tr><tr><td><strong>2. 找 j</strong></td><td>在 i 右边 <code>[5,4,2]</code> 中从右向左找第一个大于 3 的数： <code>2</code> 不大于；<code>4</code> 大于，所以 <code>j = 3</code>（指向 <code>4</code>）</td><td>找到刚好比 3 大的数 4</td></tr><tr><td><strong>3. 交换</strong></td><td>交换 <code>nums[1]</code> 和 <code>nums[3]</code> → <code>[1, 4, 5, 3, 2]</code></td><td></td></tr><tr><td><strong>4. 反转</strong></td><td>将 i+1（索引2）到末尾 <code>[5,3,2]</code> 反转 → <code>[2,3,5]</code></td><td>最终 <code>[1,4,2,3,5]</code></td></tr><tr><td>结果 <code>14235</code> 确实是 <code>13542</code> 的下一个排列。</td><td></td><td></td></tr></tbody></table><h2 id=为什么最后可以反转>为什么最后可以反转？<a hidden class=anchor aria-hidden=true href=#为什么最后可以反转>#</a></h2><p>因为交换的两个元素，就是找到的正好比原先 i 要稍大一点的数字。交换后，原先 i 位置的元素被换成稍大的值，而原来 i 位置的元素被交换到 j 位置。此时，j 左侧的元素都比它大（否则不会选 j），右侧的元素都比它小（因为是从右向左找到的第一个大于原 nums[i] 的数）。因此交换后，右边的这些元素仍保持降序，反转后变成升序，从而得到最小的后续排列。</p><h2 id=为什么步骤必须这样>为什么步骤必须这样？<a hidden class=anchor aria-hidden=true href=#为什么步骤必须这样>#</a></h2><ul><li><strong>找 i</strong>：保证改动的是尽可能靠右的位置，这样整体增大最小。</li><li><strong>找 j</strong>：保证换到 i 位置的数是右边<strong>最小的大数</strong>，这样增大刚好一点点。</li><li><strong>反转</strong>：因为 i 右边原本是降序（最大顺序），现在 i 变大后，右边需要变成升序（最小顺序）才能得到刚好比当前大的下一个排列。</li></ul><h1 id=3-代码实现简洁版>3 代码实现（简洁版）<a hidden class=anchor aria-hidden=true href=#3-代码实现简洁版>#</a></h1><pre tabindex=0><code>bool nextPermutation(vector&lt;int&gt;&amp; nums) {
+    int n = nums.size();
+    int i = n - 2;
+    while (i &gt;= 0 &amp;&amp; nums[i] &gt;= nums[i + 1]) i--;
+    if (i &gt;= 0) {
+        int j = n - 1;
+        while (nums[j] &lt;= nums[i]) j--;
+        swap(nums[i], nums[j]);
+    }
+    reverse(nums.begin() + i + 1, nums.end());
+    return i &gt;= 0;
+}
+</code></pre><p>注意用 <code>>=</code> 和 <code>&lt;=</code> 是为了跳过相等元素，确保严格递增/递减。</p><h1 id=4-用法>4 用法<a hidden class=anchor aria-hidden=true href=#4-用法>#</a></h1><h3 id=头文件>头文件<a hidden class=anchor aria-hidden=true href=#头文件>#</a></h3><pre tabindex=0><code>#include &lt;algorithm&gt;
+</code></pre><h3 id=函数原型>函数原型<a hidden class=anchor aria-hidden=true href=#函数原型>#</a></h3><pre tabindex=0><code>// 使用 operator&lt; 比较元素
+bool next_permutation (BidirectionalIterator first, BidirectionalIterator last);
+// 使用自定义比较函数 comp
+bool next_permutation (BidirectionalIterator first, BidirectionalIterator last, Compare comp);
+</code></pre><h3 id=作用>作用<a hidden class=anchor aria-hidden=true href=#作用>#</a></h3><p>将序列 <code>[first, last)</code> 重新排列为<strong>字典序中的下一个排列</strong>。</p><ul><li>如果存在下一个排列（即当前排列不是最大排列），则将其变换为下一个排列，并返回 <code>true</code>。</li><li>如果当前排列已经是字典序最大的排列（即完全降序），则将其变换为最小的排列（即完全升序），并返回 <code>false</code>。</li></ul><h3 id=示例代码生成全排列>示例代码：生成全排列<a hidden class=anchor aria-hidden=true href=#示例代码生成全排列>#</a></h3><pre tabindex=0><code>#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; nums = {1, 2, 3};  // 初始为升序（最小排列）
+
+    do {
+        for (int x : nums) cout &lt;&lt; x &lt;&lt; &#39; &#39;;
+        cout &lt;&lt; &#39;\n&#39;;
+    } while (next_permutation(nums.begin(), nums.end()));
+
+    return 0;
+}
+</code></pre><h3 id=自定义比较函数>自定义比较函数<a hidden class=anchor aria-hidden=true href=#自定义比较函数>#</a></h3><p>例如，对字符串按长度排序（长度小的在前，相同长度按字典序）：</p><pre tabindex=0><code>vector&lt;string&gt; words = {&#34;apple&#34;, &#34;banana&#34;, &#34;cherry&#34;};
+auto comp = [](const string&amp; a, const string&amp; b) {
+    return a.length() &lt; b.length();   // 按长度升序
+};
+sort(words.begin(), words.end(), comp);  // 先排序
+do {
+    for (const auto&amp; w : words) cout &lt;&lt; w &lt;&lt; &#39; &#39;;
+    cout &lt;&lt; &#39;\n&#39;;
+} while (next_permutation(words.begin(), words.end(), comp));
+</code></pre></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://bluhuang.github.io/blogs-of-bluhuang/>BluHuang's Blog</a></span> ·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
