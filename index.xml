@@ -7,64 +7,64 @@
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
     <title>下一个排列与排列题型</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B</guid>
     <description><![CDATA[ 排列（Permutation）类题型算法复习笔记 1. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:19:04 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:55:17 GMT</pubDate>
   </item><item>
     <title>单调栈</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E5%8D%95%E8%B0%83%E6%A0%88</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E5%8D%95%E8%B0%83%E6%A0%88</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E5%8D%95%E8%B0%83%E6%A0%88</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E5%8D%95%E8%B0%83%E6%A0%88</guid>
     <description><![CDATA[ 单调栈笔记 单调栈简介 单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边/右边第一个比它大（或小）的元素位置，时间复杂度 O(n)。 什么时候使用单调栈？ 问题中需要为每个元素找到“下一个更大/更小”的元素 例如： 每日温度（找下一个更高温度） 下一个更大元素 I（找数组中下一个更大元素） 问题可转化为求每个元素作为最小/最大值时的区间范围 例如： 柱状图中最大的矩形（以每个柱子的高度为高，找左右边界） 接雨水（每个位置形成凹槽的宽度由左右边界决定） 需要以 O(n) 时间求出每个元素的左右边界，这些边界由“第一个比它大/小的元素”决定。 典型标志：题目... ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:53 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:55:06 GMT</pubDate>
   </item><item>
     <title>必考排序</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E5%BF%85%E8%80%83%E6%8E%92%E5%BA%8F</guid>
     <description><![CDATA[ 排序算法笔记 一、排序算法清单 算法平均时间最坏时间空间稳定性应用场景快速排序O(n log n)O(n²)O(log n)❌通用首选三路快排O(n log n)O(n²)O(log n)❌大量重复元素选择排序O(n²)O(n²)O(1)❌极简实现插入排序O(n²)O(n²)O(1)✅基本有序/小数据归并排序O(n log n)O(n log n)O(n)✅稳定/链表/外部排序优先队列排序O(n log n)O(n log n)O(n)❌STL 快捷实现 二、各算法思路与代码实现 1. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:47 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:55:00 GMT</pubDate>
   </item><item>
     <title>环形链表与隐式环形链表</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8</guid>
     <description><![CDATA[ 环形链表题型笔记 一、题型识别：环形链表 环形链表问题有三个层次： 层次题目要求判断有无环141. 环形链表返回 true/false找环的入口142. 环形链表 II返回入口节点隐式环形链表287. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:38 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:54:51 GMT</pubDate>
   </item><item>
     <title>背包问题</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98</guid>
     <description><![CDATA[ 背包问题速查笔记（0-1 + 完全） 1. 核心区别 类型内层循环方向原因记忆口诀0-1背包倒序 (j = W .. weight[i])防止重复使用同一个物品0-1 倒完全背包正序 (j = weight[i] .. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:27 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:54:40 GMT</pubDate>
   </item><item>
     <title>拓扑排序-Kahn算法与课程表</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8</guid>
     <description><![CDATA[ 我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。 一、拓扑排序的基本概念 1. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:19 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:54:32 GMT</pubDate>
   </item><item>
     <title>连续子数组极值问题</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98</guid>
     <description><![CDATA[ 1 题型特征 数组：一维数组、环（变种）、可重复等 目标：求连续子数组的极值（和、乘积、长度） 约束：子数组是连续的（子序列不要求连续，相对顺序一致即可） 2 解题套路总结 2.1 一维数组 连续子数组 问题 解题思路 动态规划 Kadane算法：用于求解最大子数组和的动态规划算法，它通过遍历数组，维护以当前元素结尾的最大子数组和，并不断更新全局最大值，从而在O(n)时间内得到结果。 前缀和 + 哈希表 滑动窗口（适合有长度或限制） 核心代码 Kadane 算法（最大子数组和） int maxSubArray(vector&lt;int&gt;&amp; nums) { int maxCur ... ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:18:08 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:54:21 GMT</pubDate>
   </item><item>
     <title>贪心系列</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97</guid>
     <description><![CDATA[ 贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。 一、贪心算法的适用特征 贪心选择性质 局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。 最优子结构 问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。 常见问题类型 · 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。 · 资源分配：最小化等待时间、最大化收益等。 · 图论：... ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:17:52 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:54:05 GMT</pubDate>
   </item><item>
     <title>滑动窗口</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3</guid>
     <description><![CDATA[ 滑动窗口题型总结笔记 1. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:17:45 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:53:58 GMT</pubDate>
   </item><item>
     <title>最大堆与最小堆</title>
-    <link>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86</link>
-    <guid>https://bluhuang.github.io/blogs-of-bluhuang/Notes/coding/coding-algorithm/%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86</guid>
+    <link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86</link>
+    <guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/%E6%9C%80%E5%A4%A7%E5%A0%86%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%A0%86</guid>
     <description><![CDATA[ 1. 什么是堆？ 堆（Heap）是一种特殊的完全二叉树，通常用数组存储。 最大堆：每个父节点的值 大于等于 其子节点的值，堆顶为最大值。 最小堆：每个父节点的值 小于等于 其子节点的值，堆顶为最小值。 堆的核心操作（插入、删除）时间复杂度均为 O(log n)，获取极值为 O(1)。 2. ]]></description>
-    <pubDate>Tue, 02 Jun 2026 06:17:24 GMT</pubDate>
+    <pubDate>Tue, 02 Jun 2026 06:53:36 GMT</pubDate>
   </item>
     </channel>
   </rss>
