@@ -158,17 +158,3 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 ##### BERTScore
 **BERTScore** 利用 BERT 的上下文词向量计算候选与参考的语义相似度，能捕捉**同义词替换、语序变化**等深层语义匹配。
 
-**计算步骤**：
-1. 用 BERT 分别将候选句子 $x$ 和参考句子 $y$ 编码为上下文词向量序列：
-   $$\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}$$
-2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
-   $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
-3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j) $$
-   **精确率**（候选中的内容与参考相关的比例）：
-   $$ P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j} \text{sim}(x_i, y_j) $$
-4. **F1 值**：
-   $$ \text{BERTScore} = 2 \cdot \frac{P_{\text{BERT}} \cdot R_{\text{BERT}}}{P_{\text{BERT}} + R_{\text{BERT}}} $$
-
-**特点**：
-- 优点：无需精确字符串匹配，能识别语义相似的表达（
