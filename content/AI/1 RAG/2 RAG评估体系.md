@@ -91,6 +91,7 @@ $$
 
 > **一句话**：NDCG 是衡量排序“好结果是否排在前面”的最精细指标。
 
+
 ---
 
 ### 1.2 生成层评估 —— 衡量“基于检索信息，能不能生成优质回答”
@@ -163,10 +164,4 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
    $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
 3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j) $$
-   **精确率**（候选中的内容与参考相关的比例）：
-   $$ P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j} \text{sim}(x_i, y_j) $$
-4. **F1 值**：
-   $$ \text{BERTScore} = 2 \cdot \frac{P_{\text{BERT}} \cdot R_{\text{BERT}}}{P_{\text{BERT}} + R_{\text{BERT}}} $$
-
-**特点**：
+   $$ R_{\text{BERT}} = \frac{1}{n

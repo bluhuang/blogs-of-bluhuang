@@ -11,6 +11,4 @@ https://transformers.run/c4/c16_finetune_llms/#1611-%E6%8C%87%E4%BB%A4%E6%95%B0%
 
 https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-continuous-training-model-updates/strategies-continual-fine-tuning
 
-https://bbs.huaweicloud.com/blogs/405750
-
-pdf
+hello-agent, pdf
