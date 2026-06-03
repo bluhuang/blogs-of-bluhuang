@@ -1,0 +1,250 @@
+[
+  {
+    "title": "AI",
+    "url": "/AI/",
+    "children": [
+      {
+        "title": "0 基础",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "Agent",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 Agent基础必知必会",
+                "url": "/AI/1-agent基础必知必会/"
+              },
+              {
+                "title": "2 ReAct - Reasoning + Acting",
+                "url": "/AI/2-react---reasoning-acting/"
+              }
+            ]
+          },
+          {
+            "title": "AI基础",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 LLM基础必知必会",
+                "url": "/AI/1-llm基础必知必会/"
+              },
+              {
+                "title": "10 什么是向量数据库？",
+                "url": "/AI/10-什么是向量数据库/"
+              },
+              {
+                "title": "11 什么是Harness工程？",
+                "url": "/AI/11-什么是harness工程/"
+              },
+              {
+                "title": "2 什么是大模型？",
+                "url": "/AI/2-什么是大模型/"
+              },
+              {
+                "title": "3 什么是Prompt？",
+                "url": "/AI/3-什么是prompt/"
+              },
+              {
+                "title": "4 什么是 Agent？",
+                "url": "/AI/4-什么是-agent/"
+              },
+              {
+                "title": "5 什么是 Tool？",
+                "url": "/AI/5-什么是-tool/"
+              },
+              {
+                "title": "6 什么是 Function Call？（协议）",
+                "url": "/AI/6-什么是-function-call协议/"
+              },
+              {
+                "title": "7 什么是MCP？",
+                "url": "/AI/7-什么是mcp/"
+              },
+              {
+                "title": "8 什么是 Skills？",
+                "url": "/AI/8-什么是-skills/"
+              },
+              {
+                "title": "9 什么是 RAG？",
+                "url": "/AI/9-什么是-rag/"
+              }
+            ]
+          },
+          {
+            "title": "link",
+            "url": "/AI/link/"
+          }
+        ]
+      },
+      {
+        "title": "1 RAG",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 RAG全流程解析",
+            "url": "/AI/1-rag全流程解析/"
+          },
+          {
+            "title": "2 RAG评估体系",
+            "url": "/AI/2-rag评估体系/"
+          },
+          {
+            "title": "3 RAG分块策略详解",
+            "url": "/AI/3-rag分块策略详解/"
+          },
+          {
+            "title": "4 融合搜索、BM25、RRF详解",
+            "url": "/AI/4-融合搜索bm25rrf详解/"
+          },
+          {
+            "title": "5 重排序 Rerank 详解",
+            "url": "/AI/5-重排序-rerank-详解/"
+          },
+          {
+            "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
+            "url": "/AI/6-cross-encoder核心原理从-self-attention到相关性分数/"
+          },
+          {
+            "title": "prompt",
+            "url": "/AI/prompt/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "coding",
+    "url": "/coding/",
+    "children": [
+      {
+        "title": "coding algorithm",
+        "url": "/coding/",
+        "children": [
+          {
+            "title": "0 必考排序",
+            "url": "/coding/0-必考排序/"
+          },
+          {
+            "title": "1 前缀和",
+            "url": "/coding/1-前缀和/"
+          },
+          {
+            "title": "10 贪心系列",
+            "url": "/coding/10-贪心系列/"
+          },
+          {
+            "title": "11 双状态DP",
+            "url": "/coding/11-双状态dp/"
+          },
+          {
+            "title": "12 括号问题",
+            "url": "/coding/12-括号问题/"
+          },
+          {
+            "title": "13 回文",
+            "url": "/coding/13-回文/"
+          },
+          {
+            "title": "14 下一个排列与排列题型",
+            "url": "/coding/14-下一个排列与排列题型/"
+          },
+          {
+            "title": "15 环形链表与隐式环形链表",
+            "url": "/coding/15-环形链表与隐式环形链表/"
+          },
+          {
+            "title": "2 差分数组",
+            "url": "/coding/2-差分数组/"
+          },
+          {
+            "title": "3 连续子数组极值问题",
+            "url": "/coding/3-连续子数组极值问题/"
+          },
+          {
+            "title": "4 最大堆与最小堆",
+            "url": "/coding/4-最大堆与最小堆/"
+          },
+          {
+            "title": "5 滑动窗口",
+            "url": "/coding/5-滑动窗口/"
+          },
+          {
+            "title": "6 二叉树的Morris展开与中序遍历",
+            "url": "/coding/6-二叉树的morris展开与中序遍历/"
+          },
+          {
+            "title": "7 拓扑排序-Kahn算法与课程表",
+            "url": "/coding/7-拓扑排序-kahn算法与课程表/"
+          },
+          {
+            "title": "8 单调栈",
+            "url": "/coding/8-单调栈/"
+          },
+          {
+            "title": "9 背包问题",
+            "url": "/coding/9-背包问题/"
+          }
+        ]
+      },
+      {
+        "title": "std算法",
+        "url": "/coding/",
+        "children": [
+          {
+            "title": "全排列 std, next_permutation",
+            "url": "/coding/全排列-std-next-permutation/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "database",
+    "url": "/database/",
+    "children": [
+      {
+        "title": "sqlite",
+        "url": "/database/",
+        "children": [
+          {
+            "title": "programming interfaces",
+            "url": "/database/",
+            "children": [
+              {
+                "title": "Application-Defined SQL Functions",
+                "url": "/database/application-defined-sql-functions/"
+              },
+              {
+                "title": "programming interfaces",
+                "url": "/database/programming-interfaces/"
+              },
+              {
+                "title": "未命名",
+                "url": "/database/未命名/"
+              }
+            ]
+          },
+          {
+            "title": "sqlite",
+            "url": "/database/sqlite/"
+          }
+        ]
+      },
+      {
+        "title": "向量",
+        "url": "/database/",
+        "children": [
+          {
+            "title": "HNSW索引学习笔记",
+            "url": "/database/hnsw索引学习笔记/"
+          }
+        ]
+      },
+      {
+        "title": "database",
+        "url": "/database/database/"
+      }
+    ]
+  }
+]
