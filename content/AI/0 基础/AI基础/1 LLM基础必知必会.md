@@ -1,8 +1,11 @@
 ---
-title: "1 LLM基础必知必会"
+title: "LLM基础必知必会"
+date: 2026-06-02
 ---
 
 # LLM 学习笔记：核心概念与实践方法
+
+> 参考：[https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic](https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic)
 
 ## 1. 大语言模型基础
 

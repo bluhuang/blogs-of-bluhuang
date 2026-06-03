@@ -1,5 +1,6 @@
 ---
 title: "link"
+date: 2026-06-02
 ---
 
 https://transformers.run/
@@ -12,4 +13,4 @@ https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-cont
 
 https://bbs.huaweicloud.com/blogs/405750
 
-hello-agent, pdf
+pdf
