@@ -151,19 +151,4 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 - $$ \text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P_{\text{lcs}}} $$
   $\beta$ 通常取很大（如 $\beta \to \infty$）使 F 值约等于召回率，即强调覆盖程度。
 
-**特点**：
-- 优点：自动衡量**内容覆盖度**，不要求词序完全一致，适合摘要评估。
-- 缺点：仍依赖参考摘要，无法评估事实正确性（例如生成了一句语法通顺但错误的内容，若参考中不存在，ROUGE 会忽略它）。
-
-##### BERTScore
-**BERTScore** 利用 BERT 的上下文词向量计算候选与参考的语义相似度，能捕捉**同义词替换、语序变化**等深层语义匹配。
-
-**计算步骤**：
-1. 用 BERT 分别将候选句子 $x$ 和参考句子 $y$ 编码为上下文词向量序列：
-   $$\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}$$
-2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
-   $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
-3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j) $$
-   **精确率**（候选中的内容与参考相关的比例）：
-   $$ P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j}
+**特点
