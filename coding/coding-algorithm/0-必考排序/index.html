@@ -35,7 +35,7 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span></span><span style=display:flex><span>        }
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>    <span style=color:#75715e>// 交换前：i 是“第一个大于 pivot 的位置”。
-</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// 交换后：i 变成了 pivot 最终所在的位置
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// 交换后：i 变成了pivot 最终所在的位置”
 </span></span></span><span style=display:flex><span>    swap(nums[i], nums[right]);         <span style=color:#75715e>// pivot 归位
 </span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> i;
 </span></span><span style=display:flex><span>}
@@ -67,7 +67,7 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span></span></span><span style=display:flex><span>            i<span style=color:#f92672>++</span>;                     <span style=color:#75715e>// i 右移一格
 </span></span></span><span style=display:flex><span>        }
 </span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (nums[i] <span style=color:#f92672>&gt;</span> pivot) {
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 先 `gt--` 是为了“腾出一个空位”来接收大于 pivot 的元素，同时确保换过来的元素能被 `i` 再次检查，且 pivot 始终安全待在 `right` 位置
+</span></span><span style=display:flex><span>	        <span style=color:#75715e>// 先 `gt--` 是为了“腾出一个空位”来接收大于 pivot 的元素，同时确保换过来的元素能被 `i` 再次检查，且 pivot 始终安全待在 `right` 位置**
 </span></span></span><span style=display:flex><span>            gt<span style=color:#f92672>--</span>;                    <span style=color:#75715e>// gt 左移一格
 </span></span></span><span style=display:flex><span>            swap(nums[i], nums[gt]); <span style=color:#75715e>// 把大的换到 gt 新位置
 </span></span></span><span style=display:flex><span>            <span style=color:#75715e>// i 不动！因为换过来的数还没检查
