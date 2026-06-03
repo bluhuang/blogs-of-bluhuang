@@ -10,8 +10,8 @@ date: 2026-05-28
 
 当前项目已有：
 - 向量检索服务：`app/services/vector_search_service.py` 提供 `vector_search_service.search_similar_documents(query, top_k)`，返回 `List[SearchResult]`，每个结果有 `.content`、`.metadata` 等属性。
-- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用大模型 API。
-- 配置：`.env` 中有 `LLM_API_KEY`。
+- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用 LLM 服务。
+- 配置：`.env` 中有 `API_KEY`。
 
 目标：实现 `tests/evaluate.py`，能够加载公开测试集，调用现有 RAG 系统得到 `contexts` 和 `answer`，用 Ragas 框架计算指标，输出汇总报告。
 
@@ -19,7 +19,7 @@ date: 2026-05-28
 
 ## 一、最终目标
 1. 一个可执行的脚本 `tests/evaluate.py`，运行后：
-   - 加载测试集（例如公开数据集平台上的 `explodinggradients/ragas-wikiqa` 或 RAGAs 内置的 `amnesty_qa`）。
+   - 加载测试集（例如 Hugging Face 上的 `explodinggradients/ragas-wikiqa` 或 RAGAs 内置的 `amnesty_qa`）。
    - 对测试集中每个问题，调用我的 RAG 系统得到：
      - `contexts`（字符串列表，每个元素是检索返回的文档片段原文）
      - `answer`（最终答案）
@@ -30,8 +30,8 @@ date: 2026-05-28
 2. 评估流程可扩展：后续能切换不同测试集、记录多次实验对比。
 
 ## 二、实现计划
-	1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配 RAGAs。我不知道不同的数据集之间我们选择哪个更合适，CRUD-RAG 如何？
-1. **集成 Ragas**：安装 `ragas`, `datasets`, `langchain-openai` 等。评判 LLM 使用现成的大模型 API（已有 API Key），通过 `ChatOpenAI(base_url="https://example.api.com/compatible-mode/v1")` 接入。嵌入模型暂时用 `OpenAIEmbeddings`（需要外部 API key）还是换用当前大模型服务自带的嵌入？我倾向于先使用外部嵌入服务的小额度（或临时申请）以保证快速跑通，你也可以建议免费替代方案。
+1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配RAGS。我不知道不同的数据集之间我们选择哪个更合适，CRUD-RAG如何？
+1. **集成 Ragas**：安装 `ragas`, `datasets`, `langchain-openai` 等。评判 LLM 使用已有的 API Key，通过 `ChatOpenAI(base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")` 接入。嵌入模型暂时用 `OpenAIEmbeddings`（需要 OpenAI key）还是换用其他嵌入服务？我倾向于先使用 OpenAI 的小额度（或临时申请）以保证快速跑通，你也可以建议免费替代方案。
 2. **自动化脚本结构**：
    - 加载配置（从 `config` 或环境变量读取 `rag_top_k` 等参数）。
    - 加载测试集（限制样本数，如前 20 条）。
@@ -43,10 +43,10 @@ date: 2026-05-28
    - 调用 `evaluate()` 计算指标，打印并保存结果。
 4. **报告生成**：Markdown 表格 + JSON 文件。
 
-## 三、我需要你（助手）帮助判断和实现的点
+## 三、需要帮助判断和实现的点
 1. 上述思路是否可行？有没有遗漏的重要步骤（比如需要处理异步？`rag_agent_service.query` 是同步的，没问题）？
-2. 使用大模型 API 作为评判 LLM 时，Ragas 的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
-3. 嵌入模型如果用大模型服务自带的嵌入而不是外部 API，应该如何配置？Ragas 是否支持？
+2. 使用现有 LLM 服务作为评判 LLM 时，Ragas 的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
+3. 嵌入模型如果使用非 OpenAI 的免费方案，应该如何配置？Ragas 是否支持？
 4. 请根据我的项目结构（已提供关键服务类）生成一份完整的 `tests/evaluate.py` 代码。代码应该：
    - 包含必要的 import 和异常处理。
    - 正确调用现有的 `vector_search_service` 和 `rag_agent_service`。
