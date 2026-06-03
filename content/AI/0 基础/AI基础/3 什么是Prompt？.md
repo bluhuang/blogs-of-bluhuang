@@ -16,8 +16,8 @@ date: 2026-06-02
    - ==指定输出格式（最好给JSON示例）→ Agent 解析的关键==
    - ==使用 Few-shot（给例子）→ 胜过写规则==
    - ==要求“先思考再回答”（思维链）→ 提升复杂问题准确率==
-6. **Prompt迭代调试**：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。
-7. **总结**：Prompt 是 Agent 的控制面板。System Prompt 定义身份边界，User Prompt 提供具体任务。后续的 Function Calling、RAG、Agent 都依赖于 Prompt 的设计质量。
+1. **Prompt迭代调试**：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。
+2. **总结**：Prompt 是 Agent 的控制面板。System Prompt 定义身份边界，User Prompt 提供具体任务。后续的 Function Calling、RAG、Agent 都依赖于 Prompt 的设计质量。
 
 ---
 **正文**：

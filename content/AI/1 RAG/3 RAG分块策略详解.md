@@ -1,5 +1,5 @@
 ---
-title: "RAG分块策略详解"
+title: "RAG 系统中的文本分块（Chunking）学习笔记"
 date: 2026-05-29
 ---
 
