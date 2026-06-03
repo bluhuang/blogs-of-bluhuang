@@ -5,13 +5,13 @@ date: 2026-04-20
 
 HNSW 算法完全学习笔记
 
-基于实践与深入研究整理，涵盖原理、操作、参数调优与工程实现。
+基于技术实践与深入分析整理，涵盖原理、操作、参数调优与工程实现。
 
 ---
 
 1. 概述
 
-HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。
+HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如多种主流实现）和 RAG 系统。
 
 ---
 
@@ -19,8 +19,8 @@ HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻�
 
 2.1 多层图
 
-· 第 0 层（底层）：包含所有数据节点，连接较为稠密（每个节点有 M 个邻居）。
-· 第 1 层：包含约 50% 的节点，连接较为稀疏。
+· 第 0 层（底层）：包含所有数据节点，连接稠密（每个节点有 M 个邻居）。
+· 第 1 层：包含约 50% 的节点，连接较稀疏。
 · 第 2 层：包含约 25% 的节点，连接更稀疏。
 · ……
 · 顶层：只有极少数节点（通常 1~2 个），连接极少。
@@ -43,9 +43,10 @@ HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻�
 
 这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。
 
-参数 阶段 作用 典型值
-ef_construction 构建索引 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 100~200
-ef_search 查询 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 10~100
+| 参数 | 阶段 | 作用 | 典型值 |
+|------|------|------|--------|
+| ef_construction | 构建索引 | 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 | 100~200 |
+| ef_search | 查询 | 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 | 10~100 |
 
 为什么需要“搜索宽度”？
 HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。
@@ -172,10 +173,11 @@ HNSW 支持动态插入，无需预先分配容量。
 
 9. 参数调优总结
 
-参数 影响 调优建议
-M 精度、内存、构建时间 越大精度越高。典型 16~64。
-ef_construction 索引质量、构建时间 越大索引越准。典型 100~200。需 ≥ M。
-ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ k。
+| 参数 | 影响 | 调优建议 |
+|------|------|----------|
+| M | 精度、内存、构建时间 | 越大精度越高。典型 16~64。 |
+| ef_construction | 索引质量、构建时间 | 越大索引越准。典型 100~200。需 ≥ M。 |
+| ef_search | 查询召回率、速度 | 越大召回越高。典型 10~100。需 ≥ k。 |
 
 原则：
 
@@ -201,20 +203,20 @@ ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ 
 
 ---
 
-11. 使用示例
-
-以下代码展示了 HNSW 参数配置的典型方式：
+11. 在向量数据库中的使用示例
 
 ```python
+# 创建 collection 时指定 HNSW 参数
 collection = client.create_collection(
     name="my_vectors",
     metadata={
-        "hnsw:space": "cosine",
-        "hnsw:M": 16,
-        "hnsw:ef_construction": 200
+        "hnsw:space": "cosine",      # 距离度量
+        "hnsw:M": 16,                # 最大邻居数
+        "hnsw:ef_construction": 200  # 构建宽度
     }
 )
 
+# 查询时动态设置 ef_search
 retriever = vector_store.as_retriever(
     search_kwargs={"k": 10, "ef": 100}
 )
@@ -237,6 +239,6 @@ retriever = vector_store.as_retriever(
 
 13. 参考资源
 
-· 原始论文 (2018): Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
-· hnswlib 库
-· 向量数据库 HNSW 参数文档
+· 原始论文：Malkov & Yashunin (2018). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
+· hnswlib 库：https://github.com/nmslib/hnswlib
+· 向量数据库 HNSW 文档：可查阅常用向量数据库官方说明。
