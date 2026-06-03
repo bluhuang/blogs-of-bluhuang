@@ -262,6 +262,9 @@
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
+  .right-1 {
+    right: calc(var(--spacing) * 1);
+  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
