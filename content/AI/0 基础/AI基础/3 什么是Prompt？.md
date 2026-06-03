@@ -16,8 +16,8 @@ date: 2026-06-02
    - ==指定输出格式（最好给JSON示例）→ Agent 解析的关键==
    - ==使用 Few-shot（给例子）→ 胜过写规则==
    - ==要求“先思考再回答”（思维链）→ 提升复杂问题准确率==
-6. **Prompt迭代调试**：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。
-7. **总结**：Prompt 是 Agent 的控制面板。System Prompt 定义身份边界，User Prompt 提供具体任务。后续的 Function Calling、RAG、Agent 都依赖于 Prompt 的设计质量。
+1. **Prompt迭代调试**：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。
+2. **总结**：Prompt 是 Agent 的控制面板。System Prompt 定义身份边界，User Prompt 提供具体任务。后续的 Function Calling、RAG、Agent 都依赖于 Prompt 的设计质量。
 
 ---
 **正文**：
@@ -55,7 +55,7 @@ messages = [
 ## 为什么 Prompt 很重要？
 
 要理解 Prompt 的重要性，得先想起大模型的本质：它是个 **next-token 预测机器**，根据上下文预测"接下来最可能出现什么词"。
-
+ 
 你给的上下文越模糊，它能"往哪里走"的方向就越多，输出越随机。你给的上下文越精准，它的搜索范围越窄，输出越稳定、越可预期。
 
 ![](什么是Prompt？-afbe040378c3271f1bd07c09890b6a44.png)

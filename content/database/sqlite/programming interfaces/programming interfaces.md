@@ -1,6 +1,6 @@
 ---
 title: "programming interfaces"
-date: 2026-06-02
+date: 2026-04-20
 ---
 
 [[sqlite]]

@@ -1,6 +1,6 @@
 ---
 title: "RAG评估体系"
-date: 2026-06-02
+date: 2026-05-28
 ---
 
 ## 1 RAG 评估体系层级
@@ -164,4 +164,4 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
    $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
 3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n
+   $$ R_{\text{BERT}} = \frac{1}{n}

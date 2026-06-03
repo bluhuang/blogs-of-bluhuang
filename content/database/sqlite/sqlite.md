@@ -1,6 +1,7 @@
 ---
 title: "sqlite"
-date: 2026-06-02
+date: 2026-04-20
 ---
 
-for link [[database]]
+for link
+[[database]]
