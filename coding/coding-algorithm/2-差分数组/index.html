@@ -17,11 +17,11 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span class=search-result-info></span>
 <span data-target=close-search-modal><kbd>ESC</kbd> to close</span></div></div></div><main class=grow><section><div class="container text-center"><div class="from-body to-light dark:from-darkmode-body dark:to-darkmode-light rounded-2xl bg-gradient-to-b px-8 py-14"><h1>差分数组</h1><ul class="mt-6 inline-flex space-x-1 capitalize"><li><a class="text-primary dark:text-darkmode-primary" href=https://bluhuang.github.io/blogs-of-bluhuang/>Home
 </a><span class="inlin-block mr-1">/</span></li><li><a class="text-primary dark:text-darkmode-primary" href=/blogs-of-bluhuang/coding/>Codings
-</a><span class="inlin-block mr-1">/</span></li><li><span class="text-primary dark:text-darkmode-primary">差分数组</span></li></ul></div></div></section><section class=section-sm><div class=container><div class="row justify-center"><div class=lg:col-10><div class=content><p>差分数组（Difference Array）详解</p><p>差分数组是一种用于高效处理区间更新操作的数据结构。它主要用于解决以下问题：给定一个数组，需要多次对某个区间进行加减操作，最后查询数组的最终状态。</p><p>什么是差分数组？</p><p>基本概念</p><p>对于原始数组 <code>arr</code>，其差分数组 <code>diff</code> 定义如下：</p><pre tabindex=0><code>diff[0] = arr[0]
+</a><span class="inlin-block mr-1">/</span></li><li><span class="text-primary dark:text-darkmode-primary">差分数组</span></li></ul></div></div></section><section class=section-sm><div class=container><div class="row justify-center"><div class=lg:col-10><div class=content><p>差分数组（Difference Array）详解</p><p>差分数组是一种用于高效处理区间更新操作的数据结构。它主要解决以下类型的问题：给定一个数组，需要多次对某个区间进行加减操作，最后查询数组的最终状态。</p><p>什么是差分数组</p><p>基本概念</p><p>对于原始数组 <code>arr</code>，其差分数组 <code>diff</code> 定义为：</p><pre tabindex=0><code>diff[0] = arr[0]
 diff[i] = arr[i] - arr[i-1]  (i ≥ 1)
-</code></pre><p>关键特性</p><p>特性1：通过差分数组可以恢复原始数组</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>arr[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> diff[<span style=color:#ae81ff>0</span>]
+</code></pre><p>关键特性</p><ul><li><strong>特性1</strong>：通过差分数组可以恢复原始数组</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>arr[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> diff[<span style=color:#ae81ff>0</span>]
 </span></span><span style=display:flex><span>arr[i] <span style=color:#f92672>=</span> diff[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>+</span> diff[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> ... <span style=color:#f92672>+</span> diff[i]  <span style=color:#75715e>// 对差分数组求前缀和
-</span></span></span></code></pre></div><p>特性2：区间加减操作可以转换为差分数组两个端点的操作</p><p>图解差分数组</p><p>例子1：构建差分数组</p><pre tabindex=0><code>原始数组 arr:  [1, 3, 6, 10, 15]
+</span></span></span></code></pre></div><ul><li><strong>特性2</strong>：区间加减操作可以转换为差分数组中两个点的操作</li></ul><p>图解差分数组</p><p>示例1：构建差分数组</p><pre tabindex=0><code>原始数组 arr:  [1, 3, 6, 10, 15]
 索引:           0  1  2   3   4
 
 差分数组 diff:
@@ -32,7 +32,7 @@ diff[3] = arr[3] - arr[2] = 10 - 6 = 4
 diff[4] = arr[4] - arr[3] = 15 - 10 = 5
 
 所以 diff = [1, 2, 3, 4, 5]
-</code></pre><p>例子2：从差分数组恢复原始数组</p><pre tabindex=0><code>差分数组 diff: [1, 2, 3, 4, 5]
+</code></pre><p>示例2：从差分数组恢复原始数组</p><pre tabindex=0><code>差分数组 diff: [1, 2, 3, 4, 5]
 
 恢复 arr:
 arr[0] = diff[0] = 1
@@ -40,10 +40,10 @@ arr[1] = arr[0] + diff[1] = 1 + 2 = 3
 arr[2] = arr[1] + diff[2] = 3 + 3 = 6
 arr[3] = arr[2] + diff[3] = 6 + 4 = 10
 arr[4] = arr[3] + diff[4] = 10 + 5 = 15
-</code></pre><p>差分数组的威力：区间更新</p><p>传统方法 vs 差分数组</p><p>问题：将数组 <code>arr</code> 中区间 <code>[l, r]</code> 的所有元素都加上 <code>val</code></p><p>传统方法：O(n) 复杂度</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> l; i <span style=color:#f92672>&lt;=</span> r; i<span style=color:#f92672>++</span>) {
+</code></pre><p>差分数组的威力：区间更新</p><p>传统方法 vs 差分数组</p><p>问题：将数组 <code>arr</code> 中区间 <code>[l, r]</code> 的所有元素都加上 <code>val</code></p><ul><li><strong>传统方法</strong>：O(n) 复杂度</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> l; i <span style=color:#f92672>&lt;=</span> r; i<span style=color:#f92672>++</span>) {
 </span></span><span style=display:flex><span>    arr[i] <span style=color:#f92672>+=</span> val;
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>差分数组方法：O(1) 复杂度</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>diff[l] <span style=color:#f92672>+=</span> val;
+</span></span></code></pre></div><ul><li><strong>差分数组方法</strong>：O(1) 复杂度</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>diff[l] <span style=color:#f92672>+=</span> val;
 </span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (r <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&lt;</span> n) {
 </span></span><span style=display:flex><span>    diff[r <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>] <span style=color:#f92672>-=</span> val;
 </span></span><span style=display:flex><span>}
@@ -98,7 +98,7 @@ arr[4] = 15+0=15
 </span></span><span style=display:flex><span>    
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> arr;
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>应用实例</p><p>LeetCode 1109. 航班预订统计</p><p>问题：</p><pre tabindex=0><code>有 n 个航班，分别从 1 到 n 编号。
+</span></span></code></pre></div><p>应用实例：LeetCode 1109 航班预订统计</p><p>问题描述：</p><pre tabindex=0><code>有 n 个航班，分别从 1 到 n 编号。
 预订记录 bookings[i] = [first_i, last_i, seats_i]
 表示在从 first_i 到 last_i 的每个航班上预订了 seats_i 个座位。
 
@@ -106,11 +106,13 @@ arr[4] = 15+0=15
 </code></pre><p>示例：</p><pre tabindex=0><code>输入：bookings = [[1,2,10],[2,3,20],[2,5,25]], n = 5
 输出：[10,55,45,25,25]
 </code></pre><p>差分数组解法：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> corpFlightBookings(vector<span style=color:#f92672>&lt;</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;&amp;</span> bookings, <span style=color:#66d9ef>int</span> n) {
-</span></span><span style=display:flex><span>    vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> diff(n, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 初始化差分数组（所有航班初始为0）
+</span></span></span><span style=display:flex><span>    vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> diff(n, <span style=color:#ae81ff>0</span>);
 </span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span><span style=color:#f92672>&amp;</span> booking : bookings) {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> first <span style=color:#f92672>=</span> booking[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> last <span style=color:#f92672>=</span> booking[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 应用每个预订记录
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>auto</span><span style=color:#f92672>&amp;</span> booking : bookings) {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> first <span style=color:#f92672>=</span> booking[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>;  <span style=color:#75715e>// 转为0-based索引
+</span></span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> last <span style=color:#f92672>=</span> booking[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>;
 </span></span><span style=display:flex><span>        <span style=color:#66d9ef>int</span> seats <span style=color:#f92672>=</span> booking[<span style=color:#ae81ff>2</span>];
 </span></span><span style=display:flex><span>        
 </span></span><span style=display:flex><span>        diff[first] <span style=color:#f92672>+=</span> seats;
@@ -119,7 +121,8 @@ arr[4] = 15+0=15
 </span></span><span style=display:flex><span>        }
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> answer(n);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 通过差分数组恢复最终结果
+</span></span></span><span style=display:flex><span>    vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;</span> answer(n);
 </span></span><span style=display:flex><span>    answer[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> diff[<span style=color:#ae81ff>0</span>];
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> i <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>; i <span style=color:#f92672>&lt;</span> n; i<span style=color:#f92672>++</span>) {
 </span></span><span style=display:flex><span>        answer[i] <span style=color:#f92672>=</span> answer[i<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> diff[i];
@@ -127,18 +130,18 @@ arr[4] = 15+0=15
 </span></span><span style=display:flex><span>    
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> answer;
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>图解示例</p><pre tabindex=0><code>n = 5, 初始所有航班座位数都为 0
+</span></span></code></pre></div><p>图解示例</p><pre tabindex=0><code>n = 5, 初始所有航班座位数都为0
 diff = [0, 0, 0, 0, 0]
 
-预订1: [1,2,10]（0-based: [0,1,10]）
+预订1: [1,2,10] (0-based: [0,1,10])
 diff[0] += 10 → diff = [10, 0, 0, 0, 0]
 diff[2] -= 10 → diff = [10, 0, -10, 0, 0]
 
-预订2: [2,3,20]（0-based: [1,2,20]）
+预订2: [2,3,20] (0-based: [1,2,20])
 diff[1] += 20 → diff = [10, 20, -10, 0, 0]
 diff[3] -= 20 → diff = [10, 20, -10, -20, 0]
 
-预订3: [2,5,25]（0-based: [1,4,25]）
+预订3: [2,5,25] (0-based: [1,4,25])
 diff[1] += 25 → diff = [10, 45, -10, -20, 0]
 diff[5] 不存在，不操作
 
@@ -149,10 +152,11 @@ answer[2] = 55+(-10)=45
 answer[3] = 45+(-20)=25
 answer[4] = 25+0=25
 结果: [10,55,45,25,25] ✓
-</code></pre><p>差分数组的优点和局限</p><p>优点：</p><ol><li>高效的区间更新：O(1) 时间复杂度完成区间加减</li><li>空间效率：只需要额外的 O(n) 空间</li><li>简单易实现：逻辑清晰，代码简洁</li></ol><p>局限：</p><ol><li>仅支持加减操作：不支持区间乘除等其他操作</li><li>不适合频繁查询：每次查询需要 O(n) 时间恢复数组</li><li>需要离线操作：通常先进行所有更新，最后一次性查询</li></ol><p>扩展：二维差分数组</p><p>差分数组也可以扩展到二维，用于矩阵的区间更新：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update2D</span>(vector<span style=color:#f92672>&lt;</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;&amp;</span> diff, <span style=color:#66d9ef>int</span> x1, <span style=color:#66d9ef>int</span> y1, <span style=color:#66d9ef>int</span> x2, <span style=color:#66d9ef>int</span> y2, <span style=color:#66d9ef>int</span> val) {
+</code></pre><p>差分数组的优点与局限</p><p>优点：</p><ol><li><strong>高效的区间更新</strong>：O(1) 时间复杂度完成区间加减</li><li><strong>空间效率</strong>：只需要额外的 O(n) 空间</li><li><strong>简单易实现</strong>：逻辑清晰，代码简洁</li></ol><p>局限：</p><ol><li><strong>仅支持加减操作</strong>：不支持区间乘除等其他操作</li><li><strong>不适合频繁查询</strong>：每次查询需要 O(n) 时间恢复数组</li><li><strong>需要离线操作</strong>：通常先进行所有更新，最后一次性查询</li></ol><p>扩展：二维差分数组</p><p>差分数组也可以扩展到二维，用于矩阵的区间更新：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-cpp data-lang=cpp><span style=display:flex><span><span style=color:#75715e>// 二维差分数组更新：将子矩阵 (x1,y1) 到 (x2,y2) 的所有元素加 val
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>void</span> <span style=color:#a6e22e>update2D</span>(vector<span style=color:#f92672>&lt;</span>vector<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>int</span><span style=color:#f92672>&gt;&gt;&amp;</span> diff, <span style=color:#66d9ef>int</span> x1, <span style=color:#66d9ef>int</span> y1, <span style=color:#66d9ef>int</span> x2, <span style=color:#66d9ef>int</span> y2, <span style=color:#66d9ef>int</span> val) {
 </span></span><span style=display:flex><span>    diff[x1][y1] <span style=color:#f92672>+=</span> val;
 </span></span><span style=display:flex><span>    diff[x1][y2<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>-=</span> val;
 </span></span><span style=display:flex><span>    diff[x2<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y1] <span style=color:#f92672>-=</span> val;
 </span></span><span style=display:flex><span>    diff[x2<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y2<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+=</span> val;
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div><p>总结</p><p>差分数组的核心思想是：</p><ol><li>用相邻元素的差值表示数组</li><li>区间更新转换为两个端点的操作</li><li>通过前缀和恢复最终结果</li></ol><p>它特别适合解决“多次区间加减操作，最后查询结果”这类问题。理解差分数组有助于高效解决许多区间更新相关的算法问题。</p></div></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>About</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</span></span></code></pre></div><p>总结</p><p>差分数组的核心思想是：</p><ol><li>用相邻元素的差值表示数组</li><li>区间更新转换为两个端点的操作</li><li>通过前缀和恢复最终结果</li></ol><p>它特别适合解决“多次区间加减操作，最后查询结果”这类问题。理解差分数组能够帮助你高效处理许多与区间更新相关的算法问题。</p></div></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>About</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
