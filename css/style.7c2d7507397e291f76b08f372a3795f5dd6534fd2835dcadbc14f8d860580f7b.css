@@ -325,9 +325,6 @@
   .top-24 {
     top: calc(var(--spacing) * 24);
   }
-  .right-1 {
-    right: calc(var(--spacing) * 1);
-  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
