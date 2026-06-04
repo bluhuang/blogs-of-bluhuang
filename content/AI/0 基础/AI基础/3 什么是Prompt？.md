@@ -1,7 +1,10 @@
 ---
 title: "什么是Prompt？"
-date: 2026-06-02
-lastmod: 2026-06-02
+image: "/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png"
+categories: ["AI"]
+author: "BluHuang"
+date: 2026-06-04
+lastmod: 2026-06-04
 ---
 
 ### 📌 本章重点总结（Prompt基础）
@@ -34,7 +37,7 @@ lastmod: 2026-06-02
 
 **Prompt 就是你发给大模型的所有输入内容**，不只是一句简单的问题，而是你塞进 messages 列表里的所有文字：指令、背景信息、参考资料、示例、格式要求……全部算在内，总称 Prompt。
 
-![](attachments/什么是Prompt？-e80c98aaf168ef571e53e668e1b9478f.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png)
 
 回想上一节中的 messages 结构：
 
@@ -59,7 +62,7 @@ messages = [
  
 你给的上下文越模糊，它能"往哪里走"的方向就越多，输出越随机。你给的上下文越精准，它的搜索范围越窄，输出越稳定、越可预期。
 
-![](attachments/什么是Prompt？-afbe040378c3271f1bd07c09890b6a44.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-afbe040378c3271f1bd07c09890b6a44.png)
 
 直接看对比，同样是让大模型帮你总结一段内容：
 
@@ -80,7 +83,7 @@ Agent 里，大模型的每次输出都要被你的程序解析和使用。输�
 
 GPT发布初期，用户通过聊天框发送消息（`user prompt`）与大模型交互，但大模型缺乏人设，回复通用且仅能聊天，无法执行任务（比如上传PDF让它解析成中文再返回给你）。
 
-![](attachments/什么是Prompt？-8f3a20f1a651ea91f20d3954042bdcd7.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-8f3a20f1a651ea91f20d3954042bdcd7.png)
 
 **好的 User Prompt 有三个要素：**
 
@@ -116,11 +119,11 @@ GPT发布初期，用户通过聊天框发送消息（`user prompt`）与大模�
 
 为给大模型加上人设，将人设信息从 `user prompt` 中单独拎出形成 `system prompt`。用于描述大模型的角色、性格等非用户直接表达的内容。
 
-![](attachments/什么是Prompt？-6ceb93911289e9a1bd01420806d0309e.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-6ceb93911289e9a1bd01420806d0309e.png)
 
 每次用户发送 user prompt，系统自动将 system prompt 一起发给AI模型，使对话更自然
 
-![](attachments/什么是Prompt？-35f32b9763391be9051d61a50596be9e.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-35f32b9763391be9051d61a50596be9e.png)
 
 System Prompt 有三个核心用途：
 
@@ -174,7 +177,7 @@ System Prompt 有三个核心用途：
 
 理解了是什么之后，来看怎么做。以下 6 个原则，每一条都有其背后的道理，不是规则背诵，是能说清楚"为什么这样有效"的方法。
 
-![](attachments/什么是Prompt？-9ba97e28675461ad4aeb5e6c04a3bb4d.png)
+![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-9ba97e28675461ad4aeb5e6c04a3bb4d.png)
 
 ### 原则 1：给模型"角色"，效果立刻不同
 

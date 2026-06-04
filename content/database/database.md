@@ -1,6 +1,9 @@
 ---
 title: "database"
-date: 2026-04-20
+categories: ["database"]
+author: "BluHuang"
+date: 2025-12-30
+lastmod: 2025-12-30
 ---
 
 for link

@@ -1,5 +1,7 @@
 ---
 title: "iOS 远程 Mac 开发环境搭建指南"
+categories: ["z_mixed"]
+author: "BluHuang"
 date: 2026-06-04
 lastmod: 2026-06-04
 ---
@@ -11,14 +13,14 @@ lastmod: 2026-06-04
 - 一台 Mac（保持开机，连接家里 Wi-Fi）
 - 一部 iPhone（可连接 5G 或其它 Wi-Fi）
 - 两个设备登录同一个 Apple ID（非必需，但方便）
-- Mac 上已经安装了 Homebrew（推荐，用来装软件）
+- Mac 上已经安装了 Homebrew（推荐，用于安装软件）
 
 ## 2. Mac 端安装与配置
 
 ### 2.1 安装 Tailscale（组网工具）
 
 1. 打开官网 [https://tailscale.com/download](https://tailscale.com/download) → 下载 macOS 版安装包
-2. 安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录
+2. 安装后，启动 Tailscale，用你的账号（Google / Microsoft / GitHub）登录
 3. 菜单栏出现 Tailscale 图标，确保状态为 `Connected`
 
 ### 2.2 开启 Mac 的远程登录
@@ -40,7 +42,7 @@ brew install tmux
 brew install anomalyco/tap/opencode
 ```
 
-或者用官方脚本：
+或者使用官方脚本：
 ```
 curl -fsSL https://opencode.ai/install | bash
 ```
@@ -55,7 +57,7 @@ echo 'export PATH="$HOME/.opencode/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 
 ### 3.1 安装 Tailscale
 - 在非国区 App Store 搜索 “Tailscale” 并安装
-- 打开 App，用 **同一个账号** 登录
+- 打开 App，使用 **同一个账号** 登录
 - 确保顶部开关为绿色 `Connected`
 
 ### 3.2 安装 Termius（SSH 客户端）
@@ -78,7 +80,7 @@ echo 'export PATH="$HOME/.opencode/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 
 ### 4.2 用 Termius SSH 连上 Mac
 - 打开 Termius，点击你保存的主机 → Connect
-- 输入密码（如果没保存密码）
+- 输入密码（如果未保存密码）
 
 ### 4.3 防止 Mac 自动睡眠（可选）
 
@@ -90,7 +92,7 @@ caffeinate
 
 然后按 `Ctrl+Z` 暂停，再输入 `bg` 放到后台。
 
-> 不运行 caffeinate 的话，Mac 可能在长时间无操作后睡眠，导致连接断开。
+> 不运行 caffeinate 的话，Mac 可能在长时间无操作后进入睡眠，导致连接断开。
 
 ### 4.4 使用 tmux 工作（防止网络中断）
 
@@ -136,7 +138,7 @@ tmux attach -t 会话名
 
 ## 5. 常见问题
 
-- **连接不上**：检查 Tailscale 是否都 Connected；检查 Mac 远程登录是否开启。
+- **连接不上**：检查 Tailscale 是否都处于 Connected 状态；检查 Mac 远程登录是否开启。
     
 - **速度非常慢**：查看 `tailscale status` 是否显示 `relay "xxx"`。如果是，说明走中继，需要参考笔记二中的解决方案。
     

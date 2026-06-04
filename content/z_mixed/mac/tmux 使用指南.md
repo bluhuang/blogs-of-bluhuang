@@ -1,5 +1,7 @@
 ---
 title: "tmux 使用指南"
+categories: ["z_mixed"]
+author: "BluHuang"
 date: 2026-06-04
 lastmod: 2026-06-04
 ---
@@ -61,7 +63,7 @@ tmux new -s work
 
 # 运行你的程序（如 opencode、vim、npm run dev）
 
-# 临时断开（不中断任务）：Ctrl+B 然后按 D
+# 临时断开（不中断任务）: Ctrl+B 然后按 D
 
 # 下次连接：恢复会话
 tmux attach -t work
@@ -71,4 +73,4 @@ tmux attach -t work
 
 - 会话名用短单词：`w`、`c`、`o`
 - 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏/切换 App 不影响 tmux 内的任务
+- 手机锁屏/切换 App 不影响 tmux 内任务

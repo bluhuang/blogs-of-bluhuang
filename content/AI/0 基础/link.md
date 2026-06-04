@@ -1,6 +1,9 @@
 ---
 title: "link"
+categories: ["AI"]
+author: "BluHuang"
 date: 2026-04-21
+lastmod: 2026-04-21
 ---
 
 https://transformers.run/
@@ -13,4 +16,4 @@ https://apxml.com/zh/courses/how-to-build-a-large-language-model/chapter-30-cont
 
 https://bbs.huaweicloud.com/blogs/405750
 
-hello-agent, pdf
+PDF 文档
