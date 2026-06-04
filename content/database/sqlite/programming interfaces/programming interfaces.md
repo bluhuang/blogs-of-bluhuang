@@ -7,5 +7,4 @@ lastmod: 2025-12-30
 ---
 
 [[sqlite]]
-
-用于链接
+for link

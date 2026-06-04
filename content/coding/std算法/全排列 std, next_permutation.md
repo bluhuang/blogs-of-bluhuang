@@ -21,7 +21,7 @@ https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
 3. 交换，然后反转后面的部分。
 
 ## 2.2 原理拆解
-## 图解例子：`[1, 3, 5, 4, 2]`
+### 图解例子：`[1, 3, 5, 4, 2]`
 
 | 步骤         | 数组状态                                                                                    | 说明                                      |
 | ---------- | --------------------------------------------------------------------------------------- | --------------------------------------- |
@@ -33,7 +33,7 @@ https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
 结果 `14235` 确实是 `13542` 的下一个排列。
 
 ## 为什么最后可以反转？
-因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字，交换后元素3（j位置）的左边都比它大（不然不会交换j），右边都比它小（因为是找到第一个比3大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。
+因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字，交换后元素3（j 位置）的左边都比它大（不然不会交换 j），右边都比它小（因为是找到第一个比3大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。
 
 ## 为什么步骤必须这样？
 
@@ -60,14 +60,14 @@ bool nextPermutation(vector<int>& nums) {
 
 注意用 `>=` 和 `<=` 是为了跳过相等元素，确保严格递增/递减。
 
-## 4 用法
-### 头文件
+# 4 用法
+## 头文件
 
 ```
 #include <algorithm>
 ```
 
-### 函数原型
+## 函数原型
 ```
 // 使用 operator< 比较元素
 bool next_permutation (BidirectionalIterator first, BidirectionalIterator last);
@@ -75,14 +75,14 @@ bool next_permutation (BidirectionalIterator first, BidirectionalIterator last);
 bool next_permutation (BidirectionalIterator first, BidirectionalIterator last, Compare comp);
 ```
 
-### 作用
+## 作用
 
 将序列 `[first, last)` 重新排列为**字典序中的下一个排列**。
 
 - 如果存在下一个排列（即当前排列不是最大排列），则将其变换为下一个排列，并返回 `true`。
 - 如果当前排列已经是字典序最大的排列（即完全降序），则将其变换为最小的排列（即完全升序），并返回 `false`。
 
-### 示例代码：生成全排列
+## 示例代码：生成全排列
 ```
 #include <iostream>
 #include <algorithm>
@@ -101,7 +101,7 @@ int main() {
 }
 ```
 
-### 自定义比较函数
+## 自定义比较函数
 
 例如，对字符串按长度排序（长度小的在前，相同长度按字典序）：
 ```
