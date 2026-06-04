@@ -11,4 +11,4 @@
 &gt;https://en.cppreference.com/w/cpp/algorithm/next_permutation.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="2-原理"&gt;2 原理&lt;/h1&gt;
 &lt;h2 id="21-一句话总结原理"&gt;2.1 一句话总结原理&lt;/h2&gt;
-&lt;p&gt;从右向左找到第一个可以变大的元素的位置，将其替换成右边比它大的最小数字，然后将右边剩余部分重新排列成最小顺序。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;从右向左找到第一个可以变大的元素的位置，把它换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。&lt;/p&gt;</description></item></channel></rss>

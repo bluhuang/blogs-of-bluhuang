@@ -116,7 +116,7 @@ June 4, 2026</li></ul><div class="content mb-10"><details open class="table-of-c
 </span></span><span style=display:flex><span>    <span style=color:#75715e>// 情况2：总和减去最小子数组和（跨越边界）
 </span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>int</span> maxCircular <span style=color:#f92672>=</span> total <span style=color:#f92672>-</span> minGlobal;
 </span></span><span style=display:flex><span>    
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 【疑问解答】
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// 【问题解析1】
 </span></span></span><span style=display:flex><span>    <span style=color:#75715e>// 问：为什么 maxGlobal &lt; 0 时直接返回 maxGlobal，而不是和 maxCircular 取最大？
 </span></span></span><span style=display:flex><span>    <span style=color:#75715e>// 答：当所有元素都为负数时，maxGlobal 是数组中的最大单个元素（负数）。
 </span></span></span><span style=display:flex><span>    <span style=color:#75715e>//    而此时 minGlobal 会等于 total（因为整个数组都是负数，最小子数组和就是整个数组的和），
