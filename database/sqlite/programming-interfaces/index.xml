@@ -11,12 +11,12 @@
 &gt;https://sqlite.org/appfunc.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="1-简介"&gt;1 简介&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;SQLite 支持用户实现自定义回调函数，以完成特定的定制功能，类似于用户自定义函数（UDF）。&lt;/li&gt;
-&lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。&lt;/li&gt;
-&lt;li&gt;这些函数可在 SQL 查询中使用，既可用 C 语言编写，也可通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li&gt;
+&lt;li&gt;SQLite 支持用户实现自定义回调方法，用于实现特殊的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
+&lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数，也可以是窗口函数。&lt;/li&gt;
+&lt;li&gt;这些函数可以在 SQL 查询中创建并使用，它们可以用 C 语言编写，也可以通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id="2-相关接口"&gt;2 相关接口&lt;/h1&gt;
-&lt;h2 id="sqlite3_create_function-系列"&gt;sqlite3_create_function 系列&lt;/h2&gt;
+&lt;h2 id="sqlite3_create_function-family"&gt;sqlite3_create_function family&lt;/h2&gt;
 &lt;h3 id="1-sqlite3_create_function"&gt;1 sqlite3_create_function()&lt;/h3&gt;
 &lt;h4 id="基本信息"&gt;基本信息&lt;/h4&gt;
 &lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function(
@@ -26,8 +26,8 @@
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
  void (*xFunc)(sqlite3_context*,int,sqlite3_value**), /* 标量函数 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合 step 函数 */
- void (*xFinal)(sqlite3_context*) /* 聚合 finalize 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合step函数 */
+ void (*xFinal)(sqlite3_context*) /* 聚合finalize函数 */
 );
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
@@ -35,12 +35,12 @@
 &lt;li&gt;&lt;strong&gt;编码指定&lt;/strong&gt;：使用 &lt;code&gt;eTextRep&lt;/code&gt; 参数指定文本编码偏好。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;函数类型&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;若 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，则注册标量函数。&lt;/li&gt;
-&lt;li&gt;若 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，则注册聚合函数。&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，注册标量函数。&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，注册聚合函数。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;应用数据&lt;/strong&gt;：通过 &lt;code&gt;pApp&lt;/code&gt; 传递用户数据。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：无自动清理机制，需手动管理内存。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：无自动清理机制，需要手动管理内存。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="2-sqlite3_create_function16"&gt;2 sqlite3_create_function16()&lt;/h3&gt;
 &lt;h4 id="基本信息-1"&gt;基本信息&lt;/h4&gt;
@@ -61,8 +61,8 @@
 &lt;li&gt;&lt;strong&gt;功能相同&lt;/strong&gt;：与 &lt;code&gt;sqlite3_create_function()&lt;/code&gt; 功能相同，仅函数名编码不同。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;集成 Windows API（Windows 原生使用 UTF-16）。&lt;/li&gt;
-&lt;li&gt;处理宽字符的遗留系统。&lt;/li&gt;
+&lt;li&gt;Windows API 集成（Windows 原生使用 UTF-16）。&lt;/li&gt;
+&lt;li&gt;需要处理宽字符的遗留系统。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -83,7 +83,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;增强版本&lt;/strong&gt;：在基础版本上增加了析构函数。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;自动清理&lt;/strong&gt;：通过 &lt;code&gt;xDestroy&lt;/code&gt; 回调自动清理 &lt;code&gt;pApp&lt;/code&gt; 数据。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：可避免内存泄漏，更加安全。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更安全。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;：SQLite 官方推荐使用此版本。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function&lt;/h3&gt;
@@ -94,20 +94,20 @@
  int nArg, /* 参数个数 */
  int eTextRep, /* 首选文本编码 */
  void *pApp, /* 应用数据指针 */
- void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step 函数 */
- void (*xFinal)(sqlite3_context*), /* finalize 函数 */
- void (*xValue)(sqlite3_context*), /* value 函数 */
- void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse 函数 */
+ void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step函数 */
+ void (*xFinal)(sqlite3_context*), /* finalize函数 */
+ void (*xValue)(sqlite3_context*), /* value函数 */
+ void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse函数 */
  void (*xDestroy)(void*) /* 析构函数 */
 );
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点-3"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;窗口函数专用&lt;/strong&gt;：专门用于注册窗口函数（SQLite 3.25.0+）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;额外回调&lt;/strong&gt;：需要实现更多回调函数。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;反向处理&lt;/strong&gt;：支持 &lt;code&gt;xInverse&lt;/code&gt; 以优化窗口函数性能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反向处理&lt;/strong&gt;：支持 &lt;code&gt;xInverse&lt;/code&gt; 用于优化窗口函数性能。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;复杂功能&lt;/strong&gt;：支持滑动窗口、排序、分组等高级功能。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="3-udf-类型"&gt;3 UDF 类型&lt;/h1&gt;
+&lt;h1 id="3-udf类型"&gt;3 UDF类型&lt;/h1&gt;
 &lt;h2 id="31-标量函数-scalar-functions"&gt;3.1 标量函数 (Scalar Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;接受参数，返回单个值。&lt;/li&gt;
@@ -140,34 +140,34 @@
 );
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;该参数传入方法名：第2个参数是要创建的 SQL 函数的名称。通常为 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求使用本地字节序的 UTF16。&lt;/li&gt;
-&lt;li&gt;函数名长度限制为 255 字节（UTF8）。若尝试创建更长的函数名，将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
-&lt;li&gt;UDF 注册支持重载：可以多次以相同函数名调用创建接口。例如，若两次调用具有相同函数名但参数个数不同，则会注册该 SQL 函数的两个变体，分别接受不同数量的参数。&lt;/li&gt;
+&lt;li&gt;该参数传入方法名：第二个参数是所创建的 SQL 函数的名称。名称通常使用 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求使用 UTF16 本地字节序。&lt;/li&gt;
+&lt;li&gt;函数名长度限制为 255 字节：SQL 函数名的最大长度为 255 字节（UTF8）。尝试创建更长名称的函数将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
+&lt;li&gt;UDF 注册支持重载：同一函数名可多次调用创建接口。例如，若两次调用参数数量不同，则会注册同一 SQL 函数的两个变体，每个变体接受不同数量的参数。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="42-narg"&gt;4.2 nArg&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;表示参数数量，&lt;code&gt;int&lt;/code&gt; 类型。&lt;/li&gt;
-&lt;li&gt;参数数量的取值范围为 -1 到 127（最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;，即 32767）。&lt;/li&gt;
+&lt;li&gt;表示参数数量，类型为 int。&lt;/li&gt;
+&lt;li&gt;参数大小范围为 -1，默认值为 127（最大值为 SQLITE_MAX_FUNCTION_ARG，即 32767）。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id="43-etextrep-文本编码"&gt;4.3 eTextRep 文本编码&lt;/h2&gt;
+&lt;h2 id="43-etextrep-文本编码"&gt;4.3 &lt;strong&gt;eTextRep&lt;/strong&gt; 文本编码&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; —— 位掩码。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; - 位掩码。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：指定函数的文本编码偏好。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;取值&lt;/strong&gt;：
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;SQLITE_UTF8&lt;/code&gt; (0x01)：UTF-8 编码。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SQLITE_UTF16LE&lt;/code&gt; (0x02)：UTF-16 小端序。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SQLITE_UTF16BE&lt;/code&gt; (0x03)：UTF-16 大端序。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SQLITE_UTF16&lt;/code&gt; (0x04)：使用本地字节序的 UTF-16。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;SQLITE_ANY&lt;/code&gt;：接受任何编码（已废弃）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;组合标志&lt;/strong&gt;：可与确定性标志组合使用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLITE_UTF8&lt;/strong&gt; (0x01)：UTF-8 编码。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLITE_UTF16LE&lt;/strong&gt; (0x02)：UTF-16 小端序。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLITE_UTF16BE&lt;/strong&gt; (0x03)：UTF-16 大端序。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLITE_UTF16&lt;/strong&gt; (0x04)：使用本地字节序的 UTF-16。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SQLITE_ANY&lt;/strong&gt;：接受任何编码（已废弃）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;组合标志&lt;/strong&gt;：可与确定性标志组合。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="44-papp"&gt;4.4 pApp&lt;/h2&gt;
 &lt;h3 id="详细说明"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; —— 任意类型指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; - 任意类型指针。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：传递用户自定义数据到函数。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;生命周期&lt;/strong&gt;：由 &lt;code&gt;xDestroy&lt;/code&gt; 回调管理。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
@@ -186,7 +186,7 @@
 &lt;li&gt;&lt;strong&gt;调用时机&lt;/strong&gt;：每次 SQL 查询需要函数值时调用。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;参数&lt;/strong&gt;：
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;sqlite3_context*&lt;/code&gt;：函数上下文，用于设置结果和错误信息。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sqlite3_context*&lt;/code&gt;：函数上下文，用于设置结果和错误。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;int&lt;/code&gt;：实际参数个数。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;sqlite3_value**&lt;/code&gt;：参数值数组。&lt;/li&gt;
 &lt;/ol&gt;
