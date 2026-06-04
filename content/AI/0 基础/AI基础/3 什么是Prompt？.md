@@ -3,7 +3,7 @@ title: "什么是Prompt？"
 image: "/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-04
+date: 2026-06-02
 lastmod: 2026-06-04
 ---
 
@@ -121,7 +121,7 @@ GPT发布初期，用户通过聊天框发送消息（`user prompt`）与大模�
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-6ceb93911289e9a1bd01420806d0309e.png)
 
-每次用户发送 user prompt，系统自动将 system prompt 一起发给AI模型，使对话更自然。
+每次用户发送 user prompt，系统自动将 system prompt 一起发给AI模型，使对话更自然
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-35f32b9763391be9051d61a50596be9e.png)
 
