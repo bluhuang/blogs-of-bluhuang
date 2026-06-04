@@ -8,7 +8,7 @@ lastmod: 2026-03-11
 
 ### 一、什么是 Morris 遍历？
 
-Morris 遍历是一种**使用线索二叉树（threaded binary tree）思想**的二叉树遍历算法，于 1979 年提出。它的**核心特点**是：
+Morris 遍历是一种**使用线索二叉树（threaded binary tree）思想**的二叉树遍历算法，由 J. H. Morris 在 1979 年提出。它的**核心特点**是：
 - **空间复杂度 O(1)**：不使用递归栈或队列，只利用二叉树中大量的空闲指针（右指针）来临时记录遍历的后继节点，从而实现遍历。
 - **时间复杂度 O(n)**：每个节点最多被访问两次。
 Morris 遍历可用于**前序、中序、后序**遍历，但最经典和最常用的是**中序遍历**。
@@ -33,7 +33,7 @@ Morris 遍历可用于**前序、中序、后序**遍历，但最经典和最常
 - 然后 `cur` 移动到下一个右节点（`cur = cur->right`），重复。
 
 ```cpp
-// 114. Flatten Binary Tree to Linked List
+// Leetcode 114
 class Solution {
 public:
     void flatten(TreeNode* root) {
@@ -56,6 +56,7 @@ public:
 ```
 
 #### 2. 中序遍历（经典）
+
 ### 核心思想
 想象你在走一个迷宫（二叉树），每次遇到有左岔路时，你想先走完左边再回来。但你没有栈（不能记路），怎么办呢？  
 你可以在进入左边之前，在左路的最深处（最右边的节点）放一根绳子，绳子另一头系在当前节点上。这样你走完左边后，顺着绳子就能回来。回来后再把绳子解开，然后继续往右走。
@@ -72,7 +73,7 @@ public:
     - 如果 `pre` 的右指针指向 `cur`，说明已经遍历完左子树，此时需要恢复：将 `pre->right` 置空，访问 `cur`，然后 `cur = cur->right`。
 
 ```cpp
-// 二叉树的中序遍历
+// 94. 二叉树的中序遍历
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> res;
     TreeNode* cur = root;

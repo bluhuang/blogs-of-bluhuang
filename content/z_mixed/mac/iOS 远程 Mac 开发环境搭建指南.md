@@ -43,7 +43,6 @@ brew install anomalyco/tap/opencode
 ```
 
 或者用官方脚本：
-
 ```
 curl -fsSL https://opencode.ai/install | bash
 ```
@@ -117,7 +116,6 @@ tmux attach -t 会话名
 
 - 正常执行 `opencode`、`git`、`npm` 等命令
 - 需要图形界面时，在 Mac 终端运行：
-
 ```
 opencode web --hostname 0.0.0.0 --port 3000
 ```
