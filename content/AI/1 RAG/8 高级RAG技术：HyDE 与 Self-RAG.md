@@ -191,7 +191,7 @@ Self-RAG 通过**分段生成 + 自适应检索**实现：
 
 ---
 
-## 八、参考资源
+## 六、参考资源
 
 1. **HyDE 原始论文**：Gao et al., "Precise Zero-Shot Dense Retrieval without Relevance Labels" (2022)  
    https://arxiv.org/abs/2212.10496
