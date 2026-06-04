@@ -9,7 +9,7 @@ lastmod: 2026-06-04
 ### 📌 本章重点总结（Function Calling）
 
 1. **Function Calling 是什么**：大模型与 Agent 之间的**标准化工具调用协议**，解决“大模型做出决策后如何精准传递指令给 Agent”的问题。
-2. **为什么需要 Function Calling**：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。
+2. **为什么需要 Function Calling**：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），开发者需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。
 3. **Function Calling 的三部分结构**：
    - **工具定义（Tool Definition）**：开发者提供标准 JSON，包含 `name`、`description`、`parameters`（含类型、格式、必填项）。大模型据此判断是否调用及如何调用。
    - **AI 调用格式（Function Call）**：大模型返回固定 JSON（如 `{"function_call": {"name": "...", "parameters": {...}}}`），Agent 直接解析，无需猜测。
@@ -32,7 +32,7 @@ lastmod: 2026-06-04
 
 大模型只会"说话"，它的输出永远是文字。但 Agent 要调用工具，必须知道：调哪个工具？传什么参数？格式是什么？这中间的信息交换，靠什么来保证准确？
 
-这就是 Function Calling 要解决的核心问题。在讲它是什么之前，我们先来看看没有它的时候，开发者有多难。
+这就是 Function Calling 要解决的核心问题。在讲它是什么之前，我们先来看看没有它的时候，开发者有多惨。
 
 ***
 

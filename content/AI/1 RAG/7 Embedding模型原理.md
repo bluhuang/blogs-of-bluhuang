@@ -19,7 +19,7 @@ lastmod: 2026-06-02
 
 | 特性 | 静态 Embedding | 动态 Embedding |
 |------|----------------|----------------|
-| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, 商业嵌入模型 |
+| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, OpenAI embeddings |
 | **向量生成方式** | 每个词对应一个固定向量，查表得到 | 根据上下文实时计算，同一个词在不同句子中向量不同 |
 | **上下文感知** | ❌ 无 | ✅ 有（通过自注意力机制） |
 | **一词多义处理** | 无法区分（“bank” 河流/银行共享同一向量） | 能区分（根据周围词生成不同向量） |
@@ -115,7 +115,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 2. **文档很长（>512 tokens）？** → BGE-M3（唯一支持 8192 且中文优秀）
 3. **有 GPU？** → BGE-M3 或 M3E-base（GPU 加速）
 4. **无 GPU，纯 CPU？** → M3E-base（速度尚可）
-5. **不想部署，快速验证？** → text-embedding-3-small（商业 API）
+5. **不想部署，快速验证？** → OpenAI text-embedding-3-small
 
 ---
 
@@ -132,7 +132,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 ---
 
-## 六、技术讨论
+## 六、技术速查卡（Q&A）
 
 #### Q1：静态 Embedding 和动态 Embedding 的本质区别是什么？
 **答**：静态模型为每个词分配固定向量，无法处理一词多义；动态模型基于 Transformer 自注意力，根据上下文实时生成向量，能区分歧义。动态模型是 RAG 的基础。
@@ -159,11 +159,11 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 ## 七、参考资源
 
-1. **BGE M3 论文**：Chen et al., "BGE M3-Embedding" (2024)  
+1. **BGE M3 论文**："BGE M3-Embedding" (2024)  
    https://arxiv.org/abs/2402.03216
-2. **MTEB 基准论文**：Muennighoff et al., "MTEB: Massive Text Embedding Benchmark" (2022)  
+2. **MTEB 基准论文**："MTEB: Massive Text Embedding Benchmark" (2022)  
    https://arxiv.org/abs/2210.07316
-3. **对比学习综述**：Jaiswal et al., "A Survey on Contrastive Self-Supervised Learning" (2021)  
+3. **对比学习综述**："A Survey on Contrastive Self-Supervised Learning" (2021)  
    https://arxiv.org/abs/2011.00362
 4. **Sentence-Transformers 官方文档**：https://www.sbert.net/
 5. **FlagEmbedding (BGE) 代码库**：https://github.com/FlagOpen/FlagEmbedding

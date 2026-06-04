@@ -6,7 +6,7 @@ date: 2026-06-04
 lastmod: 2026-06-04
 ---
 
-> 终端复用器，可在 SSH 断开后保持会话不中断，任务继续运行。
+> 终端复用器，SSH 断开后会话不中断，任务继续运行。
 
 ## 1. 安装
 
@@ -14,7 +14,7 @@ lastmod: 2026-06-04
 brew install tmux
 ```
 
-## 2. 会话管理（每条命令可单独复制）
+## 2. 会话管理
 
 ```bash
 tmux new -s 会话名
@@ -61,7 +61,7 @@ tmux kill-server
 # 首次连接：创建会话
 tmux new -s work
 
-# 运行你的程序（如 opencode、vim、npm run dev）
+# 运行程序（如 opencode、vim、npm run dev）
 
 # 临时断开（不中断任务）：Ctrl+B 然后按 D
 
@@ -71,6 +71,6 @@ tmux attach -t work
 
 ## 5. 小技巧
 
-- 会话名使用短单词：`w`、`c`、`o`
-- 长时间任务可配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏或切换 App 不影响 tmux 内的任务运行
+- 会话名用短单词：`w`、`c`、`o`
+- 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
+- 手机锁屏或切换 App 不影响 tmux 内的任务
