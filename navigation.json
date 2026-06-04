@@ -114,6 +114,10 @@
     ]
   },
   {
+    "title": "blogs",
+    "url": "/blogs/"
+  },
+  {
     "title": "coding",
     "url": "/coding/",
     "children": [
@@ -246,5 +250,9 @@
         "url": "/database/database/"
       }
     ]
+  },
+  {
+    "title": "guestbook",
+    "url": "/guestbook.md/guestbook/"
   }
 ]
