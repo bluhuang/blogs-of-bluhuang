@@ -9,6 +9,52 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* === Tree Navigation Styles === */
+
+/* Smooth animation for details expand/collapse */
+.tree-section details {
+  overflow: hidden;
+}
+
+.tree-section details[open] .tree-arrow {
+  transform: rotate(90deg);
+}
+
+/* Hover effect for all tree items */
+.tree-section-link:hover,
+.tree-page-link:hover {
+  background-color: var(--tw-bg-opacity, 1) rgba(0,0,0,0.03);
+}
+
+.dark .tree-section-link:hover,
+.dark .tree-page-link:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* Indentation helper classes for visual depth */
+[style*="padding-left: 12px"] li > ul {
+  border-left: 1px solid rgba(128,128,128,0.15);
+  margin-left: 6px;
+}
+
+/* Active state subtle border indicator */
+.tree-page-link.text-primary,
+.tree-section-link.text-primary {
+  position: relative;
+}
+
+.tree-page-link.text-primary::before,
+.tree-section-link.text-primary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background-color: var(--tw-color-primary, #2563eb);
+}
 /*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
 /*!
  * Justified gallery style
@@ -279,9 +325,6 @@
   .top-24 {
     top: calc(var(--spacing) * 24);
   }
-  .top-100 {
-    top: calc(var(--spacing) * 100);
-  }
   .right-1 {
     right: calc(var(--spacing) * 1);
   }
@@ -466,6 +509,9 @@
   }
   .ml-0 {
     margin-left: calc(var(--spacing) * 0);
+  }
+  .ml-1\.5 {
+    margin-left: calc(var(--spacing) * 1.5);
   }
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
@@ -1029,11 +1075,6 @@
   }
   .backface-hidden {
     backface-visibility: hidden;
-  }
-  .group-open\:rotate-90 {
-    &:is(:where(.group):is([open], :popover-open, :open) *) {
-      rotate: 90deg;
-    }
   }
   .peer-checked\:visible {
     &:is(:where(.peer):checked ~ *) {
@@ -3762,6 +3803,35 @@ input#nav-toggle:checked ~ #nav-menu {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.tree-section details {
+  overflow: hidden;
+}
+.tree-section details[open] .tree-arrow {
+  transform: rotate(90deg);
+}
+.tree-section-link:hover, .tree-page-link:hover {
+  background-color: var(--tw-bg-opacity, 1) rgba(0,0,0,0.03);
+}
+.dark .tree-section-link:hover, .dark .tree-page-link:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+[style*="padding-left: 12px"] li > ul {
+  border-left: 1px solid rgba(128,128,128,0.15);
+  margin-left: 6px;
+}
+.tree-page-link.text-primary, .tree-section-link.text-primary {
+  position: relative;
+}
+.tree-page-link.text-primary::before, .tree-section-link.text-primary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background-color: var(--tw-color-primary, #2563eb);
 }
 @layer base {
   input:where([type='text']),input:where(:not([type])),input:where([type='email']),input:where([type='url']),input:where([type='password']),input:where([type='number']),input:where([type='date']),input:where([type='datetime-local']),input:where([type='month']),input:where([type='search']),input:where([type='tel']),input:where([type='time']),input:where([type='week']),select:where([multiple]),textarea,select {
