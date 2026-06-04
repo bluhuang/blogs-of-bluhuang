@@ -168,4 +168,8 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
    **精确率**（候选中的内容与参考相关的比例）：
    $$ P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j} \text{sim}(x_i, y_j) $$
 4. **F1 值**：
-   $$ \text{BERTScore}
+   $$ \text{BERTScore} = 2 \cdot \frac{P_{\text{BERT}} \cdot R_{\text{BERT}}}{P_{\text{BERT}} + R_{\text{BERT}}} $$
+
+**特点**：
+- 优点：无需精确字符串匹配，能识别语义相似的表达（如 “快速” 与 “迅速”），与人类判断相关性高。
+- 

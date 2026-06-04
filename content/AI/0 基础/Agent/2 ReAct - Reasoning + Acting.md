@@ -5,30 +5,33 @@ date: 2026-06-01
 
 # 1 什么是 ReAct
 
-ReAct（Reasoning + Acting）是由某研究机构与一所大学于2022年提出的智能体框架，核心创新是让LLM交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的“思考—行动—观察”循环。
+ReAct（Reasoning + Acting）是由一个研究团队于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的“思考‑行动‑观察”循环。
 
 ### 🧠 前言：从 CoT 到 ReAct
-CoT: Chain-of-Thought，思维链
 
-在仅具备基础对话能力时，大模型更像一个“一次性回答机”：
+- CoT：Chain-of-Thought, 思维链
+
+在只有基础对话能力的阶段，大模型更像一个“一次性回答机”：
 `User: 问题 → LLM: 一次性生成答案`
 
 即便加入了 Memory、RAG，智能体也只是多了“能记”和“会查”：
+
 - Memory：记住过去发生了什么（多轮对话、历史任务状态）
-- RAG：在回答前查阅知识库或互联网
+- RAG：在回答前去查一查知识库或互联网
 
 但这仍然是“问一答一”的模式，缺少真正的多步决策与行动能力。
 
-ReAct（Reasoning + Acting）正是为解决此问题提出：
+ReAct（Reasoning + Acting）正是为了解决这个问题提出的：
 在推理过程中，显式地交替输出“思考内容（Thought）”和“行动指令（Action）”，再利用环境反馈（Observation）更新后续推理。
 
-> 一句话概括：ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的 prompting 技术。
+> 一句话概括：**ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的 prompting 技术。**
 
 # 2 为什么需要 ReAct
 
 在 ReAct 出现之前，利用 LLM 解决复杂任务主要有两种独立方法，各有局限：
+
 - **思维链（CoT）**：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和“幻觉”。
-- **仅行动规划（Act-Only）**：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。
+- **仅行动规划（Act‑Only）**：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。
 
 ReAct 将两者的优点结合：模型能够推理，并将其推理“植根于”外部世界的事实，根据反馈调整行动。
 
@@ -40,7 +43,8 @@ ReAct 将两者的优点结合：模型能够推理，并将其推理“植根�
 
 模型在一个迭代循环中生成由**思考（Thought）**、**行动（Action）** 和 **观察（Observation）** 步骤组成的轨迹。
 
-**典型轨迹示例**：
+**典型轨迹示例：**
+
 ```
 Question: 以交流电闻名的发明家出生于哪个首都城市？
 Thought 1: 我需要查明交流电的发明者，然后找到他的出生地，并核实该城市是否为首都。
@@ -56,11 +60,11 @@ Final Answer: 尼古拉·特斯拉出生于斯米连（克罗地亚），该地�
 ## 3.2 三个核心元素的区别
 
 | 元素 | 是否改变环境 | 主要作用 | 示例 |
-|------|-------------|---------|------|
+|------|--------------|----------|------|
 | **Thought（思考）** | ❌ 不改变环境 | 作为“内心独白”，规划下一步、整理信息、解释为什么调用某个工具 | “我需要先查一下2024年奥运会的举办城市。” |
 | **Action（行动）** | ✅ 通过调用工具间接改变环境 | 发出结构化“命令”，触发具体操作 | search["query"]、lookup["entity"] |
 | **Observation（观察）** | ✅ 环境产生的结果 | 记录环境或工具对 Action 的反馈，为下一步 Thought 提供依据 | 搜索结果文本、API 返回的 JSON |
-| **Final Answer** | ❌ 自身不再行动 | 标志推理/行动序列结束，给出最终对用户的回答 | “2024年奥运会于巴黎举行。” |
+| **Final Answer** | ❌ 自身不再行动 | 标志推理/行动序列结束，给出最终对用户的回答 | “2024年奥运会的举办城市是巴黎。” |
 
 ## 3.3 ReAct 的优势
 
@@ -79,26 +83,26 @@ ReAct 让 LLM 一边“自言自语”地推理，一边调用工具，是一种
 
 ```python
 import re
-from typing import Dict, Callable
+from typing import Dict, Callable 
 
 # 假设这是一个 Chat LLM 接口
-def call_llm(prompt: str) -> str:
+def call_llm(prompt: str) -> str: 
     pass
 
-TOOLS: Dict[str, Callable[[str], str]] = {}
+TOOLS: Dict[str, Callable[[str], str]] = {} 
 
-def register_tool(name: str):
-    def decorator(fn):
-        TOOLS[name] = fn
-        return fn
-    return decorator
+def register_tool(name: str): 
+    def decorator(fn): 
+        TOOLS[name] = fn 
+        return fn 
+    return decorator 
 
-@register_tool("calculator")
-def calculator(expr: str) -> str:
-    """计算简单数学表达式"""
-    try:
-        return str(eval(expr))
-    except Exception as e:
+@register_tool("calculator") 
+def calculator(expr: str) -> str: 
+    """计算简单数学表达式""" 
+    try: 
+        return str(eval(expr)) 
+    except Exception as e: 
         return f"计算错误: {e}"
 ```
 
@@ -163,11 +167,11 @@ def react_loop(question: str, max_steps: int = 5):
     return None
 ```
 
-1. **拼 prompt**：系统提示 + 问题 + 之前的 Thought/Action/Observation 轨迹。
+1. **拼 prompt**：系统提示 + 问题 + 之前的 Thought/Action/Observation 轨迹；
 2. **让 LLM 输出下一步**：
    - 要么继续 Thought + Action；
-   - 要么直接给出 Final Answer。
-3. **解析 Action**，调用对应工具，补上 Observation。
+   - 要么直接给出 Final Answer；
+3. **解析 Action**，调用对应工具，补上 Observation；
 4. **循环直到终止**。
 
 LangChain 做的事情，本质上就是把这个“循环 + 解析 + 工具调用”**封装成一个可复用的 LCEL 运行图**，并提供不少内置工具和 Prompt 模板。
