@@ -1,5 +1,5 @@
 ---
-title: "1 简介"
+title: "Application-Defined SQL Functions"
 date: 2026-04-20
 ---
 
@@ -7,13 +7,13 @@ date: 2026-04-20
 
 source: https://sqlite.org/appfunc.html
 # 1 简介
-1. SQLite 支持用户实现自定义回调方法，以实现一些特殊功能，即用户自定义函数（User-Defined Functions，UDF）。
-2. 自定义的 SQLite UDF 可以是标量函数（scalar functions）、聚合函数（aggregate functions）或窗口函数（window functions）。
-3. 创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言（如 Python、Java 等）中实现。
+1. SQLite 支持用户实现自定义回调函数，以实现一些特殊的自定义功能，类似用户定义函数（UDF）。
+2. 自定义的 SQLite UDF 可以是标量函数、聚合函数，也可以是窗口函数。
+3. 这些函数可在 SQL 查询中使用，可以用 C 语言编写，也可通过绑定在其他语言（如 Python、Java 等）中实现。
 
 # 2 相关接口
 
-## sqlite3_create_function 家族
+## sqlite3_create_function 系列
 ### 1 sqlite3_create_function()
 #### 基本信息
 
@@ -58,7 +58,7 @@ int sqlite3_create_function16(
 #### 特点
 - **UTF-16 支持**：函数名使用 UTF-16 编码
 - **向后兼容**：为需要 UTF-16 函数名的应用提供支持
-- **功能相同**：与 `sqlite3_create_function()` 功能相同，仅函数名编码不同
+- **功能相同**：与 `sqlite3_create_function()` 功能相同，只是函数名编码不同
 - **使用场景**：
     - Windows API 集成（Windows 原生使用 UTF-16）
     - 需要处理宽字符的遗留系统
@@ -85,6 +85,7 @@ int sqlite3_create_function_v2(
 - **自动清理**：通过 `xDestroy` 回调自动清理 `pApp` 数据
 - **内存安全**：避免内存泄漏，更安全
 - **推荐使用**：SQLite 官方推荐使用此版本
+
 
 ### 4 sqlite3_create_window_function
 #### 基本信息
@@ -115,18 +116,21 @@ int sqlite3_create_window_function(
 - 接受参数，返回单个值
 - 对每一行数据独立计算
 - 示例：`UPPER()`, `ABS()`, `DATE()`
+    
 
 ## 3.2 聚合函数 (Aggregate Functions)
 
 - 跨多行数据操作，返回聚合结果
 - 需要维护状态信息
 - 示例：`SUM()`, `AVG()`, `COUNT()`
+    
 
 ## 3.3 窗口函数 (Window Functions)
 
 - SQLite 3.25.0+ 支持
 - 在窗口帧上执行计算
 - 示例：`ROW_NUMBER()`, `RANK()`
+
 
 # 4 参数含义
 
@@ -146,15 +150,15 @@ int sqlite3_create_function_v2(
 
 ## 4.1 zFunctionName
 
-1. 该参数传入方法名：The 2nd parameter is the name of the SQL function that is being created. The name is usually in UTF8, except that the name should be in UTF16 in the native byte order for [sqlite3_create_function16()](https://sqlite.org/c3ref/create_function.html).
-2. 函数名长度限制 255 字节：The maximum length of a SQL function name is 255 bytes of UTF8. Any attempt to create a function with a longer name will result in an [SQLITE_MISUSE](https://sqlite.org/rescode.html#misuse) error.
-3. UDF 注册支持重载：The SQL function creation interfaces may be called multiple times with the same function name. If two calls have the same function number but a different number of arguments, for example, then two variants of the SQL function will be registered, each taking a different number of arguments.
+1. 该参数传入函数名：第二个参数是要创建的 SQL 函数名称。名称通常为 UTF8 编码，但对于 `sqlite3_create_function16()` 应使用本地字节序的 UTF16 编码。
+2. 函数名长度限制为 255 字节（UTF8）。尝试创建名称更长的函数将导致 `SQLITE_MISUSE` 错误。
+3. UDF 注册支持重载：同一函数名可以多次调用 SQL 函数创建接口。例如，如果两次调用具有相同的函数名但参数个数不同，则将注册该 SQL 函数的两个变体，各自接受不同数量的参数。
 
 ## 4.2 nArg
-1. 表示参数数量，int 类型
-2. 参数范围为 -1 到默认 127（最大值为 SQLITE_MAX_FUNCTION_ARG，即 32767）
+1. 表示参数数量，`int` 类型
+2. 参数范围：-1（可变参数），默认为 127（最大为 `SQLITE_MAX_FUNCTION_ARG`，值为 32767）。
 
-## 4.3 eTextRep 文本编码
+## 4.3 **eTextRep** 文本编码
 - **类型**：`int` - 位掩码
 - **作用**：指定函数的文本编码偏好
 - **取值**：
