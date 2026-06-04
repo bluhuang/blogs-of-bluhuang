@@ -33,7 +33,7 @@
 &lt;ul&gt;
 &lt;li&gt;输入通常是一个数组或数字序列。&lt;/li&gt;
 &lt;li&gt;要求对元素进行&lt;strong&gt;重新排列&lt;/strong&gt;，满足某种顺序（如字典序、下一个排列、所有排列、第 k 个排列等）。&lt;/li&gt;
-&lt;li&gt;核心考察点通常包括&lt;strong&gt;字典序（lexicographical order）&lt;/strong&gt;、&lt;strong&gt;回溯&lt;/strong&gt;、&lt;strong&gt;数学（阶乘）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;核心考察点往往是&lt;strong&gt;字典序（lexicographical order）&lt;/strong&gt;、&lt;strong&gt;回溯&lt;/strong&gt;、&lt;strong&gt;数学（阶乘）&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="高频题号一览"&gt;高频题号一览&lt;/h3&gt;
 &lt;table&gt;
@@ -90,7 +90,7 @@
 找到第一对相邻的 &lt;code&gt;nums[i] &amp;lt; nums[i+1]&lt;/code&gt;，记下较小数的位置 &lt;code&gt;i&lt;/code&gt;。&lt;br&gt;
 如果找不到，说明整个数组是降序，已经是最后一个排列，直接反转整个数组。&lt;/p&gt;</description></item><item><title>回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Thu, 23 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别与核心特征"&gt;一、题型识别与核心特征&lt;/h2&gt;
-&lt;p&gt;所有回文串问题都围绕一个核心定义：&lt;/p&gt;
+&lt;p&gt;LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;回文串&lt;/strong&gt;：正着读和倒着读一样的字符串。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -106,10 +106,7 @@
 &lt;li&gt;&lt;strong&gt;最大堆&lt;/strong&gt;：每个父节点的值 &lt;strong&gt;大于等于&lt;/strong&gt; 其子节点的值，堆顶为最大值。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;最小堆&lt;/strong&gt;：每个父节点的值 &lt;strong&gt;小于等于&lt;/strong&gt; 其子节点的值，堆顶为最小值。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;堆的核心操作（插入、删除）时间复杂度均为 &lt;strong&gt;O(log n)&lt;/strong&gt;，获取极值为 &lt;strong&gt;O(1)&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>滑动窗口</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Tue, 21 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;h1 id="滑动窗口题型总结笔记"&gt;滑动窗口题型总结笔记&lt;/h1&gt;
-&lt;h2 id="1-题型特征与适用条件"&gt;1. 题型特征与适用条件&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;什么时候使用滑动窗口？&lt;/strong&gt;&lt;br&gt;
-滑动窗口适用于解决 &lt;strong&gt;子串/子数组&lt;/strong&gt; 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：&lt;/p&gt;</description></item><item><title>连续子数组极值问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 20 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
+&lt;p&gt;堆的核心操作（插入、删除）时间复杂度均为 &lt;strong&gt;O(log n)&lt;/strong&gt;，获取极值为 &lt;strong&gt;O(1)&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>滑动窗口</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Tue, 21 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;p&gt;笔记中对这两道题的思路部分进行了&lt;strong&gt;详细解释&lt;/strong&gt;，用通俗语言说明了为什么 424 要维护 &lt;code&gt;maxCount&lt;/code&gt;，以及为什么 992 不能直接找恰好 K 个而必须转换为「最多 K 个」减去「最多 K-1 个」。以下是完整笔记。&lt;/p&gt;</description></item><item><title>连续子数组极值问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Mon, 20 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;数组&lt;/strong&gt;：一维数组、环（变种）、可重复等&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：求&lt;strong&gt;连续子数组&lt;/strong&gt;的极值（和、乘积、长度）&lt;/li&gt;
@@ -240,8 +237,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="5-关键细节"&gt;5. 关键细节&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;为什么存下标？因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。&lt;/li&gt;
-&lt;li&gt;为什么栈底预存 -1？统一长度计算公式。当有效子串从开头即匹配时（如 &amp;ldquo;()&amp;quot;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/li&gt;
+&lt;li&gt;为什么存下标？ 因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。&lt;/li&gt;
+&lt;li&gt;为什么栈底预存 -1？ 统一长度计算公式。当有效子串从开头即匹配时（如 &lt;code&gt;&amp;quot;()&amp;quot;&lt;/code&gt;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h1 id="二括号问题通用决策框架"&gt;二、括号问题通用决策框架&lt;/h1&gt;
@@ -340,7 +337,7 @@
 					&lt;td&gt;32&lt;/td&gt;
 					&lt;td&gt;最长有效括号&lt;/td&gt;
 					&lt;td&gt;栈/DP/双向扫描&lt;/td&gt;
-					&lt;td&gt;✅(栈法)&lt;/td&gt;
+					&lt;td&gt;✅（栈法）&lt;/td&gt;
 					&lt;td&gt;✅&lt;/td&gt;
 					&lt;td&gt;栈底存断点下标&lt;/td&gt;
 			&lt;/tr&gt;
@@ -349,7 +346,7 @@
 					&lt;td&gt;有效的括号字符串&lt;/td&gt;
 					&lt;td&gt;双栈/贪心&lt;/td&gt;
 					&lt;td&gt;可选&lt;/td&gt;
-					&lt;td&gt;✅(若用栈)&lt;/td&gt;
+					&lt;td&gt;✅（若用栈）&lt;/td&gt;
 					&lt;td&gt;贪心法 O(1) 空间&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -484,10 +481,8 @@
 	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;一维 DP 必须外层遍历物品，内层遍历容量&lt;/strong&gt;（完全背包求排列数时例外，见第4节）&lt;/p&gt;</description></item><item><title>贪心系列</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p&gt;贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。&lt;/p&gt;</description></item><item><title>单调栈</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 23 Mar 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p&gt;单调栈笔记&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;单调栈简介&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;一维 DP 必须外层遍历物品，内层遍历容量&lt;/strong&gt;（完全背包求排列数时例外，见第4节）&lt;/p&gt;</description></item><item><title>贪心系列</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p&gt;贪心算法在每一步选择中都采取当前最优决策，以期得到全局最优解。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能以极高的效率得到正确答案。&lt;/p&gt;</description></item><item><title>单调栈</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Mon, 23 Mar 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;h1 id="单调栈笔记"&gt;单调栈笔记&lt;/h1&gt;
+&lt;h2 id="1-单调栈简介"&gt;1. 单调栈简介&lt;/h2&gt;
 &lt;p&gt;单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边/右边第一个比它大（或小）的元素位置，时间复杂度 O(n)。&lt;/p&gt;</description></item><item><title>拓扑排序-Kahn算法与课程表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Mon, 16 Mar 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p&gt;我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p&gt;</description></item><item><title>二叉树的Morris展开与中序遍历</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Wed, 11 Mar 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历"&gt;一、什么是 Morris 遍历？&lt;/h3&gt;
 &lt;p&gt;Morris 遍历是一种&lt;strong&gt;使用线索二叉树（threaded binary tree）思想&lt;/strong&gt;的二叉树遍历算法，由 J. H. Morris 在 1979 年提出。它的&lt;strong&gt;核心特点&lt;/strong&gt;是：&lt;/p&gt;</description></item><item><title>全排列 std, next_permutation</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</link><pubDate>Sat, 14 Feb 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/%E5%85%A8%E6%8E%92%E5%88%97-std-next_permutation/</guid><description>&lt;h1 id="1-c官方文档"&gt;1 C++官方文档&lt;/h1&gt;
 &lt;p&gt;&lt;a href="https://en.cppreference.com/w/cpp/algorithm/next_permutation.html"

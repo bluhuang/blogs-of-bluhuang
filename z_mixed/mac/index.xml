@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/</link><description>Recent content in mac on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;目标：帮助任何人根据本指南，使用 iPhone 远程连接到家里的 Mac，通过终端或 Web 界面进行代码编写。&lt;/p&gt;
+&lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;一台 Mac（保持开机，连接家庭 Wi-Fi）&lt;/li&gt;
-&lt;li&gt;一部 iPhone（可连接 5G 或其他 Wi-Fi）&lt;/li&gt;
-&lt;li&gt;两个设备登录同一个 Apple ID（非必需，但可简化操作）&lt;/li&gt;
-&lt;li&gt;Mac 上已安装 Homebrew（推荐，用于安装软件）&lt;/li&gt;
+&lt;li&gt;一台 Mac（保持开机，连接家里 Wi-Fi）&lt;/li&gt;
+&lt;li&gt;一部 iPhone（可连接 5G 或其它 Wi-Fi）&lt;/li&gt;
+&lt;li&gt;两个设备登录同一个 Apple ID（非必需，但方便）&lt;/li&gt;
+&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用来装软件）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="2-mac-端安装与配置"&gt;2. Mac 端安装与配置&lt;/h2&gt;
 &lt;h3 id="21-安装-tailscale组网工具"&gt;2.1 安装 Tailscale（组网工具）&lt;/h3&gt;
@@ -21,7 +21,7 @@
 
 
 &gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
-&lt;li&gt;安装后，启动 Tailscale，使用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
+&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
 &lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;
@@ -72,11 +72,11 @@
 &lt;h2 id="3-出现-relay-怎么办"&gt;3. 出现 relay 怎么办？&lt;/h2&gt;
 &lt;h3 id="31-优先尝试重启-mac最有效"&gt;3.1 优先尝试：重启 Mac（最有效）&lt;/h3&gt;
 &lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;终端复用器：SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
+&lt;p&gt;终端复用器，SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-安装"&gt;1. 安装&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;brew install tmux
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-会话管理"&gt;2. 会话管理&lt;/h2&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-会话管理每条命令可单独复制"&gt;2. 会话管理（每条命令可单独复制）&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s 会话名
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux ls
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t 会话名
@@ -148,5 +148,5 @@
 &lt;ul&gt;
 &lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;长时间任务配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内任务运行&lt;/li&gt;
+&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内任务&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
