@@ -7,9 +7,9 @@ date: 2026-04-20
 
 source: https://sqlite.org/appfunc.html
 # 1 简介
-1. SQLite 支持用户实现自定义回调函数，以实现一些特殊的自定义功能，类似于用户自定义函数（UDF）。
-2. 自定义的 SQLite UDF 可以是标量函数（scalar functions）、聚合函数（aggregate functions），也可以是窗口函数（window functions）。
-3. 创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可通过绑定在其他语言（如 Python、Java 等）中实现。
+1. SQLite 支持用户实现自定义回调方法，以实现特殊的自定义功能，类似于用户自定义函数（UDF）。
+2. 自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。
+3. 这些自定义函数可以在 SQL 查询中使用，可由 C 语言编写，或通过绑定在其他语言（如 Python、Java 等）中实现。
 
 # 2 相关接口
 
@@ -33,12 +33,12 @@ int sqlite3_create_function(
 #### 特点
 
 - **最基础版本**：最早引入的函数注册接口
-- **编码指定**：使用 `eTextRep` 参数指定文本编码偏好
+- **编码指定**：通过 `eTextRep` 参数指定文本编码偏好
 - **函数类型**：
-    - 如果 `xFunc` 非 NULL，注册标量函数
-    - 如果 `xStep` 和 `xFinal` 非 NULL，注册聚合函数
+    - 若 `xFunc` 非 NULL，则注册标量函数
+    - 若 `xStep` 和 `xFinal` 非 NULL，则注册聚合函数
 - **应用数据**：通过 `pApp` 传递用户数据
-- **内存管理**：无自动清理机制，需要手动管理内存
+- **内存管理**：无自动清理机制，需手动管理内存
 ### 2 sqlite3_create_function16()
 
 #### 基本信息
@@ -58,7 +58,7 @@ int sqlite3_create_function16(
 #### 特点
 - **UTF-16 支持**：函数名使用 UTF-16 编码
 - **向后兼容**：为需要 UTF-16 函数名的应用提供支持
-- **功能相同**：与 `sqlite3_create_function()` 功能相同，只是函数名编码不同
+- **功能相同**：与 `sqlite3_create_function()` 功能相同，仅函数名编码不同
 - **使用场景**：
     - Windows API 集成（Windows 原生使用 UTF-16）
     - 需要处理宽字符的遗留系统
@@ -106,8 +106,8 @@ int sqlite3_create_window_function(
 
 #### 特点
 - **窗口函数专用**：专门用于注册窗口函数（SQLite 3.25.0+）
-- **额外回调**：需要实现更多回调函数
-- **反向处理**：支持 `xInverse` 用于优化窗口函数性能
+- **额外回调**：需实现更多回调函数
+- **反向处理**：支持 `xInverse` 以优化窗口函数性能
 - **复杂功能**：支持滑动窗口、排序、分组等高级功能
 
 # 3 UDF类型
@@ -121,7 +121,7 @@ int sqlite3_create_window_function(
 ## 3.2 聚合函数 (Aggregate Functions)
 
 - 跨多行数据操作，返回聚合结果
-- 需要维护状态信息
+- 需维护状态信息
 - 示例：`SUM()`, `AVG()`, `COUNT()`
     
 
@@ -150,13 +150,13 @@ int sqlite3_create_function_v2(
 
 ## 4.1 zFunctionName
 
-1. 该参数传入方法名：第二个参数是要创建的 SQL 函数的名称。通常使用 UTF-8 编码，但对于 [sqlite3_create_function16()](https://sqlite.org/c3ref/create_function.html)，名称应为本地字节序的 UTF-16 编码。
-2. 函数名长度限制为 255 字节：SQL 函数名的最大长度为 255 个 UTF-8 字节。尝试创建超过此长度的函数将导致 [SQLITE_MISUSE](https://sqlite.org/rescode.html#misuse) 错误。
-3. UDF 注册支持重载：可以使用相同的函数名多次调用 SQL 函数创建接口。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册该 SQL 函数的两个变体，每个变体接受不同数量的参数。
+1. 该参数传入方法名：第2个参数是所创建 SQL 函数的名称。名称通常为 UTF8 编码，但对于 `sqlite3_create_function16()`，名称应为本地字节序的 UTF16。
+2. 函数名长度限制255字节：SQL 函数名的最大长度为 255 字节（UTF8）。若尝试创建超过此长度的函数，将返回 `SQLITE_MISUSE` 错误。
+3. UDF 注册支持重载：同一函数名可多次调用这些 SQL 函数创建接口。例如，若两次调用具有相同的函数名但参数个数不同，则会注册该 SQL 函数的两个变体，分别接受不同数量的参数。
 
 ## 4.2 nArg
-1. 表示参数数量，int 类型
-2. 参数大小范围为 -1，默认值为 127（最大值为 SQLITE_MAX_FUNCTION_ARG，即 32767）
+1. 表示参数数量，int 类型。
+2. 参数范围：-1 表示可变参数，最大值为 `SQLITE_MAX_FUNCTION_ARG`（32767），默认上限为 127。
 
 ## 4.3 **eTextRep** 文本编码
 - **类型**：`int` - 位掩码
