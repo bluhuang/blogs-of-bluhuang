@@ -106,6 +106,14 @@
             "url": "/AI/6-cross-encoder核心原理从-self-attention到相关性分数/"
           },
           {
+            "title": "7 Embedding模型原理",
+            "url": "/AI/7-embedding模型原理/"
+          },
+          {
+            "title": "8 高级RAG技术：HyDE 与 Self-RAG",
+            "url": "/AI/8-高级rag技术hyde-与-self-rag/"
+          },
+          {
             "title": "prompt",
             "url": "/AI/prompt/"
           }
@@ -248,6 +256,52 @@
       {
         "title": "database",
         "url": "/database/database/"
+      }
+    ]
+  },
+  {
+    "title": "z_efficiency",
+    "url": "/z_efficiency/",
+    "children": [
+      {
+        "title": "prompt",
+        "url": "/z_efficiency/",
+        "children": [
+          {
+            "title": "user prompt",
+            "url": "/z_efficiency/",
+            "children": [
+              {
+                "title": "学习笔记生成",
+                "url": "/z_efficiency/学习笔记生成/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "z_mixed",
+    "url": "/z_mixed/",
+    "children": [
+      {
+        "title": "mac",
+        "url": "/z_mixed/",
+        "children": [
+          {
+            "title": "iOS 远程 Mac 开发环境搭建指南",
+            "url": "/z_mixed/ios-远程-mac-开发环境搭建指南/"
+          },
+          {
+            "title": "Tailscale 连接指南与使用详解",
+            "url": "/z_mixed/tailscale-连接指南与使用详解/"
+          },
+          {
+            "title": "tmux 使用指南",
+            "url": "/z_mixed/tmux-使用指南/"
+          }
+        ]
       }
     ]
   },
