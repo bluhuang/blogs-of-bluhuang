@@ -2,7 +2,7 @@
 title: "拓扑排序-Kahn算法与课程表"
 categories: ["coding"]
 author: "BluHuang"
-date: 2026-03-16
+date: 2026-06-04
 lastmod: 2026-03-16
 ---
 

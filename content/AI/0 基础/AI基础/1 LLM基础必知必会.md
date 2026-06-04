@@ -2,7 +2,7 @@
 title: "LLM基础必知必会"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-04-08
+date: 2026-06-04
 lastmod: 2026-04-08
 ---
 
