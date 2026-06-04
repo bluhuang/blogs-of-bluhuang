@@ -17,7 +17,7 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span class=search-result-info></span>
 <span data-target=close-search-modal><kbd>ESC</kbd> to close</span></div></div></div><main class=grow><section><div class="container text-center"><div class="from-body to-light dark:from-darkmode-body dark:to-darkmode-light rounded-2xl bg-gradient-to-b px-8 py-14"><h1>贪心系列</h1><ul class="mt-6 inline-flex space-x-1 capitalize"><li><a class="text-primary dark:text-darkmode-primary" href=https://bluhuang.github.io/blogs-of-bluhuang/>Home
 </a><span class="inlin-block mr-1">/</span></li><li><a class="text-primary dark:text-darkmode-primary" href=/blogs-of-bluhuang/coding/>Codings
-</a><span class="inlin-block mr-1">/</span></li><li><span class="text-primary dark:text-darkmode-primary">贪心系列</span></li></ul></div></div></section><section class=section-sm><div class=container><div class="row justify-center"><div class=lg:col-10><div class=content><p>贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。</p><hr><p>一、贪心算法的适用特征</p><ol><li>贪心选择性质
+</a><span class="inlin-block mr-1">/</span></li><li><span class="text-primary dark:text-darkmode-primary">贪心系列</span></li></ul></div></div></section><section class=section-sm><div class=container><div class="row justify-center"><div class=lg:col-10><div class=content><p>贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并非对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。</p><hr><p>一、贪心算法的适用特征</p><ol><li>贪心选择性质
 局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。</li><li>最优子结构
 问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。</li><li>常见问题类型
 · 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。
@@ -29,7 +29,7 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 · 按结束时间排序 → 区间调度
 · 按价值/重量比排序 → 部分背包
 · 按起始时间排序 → 合并区间
-· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”</p><ol start=2><li>证明贪心正确性（可简化，但需理解）</li></ol><p>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
+· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”</p><ol start=2><li>证明贪心正确性</li></ol><p>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
 · 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。</p><ol start=3><li>实现技巧</li></ol><p>· 排序：大多数贪心题需要先排序。
 · 数据结构优化：
 · 堆（优先队列）用于动态取最小/最大。
@@ -38,9 +38,9 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 · 遍历原数组每个数 x：
 · 若 x 大于 tails 中所有数，则追加到末尾，长度增加。
 · 否则，用二分查找找到第一个 tails[i] >= x 的位置，并用 x 替换它。
-· 最终 tails 的长度即为 LIS 长度。</p><ol start=3><li>贪心选择性质解释</li></ol><p>· 对于相同长度的递增子序列，只关心最小的末尾元素，因为末尾越小，后续元素越容易接在后面形成更长的序列。
+· 最终 tails 的长度即为 LIS 长度。</p><ol start=3><li>贪心选择性质解释</li></ol><p>· 对于相同长度的递增子序列，我们只关心最小的末尾元素，因为末尾越小，后续元素越容易接在后面形成更长的序列。
 · 每次用当前数替换掉第一个不小于它的末尾，就是“用当前数去优化某个长度的最小末尾”，这是一种局部最优策略，最终得到全局最长长度。</p><ol start=4><li>为什么是贪心？</li></ol><p>· 每一步都在维护一组“最有潜力”的末尾值，并不需要回溯或枚举所有子序列。
-· 局部最优（使每个长度的末尾尽可能小）累积成全局最优（最长长度）。</p><hr><p>四、贪心+二分模式识别</p><p>这类题目通常具有以下特征：</p><ol><li>需要在序列中维护一个有序结构，并且对每个元素进行“定位插入”或“替换”操作。</li><li>问题可以转化为：在某种约束下，最大化/最小化某个指标，而约束条件允许只保留“最有可能”的候选。</li><li>典型例题：
+· 局部最优（使每个长度的末尾尽可能小）累积成全局最优（最长长度）。</p><hr><p>四、贪心+二分模式识别</p><p>这类题目通常具有以下特征：</p><ol><li>需要在序列中维护一个有序结构，并且对每个元素进行“定位插入”或“替换”操作。</li><li>问题可以转化为：在某种约束下，最大化/最小化某个指标，而约束条件允许我们只保留“最有可能”的候选。</li><li>典型例题：
 · 最长递增子序列（贪心+二分，O(n log n)）
 · 俄罗斯套娃信封问题（先按宽排序，高求 LIS）
 · 使数组递增的最小操作数（如保留最长非递减子序列）
