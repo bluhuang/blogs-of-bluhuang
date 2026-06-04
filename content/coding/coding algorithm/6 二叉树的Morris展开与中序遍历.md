@@ -18,9 +18,9 @@ Morris 遍历可用于**前序、中序、后序**遍历，但最经典和最常
 在普通递归或迭代遍历中，我们需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。
 
 **适用条件**：
--  要求 O(1) 空间遍历或修改二叉树。
--  允许修改树结构。
--  要求不能使用递归或栈（递归是 O(h) 空间）。
+- 要求 O(1) 空间遍历或修改二叉树
+- 允许修改树结构
+- 要求不能使用递归或栈（递归是 O(h) 空间）
 
 ### 三、Morris 遍历的核心思想
 
@@ -77,19 +77,19 @@ vector<int> inorderTraversal(TreeNode* root) {
     TreeNode* cur = root;
     while (cur) {
         if (!cur->left) {
-	        // 访问当前节点
+            // 访问当前节点
             res.push_back(cur->val);
             cur = cur->right;
         } else {
-	        // 找左子树的最右节点
+            // 找左子树的最右节点
             TreeNode* pre = cur->left;
             while (pre->right && pre->right != cur) pre = pre->right;
             if (!pre->right) {
-	             // 建立绳索，指向 cur
+                // 建立绳索，指向 cur
                 pre->right = cur;
                 cur = cur->left;
             } else {
-	            // 已建立线索，说明左子树遍历完，恢复指针
+                // 已建立线索，说明左子树遍历完，恢复指针
                 pre->right = nullptr;
                 // 访问当前节点
                 res.push_back(cur->val);

@@ -85,7 +85,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 | **语言支持** | 单语 vs 多语 | 混合语言场景需多语模型 |
 
 ### 3.2 MTEB 基准
-- **全称**：Massive Text Embedding Benchmark（HuggingFace 维护）
+- **全称**：Massive Text Embedding Benchmark
 - **覆盖**：58 个数据集，8 类任务（检索、重排序、分类、聚类等）
 - **中文子集**：C-MTEB, MLDR, T2Retrieval
 - **重要指标**：
@@ -93,7 +93,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
   - **MRR**：平均倒数排名（只关心第一个正确答案）
   - **Hit Rate@K**：前 K 个结果包含正确答案的比例
 
-⚠️ **注意**：MTEB 分数仅作参考。特定领域的数据可能存在巨大偏差，务必用小规模领域数据集实测。
+⚠️ **注意**：MTEB 分数仅作参考。你的领域数据可能存在巨大偏差，务必用小规模领域数据集实测。
 
 ---
 
@@ -106,7 +106,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 | **BGE-M3** | 开源 | 8192 | 多语言 | **首选推荐**：长文档、中英混合、需混合检索（稠密+稀疏） |
 | **M3E-base** | 开源 | 512 | 中英 | **无 GPU 备选**：CPU 可跑，速度快，中文优化 |
 | **text-embedding-3-small** | 商业 API | 8192 | 多语言 | **快速验证**：不想管基础设施，精度中等，成本低 |
-| **paraphrase-multilingual-MiniLM** | 开源 | 512 | 多语言 | **速度优先**：极轻量，实时性要求极高场景 |
+| **paraphrase-multilingual-MiniLM**（SBERT） | 开源 | 512 | 多语言 | **速度优先**：极轻量，实时性要求极高场景 |
 
 > 其他模型（BGE-large-zh、text-embedding-3-large、all-mpnet 等）可作为备选，但上述四款已覆盖 90% 需求。
 
@@ -132,7 +132,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 ---
 
-## 六、参考资源
+## 七、参考资源
 
 1. **BGE M3 论文**："BGE M3-Embedding" (2024)  
    https://arxiv.org/abs/2402.03216

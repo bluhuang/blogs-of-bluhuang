@@ -126,47 +126,4 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 **BLEU** 是一种评估机器翻译（或其他生成文本）与一个或多个参考译文相似度的指标。核心思想：**统计候选翻译中出现在参考译文中的 n-gram 数量，并对过短的翻译进行长度惩罚。**
 
 **计算步骤**：
-1. **计算 n-gram 精确率**（通常取 n=1~4）：
-   $$P_n = \frac{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}_{\text{clip}}(n\text{-gram})}{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}(n\text{-gram})}$$
-   - $\text{Count}_{\text{clip}}(n\text{-gram})$ 表示将该 n-gram 在候选句子中的出现次数裁剪到不超过它在任何参考句子中的最大出现次数（避免重复词被过度奖励）。
-2. **计算长度惩罚 BP（Brevity Penalty）**：
-   - 设 $c$ 为候选句子长度，$r$ 为参考句子长度（若多个参考，取与 $c$ 最接近的长度）。  
-     若 $c > r$，则 $BP = 1$；否则 $BP = e^{(1 - r/c)}$。
-   - 惩罚过短的候选翻译（即使 n-gram 匹配率高，但漏译内容也要扣分）。
-3. **最终 BLEU**：
-   $$ \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log P_n\right)$$
-   通常 $N=4$，$w_n = 1/4$（等权平均）。
-
-**特点**：
-- 优点：计算快，与人工评价有一定相关性，广泛用于机器翻译。
-- 缺点：对词序不敏感（例如 “猫追狗” 和 “狗追猫” 可能得分相近），且需要参考译文，不适合开放式生成任务。
-
-##### ROUGE（Recall-Oriented Understudy for Gisting Evaluation）
-**ROUGE** 是面向**摘要**任务的评估指标，侧重于**参考摘要中的内容是否被候选摘要覆盖**（即召回率）。常用变体是 **ROUGE-L**（基于最长公共子序列）。
-
-**ROUGE-L** 计算候选摘要与参考摘要的**最长公共子序列（LCS，Longest Common Subsequence）** 的 F 值。
-- **公共子序列**：不要求连续，但保持相对顺序。例如 “我爱北京” 和 “北京我爱” 的 LCS 是 “北京” 或 “我”，长度仅为 1（若词序不一致则 LCS 很短）。
-- **LCS 长度** $L$。
-
-**计算**：
-- 召回率 $R_{\text{lcs}} = \frac{L}{\text{len(参考)}}$
-- 精确率 $P_{\text{lcs}} = \frac{L}{\text{len(候选)}}$
-- $$ \text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P_{\text{lcs}}} $$
-  $\beta$ 通常取很大（如 $\beta \to \infty$）使 F 值约等于召回率，即强调覆盖程度。
-
-**特点**：
-- 优点：自动衡量**内容覆盖度**，不要求词序完全一致，适合摘要评估。
-- 缺点：仍依赖参考摘要，无法评估事实正确性（例如生成了一句语法通顺但错误的内容，若参考中不存在，ROUGE 会忽略它）。
-
-##### BERTScore
-**BERTScore** 利用 BERT 的上下文词向量计算候选与参考的语义相似度，能捕捉**同义词替换、语序变化**等深层语义匹配。
-
-**计算步骤**：
-1. 用 BERT 分别将候选句子 $x$ 和参考句子 $y$ 编码为上下文词向量序列：
-   $$\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}$$
-2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
-   $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
-3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j) $$
-   **精确率**（候选中的内容与参考相关的比例）：
-   $$
+1. **计算 n-gram 精确率**（通常取 n=1~

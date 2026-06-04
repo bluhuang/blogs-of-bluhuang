@@ -6,5 +6,4 @@ date: 2025-12-30
 lastmod: 2025-12-30
 ---
 
-[[sqlite]]
-for link
+[[sqlite]] for link
