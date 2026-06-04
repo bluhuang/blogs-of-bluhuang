@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/ai/</link><description>Recent content in AI on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>RAG全流程解析</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;h2 id="rag-学习笔记深度版"&gt;RAG 学习笔记（深度版）&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/ai/</link><description>Recent content in AI on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>RAG全流程解析</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90/</guid><description>&lt;h2 id="rag-学习笔记技术深度版"&gt;RAG 学习笔记（技术深度版）&lt;/h2&gt;
 &lt;h3 id="一为什么需要-rag"&gt;一、为什么需要 RAG？&lt;/h3&gt;
 &lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/images/AI/1%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483.png" alt=""&gt;&lt;/p&gt;
 &lt;p&gt;大模型的知识边界受限于训练数据（截止日期前公开资料）。对于企业私有文档、实时信息、长尾知识，大模型无法直接回答。尝试把整本手册作为 prompt 输入存在三大问题：&lt;/p&gt;</description></item><item><title>什么是 Agent？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础"&gt;📌 本章重点总结（Agent 基础）&lt;/h3&gt;
@@ -43,8 +43,7 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;极简 Agent 骨架&lt;/strong&gt;：&lt;code&gt;while&lt;/code&gt; 循环 → 调用 LLM 决策 → 若完成则退出 → 否则执行工具 → 结果追加到消息列表 → 继续循环。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr&gt;
-&lt;p&gt;前两章讲了大模型的底层逻辑，也讲了怎么写好 Prompt。到现在，你已经知道大模型是个&amp;quot;超级大脑&amp;quot;，能理解意图、会逻辑推理、能生成高质量内容。&lt;/p&gt;</description></item><item><title>什么是 Function Call？（协议）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;h3 id="-本章重点总结function-calling"&gt;📌 本章重点总结（Function Calling）&lt;/h3&gt;
+&lt;p&gt;正文：&lt;/p&gt;</description></item><item><title>什么是 Function Call？（协议）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;h3 id="-本章重点总结function-calling"&gt;📌 本章重点总结（Function Calling）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Function Calling 是什么&lt;/strong&gt;：大模型与 Agent 之间的&lt;strong&gt;标准化工具调用协议&lt;/strong&gt;，解决“大模型做出决策后如何精准传递指令给 Agent”的问题。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为什么需要 Function Calling&lt;/strong&gt;：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），开发者需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。&lt;/li&gt;
@@ -116,12 +115,12 @@
 &lt;li&gt;&lt;strong&gt;Skills&lt;/strong&gt;：上层业务封装，将 Prompt 和 MCP 工具组合成&lt;strong&gt;标准工作流&lt;/strong&gt;，实现工程化沉淀与复用。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;实战示例（Claude Code）&lt;/strong&gt;：在项目 &lt;code&gt;.claude/skills/&lt;/code&gt; 目录下按结构放置 &lt;code&gt;SKILL.md&lt;/code&gt; 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实战示例（某 AI 编码工具）&lt;/strong&gt;：在项目 &lt;code&gt;.claude/skills/&lt;/code&gt; 目录下按结构放置 &lt;code&gt;SKILL.md&lt;/code&gt; 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;核心价值&lt;/strong&gt;：Skills 让 AI 从“临时问一句”升级为“按标准化流程自动执行”，降低重复沟通成本，实现经验沉淀和团队协作。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;h3 id="第一阶段ai-的破壁人--function-calling函数调用"&gt;第一阶段：AI 的“破壁人” ， Function Calling（函数调用）&lt;/h3&gt;
-&lt;p&gt;先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong&gt;被关在小黑屋里的超级学霸&lt;/strong&gt;：虽然上知天文下知地理，但它没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p&gt;</description></item><item><title>什么是 Tool？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础"&gt;📌 本章重点总结（Tool 基础）&lt;/h3&gt;
+&lt;p&gt;先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong&gt;被关在小黑屋里的超级学霸&lt;/strong&gt;：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p&gt;</description></item><item><title>什么是 Tool？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础"&gt;📌 本章重点总结（Tool 基础）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;问题背景&lt;/strong&gt;：大模型被“关在盒子里”，只能输入输出文字，无法与外部世界交互。Tool 给大模型“装上手”，让它能执行真实操作。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Agent、大模型、Tool 的关系&lt;/strong&gt;：
@@ -153,8 +152,8 @@
 &lt;hr&gt;
 &lt;p&gt;你有没有遇到过这种情况。&lt;/p&gt;</description></item><item><title>什么是Harness工程？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;h3 id="-本章重点总结harness-engineering"&gt;📌 本章重点总结（Harness Engineering）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;概念来源&lt;/strong&gt;：由某位工程师在 2026 年 2 月提出，随后被多家机构推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;AI 工程重心的三次演进&lt;/strong&gt;：
+&lt;li&gt;&lt;strong&gt;概念来源&lt;/strong&gt;：由某位行业先驱在2026年2月提出，随后某顶级AI研究机构官方博客推广。核心思想是“设计一套包裹模型的外部环境，让Agent稳定交付”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI工程重心的三次演进&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Prompt Engineering&lt;/strong&gt;：让模型“听懂”任务（表达）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Context Engineering&lt;/strong&gt;：让模型“知道”该用什么信息（供给）。&lt;/li&gt;
@@ -162,8 +161,8 @@
 &lt;li&gt;三者是包含关系：Prompt ⊂ Context ⊂ Harness。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Harness 的简洁定义&lt;/strong&gt;：Agent 系统里除了模型本身之外，所有决定稳定性的东西。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Harness 六层核心组件（六问对应）&lt;/strong&gt;：
+&lt;li&gt;&lt;strong&gt;Harness的简洁定义&lt;/strong&gt;：Agent系统里除了模型本身之外，所有决定稳定性的东西。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Harness六层核心组件（六问对应）&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;① 上下文精细化：模型这一轮该看到什么？&lt;/li&gt;
 &lt;li&gt;② 工具系统：模型用什么动手？&lt;/li&gt;
@@ -175,25 +174,26 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;五大难题与业界解法（对应五条原则）&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;难题1：Agent 跑久了越走越偏&lt;/strong&gt; → 解决方案：Context Reset，状态外化到文件系统，每轮用干净上下文接手。原则：&lt;strong&gt;重启胜过修补，状态沉到文件里&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;难题2：Agent 自评总是偏乐观&lt;/strong&gt; → 解决方案：Planner + Generator + Evaluator 三角分工，验收与生产分离。原则：&lt;strong&gt;生产和验收必须分家，验收方要能摸到真实世界&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;难题3：Agent 反复失败，工程师该干啥&lt;/strong&gt; → 解决方案：不调提示词，而是补环境能力（如接 lint、单测、运行环境）。原则：&lt;strong&gt;别问模型能不能更努力，要问环境还缺什么&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;难题4：规范文件越写越长，Agent 反而更糊涂&lt;/strong&gt; → 解决方案：渐进式披露，主文件只保留索引（约100行），详细内容按需加载。原则：&lt;strong&gt;规则宁缺毋滥，少即是多&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;难题5：Agent 写的代码越堆越烂（AI slop），技术债怎么还&lt;/strong&gt; → 解决方案：将人类经验写成“Golden Principles”，用后台 Agent 定期自动扫描修复。原则：&lt;strong&gt;技术债不是攒一堆集中还，而是每天让 Agent 自动偿还一点&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;难题1：Agent跑久了越走越偏&lt;/strong&gt; → 解决方案：Context Reset，状态外化到文件系统，每轮用干净上下文接手。原则：&lt;strong&gt;重启胜过修补，状态沉到文件里&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;难题2：Agent自评总是偏乐观&lt;/strong&gt; → 解决方案：Planner + Generator + Evaluator 三角分工，验收与生产分离。原则：&lt;strong&gt;生产和验收必须分家，验收方要能摸到真实世界&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;难题3：Agent反复失败，工程师该干啥&lt;/strong&gt; → 解决方案：不调提示词，而是补环境能力（如接lint、单测、运行环境）。原则：&lt;strong&gt;别问模型能不能更努力，要问环境还缺什么&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;难题4：规范文件越写越长，Agent反而更糊涂&lt;/strong&gt; → 解决方案：渐进式披露，主文件只保留索引（约100行），详细内容按需加载。原则：&lt;strong&gt;规则宁缺毋滥，少即是多&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;难题5：Agent写的代码越堆越烂（AI slop），技术债怎么还&lt;/strong&gt; → 解决方案：将人类经验写成“Golden Principles”，用后台Agent定期自动扫描修复。原则：&lt;strong&gt;技术债不是攒一堆集中还，而是每天让Agent自动偿还一点&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;反直觉发现&lt;/strong&gt;：Agent 对“老技术”（稳定、文档齐全、训练数据多）掌握更好，选技术栈不必追新。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;工程师角色转变&lt;/strong&gt;：从“写代码”转向“设计 Agent 的运行环境（写规则、流程、校验、评估）”。未来主战场是 &lt;strong&gt;Harness 工程&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;核心公式&lt;/strong&gt;：&lt;code&gt;Agent Quality ≈ Model Capability + Harness Design&lt;/code&gt;。模型决定天花板，Harness 决定落地稳定性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反直觉发现&lt;/strong&gt;：Agent对“老技术”（稳定、文档齐全、训练数据多）掌握更好，选技术栈不必追新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;工程师角色转变&lt;/strong&gt;：从“写代码”转向“设计Agent的运行环境（写规则、流程、校验、评估）”。未来主战场是 &lt;strong&gt;Harness工程&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心公式&lt;/strong&gt;：&lt;code&gt;Agent Quality ≈ Model Capability + Harness Design&lt;/code&gt;。模型决定天花板，Harness决定落地稳定性。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;hr&gt;
 &lt;h2 id="这个新词到底从哪儿冒出来的"&gt;这个新词到底从哪儿冒出来的？&lt;/h2&gt;
 &lt;p&gt;在开讲之前，我想先带你去「追个源」。&lt;/p&gt;</description></item><item><title>什么是MCP？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;h3 id="-本章重点总结mcp"&gt;📌 本章重点总结（MCP）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;MCP 是什么&lt;/strong&gt;：由某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MCP 是什么&lt;/strong&gt;：一个开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为什么需要 MCP&lt;/strong&gt;：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;三大核心角色&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Host&lt;/strong&gt;：用户使用的 AI 应用（如某AI桌面应用、某代码编辑器），负责发起任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Host&lt;/strong&gt;：用户使用的 AI 应用（如某 AI 桌面应用、VS Code），负责发起任务。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Server&lt;/strong&gt;：暴露工具能力的轻量服务程序，负责实际执行工具。&lt;/li&gt;
 &lt;/ul&gt;
@@ -216,8 +216,8 @@
 &lt;h3 id="为什么需要两者配合缺一不可"&gt;为什么需要两者配合，缺一不可？&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;只有Function Calling，没有MCP&lt;/strong&gt;：&lt;br&gt;
-大模型能说出“调用天气工具”，但Host还是要自己写代码去连接天气API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p&gt;</description></item><item><title>什么是Prompt？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础"&gt;📌 本章重点总结（Prompt基础）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;只有 Function Calling，没有 MCP&lt;/strong&gt;：&lt;br&gt;
+大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p&gt;</description></item><item><title>什么是Prompt？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础"&gt;📌 本章重点总结（Prompt基础）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Prompt定义&lt;/strong&gt;：你发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Prompt的重要性&lt;/strong&gt;：大模型是 next-token 预测机器，输入越精准，输出越稳定。在 Agent 开发中，输出稳定性直接决定流水线可靠性。&lt;/li&gt;
@@ -238,10 +238,9 @@
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;正文&lt;/strong&gt;：
-上一章你已经搞清楚了大模型的底层逻辑：它是一个超级助理，你通过 messages 列表把内容传给它，它根据你给的上下文预测并生成回答。&lt;/p&gt;</description></item><item><title>什么是向量数据库？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;hr&gt;
-&lt;p&gt;上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。&lt;/p&gt;
+上一章你已经搞清楚了大模型的底层逻辑：它是一个超级助理，你通过 messages 列表把内容传给它，它根据你给的上下文预测并生成回答。&lt;/p&gt;</description></item><item><title>什么是向量数据库？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p&gt;上一章 RAG 里，在介绍 RAG 工作阶段的时候，提到把向量存进「向量数据库」，当时一带而过。&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F-e3e2c7b799cc5b65291a9c49d28398fe.png" alt=""&gt;&lt;/p&gt;
-&lt;p&gt;你可能当时就想问： &lt;strong&gt;为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>什么是大模型？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;h3 id="-本章重点总结大模型基础"&gt;📌 本章重点总结（大模型基础）&lt;/h3&gt;
+&lt;p&gt;你可能会问： &lt;strong&gt;为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>什么是大模型？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;h3 id="-本章重点总结大模型基础"&gt;📌 本章重点总结（大模型基础）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;大模型本质&lt;/strong&gt;：一个基于海量数据训练、通过预测下一个词来生成文本的“超级助理”。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Token&lt;/strong&gt;：大模型处理文本的最小单位（非字非词），决定模型输入上限和API费用。&lt;/li&gt;
@@ -267,7 +266,7 @@
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;正文：
-学 Agent 开发，第一件事是认识它的“大脑”：&lt;strong&gt;大模型&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>高级RAG技术：HyDE 与 Self-RAG</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</link><pubDate>Wed, 03 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</guid><description>&lt;blockquote&gt;
+学 Agent 开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong&gt;大模型&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>高级RAG技术：HyDE 与 Self-RAG</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</link><pubDate>Wed, 03 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑、对比表格。&lt;/p&gt;</description></item><item><title>Cross-Encoder核心原理：从 Self Attention到相关性分数</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Tue, 02 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位"&gt;1. Cross‑Encoder 的核心定位&lt;/h2&gt;
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;p&gt;Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 Document &lt;strong&gt;拼接成一个序列&lt;/strong&gt;，通过多头自注意力（Multi‑Head Self‑Attention）让两个文本的 &lt;strong&gt;每一个 token 都与对方的所有 token 进行交互&lt;/strong&gt;，最终输出一个 [0, 1] 范围内的相关性分数。&lt;/p&gt;</description></item><item><title>Embedding模型原理</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/7-embedding%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86/</link><pubDate>Tue, 02 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/7-embedding%E6%A8%A1%E5%9E%8B%E5%8E%9F%E7%90%86/</guid><description>&lt;h2 id="一核心概念"&gt;一、核心概念&lt;/h2&gt;
@@ -277,13 +276,13 @@
 &lt;h2 id="一为什么纯词法或纯语义都不够"&gt;一、为什么纯词法或纯语义都不够&lt;/h2&gt;
 &lt;p&gt;在技术文档、知识库或运维工单中，用户查询可分为两类：&lt;/p&gt;</description></item><item><title>RAG分块策略详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</link><pubDate>Fri, 29 May 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/3-rag%E5%88%86%E5%9D%97%E7%AD%96%E7%95%A5%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="rag-系统中的文本分块chunking学习笔记"&gt;RAG 系统中的文本分块（Chunking）学习笔记&lt;/h1&gt;
 &lt;h2 id="1-引言为什么分块是-rag-的基石"&gt;1. 引言：为什么分块是 RAG 的基石？&lt;/h2&gt;
-&lt;p&gt;RAG 系统在文档进入检索环节之前，必须经过&lt;strong&gt;文本分块&lt;/strong&gt;处理——把大文档切分成更小的、有意义的片段。每个分块应当是&lt;strong&gt;连贯且自包含&lt;/strong&gt;的，这样检索器才能快速定位并返回最相关的信息。&lt;/p&gt;</description></item><item><title>prompt</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Thu, 28 May 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="0528-关于ragp评估实现"&gt;0528, 关于RAGp评估实现&lt;/h1&gt;
+&lt;p&gt;RAG 系统在文档进入检索环节之前，必须经过&lt;strong&gt;文本分块&lt;/strong&gt;处理——把大文档切分成更小的、有意义的片段。每个分块应当是&lt;strong&gt;连贯且自包含&lt;/strong&gt;的，这样检索器才能快速定位并返回最相关的信息。&lt;/p&gt;</description></item><item><title>prompt</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</link><pubDate>Thu, 28 May 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-rag/prompt/</guid><description>&lt;h1 id="0528-关于rag评估实现"&gt;0528, 关于RAG评估实现&lt;/h1&gt;
 &lt;pre tabindex="0"&gt;&lt;code&gt;我正在学习一个 Agent 项目，并从原始项目迁移了 RAG 部分代码。现在我需要为 RAG 部分增加自动化评估能力，以便量化检索和生成质量，支撑后续优化。
 
 当前项目已有：
 - 向量检索服务：`app/services/vector_search_service.py` 提供 `vector_search_service.search_similar_documents(query, top_k)`，返回 `List[SearchResult]`，每个结果有 `.content`、`.metadata` 等属性。
-- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用 LLM 接口。
-- 配置：`.env` 中有对应的 API Key。
+- RAG 生成服务：`app/services/rag_agent_service.py` 提供 `rag_agent_service.query(question)`，返回最终答案字符串。内部会调用上述检索服务并拼接 Prompt 后调用 DashScope LLM。
+- 配置：`.env` 中有 `DASHSCOPE_API_KEY`。
 
 目标：实现 `tests/evaluate.py`，能够加载公开测试集，调用现有 RAG 系统得到 `contexts` 和 `answer`，用 Ragas 框架计算指标，输出汇总报告。
 
@@ -291,7 +290,7 @@
 
 ## 一、最终目标
 1. 一个可执行的脚本 `tests/evaluate.py`，运行后：
- - 加载测试集（例如公开的 `wikiqa` 或 RAGAs 内置的 `amnesty_qa`）。
+ - 加载测试集（例如 Hugging Face 上的 `explodinggradients/ragas-wikiqa` 或 RAGAs 内置的 `amnesty_qa`）。
  - 对测试集中每个问题，调用我的 RAG 系统得到：
  - `contexts`（字符串列表，每个元素是检索返回的文档片段原文）
  - `answer`（最终答案）
@@ -302,8 +301,8 @@
 2. 评估流程可扩展：后续能切换不同测试集、记录多次实验对比。
 
 ## 二、实现计划
-1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配 RAGS。我不知道不同的数据集之间我们选择哪个更合适，CRUD-RAG 如何？
-2. **集成 Ragas**：安装 `ragas`, `datasets`, `langchain` 等。评判 LLM 使用已有 API 接口（通过 `ChatOpenAI(base_url=&amp;#34;&amp;lt;兼容端点&amp;gt;&amp;#34;)` 接入）。嵌入模型暂时用公开的 Embedding 服务（可临时申请额度保证快速跑通），也可以建议免费替代方案。
+1. **测试集选择**：我希望使用公开的数据集，这样不用自己构造。最好能适配RAGs。我不知道不同的数据集之间我们选择哪个更合适，CRUD-RAG如何？
+2. **集成 Ragas**：安装 `ragas`, `datasets`, `langchain-openai` 等。评判 LLM 使用 DashScope（已有 API Key），通过 `ChatOpenAI(base_url=&amp;#34;https://dashscope.aliyuncs.com/compatible-mode/v1&amp;#34;)` 接入。嵌入模型暂时用 `OpenAIEmbeddings`（需要 OpenAI key）还是换用 DashScope 自己的嵌入？我倾向于先使用 OpenAI 的小额度（或临时申请）以保证快速跑通，你也可以建议免费替代方案。
 3. **自动化脚本结构**：
  - 加载配置（从 `config` 或环境变量读取 `rag_top_k` 等参数）。
  - 加载测试集（限制样本数，如前 20 条）。
@@ -317,8 +316,8 @@
 
 ## 三、我需要你帮助判断和实现的点
 1. 上述思路是否可行？有没有遗漏的重要步骤（比如需要处理异步？`rag_agent_service.query` 是同步的，没问题）？
-2. 使用现有接口作为评判 LLM 时，Ragas 的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
-3. 嵌入模型如果用其他服务而不是默认的，应该如何配置？Ragas 是否支持？
+2. 使用 DashScope 作为评判 LLM 时，Ragas 的 `evaluate()` 函数需要的 `llm` 参数如何构造？是否需要特殊的包装器？
+3. 嵌入模型如果用 DashScope 而不是 OpenAI，应该如何配置？Ragas 是否支持？
 4. 请根据我的项目结构（已提供关键服务类）生成一份完整的 `tests/evaluate.py` 代码。代码应该：
  - 包含必要的 import 和异常处理。
  - 正确调用现有的 `vector_search_service` 和 `rag_agent_service`。
@@ -408,9 +407,11 @@
 
 
 &gt;https://bbs.huaweicloud.com/blogs/405750&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;PDF 文档&lt;/p&gt;</description></item><item><title>Agent基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 13 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="1-什么是agent"&gt;1 什么是Agent&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Agent（智能体）&lt;/strong&gt; 是以 LLM 为核心推理引擎，结合&lt;strong&gt;规划、记忆和工具使用&lt;/strong&gt;能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果动态调整后续策略。&lt;/p&gt;</description></item><item><title>ReAct - Reasoning + Acting</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 13 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react"&gt;1 什么是 ReAct&lt;/h1&gt;
-&lt;p&gt;ReAct（Reasoning + Acting）是由研究人员于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong&gt;推理轨迹&lt;/strong&gt;与&lt;strong&gt;任务操作&lt;/strong&gt;，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p&gt;</description></item><item><title>LLM基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Wed, 08 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法"&gt;LLM 学习笔记：核心概念与实践方法&lt;/h1&gt;
+&lt;p&gt;hello-agent, pdf&lt;/p&gt;</description></item><item><title>Agent基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Mon, 13 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="1-什么是agent"&gt;1 什么是Agent&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Agent（智能体）&lt;/strong&gt; 是以 LLM 为核心推理引擎，结合&lt;strong&gt;规划、记忆和工具使用&lt;/strong&gt;能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果来动态调整后续策略。
+换句话说，LLM 在 Agent 架构中不再只是一个&amp;quot;回答问题的机器&amp;quot;，而是充当了整个系统的&amp;quot;大脑&amp;quot;，负责理解任务、推理决策、协调各种外部能力来完成复杂的目标。
+一句话总结：&lt;strong&gt;Agent = LLM + 工具 + 循环&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>ReAct - Reasoning + Acting</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</link><pubDate>Mon, 13 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react"&gt;1 什么是 ReAct&lt;/h1&gt;
+&lt;p&gt;ReAct（Reasoning + Acting）是由谷歌研究院和普林斯顿大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong&gt;推理轨迹&lt;/strong&gt;与&lt;strong&gt;任务操作&lt;/strong&gt;，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p&gt;</description></item><item><title>LLM基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Wed, 08 Apr 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法"&gt;LLM 学习笔记：核心概念与实践方法&lt;/h1&gt;
 &lt;h2 id="1-大语言模型基础"&gt;1. 大语言模型基础&lt;/h2&gt;
 &lt;h3 id="11-什么是-llm"&gt;1.1 什么是 LLM&lt;/h3&gt;
 &lt;p&gt;大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p&gt;</description></item></channel></rss>

@@ -21,7 +21,7 @@
 
 
 &gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
-&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google / Microsoft / GitHub）登录&lt;/li&gt;
+&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
 &lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;

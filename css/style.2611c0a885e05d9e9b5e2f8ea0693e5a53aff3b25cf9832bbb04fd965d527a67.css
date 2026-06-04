@@ -279,6 +279,9 @@
   .top-24 {
     top: calc(var(--spacing) * 24);
   }
+  .top-100 {
+    top: calc(var(--spacing) * 100);
+  }
   .right-1 {
     right: calc(var(--spacing) * 1);
   }
