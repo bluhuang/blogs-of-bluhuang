@@ -5,7 +5,250 @@ branch 'processed-cache' set up to track 'origin/processed-cache'.
 From https://github.com/bluhuang/blogs-of-bluhuang
  * branch            processed-cache -> FETCH_HEAD
 Already up to date.
-Cloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
+============================================================
+  Auto Blog Poster
+============================================================
+Source repo: bluhuang/blu-obsidian
+Output repo: bluhuang/blogs-of-bluhuang
+
+[1/6] Pulling source notes repository ...
+Shallow cloning bluhuang/blu-obsidian (branch=main, sparse)...
+Setting sparse-checkout to: 2 Notes, .obsidian
+  Adding to sparse-checkout: attachments
+Source notes ready at: .temp/source_repo/2 Notes
+
+[2/6] Restoring processed cache ...
+Restoring cache from bluhuang/blogs-of-bluhuang@processed-cache ...
+  restored content
+  restored static/images
+  restored .hash_cache.json
+  restored .file_times.json
+Cache restore complete.
+
+[3/6] Processing notes (incremental) ...
+Local vault not found; skipping .file_times.json generation
+force_reprocess_all = true: deleting cache and reprocessing all files
+  removed .hash_cache.json
+Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
+  Found 44 .md file(s)
+Processing: AI/0 基础/AI基础/1 LLM基础必知必会.md ...
+  [image] skipped (exists): IMG_4302.png
+  [image] skipped (exists): IMG_4303.png
+  [image] skipped (exists): IMG_4304.png
+  [image] skipped (exists): IMG_4305.png
+  [image] skipped (exists): IMG_4306.png
+  [image] skipped (exists): IMG_4313.png
+  [image] skipped (exists): IMG_4307.jpeg
+  [image] skipped (exists): IMG_4308.png
+  [image] skipped (exists): IMG_4309.png
+  [image] skipped (exists): IMG_4310 1.png
+  [image] skipped (exists): IMG_4311.png
+  [image] skipped (exists): IMG_4312.png
+  [image] protected 12 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 4219 chars
+  [image] restored 12 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/1 LLM基础必知必会.md
+Processing: AI/0 基础/AI基础/10 什么是向量数据库？.md ...
+  [image] skipped (exists): 什么是向量数据库？-e3e2c7b799cc5b65291a9c49d28398fe.png
+  [image] skipped (exists): 什么是向量数据库？-687e8c304aaf094fd4232c28efc12a82.png
+  [image] skipped (exists): 什么是向量数据库？-4959b38811f55e10e4471089570f9f10.png
+  [image] skipped (exists): 什么是向量数据库？-9db6e67886233db2fc10dd6c57c47bce.png
+  [image] protected 4 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 4264 chars
+  [image] restored 4 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/10 什么是向量数据库？.md
+Processing: AI/0 基础/AI基础/11 什么是Harness工程？.md ...
+  [image] skipped (exists): 什么是Harness工程？-3f3b8a9dfaab9691a799b1c5d5b68243.png
+  [image] skipped (exists): 什么是Harness工程？-bc354bb8eb4ec5df72b4c64b248b4774.png
+  [image] skipped (exists): 什么是Harness工程？-cb1ce54acdbbb401bb6d27891a60ecff.png
+  [image] skipped (exists): 什么是Harness工程？-c682ce95059ca83def279c4b4c1da9b8.png
+  [image] skipped (exists): 什么是Harness工程？-a06bcd7574692a92eb546f6a9ff99b4b.png
+  [image] skipped (exists): 什么是Harness工程？-6776c7b7db30351a3e26b94429f1fda4.png
+  [image] skipped (exists): 什么是Harness工程？-fad77e86b29c42c8173009c617a31132.png
+  [image] skipped (exists): 什么是Harness工程？-4003575f13ade98b2eaefe5e82b1d352.png
+  [image] skipped (exists): 什么是Harness工程？-cbab69f2fc16802e2655a132d067ac40.png
+  [image] skipped (exists): 什么是Harness工程？-714976c10cd28c858c42e9cfd4166649.png
+  [image] skipped (exists): 什么是Harness工程？-dfa0d5b0fb3eb08bb0af70330286f2c0.png
+  [image] skipped (exists): 什么是Harness工程？-be19839689690995cc7a114e8570c80d.png
+  [image] skipped (exists): 什么是Harness工程？-76b9f2dd333f4b45454c6d24e1d1e7e7.png
+  [image] skipped (exists): 什么是Harness工程？-3bea017bf8cbd539f33e1bef5fc8659d.png
+  [image] skipped (exists): 什么是Harness工程？-19ee4cf374ece139f497c2f75da25135.png
+  [image] skipped (exists): 什么是Harness工程？-79ce7e48508ef2b0d568ce4f7bbfe264.png
+  [image] skipped (exists): 什么是Harness工程？-c3fb0576b01e92e517b877b43eda67a8.png
+  [image] skipped (exists): 什么是Harness工程？-2d98a57eb1331c8790e725f11feafba8.png
+  [image] skipped (exists): 什么是Harness工程？-b20b733b02d3ae657a055ffcdb7e1932.png
+  [image] skipped (exists): 什么是Harness工程？-a666ce0dd3e5e487268e95d39f9fa0d5.png
+  [image] skipped (exists): 什么是Harness工程？-1f35812579baf52159e5d4f37a07a625.png
+  [image] skipped (exists): 什么是Harness工程？-2ee6ed80433a9fcd0b23c51dfd336bfd.png
+  [image] skipped (exists): 什么是Harness工程？-50f51670cfb64ec632fa6a4a064c9642.png
+  [image] skipped (exists): 什么是Harness工程？-b3492286d87af7230938259c8e595181.png
+  [image] skipped (exists): 什么是Harness工程？-a25fc23d83261c4ebddd0d900b89c454.png
+  [image] skipped (exists): 什么是Harness工程？-95f6463ea380af37c56fecd83baedd89.png
+  [image] skipped (exists): 什么是Harness工程？-5fe9cff5e0a815e8248c19c9819afe99.png
+  [image] skipped (exists): 什么是Harness工程？-5f1379c667e36156b581b56f05eba1ac.png
+  [image] skipped (exists): 什么是Harness工程？-a47d67ca1dcaeca77ab4788ac93ae294.png
+  [image] skipped (exists): 什么是Harness工程？-4e9f915c6dc03b9f3f977f98510ae1b2.png
+  [image] skipped (exists): 什么是Harness工程？-188cf4ee4e6a166667e6fa1ce9f5d0cd.png
+  [image] skipped (exists): 什么是Harness工程？-2ee6ed80433a9fcd0b23c51dfd336bfd-1.png
+  [image] skipped (exists): 什么是Harness工程？-3fd54121b8b1c896ceada90a0675d3c7.png
+  [image] skipped (exists): 什么是Harness工程？-32f09766d9f8331634543065e4096796.png
+  [image] skipped (exists): 什么是Harness工程？-02030fd63ded06ad37f5410e9bb4b8f7.png
+  [image] skipped (exists): 什么是Harness工程？-a81af1d522ca6e204beaa518eadda81b.png
+  [image] skipped (exists): 什么是Harness工程？-6637690754ed4531a4c29c3857d74731.png
+  [image] skipped (exists): 什么是Harness工程？-9de6c66e089ebc4d8fc83f419772241d.png
+  [image] skipped (exists): 什么是Harness工程？-3391bb8d08c6d408bdb54d156c66e24d.png
+  [image] skipped (exists): 什么是Harness工程？-02bd8c1ebeb5550d8ccf697bdfc190c3.png
+  [image] skipped (exists): 什么是Harness工程？-092151fefcd2a090c6470c746ce71d01.png
+  [image] skipped (exists): 什么是Harness工程？-10088e18ec0701bb615c1a68b8cccdb4.png
+  [image] skipped (exists): 什么是Harness工程？-77b468f3705e463720b9d6167ac2d4c5.png
+  [image] skipped (exists): 什么是Harness工程？-750e56f2ef6730bc93d4aeabef9b26e7.png
+  [image] skipped (exists): 什么是Harness工程？-80bf14802356d699c66a5b15b7664b66.png
+  [image] skipped (exists): 什么是Harness工程？-7ba03a9e10bafe931ab069432e4ef68b.png
+  [image] protected 46 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7388 chars
+  [image] restored 46 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/11 什么是Harness工程？.md
+Processing: AI/0 基础/AI基础/2 什么是大模型？.md ...
+  [image] skipped (exists): 什么是大模型？-b705b8c12f49b00982a7087315749e0f.png
+  [image] skipped (exists): 什么是大模型？-2c33ce44947270329f9fc8f4ea558fcf.png
+  [image] skipped (exists): 什么是大模型？-9de9a2ca83477affff0185fbbd871bad.png
+  [image] skipped (exists): 什么是大模型？-469699ec7b1dbe8a03e1ab91b104c4e5.png
+  [image] skipped (exists): 什么是大模型？-dda70cc2ca9cf31a9e8faab6338754d4.png
+  [image] skipped (exists): 什么是大模型？-316ac57f160b55b86c007560f73d3df9.png
+  [image] protected 6 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 5345 chars
+  [image] restored 6 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/2 什么是大模型？.md
+Processing: AI/0 基础/AI基础/3 什么是Prompt？.md ...
+  [image] skipped (exists): 什么是Prompt？-e80c98aaf168ef571e53e668e1b9478f.png
+  [image] skipped (exists): 什么是Prompt？-afbe040378c3271f1bd07c09890b6a44.png
+  [image] skipped (exists): 什么是Prompt？-8f3a20f1a651ea91f20d3954042bdcd7.png
+  [image] skipped (exists): 什么是Prompt？-6ceb93911289e9a1bd01420806d0309e.png
+  [image] skipped (exists): 什么是Prompt？-35f32b9763391be9051d61a50596be9e.png
+  [image] skipped (exists): 什么是Prompt？-9ba97e28675461ad4aeb5e6c04a3bb4d.png
+  [image] protected 6 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6879 chars
+  [image] restored 6 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/3 什么是Prompt？.md
+Processing: AI/0 基础/AI基础/4 什么是 Agent？.md ...
+  Warning: markdown image not found: <attachments/什么是 Agent？-eec824743f1dba3aab176b28c318a555.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-096af9599dfc28d36ce8c9586d3b51b1.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-3d73134d1ae1ee3417e86d412f3d0e72.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-24f0a668b5e94edcb36dba3a103ba662.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-9b779638ec1f5dcada30ce8b1c298fef.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-3f10a22a70a34464b0b4dee0e977eb82.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-2c18f6e922ac932e787d79bf617d8e43.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-11c6849028bf3031b040e59eff10ffc3.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-d4465e51e01ad06201c516243245fb66.png>
+  Warning: markdown image not found: <attachments/什么是 Agent？-269502a91fac34d5ec722746e7aeb4d3.png>
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7325 chars
+  -> wrote content/AI/0 基础/AI基础/4 什么是 Agent？.md
+Processing: AI/0 基础/AI基础/5 什么是 Tool？.md ...
+  Warning: markdown image not found: <attachments/什么是 Tool？-b93812c1bdffe664a7f782203b584bfd.png>
+  Warning: markdown image not found: <attachments/什么是 Tool？-b73968c9e7bab4051db98a900d33e42a.png>
+  Warning: markdown image not found: <attachments/什么是 Tool？-7e900cf103d8944b7e37298eaa898931.png>
+  Warning: markdown image not found: <attachments/什么是 Tool？-51a3768bafe818a2cdc44826eeb6ea56.png>
+  Warning: markdown image not found: <attachments/什么是 Tool？-214fc576dc2b5ca32007e34df550ea27.png>
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7924 chars
+  -> wrote content/AI/0 基础/AI基础/5 什么是 Tool？.md
+Processing: AI/0 基础/AI基础/6 什么是 Function Call？（协议）.md ...
+  Warning: markdown image not found: <attachments/什么是 Function Call？-eae4436ac998b58db23067f53ef24db8.png>
+  Warning: markdown image not found: <attachments/什么是 Function Call？-1620207ed0fd1ff12167942d26d4411b.png>
+  Warning: markdown image not found: <attachments/什么是 Function Call？-230b54c325e0db01696d9c5ed1af6a50.png>
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7751 chars
+  -> wrote content/AI/0 基础/AI基础/6 什么是 Function Call？（协议）.md
+Processing: AI/0 基础/AI基础/7 什么是MCP？.md ...
+  [image] skipped (exists): 什么是MCP？-d3a0c94d2277a61d5dbb04adf28824d7.png
+  [image] skipped (exists): 什么是MCP？-b356960ae62209c7aff10d731b204617.png
+  [image] skipped (exists): 什么是MCP？-03570e6969812c513243d5e9e0d1bb44.png
+  [image] skipped (exists): 什么是MCP？-646507fd5709adf52c70db42fff09419.png
+  [image] skipped (exists): 什么是MCP？-a3ce8c4020e14607885212500f44c540.png
+  [image] skipped (exists): 什么是MCP？-5f1c866d5bd35e64c756dd9f6ed5ee51.png
+  [image] protected 6 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7098 chars
+  [image] restored 6 link(s) from placeholders
+  -> wrote content/AI/0 基础/AI基础/7 什么是MCP？.md
+Processing: AI/0 基础/AI基础/8 什么是 Skills？.md ...
+  Warning: markdown image not found: <attachments/什么是 Skills？-a10fb66149c1f8fb11a6fff656333a74.png>
+  Warning: markdown image not found: <attachments/什么是 Skills？-ea7ead105944bf47f68b97c69bdf0ade.png>
+  Warning: markdown image not found: <attachments/什么是 Skills？-d2e8432578bc86d22d07dbe3805045bd.png>
+  Warning: markdown image not found: <attachments/什么是 Skills？-dfad3afaf804be85f0b24b74e803a2e4.png>
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6057 chars
+  -> wrote content/AI/0 基础/AI基础/8 什么是 Skills？.md
+Processing: AI/0 基础/AI基础/9 什么是 RAG？.md ...
+  Warning: markdown image not found: <attachments/什么是 RAG？-36e920b9eec4dde61012702484969045.png>
+  Warning: markdown image not found: <attachments/什么是 RAG？-a359fff0264c2cd81a17d249068fa360.png>
+  Warning: markdown image not found: <attachments/什么是 RAG？-97d0548d6a6f5b74a3ba238e84b646e6.png>
+  Warning: markdown image not found: <attachments/什么是 RAG？-9d45b0f41b7d675e798b88062c47f188.png>
+  Warning: markdown image not found: <attachments/什么是 RAG？-442c6cd39f19bfc5d5b47040ec7d6c30.png>
+  Warning: markdown image not found: <attachments/什么是 RAG？-f69eff12b816e9f1535e2fc391e2fe49.png>
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6310 chars
+  -> wrote content/AI/0 基础/AI基础/9 什么是 RAG？.md
+Processing: AI/0 基础/Agent/1 Agent基础必知必会.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6312 chars
+  -> wrote content/AI/0 基础/Agent/1 Agent基础必知必会.md
+Processing: AI/0 基础/Agent/2 ReAct - Reasoning + Acting.md ...
+  [image] skipped (exists): Pasted image 20260413144128.png
+  [image] protected 1 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 4106 chars
+  [image] restored 1 link(s) from placeholders
+  -> wrote content/AI/0 基础/Agent/2 ReAct - Reasoning + Acting.md
+Processing: AI/1 RAG/1 RAG全流程解析.md ...
+  [image] skipped (exists): 架构设计：RAG全流程解析-17ee89cdfdd5727ecf0eeb2a07be8483.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-3b954008b068c5ff42836afaaa834a69.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-b84313e9bba5352c278fe2720ff5e02f.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-11552bb04f9bb0cd73d1590948f7e5d0.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-ea96a7f3c7762a35f03fe37b5f4653a4.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-f15b92c101f83f83642888f38ff84844.png
+  [image] skipped (exists): 架构设计：RAG全流程解析-fbc2d6895fefa1e2e08fc805adc5be56.png
+  [image] protected 7 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7493 chars
+  [image] restored 7 link(s) from placeholders
+  -> wrote content/AI/1 RAG/1 RAG全流程解析.md
+Processing: AI/1 RAG/2 RAG评估体系.md ...
+  [image] skipped (exists): Pasted image 20260527154928.png
+  [image] protected 1 link(s) with placeholders
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 7291 chars
+  [image] restored 1 link(s) from placeholders
+  -> wrote content/AI/1 RAG/2 RAG评估体系.md
+Processing: AI/1 RAG/3 RAG分块策略详解.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 3325 chars
+  -> wrote content/AI/1 RAG/3 RAG分块策略详解.md
+Processing: AI/1 RAG/4 融合搜索、BM25、RRF详解.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 5969 chars
+  -> wrote content/AI/1 RAG/4 融合搜索、BM25、RRF详解.md
+Processing: AI/1 RAG/5 重排序 Rerank 详解.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API request failed: HTTPSConnectionPool(host='api.deepseek.com', port=443): Read timed out.
+  Retrying in 1s ...
+  DeepSeek API call (attempt 2/3) ...
+  DeepSeek API returned 6277 chars
+  -> wrote content/AI/1 RAG/5 重排序 Rerank 详解.md
+Processing: AI/1 RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 4827 chars
+  -> wrote content/AI/1 RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md
+Processing: AI/1 RAG/7 Embedding模型原理.md ...
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 4038 chars
+  -> wrote content/AI/1 RAG/7 Embedding模型原理.mdCloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
 Already on 'gh-pages'
 Your branch is up to date with 'origin/gh-pages'.
 From https://github.com/bluhuang/blogs-of-bluhuang

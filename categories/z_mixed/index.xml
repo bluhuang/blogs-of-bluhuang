@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Z_mixed on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/z_mixed/</link><description>Recent content in Z_mixed on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/z_mixed/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Z_mixed on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/z_mixed/</link><description>Recent content in Z_mixed on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 04 Jun 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/z_mixed/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 19:01:05 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
@@ -20,7 +20,7 @@
  
 
 
-&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
+&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版本安装包&lt;/li&gt;
 &lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
 &lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -31,7 +31,7 @@
 &lt;li&gt;下方“允许访问”建议设为“所有用户”，或者只允许你的 Mac 用户名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="23-安装-tmux防断连工具"&gt;2.3 安装 tmux（防断连工具）&lt;/h3&gt;
-&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 04 Jun 2026 19:01:05 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;快速参考：状态判断、与 Clash 冲突解决、relay 问题处理。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-常用命令"&gt;1. 常用命令&lt;/h2&gt;
@@ -71,7 +71,7 @@
 &lt;/table&gt;
 &lt;h2 id="3-出现-relay-怎么办"&gt;3. 出现 relay 怎么办？&lt;/h2&gt;
 &lt;h3 id="31-优先尝试重启-mac最有效"&gt;3.1 优先尝试：重启 Mac（最有效）&lt;/h3&gt;
-&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 00:00:00 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 19:01:05 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;终端复用器，SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-安装"&gt;1. 安装&lt;/h2&gt;
@@ -138,15 +138,15 @@
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 首次连接：创建会话&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s work
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行程序（如 opencode、vim、npm run dev）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行你的程序（如 opencode、vim、npm run dev）&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 临时断开（不中断任务）：按 Ctrl+B 然后按 D&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 临时断开（不中断任务）: Ctrl+B 然后按 D&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 下次连接：恢复会话&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t work
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-小技巧"&gt;5. 小技巧&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;会话名使用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;长时间任务可配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 进入睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;手机锁屏或切换 App 不会影响 tmux 内的任务运行&lt;/li&gt;
+&lt;li&gt;长时间任务可配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;手机锁屏或切换 App 不影响 tmux 内的任何任务&lt;/li&gt;
 &lt;/ul&gt;</description></item></channel></rss>
