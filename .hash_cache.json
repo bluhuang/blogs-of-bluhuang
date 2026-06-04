@@ -38,9 +38,6 @@
   "AI/0 基础/Agent/2 ReAct - Reasoning + Acting.md": {
     "hash": "9d377ff79060de64cf6012b206f06e82"
   },
-  "AI/0 基础/link.md": {
-    "hash": "c986ab493069faa6f4974fc193169f97"
-  },
   "AI/1 RAG/1 RAG全流程解析.md": {
     "hash": "fc15f5630e92e3acfbe74cc8d7a5baf6"
   },
@@ -64,9 +61,6 @@
   },
   "AI/1 RAG/8 高级RAG技术：HyDE 与 Self-RAG.md": {
     "hash": "53ab550a3bd7bb9017c143494b7e133b"
-  },
-  "AI/1 RAG/prompt.md": {
-    "hash": "c683891a3379aef69bb8f8d0c6601904"
   },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
@@ -119,20 +113,8 @@
   "coding/std算法/全排列 std, next_permutation.md": {
     "hash": "38bbc5a1ad0b068e1f623967ea508a32"
   },
-  "database/database.md": {
-    "hash": "fdab83bd6c04e13f0317aa2be528ad5c"
-  },
   "database/sqlite/programming interfaces/Application-Defined SQL Functions.md": {
     "hash": "afdf81d8e07b1f6694f5568e14f9bd76"
-  },
-  "database/sqlite/programming interfaces/programming interfaces.md": {
-    "hash": "0c684580d03738fb9083af4ac18711c0"
-  },
-  "database/sqlite/programming interfaces/未命名.md": {
-    "hash": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  "database/sqlite/sqlite.md": {
-    "hash": "7e756e106421dbda44301ffef47ca3fa"
   },
   "database/向量/HNSW索引学习笔记.md": {
     "hash": "f5942b7ebb7ec71f60f79f5335ef697f"

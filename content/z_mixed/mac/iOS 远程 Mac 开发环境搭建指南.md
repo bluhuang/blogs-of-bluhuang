@@ -38,8 +38,11 @@ brew install tmux
 
 ### 2.4 安装 OpenCode CLI（可选，用于 AI 编码）
 
-使用官方脚本：
+```
+brew install opencode/tap/opencode
+```
 
+或者用官方脚本：
 ```
 curl -fsSL https://opencode.ai/install | bash
 ```
@@ -136,5 +139,7 @@ tmux attach -t 会话名
 ## 5. 常见问题
 
 - **连接不上**：检查 Tailscale 是否都 Connected；检查 Mac 远程登录是否开启。
+    
 - **速度非常慢**：查看 `tailscale status` 是否显示 `relay "xxx"`。如果是，说明走中继，需要参考笔记二中的解决方案。
+    
 - **opencode: command not found**：重新执行添加 PATH 的命令。
