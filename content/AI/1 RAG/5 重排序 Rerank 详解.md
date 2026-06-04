@@ -10,17 +10,15 @@ lastmod: 2026-06-02
 
 Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索（向量检索 / BM25）从大规模知识库中快速召回大量候选文档（如 Top-100），Rerank 对这些候选进行精细的二次评分和排序，只将最相关的少量文档（如 Top-5）传递给 LLM 用于生成答案。检索和 Rerank 的核心定位区别如下：
 
-| 维度   | 检索（Retriever）        | 重排序（Rerank）         |
-| ---- | -------------------- | ------------------- |
-| 目标   | "宁可错杀一千，绝不放过一个"（高召回） | "精挑细选，去粗取精"（高精度）    |
-| 输入   | 全量知识库                | 检索返回的候选集（如 Top-100） |
-| 输出   | 候选文档列表（粗排）           | 候选文档列表（精排）          |
-| 速度   | 快（毫秒级）               | 相对慢（逐对计算）           |
-| 可扩展性 | 可处理百万级文档             | 仅处理百/千级文档           |
+| 维度 | 检索（Retriever） | 重排序（Rerank） |
+|------|------------------|------------------|
+| 目标 | "高召回" | "高精度" |
+| 输入 | 全量知识库 | 检索返回的候选集（如 Top-100） |
+| 输出 | 候选文档列表（粗排） | 候选文档列表（精排） |
+| 速度 | 快（毫秒级） | 相对慢（逐对计算） |
+| 可扩展性 | 可处理百万级文档 | 仅处理百/千级文档 |
 
-**为什么检索的排序不够用？** 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种"粗略相似度"缺乏精细的语义交互。常见现象是，检索结果中真正回答问题的文档排在第 3 位，前 2 篇仅提供泛泛的背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。
-
-> 将 Rerank 理解为两个阶段——"初筛（海选）+精排（决赛）"。检索是"快手阿姨"，30 秒抓 10 个苹果（看外表）；Rerank 是"品果大师"，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。
+**为什么检索的排序不够用？** 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种"粗略相似度"缺乏精细的语义交互。常见现象是：检索结果中真正回答问题的文档排在第 3 位，前 2 篇只是泛泛的背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。
 
 ## 2. 技术原理：Bi-Encoder vs Cross-Encoder
 
@@ -48,22 +46,22 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 | 精度 | 一般（粗排） | 高（精排） |
 | 使用阶段 | 第一阶段检索 | 第二阶段 Rerank |
 
-> 正确用法是**串联**而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。用一个通俗例子说明："Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。"
+> 正确用法是**串联**而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。可以这样理解：Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。
 
 ## 3. 主流重排序模型选型
 
 ### 3.1 模型全景对比（2025–2026 年主流）
 
-| 模型 | 研发机构 | 参数量 | 上下文长度 | 授权协议 | 核心特点 | 延迟参考 |
-|------|----------|--------|-----------|----------|----------|----------|
-| **Cohere Rerank 4** (Pro/Fast) | Cohere | — | 33K | 闭源（商业 API） | 托管服务，多语言覆盖广，精度领先 | Fast版低延迟，Pro版精度最高 |
-| **Qwen3-Reranker-4B** | 阿里通义 | 4B | 32K | Apache 2.0 | 中英文均衡，支持 100+ 语言，MMTEB-R 72.74 | 4B 参数量 |
-| **bge-reranker-v2-m3** | BAAI（智源） | 567M | 8K | Apache 2.0 | 中文社区主流，量化后 <200MB，混合场景突出 | 约 80ms |
-| **jina-reranker-v3** | Jina AI | 0.6B | 8K | CC‑BY‑NC‑4.0 | 100+ 语言，专为 Agentic‑RAG 微调 | 轻量高效 |
-| **ColBERT v2** | CMU/Stanford | 110M | 512 | MIT | Token 级后期交互，百万级文档低延迟重排 | 吞吐量高 |
-| **mxbai-rerank-large-v2** | MixedBread | 1.5B | 8K | Apache 2.0 | BEIR 18 项任务零样本 SOTA，多语言泛化强 | — |
-| **ms-marco-MiniLM-L6-v2** | Microsoft | 22M | 512 | MIT | 超轻量，CPU/边缘端部署首选，英文通用标杆 | 极快 |
-| **NVIDIA nv-rerankqa-mistral-4b-v3** | NVIDIA | 4B | 512（每对） | 商业 | 问答召回精度高，Recall@5 可达 75.45% | 依赖 NVIDIA NIM |
+| 模型 | 参数量 | 上下文长度 | 授权协议 | 核心特点 | 延迟参考 |
+|------|--------|-----------|----------|----------|----------|
+| **Rerank 4** (Pro/Fast) | — | 33K | 闭源（商业 API） | 托管服务，多语言覆盖广，精度领先 | Fast版低延迟，Pro版精度最高 |
+| **Qwen3-Reranker-4B** | 4B | 32K | Apache 2.0 | 中英文均衡，支持 100+ 语言，MMTEB-R 72.74 | 4B 参数量 |
+| **bge-reranker-v2-m3** | 567M | 8K | Apache 2.0 | 中文社区主流，量化后 <200MB，混合场景突出 | 约 80ms |
+| **jina-reranker-v3** | 0.6B | 8K | CC‑BY‑NC‑4.0 | 100+ 语言，专为 Agentic‑RAG 微调 | 轻量高效 |
+| **ColBERT v2** | 110M | 512 | MIT | Token 级后期交互，百万级文档低延迟重排 | 吞吐量高 |
+| **mxbai-rerank-large-v2** | 1.5B | 8K | Apache 2.0 | BEIR 18 项任务零样本 SOTA，多语言泛化强 | — |
+| **ms-marco-MiniLM-L6-v2** | 22M | 512 | MIT | 超轻量，CPU/边缘端部署首选，英文通用标杆 | 极快 |
+| **nv-rerankqa-mistral-4b-v3** | 4B | 512（每对） | 商业 | 问答召回精度高，Recall@5 可达 75.45% | 依赖特定推理环境 |
 
 **数据来源**：综合整理自 FutureAGI（2026）、稀土掘金（2026）及 Agentset 对比平台。
 
@@ -71,15 +69,15 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 
 | 场景 | 推荐模型 | 理由 |
 |------|----------|------|
-| **最快落地、不折腾运维** | Cohere Rerank 4（Pro / Fast） | 托管 API，精度领先，多语言覆盖广，按量付费 |
+| **最快落地、不折腾运维** | Rerank 4（Pro / Fast） | 托管 API，精度领先，多语言覆盖广，按量付费 |
 | **中文 + 自托管** | bge-reranker-v2-m3 | 中文社区主流，Apache 2.0，量化后 <200MB，部署成本低 |
 | **开源 + 多语言 + 长文本** | Qwen3-Reranker-4B | Apache 2.0，32K 上下文，100+ 语言，MMTEB-R 72.74 |
 | **英文通用 + 超轻量** | ms-marco-MiniLM-L6-v2 | 22M 参数量，CPU 可跑，MIT 协议，适合边缘部署 |
 | **大规模英文知识库** | ColBERT v2 | Token 级后期交互，吞吐量高，适合百万级文档重排 |
 | **需要代码/工具检索** | Jina Reranker v3 | 专为 Agentic‑RAG 微调，支持 Function Calling 场景 |
-| **高精度问答** | NVIDIA nv-rerankqa-mistral-4b-v3 | 问答场景召回精度高，Recall@5 可达 75.45% |
+| **高精度问答** | nv-rerankqa-mistral-4b-v3 | 问答场景召回精度高，Recall@5 可达 75.45% |
 
-> 问"如何选择 Rerank 模型？"可从四个维度考虑：①精度（看 nDCG/MRR）；②延迟（能否接受 200–500ms）；③成本（自托管 vs API 按量付费）；④语言/数据隐私（是否必须本地部署）。再补充具体推荐逻辑：中文技术文档优先 BGE，追求精度但不想折腾选 Cohere API。
+> 回答"如何选择 Rerank 模型？"可从四个维度考虑：①精度（看 nDCG/MRR）；②延迟（能否接受 200–500ms）；③成本（自托管 vs API 按量付费）；④语言/数据隐私（是否必须本地部署）。具体推荐：中文技术文档优先 BGE，追求精度但不想折腾选 Rerank 4 API。
 
 ## 4. Rerank 的评估指标
 
@@ -132,10 +130,10 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 ## 8. 参考链接
 
 - RAG 系列（十一）：Rerank——让检索结果按重要性排队（CSDN）
-- RAG学习之-Rerank 技术详解：从入门到面试（CSDN）
+- RAG学习之-Rerank 技术详解：从入门到实践（CSDN）
 - Best Rerankers for RAG in 2026: 7 Models Compared（FutureAGI）
 - 主流开源 Rerank 模型解析与选型指南（2026 版）（稀土掘金）
 - Top 5 Reranking Models to Improve RAG Results（MachineLearningMastery）
-- Cohere Rerank 4 Fast vs BAAI/BGE Reranker v2 M3（Agentset）
+- Rerank 4 Fast vs BAAI/BGE Reranker v2 M3（Agentset）
 - 构建AI智能体：RAG超越语义搜索：如何用Rerank模型实现检索精度的大幅提升（腾讯云）
 - 大模型RAG进阶：检索排序Rerank的深度解析与实践（百度开发者中心）
