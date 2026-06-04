@@ -8,17 +8,17 @@ lastmod: 2026-04-13
 
 # 1 什么是 ReAct
 
-ReAct（Reasoning + Acting）是由研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
+ReAct（Reasoning + Acting）是由某研究机构与普林斯顿大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
 
 ### 🧠 前言：从 CoT 到 ReAct
 	COT：Chain-of-Thought, 思维链
 在只有基础对话能力的阶段，大模型更多像一个“一次性回答机”：
 `User: 问题 → LLM : 一次性生成答案`
-即便我们加上了 Memory、RAG，智能体也只是多了“能记”和“会查”：
+即便加上了 Memory、RAG，智能体也只是多了“能记”和“会查”：
 - Memory：记住过去发生了什么（多轮对话、历史任务状态）
 - RAG：在回答前去查一查知识库或互联网
 但这仍然是“问一答一”的模式，缺少真正的多步决策与行动能力。
-ReAct（Reasoning + Acting） 正是为了解决这个问题提出的：
+ReAct（Reasoning + Acting）正是为了解决这个问题提出的：
 在推理过程中，显式地交替输出“思考内容（Thought）”和“行动指令（Action）”，再利用环境反馈（Observation）更新后续推理。
 > 一句话概括：**ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的 prompting 技术**
 
@@ -61,6 +61,7 @@ Final Answer: 尼古拉·特斯拉出生于斯米连（克罗地亚），该地�
 - **动态调整**：根据环境反馈更新操作计划，处理异常情况
 - **可解释性**：生成的推理轨迹让人类能理解决策过程
 - **减少幻觉**：基于外部事实而非内部知识
+
 ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更高级的 prompting 技术。
 
 # 4 ReAct 实现
@@ -71,7 +72,7 @@ ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更�
 import re
 from typing import Dict, Callable 
 
-# 假设这是一个 Chat LLM 接口
+# 假设这是一个Chat LLM 接口
 def call_llm(prompt: str) -> str: 
 	pass
 
@@ -92,7 +93,7 @@ def calculator(expr: str) -> str:
 		return f"计算错误: {e}"
 ```
 
-## 4.2 在 Prompt 里定协议
+## 4.2 在 Prompt 里定义协议
 ```python
 REACT_SYSTEM_PROMPT = """
 你是一个可以一边思考一边使用工具的助手。
@@ -157,4 +158,5 @@ def react_loop(question: str, max_steps: int = 5):
     - 要么直接给出 Final Answer；
 3. **解析 Action**，调用对应工具，补上 Observation；
 4. **循环直到终止**。
-LangChain 做的事情，本质上就是把这个“循环 + 解析 + 工具调用”**封装成一个可复用的 LCEL 运行图**，并提供不少内置工具和 Prompt 模板。
+
+LangChain 做的事情，本质上就是把这个“循环 + 解析 + 工具调用”**封装成一个可复用的 LCEL 运行图**，并提供许多内置工具和 Prompt 模板。

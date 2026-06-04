@@ -6,7 +6,7 @@ date: 2026-06-03
 lastmod: 2026-06-03
 ---
 
-> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑、对比表格及核心技术要点。
+> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑、对比表格及技术要点。
 
 ## 一、背景：为什么需要“高级 RAG”？
 
@@ -203,4 +203,23 @@ Self-RAG 通过**分段生成 + 自适应检索**实现：
 **答**：HyDE 间接抑制幻觉——通过提供更相关的文档给 LLM，减少缺乏依据的生成。Self-RAG 直接抑制——利用 `<IsSup>` 标记强制 LLM 只生成被检索文档支持的声明，不支持的就会被丢弃或重新生成。
 
 #### Q4：实际项目中，你会优先选择 HyDE 还是 Self-RAG？为什么？
-**答**：优先选 HyDE。原因：实现成本低（无需训练，只需加一层 LLM 
+**答**：优先选 HyDE。原因：实现成本低（无需训练，只需加一层 LLM 调用），通用性强（适用任何 LLM 和检索库），能在 1~2 天内集成并看到检索提升。Self-RAG 虽强，但需要高质量训练数据、模型微调和推理优化，适合对事实性和可控性有极致要求的场景（如医疗、金融）。
+
+#### Q5：Self-RAG 的推理速度很慢，有什么优化方法？
+**答**：1）并行处理多个候选文档的 `IsRel` 和 `IsSup` 判断；2）限制最大检索次数（如最多 3 次）；3）使用较小的模型（如 7B）并量化；4）缓存常见查询的检索结果与标记判断。
+
+## 八、参考资源
+
+1. **HyDE 原始论文**：Gao et al., "Precise Zero-Shot Dense Retrieval without Relevance Labels" (2022)  
+   https://arxiv.org/abs/2212.10496
+
+2. **Self-RAG 原始论文**：Asai et al., "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection" (2023)  
+   https://arxiv.org/abs/2310.11511
+
+3. **Self-RAG 代码与模型**：https://github.com/AkariAsai/self-rag
+
+4. **HyDE 实践指南**：LangChain 官方文档 – `HypotheticalDocumentEmbeddings`  
+   https://python.langchain.com/docs/modules/data_connection/retrievers/hyde
+
+5. **高级 RAG 综述**：Gao et al., "Retrieval-Augmented Generation for Large Language Models: A Survey" (2023)  
+   https://arxiv.org/abs/2312.10997
