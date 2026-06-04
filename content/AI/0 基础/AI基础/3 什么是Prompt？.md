@@ -81,7 +81,7 @@ Agent 里，大模型的每次输出都要被你的程序解析和使用。输�
 
 对应 messages 里 `role: "user"` 的部分，就是你每次发给大模型的具体内容：你的问题、你的指令、你要它处理的原始材料（日志、文档、代码……）。
 
-大模型早期阶段，用户通过聊天框发送消息（`user prompt`）与之交互，但模型缺乏人设，回复通用且仅能聊天，无法执行任务（比如上传PDF让它解析成中文再返回）。
+GPT发布初期，用户通过聊天框发送消息（`user prompt`）与大模型交互，但大模型缺乏人设，回复通用且仅能聊天，无法执行任务（比如上传PDF让它解析成中文再返回给你）。
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-8f3a20f1a651ea91f20d3954042bdcd7.png)
 
@@ -121,7 +121,7 @@ Agent 里，大模型的每次输出都要被你的程序解析和使用。输�
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-6ceb93911289e9a1bd01420806d0309e.png)
 
-每次用户发送 user prompt，系统自动将 system prompt 一起发给AI模型，使对话更自然。
+每次用户发送 user prompt，系统自动将 system prompt 一起发给AI模型，使对话更自然
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-35f32b9763391be9051d61a50596be9e.png)
 

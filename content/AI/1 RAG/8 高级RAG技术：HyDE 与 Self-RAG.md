@@ -6,7 +6,7 @@ date: 2026-06-04T19:01:05+0800
 lastmod: 2026-06-03
 ---
 
-> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑、对比表格及核心技术要点。
+> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑与对比表格。
 
 ## 一、背景：为什么需要“高级 RAG”？
 
@@ -191,9 +191,18 @@ Self-RAG 通过**分段生成 + 自适应检索**实现：
 
 ---
 
-## 六、核心技术问答
+## 八、参考资源
 
-#### Q1：HyDE 的核心原理是什么？它为什么比普通查询扩展好？
-**答**：HyDE 用 LLM 生成一个假设性的答案文档，然后对该文档做 Embedding 再检索。它比传统查询扩展（如同义词添加）好的原因是：生成的文档具有自然语言的连贯结构和领域术语，与真实文档的向量空间分布更接近，从而缓解查询与文档的语义鸿沟。
+1. **HyDE 原始论文**：Gao et al., "Precise Zero-Shot Dense Retrieval without Relevance Labels" (2022)  
+   https://arxiv.org/abs/2212.10496
 
-#### Q
+2. **Self-RAG 原始论文**：Asai et al., "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection" (2023)  
+   https://arxiv.org/abs/2310.11511
+
+3. **Self-RAG 代码与模型**：https://github.com/AkariAsai/self-rag
+
+4. **HyDE 实践指南**：LangChain 官方文档 – `HypotheticalDocumentEmbeddings`  
+   https://python.langchain.com/docs/modules/data_connection/retrievers/hyde
+
+5. **高级 RAG 综述**：Gao et al., "Retrieval-Augmented Generation for Large Language Models: A Survey" (2023)  
+   https://arxiv.org/abs/2312.10997

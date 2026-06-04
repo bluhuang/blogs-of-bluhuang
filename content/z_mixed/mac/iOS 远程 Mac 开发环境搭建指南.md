@@ -13,15 +13,15 @@ lastmod: 2026-06-04
 - 一台 Mac（保持开机，连接家里 Wi-Fi）
 - 一部 iPhone（可连接 5G 或其它 Wi-Fi）
 - 两个设备登录同一个 Apple ID（非必需，但方便）
-- Mac 上已经安装了 Homebrew（推荐，用于安装软件）
+- Mac 上已经安装了 Homebrew（推荐，用来装软件）
 
 ## 2. Mac 端安装与配置
 
 ### 2.1 安装 Tailscale（组网工具）
 
-1. 打开官网 [https://tailscale.com/download](https://tailscale.com/download) → 下载 macOS 版本安装包
-2. 安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录
-3. 菜单栏出现 Tailscale 图标，确保状态为 `Connected`
+1. 打开官网 [https://tailscale.com/download](https://tailscale.com/download) → 下载 macOS 版安装包
+2. 安装后，启动 Tailscale，用常用账号（Google/Microsoft/GitHub）登录
+3. 菜单栏出现 Tailscale 图标，确保状态显示为 `Connected`
 
 ### 2.2 开启 Mac 的远程登录
 - 打开 **系统设置 → 通用 → 共享**
@@ -38,13 +38,14 @@ brew install tmux
 
 ### 2.4 安装 OpenCode CLI（可选，用于 AI 编码）
 
-可以通过以下方式安装：
+```
+brew install opencode
+```
 
-- 使用官方安装脚本：
-  ```bash
-  curl -fsSL https://opencode.ai/install | bash
-  ```
-- 如果使用 Homebrew，请参考项目文档添加相应 Tap 后执行 `brew install opencode`。
+或者用官方脚本：
+```
+curl -fsSL https://opencode.ai/install | bash
+```
 
 安装后，如果提示 `command not found`，添加 PATH：
 
@@ -57,7 +58,7 @@ echo 'export PATH="$HOME/.opencode/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 ### 3.1 安装 Tailscale
 - 在非国区 App Store 搜索 “Tailscale” 并安装
 - 打开 App，用 **同一个账号** 登录
-- 确保开关为绿色且显示 `Connected`
+- 确保顶部开关为绿色 `Connected`
 
 ### 3.2 安装 Termius（SSH 客户端）
 - App Store 搜索 “Termius” 并安装（免费版足够）
@@ -74,11 +75,11 @@ echo 'export PATH="$HOME/.opencode/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 ## 4. 每次远程连接的操作流程
 
 ### 4.1 连接前检查
-- Mac 上 Tailscale 已启动且 `Connected`
-- iPhone 上 Tailscale 已打开且 `Connected`
+- Mac 上 Tailscale 已启动且状态为 `Connected`
+- iPhone 上 Tailscale 已打开且状态为 `Connected`
 
 ### 4.2 用 Termius SSH 连上 Mac
-- 打开 Termius，点击你保存的主机 → Connect
+- 打开 Termius，点击保存的主机 → Connect
 - 输入密码（如果没保存密码）
 
 ### 4.3 防止 Mac 自动睡眠（可选）
@@ -137,8 +138,8 @@ tmux attach -t 会话名
 
 ## 5. 常见问题
 
-- **连接不上**：检查 Tailscale 是否都 Connected；检查 Mac 远程登录是否开启。
+- **连接不上**：检查 Tailscale 是否都显示 Connected；检查 Mac 远程登录是否开启。
     
-- **速度非常慢**：查看 `tailscale status` 是否显示 `relay "xxx"`。如果是，说明走中继，需要参考笔记二中的解决方案。
+- **速度非常慢**：查看 `tailscale status` 是否显示 `relay "xxx"`。如果是，说明走中继，需要参考相应笔记中的解决方案。
     
 - **opencode: command not found**：重新执行添加 PATH 的命令。

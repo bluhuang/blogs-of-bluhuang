@@ -71,6 +71,6 @@ tmux attach -t work
 
 ## 5. 小技巧
 
-- 会话名使用短单词：`w`、`c`、`o`
-- 长时间任务可配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏或切换 App 不影响 tmux 内的任何任务
+- 会话名用短单词：`w`、`c`、`o`
+- 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
+- 手机锁屏/切换 App 不影响 tmux 内的任务

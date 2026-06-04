@@ -14,7 +14,7 @@ HNSW 算法完全学习笔记
 
 1. 概述
 
-HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。
+HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如 Chroma、Milvus、Weaviate）和 RAG 系统。
 
 ---
 
@@ -46,14 +46,15 @@ HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻�
 
 这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。
 
-参数 阶段 作用 典型值
-ef_construction 构建索引 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 100~200
-ef_search 查询 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 10~100
+| 参数 | 阶段 | 作用 | 典型值 |
+|------|------|------|--------|
+| ef_construction | 构建索引 | 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 | 100~200 |
+| ef_search | 查询 | 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 | 10~100 |
 
 为什么需要“搜索宽度”？
 HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。
 
-极端情况：若 ef_search 等于该层节点总数，则退化为暴力搜索——精确但极慢。HNSW 的巧妙在于用较小的 ef 换取 95% 以上的召回率。
+极端情况：若 ef_search 等于该层节点总数，则退化为暴力搜索——精确但极慢。HNSW 的巧妙之处在于用较小的 ef 换取 95% 以上的召回率。
 
 ---
 
@@ -105,7 +106,7 @@ l_max = floor(-ln(random.uniform(0,1)) * mL)
 4. 重复步骤 2~3，直到第 0 层。
 5. 在第 0 层同样进行宽度搜索，最终返回距离最近的 k 个节点。
 
-关键：每层只探索 ef_search 个候选，而不是所有节点。这是速度的来源。
+关键点：每层只探索 ef_search 个候选，而不是所有节点。这是速度的来源。
 
 ---
 
@@ -175,10 +176,11 @@ HNSW 支持动态插入，无需预先分配容量。
 
 9. 参数调优总结
 
-参数 影响 调优建议
-M 精度、内存、构建时间 越大精度越高。典型 16~64。
-ef_construction 索引质量、构建时间 越大索引越准。典型 100~200。需 ≥ M。
-ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ k。
+| 参数 | 影响 | 调优建议 |
+|------|------|----------|
+| M | 精度、内存、构建时间 | 越大精度越高。典型 16~64。 |
+| ef_construction | 索引质量、构建时间 | 越大索引越准。典型 100~200。需 ≥ M。 |
+| ef_search | 查询召回率、速度 | 越大召回越高。典型 10~100。需 ≥ k。 |
 
 原则：
 
@@ -204,7 +206,7 @@ ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ 
 
 ---
 
-11. 在向量数据库中的使用示例
+11. 在 Chroma 中的使用示例
 
 ```python
 # 创建 collection 时指定 HNSW 参数
@@ -242,4 +244,4 @@ retriever = vector_store.as_retriever(
 
 · 原始论文：Malkov & Yashunin (2018). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
 · hnswlib 库：https://github.com/nmslib/hnswlib
-· 各向量数据库文档中关于 HNSW 参数的说明。
+· 相关文档：https://docs.trychroma.com/usage#hnsw-parameters

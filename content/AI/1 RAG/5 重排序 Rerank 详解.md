@@ -20,7 +20,7 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 
 **为什么检索的排序不够用？** 向量检索（Bi-Encoder）将 Query 和 Document 独立编码后计算向量相似度，这种“粗略相似度”缺乏精细的语义交互。常见现象是：检索结果中真正回答问题的文档排在第 3 位，前 2 篇只是泛泛的背景介绍。LLM 拿到这样的上下文，关键信息埋在后面，生成质量必然下降。
 
-> 可以将 Rerank 理解为两个阶段——“初筛（海选）+精排（决赛）”。检索是“快手阿姨”，30 秒抓 10 个苹果（看外表）；Rerank 是“品果大师”，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。
+> 把 Rerank 理解为两个阶段——“初筛（海选）+精排（决赛）”。检索是“快手阿姨”，30 秒抓 10 个苹果（看外表）；Rerank 是“品果大师”，接过 10 个苹果仔细检查（摸一摸、闻一闻、掂一掂），告诉你哪 3 个最好吃。
 
 ## 2. 技术原理：Bi-Encoder vs Cross-Encoder
 
@@ -48,7 +48,7 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 | 精度 | 一般（粗排） | 高（精排） |
 | 使用阶段 | 第一阶段检索 | 第二阶段 Rerank |
 
-> 正确用法是**串联**而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。用一个通俗例子理解：“Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。”
+> 正确用法是**串联**而非替代——Bi‑Encoder 先快速召回候选集，Cross‑Encoder 再精细排序。用一个通俗例子说明：“Bi‑Encoder 是海选，速度第一；Cross‑Encoder 是决赛，精度第一。”
 
 ## 3. 主流重排序模型选型
 
@@ -79,7 +79,7 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 | **需要代码/工具检索** | Jina Reranker v3 | 专为 Agentic‑RAG 微调，支持 Function Calling 场景 |
 | **高精度问答** | NVIDIA nv-rerankqa-mistral-4b-v3 | 问答场景召回精度高，Recall@5 可达 75.45% |
 
-> 问“如何选择 Rerank 模型？”可从四个维度回答：①精度（看 nDCG/MRR）；②延迟（能否接受 200–500ms）；③成本（自托管 vs API 按量付费）；④语言/数据隐私（是否必须本地部署）。再补充具体推荐逻辑：中文技术文档优先 BGE，追求精度但不想折腾选 Cohere API。
+> 选择 Rerank 模型可从四个维度考虑：①精度（看 nDCG/MRR）；②延迟（能否接受 200–500ms）；③成本（自托管 vs API 按量付费）；④语言/数据隐私（是否必须本地部署）。具体推荐逻辑：中文技术文档优先 BGE，追求精度但不想折腾选 Cohere API。
 
 ## 4. Rerank 的评估指标
 
@@ -121,25 +121,25 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 - 误区三：“只用最贵的模型。”——需根据场景（中文/英文、预算、延迟）选型。
 - 误区四：“Rerank 和微调是替代关系。”——两者是互补的：Rerank 优化排序，微调优化生成，可同时使用。
 
-## 7. 关键问题速查
+## 7. 速查卡
 
 ### Q1：Rerank 在 RAG 中起什么作用？
-**回答**：Rerank 解决检索阶段“召回多但排序粗”的问题，用 Cross‑Encoder 对候选文档精细重排，把最相关的文档排在前面，提升 LLM 生成的准确性和上下文质量，同时能降低 Token 消耗。
+Rerank 解决检索阶段“召回多但排序粗”的问题，用 Cross‑Encoder 对候选文档精细重排，把最相关的文档排在前面，提升 LLM 生成的准确性和上下文质量，同时能降低 Token 消耗。
 
 ### Q2：Bi‑Encoder 和 Cross‑Encoder 的核心区别？
-**回答**：Bi‑Encoder 分别编码 Query 和 Document，最后算向量相似度，速度极快但交互不足，用于第一段检索。Cross‑Encoder 把两者拼接后联合编码，每一层 Attention 都让词与词交互，精度高但速度慢，用于第二阶段精排。
+Bi‑Encoder 分别编码 Query 和 Document，最后算向量相似度，速度极快但交互不足，用于第一段检索。Cross‑Encoder 把两者拼接后联合编码，每一层 Attention 都让词与词交互，精度高但速度慢，用于第二阶段精排。
 
 ### Q3：如何为项目选择 Rerank 模型？
-**回答**：从四个维度权衡：①精度；②延迟；③成本（API 按量 vs 自托管）；④语言与数据隐私。中文技术文档场景推荐 bge-reranker-v2-m3，追求精度且不想自托管选 Cohere API。
+从四个维度权衡：①精度；②延迟；③成本（API 按量 vs 自托管）；④语言与数据隐私。中文技术文档场景推荐 bge-reranker-v2-m3，追求精度且不想自托管选 Cohere API。
 
 ### Q4：Rerank 会增加多少延迟？怎么解决？
-**回答**：Cross‑Encoder 逐对计算确实增加延迟。但工程上可通过**限制传入 Rerank 的候选文档数量**（如 Top‑50 而非 Top‑100）、使用 GPU 推理、批处理等方式缓解。Rerank 的延迟通常与参数量正相关：轻量模型（如 BGE‑v2‑m3）约 80ms，4B 大模型可达数百毫秒。
+Cross‑Encoder 逐对计算确实增加延迟。但工程上可通过**限制传入 Rerank 的候选文档数量**（如 Top‑50 而非 Top‑100）、使用 GPU 推理、批处理等方式缓解。Rerank 的延迟通常与参数量正相关：轻量模型（如 BGE‑v2‑m3）约 80ms，4B 大模型可达数百毫秒。
 
 ### Q5：Rerank 和微调的区别是什么？
-**回答**：Rerank 不改变生成模型，只优化检索排序；微调直接修改生成模型参数，让模型学习特定领域的回答风格或知识。两者是正交的优化手段，可同时使用。
+Rerank 不改变生成模型，只优化检索排序；微调直接修改生成模型参数，让模型学习特定领域的回答风格或知识。两者是正交的优化手段，可同时使用。
 
 ### Q6：Rerank 如何评估效果？
-**回答**：核心指标是 nDCG@K、MRR 和 RAGAS 的 context_precision。在同一测试集上对比“不加 Rerank”和“加 Rerank”前后的指标变化。
+核心指标是 nDCG@K、MRR 和 RAGAS 的 context_precision。在同一测试集上对比“不加 Rerank”和“加 Rerank”前后的指标变化。
 
 ## 8. 学习路线建议
 
@@ -152,7 +152,7 @@ Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索
 ## 9. 参考链接
 
 - RAG 系列（十一）：Rerank——让检索结果按重要性排队（CSDN）
-- RAG学习之-Rerank 技术详解：从入门到深入（CSDN）
+- RAG学习之-Rerank 技术详解：从入门到实践（CSDN）
 - Best Rerankers for RAG in 2026: 7 Models Compared（FutureAGI）
 - 主流开源 Rerank 模型解析与选型指南（2026 版）（稀土掘金）
 - Top 5 Reranking Models to Improve RAG Results（MachineLearningMastery）

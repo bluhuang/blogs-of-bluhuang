@@ -9,7 +9,7 @@ lastmod: 2026-06-04
 
 ### 📌 本章重点总结（MCP）
 
-1. **MCP 是什么**：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
+1. **MCP 是什么**：某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
 2. **为什么需要 MCP**：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。
 3. **三大核心角色**：
    - **Host**：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。
@@ -50,7 +50,7 @@ lastmod: 2026-06-04
 
 ## 没有 MCP 之前：重复造轮子的噩梦
 
-假设你正在开发一个 Agent，需要它能读取 GitHub 代码仓库、查询公司数据库、操作本地文件系统、还能发 Slack 消息。
+假设你正在开发一个 Agent，需要它能读取某代码仓库、查询公司数据库、操作本地文件系统、还能发消息。
 
 每一个工具，你都得自己来：
 
@@ -68,15 +68,15 @@ lastmod: 2026-06-04
 
 **10 个工具 × 5 个大模型 = 50 套集成代码**
 
-不同模型的 Function Calling 格式还可能有细微差别，你要针对每个模型写适配层。哪天 GitHub API 升级了，50 套代码你一个个去改，这还是基础设施代码，不是真正做产品该花时间的地方。
+不同模型的 Function Calling 格式还可能有细微差别，你要针对每个模型写适配层。哪天某代码仓库 API 升级了，50 套代码你一个个去改，这还是基础设施代码，不是真正做产品该花时间的地方。
 
-整个生态里，无数开发者都在重复做着同一件事：把 GitHub、Slack、数据库、文件系统……这些常见服务接入自己的 AI 应用。每个人写一套，互相之间完全无法复用。这就是没有统一标准时的现实，大家都在重复造同一个轮子。
+整个生态里，无数开发者都在重复做着同一件事：把常见服务接入自己的 AI 应用。每个人写一套，互相之间完全无法复用。这就是没有统一标准时的现实，大家都在重复造同一个轮子。
 
 ***
 
 ## MCP 的出现：给 AI 工具世界定一个标准
 
-这就是 Anthropic 在 2024 年 11 月推出 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
+这就是某公司在 2024 年 11 月推出 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
 
 MCP 要解决的核心问题，可以用一句话概括： **把工具的「写好」和「用起来」彻底拆开。**
 
@@ -108,13 +108,13 @@ Host 就是你最终使用的那个 AI 应用，可以是 Claude Desktop、带 A
 
 ### Client（客户端）
 
-Client 是 Host 内部的一个组件，专门负责管理和 MCP Server 的连接。你可以把它理解为一个「连接器」，Host 说「我要调用 GitHub 工具」，Client 就负责找到对应的 MCP Server、建立连接、发送请求、拿回结果。
+Client 是 Host 内部的一个组件，专门负责管理和 MCP Server 的连接。你可以把它理解为一个「连接器」，Host 说「我要调用工具」，Client 就负责找到对应的 MCP Server、建立连接、发送请求、拿回结果。
 
 每个 Host 通常会内置一个 MCP Client，你不需要自己开发，直接配置就能用。
 
 ### Server（服务端）
 
-Server 是对外暴露工具能力的轻量级服务程序。一个 MCP Server 通常负责一类工具，比如专门处理 GitHub 的 MCP Server、专门操作本地文件的 MCP Server、专门查询数据库的 MCP Server。
+Server 是对外暴露工具能力的轻量级服务程序。一个 MCP Server 通常负责一类工具，比如专门处理代码仓库的 MCP Server、专门操作本地文件的 MCP Server、专门查询数据库的 MCP Server。
 
 Server 和 Host 可以运行在同一台机器上（本地 Server），也可以部署在远程服务器上（远程 Server）。对于 Host 和 Client 来说，这些细节完全透明，调用方式完全一致。
 
@@ -190,25 +190,25 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 ## 一次完整的 MCP 调用流程
 
-用「帮我查一下 GitHub 上 React 仓库最近的 commit」这个任务，走一遍完整的 MCP 调用流程：
+用「帮我查一下某代码仓库上 React 仓库最近的 commit」这个任务，走一遍完整的 MCP 调用流程：
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-5f1c866d5bd35e64c756dd9f6ed5ee51.png)
 
 1. **用户提问**：在 Host（比如 Claude Desktop）里输入「帮我查一下 React 仓库最近的 commit」
 
-2. **Host 分析任务**：大模型判断需要调用 GitHub 工具，生成 Function Call 格式的调用指令
+2. **Host 分析任务**：大模型判断需要调用工具，生成 Function Call 格式的调用指令
 
 3) **Client 接收指令**：Host 把调用指令交给内置的 MCP Client
 
-4) **Client 路由到对应 Server**：Client 根据工具名，找到负责 GitHub 能力的 MCP Server，把请求发过去
+4) **Client 路由到对应 Server**：Client 根据工具名，找到负责相关能力的 MCP Server，把请求发过去
 
-5. **Server 执行**：GitHub MCP Server 调用 GitHub API，拿到最近的 commit 列表
+5. **Server 执行**：对应 MCP Server 调用 API，拿到最近的 commit 列表
 
 6. **结果回传**：Server 把结果按 MCP 协议格式回传给 Client，Client 转交给 Host
 
 7) **Host 生成回复**：大模型拿到结果，整理成自然语言回复给用户
 
-整个过程中，Host 和背后的大模型完全不需要知道 GitHub API 的任何细节，它只管说「我要调 GitHub 工具」，剩下的事情 MCP Server 全权负责。这就是「解耦」的价值：工具的实现细节，和 AI 的调用决策，完全分离。
+整个过程中，Host 和背后的大模型完全不需要知道 API 的任何细节，它只管说「我要调工具」，剩下的事情 MCP Server 全权负责。这就是「解耦」的价值：工具的实现细节，和 AI 的调用决策，完全分离。
 
 ***
 
@@ -229,7 +229,7 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 整理一下这一章的核心认知：
 
-* **MCP 是什么**：Anthropic 推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
+* **MCP 是什么**：某公司推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
 
 * **为什么需要它**：没有统一标准时，每个工具都要自己写集成，多模型场景下是 N×M 的重复工作量；MCP 把这个问题变成 N+M，工具写一次，全平台可用。
 
