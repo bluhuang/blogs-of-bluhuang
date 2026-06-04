@@ -8,14 +8,14 @@ lastmod: 2026-03-11
 
 ### 一、什么是 Morris 遍历？
 
-Morris 遍历是一种**使用线索二叉树（threaded binary tree）思想**的二叉树遍历算法，由 J. H. Morris 在 1979 年提出。它的**核心特点**是：
+Morris 遍历是一种**使用线索二叉树（threaded binary tree）思想**的二叉树遍历算法，由研究人员于 1979 年提出。它的**核心特点**是：
 - **空间复杂度 O(1)**：不使用递归栈或队列，只利用二叉树中大量的空闲指针（右指针）来临时记录遍历的后继节点，从而实现遍历。
 - **时间复杂度 O(n)**：每个节点最多被访问两次。
 Morris 遍历可用于**前序、中序、后序**遍历，但最经典和最常用的是**中序遍历**。
 
 ### 二、为什么可以用 Morris 遍历？
 
-在普通递归或迭代遍历中，需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。
+在普通递归或迭代遍历中，我们需要额外的栈来保存返回路径，空间复杂度为 O(h)（h 为树高）。Morris 遍历巧妙地利用了叶子节点的空右指针，将其指向中序遍历下的后继节点，从而在遍历过程中不需要栈就能回到上层节点。当访问完该节点后，再恢复空指针，保证树的结构不变。
 
 **适用条件**：
 - 要求 O(1) 空间遍历或修改二叉树
@@ -33,7 +33,7 @@ Morris 遍历可用于**前序、中序、后序**遍历，但最经典和最常
 - 然后 `cur` 移动到下一个右节点（`cur = cur->right`），重复。
 
 ```cpp
-// Leetcode 114
+// 经典题目
 class Solution {
 public:
     void flatten(TreeNode* root) {
@@ -73,25 +73,25 @@ public:
     - 如果 `pre` 的右指针指向 `cur`，说明已经遍历完左子树，此时需要恢复：将 `pre->right` 置空，访问 `cur`，然后 `cur = cur->right`。
 
 ```cpp
-// 94. 二叉树的中序遍历
+// 二叉树的中序遍历
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> res;
     TreeNode* cur = root;
     while (cur) {
         if (!cur->left) {
-            // 访问当前节点
+	        // 访问当前节点
             res.push_back(cur->val);
             cur = cur->right;
         } else {
-            // 找左子树的最右节点
+	        // 找左子树的最右节点
             TreeNode* pre = cur->left;
             while (pre->right && pre->right != cur) pre = pre->right;
             if (!pre->right) {
-                // 建立绳索，指向 cur
+	             // 建立绳索，指向 cur
                 pre->right = cur;
                 cur = cur->left;
             } else {
-                // 已建立线索，说明左子树遍历完，恢复指针
+	            // 已建立线索，说明左子树遍历完，恢复指针
                 pre->right = nullptr;
                 // 访问当前节点
                 res.push_back(cur->val);

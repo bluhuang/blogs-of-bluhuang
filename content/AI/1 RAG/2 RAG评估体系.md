@@ -94,6 +94,7 @@ $$
 
 > **一句话**：NDCG 是衡量排序“好结果是否排在前面”的最精细指标。
 
+
 ---
 
 ### 1.2 生成层评估 —— 衡量“基于检索信息，能不能生成优质回答”
@@ -150,20 +151,4 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 **计算**：
 - 召回率 $R_{\text{lcs}} = \frac{L}{\text{len(参考)}}$
 - 精确率 $P_{\text{lcs}} = \frac{L}{\text{len(候选)}}$
-- $$ \text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P_{\text{lcs}}} $$
-  $\beta$ 通常取很大（如 $\beta \to \infty$）使 F 值约等于召回率，即强调覆盖程度。
-
-**特点**：
-- 优点：自动衡量**内容覆盖度**，不要求词序完全一致，适合摘要评估。
-- 缺点：仍依赖参考摘要，无法评估事实正确性（例如生成了一句语法通顺但错误的内容，若参考中不存在，ROUGE 会忽略它）。
-
-##### BERTScore
-**BERTScore** 利用 BERT 的上下文词向量计算候选与参考的语义相似度，能捕捉**同义词替换、语序变化**等深层语义匹配。
-
-**计算步骤**：
-1. 用 BERT 分别将候选句子 $x$ 和参考句子 $y$ 编码为上下文词向量序列：
-   $$\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}$$
-2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
-   $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
-3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i,
+- $$ \text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P

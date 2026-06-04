@@ -8,4 +8,4 @@ lastmod: 2025-12-30
 
 [[sqlite]]
 
-for link
+用于链接

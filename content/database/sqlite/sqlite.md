@@ -6,5 +6,4 @@ date: 2025-12-30
 lastmod: 2025-12-30
 ---
 
-for link
-[[database]]
+for link [[database]]
