@@ -26,7 +26,7 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate">database</a></summary><ul class="space-y-0.5 text-sm"><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="block py-1 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate">向量</a></li><li><details><summary class="cursor-pointer flex items-center py-1 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="mr-1.5 text-xs transition-transform group-open:rotate-90">&#9654;</span>
 <a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate">sqlite</a></summary><ul class="space-y-0.5 text-sm"><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="block py-1 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate">programming interfaces</a></li><li><a href=/blogs-of-bluhuang/database/sqlite/sqlite/ class="block py-1 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate">sqlite</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/database/ class="block py-1 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate">database</a></li></ul></details></li></ul></div><div class=lg:col-9><article><h1 class="h2 mb-4">贪心系列</h1><ul class=mb-4><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/authors/bluhuang/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/coding/>Coding</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-April 1, 2026</li></ul><div class="content mb-10"><details open class="table-of-content blog"><summary>Table of Contents</summary><nav id=TableOfContents></nav></details><p>贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。</p><hr><p>一、贪心算法的适用特征</p><ol><li>贪心选择性质
+April 1, 2026</li></ul><div class="content mb-10"><details open class="table-of-content blog"><summary>Table of Contents</summary><nav id=TableOfContents></nav></details><p>贪心算法是一种在每一步选择中都采取当前最优决策，从而期望获得全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。</p><hr><p>一、贪心算法的适用特征</p><ol><li>贪心选择性质
 局部最优选择可以导致全局最优解。即无需考虑子问题的解，直接做出当前看起来最好的选择，后续问题结构与原问题相同。</li><li>最优子结构
 问题的最优解包含其子问题的最优解。这是动态规划和贪心共有的性质，但贪心要求子问题独立且选择不影响后续结构（或影响可控）。</li><li>常见问题类型
 · 区间调度：选择最多不重叠区间、最少点覆盖所有区间等。
@@ -38,7 +38,7 @@ April 1, 2026</li></ul><div class="content mb-10"><details open class="table-of-
 · 按结束时间排序 → 区间调度
 · 按价值/重量比排序 → 部分背包
 · 按起始时间排序 → 合并区间
-· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”</p><ol start=2><li>证明贪心正确性（实际应用时可简化，但需理解）</li></ol><p>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
+· 维护一个“最优结构”，如最长递增子序列中的“尽可能小的末尾值”</p><ol start=2><li>证明贪心正确性（需理解，可简化）</li></ol><p>· 交换论证：假设存在一个最优解，若其中一步不满足贪心选择，通过交换相邻元素可以得到不差于原解的解。
 · 归纳法：证明每一步贪心后，剩余问题与原问题同构，且原问题的最优解可由贪心解扩展得到。</p><ol start=3><li>实现技巧</li></ol><p>· 排序：大多数贪心题需要先排序。
 · 数据结构优化：
 · 堆（优先队列）用于动态取最小/最大。
