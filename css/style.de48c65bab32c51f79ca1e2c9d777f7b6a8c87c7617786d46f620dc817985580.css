@@ -1,3 +1,14 @@
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.blog-card .summary-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 /*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
 /*!
  * Justified gallery style
@@ -388,6 +399,9 @@
   }
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
+  }
+  .mt-auto {
+    margin-top: auto;
   }
   .mr-1 {
     margin-right: calc(var(--spacing) * 1);
@@ -1235,11 +1249,6 @@
       grid-column: 4;
     }
   }
-  .lg\:col-5 {
-    @media (width >= 64rem) {
-      grid-column: 5;
-    }
-  }
   .lg\:col-6 {
     @media (width >= 64rem) {
       grid-column: 6;
@@ -1310,12 +1319,6 @@
     @media (width >= 64rem) {
       flex: 0 0 auto;
       width: 33.333333333333336%;
-    }
-  }
-  .lg\:col-5 {
-    @media (width >= 64rem) {
-      flex: 0 0 auto;
-      width: 41.66666666666667%;
     }
   }
   .lg\:col-6 {
@@ -3740,6 +3743,17 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 .gallery-slider {
   margin-left: calc(var(--spacing) * 0) !important;
+}
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.blog-card .summary-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 @layer base {
   input:where([type='text']),input:where(:not([type])),input:where([type='email']),input:where([type='url']),input:where([type='password']),input:where([type='number']),input:where([type='date']),input:where([type='datetime-local']),input:where([type='month']),input:where([type='search']),input:where([type='tel']),input:where([type='time']),input:where([type='week']),select:where([multiple]),textarea,select {
