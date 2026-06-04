@@ -2,7 +2,7 @@
 title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-04
+date: 2026-06-04T19:01:05+0800
 lastmod: 2026-06-04
 ---
 
@@ -61,9 +61,9 @@ tmux kill-server
 # 首次连接：创建会话
 tmux new -s work
 
-# 运行程序（如 opencode、vim、npm run dev）
+# 运行你的程序（如 opencode、vim、npm run dev）
 
-# 临时断开（不中断任务）：按 Ctrl+B 然后按 D
+# 临时断开（不中断任务）: Ctrl+B 然后按 D
 
 # 下次连接：恢复会话
 tmux attach -t work
@@ -72,5 +72,5 @@ tmux attach -t work
 ## 5. 小技巧
 
 - 会话名使用短单词：`w`、`c`、`o`
-- 长时间任务可配合 `caffeinate` 防止 Mac 进入睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏或切换 App 不会影响 tmux 内的任务运行
+- 长时间任务可配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
+- 手机锁屏或切换 App 不影响 tmux 内的任何任务

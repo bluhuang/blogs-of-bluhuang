@@ -2,7 +2,7 @@
 title: "Application-Defined SQL Functions"
 categories: ["database"]
 author: "BluHuang"
-date: 2026-06-02
+date: 2026-06-04T19:01:05+0800
 lastmod: 2025-12-30
 ---
 
@@ -10,13 +10,13 @@ lastmod: 2025-12-30
 
 source: https://sqlite.org/appfunc.html
 # 1 简介
-1. SQLite 支持用户实现自定义回调方法，用于实现一些特殊功能，类似于用户自定义函数（UDF）。
+1. SQLite 支持用户实现自定义回调函数，以实现特殊功能，类似于用户自定义函数 (UDF)。
 2. 自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。
-3. 创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言（如 Python、Java 等）中实现。
+3. 创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言中实现（如 Python、Java 等）。
 
 # 2 相关接口
 
-## sqlite3_create_function 系列
+## sqlite3_create_function family
 ### 1 sqlite3_create_function()
 #### 基本信息
 
@@ -28,8 +28,8 @@ int sqlite3_create_function(
   int eTextRep,           /* 首选文本编码 */
   void *pApp,             /* 应用数据指针 */
   void (*xFunc)(sqlite3_context*,int,sqlite3_value**), /* 标量函数 */
-  void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合 step 函数 */
-  void (*xFinal)(sqlite3_context*)                     /* 聚合 finalize 函数 */
+  void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合step函数 */
+  void (*xFinal)(sqlite3_context*)                     /* 聚合finalize函数 */
 );
 ```
 
@@ -42,7 +42,6 @@ int sqlite3_create_function(
     - 如果 `xStep` 和 `xFinal` 非 NULL，注册聚合函数
 - **应用数据**：通过 `pApp` 传递用户数据
 - **内存管理**：无自动清理机制，需要手动管理内存
-
 ### 2 sqlite3_create_function16()
 
 #### 基本信息
@@ -62,7 +61,7 @@ int sqlite3_create_function16(
 #### 特点
 - **UTF-16 支持**：函数名使用 UTF-16 编码
 - **向后兼容**：为需要 UTF-16 函数名的应用提供支持
-- **功能相同**：与 `sqlite3_create_function()` 功能相同，仅函数名编码不同
+- **功能相同**：与 `sqlite3_create_function()` 功能相同，只是函数名编码不同
 - **使用场景**：
     - Windows API 集成（Windows 原生使用 UTF-16）
     - 需要处理宽字符的遗留系统
@@ -90,6 +89,7 @@ int sqlite3_create_function_v2(
 - **内存安全**：避免内存泄漏，更安全
 - **推荐使用**：SQLite 官方推荐使用此版本
 
+
 ### 4 sqlite3_create_window_function
 #### 基本信息
 ```
@@ -99,10 +99,10 @@ int sqlite3_create_window_function(
   int nArg,               /* 参数个数 */
   int eTextRep,           /* 首选文本编码 */
   void *pApp,             /* 应用数据指针 */
-  void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step 函数 */
-  void (*xFinal)(sqlite3_context*),                    /* finalize 函数 */
-  void (*xValue)(sqlite3_context*),                    /* value 函数 */
-  void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse 函数 */
+  void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* step函数 */
+  void (*xFinal)(sqlite3_context*),                    /* finalize函数 */
+  void (*xValue)(sqlite3_context*),                    /* value函数 */
+  void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse函数 */
   void (*xDestroy)(void*)                              /* 析构函数 */
 );
 ```
@@ -113,24 +113,27 @@ int sqlite3_create_window_function(
 - **反向处理**：支持 `xInverse` 用于优化窗口函数性能
 - **复杂功能**：支持滑动窗口、排序、分组等高级功能
 
-# 3 UDF 类型
+# 3 UDF类型
 ## 3.1 标量函数 (Scalar Functions)
 
 - 接受参数，返回单个值
 - 对每一行数据独立计算
 - 示例：`UPPER()`, `ABS()`, `DATE()`
+    
 
 ## 3.2 聚合函数 (Aggregate Functions)
 
 - 跨多行数据操作，返回聚合结果
 - 需要维护状态信息
 - 示例：`SUM()`, `AVG()`, `COUNT()`
+    
 
 ## 3.3 窗口函数 (Window Functions)
 
 - SQLite 3.25.0+ 支持
 - 在窗口帧上执行计算
 - 示例：`ROW_NUMBER()`, `RANK()`
+
 
 # 4 参数含义
 
@@ -150,15 +153,15 @@ int sqlite3_create_function_v2(
 
 ## 4.1 zFunctionName
 
-1. 该参数传入函数名：第二个参数是要创建的 SQL 函数的名称。通常名称采用 UTF-8 编码，但对于 `sqlite3_create_function16()`，名称应为本地字节序的 UTF-16 编码。
-2. 函数名长度限制为 255 字节：SQL 函数名的最大长度为 255 个 UTF-8 字节。尝试创建更长名称的函数会导致 `SQLITE_MISUSE` 错误。
-3. UDF 注册支持重载：可以多次使用相同的函数名调用 SQL 函数创建接口。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册该 SQL 函数的两个变体，各自接受不同数量的参数。
+1. 该参数传入方法名：第二个参数是要创建的 SQL 函数的名称。名称通常为 UTF8 编码，但对于 `sqlite3_create_function16()` 需采用本地字节序的 UTF16。
+2. 函数名长度限制为 255 字节：SQL 函数名称的最大长度为 UTF8 的 255 字节。任何尝试创建更长名称的函数将导致 `SQLITE_MISUSE` 错误。
+3. UDF 注册支持重载：可通过相同的函数名称多次调用 SQL 函数创建接口。例如，如果两次调用的函数名相同但参数个数不同，则会注册该 SQL 函数的两个变体，分别接受不同数量的参数。
 
 ## 4.2 nArg
-1. 表示参数数量，`int` 类型
-2. 参数大小范围为 -1（可变参数），默认最大值为 127（实际最大值为 `SQLITE_MAX_FUNCTION_ARG` 的 32767）。
+1. 表示参数数量，int 类型
+2. 参数大小范围为 -1，默认为 127（最大值为 `SQLITE_MAX_FUNCTION_ARG`，即 32767）
 
-## 4.3 eTextRep 文本编码
+## 4.3 **eTextRep** 文本编码
 - **类型**：`int` - 位掩码
 - **作用**：指定函数的文本编码偏好
 - **取值**：
