@@ -3,34 +3,34 @@
     "hash": "1d98be5f08c18b030e94f00d7218ea8d"
   },
   "AI/0 基础/AI基础/10 什么是向量数据库？.md": {
-    "hash": "5b8022fe0d2c2a0b78bb1271a7f60bce"
+    "hash": "71743d987e035d7f0c8df9358ac3b12e"
   },
   "AI/0 基础/AI基础/11 什么是Harness工程？.md": {
-    "hash": "bac769028e072d7a83b38b3d05c3c6f2"
+    "hash": "74229e6bbe77913e5c9c39936f5a1c77"
   },
   "AI/0 基础/AI基础/2 什么是大模型？.md": {
-    "hash": "314d96d5a2e6b71c2def2da29414fb0a"
+    "hash": "0470f2a5cae09f2e87e89b5b38aa1fcb"
   },
   "AI/0 基础/AI基础/3 什么是Prompt？.md": {
-    "hash": "ddcc4d8e95898f55f88fe8dc3e039095"
+    "hash": "faa99a7f37c5f12784941e346d6d3db4"
   },
   "AI/0 基础/AI基础/4 什么是 Agent？.md": {
-    "hash": "5a224b81a5ad6134053147b6756cca78"
+    "hash": "68a463104344914f55b2d1ba170fa129"
   },
   "AI/0 基础/AI基础/5 什么是 Tool？.md": {
-    "hash": "5e7ba7a7428c50f6ecc8176f7c371c57"
+    "hash": "9b47850dc7a2ad502a726bdc7212e514"
   },
   "AI/0 基础/AI基础/6 什么是 Function Call？（协议）.md": {
-    "hash": "9503a2d11e62c9458e521bfa36d36f8e"
+    "hash": "37df27ccda799d9c5d441299bb3bd5e0"
   },
   "AI/0 基础/AI基础/7 什么是MCP？.md": {
-    "hash": "12cf78cd1de7ed449e509ef72f2d6764"
+    "hash": "f7dc49270308f7597800158eb4ac0e29"
   },
   "AI/0 基础/AI基础/8 什么是 Skills？.md": {
-    "hash": "782f9efd71b9dda3c7cd4bc0e888c477"
+    "hash": "1d0891303d879c8c746ced7f491e7c5f"
   },
   "AI/0 基础/AI基础/9 什么是 RAG？.md": {
-    "hash": "56f7ced385896e152608a392b635c2d3"
+    "hash": "fdc0c159500591b7590f863d54ea8a2c"
   },
   "AI/0 基础/Agent/1 Agent基础必知必会.md": {
     "hash": "e2101a856690d7995539c53eaab59373"
@@ -42,7 +42,7 @@
     "hash": "c986ab493069faa6f4974fc193169f97"
   },
   "AI/1 RAG/1 RAG全流程解析.md": {
-    "hash": "f83822f466b83ae9d0c3590d2cb87045"
+    "hash": "fc15f5630e92e3acfbe74cc8d7a5baf6"
   },
   "AI/1 RAG/2 RAG评估体系.md": {
     "hash": "0b62d7828e132f26a85e7cd13a27c642"
@@ -58,6 +58,12 @@
   },
   "AI/1 RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md": {
     "hash": "39d50ef93e363aa89ca1716ed01e773c"
+  },
+  "AI/1 RAG/7 Embedding模型原理.md": {
+    "hash": "c7c22937e5ca17c1ff3a36c708d5954f"
+  },
+  "AI/1 RAG/8 高级RAG技术：HyDE 与 Self-RAG.md": {
+    "hash": "53ab550a3bd7bb9017c143494b7e133b"
   },
   "AI/1 RAG/prompt.md": {
     "hash": "c683891a3379aef69bb8f8d0c6601904"
@@ -130,5 +136,17 @@
   },
   "database/向量/HNSW索引学习笔记.md": {
     "hash": "f5942b7ebb7ec71f60f79f5335ef697f"
+  },
+  "z_efficiency/prompt/user prompt/学习笔记生成.md": {
+    "hash": "d8c960a25e94fc1b5b8ad8c70de556f8"
+  },
+  "z_mixed/mac/Tailscale 连接指南与使用详解.md": {
+    "hash": "95b418bb533645dc5f7e148e2ec84abb"
+  },
+  "z_mixed/mac/iOS 远程 Mac 开发环境搭建指南.md": {
+    "hash": "3ae3a4ed4fccb41e443543365c30dd51"
+  },
+  "z_mixed/mac/tmux 使用指南.md": {
+    "hash": "b21789e96cbf0eb865ebc891b734c89a"
   }
 }
