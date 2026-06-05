@@ -70,10 +70,6 @@
                 "url": "/AI/9-什么是-rag/"
               }
             ]
-          },
-          {
-            "title": "link",
-            "url": "/AI/link/"
           }
         ]
       },
@@ -112,10 +108,6 @@
           {
             "title": "8 高级RAG技术：HyDE 与 Self-RAG",
             "url": "/AI/8-高级rag技术hyde-与-self-rag/"
-          },
-          {
-            "title": "prompt",
-            "url": "/AI/prompt/"
           }
         ]
       }
@@ -226,20 +218,8 @@
               {
                 "title": "Application-Defined SQL Functions",
                 "url": "/database/application-defined-sql-functions/"
-              },
-              {
-                "title": "programming interfaces",
-                "url": "/database/programming-interfaces/"
-              },
-              {
-                "title": "未命名",
-                "url": "/database/未命名/"
               }
             ]
-          },
-          {
-            "title": "sqlite",
-            "url": "/database/sqlite/"
           }
         ]
       },
@@ -252,10 +232,6 @@
             "url": "/database/hnsw索引学习笔记/"
           }
         ]
-      },
-      {
-        "title": "database",
-        "url": "/database/database/"
       }
     ]
   },
