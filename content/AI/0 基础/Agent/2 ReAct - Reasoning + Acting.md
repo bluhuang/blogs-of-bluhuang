@@ -9,7 +9,7 @@ lastmod: 2026-04-13
 
 # 1 什么是 ReAct
 
-ReAct（Reasoning + Acting）是由研究机构和大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
+ReAct（Reasoning + Acting）是由研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
 
 ### 🧠 前言：从 CoT 到 ReAct
 	COT：Chain-of-Thought, 思维链
@@ -21,19 +21,19 @@ ReAct（Reasoning + Acting）是由研究机构和大学于 2022 年提出的智
 但这仍然是“问一答一”的模式，缺少真正的多步决策与行动能力。
 ReAct（Reasoning + Acting） 正是为了解决这个问题提出的：
 在推理过程中，显式地交替输出“思考内容（Thought）”和“行动指令（Action）”，再利用环境反馈（Observation）更新后续推理。
-> 一句话概括：**ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更加高级的 prompting 技术**
+> 一句话概括：**ReAct 让 LLM 一边自言自语地推理，一边调用工具，是一种更高级的提示技术**
 
 # 2 为什么需要 ReAct
 在 ReAct 出现之前，利用 LLM 解决复杂任务主要有两种独立方法，各有局限：[](https://systems-analysis.ru/int/index.php?title=ReAct_Prompting_%E2%80%94_ReAct_%E6%8F%90%E7%A4%BA%E6%B3%95&oldid=6038)
 - **思维链（CoT）**：模型生成逐步的逻辑推理，但完全依赖内部知识，常导致事实错误和"幻觉"。
 - **仅行动规划（Act-Only）**：模型生成行动与外部环境互动，但缺乏高层规划，处理错误时表现不佳。
-ReAct 将两者的优点结合：模型能够推理，并将其推理"植根于"外部世界的事实，根据反馈调整行动。
+ReAct 将两者的优点结合：模型能够推理，并将其推理"植根于"外部世界的事实，根据反馈调整行动
 
 # 3 ReAct 的工作机制："思考—行动—观察"循环
 ## 3.1 工作机制
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/Agent/Pasted%20image%2020260413144128.png)
-模型在一个迭代循环中生成由**思考（Thought）**、**行动（Action）** 和 **观察（Observation）** 步骤组成的轨迹。
+模型在一个迭代循环中生成由**思考（Thought）**、**行动（Action）** 和 **观察（Observation）** 步骤组成的轨迹。
 
 **典型轨迹示例**：
 ```
@@ -62,7 +62,7 @@ Final Answer: 尼古拉·特斯拉出生于斯米连（克罗地亚），该地�
 - **动态调整**：根据环境反馈更新操作计划，处理异常情况
 - **可解释性**：生成的推理轨迹让人类能理解决策过程
 - **减少幻觉**：基于外部事实而非内部知识
-ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更高级的 prompting 技术。
+ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更高级的提示技术。
 
 # 4 ReAct 实现
 手撕简化版 ReAct 循环（伪代码，逻辑关键）
@@ -72,7 +72,7 @@ ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更�
 import re
 from typing import Dict, Callable 
 
-# 假设这是一个 Chat LLM 接口
+# 假设这是一个Chat LLM 接口
 def call_llm(prompt: str) -> str: 
 	pass
 
@@ -93,7 +93,7 @@ def calculator(expr: str) -> str:
 		return f"计算错误: {e}"
 ```
 
-## 4.2 在 Prompt 里定协议
+## 4.2 在 Prompt 里定义协议
 ```python
 REACT_SYSTEM_PROMPT = """
 你是一个可以一边思考一边使用工具的助手。
