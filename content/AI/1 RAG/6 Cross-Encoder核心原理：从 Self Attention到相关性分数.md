@@ -17,7 +17,7 @@ Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 D
 - **第一阶段（检索）** ：Bi‑Encoder 或 BM25 快速从全量知识库中召回 **Top‑50 / Top‑100** 候选文档（高召回）
 - **第二阶段（重排序）** ：Cross‑Encoder 对这些候选文档逐一精细打分并重新排序，输出 **Top‑3 / Top‑5** 最相关的文档（高精度）
 
-> Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。其计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算；必须用 Bi‑Encoder 先做粗筛。
+> Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。为什么不用 Cross‑Encoder 直接做检索？核心原因是 Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算；必须用 Bi‑Encoder 先做粗筛。
 
 ## 2. 与 Bi‑Encoder 的根本区别
 
@@ -78,13 +78,13 @@ $$s(q, d) = \sigma( \mathbf{w}^\top \mathbf{h}_{[CLS]}(\text{[CLS]} q \text{[SEP
 
 | 模型 | 参数量 | 特点 | 适用场景 |
 |------|--------|------|----------|
-| **BGE‑Reranker‑v2‑m3** | ~560M | 中文社区主流，Apache 2.0，量化后 <200MB | 中文 + 自托管，平衡精度与资源 |
-| **Cohere Rerank 4** | 闭源 API | 精度领先，多语言，按量付费 | 最快落地，不折腾运维 |
-| **ms‑marco‑MiniLM‑L‑6‑v2** | 22M | 超轻量，CPU 可跑，MIT 协议 | 英文通用，边缘部署，学习入门 |
-| **Qwen3‑Reranker‑4B** | 4B | 100+ 语言，Apache 2.0，32K 上下文 | 多语言 + 长文档 + 开源 |
-| **ColBERT v2** | 110M | Token‑级后期交互，高吞吐 | 大规模英文知识库精排 |
+| **中文开源Rerank模型** | ~560M | 中文社区主流，Apache 2.0，量化后 <200MB | 中文 + 自托管，平衡精度与资源 |
+| **商用API Rerank模型** | 闭源API | 精度领先，多语言，按量付费 | 最快落地，不折腾运维 |
+| **超轻量英文模型** | 22M | 超轻量，CPU 可跑，MIT 协议 | 英文通用，边缘部署，学习入门 |
+| **多语言长上下文模型** | 4B | 100+ 语言，Apache 2.0，32K 上下文 | 多语言 + 长文档 + 开源 |
+| **Token级后期交互模型** | 110M | Token‑级后期交互，高吞吐 | 大规模英文知识库精排 |
 
-> **选型建议**：选型时需从**精度、延迟、成本、隐私**四个维度权衡。中文技术文档首选 BGE，追求精度但不想自托管选 Cohere API，学习入门用 MiniLM。
+> **选型建议**：从**精度、延迟、成本、隐私**四个维度权衡。中文技术文档首选中文开源Rerank模型，追求精度但不想自托管选商用API，学习入门用超轻量英文模型。
 
 ## 6. 工程落地架构
 
@@ -120,23 +120,23 @@ $$s(q, d) = \sigma( \mathbf{w}^\top \mathbf{h}_{[CLS]}(\text{[CLS]} q \text{[SEP
 4. **Rerank 和微调是替代关系** ❌  
    Rerank 优化排序，微调优化生成，两者正交且可同时使用。Rerank 属于检索侧优化，不改变生成模型。
 
-## 8. 常见技术问题
+## 8. 常见技术问答
 
-### 问题1：Cross‑Encoder 比 Bi‑Encoder 准在哪里？
+### Q1：Cross‑Encoder 比 Bi‑Encoder 准在哪里？
 
-Bi‑Encoder 将 Query 和 Document 分开编码，在最后算一次点积，交互非常浅；Cross‑Encoder 将两者拼接，Transformer 的每一层 Self‑Attention 都让 Query 的每个 token 与 Document 的每个 token 交互，能捕捉到否定词、语序、矛盾信息等深层语义关系。实验表明，Cross‑Encoder 重排序能使 nDCG@10 比纯向量检索提升 15–30%，显著减少 LLM 幻觉。
+**回答**：Bi‑Encoder 将 Query 和 Document 分开编码，在最后算一次点积，交互非常浅；Cross‑Encoder 将两者拼接，Transformer 的每一层 Self‑Attention 都让 Query 的每个 token 与 Document 的每个 token 交互，能捕捉到否定词、语序、矛盾信息等深层语义关系。实验表明，Cross‑Encoder 重排序能使 nDCG@10 比纯向量检索提升 15–30%，显著减少 LLM 幻觉。
 
-### 问题2：Cross‑Encoder 的训练数据怎么构造？
+### Q2：Cross‑Encoder 的训练数据怎么构造？
 
-训练数据是 (query, document, label) 三元组。label 可来自点击日志（相关/不相关）、公开数据集（MS MARCO、Natural Questions）的人工标注，或由 LLM 自动标注并经人工校验。典型损失函数是二元交叉熵（BCE）。
+**回答**：训练数据是 (query, document, label) 三元组。label 可来自点击日志（相关/不相关）、公开数据集（MS MARCO、Natural Questions）的人工标注，或由 LLM 自动标注并经人工校验。典型损失函数是二元交叉熵（BCE）。
 
-### 问题3：Cross‑Encoder 太慢，怎么解决？
+### Q3：Cross‑Encoder 太慢，怎么解决？
 
-①限制候选集大小，只对检索 Top‑50/100 重排序；②批量推理，一次前向传播处理多个 (q, d) 对；③模型量化（INT8）或蒸馏到轻量模型；④用 GPU 加速（每对约 20–80ms）。轻量 MiniLM 模型在 CPU 上可跑至百毫秒级。
+**回答**：①限制候选集大小，只对检索 Top‑50/100 重排序；②批量推理，一次前向传播处理多个 (q, d) 对；③模型量化（INT8）或蒸馏到轻量模型；④用 GPU 加速（每对约 20–80ms）。轻量 MiniLM 模型在 CPU 上可跑至百毫秒级。
 
-### 问题4：Rerank 怎么评估效果？
+### Q4：Rerank 怎么评估效果？
 
-用 nDCG@K、MRR、context_precision（RAGAS）等指标。同一测试集上对比“不加 Rerank”和“加 Rerank”，重点看排序质量提升（nDCG@10），而不只是召回率。
+**回答**：用 nDCG@K、MRR、context_precision（RAGAS）等指标。同一测试集上对比“不加 Rerank”和“加 Rerank”，重点看排序质量提升（nDCG@10），而不只是召回率。
 
 ## 9. 参考链接
 

@@ -13,7 +13,7 @@ lastmod: 2026-06-04
 - 一台 Mac（保持开机，连接家里 Wi-Fi）
 - 一部 iPhone（可连接 5G 或其它 Wi-Fi）
 - 两个设备登录同一个 Apple ID（非必需，但方便）
-- Mac 上已经安装了 Homebrew（推荐，用来装软件）
+- Mac 上已经安装了 Homebrew（推荐，用于安装软件）
 
 ## 2. Mac 端安装与配置
 

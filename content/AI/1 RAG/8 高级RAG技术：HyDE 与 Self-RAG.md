@@ -6,7 +6,7 @@ date: 2026-06-04T19:01:05+0800
 lastmod: 2026-06-03
 ---
 
-> 本笔记为自包含内容，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑与对比表格。
+> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑及对比表格。
 
 ## 一、背景：为什么需要“高级 RAG”？
 
@@ -191,18 +191,18 @@ Self-RAG 通过**分段生成 + 自适应检索**实现：
 
 ---
 
-## 六、参考资源
+## 八、参考资源
 
-1. **HyDE 原始论文**：Gao et al., "Precise Zero-Shot Dense Retrieval without Relevance Labels" (2022)  
+1. **HyDE 原始论文**：相关文献，“Precise Zero-Shot Dense Retrieval without Relevance Labels” (2022)  
    https://arxiv.org/abs/2212.10496
 
-2. **Self-RAG 原始论文**：Asai et al., "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection" (2023)  
+2. **Self-RAG 原始论文**：相关文献，“Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection” (2023)  
    https://arxiv.org/abs/2310.11511
 
-3. **Self-RAG 代码与模型**：https://github.com/AkariAsai/self-rag
+3. **Self-RAG 代码与模型**：https://github.com/self-rag
 
 4. **HyDE 实践指南**：LangChain 官方文档 – `HypotheticalDocumentEmbeddings`  
    https://python.langchain.com/docs/modules/data_connection/retrievers/hyde
 
-5. **高级 RAG 综述**：Gao et al., "Retrieval-Augmented Generation for Large Language Models: A Survey" (2023)  
+5. **高级 RAG 综述**：相关文献，“Retrieval-Augmented Generation for Large Language Models: A Survey” (2023)  
    https://arxiv.org/abs/2312.10997

@@ -102,7 +102,7 @@ sudo tailscale set --relay-server-port=40000
 ## 4. 与 Clash 共存的已知经验
 
 - 当前环境：Clash TUN 开启 + Tailscale 走 IPv6 直连 → 可共存，无需关闭 Clash
-- 若后续又出现 relay，先关闭 Clash 再重启 Tailscale，以此判断是否是 Clash 导致
+- 若未来又出现 relay，先关 Clash 再重启 Tailscale 判断是否是 Clash 导致
 - 最稳定组合：Clash 规则排除 Tailscale + 启用 IPv6
 
 ## 5. 一句话总结
