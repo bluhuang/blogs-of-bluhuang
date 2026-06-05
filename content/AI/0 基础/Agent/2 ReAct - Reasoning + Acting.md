@@ -9,7 +9,7 @@ lastmod: 2026-04-13
 
 # 1 什么是 ReAct
 
-ReAct（Reasoning + Acting）是由一家研究机构与一所大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
+ReAct（Reasoning + Acting）是由研究机构和大学于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成**推理轨迹**与**任务操作**，模拟人类解决问题时的"思考-行动-观察"循环。
 
 ### 🧠 前言：从 CoT 到 ReAct
 	COT：Chain-of-Thought, 思维链
@@ -40,12 +40,12 @@ ReAct 将两者的优点结合：模型能够推理，并将其推理"植根于"
 Question: 以交流电闻名的发明家出生于哪个首都城市？
 Thought 1: 我需要查明交流电的发明者，然后找到他的出生地，并核实该城市是否为首都。
 Action 1: Search[交流电发明者]
-Observation 1: 交流电（AC）由某位发明家开发和推广。
-Thought 2: 现在我需要找出该发明家的出生地。
-Action 2: Search[发明家出生地]
-Observation 2: 该发明家出生于一个村庄（现属某国家）。
-Thought 3: 这个村庄不是首都。他的出生地不是首都。
-Final Answer: 该发明家出生于一个村庄，该地不是首都。
+Observation 1: 交流电（AC）由尼古拉·特斯拉开发和推广。
+Thought 2: 现在我需要找出尼古拉·特斯拉的出生地。
+Action 2: Search[尼古拉·特斯拉出生地]
+Observation 2: 尼古拉·特斯拉出生于奥地利帝国的斯米连村（现属克罗地亚）。
+Thought 3: 斯米连不是首都。他的出生地不是首都。
+Final Answer: 尼古拉·特斯拉出生于斯米连（克罗地亚），该地不是首都。
 ```
 
 ## 3.2 三个核心元素的区别
@@ -72,7 +72,7 @@ ReAct 让 LLM 一边"自言自语"地推理，一边调用工具，是一种更�
 import re
 from typing import Dict, Callable 
 
-# 假设这是一个Chat LLM 接口
+# 假设这是一个 Chat LLM 接口
 def call_llm(prompt: str) -> str: 
 	pass
 
