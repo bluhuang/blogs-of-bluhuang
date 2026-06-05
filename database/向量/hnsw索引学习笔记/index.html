@@ -62,7 +62,7 @@ user prompt
 mac
 <span class="text-xs text-text-light ml-1.5">(3)</span></a></li></ul></details></li></ul></div><div class=lg:col-9><article><h1 class="h2 mb-4">HNSW索引学习笔记</h1><ul class=mb-4><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/authors/bluhuang/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/database/>Database</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-June 4, 2026</li></ul><div class="content mb-10"><details open class="table-of-content blog"><summary>Table of Contents</summary><nav id=TableOfContents></nav></details><p>HNSW 算法完全学习笔记</p><p>基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。</p><hr><ol><li>概述</li></ol><p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如 Chroma、Milvus、Weaviate）和 RAG 系统。</p><hr><ol start=2><li>核心数据结构</li></ol><p>2.1 多层图</p><p>· 第 0 层（底层）：包含所有数据节点，连接稠密（每个节点有 M 个邻居）。
+June 4, 2026</li></ul><div class="content mb-10"><details open class="table-of-content blog"><summary>Table of Contents</summary><nav id=TableOfContents></nav></details><p>HNSW 算法完全学习笔记</p><p>基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。</p><hr><ol><li>概述</li></ol><p>HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。</p><hr><ol start=2><li>核心数据结构</li></ol><p>2.1 多层图</p><p>· 第 0 层（底层）：包含所有数据节点，连接稠密（每个节点有 M 个邻居）。
 · 第 1 层：包含约 50% 的节点，连接较稀疏。
 · 第 2 层：包含约 25% 的节点，连接更稀疏。
 · ……
@@ -71,7 +71,7 @@ June 4, 2026</li></ul><div class="content mb-10"><details open class="table-of-c
 · 节点在每一层有一个“代表”（若该节点出现在该层）。
 · 边是双向的，表示节点间的“邻居关系”。
 · 每个节点的最大邻居数由参数 M 限制（默认 16）。</p><hr><ol start=3><li>关键参数：ef_construction 与 ef_search</li></ol><p>这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。</p><table><thead><tr><th>参数</th><th>阶段</th><th>作用</th><th>典型值</th></tr></thead><tbody><tr><td>ef_construction</td><td>构建索引</td><td>为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。</td><td>100~200</td></tr><tr><td>ef_search</td><td>查询</td><td>每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。</td><td>10~100</td></tr></tbody></table><p>为什么需要“搜索宽度”？
-HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。</p><p>极端情况：若 ef_search 等于该层节点总数，则退化为暴力搜索——精确但极慢。HNSW 的巧妙之处在于用较小的 ef 换取 95% 以上的召回率。</p><hr><ol start=4><li>入口点与层数分配</li></ol><p>4.1 入口点 (Entry Point)</p><p>· 顶层的一个固定起始节点，所有搜索和插入都从此开始。
+HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。</p><p>极端情况：若 ef_search 等于该层节点总数，则退化为暴力搜索——精确但极慢。HNSW 的巧妙在于用较小的 ef 换取 95% 以上的召回率。</p><hr><ol start=4><li>入口点与层数分配</li></ol><p>4.1 入口点 (Entry Point)</p><p>· 顶层的一个固定起始节点，所有搜索和插入都从此开始。
 · 通常选择第一个插入的节点作为入口点。</p><p>4.2 层数分配（随机）</p><p>每个节点随机决定它出现的最高层 l_max，概率随层数指数衰减：</p><pre tabindex=0><code>P(level &gt;= l) = 1 / (mL)^l
 </code></pre><p>常用实现（mL 通常取 1/ln(M) 或固定为 1）：</p><pre tabindex=0><code>l_max = floor(-ln(random.uniform(0,1)) * mL)
 </code></pre><p>结果：</p><p>· 第 0 层：100% 节点
@@ -81,7 +81,7 @@ HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维
 · 维护一个大小为 ef_search 的候选优先队列（按距离排序）。
 · 反复从队列中取出最近节点，探索其邻居，更新队列。
 · 直到队列不再变化。
-· 取出队列中最近的节点作为该层的结果。</li><li>下钻到下一层 l = l - 1，以上一层的结果节点为起点。</li><li>重复步骤 2~3，直到第 0 层。</li><li>在第 0 层同样进行宽度搜索，最终返回距离最近的 k 个节点。</li></ol><p>关键点：每层只探索 ef_search 个候选，而不是所有节点。这是速度的来源。</p><hr><ol start=6><li>插入过程（构建索引）</li></ol><p>插入新节点 v。</p><p>6.1 随机层数</p><p>· 随机生成 l_max（见 4.2）。节点 v 将出现在所有 l &lt;= l_max 的层。</p><p>6.2 逐层寻找邻居（宽度搜索）</p><p>对于 l 从 max_level 到 l_max+1：</p><p>· 在当前层使用 ef_construction 宽度搜索，找到距离 v 最近的节点 ep（不建立连接，仅定位）。</p><p>对于 l 从 l_max 到 0：</p><p>· 在 ep 附近使用 ef_construction 宽度搜索，找到 v 在当前层的 M 个最近邻居（候选队列大小为 ef_construction）。
+· 取出队列中最近的节点作为该层的结果。</li><li>下钻到下一层 l = l - 1，以上一层的结果节点为起点。</li><li>重复步骤 2~3，直到第 0 层。</li><li>在第 0 层同样进行宽度搜索，最终返回距离最近的 k 个节点。</li></ol><p>关键：每层只探索 ef_search 个候选，而不是所有节点。这是速度的来源。</p><hr><ol start=6><li>插入过程（构建索引）</li></ol><p>插入新节点 v。</p><p>6.1 随机层数</p><p>· 随机生成 l_max（见 4.2）。节点 v 将出现在所有 l &lt;= l_max 的层。</p><p>6.2 逐层寻找邻居（宽度搜索）</p><p>对于 l 从 max_level 到 l_max+1：</p><p>· 在当前层使用 ef_construction 宽度搜索，找到距离 v 最近的节点 ep（不建立连接，仅定位）。</p><p>对于 l 从 l_max 到 0：</p><p>· 在 ep 附近使用 ef_construction 宽度搜索，找到 v 在当前层的 M 个最近邻居（候选队列大小为 ef_construction）。
 · 将 v 与这些邻居双向连接。
 · 连接裁剪：如果某个邻居的连接数超过 M，则删除其最远的邻居（或使用启发式裁剪，见下文）。
 · 将当前层找到的最优节点作为下一层的起始点 ep。</p><p>6.3 连接裁剪（启发式）</p><p>当节点邻居数超过 M 时，需要删除冗余连接。常用启发式：</p><ol><li>将所有候选邻居按距离升序排序。</li><li>依次考虑每个邻居 u：如果 u 与已保留集 R 中任意节点的距离 ≤ v 到 u 的距离，则跳过 u（避免冗余边）；否则加入 R。</li><li>最终保留前 M 个。</li></ol><p>效果：保持图稀疏，同时保留“导航性”（即保证能从入口点快速到达任何节点）。</p><hr><ol start=7><li>删除与更新</li></ol><p>HNSW 原生不支持高效删除。工程中常用软删除：</p><p>· 为每个节点增加 is_deleted 标记。
@@ -94,7 +94,7 @@ HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维
 · 支持增量插入
 · 参数可调，适应不同场景</p><p>缺点</p><p>· 内存占用高（边信息占 10%~30% 额外内存）
 · 删除复杂（需软删除 + 重建）
-· 构建时间较长（O(N log N)）</p><hr><ol start=11><li>在 Chroma 中的使用示例</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 创建 collection 时指定 HNSW 参数</span>
+· 构建时间较长（O(N log N)）</p><hr><ol start=11><li>在向量数据库中的使用示例</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 创建 collection 时指定 HNSW 参数</span>
 </span></span><span style=display:flex><span>collection <span style=color:#f92672>=</span> client<span style=color:#f92672>.</span>create_collection(
 </span></span><span style=display:flex><span>    name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;my_vectors&#34;</span>,
 </span></span><span style=display:flex><span>    metadata<span style=color:#f92672>=</span>{
