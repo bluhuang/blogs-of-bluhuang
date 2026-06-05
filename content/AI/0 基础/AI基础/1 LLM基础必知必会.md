@@ -23,7 +23,7 @@ lastmod: 2026-04-08
   ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/IMG_4302.png)
 
 - **Chat 模型（对话模型）**  
-  在 Base 模型的基础上，使用大量“用户指令-理想回复”的对话数据进行**有监督微调（Supervised Fine-Tuning, SFT）**，并可能通过**强化学习（如 RLHF）** 进一步优化。这使得 Chat 模型能够理解指令并以助手身份进行多轮对话，输出更符合人类期望的内容。
+  在 Base 模型的基础上，使用大量“用户指令-理想回复”的对话数据进行**有监督微调（Supervised Fine-Tuning，SFT）**，并可能通过**强化学习（如 RLHF）** 进一步优化。这使得 Chat 模型能够理解指令并以助手身份进行多轮对话，输出更符合人类期望的内容。
 
   ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/IMG_4303.png)
   ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/IMG_4304.png)
