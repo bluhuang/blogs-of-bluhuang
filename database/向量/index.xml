@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>向量 on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/</link><description>Recent content in 向量 on BluHuang's Blog</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/index.xml" rel="self" type="application/rss+xml"/><item><title>HNSW索引学习笔记</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Thu, 04 Jun 2026 19:01:05 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p&gt;HNSW 算法完全学习笔记&lt;/p&gt;
-&lt;p&gt;基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
+&lt;p&gt;基于实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li&gt;概述&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>
