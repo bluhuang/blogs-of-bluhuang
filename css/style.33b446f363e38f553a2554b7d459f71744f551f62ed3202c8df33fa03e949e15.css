@@ -21,29 +21,49 @@
   transform: rotate(90deg);
 }
 
+/* Smooth details expand/collapse via max-height animation */
+.tree-section details > ul {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease, opacity 250ms ease, margin 200ms ease;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tree-section details[open] > ul {
+  max-height: 2000px;
+  opacity: 1;
+}
+
 /* Hover effect for all tree items */
+.tree-section-link,
+.tree-page-link {
+  transition: background-color 150ms ease, color 150ms ease;
+}
 .tree-section-link:hover,
 .tree-page-link:hover {
-  background-color: var(--tw-bg-opacity, 1) rgba(0,0,0,0.03);
+  background-color: rgba(0, 0, 0, 0.04);
 }
-
 .dark .tree-section-link:hover,
 .dark .tree-page-link:hover {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
-/* Indentation helper classes for visual depth */
-[style*="padding-left: 12px"] li > ul {
-  border-left: 1px solid rgba(128,128,128,0.15);
-  margin-left: 6px;
+/* Indentation helper: elegant nesting line (Apple style) */
+[style*="padding-left: 12px"] > ul {
+  border-left: 1.5px solid rgba(128, 128, 128, 0.12);
+  margin-left: 8px;
+  padding-left: 4px !important;
+}
+.dark [style*="padding-left: 12px"] > ul {
+  border-left-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Active state subtle border indicator */
+/* Active state subtle border indicator (Apple Blue) */
 .tree-page-link.text-primary,
 .tree-section-link.text-primary {
   position: relative;
 }
-
 .tree-page-link.text-primary::before,
 .tree-section-link.text-primary::before {
   content: "";
@@ -52,8 +72,8 @@
   top: 4px;
   bottom: 4px;
   width: 3px;
-  border-radius: 0 2px 2px 0;
-  background-color: var(--tw-color-primary, #2563eb);
+  border-radius: 0 3px 3px 0;
+  background-color: var(--color-primary, #007AFF);
 }
 
 /* === Keyboard Focus Visibility (WCAG 2.4.7) === */
@@ -309,6 +329,81 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.35);
   background-clip: padding-box;
   border: 2px solid transparent;
+}
+
+/* === 12. 导航栏毛玻璃（.site-header） === */
+.site-header {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.dark .site-header {
+  background-color: rgba(28, 28, 30, 0.80);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+/* === 13. 文章 Hero 区域（single 页面标题 + 元数据毛玻璃） === */
+.article-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(249, 249, 251, 0.70)
+  );
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.dark .article-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(40, 40, 42, 0.85),
+    rgba(28, 28, 30, 0.70)
+  );
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* === 14. Page Header（列表页）毛玻璃 === */
+.page-header-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.page-header-glass {
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-radius: 22px;
+  padding: 2.5rem 2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.dark .page-header-glass {
+  background: rgba(28, 28, 30, 0.60);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* === 15. 树形导航展开区毛玻璃 === */
+.tree-section details[open] > summary + * {
+  /* 紧接在 summary 之后的 ul（树形导航子节点） */
+  background: rgba(255, 255, 255, 0.50);
+  border-radius: 10px;
+  padding: 0.25rem 0;
+  margin-top: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+.dark .tree-section details[open] > summary + * {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+/* 子树展开不叠加毛玻璃（只顶层展开区） */
+.tree-section details details[open] > summary + * {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 0;
 }
 /*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
 /*!
@@ -1141,6 +1236,9 @@ h1, h2, h3, h4, h5, h6 {
       color: var(--color-darkmode-text-light);
     }
   }
+  .mb-0 {
+    margin-bottom: calc(var(--spacing) * 0);
+  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
@@ -1557,6 +1655,9 @@ h1, h2, h3, h4, h5, h6 {
   .object-cover {
     object-fit: cover;
   }
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
@@ -1714,6 +1815,10 @@ h1, h2, h3, h4, h5, h6 {
   }
   .shadow-md {
     --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-sm {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .invert {
@@ -4462,15 +4567,34 @@ input#nav-toggle:checked ~ #nav-menu {
 .tree-section details[open] .tree-arrow {
   transform: rotate(90deg);
 }
+.tree-section details > ul {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease, opacity 250ms ease, margin 200ms ease;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.tree-section details[open] > ul {
+  max-height: 2000px;
+  opacity: 1;
+}
+.tree-section-link, .tree-page-link {
+  transition: background-color 150ms ease, color 150ms ease;
+}
 .tree-section-link:hover, .tree-page-link:hover {
-  background-color: var(--tw-bg-opacity, 1) rgba(0,0,0,0.03);
+  background-color: rgba(0, 0, 0, 0.04);
 }
 .dark .tree-section-link:hover, .dark .tree-page-link:hover {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.06);
 }
-[style*="padding-left: 12px"] li > ul {
-  border-left: 1px solid rgba(128,128,128,0.15);
-  margin-left: 6px;
+[style*="padding-left: 12px"] > ul {
+  border-left: 1.5px solid rgba(128, 128, 128, 0.12);
+  margin-left: 8px;
+  padding-left: 4px !important;
+}
+.dark [style*="padding-left: 12px"] > ul {
+  border-left-color: rgba(255, 255, 255, 0.08);
 }
 .tree-page-link.text-primary, .tree-section-link.text-primary {
   position: relative;
@@ -4482,8 +4606,8 @@ input#nav-toggle:checked ~ #nav-menu {
   top: 4px;
   bottom: 4px;
   width: 3px;
-  border-radius: 0 2px 2px 0;
-  background-color: var(--tw-color-primary, #2563eb);
+  border-radius: 0 3px 3px 0;
+  background-color: var(--color-primary, #007AFF);
 }
 *:focus {
   outline: none;
