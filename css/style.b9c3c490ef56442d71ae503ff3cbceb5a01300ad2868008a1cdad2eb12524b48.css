@@ -53,7 +53,11 @@
 [style*="padding-left: 12px"] > ul {
   border-left: 1.5px solid rgba(128, 128, 128, 0.12);
   margin-left: 8px;
-  padding-left: 4px !important;
+  padding-left: 4px;
+}
+/* 更深层嵌套也保持 padding-left 对齐，避免使用 !important */
+[style*="padding-left: 12px"] > ul > li > ul {
+  padding-left: 4px;
 }
 .dark [style*="padding-left: 12px"] > ul {
   border-left-color: rgba(255, 255, 255, 0.08);
@@ -78,7 +82,8 @@
 
 /* === Keyboard Focus Visibility (WCAG 2.4.7) === */
 /* 键盘 Tab 导航时显示焦点环；鼠标点击时隐藏 */
-*:focus { outline: none; }
+/* 只隐藏鼠标点击的焦点环，键盘 Tab 导航仍由 :focus-visible 显示 */
+*:focus:not(:focus-visible) { outline: none; }
 *:focus-visible {
   outline: 2px solid var(--color-primary, #007AFF);
   outline-offset: 2px;
@@ -198,6 +203,12 @@ a {
   text-decoration: none;
 }
 a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary, #007AFF);
+  text-underline-offset: 3px;
+}
+/* 键盘焦点用户获得与 hover 一致的下划线反馈 */
+a:focus-visible {
   text-decoration: underline;
   text-decoration-color: var(--color-primary, #007AFF);
   text-underline-offset: 3px;
@@ -4591,7 +4602,10 @@ input#nav-toggle:checked ~ #nav-menu {
 [style*="padding-left: 12px"] > ul {
   border-left: 1.5px solid rgba(128, 128, 128, 0.12);
   margin-left: 8px;
-  padding-left: 4px !important;
+  padding-left: 4px;
+}
+[style*="padding-left: 12px"] > ul > li > ul {
+  padding-left: 4px;
 }
 .dark [style*="padding-left: 12px"] > ul {
   border-left-color: rgba(255, 255, 255, 0.08);
@@ -4609,7 +4623,7 @@ input#nav-toggle:checked ~ #nav-menu {
   border-radius: 0 3px 3px 0;
   background-color: var(--color-primary, #007AFF);
 }
-*:focus {
+*:focus:not(:focus-visible) {
   outline: none;
 }
 *:focus-visible {
