@@ -75,41 +75,7 @@
       },
       {
         "title": "1 RAG",
-        "url": "/AI/",
-        "children": [
-          {
-            "title": "1 RAG全流程解析",
-            "url": "/AI/1-rag全流程解析/"
-          },
-          {
-            "title": "2 RAG评估体系",
-            "url": "/AI/2-rag评估体系/"
-          },
-          {
-            "title": "3 RAG分块策略详解",
-            "url": "/AI/3-rag分块策略详解/"
-          },
-          {
-            "title": "4 融合搜索、BM25、RRF详解",
-            "url": "/AI/4-融合搜索bm25rrf详解/"
-          },
-          {
-            "title": "5 重排序 Rerank 详解",
-            "url": "/AI/5-重排序-rerank-详解/"
-          },
-          {
-            "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
-            "url": "/AI/6-cross-encoder核心原理从-self-attention到相关性分数/"
-          },
-          {
-            "title": "7 Embedding模型原理",
-            "url": "/AI/7-embedding模型原理/"
-          },
-          {
-            "title": "8 高级RAG技术：HyDE 与 Self-RAG",
-            "url": "/AI/8-高级rag技术hyde-与-self-rag/"
-          }
-        ]
+        "url": "/AI/"
       }
     ]
   },
@@ -232,6 +198,52 @@
             "url": "/database/hnsw索引学习笔记/"
           }
         ]
+      }
+    ]
+  },
+  {
+    "title": "RAG",
+    "url": "/RAG/",
+    "children": [
+      {
+        "title": "1 RAG全流程详解",
+        "url": "/RAG/1-rag全流程详解/"
+      },
+      {
+        "title": "2 RAG评估体系",
+        "url": "/RAG/2-rag评估体系/"
+      },
+      {
+        "title": "3 RAG分块策略详解",
+        "url": "/RAG/3-rag分块策略详解/"
+      },
+      {
+        "title": "4 融合搜索、BM25、RRF详解",
+        "url": "/RAG/4-融合搜索bm25rrf详解/"
+      },
+      {
+        "title": "5 重排序 Rerank 详解",
+        "url": "/RAG/5-重排序-rerank-详解/"
+      },
+      {
+        "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
+        "url": "/RAG/6-cross-encoder核心原理从-self-attention到相关性分数/"
+      },
+      {
+        "title": "7 Embedding模型原理",
+        "url": "/RAG/7-embedding模型原理/"
+      },
+      {
+        "title": "8 高级RAG技术：HyDE 与 Self-RAG",
+        "url": "/RAG/8-高级rag技术hyde-与-self-rag/"
+      },
+      {
+        "title": "9 GraphRAG 与 LightRAG",
+        "url": "/RAG/9-graphrag-与-lightrag/"
+      },
+      {
+        "title": "z_RAG 面试题汇总",
+        "url": "/RAG/z-rag-面试题汇总/"
       }
     ]
   },
