@@ -1,9 +1,9 @@
 ---
 title: "Embedding模型原理"
-categories: ["AI"]
+categories: ["RAG"]
 author: "BluHuang"
-date: 2026-06-04T19:01:05+0800
-lastmod: 2026-06-02
+date: 2026-06-09T20:07:40+0800
+lastmod: 2026-06-09T20:07:40+0800
 ---
 
 ## 一、核心概念
@@ -19,7 +19,7 @@ lastmod: 2026-06-02
 
 | 特性 | 静态 Embedding | 动态 Embedding |
 |------|----------------|----------------|
-| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, OpenAI Embeddings |
+| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, 若干商业嵌入模型 |
 | **向量生成方式** | 每个词对应一个固定向量，查表得到 | 根据上下文实时计算，同一个词在不同句子中向量不同 |
 | **上下文感知** | ❌ 无 | ✅ 有（通过自注意力机制） |
 | **一词多义处理** | 无法区分（“bank” 河流/银行共享同一向量） | 能区分（根据周围词生成不同向量） |
@@ -103,9 +103,9 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 | 模型 | 类型 | 最大长度 | 语言 | 特点与推荐场景 |
 |------|------|----------|------|----------------|
-| **BGE-M3**（某机构） | 开源 | 8192 | 多语言 | **首选推荐**：长文档、中英混合、需混合检索（稠密+稀疏） |
-| **M3E-base**（某团队） | 开源 | 512 | 中英 | **无 GPU 备选**：CPU 可跑，速度快，中文优化 |
-| **text-embedding-3-small**（商业 API） | 商业 API | 8192 | 多语言 | **快速验证**：不想管基础设施，精度中等，成本低 |
+| **BGE-M3** | 开源 | 8192 | 多语言 | **首选推荐**：长文档、中英混合、需混合检索（稠密+稀疏） |
+| **M3E-base** | 开源 | 512 | 中英 | **无 GPU 备选**：CPU 可跑，速度快，中文优化 |
+| **text-embedding-3-small** | 商业 API | 8192 | 多语言 | **快速验证**：不想管基础设施，精度中等，成本低 |
 | **paraphrase-multilingual-MiniLM**（SBERT） | 开源 | 512 | 多语言 | **速度优先**：极轻量，实时性要求极高场景 |
 
 > 其他模型（BGE-large-zh、text-embedding-3-large、all-mpnet 等）可作为备选，但上述四款已覆盖 90% 需求。
@@ -115,7 +115,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 2. **文档很长（>512 tokens）？** → BGE-M3（唯一支持 8192 且中文优秀）
 3. **有 GPU？** → BGE-M3 或 M3E-base（GPU 加速）
 4. **无 GPU，纯 CPU？** → M3E-base（速度尚可）
-5. **不想部署，快速验证？** → text-embedding-3-small（商业 API）
+5. **不想部署，快速验证？** → text-embedding-3-small
 
 ---
 
@@ -132,13 +132,38 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 ---
 
+## 六、技术速查卡（Q&A）
+
+#### Q1：静态 Embedding 和动态 Embedding 的本质区别是什么？
+**答**：静态模型为每个词分配固定向量，无法处理一词多义；动态模型基于 Transformer 自注意力，根据上下文实时生成向量，能区分歧义。动态模型是 RAG 的基础。
+
+#### Q2：请简述动态 Embedding 是如何利用上下文生成向量的。
+**答**：输入 token 先初始化为随机向量加位置编码，通过多层自注意力层，每个 token 聚合序列中所有其他 token 的信息，最终输出融合上下文的向量。再通过池化（CLS 或均值池化）得到固定长度的句子向量。
+
+#### Q3：对于中文技术文档的 RAG，你选哪个 Embedding 模型？为什么？
+**答**：选 **BGE-M3**。原因：支持 8192 token 长文档，适合技术手册；中英双语能力强；开源可本地部署；可输出稀疏向量用于混合检索提升召回率。
+
+#### Q4：Embedding 模型和 Cross-Encoder 的区别？RAG 中怎么配合？
+**答**：Embedding 独立编码查询和文档，速度快但精度低，用于**召回**阶段从大量文档中筛选候选。Cross-Encoder 将两者拼接输入，完整交互，精度高但速度慢（O(N)），用于**精排**阶段对少量候选重排序。标准流程：Embedding 召回 top-100 → Cross-Encoder 精排 top-10。
+
+#### Q5：温度系数 τ 在对比学习中的作用？
+**答**：τ 控制相似度分布的平滑度。τ 越小，模型对负样本区分越严厉，适合困难负采样；τ 越大，分布越平滑，训练更稳定。典型值 0.01~0.1。
+
+#### Q6：如何评估 Embedding 模型在你项目中的效果？
+**答**：构造领域专属评估集（100-500 个查询，每个标注正确答案文档），计算 Hit Rate@K（K=5,10）和 MRR。对比候选模型，选择精度和延迟平衡的模型。同时用 MTEB 作为参考但不迷信。
+
+#### Q7：BGE-M3 的“稀疏向量”有什么用？
+**答**：稀疏向量类似 BM25 的词权重，但通过神经网络学习得到。与稠密向量做 RRF 融合（混合检索）可提升召回率，尤其对精确关键词匹配场景。无需额外集成 BM25 或重排序模型。
+
+---
+
 ## 七、参考资源
 
-1. **BGE M3 论文**：某团队, "BGE M3-Embedding" (2024)  
+1. **BGE M3 论文**：Chen et al., "BGE M3-Embedding" (2024)  
    https://arxiv.org/abs/2402.03216
-2. **MTEB 基准论文**：某团队, "MTEB: Massive Text Embedding Benchmark" (2022)  
+2. **MTEB 基准论文**：Muennighoff et al., "MTEB: Massive Text Embedding Benchmark" (2022)  
    https://arxiv.org/abs/2210.07316
-3. **对比学习综述**：某团队, "A Survey on Contrastive Self-Supervised Learning" (2021)  
+3. **对比学习综述**：Jaiswal et al., "A Survey on Contrastive Self-Supervised Learning" (2021)  
    https://arxiv.org/abs/2011.00362
 4. **Sentence-Transformers 官方文档**：https://www.sbert.net/
 5. **FlagEmbedding (BGE) 代码库**：https://github.com/FlagOpen/FlagEmbedding

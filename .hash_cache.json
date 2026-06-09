@@ -38,29 +38,35 @@
   "AI/0 基础/Agent/2 ReAct - Reasoning + Acting.md": {
     "hash": "9d377ff79060de64cf6012b206f06e82"
   },
-  "AI/1 RAG/1 RAG全流程解析.md": {
-    "hash": "fc15f5630e92e3acfbe74cc8d7a5baf6"
+  "RAG/1 RAG全流程详解.md": {
+    "hash": "c322e5858b135a7ff131ca20a74ccad5"
   },
-  "AI/1 RAG/2 RAG评估体系.md": {
+  "RAG/2 RAG评估体系.md": {
     "hash": "0b62d7828e132f26a85e7cd13a27c642"
   },
-  "AI/1 RAG/3 RAG分块策略详解.md": {
+  "RAG/3 RAG分块策略详解.md": {
     "hash": "65c43bcf99608aa9f1ceda9884a0964f"
   },
-  "AI/1 RAG/4 融合搜索、BM25、RRF详解.md": {
+  "RAG/4 融合搜索、BM25、RRF详解.md": {
     "hash": "37c92d0e750008a44585e6b7bf18e304"
   },
-  "AI/1 RAG/5 重排序 Rerank 详解.md": {
+  "RAG/5 重排序 Rerank 详解.md": {
     "hash": "b293c643c827e19463bb649637308a20"
   },
-  "AI/1 RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md": {
+  "RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md": {
     "hash": "39d50ef93e363aa89ca1716ed01e773c"
   },
-  "AI/1 RAG/7 Embedding模型原理.md": {
+  "RAG/7 Embedding模型原理.md": {
     "hash": "c7c22937e5ca17c1ff3a36c708d5954f"
   },
-  "AI/1 RAG/8 高级RAG技术：HyDE 与 Self-RAG.md": {
+  "RAG/8 高级RAG技术：HyDE 与 Self-RAG.md": {
     "hash": "53ab550a3bd7bb9017c143494b7e133b"
+  },
+  "RAG/9 GraphRAG 与 LightRAG.md": {
+    "hash": "081aabb7a85d583de2902c4e3e24c07a"
+  },
+  "RAG/z_RAG 面试题汇总.md": {
+    "hash": "b45d993eb93460f9f07020e71ee7dd9f"
   },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
