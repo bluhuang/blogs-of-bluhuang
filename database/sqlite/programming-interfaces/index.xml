@@ -11,9 +11,9 @@
 &gt;https://sqlite.org/appfunc.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="1-简介"&gt;1 简介&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;SQLite 支持用户实现自定义回调方法，以实现一些特殊功能，类似于用户定义函数（UDF）。&lt;/li&gt;
+&lt;li&gt;SQLite 支持用户实现自定义回调方法，以实现特定的自定义功能，类似于用户自定义函数（User Defined Function）。&lt;/li&gt;
 &lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。&lt;/li&gt;
-&lt;li&gt;创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li&gt;
+&lt;li&gt;可以创建可在 SQL 查询中使用的自定义函数，这些函数用 C 语言编写，也可通过绑定在其他语言（如 Python、Java 等）中实现。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id="2-相关接口"&gt;2 相关接口&lt;/h1&gt;
 &lt;h2 id="sqlite3_create_function-系列"&gt;sqlite3_create_function 系列&lt;/h2&gt;
@@ -35,12 +35,12 @@
 &lt;li&gt;&lt;strong&gt;编码指定&lt;/strong&gt;：使用 &lt;code&gt;eTextRep&lt;/code&gt; 参数指定文本编码偏好。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;函数类型&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;如果 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，注册标量函数。&lt;/li&gt;
-&lt;li&gt;如果 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，注册聚合函数。&lt;/li&gt;
+&lt;li&gt;若 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，注册为标量函数。&lt;/li&gt;
+&lt;li&gt;若 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，注册为聚合函数。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;应用数据&lt;/strong&gt;：通过 &lt;code&gt;pApp&lt;/code&gt; 传递用户数据。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：无自动清理机制，需要手动管理内存。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：无自动清理机制，需手动管理内存。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="2-sqlite3_create_function16"&gt;2 sqlite3_create_function16()&lt;/h3&gt;
 &lt;h4 id="基本信息-1"&gt;基本信息&lt;/h4&gt;
@@ -86,7 +86,7 @@
 &lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更加安全。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;：SQLite 官方推荐使用此版本。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function&lt;/h3&gt;
+&lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function()&lt;/h3&gt;
 &lt;h4 id="基本信息-3"&gt;基本信息&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;sqlite3_create_window_function&lt;/span&gt;(
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; sqlite3 &lt;span style="color:#f92672"&gt;*&lt;/span&gt;db, &lt;span style="color:#75715e"&gt;/* 数据库连接 */&lt;/span&gt;
@@ -108,23 +108,23 @@
 &lt;li&gt;&lt;strong&gt;复杂功能&lt;/strong&gt;：支持滑动窗口、排序、分组等高级功能。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id="3-udf-类型"&gt;3 UDF 类型&lt;/h1&gt;
-&lt;h2 id="31-标量函数scalar-functions"&gt;3.1 标量函数（Scalar Functions）&lt;/h2&gt;
+&lt;h2 id="31-标量函数-scalar-functions"&gt;3.1 标量函数 (Scalar Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;接受参数，返回单个值。&lt;/li&gt;
 &lt;li&gt;对每一行数据独立计算。&lt;/li&gt;
-&lt;li&gt;示例：&lt;code&gt;UPPER()&lt;/code&gt;、&lt;code&gt;ABS()&lt;/code&gt;、&lt;code&gt;DATE()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;UPPER()&lt;/code&gt;, &lt;code&gt;ABS()&lt;/code&gt;, &lt;code&gt;DATE()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="32-聚合函数aggregate-functions"&gt;3.2 聚合函数（Aggregate Functions）&lt;/h2&gt;
+&lt;h2 id="32-聚合函数-aggregate-functions"&gt;3.2 聚合函数 (Aggregate Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;跨多行数据操作，返回聚合结果。&lt;/li&gt;
 &lt;li&gt;需要维护状态信息。&lt;/li&gt;
-&lt;li&gt;示例：&lt;code&gt;SUM()&lt;/code&gt;、&lt;code&gt;AVG()&lt;/code&gt;、&lt;code&gt;COUNT()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;SUM()&lt;/code&gt;, &lt;code&gt;AVG()&lt;/code&gt;, &lt;code&gt;COUNT()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="33-窗口函数window-functions"&gt;3.3 窗口函数（Window Functions）&lt;/h2&gt;
+&lt;h2 id="33-窗口函数-window-functions"&gt;3.3 窗口函数 (Window Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;SQLite 3.25.0+ 支持。&lt;/li&gt;
 &lt;li&gt;在窗口帧上执行计算。&lt;/li&gt;
-&lt;li&gt;示例：&lt;code&gt;ROW_NUMBER()&lt;/code&gt;、&lt;code&gt;RANK()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;ROW_NUMBER()&lt;/code&gt;, &lt;code&gt;RANK()&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id="4-参数含义"&gt;4 参数含义&lt;/h1&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-c" data-lang="c"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;int&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;sqlite3_create_function_v2&lt;/span&gt;(
@@ -140,26 +140,35 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;);
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;该参数传入方法名：第二个参数是要创建的 SQL 函数的名称。通常使用 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求函数名使用原生字节序的 UTF16 编码。&lt;/li&gt;
-&lt;li&gt;函数名长度限制为 255 字节（UTF8）。任何尝试创建名称更长的函数都会导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
-&lt;li&gt;UDF 注册支持重载：可以使用相同的函数名多次调用 SQL 函数创建接口。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册两个该函数的不同变体，每个变体接受不同数量的参数。&lt;/li&gt;
+&lt;li&gt;该参数传入方法名：第二个参数是正在创建的 SQL 函数的名称。名称通常为 UTF8 编码，但 &lt;a href="https://sqlite.org/c3ref/create_function.html"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;&lt;code&gt;sqlite3_create_function16()&lt;/code&gt;&lt;/a&gt; 要求名称采用本机字节序的 UTF16。&lt;/li&gt;
+&lt;li&gt;函数名长度限制为 255 字节：SQL 函数名的最大长度为 255 字节（UTF8）。尝试创建更长的函数名将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
+&lt;li&gt;UDF 注册支持重载：可使用相同的函数名多次调用 SQL 函数创建接口。例如，若两次调用具有相同函数名但参数个数不同，则会注册该 SQL 函数的两个变体，各接受不同数量的参数。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="42-narg"&gt;4.2 nArg&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;表示参数数量，&lt;code&gt;int&lt;/code&gt; 类型。&lt;/li&gt;
-&lt;li&gt;参数个数范围为 -1（可变参数）到默认最大值 127（最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;，即 32767）。&lt;/li&gt;
+&lt;li&gt;参数个数可设为 -1（表示可变参数），最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;（127，实际允许最大值为 32767）。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="43-etextrep-文本编码"&gt;4.3 eTextRep 文本编码&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; —— 位掩码。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; – 位掩码。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：指定函数的文本编码偏好。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;取值&lt;/strong&gt;：
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF8&lt;/strong&gt;（0x01）：UTF-8 编码。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16LE&lt;/strong&gt;（0x02）：UTF-16 小端序。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16BE&lt;/strong&gt;（0x03）：UTF-16 大端序。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16&lt;/strong&gt;（0x04）：使用本地字节序的 UTF-16。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_ANY&lt;/strong&gt;：接受任何编码（已废弃）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF8&lt;/code&gt; (0x01)：UTF-8 编码。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16LE&lt;/code&gt; (0x02)：UTF-16 小端序。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16BE&lt;/code&gt; (0x03)：UTF-16 大端序。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16&lt;/code&gt; (0x04)：使用本地字节序的 UTF-16。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_ANY&lt;/code&gt;：接受任何编码（已废弃）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;组合标志&lt;/strong&gt;：可与确定性标志组合使用。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
@@ -167,7 +176,7 @@
 &lt;h2 id="44-papp"&gt;4.4 pApp&lt;/h2&gt;
 &lt;h3 id="详细说明"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; —— 任意类型指针。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; – 任意类型指针。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：传递用户自定义数据到函数。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;生命周期&lt;/strong&gt;：由 &lt;code&gt;xDestroy&lt;/code&gt; 回调管理。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
