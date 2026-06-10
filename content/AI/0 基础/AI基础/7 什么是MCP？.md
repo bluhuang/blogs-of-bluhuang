@@ -9,10 +9,10 @@ lastmod: 2026-06-04
 
 ### 📌 本章重点总结（MCP）
 
-1. **MCP 是什么**：某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
+1. **MCP 是什么**：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
 2. **为什么需要 MCP**：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。
 3. **三大核心角色**：
-   - **Host**：用户使用的 AI 应用（如 AI 桌面应用、代码编辑器），负责发起任务。
+   - **Host**：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。
    - **Client**：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。
    - **Server**：暴露工具能力的轻量服务程序，负责实际执行工具。
 4. **MCP Server 的三种能力**：
@@ -25,16 +25,16 @@ lastmod: 2026-06-04
 6. **核心价值**：彻底解耦工具实现与 AI 调用决策，降低开发成本，促进生态共享。工具 API 升级只需更新对应 Server，所有 Host 自动受益。
 
 ### 为什么需要两者配合，缺一不可？
-- **只有 Function Calling，没有 MCP**：  
-    大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。
+- **只有Function Calling，没有MCP**：  
+    大模型能说出“调用天气工具”，但Host还是要自己写代码去连接天气API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。
     
-- **只有 MCP，没有 Function Calling**：  
-    Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能不规范（比如“用 check_the_weather 工具，城市=上海明天”），Host 没法可靠地转换成 MCP 请求。
+- **只有MCP，没有Function Calling**：  
+    Host能通过MCP调用工具，但大模型输出的工具名和参数可能不规范（比如“用check_the_weather工具，城市=上海明天”），Host没法可靠地转换成MCP请求。
     
 - **两者配合**：  
     Function Calling 保证大模型**说得准**（工具名、参数格式都正确）。  
-    MCP 保证 Host**找得到、调得对**（按统一协议连接工具服务）。  
-    大模型只管“**说**”，MCP Server 只管“**做**”，Host 只管“**传**”。各司其职，形成标准化流水线。
+    MCP 保证Host**找得到、调得对**（按统一协议连接工具服务）。  
+    大模型只管“**说**”，MCP Server只管“**做**”，Host只管“**传**”。各司其职，形成标准化流水线。
 
 > **Function Calling 是“嘴”，大模型用它下指令；  
 > MCP 是“手”，Host 用它去执行。  
@@ -50,7 +50,7 @@ lastmod: 2026-06-04
 
 ## 没有 MCP 之前：重复造轮子的噩梦
 
-假设你正在开发一个 Agent，需要它能读取 GitHub 代码仓库、查询公司数据库、操作本地文件系统、还能发 Slack 消息。
+假设你正在开发一个 Agent，需要它能读取 GitHub 代码仓库、查询数据库、操作本地文件系统、还能发 Slack 消息。
 
 每一个工具，你都得自己来：
 
@@ -62,9 +62,9 @@ lastmod: 2026-06-04
 
 * 自己处理认证、错误处理、数据格式转换
 
-光这四件事，就够你忙好几天。更麻烦的是，这些集成代码只能用在你这个项目里，团队里其他同学做类似的 Agent，还得重新来一遍。
+光这四件事，就够你忙好几天。更麻烦的是，这些集成代码只能用在你这个项目里，团队里其他同事做类似的 Agent，还得重新来一遍。
 
-如果你的 Agent 还需要同时支持多个大模型（今天接一个模型、明天接另一个、后天再接一个），问题就更大了：
+如果你的 Agent 还需要同时支持多个大模型（今天接 Claude、明天接 GPT-4、后天接 Qwen），问题就更大了：
 
 **10 个工具 × 5 个大模型 = 50 套集成代码**
 
@@ -76,7 +76,7 @@ lastmod: 2026-06-04
 
 ## MCP 的出现：给 AI 工具世界定一个标准
 
-这就是某公司在 2024 年 11 月推出 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
+这就是 Anthropic 在 2024 年 11 月推出 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
 
 MCP 要解决的核心问题，可以用一句话概括： **把工具的「写好」和「用起来」彻底拆开。**
 
@@ -104,7 +104,7 @@ MCP 架构里有三个核心角色，弄清楚它们是谁、各自做什么，M
 
 ### Host（宿主）
 
-Host 就是你最终使用的那个 AI 应用，可以是 AI 桌面应用、带 AI 功能的代码编辑器、或者你自己开发的 Agent 程序。Host 是整个交互的起点，用户在 Host 里提问，Host 决定要调用哪些工具来完成任务。
+Host 就是你最终使用的那个 AI 应用，可以是 Claude Desktop、带 AI 功能的 VS Code、或者你自己开发的 Agent 程序。Host 是整个交互的起点，用户在 Host 里提问，Host 决定要调用哪些工具来完成任务。
 
 ### Client（客户端）
 
@@ -154,13 +154,13 @@ MCP 负责下半段：Agent 通过 MCP 协议，找到对应的 MCP Server，把
 
 还是查天气的场景，用户问「上海明天天气怎样」：
 
-1. 大模型通过 **Function Calling** 返回调用指令，「调 check_weather，city=上海」。这是 Function Calling 层，大模型在开口下指令。
+1. 大模型通过 **Function Calling** 返回调用指令，「调 check\_weather，city=上海」。这是 Function Calling 层，大模型在开口下指令。
 
 2. Agent 里的 MCP Client 收到这条 Function Calling 指令，通过 **MCP 协议** 找到天气 MCP Server，把请求路由过去。这是 MCP 层，Agent 在找到并执行工具。
 
-3. 天气 MCP Server 调用真实的天气 API，拿到结果，按 MCP 格式回传。
+3) 天气 MCP Server 调用真实的天气 API，拿到结果，按 MCP 格式回传。
 
-4. 大模型收到结果，整理成自然语言告诉用户。
+4) 大模型收到结果，整理成自然语言告诉用户。
 
 所以 Function Calling 是「说什么」的规范，MCP 是「怎么找到并执行」的规范。少了 Function Calling，大模型不知道怎么开口下指令；少了 MCP，Agent 不知道去哪里找工具来执行。两者分别在调用链的不同位置发挥作用，缺一不可。
 
@@ -194,19 +194,19 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 ![](/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-5f1c866d5bd35e64c756dd9f6ed5ee51.png)
 
-1. **用户提问**：在 Host（比如 AI 桌面应用）里输入「帮我查一下 React 仓库最近的 commit」
+1. **用户提问**：在 Host（比如 Claude Desktop）里输入「帮我查一下 React 仓库最近的 commit」
 
 2. **Host 分析任务**：大模型判断需要调用 GitHub 工具，生成 Function Call 格式的调用指令
 
-3. **Client 接收指令**：Host 把调用指令交给内置的 MCP Client
+3) **Client 接收指令**：Host 把调用指令交给内置的 MCP Client
 
-4. **Client 路由到对应 Server**：Client 根据工具名，找到负责 GitHub 能力的 MCP Server，把请求发过去
+4) **Client 路由到对应 Server**：Client 根据工具名，找到负责 GitHub 能力的 MCP Server，把请求发过去
 
 5. **Server 执行**：GitHub MCP Server 调用 GitHub API，拿到最近的 commit 列表
 
 6. **结果回传**：Server 把结果按 MCP 协议格式回传给 Client，Client 转交给 Host
 
-7. **Host 生成回复**：大模型拿到结果，整理成自然语言回复给用户
+7) **Host 生成回复**：大模型拿到结果，整理成自然语言回复给用户
 
 整个过程中，Host 和背后的大模型完全不需要知道 GitHub API 的任何细节，它只管说「我要调 GitHub 工具」，剩下的事情 MCP Server 全权负责。这就是「解耦」的价值：工具的实现细节，和 AI 的调用决策，完全分离。
 
@@ -229,7 +229,7 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 整理一下这一章的核心认知：
 
-* **MCP 是什么**：某公司推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
+* **MCP 是什么**：Anthropic 推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
 
 * **为什么需要它**：没有统一标准时，每个工具都要自己写集成，多模型场景下是 N×M 的重复工作量；MCP 把这个问题变成 N+M，工具写一次，全平台可用。
 

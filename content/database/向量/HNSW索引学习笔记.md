@@ -14,7 +14,7 @@ HNSW 算法完全学习笔记
 
 1. 概述
 
-HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。
+HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。
 
 ---
 
@@ -204,7 +204,7 @@ ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ 
 
 ---
 
-11. 在 Chroma 中的使用示例
+11. 在向量数据库中的使用示例
 
 ```python
 # 创建 collection 时指定 HNSW 参数
@@ -240,6 +240,6 @@ retriever = vector_store.as_retriever(
 
 13. 参考资源
 
-· 原始论文：Malkov & Yashunin (2018). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
+· 原始论文：Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs (2018).
 · hnswlib 库：https://github.com/nmslib/hnswlib
-· Chroma HNSW 文档：https://docs.trychroma.com/usage#hnsw-parameters
+· 向量数据库 HNSW 参数文档：参考官方文档了解具体参数配置。
