@@ -4,4 +4,4 @@
 &lt;ol&gt;
 &lt;li&gt;概述&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>
