@@ -781,9 +781,6 @@ h1, h2, h3, h4, h5, h6 {
   .top-24 {
     top: calc(var(--spacing) * 24);
   }
-  .top-100 {
-    top: calc(var(--spacing) * 100);
-  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
