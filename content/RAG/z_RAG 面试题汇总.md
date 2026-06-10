@@ -1,12 +1,13 @@
 ---
-title: "z_RAG 面试题汇总"
+title: "RAG 题汇总"
+image: "/images/RAG/8ca59c40371bbdaf.png"
 categories: ["RAG"]
 author: "BluHuang"
 date: 2026-06-09T20:07:40+0800
 lastmod: 2026-06-09T20:07:40+0800
 ---
 
-# RAG技术要点汇总
+# RAG关键技术解析
 
 ## 模块1：基础概念
 
@@ -28,17 +29,13 @@ RAG（Retrieval-Augmented Generation，检索增强生成）的本质就一句�
 
 有 RAG：用户问题 → 检索相关知识 → [问题 + 检索结果] → LLM → 回答（基于事实）
 
-**核心要点**：RAG 不是替代 LLM，是给 LLM 补充外部知识。LLM 负责理解和生成，RAG 负责提供事实依据。
+核心观点：RAG 不是替代 LLM，是给 LLM 补充外部知识。LLM 负责理解和生成，RAG 负责提供事实依据。
 
 ### Q2: RAG的完整链路是怎样的？
 
-常见问题："你说你做过 RAG 项目，能完整讲一下从用户提问到最终回答的链路吗？"
+完整链路包括以下步骤：
 
-这是基础中的基础，但很多人讲不清楚。
-
-#### RAG 七步链路
-
-![RAG七步链路](https://mmbiz.qpic.cn/mmbiz_png/UVianz7ybbib6gvAPs5sOW0V5ozYiaq3ZU7GlO35MaDfzqHvr98TleuyfBWC1b2suTEwhLMCoM8OrNCgw2N5PHLeiaxLfAPjvMDmKLItqVpDgj8/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=0)
+![](/images/RAG/8ca59c40371bbdaf.png)
 
 **Query → 文档处理 → Chunking → Embedding → 检索 → Rerank → 生成**
 
@@ -53,15 +50,11 @@ RAG（Retrieval-Augmented Generation，检索增强生成）的本质就一句�
 | Rerank | 对检索结果重排序 | 用什么 Rerank 模型？重排后再取 Top-N |
 | 生成 | 把检索结果 + 问题喂给 LLM 生成回答 | Prompt 怎么写？幻觉怎么约束？ |
 
-**回答思路**：不要只背这七个步骤，要说清楚每一步的**关键决策点**。关键是想清楚"我为什么选 Milvus 不选 FAISS，检索延迟要求多少，为什么 Top-K 设 5 不是 10"。
+关键点：不要只背这七个步骤，要说清楚每一步的**关键决策点**。需要解释为什么选某个技术方案而非其他，例如检索延迟要求、Top-K 的选择理由等。
 
 ### Q3: 传统RAG的三大痛点是什么？
 
-常见问题："你们 RAG 系统有没有遇到检索到了但答不对的情况？什么类型的问题答不好？"或者"RAG 检索到了正确信息，但生成的回答还是拼凑感很强，你怎么理解这个问题？"
-
-#### 一个例子说清楚 RAG 撞墙在哪
-
-假设你有一个公司内部知识库，里面全是项目文档、技术方案、会议纪要。有人问了一个问题：
+一个典型场景：假设有一个公司内部知识库，里面全是项目文档、技术方案、会议纪要。有人问了一个问题：
 
 **"我们公司所有项目的技术栈趋势是什么？"**
 
@@ -95,13 +88,11 @@ Rerank 和混合检索能提升检索精度，但它们优化的是"找更相似
 
 这才是 GraphRAG 要解决的问题。
 
-![RAG VS GraphRAG](https://mmbiz.qpic.cn/mmbiz_jpg/UVianz7ybbib7cTsu7ricMXaSpmg6NHRDCmlseHmcUG621ShvMKegIPD9SZ4lDJTqukuFGh1M6taJpv2AaUX0dH8wUT7m8O1Ax2mrP53oYiarCY/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1)
+![](/images/RAG/823575cb1d227b3f.png)
 
 ## 模块2：检索策略
 
 ### Q4: 向量检索的原理是什么？与关键词检索有什么区别？为什么需要混合检索？
-
-常见问题："向量检索和关键词检索有什么区别？"以及"Embedding 的原理是什么？为什么语义相似的文本向量距离近？"
 
 #### 向量检索的本质
 
@@ -139,7 +130,7 @@ cos(A, B) = (A · B) / (|A| × |B|)
 | IVF | 先聚类，只搜最近的几个簇 | 可控精度，适合超大规模 |
 | PQ（乘积量化） | 压缩向量维度，降低内存 | 内存省，精度有损 |
 
-**加分点**：能说出 HNSW 的核心参数 `ef_construction`（建图时搜索宽度，越大图质量越高但建图越慢）和 `M`（每个节点的邻居数，越大图越密但内存越大），说明你真的调过。
+**技术细节**：HNSW 的核心参数 `ef_construction`（建图时搜索宽度，越大图质量越高但建图越慢）和 `M`（每个节点的邻居数，越大图越密但内存越大），实际调优时需要权衡。
 
 #### 纯向量检索的三个致命问题
 
@@ -162,7 +153,7 @@ BM25 是 TF-IDF 的改进版，靠词频统计，精确匹配强但同义词没�
 
 两路结果合并，取长补短。
 
-![混合检索+RRF合并流程](https://mmbiz.qpic.cn/mmbiz_png/UVianz7ybbib6WV9mJDWsOPo8AiaGXIDR7icknEjrsUSciauEyAh8GveD5sAyVib5Os5B6bGmUo6Q4UwkLN5epyW6jviaB0hjA8doyKHAkyKiaCj2lw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1)
+![](/images/RAG/b15f2ae968dc8fa8.png)
 
 #### 合并策略：RRF（Reciprocal Rank Fusion）
 
@@ -184,27 +175,19 @@ def rrf_merge(vector_results, bm25_results, k=60):
     return sorted(scores.items(), key=lambda x: x[1], reverse=True)
 ```
 
-**核心要点**：能说清楚纯向量检索的三个问题、关键词检索的盲区（同义词无解），以及混合检索如何互补，合并策略用 RRF。向量检索并不是「什么都比关键词检索好」，两者是互补关系。正确的做法不是二选一，而是混合检索。
+**核心要点**：纯向量检索的三个问题、关键词检索的盲区（同义词无解），以及混合检索如何互补，合并策略用 RRF。向量检索并不是「什么都比关键词检索好」，两者是互补关系。正确的做法不是二选一，而是混合检索。
 
 ### Q5: 混合检索的权重怎么调？Top-K设多少？模糊问题怎么处理？
 
-**Q：你们的混合检索权重怎么调的？向量检索和 BM25 各占多少？**
+**混合检索权重如何调整？** 两种常见做法：一是手动调权重（向量 0.7 + BM25 0.3），在验证集上试出最佳比例；二是用 RRF 合并，不设权重，靠排名融合，更稳健。生产环境推荐 RRF，因为不同 query 的最佳权重差异很大，固定权重不一定好。
 
-两种常见做法：一是手动调权重（向量 0.7 + BM25 0.3），在验证集上试出最佳比例；二是用 RRF 合并，不设权重，靠排名融合，更稳健。生产环境推荐 RRF，因为不同 query 的最佳权重差异很大，固定权重不一定好。
+**Top-K 设多少？设大了设小了各有什么问题？** 设小了（K=3）：可能漏掉相关文档，召回不够。设大了（K=20）：太多无关信息干扰 LLM，增加幻觉风险和 Token 消耗。通常 K=5-10 是比较好的平衡点，加了 Rerank 之后可以先用 K=20 检索再 Rerank 取 Top-5。
 
-**Q：Top-K 设多少？设大了设小了各有什么问题？**
-
-设小了（K=3）：可能漏掉相关文档，召回不够。设大了（K=20）：太多无关信息干扰 LLM，增加幻觉风险和 Token 消耗。通常 K=5-10 是比较好的平衡点，加了 Rerank 之后可以先用 K=20 检索再 Rerank 取 Top-5。
-
-**Q：如果用户的问题很模糊，检索效果差，怎么办？**
-
-Query 改写：用 LLM 把模糊问题改写成更具体的检索 query。多路召回：同时用原始 query、改写 query、提取关键词分别检索再合并。追问确认：如果太模糊，Agent 可以先追问用户澄清需求。
+**如果用户的问题很模糊，检索效果差，怎么办？** Query 改写：用 LLM 把模糊问题改写成更具体的检索 query。多路召回：同时用原始 query、改写 query、提取关键词分别检索再合并。追问确认：如果太模糊，Agent 可以先追问用户澄清需求。
 
 ## 模块3：重排与生成
 
 ### Q6: Rerank是什么？为什么检索之后还要重排序？
-
-常见问题："你已经用混合检索了，为什么还要 Rerank？检索结果不够好吗？"
 
 #### 检索和 Rerank 的区别
 
@@ -218,4 +201,29 @@ Query 改写：用 LLM 把模糊问题改写成更具体的检索 query。多路
 
 Rerank 用的是 Cross-Encoder：把问题和文档拼在一起送进模型，模型可以同时看到双方内容，做更精确的相关性判断。**代价是慢**——Cross-Encoder 不能预计算，每个 (问题, 文档) 对都要过一遍模型，所以只能对少量候选做精排。
 
-![Bi-Encoder vs Cross-Encoder](https://mmbiz.qpic.cn/sz_mmbiz_png/UVianz7ybbib7va9QK0DGWhusMEF1mWhL8VmfW7bOCJKBnQlzQEFmw6ycD26MAk8PW1NuWMPMQGicV6y5LERicIejOpGOHekDe
+![](/images/RAG/df961d0423768c29.png)
+
+#### Rerank 的效果
+
+实际项目中，Rerank 带来的提升很明显：
+
+| 指标 | 检索后（无 Rerank） | Rerank 后 |
+|------|---------------------|-----------|
+| Top-5 召回率 | 71% | 89% |
+| Top-3 准确率 | 65% | 84% |
+
+#### 常用 Rerank 模型
+
+| 模型 | 特点 |
+|------|------|
+| BGE-Reranker (bge-reranker-v2-m3) | 中文效果好，开源免费 |
+| Cohere Rerank | API 调用，效果好，英文为主 |
+| bce-reranker-base_v1 | 中文场景，轻量级 |
+
+**总结**："检索是粗筛快捞，Rerank 是精排提准。检索用 Bi-Encoder 快但粗，Rerank 用 Cross-Encoder 慢但准。先用检索从百万级捞 Top-20，再用 Rerank 精排取 Top-5，这是生产环境的标配流程。"
+
+### Q7: Bi-Encoder和Cross-Encoder的区别？
+
+| 特性 | Bi-Encoder | Cross-Encoder |
+|------|------------|----------------|
+| 编码方式 | 问题和

@@ -21,7 +21,7 @@ lastmod: 2026-06-09T20:07:40+0800
 
 ### LLM 的三大知识缺陷
 
-1. **知识截止**：训练数据有截止日期，无法回答最新问题。例如问“2026年3月发布的某框架特性”，模型要么瞎编要么说不知道。
+1. **知识截止**：训练数据有截止日期，无法回答最新问题。例如问“2026年3月发布的 XX 框架特性”，模型要么瞎编要么说不知道。
 2. **私有数据无法触达**：公司内部文档、客户数据、业务规则，LLM 从未见过，直接问就会胡说。
 3. **容易幻觉**：当 LLM 不确定时，会编造看似合理但错误的信息，缺乏外部知识验证。
 
@@ -86,7 +86,7 @@ lastmod: 2026-06-09T20:07:40+0800
 - **重排**：chunk 大小影响 Cross-Encoder 的输入长度，过长会显著增加延迟。
 - **生成**：多个小 chunk 比一个大 chunk 更灵活，但 prompt 中拼接多个片段可能超过大模型上下文限制。
 
-**技术要点**：能对比不同分片策略的优劣，并知道如何根据文档类型（技术文档、对话记录、法律条文）选择策略。
+**常见问题**：能对比不同分片策略的优劣，并知道如何根据文档类型（技术文档、对话记录、法律条文）选择策略。
 
 ### 3.2 Embedding（向量化）
 
@@ -104,9 +104,9 @@ lastmod: 2026-06-09T20:07:40+0800
 | `sentence-transformers/all-MiniLM-L6-v2` | 384 | 轻量，适合本地推理 | 原型/资源受限 |
 | `intfloat/e5-large-v2` | 1024 | 性能强劲，需微调 | 领域自适应 |
 
-#### 3.2.2 选型建议与技术分析
+#### 3.2.2 选型建议
 
-**常见问题**：“如何选择合适的 Embedding 模型？为什么选它？和 OpenAI 的 ada-002 对比过吗？”
+**常见问题**："你们用的什么 Embedding 模型？为什么选它？和 OpenAI 的 ada-002 对比过吗？"
 
 **选型维度**：选 Embedding 模型看三个维度：**语言支持、向量维度、检索效果（MTEB 排名）**。
 
@@ -122,7 +122,7 @@ lastmod: 2026-06-09T20:07:40+0800
 **维度越高越好吗？**  
 不是。维度高→表达能力强但存储和检索成本也高。1024 维是当前性价比最好的选择，3072 维的检索效果提升有限但存储翻 3 倍。
 
-**分析角度**：“中文场景选 bge-large-zh，因为 MTEB 中文榜单排名靠前，而且开源可以本地部署，不用走 API。如果是英文场景或对延迟不敏感，OpenAI 的 embedding 更方便。”
+**参考回答**："中文场景选 bge-large-zh，因为 MTEB 中文榜单排名靠前，而且开源可以本地部署，不用走 API。如果是英文场景或对延迟不敏感，OpenAI 的 embedding 更方便。"
 
 #### 3.2.3 训练原理
 
@@ -205,11 +205,11 @@ BM25(q,d) = Σ_{t in q} IDF(t) * ( (k1+1) * f(t,d) ) / ( f(t,d) + k1*(1-b+b*|d|/
 
 **倒排索引类比**：BM25 是 Elasticsearch、Lucene 等传统搜索引擎的核心算法。它的基本思路是：给每本书建一张「词汇卡片」，记录每个词出现的次数。用户查「手机 截图」，系统找出包含「手机」和「截图」的文档，根据词频和稀缺度排序。这个「词汇卡片」系统就是**倒排索引**——记录每个词出现在哪些文档里。
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/ysyAxM1rgX0ZT6PkLmOf2QUHZsK1X4kDOtj2GlcxKia2ud4aUEMATZcLvgrtfDL4Ida6yaHCWrQGXTia6LatWvvoc2KOs9QoSj8rM8Tow8sOg/640?wx_fmt=other&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=0)
+![](/images/RAG/f5ea2081fd5716f6.png)
 
 打分核心因素：
 
-![图片](https://mmbiz.qpic.cn/sz_mmbiz_jpg/ysyAxM1rgX0JuDucjVyrWISfJrNejnGThJicpiaQSKBY8mFJTozD2I9cwaXIcsibhAQowqjm0Xjr3055Chujs0Y8pIDkIykzIFwGM57MicgzdGA/640?wx_fmt=other&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=1)
+![](/images/RAG/8ae9b69e14a7c366.png)
 
 - **词频（TF）**：词在文档中出现的次数，越多越相关。
 - **稀缺度（IDF）**：词在所有文档中的罕见程度，罕见词权重大。
@@ -235,4 +235,6 @@ query = ["苹果", "手机", "截图"]
 scores = bm25.get_scores(query)  # 每个文档的 BM25 分数
 ```
 
-BM25 的优势：**精确词汇命中率极高**（产品型号「iPhone 15 Pro Max」、
+BM25 的优势：**精确词汇命中率极高**（产品型号「iPhone 15 Pro Max」、专有名词「LSTM」、缩写「RAG」）。
+
+BM25 的劣势：**遇到同义词束手无策**。用户查「手机截图」，文档里写「iPhone 截屏教程」，BM25

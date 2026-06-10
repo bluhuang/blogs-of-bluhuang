@@ -2,7 +2,7 @@
 title: "iOS 远程 Mac 开发环境搭建指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-04T19:01:05+0800
+date: 2026-06-09T20:07:40+0800
 lastmod: 2026-06-04
 ---
 
@@ -13,7 +13,7 @@ lastmod: 2026-06-04
 - 一台 Mac（保持开机，连接家里 Wi-Fi）
 - 一部 iPhone（可连接 5G 或其它 Wi-Fi）
 - 两个设备登录同一个 Apple ID（非必需，但方便）
-- Mac 上已经安装了 Homebrew（推荐，用于安装软件）
+- Mac 上已安装 Homebrew（推荐，用于安装软件）
 
 ## 2. Mac 端安装与配置
 
@@ -139,7 +139,5 @@ tmux attach -t 会话名
 ## 5. 常见问题
 
 - **连接不上**：检查 Tailscale 是否都 Connected；检查 Mac 远程登录是否开启。
-    
 - **速度非常慢**：查看 `tailscale status` 是否显示 `relay "xxx"`。如果是，说明走中继，需要参考笔记二中的解决方案。
-    
 - **opencode: command not found**：重新执行添加 PATH 的命令。
