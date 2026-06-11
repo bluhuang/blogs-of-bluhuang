@@ -288,6 +288,14 @@
           {
             "title": "tmux 使用指南",
             "url": "/z_mixed/tmux-使用指南/"
+          },
+          {
+            "title": "Xcode 无线安装与远程调试完全指南",
+            "url": "/z_mixed/xcode-无线安装与远程调试完全指南/"
+          },
+          {
+            "title": "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用",
+            "url": "/z_mixed/从零配置-sidestore-wireguard实现远程无线安装-ios-应用/"
           }
         ]
       }
