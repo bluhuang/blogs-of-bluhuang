@@ -2,7 +2,7 @@
 title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-10T14:49:54+0800
+date: 2026-06-11T09:25:19+0800
 lastmod: 2026-06-04
 ---
 
@@ -49,7 +49,7 @@ tmux kill-server
 | `p` | 上一个窗口 |
 | `"` | 水平分割面板（上下） |
 | `%` | 垂直分割面板（左右） |
-| 方向键 | 切换面板 |
+| `方向键` | 切换面板 |
 | `x` | 关闭当前面板（按 y 确认） |
 | `d` | 脱离会话（任务继续后台运行） |
 | `[` | 进入滚动/复制模式（按 `q` 退出） |
@@ -63,7 +63,7 @@ tmux new -s work
 
 # 运行你的程序（如 opencode、vim、npm run dev）
 
-# 临时断开（不中断任务）：Ctrl+B 然后按 D
+# 临时断开（不中断任务）: Ctrl+B 然后按 D
 
 # 下次连接：恢复会话
 tmux attach -t work

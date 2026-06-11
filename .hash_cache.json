@@ -131,10 +131,16 @@
   "z_mixed/mac/Tailscale 连接指南与使用详解.md": {
     "hash": "95b418bb533645dc5f7e148e2ec84abb"
   },
+  "z_mixed/mac/Xcode 无线安装与远程调试完全指南.md": {
+    "hash": "f352dedd9f361917a1c604e2145f3d8f"
+  },
   "z_mixed/mac/iOS 远程 Mac 开发环境搭建指南.md": {
     "hash": "3ae3a4ed4fccb41e443543365c30dd51"
   },
   "z_mixed/mac/tmux 使用指南.md": {
     "hash": "b21789e96cbf0eb865ebc891b734c89a"
+  },
+  "z_mixed/mac/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
+    "hash": "a72224d5e68e3253b1516d7f93b28a43"
   }
 }
