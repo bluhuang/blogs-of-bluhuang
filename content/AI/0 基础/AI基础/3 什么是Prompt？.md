@@ -3,7 +3,7 @@ title: "什么是Prompt？"
 image: "/images/AI/0%20%E5%9F%BA%E7%A1%80/AI%E5%9F%BA%E7%A1%80/%E4%BB%80%E4%B9%88%E6%98%AFPrompt%EF%BC%9F-e80c98aaf168ef571e53e668e1b9478f.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-11T09:25:19+0800
+date: 2026-06-14T15:12:52+0800
 lastmod: 2026-06-04
 ---
 

@@ -2,11 +2,11 @@
 title: "高级RAG技术：HyDE 与 Self-RAG"
 categories: ["RAG"]
 author: "BluHuang"
-date: 2026-06-11T09:25:19+0800
-lastmod: 2026-06-11T09:25:19+0800
+date: 2026-06-14T15:12:52+0800
+lastmod: 2026-06-14T15:12:52+0800
 ---
 
-> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑及对比表格。
+> 本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑与对比表格。
 
 ## 一、背景：为什么需要“高级 RAG”？
 
@@ -191,7 +191,7 @@ Self-RAG 通过**分段生成 + 自适应检索**实现：
 
 ---
 
-## 六、参考资源
+## 八、参考资源
 
 1. **HyDE 原始论文**：Gao et al., "Precise Zero-Shot Dense Retrieval without Relevance Labels" (2022)  
    https://arxiv.org/abs/2212.10496

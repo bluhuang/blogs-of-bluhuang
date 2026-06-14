@@ -2,8 +2,8 @@
 title: "Cross-Encoder核心原理：从 Self Attention到相关性分数"
 categories: ["RAG"]
 author: "BluHuang"
-date: 2026-06-11T09:25:19+0800
-lastmod: 2026-06-11T09:25:19+0800
+date: 2026-06-14T15:12:52+0800
+lastmod: 2026-06-14T15:12:52+0800
 ---
 
 ## 1. Cross‑Encoder 的核心定位
@@ -17,7 +17,7 @@ Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 D
 - **第一阶段（检索）** ：Bi‑Encoder 或 BM25 快速从全量知识库中召回 **Top‑50 / Top‑100** 候选文档（高召回）
 - **第二阶段（重排序）** ：Cross‑Encoder 对这些候选文档逐一精细打分并重新排序，输出 **Top‑3 / Top‑5** 最相关的文档（高精度）
 
-> Cross‑Encoder 的目的不是替换检索，而是弥补检索排序的不足。之所以不用 Cross‑Encoder 直接做检索，是因为其计算复杂度为 O(|Q|×|D|)，无法在百万级文档上实时计算；必须先用 Bi‑Encoder 做粗筛。
+> **注意**：Cross‑Encoder 的目的不是“替换”检索，而是“补救”检索的粗糙排序。为什么不用 Cross‑Encoder 直接做检索？核心原因是：Cross‑Encoder 的计算复杂度是 O(|Q|×|D|)，无法在百万级文档上实时计算；必须用 Bi‑Encoder 先做粗筛。
 
 ## 2. 与 Bi‑Encoder 的根本区别
 
@@ -30,7 +30,7 @@ Cross‑Encoder 是一个基于 Transformer 的神经网络，它将 Query 和 D
 | **适用阶段** | 第一阶段：大规模召回 | 第二阶段：候选集精细重排序 |
 | **典型指标** | 高召回率（Recall） | 高精确率（Precision / nDCG） |
 
-> Bi‑Encoder 与 Cross‑Encoder 选择的关键是**速度与精度的权衡**。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。
+> **关键点**：Bi‑Encoder 与 Cross‑Encoder 选择的关键是**速度与精度的权衡**。能用 Bi‑Encoder 解决的场景不要上 Cross‑Encoder，能用规则解决的不要上模型。
 
 ## 3. Self‑Attention：为什么 Cross‑Encoder 更准？
 
@@ -79,12 +79,12 @@ $$s(q, d) = \sigma( \mathbf{w}^\top \mathbf{h}_{[CLS]}(\text{[CLS]} q \text{[SEP
 | 模型 | 参数量 | 特点 | 适用场景 |
 |------|--------|------|----------|
 | **BGE‑Reranker‑v2‑m3** | ~560M | 中文社区主流，Apache 2.0，量化后 <200MB | 中文 + 自托管，平衡精度与资源 |
-| **闭源API Rerank 4** | 闭源 API | 精度领先，多语言，按量付费 | 最快落地，不折腾运维 |
-| **ms‑marco‑MiniLM‑L‑6‑v2** | 22M | 超轻量，CPU 可跑，MIT 协议 | 英文通用，边缘部署，学习入门 |
-| **Qwen3‑Reranker‑4B** | 4B | 100+ 语言，Apache 2.0，32K 上下文 | 多语言 + 长文档 + 开源 |
+| **Rerank 4（闭源 API）** | 闭源 API | 精度领先，多语言，按量付费 | 最快落地，不折腾运维 |
+| **marco‑MiniLM‑L‑6‑v2** | 22M | 超轻量，CPU 可跑，MIT 协议 | 英文通用，边缘部署，学习入门 |
+| **Reranker‑4B（多语言大模型）** | 4B | 100+ 语言，Apache 2.0，32K 上下文 | 多语言 + 长文档 + 开源 |
 | **ColBERT v2** | 110M | Token‑级后期交互，高吞吐 | 大规模英文知识库精排 |
 
-> **选型建议**：选择 Rerank 模型应从**精度、延迟、成本、隐私**四个维度权衡。中文技术文档首选 BGE，追求精度但不想自托管可选闭源API，学习入门用 MiniLM。
+> **选型建议**：选 Rerank 模型时，从**精度、延迟、成本、隐私**四个维度权衡。中文技术文档首选 BGE，追求精度但不想自托管可选闭源 API，学习入门用 MiniLM。
 
 ## 6. 工程落地架构
 
