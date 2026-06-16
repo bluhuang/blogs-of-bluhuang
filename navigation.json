@@ -9,73 +9,127 @@
         "children": [
           {
             "title": "Agent",
-            "url": "/AI/",
-            "children": [
-              {
-                "title": "1 Agent基础必知必会",
-                "url": "/AI/1-agent基础必知必会/"
-              },
-              {
-                "title": "2 ReAct - Reasoning + Acting",
-                "url": "/AI/2-react---reasoning-acting/"
-              }
-            ]
+            "url": "/AI/"
           },
           {
             "title": "AI基础",
-            "url": "/AI/",
-            "children": [
-              {
-                "title": "1 LLM基础必知必会",
-                "url": "/AI/1-llm基础必知必会/"
-              },
-              {
-                "title": "10 什么是向量数据库？",
-                "url": "/AI/10-什么是向量数据库/"
-              },
-              {
-                "title": "11 什么是Harness工程？",
-                "url": "/AI/11-什么是harness工程/"
-              },
-              {
-                "title": "2 什么是大模型？",
-                "url": "/AI/2-什么是大模型/"
-              },
-              {
-                "title": "3 什么是Prompt？",
-                "url": "/AI/3-什么是prompt/"
-              },
-              {
-                "title": "4 什么是 Agent？",
-                "url": "/AI/4-什么是-agent/"
-              },
-              {
-                "title": "5 什么是 Tool？",
-                "url": "/AI/5-什么是-tool/"
-              },
-              {
-                "title": "6 什么是 Function Call？（协议）",
-                "url": "/AI/6-什么是-function-call协议/"
-              },
-              {
-                "title": "7 什么是MCP？",
-                "url": "/AI/7-什么是mcp/"
-              },
-              {
-                "title": "8 什么是 Skills？",
-                "url": "/AI/8-什么是-skills/"
-              },
-              {
-                "title": "9 什么是 RAG？",
-                "url": "/AI/9-什么是-rag/"
-              }
-            ]
+            "url": "/AI/"
+          }
+        ]
+      },
+      {
+        "title": "1 LLM",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 LLM基础必知必会",
+            "url": "/AI/1-llm基础必知必会/"
+          },
+          {
+            "title": "10 什么是向量数据库？",
+            "url": "/AI/10-什么是向量数据库/"
+          },
+          {
+            "title": "11 什么是Harness工程？",
+            "url": "/AI/11-什么是harness工程/"
+          },
+          {
+            "title": "2 什么是大模型？",
+            "url": "/AI/2-什么是大模型/"
+          },
+          {
+            "title": "3 什么是Prompt？",
+            "url": "/AI/3-什么是prompt/"
+          },
+          {
+            "title": "4 什么是 Agent？",
+            "url": "/AI/4-什么是-agent/"
+          },
+          {
+            "title": "5 什么是 Tool？",
+            "url": "/AI/5-什么是-tool/"
+          },
+          {
+            "title": "6 什么是 Function Call？（协议）",
+            "url": "/AI/6-什么是-function-call协议/"
+          },
+          {
+            "title": "7 什么是MCP？",
+            "url": "/AI/7-什么是mcp/"
+          },
+          {
+            "title": "8 什么是 Skills？",
+            "url": "/AI/8-什么是-skills/"
+          },
+          {
+            "title": "9 什么是 RAG？",
+            "url": "/AI/9-什么是-rag/"
           }
         ]
       },
       {
         "title": "1 RAG",
         "url": "/AI/"
+      },
+      {
+        "title": "2 RAG",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 RAG全流程详解",
+            "url": "/AI/1-rag全流程详解/"
+          },
+          {
+            "title": "2 RAG评估体系",
+            "url": "/AI/2-rag评估体系/"
+          },
+          {
+            "title": "3 RAG分块策略详解",
+            "url": "/AI/3-rag分块策略详解/"
+          },
+          {
+            "title": "4 融合搜索、BM25、RRF详解",
+            "url": "/AI/4-融合搜索bm25rrf详解/"
+          },
+          {
+            "title": "5 重排序 Rerank 详解",
+            "url": "/AI/5-重排序-rerank-详解/"
+          },
+          {
+            "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
+            "url": "/AI/6-cross-encoder核心原理从-self-attention到相关性分数/"
+          },
+          {
+            "title": "7 Embedding模型原理",
+            "url": "/AI/7-embedding模型原理/"
+          },
+          {
+            "title": "8 高级RAG技术：HyDE 与 Self-RAG",
+            "url": "/AI/8-高级rag技术hyde-与-self-rag/"
+          },
+          {
+            "title": "9 GraphRAG 与 LightRAG",
+            "url": "/AI/9-graphrag-与-lightrag/"
+          },
+          {
+            "title": "z_RAG 面试题汇总",
+            "url": "/AI/z-rag-面试题汇总/"
+          }
+        ]
+      },
+      {
+        "title": "3 Agent",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 Agent基础必知必会",
+            "url": "/AI/1-agent基础必知必会/"
+          },
+          {
+            "title": "2 ReAct - Reasoning + Acting",
+            "url": "/AI/2-react---reasoning-acting/"
+          }
+        ]
       }
     ]
   },
@@ -203,49 +257,7 @@
   },
   {
     "title": "RAG",
-    "url": "/RAG/",
-    "children": [
-      {
-        "title": "1 RAG全流程详解",
-        "url": "/RAG/1-rag全流程详解/"
-      },
-      {
-        "title": "2 RAG评估体系",
-        "url": "/RAG/2-rag评估体系/"
-      },
-      {
-        "title": "3 RAG分块策略详解",
-        "url": "/RAG/3-rag分块策略详解/"
-      },
-      {
-        "title": "4 融合搜索、BM25、RRF详解",
-        "url": "/RAG/4-融合搜索bm25rrf详解/"
-      },
-      {
-        "title": "5 重排序 Rerank 详解",
-        "url": "/RAG/5-重排序-rerank-详解/"
-      },
-      {
-        "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
-        "url": "/RAG/6-cross-encoder核心原理从-self-attention到相关性分数/"
-      },
-      {
-        "title": "7 Embedding模型原理",
-        "url": "/RAG/7-embedding模型原理/"
-      },
-      {
-        "title": "8 高级RAG技术：HyDE 与 Self-RAG",
-        "url": "/RAG/8-高级rag技术hyde-与-self-rag/"
-      },
-      {
-        "title": "9 GraphRAG 与 LightRAG",
-        "url": "/RAG/9-graphrag-与-lightrag/"
-      },
-      {
-        "title": "z_RAG 面试题汇总",
-        "url": "/RAG/z-rag-面试题汇总/"
-      }
-    ]
+    "url": "/RAG/"
   },
   {
     "title": "z_efficiency",
@@ -280,6 +292,10 @@
           {
             "title": "iOS 远程 Mac 开发环境搭建指南",
             "url": "/z_mixed/ios-远程-mac-开发环境搭建指南/"
+          },
+          {
+            "title": "mac远程安装开发好的ios app实践 - SideStore",
+            "url": "/z_mixed/mac远程安装开发好的ios-app实践---sidestore/"
           },
           {
             "title": "Tailscale 连接指南与使用详解",
