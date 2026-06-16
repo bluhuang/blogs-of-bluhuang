@@ -2,7 +2,7 @@
 title: "HNSW索引学习笔记"
 categories: ["database"]
 author: "BluHuang"
-date: 2026-06-14T15:12:52+0800
+date: 2026-06-16T10:31:22+0800
 lastmod: 2026-04-02
 ---
 
@@ -14,7 +14,7 @@ HNSW 算法完全学习笔记
 
 1. 概述
 
-HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如 Chroma、Milvus、Weaviate）和 RAG 系统。
+HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90% 以上的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。
 
 ---
 
