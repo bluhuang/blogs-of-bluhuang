@@ -2,7 +2,7 @@
 title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-16T10:31:22+0800
+date: 2026-06-25T00:00:48+0800
 lastmod: 2026-06-04
 ---
 
@@ -73,4 +73,4 @@ tmux attach -t work
 
 - 会话名用短单词：`w`、`c`、`o`
 - 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏/切换 App 不影响 tmux 内任务
+- 手机锁屏/切换 App 不影响 tmux 内任

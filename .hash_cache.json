@@ -68,6 +68,36 @@
   "AI/3 Agent/2 ReAct - Reasoning + Acting.md": {
     "hash": "9d377ff79060de64cf6012b206f06e82"
   },
+  "AI/4 深度学习/1.1 深度学习循环原理.md": {
+    "hash": "bcacde076609122e24c8f70a5e0c5892"
+  },
+  "AI/4 深度学习/1.2 反向传播原理详解.md": {
+    "hash": "aeb29ee685a18da674f0c2dcd6ec297b"
+  },
+  "AI/4 深度学习/1.3 深度学习中的核心循环.md": {
+    "hash": "4ed2211c107f57a32c0d0936377ae8d5"
+  },
+  "AI/4 深度学习/1.4 梯度与梯度下降.md": {
+    "hash": "19376a9089b4b852f4751ec45c210906"
+  },
+  "AI/4 深度学习/2.1 卷积与CNN基础.md": {
+    "hash": "9f51c1ccfdfac92daab4669f583f39fc"
+  },
+  "AI/4 深度学习/2.2 多通道卷积.md": {
+    "hash": "121695946e266ef5b3e080f7a143e2ff"
+  },
+  "AI/4 深度学习/2.3 Bayer RAW图像的特殊处理.md": {
+    "hash": "a6f5c572c7c5770f3e267fd246ca32d3"
+  },
+  "AI/4 深度学习/2.4 感受野.md": {
+    "hash": "1f58fd081bdb5df72a98bbf824302607"
+  },
+  "AI/4 深度学习/2.5 从卷积层到完整去噪网络.md": {
+    "hash": "746d80ddcd6799d1e0be8090fa5994cf"
+  },
+  "AI/4 深度学习/2.6 CNN中的其他常见操作.md": {
+    "hash": "37b319cf96071b0e74134323a33defb6"
+  },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
   },

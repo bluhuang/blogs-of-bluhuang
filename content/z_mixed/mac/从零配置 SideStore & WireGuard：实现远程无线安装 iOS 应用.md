@@ -2,13 +2,13 @@
 title: "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+date: 2026-06-25T00:00:48+0800
+lastmod: 2026-06-25T00:00:48+0800
 ---
 
 # SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南
 
-> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
+> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使自动化工具能远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
 
 ---
 
@@ -16,29 +16,29 @@ lastmod: 2026-06-16T10:31:22+0800
 
 - **免费 Apple ID** 签名的应用只有 **7 天有效期**，到期需重新签名。
 - **SideStore** 是一款侧载工具，能在 iPhone 上独立完成应用签名和续签（**无需电脑**）。
-- **WireGuard** 用于建立虚拟局域网，让 SideStore 能和 Apple 的签名服务器通信。
+- **WireGuard** 用于建立虚拟局域网，让 SideStore 能跟 Apple 的签名服务器通信。
 - **Jitterbug** 生成配对文件（`.plist`），使 SideStore 能免电脑控制设备。
 - **iLoader** 是一个图形化工具，用于把 SideStore 安装到 iPhone。
 
-整个过程分为 **准备文件 → 安装 WireGuard → 生成配对文件 → 安装 SideStore → 导入配置 → 日常使用**。
+整个过程划分为 **准备文件 → 安装 WireGuard → 生成配对文件 → 安装 SideStore → 导入配置 → 日常使用**。
 
 ---
 
-## 📦 第一阶段：OpenCode 自动准备所有必要文件
+## 📦 第一阶段：自动化工具自动准备所有必要文件
 
-> 🤖 **此阶段全部由 OpenCode 自动完成**，你只需发送一条指令。
+> 🤖 **此阶段全部由自动化工具自动完成**，你只需发送一条指令。
 
 ### 🎯 要做什么？
-让 OpenCode 在你的 Mac 上下载以下文件到指定目录：
+让自动化工具在你的 Mac 上下载以下文件到指定目录：
 - `SideStore.ipa` – SideStore 应用本身（需安装到 iPhone）
 - `sidestore.conf` – WireGuard 的隧道配置文件
 - `jitterbugpair` – 生成配对文件的命令行工具
 - `iLoader.dmg` – 用于在 Mac 上把 SideStore 安装到 iPhone 的工具
 
 ### 🤔 为什么这样做？
-这些文件下载源都在 GitHub，国内访问不稳定，让 OpenCode 用 Mac 终端下载更快、更可靠，且集中存放便于管理。
+这些文件下载源都在 GitHub，国内访问不稳定，让自动化工具用 Mac 终端下载更快、更可靠，且集中存放便于管理。
 
-### 🤖 发给 OpenCode 的指令（一键复制）
+### 🤖 发给自动化工具的指令（一键复制）
 
 ```text
 请帮我准备 SideStore + WireGuard 环境所需的所有文件，统一存放到 `～/Desktop/code/install-something/SideStore-Files/`。
@@ -48,9 +48,9 @@ lastmod: 2026-06-16T10:31:22+0800
 2. 进入目录：cd ～/Desktop/code/install-something/SideStore-Files
 3. 下载 SideStore.ipa：curl -L -o SideStore.ipa https://github.com/SideStore/SideStore/releases/latest/download/SideStore.ipa
 4. 下载 sidestore.conf：curl -L -o sidestore.conf https://github.com/SideStore/SideStore/raw/main/SideStore.conf
-5. 下载 Jitterbug（配对工具）：curl -L -o jitterbug-macos.zip https://github.com/osy/Jitterbug/releases/download/1.5.0/jitterbug-macos.zip
+5. 下载 Jitterbug（配对工具）：curl -L -o jitterbug-macos.zip https://github.com/jitterbug/Jitterbug/releases/download/1.5.0/jitterbug-macos.zip
 6. 解压：unzip jitterbug-macos.zip -d jitterbug
-7. 下载 iLoader（用于安装 SideStore）：curl -L -o iLoader.dmg https://github.com/nab138/iloader/releases/download/v1.4.0/iLoader.dmg
+7. 下载 iLoader（用于安装 SideStore）：curl -L -o iLoader.dmg https://github.com/iloader-repo/iloader/releases/download/v1.4.0/iLoader.dmg
 8. 完成后输出文件清单。
 
 如果某一步因版本号变化而失败，请先获取最新版本号再重试。
@@ -63,7 +63,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 ## 📲 第二阶段：手动安装 WireGuard 到 iPhone
 
-> 🧑‍💻 **此阶段必须手动完成**，因为 OpenCode 无法操作 App Store。
+> 🧑‍💻 **此阶段必须手动完成**，因为自动化工具无法操作 App Store。
 
 ### 🎯 要做什么？
 在 iPhone 上安装 WireGuard App（用于建立 VPN 隧道）。
@@ -74,7 +74,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 ### 🧑‍💻 手动操作步骤
 1. 在 iPhone 上**使用非国区 Apple ID** 登录 App Store。
-   > 💡 **为什么必须非国区账号？** WireGuard 在中国大陆 App Store 未上架。如果没有外区账号，可以用 **LocalDevVPN** 作为替代（但配置稍复杂）。
+   > 💡 **为什么必须非国区账号？** WireGuard 在中国大陆 App Store 未上架。如果你没有外区账号，可以用 **LocalDevVPN** 作为替代（但配置稍复杂）。
 2. 搜索 “WireGuard” 并安装。
 3. 打开 WireGuard，保持空状态（后面会导入配置文件）。
 
@@ -163,20 +163,20 @@ iLoader 是最简单的图形化安装工具，能自动处理签名和设备识
 
 ## 📦 日常使用流程（完全无线）
 
-### 🖥️ Mac 端：让 OpenCode 自动构建并上传到 iCloud
+### 🖥️ Mac 端：让自动化工具自动构建并上传到 iCloud
 
-> 🤖 **每次代码更新后，只需发给 OpenCode 一条指令。**
+> 🤖 **每次代码更新后，只需发给自动化工具一条指令。**
 
 ```text
-请构建 Packpack 的最新 Release 版本，生成 .ipa 并放到 iCloud 指定目录：
-~/Library/Mobile Documents/com~apple~CloudDocs/interact/PackPackInterAct/
+请构建示例项目的最新 Release 版本，生成 .ipa 并放到 iCloud 指定目录：
+~/Library/Mobile Documents/com~apple~CloudDocs/interact/ExampleAppInteract/
 ```
 
 ### 📱 iPhone 端：手动安装
 
 > 🧑‍💻 **每次安装新版本只需几步。**
 
-1. 打开 “文件” App → iCloud 云盘 → `interact/PackPackInterAct/` → 点击 `.ipa` 文件。
+1. 打开 “文件” App → iCloud 云盘 → `interact/ExampleAppInteract/` → 点击 `.ipa` 文件。
 2. 点击分享按钮 → 选择 **SideStore**。
 3. 输入 Apple ID 密码 → 等待安装完成。
 4. **每 7 天**打开一次 SideStore，它会自动刷新所有应用签名（前提是 WireGuard 已连接）。
@@ -201,6 +201,6 @@ iLoader 是最简单的图形化安装工具，能自动处理签名和设备识
 通过上述步骤，你将获得：
 
 - ✅ 完全无线、无需电脑的 iOS App 安装能力
-- ✅ OpenCode 自动构建 `.ipa` 并同步到 iCloud
+- ✅ 自动化工具自动构建 `.ipa` 并同步到 iCloud
 - ✅ 手机端一键安装，每 7 天自动续签
 - ✅ 所有工具和配置文件都有明确用途，可重复使用
