@@ -1,0 +1,1359 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.5-%E4%BB%8E%E5%8D%B7%E7%A7%AF%E5%B1%82%E5%88%B0%E5%AE%8C%E6%95%B4%E5%8E%BB%E5%99%AA%E7%BD%91%E7%BB%9C/><title>5 从卷积层到完整去噪网络</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="5 从卷积层到完整去噪网络"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.5-%E4%BB%8E%E5%8D%B7%E7%A7%AF%E5%B1%82%E5%88%B0%E5%AE%8C%E6%95%B4%E5%8E%BB%E5%99%AA%E7%BD%91%E7%BB%9C/"><meta name=twitter:title content="5 从卷积层到完整去噪网络"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(33)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(17)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(16)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(6)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">5 从卷积层到完整去噪网络</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-最简单的去噪网络dmnet>1 最简单的去噪网络：DMNET</a><ol><li><a href=#11-它长什么样>1.1 它长什么样？</a></li><li><a href=#12-它够用吗>1.2 它够用吗？</a></li></ol></li><li><a href=#2-残差连接让网络能加深>2 残差连接：让网络能"加深"</a><ol><li><a href=#21-为什么需要残差连接>2.1 为什么需要残差连接？</a></li><li><a href=#22-残差连接的本质>2.2 残差连接的本质</a></li><li><a href=#23-去噪任务中的残差连接>2.3 去噪任务中的残差连接</a></li><li><a href=#24-代码中的残差连接>2.4 代码中的残差连接</a></li></ol></li><li><a href=#3-编码器与解码器先压缩再还原>3 编码器与解码器：先压缩，再还原</a><ol><li><a href=#31-什么是编码器>3.1 什么是编码器？</a></li><li><a href=#32-为什么需要编码器下采样的价值>3.2 为什么需要编码器？（下采样的价值）</a></li><li><a href=#33-什么是解码器>3.3 什么是解码器？</a></li><li><a href=#34-没有解码器会怎样>3.4 没有解码器会怎样？</a></li></ol></li><li><a href=#4-跳层连接把快照传给解码器>4 跳层连接：把"快照"传给解码器</a><ol><li><a href=#41-编码器丢失了细节>4.1 编码器丢失了"细节"</a></li><li><a href=#42-跳层连接做了什么>4.2 跳层连接做了什么？</a></li><li><a href=#43-跳层连接的具体操作>4.3 跳层连接的具体操作</a></li><li><a href=#44-没有跳层连接-vs-有跳层连接>4.4 没有跳层连接 vs 有跳层连接</a></li></ol></li><li><a href=#5-unet编码器-解码器--跳层连接>5 UNet：编码器-解码器 + 跳层连接</a><ol><li><a href=#51-完整的unet结构>5.1 完整的UNet结构</a></li><li><a href=#52-为什么叫unet>5.2 为什么叫UNet？</a></li><li><a href=#53-unet在去噪中的优势>5.3 UNet在去噪中的优势</a></li></ol></li><li><a href=#6-残差连接-vs-跳层连接>6 残差连接 vs 跳层连接</a></li><li><a href=#7-代码中的-bnet_basepy-结构预览>7 代码中的 Bnet_base.py 结构预览</a><ol><li><a href=#71-它是什么>7.1 它是什么？</a></li><li><a href=#72-在代码中找到这些组件>7.2 在代码中找到这些组件</a></li></ol></li><li><a href=#8-dm_netpy-vs-bnet_basepy>8 dm_net.py vs Bnet_base.py</a></li><li><a href=#9-本章小结>9 本章小结</a></li></ol></nav></details><h1 id=从卷积层到完整的去噪网络>从卷积层到完整的去噪网络</h1><h2 id=1-最简单的去噪网络dmnet>1 最简单的去噪网络：DMNET</h2><h3 id=11-它长什么样>1.1 它长什么样？</h3><p><code>dm_net</code> 是最简单的去噪网络。它只有 3 层卷积，没有其他复杂结构。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    DMNET：一个极简去噪网络                       │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                  │
+</span></span><span style=display:flex><span>│  输入: [B, 4, H/2, W/2]    ← 已经过 Space-to-Depth 拆解         │
+</span></span><span style=display:flex><span>│      ↓                                                          │
+</span></span><span style=display:flex><span>│  ┌──────────────────────────────────────┐                       │
+</span></span><span style=display:flex><span>│  │ Conv2d(4 → 8, 3×3, padding=1)       │  ← 第1层：4→8 通道   │
+</span></span><span style=display:flex><span>│  │ + ReLU                              │                       │
+</span></span><span style=display:flex><span>│  └──────────────────────────────────────┘                       │
+</span></span><span style=display:flex><span>│      ↓                                                          │
+</span></span><span style=display:flex><span>│  ┌──────────────────────────────────────┐                       │
+</span></span><span style=display:flex><span>│  │ Conv2d(8 → 8, 3×3, padding=1)       │  ← 第2层：8→8 通道   │
+</span></span><span style=display:flex><span>│  │ + ReLU                              │                       │
+</span></span><span style=display:flex><span>│  └──────────────────────────────────────┘                       │
+</span></span><span style=display:flex><span>│      ↓                                                          │
+</span></span><span style=display:flex><span>│  ┌──────────────────────────────────────┐                       │
+</span></span><span style=display:flex><span>│  │ Conv2d(8 → 4, 3×3, padding=1)       │  ← 第3层：8→4 通道   │
+</span></span><span style=display:flex><span>│  └──────────────────────────────────────┘                       │
+</span></span><span style=display:flex><span>│      ↓                                                          │
+</span></span><span style=display:flex><span>│  输出: [B, 4, H/2, W/2]    ← 预测噪声图                        │
+</span></span><span style=display:flex><span>│                                                                  │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=12-它够用吗>1.2 它够用吗？</h3><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>极轻量（~300个参数）</td><td>表达能力有限，只能学习简单噪声模式</td></tr><tr><td>推理速度快，适合NPU部署</td><td>感受野只有 7×7，难以区分复杂纹理和噪声</td></tr><tr><td>结构清晰，适合入门理解</td><td>没有残差连接，梯度在深层可能消失</td></tr></tbody></table><p><strong>DMNET 的作用</strong>：它是一个"基线模型"（baseline），用来验证数据 pipeline 和训练流程是否正确。若需获得更好的去噪效果，需在其基础上增加更复杂的结构。下面要讲的残差连接、跳层连接和 UNet 结构，就是在 DMNET 基础上逐步"升级"的路径。</p><h2 id=2-残差连接让网络能加深>2 残差连接：让网络能"加深"</h2><h3 id=21-为什么需要残差连接>2.1 为什么需要残差连接？</h3><p>当卷积层从 3 层增加到 10 层、20 层时，会出现一个反直觉的现象：<strong>训练集上的准确率反而下降了</strong>。</p><p>这不是过拟合（过拟合是训练集好、验证集差），而是<strong>网络退化</strong>（degradation）：网络太深，梯度在反向传播时逐层衰减，浅层参数几乎得不到更新。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span># 一个直观的比喻
+</span></span><span style=display:flex><span># 你让一个人同时做 100 道题，然后告诉他总分不及格。让他分析&#34;哪道题错了？&#34;
+</span></span><span style=display:flex><span># 如果题目太深、链条太长，他只能知道&#34;大概后面错了&#34;，但根本想不起第一道题写了什么。
+</span></span><span style=display:flex><span># 这就是梯度消失——浅层的参数收不到有效的更新信号。
+</span></span></code></pre></div><h3 id=22-残差连接的本质>2.2 残差连接的本质</h3><p><strong>定义</strong>：在网络的输入和输出之间加一条"短路"，让输出 = 输入 + 中间计算结果。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>传统网络（没有残差）：
+</span></span><span style=display:flex><span>输入 x → [卷积层] → [激活] → [卷积层] → [激活] → 输出 H(x)
+</span></span><span style=display:flex><span>目标：让 H(x) 逼近 y_true
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>残差网络（有残差）：
+</span></span><span style=display:flex><span>输入 x → [卷积层] → [激活] → [卷积层] → [激活] → 中间 F(x)
+</span></span><span style=display:flex><span>                                               ↓
+</span></span><span style=display:flex><span>输出 = x + F(x)   ← 这就是残差连接
+</span></span><span style=display:flex><span>目标：让 F(x) 逼近 y_true - x（即&#34;残差&#34;）
+</span></span></code></pre></div><h3 id=23-去噪任务中的残差连接>2.3 去噪任务中的残差连接</h3><p>在去噪任务中，<strong>残差学习</strong>有了更具体的形式：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入：带噪声图 x = 干净图 + 噪声
+</span></span><span style=display:flex><span>网络输出：预测噪声 F(x)
+</span></span><span style=display:flex><span>最终输出：x - F(x) = 干净图
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>目标：让 F(x) 逼近真实噪声
+</span></span></code></pre></div><blockquote><p><strong>术语解释</strong>：残差（residual）就是"输入和输出之间的差异"。在去噪任务中，输入（带噪图）和输出（干净图）的差异就是噪声。网络只需学习"这个差异是什么"，而不是从零学习"干净图长什么样"。</p></blockquote><pre class=mermaid>
+flowchart LR
+    subgraph 残差学习
+        Input["输入<br>(带噪图)"] --> Net["网络"]
+        Net --> Noise["预测噪声"]
+        Input --> Sub["残差连接<br>（逐像素相减）"]
+        Noise --> Sub
+        Sub --> Output["输出<br>（干净图）"]
+    end
+    
+    style Input fill:#e1f5fe
+    style Output fill:#e8f5e9
+    style Sub fill:#fff3e0
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>为什么这样设计更简单？</strong></p><ul><li>直接学习"完整图像" → 网络需要记住每个像素的精确值</li><li>学习"噪声" → 噪声是随机的、局部的，网络只需判断"这个像素是不是噪点"</li></ul><h3 id=24-代码中的残差连接>2.4 代码中的残差连接</h3><p>在 <code>iir_train_ops.py</code> 中，Loss 计算部分体现了残差学习：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># iir_train_ops.py（概念简化）</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>cal_iir_model_loss</span>(self, sample):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 1. 网络前向：输入带噪图 → 输出预测噪声</span>
+</span></span><span style=display:flex><span>    net_out <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>model_fn(sample[<span style=color:#e6db74>&#39;input&#39;</span>])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 2. 残差连接：干净图 = 带噪图 - 预测噪声</span>
+</span></span><span style=display:flex><span>    clean_pred <span style=color:#f92672>=</span> sample[<span style=color:#e6db74>&#39;input&#39;</span>] <span style=color:#f92672>-</span> net_out
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 3. 计算 Loss：对比干净图和真实目标</span>
+</span></span><span style=display:flex><span>    loss <span style=color:#f92672>=</span> compute_loss(clean_pred, sample[<span style=color:#e6db74>&#39;target&#39;</span>])
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> loss
+</span></span></code></pre></div><h2 id=3-编码器与解码器先压缩再还原>3 编码器与解码器：先压缩，再还原</h2><p>在进入跳层连接和 UNet 之前，需要先理解两个最基础的结构组件——<strong>编码器</strong>和<strong>解码器</strong>。</p><h3 id=31-什么是编码器>3.1 什么是编码器？</h3><p>**编码器（Encoder）**是网络中负责 <strong>&ldquo;压缩信息&rdquo;</strong> 的部分：逐步缩小特征图的尺寸（下采样），同时增加通道数来提取更丰富的特征。</p><p>==<strong>编码器，本质上就是"会缩小图片尺寸的卷积层"。</strong>==</p><p>为了"看得更远"（扩大感受野），一个直接的办法是：<strong>把图片缩小，这样 3×3 的卷积核就能覆盖更大的相对范围</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    下采样（缩小图片）的本质                                  │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│   原始图片 256×256                        缩小到 128×128                     │
+</span></span><span style=display:flex><span>│   ┌───────────────────────────┐          ┌───────────────┐                  │
+</span></span><span style=display:flex><span>│   │                           │          │               │                  │
+</span></span><span style=display:flex><span>│   │  一个 3×3 的卷积核，      │  ──→      │  同样 3×3 的   │                  │
+</span></span><span style=display:flex><span>│   │  在 256×256 上只能看到    │           │  卷积核，在    │                  │
+</span></span><span style=display:flex><span>│   │  很小的一小块区域         │           │  128×128 上    │                  │
+</span></span><span style=display:flex><span>│   │                           │          │  看到相对更大  │                  │
+</span></span><span style=display:flex><span>│   │                           │          │  的范围        │                  │
+</span></span><span style=display:flex><span>│   └───────────────────────────┘          └───────────────┘                  │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│   这就是编码器的核心价值：通过缩小尺寸来扩大感受野                             │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><pre tabindex=0><code>编码器的工作：把大图变小，提取抽象特征
+  输入大图            第1次缩小           第2次缩小           第3次缩小
+  [B,4,H,W]     →    [B,48,H/2,W/2]  →  [B,96,H/4,W/4]  →  [B,192,H/8,W/8]
+    ↑                    ↑                   ↑                   ↑
+  原始尺寸           尺寸减半            尺寸再减半          尺寸再减半
+                    感受野扩大          感受野继续扩大      感受野更大
+</code></pre><h3 id=32-为什么需要编码器下采样的价值>3.2 为什么需要编码器？（下采样的价值）</h3><p>你可能会问：<strong>&ldquo;为什么不直接在原始尺寸上做卷积，而要先把图像缩小？&rdquo;</strong></p><p>三个核心原因：</p><table><thead><tr><th>原因</th><th>解释</th></tr></thead><tbody><tr><td><strong>扩大感受野</strong></td><td>在 256×256 图上，3×3 卷积只能看到 3×3 范围。在 32×32 图上，3×3 卷积看到的范围相当于原始尺寸的 24×24。<strong>图像缩小了，卷积核的相对视野变大了</strong></td></tr><tr><td><strong>降低计算量</strong></td><td>特征图每缩小一半，计算量降到原来的 1/4。让网络在"小尺寸"上做繁重计算，是轻量化的关键</td></tr><tr><td><strong>提取抽象特征</strong></td><td>浅层看到的是"边缘"&ldquo;颜色斑点&rdquo;，深层看到的是"形状"&ldquo;物体部件&rdquo;。<strong>压缩的过程就是抽象的过程</strong></td></tr></tbody></table><pre class=mermaid>
+flowchart LR
+    subgraph 原始尺寸
+        A["256×256 图像<br>3×3核 → 看到3×3范围"]
+    end
+    
+    subgraph 缩小4倍
+        B["64×64 特征图<br>3×3核 → 看到12×12范围"]
+    end
+    
+    subgraph 缩小8倍
+        C["32×32 特征图<br>3×3核 → 看到24×24范围"]
+    end
+    
+    A -->|下采样| B -->|下采样| C
+    
+    style A fill:#e3f2fd
+    style B fill:#fff3e0
+    style C fill:#ffcdd2
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=33-什么是解码器>3.3 什么是解码器？</h3><p><strong>解码器，就是"把缩小的图片再放大回原始尺寸"的层。</strong></p><p>编码器把 <code>H×W</code> 变成了 <code>H/8×W/8</code>，但最终需要输出和输入一样大的图像（去噪任务要求尺寸一致）。所以必须有一个对称的结构，把尺寸一步步放大回去。</p><p><strong>怎么放大？</strong> 用 <strong>上采样（Upsampling）</strong>，通常通过 <strong>转置卷积（Transposed Convolution）</strong> 或 <strong>插值（Interpolation）</strong> 实现。</p><pre tabindex=0><code>解码器的工作：把小图放大，恢复细节
+
+  最深层            第1次放大           第2次放大           第3次放大
+  [B,192,H/8,W/8] → [B,96,H/4,W/4]  → [B,48,H/2,W/2]  → [B,4,H,W]
+    ↑                    ↑                   ↑                ↑
+  最小尺寸           尺寸翻倍            尺寸再翻倍        恢复原始尺寸
+  抽象语义           开始恢复细节        更多细节         完整输出
+</code></pre><pre class=mermaid>
+flowchart LR
+    D["最深层<br>[B,192,H/8,W/8]"]
+    C["up1<br>放大<br>[B,96,H/4,W/4]"]
+    B["up2<br>放大<br>[B,48,H/2,W/2]"]
+    A["输出<br>[B,4,H,W]"]
+    
+    D --> C
+    C --> B
+    B --> A
+    
+    D1["尺寸: H/8×W/8"] --> C1["尺寸: H/4×W/4"]
+    C1 --> B1["尺寸: H/2×W/2"]
+    B1 --> A1["尺寸: H×W"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=34-没有解码器会怎样>3.4 没有解码器会怎样？</h3><p>如果只有编码器（只压缩不还原），输出会变得非常小。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 256×256 → 编码器压缩 → 输出 16×16
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>问题：我们需要输出和输入同样大小的图像（去噪任务要求尺寸一致），
+</span></span><span style=display:flex><span>      但 16×16 的特征图无法直接变成 256×256 的输出。
+</span></span></code></pre></div><p>所以，<strong>编码器必须搭配解码器</strong>——先压缩信息（编码器），再还原尺寸（解码器），才能输出与输入同尺寸的图像。</p><p><strong>那 <code>up</code> 这个名字从哪来的？</strong></p><p>代码里用 <code>up</code> 来命名解码器的每一层，就是 <strong><code>upsample</code>（上采样）的缩写</strong>。它表示这一层要把尺寸"翻倍放大"。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 解码器的典型写法</span>
+</span></span><span style=display:flex><span>self<span style=color:#f92672>.</span>up1 <span style=color:#f92672>=</span> UpBlock(<span style=color:#ae81ff>192</span>, <span style=color:#ae81ff>96</span>)   <span style=color:#75715e># H/8 → H/4（放大1倍）</span>
+</span></span><span style=display:flex><span>self<span style=color:#f92672>.</span>up2 <span style=color:#f92672>=</span> UpBlock(<span style=color:#ae81ff>96</span>, <span style=color:#ae81ff>48</span>)    <span style=color:#75715e># H/4 → H/2（放大1倍）</span>
+</span></span><span style=display:flex><span>self<span style=color:#f92672>.</span>up3 <span style=color:#f92672>=</span> UpBlock(<span style=color:#ae81ff>48</span>, <span style=color:#ae81ff>4</span>)     <span style=color:#75715e># H/2 → H（放大1倍）</span>
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    subgraph 编码器
+        E1["conv1<br>H → H/2"]
+        E2["conv2<br>H/2 → H/4"]
+        E3["conv3<br>H/4 → H/8"]
+    end
+    
+    subgraph 瓶颈
+        B["最深层<br>H/8"]
+    end
+    
+    subgraph 解码器
+        D1["up1<br>H/8 → H/4"]
+        D2["up2<br>H/4 → H/2"]
+        D3["up3<br>H/2 → H"]
+    end
+    
+    E1 --> E2 --> E3 --> B --> D1 --> D2 --> D3
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h2 id=4-跳层连接把快照传给解码器>4 跳层连接：把"快照"传给解码器</h2><p>现在到了最关键的问题：<strong>为什么需要跳层连接？</strong></p><h3 id=41-编码器丢失了细节>4.1 编码器丢失了"细节"</h3><p>编码器在缩小图片时，虽然扩大了感受野，但也<strong>丢失了边缘、纹理等空间细节</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始图片中的一条清晰边缘：             经过3次缩小后的16×16特征图：
+</span></span><span style=display:flex><span>┌───────────────────────┐            ┌───────────────────────┐
+</span></span><span style=display:flex><span>│                       │            │                       │
+</span></span><span style=display:flex><span>│   ◤                   │            │    █████████████████  │
+</span></span><span style=display:flex><span>│   ◤  一条清晰的线     │    ──→      │    █████████████████  │
+</span></span><span style=display:flex><span>│   ◤                   │            │    █████████████████  │
+</span></span><span style=display:flex><span>│                       │            │                       │
+</span></span><span style=display:flex><span>└───────────────────────┘            └───────────────────────┘
+</span></span><span style=display:flex><span>    细节清晰可见                         细节丢失，只剩模糊轮廓
+</span></span></code></pre></div><h3 id=42-跳层连接做了什么>4.2 跳层连接做了什么？</h3><p><strong>跳层连接</strong>：把编码器<strong>尚未缩小之前</strong>的"高分辨率快照"，直接传给解码器对应层。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    跳层连接：传递&#34;高分辨率快照&#34;                            │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│    编码器（向下，尺寸逐减）             解码器（向上，尺寸逐增）            │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│    [B,4,H,W]                                                               │
+</span></span><span style=display:flex><span>│        ↓                                                                   │
+</span></span><span style=display:flex><span>│    conv1 → [B,48,H/2]  ──────────── 跳层连接 ──────────┐                  │
+</span></span><span style=display:flex><span>│        ↓                                               │                  │
+</span></span><span style=display:flex><span>│    conv2 → [B,96,H/4]  ──────────── 跳层连接 ──────┐   │                  │
+</span></span><span style=display:flex><span>│        ↓                                           │   │                  │
+</span></span><span style=display:flex><span>│    conv3 → [B,192,H/8] ──────────── 跳层连接 ────┐ │   │                  │
+</span></span><span style=display:flex><span>│        ↓                                        │ │   │                  │
+</span></span><span style=display:flex><span>│    最深层 [B,384,H/16] ─── 传递给解码器 ───→     │ │   │                  │
+</span></span><span style=display:flex><span>│                                                 │ │   │                  │
+</span></span><span style=display:flex><span>│                                                 │ │   │                  │
+</span></span><span style=display:flex><span>│    解码器：                                     │ │   │                  │
+</span></span><span style=display:flex><span>│                                                 │ │   │                  │
+</span></span><span style=display:flex><span>│                         up1 [B,192,H/8]  ←──────┘ │   │                  │
+</span></span><span style=display:flex><span>│                              ↓                    │   │                  │
+</span></span><span style=display:flex><span>│                         up2 [B,96,H/4]   ←────────┘   │                  │
+</span></span><span style=display:flex><span>│                              ↓                        │                  │
+</span></span><span style=display:flex><span>│                         up3 [B,48,H/2]   ←────────────┘                  │
+</span></span><span style=display:flex><span>│                              ↓                                           │
+</span></span><span style=display:flex><span>│                         [B,4,H,W]                                           │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=43-跳层连接的具体操作>4.3 跳层连接的具体操作</h3><p>跳层连接在代码中通常是一个 <strong>拼接（Concatenate）</strong> 操作：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>解码器某层的输入 = [上采样后的特征图] + [编码器传来的&#34;快照&#34;]
+</span></span><span style=display:flex><span>                        ↑                          ↑
+</span></span><span style=display:flex><span>                   来自深层                   来自浅层
+</span></span><span style=display:flex><span>                   （抽象语义）               （高分辨率细节）
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    subgraph 拼接操作
+        A["上采样后的特征图<br>[B, 192, H/8, W/8]<br>（抽象语义）"]
+        B["编码器传来的快照<br>[B, 192, H/8, W/8]<br>（高分辨率细节）"]
+        C["拼接 Concatenate<br>[B, 384, H/8, W/8]"]
+        D["继续上采样"]
+        
+        A --> C
+        B --> C
+        C --> D
+    end
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>``</p><h3 id=44-没有跳层连接-vs-有跳层连接>4.4 没有跳层连接 vs 有跳层连接</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>没有跳层连接：
+</span></span><span style=display:flex><span>输入 256×256 → 编码器压缩到 16×16 → 解码器还原到 256×256
+</span></span><span style=display:flex><span>                                    ↓
+</span></span><span style=display:flex><span>                            只有16×16的抽象信息
+</span></span><span style=display:flex><span>                            边缘模糊，纹理丢失
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>有跳层连接：
+</span></span><span style=display:flex><span>输入 256×256 → 编码器每一层都保存了&#34;快照&#34;
+</span></span><span style=display:flex><span>              → 解码器上采样时参考快照
+</span></span><span style=display:flex><span>              → 边缘清晰，纹理保留
+</span></span></code></pre></div><h2 id=5-unet编码器-解码器--跳层连接>5 UNet：编码器-解码器 + 跳层连接</h2><h3 id=51-完整的unet结构>5.1 完整的UNet结构</h3><p>把编码器、解码器和跳层连接组合在一起，就是经典的 <strong>UNet</strong> 结构。</p><pre class=mermaid>
+flowchart TD
+    subgraph 输入
+        I["输入<br>[B,4,H,W]"]
+    end
+    
+    subgraph 编码器
+        E1["conv1<br>[B,48,H/2,W/2]<br>↓ 下采样"]
+        E2["conv2<br>[B,96,H/4,W/4]<br>↓ 下采样"]
+        E3["conv3<br>[B,192,H/8,W/8]<br>↓ 下采样"]
+        E4["conv4<br>[B,384,H/16,W/16]<br>（最深层）"]
+    end
+    
+    subgraph 解码器
+        D3["up1<br>[B,192,H/8,W/8]<br>↑ 上采样"]
+        D2["up2<br>[B,96,H/4,W/4]<br>↑ 上采样"]
+        D1["up3<br>[B,48,H/2,W/2]<br>↑ 上采样"]
+    end
+    
+    subgraph 输出
+        O["输出<br>[B,4,H,W]"]
+    end
+    
+    I --> E1
+    E1 --> E2
+    E2 --> E3
+    E3 --> E4
+    
+    E4 --> D3
+    D3 --> D2
+    D2 --> D1
+    D1 --> O
+    
+    E1 -.->|跳层连接| D1
+    E2 -.->|跳层连接| D2
+    E3 -.->|跳层连接| D3
+    
+    style I fill:#e3f2fd
+    style E1 fill:#bbdefb
+    style E2 fill:#90caf9
+    style E3 fill:#64b5f6
+    style E4 fill:#42a5f5
+    style D3 fill:#c8e6c9
+    style D2 fill:#a5d6a7
+    style D1 fill:#81c784
+    style O fill:#e8f5e9
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=52-为什么叫unet>5.2 为什么叫UNet？</h3><p>因为这个结构图看起来像字母 <strong>&ldquo;U&rdquo;</strong>：左边向下（编码器），右边向上（解码器），底部是狭窄的瓶颈。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>              ┌──────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>              │                                              │
+</span></span><span style=display:flex><span>  输入 ───→  ┌┴┐                                         ┌┬┐  → 输出
+</span></span><span style=display:flex><span>              │ │ ←── 跳层连接 ──→  │ │                    │
+</span></span><span style=display:flex><span>              │ │                                         │ │
+</span></span><span style=display:flex><span>              │ │ ←── 跳层连接 ──→  │ │                    │
+</span></span><span style=display:flex><span>              │ │                                         │ │
+</span></span><span style=display:flex><span>              │ │ ←── 跳层连接 ──→  │ │                    │
+</span></span><span style=display:flex><span>              │ │                                         │ │
+</span></span><span style=display:flex><span>              └─┴─────────────────────────────────────────┴─┘
+</span></span><span style=display:flex><span>                    ↑                                   ↑
+</span></span><span style=display:flex><span>                  编码器                             解码器
+</span></span><span style=display:flex><span>              （下采样，压缩）                    （上采样，还原）
+</span></span></code></pre></div><h3 id=53-unet在去噪中的优势>5.3 UNet在去噪中的优势</h3><table><thead><tr><th>UNet的设计</th><th>对去噪的帮助</th></tr></thead><tbody><tr><td><strong>编码器（下采样）</strong></td><td>扩大感受野，让网络看到更大范围的上下文——判断"这是纹理还是噪声"</td></tr><tr><td><strong>解码器（上采样）</strong></td><td>恢复空间分辨率，输出与输入同样大小的图像</td></tr><tr><td><strong>跳层连接</strong></td><td>保留边缘和纹理细节，避免输出过于平滑</td></tr></tbody></table><h2 id=6-残差连接-vs-跳层连接>6 残差连接 vs 跳层连接</h2><p>两者都是"跨层传递信息"，但作用完全不同：</p><table><thead><tr><th></th><th>残差连接</th><th>跳层连接</th></tr></thead><tbody><tr><td><strong>连接方向</strong></td><td>同层输入 → 同层输出（纵向短路）</td><td>编码器 → 解码器（横向跨越）</td></tr><tr><td><strong>输入来源</strong></td><td>当前模块的输入 <code>x</code></td><td>编码器某层的输出（高分辨率快照）</td></tr><tr><td><strong>输出去向</strong></td><td>当前模块的输出</td><td>解码器对应层（拼接）</td></tr><tr><td><strong>解决什么问题</strong></td><td>梯度消失 → 让网络能加深</td><td>空间信息丢失 → 让解码器恢复细节</td></tr><tr><td><strong>操作</strong></td><td>加法：<code>x + F(x)</code></td><td>拼接：<code>cat(上采样结果, 编码器快照)</code></td></tr><tr><td><strong>形状要求</strong></td><td>两个输入形状必须完全相同</td><td>H×W相同即可，通道数可以不同</td></tr><tr><td><strong>在代码中</strong></td><td><code>out = x + conv(x)</code></td><td><code>up = self.up(deep, shallow)</code></td></tr><tr><td><strong>作用距离</strong></td><td>短（跨1~2层）</td><td>长（跨多个下采样层）</td></tr><tr><td><strong>典型例子</strong></td><td>ResNet</td><td>UNet</td></tr></tbody></table><pre class=mermaid>
+flowchart TD
+    subgraph 残差连接
+        RX["输入 x"] --> RC["卷积层"]
+        RX --> RA["加法 +"]
+        RC --> RA
+        RA --> RY["输出 x+F(x)"]
+    end
+    
+    subgraph 跳层连接
+        E["编码器特征<br>（高分辨率快照）"] --> S["拼接 Concatenate"]
+        D["解码器特征<br>（上采样后）"] --> S
+        S --> O["继续上采样"]
+    end
+    
+    style RX fill:#e3f2fd
+    style RY fill:#e8f5e9
+    style E fill:#bbdefb
+    style D fill:#c8e6c9
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>一句话分清</strong>：</p><blockquote><p><strong>残差连接</strong>是"自己的过去帮自己"（同一层的输入帮输出，解决梯度消失）。<br><strong>跳层连接</strong>是"别人帮自己"（编码器的细节帮解码器恢复图像，解决细节丢失）。</p></blockquote><h2 id=7-代码中的-bnet_basepy-结构预览>7 代码中的 Bnet_base.py 结构预览</h2><h3 id=71-它是什么>7.1 它是什么？</h3><p><code>Bnet_base.py</code> 是 <code>dm_net.py</code> 的"豪华升级版"——包含了<strong>编码器-解码器结构、残差连接、跳层连接</strong>等所有刚学过的组件。</p><h3 id=72-在代码中找到这些组件>7.2 在代码中找到这些组件</h3><p>打开 <code>models/Bnet_base.py</code>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># models/Bnet_base.py（简化结构）</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>BNET_v2</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self):
+</span></span><span style=display:flex><span>        <span style=color:#75715e># ========== 编码器（下采样） ==========</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv1 <span style=color:#f92672>=</span> down_block(<span style=color:#ae81ff>4</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>48</span>)    <span style=color:#75715e># H/2</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv2 <span style=color:#f92672>=</span> down_block(<span style=color:#ae81ff>48</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>96</span>)   <span style=color:#75715e># H/4</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv3 <span style=color:#f92672>=</span> down_block(<span style=color:#ae81ff>96</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>192</span>)  <span style=color:#75715e># H/8</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv4 <span style=color:#f92672>=</span> down_block(<span style=color:#ae81ff>192</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>384</span>) <span style=color:#75715e># H/16</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># ========== 解码器（上采样） ==========</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up1 <span style=color:#f92672>=</span> up_block(<span style=color:#ae81ff>384</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>192</span>)     <span style=color:#75715e># H/8</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up2 <span style=color:#f92672>=</span> up_block(<span style=color:#ae81ff>192</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>96</span>)      <span style=color:#75715e># H/4</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up3 <span style=color:#f92672>=</span> up_block(<span style=color:#ae81ff>96</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>48</span>)       <span style=color:#75715e># H/2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># ========== 输出层 ==========</span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>final_conv <span style=color:#f92672>=</span> Conv2d(<span style=color:#ae81ff>48</span> <span style=color:#960050;background-color:#1e0010>→</span> <span style=color:#ae81ff>4</span>)   <span style=color:#75715e># H</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x):
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 编码器路径</span>
+</span></span><span style=display:flex><span>        e1 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>conv1(x)
+</span></span><span style=display:flex><span>        e2 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>conv2(e1)
+</span></span><span style=display:flex><span>        e3 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>conv3(e2)
+</span></span><span style=display:flex><span>        e4 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>conv4(e3)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 解码器路径（带跳层连接）</span>
+</span></span><span style=display:flex><span>        d1 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up1(e4, e3)  <span style=color:#75715e># ← 跳层连接：e3 传给了 up1</span>
+</span></span><span style=display:flex><span>        d2 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up2(d1, e2)  <span style=color:#75715e># ← 跳层连接：e2 传给了 up2</span>
+</span></span><span style=display:flex><span>        d3 <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up3(d2, e1)  <span style=color:#75715e># ← 跳层连接：e1 传给了 up3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        out <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>final_conv(d3)
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> out
+</span></span></code></pre></div><table><thead><tr><th>刚学的概念</th><th>在代码中的对应</th></tr></thead><tbody><tr><td><strong>编码器（下采样）</strong></td><td><code>self.conv1</code> ~ <code>self.conv4</code>，带 <code>down_block</code></td></tr><tr><td><strong>解码器（上采样）</strong></td><td><code>self.up1</code> ~ <code>self.up3</code>，带 <code>up_block</code></td></tr><tr><td><strong>跳层连接</strong></td><td><code>self.up1(e4, e3)</code> 这种调用——编码器的 <code>e3</code> 传给了解码器 <code>up1</code></td></tr><tr><td><strong>残差连接</strong></td><td><code>down_block</code> 和 <code>up_block</code> 内部的 <code>+</code> 操作（<code>x + F(x)</code>）</td></tr></tbody></table><h2 id=8-dm_netpy-vs-bnet_basepy>8 dm_net.py vs Bnet_base.py</h2><table><thead><tr><th></th><th>dm_net.py</th><th>Bnet_base.py</th></tr></thead><tbody><tr><td>结构</td><td>3层卷积堆叠</td><td>编码器-解码器 + 跳层连接</td></tr><tr><td>是否下采样</td><td>否（在缩小后的空间直接处理）</td><td>是（编码器逐步缩小，解码器逐步放大）</td></tr><tr><td>感受野</td><td>7×7</td><td>更大（取决于下采样次数）</td></tr><tr><td>残差连接</td><td>有（输入-预测噪声）</td><td>有（内部也有残差块）</td></tr><tr><td>跳层连接</td><td>无</td><td>有</td></tr><tr><td>参数量</td><td>~300</td><td>数百万</td></tr><tr><td>适用场景</td><td>极轻量部署</td><td>高质量去噪</td></tr></tbody></table><h2 id=9-本章小结>9 本章小结</h2><pre class=mermaid>
+flowchart LR
+    D["DMNET<br>3层卷积堆叠"] --> R["+ 残差连接<br>解决加深问题"]
+    R --> S["+ 跳层连接<br>保留空间细节"]
+    S --> U["UNet风格<br>编码器-解码器"]
+    U --> B["Bnet_base.py<br>工业级实现"]
+    
+    style D fill:#e3f2fd
+    style R fill:#fff3e0
+    style S fill:#fff3e0
+    style U fill:#e8f5e9
+    style B fill:#fce4ec
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>一句话</strong>：</p><blockquote><p>编码器负责压缩图像、扩大感受野；解码器负责还原尺寸、恢复图像。跳层连接把编码器的高分辨率"快照"传给解码器，让细节得以保留。编码器+解码器+跳层连接 = UNet。<code>dm_net.py</code> 是最简单的起点，<code>Bnet_base.py</code> 是包含上述所有组件的工业级实现。演进路径：<strong>DMNET → 残差连接 → 跳层连接 → UNet → Bnet_base.py</strong>。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

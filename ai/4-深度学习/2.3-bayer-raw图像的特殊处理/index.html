@@ -1,0 +1,539 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.3-bayer-raw%E5%9B%BE%E5%83%8F%E7%9A%84%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/><title>3 Bayer RAW图像的特殊处理</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="3 Bayer RAW图像的特殊处理"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.3-bayer-raw%E5%9B%BE%E5%83%8F%E7%9A%84%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86/"><meta name=twitter:title content="3 Bayer RAW图像的特殊处理"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(33)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(17)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(16)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(6)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">3 Bayer RAW图像的特殊处理</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-为什么raw图像要拆成4个通道>1 为什么RAW图像要拆成4个通道？</a><ol><li><a href=#11-先看灰度图和彩色图>1.1 先看灰度图和彩色图</a></li><li><a href=#12-bayer-raw每个像素只有一种颜色>1.2 Bayer RAW：每个像素只有一种颜色</a></li><li><a href=#13-一个直观的类比拼图>1.3 一个直观的类比：拼图</a></li><li><a href=#14-拆成4个通道的好处>1.4 拆成4个通道的好处</a></li></ol></li><li><a href=#2-space-to-depth从1通道到4通道的拆解>2 Space-to-Depth：从1通道到4通道的拆解</a><ol><li><a href=#21-拆解的具体操作>2.1 拆解的具体操作</a></li><li><a href=#22-尺寸变化为什么会缩小>2.2 尺寸变化：为什么会缩小？</a></li></ol></li><li><a href=#3-拆解后的数据流形状变化全景>3 拆解后的数据流：形状变化全景</a><ol><li><a href=#31-完整的数据流路径>3.1 完整的数据流路径</a></li><li><a href=#32-各层形状变化跟踪>3.2 各层形状变化跟踪</a></li><li><a href=#33-为什么要在缩小的空间上处理>3.3 为什么要在缩小的空间上处理？</a></li></ol></li><li><a href=#4-depth-to-space从4通道还原回1通道>4 Depth-to-Space：从4通道还原回1通道</a><ol><li><a href=#41-为什么需要还原>4.1 为什么需要还原？</a></li><li><a href=#42-还原的具体操作>4.2 还原的具体操作</a></li><li><a href=#43-残差连接为什么是输入---预测噪声>4.3 残差连接：为什么是"输入 - 预测噪声"？</a></li><li><a href=#44-常见代码中>4.4 常见代码中</a></li></ol></li><li><a href=#5-本章小结>5 本章小结</a></li></ol></nav></details><h1 id=卷积在bayer-raw图像上的特殊处理>卷积在Bayer RAW图像上的特殊处理</h1><h2 id=1-为什么raw图像要拆成4个通道>1 为什么RAW图像要拆成4个通道？</h2><h3 id=11-先看灰度图和彩色图>1.1 先看灰度图和彩色图</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>灰度图（1个通道）：
+</span></span><span style=display:flex><span>每个像素只有1个数字 → 亮度
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>彩色图（3个通道）：
+</span></span><span style=display:flex><span>每个像素有3个数字 → R（红）、G（绿）、B（蓝）
+</span></span></code></pre></div><p>这两种图的共同点是：<strong>每个像素都包含了所有颜色信息</strong>（灰度图虽然只有亮度，但它本身就是完整的信息载体）。</p><h3 id=12-bayer-raw每个像素只有一种颜色>1.2 Bayer RAW：每个像素只有一种颜色</h3><p>相机Sensor的物理限制决定了它无法在一个像素位置同时记录R、G、B三种颜色。所以工程师在Sensor表面覆盖了一层<strong>Bayer滤镜</strong>，每个像素只记录一种颜色。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Bayer阵列（物理排列）：
+</span></span><span style=display:flex><span>┌──────────────────────────┐
+</span></span><span style=display:flex><span>│  R   G1  R   G1  R   G1  │
+</span></span><span style=display:flex><span>│  G2  B   G2  B   G2  B   │
+</span></span><span style=display:flex><span>│  R   G1  R   G1  R   G1  │
+</span></span><span style=display:flex><span>│  G2  B   G2  B   G2  B   │
+</span></span><span style=display:flex><span>└──────────────────────────┘
+</span></span></code></pre></div><p><strong>问题来了</strong>：你手上只有1个通道的马赛克数据，而你的去噪网络需要处理的是完整图像。怎么办？</p><h3 id=13-一个直观的类比拼图>1.3 一个直观的类比：拼图</h3><p>想象你有一张4×4的彩色照片，但每个格子只允许看到一种颜色（R/G/B）。你还想用神经网络去识别照片里的内容。</p><p><strong>方案A：直接把马赛克喂给网络</strong></p><p>卷积核看到一个3×3窗口时，里面既有R、又有G、又有B——它们不是同一类东西。网络会困惑：&ldquo;这9个数字的差异，是因为物体边缘，还是因为颜色滤镜不同？&rdquo;</p><p>这就像你在教一个小孩认识"狗"，但你每次只给他看一张被撕碎的彩色照片，每个碎片只有一种颜色。小孩很难从这种碎片中学会"狗"长什么样。</p><p><strong>方案B：先把同色碎片拼成完整图，再喂给网络</strong></p><p>你先把所有R像素抽出来拼成一幅完整的R图，所有G像素抽出来拼成一幅完整的G图……然后让网络同时看这4幅图，告诉它：&ldquo;这4幅图拼在一起，才是一张完整的照片。&rdquo;</p><p>这就是<strong>拆成4个通道</strong>的本质。</p><h3 id=14-拆成4个通道的好处>1.4 拆成4个通道的好处</h3><table><thead><tr><th>做法</th><th>输入形状</th><th>问题</th></tr></thead><tbody><tr><td>直接送1通道马赛克</td><td><code>[B, 1, H, W]</code></td><td>相邻像素物理含义不同（R和G混在一起），CNN难以学习</td></tr><tr><td>拆成4通道</td><td><code>[B, 4, H/2, W/2]</code></td><td>每个通道内部像素物理含义相同（全R、全G、全B），CNN更容易学习</td></tr></tbody></table><blockquote><p><strong>核心理解</strong>：拆成4通道后，卷积核在R通道上看到的数据差异，全部来自<strong>图像本身的亮度变化</strong>（边缘、纹理），而不是Bayer滤镜的颜色排列。这让CNN能更高效地学习去噪。</p></blockquote><h2 id=2-space-to-depth从1通道到4通道的拆解>2 Space-to-Depth：从1通道到4通道的拆解</h2><h3 id=21-拆解的具体操作>2.1 拆解的具体操作</h3><p><strong>术语解释</strong>：Space-to-Depth（空间转深度）是把图像的空间信息（高度、宽度）转移到通道维度（深度）的操作。你只需要记住它的效果是：<strong>把1张大图拆成4张半大图，叠在一起</strong>。</p><p>用一张 4x4 的原始Bayer图来演示：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始马赛克图像 (1通道, 4×4)：
+</span></span><span style=display:flex><span>┌─────────────────┐
+</span></span><span style=display:flex><span>│  R   G1  R   G1 │
+</span></span><span style=display:flex><span>│  G2  B   G2  B  │
+</span></span><span style=display:flex><span>│  R   G1  R   G1 │
+</span></span><span style=display:flex><span>│  G2  B   G2  B  │
+</span></span><span style=display:flex><span>└─────────────────┘
+</span></span></code></pre></div><p>按颜色拆解后：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>RGGB 4个通道 (每个 2×2)：
+</span></span><span style=display:flex><span>┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐
+</span></span><span style=display:flex><span>│ R通道   │  │ G1通道  │  │ G2通道  │  │ B通道   │
+</span></span><span style=display:flex><span>│ R  R    │  │ G1 G1   │  │ G2 G2   │  │ B  B    │
+</span></span><span style=display:flex><span>│ R  R    │  │ G1 G1   │  │ G2 G2   │  │ B  B    │
+</span></span><span style=display:flex><span>└─────────┘  └─────────┘  └─────────┘  └─────────┘
+</span></span></code></pre></div><h3 id=22-尺寸变化为什么会缩小>2.2 尺寸变化：为什么会缩小？</h3><p>每个通道只取了原图中 1/4 的像素（因为Bayer阵列中每种颜色只占1/4）。所以：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始:   H × W × 1（1个通道，高H，宽W）
+</span></span><span style=display:flex><span>拆解后: H/2 × W/2 × 4（4个通道，每个高H/2，宽W/2）
+</span></span></code></pre></div><p><strong>总像素数守恒</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始总像素 = H × W
+</span></span><span style=display:flex><span>拆解后总像素 = 4 × (H/2 × W/2) = 4 × (H×W/4) = H × W
+</span></span></code></pre></div><p>尺寸没有消失，只是从"空间"转移到了"通道"。</p><h2 id=3-拆解后的数据流形状变化全景>3 拆解后的数据流：形状变化全景</h2><h3 id=31-完整的数据流路径>3.1 完整的数据流路径</h3><pre class=mermaid>
+flowchart LR
+    subgraph 输入阶段
+        RAW["原始Bayer RAW<br>[B, 1, H, W]"]
+        S2D["_kron_canvas<br>Space-to-Depth"]
+        F4["拆解后<br>[B, 4, H/2, W/2]"]
+    end
+    
+    subgraph 模型处理
+        C1["Conv2d(4→8, 3×3)<br>[B, 8, H/2, W/2]"]
+        C2["Conv2d(8→8, 3×3)<br>[B, 8, H/2, W/2]"]
+        C3["Conv2d(8→4, 3×3)<br>[B, 4, H/2, W/2]"]
+    end
+    
+    subgraph 输出阶段
+        D2S["Depth-to-Space<br>逆 _kron_canvas"]
+        OUT["预测噪声图<br>[B, 1, H, W]"]
+        SUB["残差连接<br>输入 - 噪声"]
+        FINAL["最终输出<br>[B, 1, H, W]"]
+    end
+    
+    RAW --> S2D --> F4
+    F4 --> C1 --> C2 --> C3
+    C3 --> D2S --> OUT
+    OUT --> SUB
+    RAW -.-> SUB
+    SUB --> FINAL
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=32-各层形状变化跟踪>3.2 各层形状变化跟踪</h3><p>用一张实际图像的大小来走一遍（假设原始RAW是 <code>H=256, W=256</code>）：</p><table><thead><tr><th>阶段</th><th>操作</th><th>形状</th></tr></thead><tbody><tr><td>原始输入</td><td>读取RAW文件</td><td><code>[B, 1, 256, 256]</code></td></tr><tr><td>拆解</td><td><code>_kron_canvas</code></td><td><code>[B, 4, 128, 128]</code> ← <strong>尺寸缩小一半！</strong></td></tr><tr><td>卷积层1</td><td><code>Conv2d(4→8, 3, padding=1)</code></td><td><code>[B, 8, 128, 128]</code></td></tr><tr><td>卷积层2</td><td><code>Conv2d(8→8, 3, padding=1)</code></td><td><code>[B, 8, 128, 128]</code></td></tr><tr><td>卷积层3</td><td><code>Conv2d(8→4, 3, padding=1)</code></td><td><code>[B, 4, 128, 128]</code></td></tr><tr><td>还原</td><td>逆 <code>_kron_canvas</code>（Depth-to-Space）</td><td><code>[B, 1, 256, 256]</code></td></tr><tr><td>残差连接</td><td><code>输入 - 预测噪声</code></td><td><code>[B, 1, 256, 256]</code></td></tr></tbody></table><h3 id=33-为什么要在缩小的空间上处理>3.3 为什么要在缩小的空间上处理？</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始尺寸处理：计算量 ∝ H × W = 256 × 256 = 65,536
+</span></span><span style=display:flex><span>缩小后处理：  计算量 ∝ (H/2) × (W/2) = 128 × 128 = 16,384
+</span></span><span style=display:flex><span>             = 原始计算量的 1/4
+</span></span></code></pre></div><p>这就是 <strong>Space-to-Depth 的核心价值</strong>：在不丢失信息的前提下，把计算量降到原来的 <strong>1/4</strong>，同时让卷积核的相对感受野变大（3×3 在 128×128 图上看到的范围，相当于在 256×256 图上看到的更大比例区域）。</p><h2 id=4-depth-to-space从4通道还原回1通道>4 Depth-to-Space：从4通道还原回1通道</h2><h3 id=41-为什么需要还原>4.1 为什么需要还原？</h3><p>网络处理完数据后，输出的是4通道的预测噪声图（尺寸 <code>H/2 × W/2</code>）。但我们需要输出的是1张完整尺寸的RAW图（<code>H × W</code>）。所以必须把4个小图<strong>拼回</strong>1张大图。</p><h3 id=42-还原的具体操作>4.2 还原的具体操作</h3><p><strong>术语解释</strong>：Depth-to-Space（深度转空间）是 Space-to-Depth 的逆操作，把通道维度的信息还原到空间维度。简单说：<strong>把4张半大图交错放回原位置，拼成1张大图</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>4个通道（每个 2×2）：         还原后的 4×4 马赛克：
+</span></span><span style=display:flex><span>┌─────────┐  ┌─────────┐     ┌──────────────────────────────┐
+</span></span><span style=display:flex><span>│ R通道   │  │ G1通道  │     │  R   G1  R   G1 │
+</span></span><span style=display:flex><span>│ R  R    │  │ G1 G1   │     │  G2  B   G2  B  │  ← 按RGGB棋盘格交错放回
+</span></span><span style=display:flex><span>│ R  R    │  │ G1 G1   │  →  │  R   G1  R   G1 │
+</span></span><span style=display:flex><span>└─────────┘  └─────────┘     │  G2  B   G2  B  │
+</span></span><span style=display:flex><span>┌─────────┐  ┌─────────┐     └──────────────────────────────┘
+</span></span><span style=display:flex><span>│ G2通道  │  │ B通道   │
+</span></span><span style=display:flex><span>│ G2 G2   │  │ B  B    │
+</span></span><span style=display:flex><span>│ G2 G2   │  │ B  B    │
+</span></span><span style=display:flex><span>└─────────┘  └─────────┘
+</span></span></code></pre></div><h3 id=43-残差连接为什么是输入---预测噪声>4.3 残差连接：为什么是"输入 - 预测噪声"？</h3><p>去噪网络的最终目的不是输出"干净图"，而是输出"预测的噪声图"。这是深度学习中常用的 <strong>残差学习</strong> 策略。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 在代码中的体现（概念层面）</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 输入带噪声图 → 网络预测噪声 → 干净图 = 输入 - 预测噪声</span>
+</span></span><span style=display:flex><span>final_output <span style=color:#f92672>=</span> input <span style=color:#f92672>-</span> predicted_noise
+</span></span></code></pre></div><p><strong>残差连接的位置</strong>：</p><pre class=mermaid>
+flowchart LR
+    subgraph 前向传播
+        Input["输入带噪RAW图<br>[B,1,H,W]"] --> S2D["拆解"]
+        S2D --> Net["网络处理"]
+        Net --> D2S["还原"]
+        D2S --> Noise["预测噪声图<br>[B,1,H,W]"]
+        Input -.-> Sub["残差连接<br>（逐像素相减）"]
+        Noise --> Sub
+        Sub --> Output["输出干净RAW图<br>[B,1,H,W]"]
+    end
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>为什么这样设计？</strong></p><table><thead><tr><th>设计选择</th><th>原因</th></tr></thead><tbody><tr><td>预测噪声而非直接预测干净图</td><td>输入图和输出图高度相似（只差一点噪声），让网络学习"差异"比学习"完整图"更容易</td></tr><tr><td>残差连接（输入 - 噪声）</td><td>网络只需专注于"哪些像素是噪声"，而不是"这张图长什么样"</td></tr></tbody></table><h3 id=44-常见代码中>4.4 常见代码中</h3><p><code>train.py</code> 中的 <code>iir_train_ops.py</code> 里，Loss计算部分体现了这个逻辑：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># iir_train_ops.py（概念简化）</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>cal_iir_model_loss</span>(self, sample):
+</span></span><span style=display:flex><span>    net_out, _ <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>model_fn(<span style=color:#f92672>...</span>)  <span style=color:#75715e># 网络输出预测噪声</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># net_out 形状: [B, 4, H/2, W/2]</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 还原噪声图到原始尺寸</span>
+</span></span><span style=display:flex><span>    net_out_full <span style=color:#f92672>=</span> depth_to_space(net_out)  <span style=color:#75715e># [B, 1, H, W]</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 残差连接：输入 - 预测噪声 = 干净图</span>
+</span></span><span style=display:flex><span>    clean_pred <span style=color:#f92672>=</span> sample[<span style=color:#e6db74>&#39;input&#39;</span>] <span style=color:#f92672>-</span> net_out_full
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 计算 Loss（clean_pred 与 sample[&#39;target&#39;] 对比）</span>
+</span></span><span style=display:flex><span>    loss <span style=color:#f92672>=</span> compute_loss(clean_pred, sample[<span style=color:#e6db74>&#39;target&#39;</span>])
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> loss
+</span></span></code></pre></div><h2 id=5-本章小结>5 本章小结</h2><pre class=mermaid>
+flowchart TD
+    A["Bayer RAW的特殊性"] --> B["每个像素只有1种颜色（RGGB马赛克）"]
+    B --> C["拆成4个通道（Space-to-Depth）"]
+    C --> D["在缩小的空间上处理<br>计算量↓ 1/4，感受野↑"]
+    D --> E["还原回1个通道（Depth-to-Space）"]
+    E --> F["残差连接：输入 - 预测噪声 = 干净图"]
+    
+    C -.-> G["代码：_kron_canvas"]
+    D -.-> H["代码：dm_net.py"]
+    E -.-> I["代码：逆 _kron_canvas"]
+    F -.-> J["代码：iir_train_ops.py"]
+    
+    style B fill:#e3f2fd
+    style C fill:#fff3e0
+    style E fill:#fff3e0
+    style F fill:#e8f5e9
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>**一句话总结：</p><blockquote><p>Bayer RAW 的 1 通道马赛克通过 Space-to-Depth 拆成 4 通道 <code>[B,4,H/2,W/2]</code> 以降低计算量，经过网络处理后，再通过 Depth-to-Space 还原为 1 通道 <code>[B,1,H,W]</code>，最终通过残差连接（输入 - 预测噪声）得到干净图。整个过程的关键是<strong>把通道当作"信息容器"</strong>，在空间和深度之间灵活转换。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
