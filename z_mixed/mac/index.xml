@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/</link><description>Recent content in mac on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Jun 2026 00:00:48 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/</link><description>Recent content in mac on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Thu, 25 Jun 2026 18:56:30 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
@@ -6,7 +6,7 @@
 &lt;li&gt;一台 Mac（保持开机，连接家里 Wi-Fi）&lt;/li&gt;
 &lt;li&gt;一部 iPhone（可连接 5G 或其它 Wi-Fi）&lt;/li&gt;
 &lt;li&gt;两个设备登录同一个 Apple ID（非必需，但方便）&lt;/li&gt;
-&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用来装软件）&lt;/li&gt;
+&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用于安装软件）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="2-mac-端安装与配置"&gt;2. Mac 端安装与配置&lt;/h2&gt;
 &lt;h3 id="21-安装-tailscale组网工具"&gt;2.1 安装 Tailscale（组网工具）&lt;/h3&gt;
@@ -21,19 +21,19 @@
 
 
 &gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
-&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
-&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;安装完成后，启动 Tailscale，使用你的账号（如 Google、Microsoft 或 GitHub）登录&lt;/li&gt;
+&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态显示为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;打开 &lt;strong&gt;系统设置 → 通用 → 共享&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;打开 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
-&lt;li&gt;下方“允许访问”建议设为“所有用户”，或者只允许你的 Mac 用户名&lt;/li&gt;
+&lt;li&gt;开启 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
+&lt;li&gt;下方“允许访问”建议设为“所有用户”，或只允许你的 Mac 用户名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="23-安装-tmux防断连工具"&gt;2.3 安装 tmux（防断连工具）&lt;/h3&gt;
-&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>mac远程安装开发好的ios app实践 - SideStore</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</guid><description>&lt;h1 id="sidestore-无线远程安装方案packpack-开发实践"&gt;SideStore 无线远程安装方案（Packpack 开发实践）&lt;/h1&gt;
+&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>mac远程安装开发好的ios app实践 - SideStore</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</guid><description>&lt;h1 id="sidestore-无线远程安装方案packpack-开发实践"&gt;SideStore 无线远程安装方案（Packpack 开发实践）&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在家以外的任意地点，通过 SideStore 将 Mac 上由 OpenCode 自动构建的 &lt;code&gt;.ipa&lt;/code&gt; 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在家外的任意地点，通过 SideStore 将 Mac 上自动构建的 &lt;code&gt;.ipa&lt;/code&gt; 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;快速参考：状态判断、与 Clash 冲突解决、relay 问题处理。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-常用命令"&gt;1. 常用命令&lt;/h2&gt;
@@ -73,8 +73,8 @@
 &lt;/table&gt;
 &lt;h2 id="3-出现-relay-怎么办"&gt;3. 出现 relay 怎么办？&lt;/h2&gt;
 &lt;h3 id="31-优先尝试重启-mac最有效"&gt;3.1 优先尝试：重启 Mac（最有效）&lt;/h3&gt;
-&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;终端复用器，SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
+&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;终端复用器，在SSH断开后会话不中断，任务继续运行。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-安装"&gt;1. 安装&lt;/h2&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;brew install tmux
@@ -100,11 +100,11 @@
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;code&gt;n&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;下一个窗口&lt;/td&gt;
+					&lt;td&gt;切换至下一个窗口&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;上一个窗口&lt;/td&gt;
+					&lt;td&gt;切换至上一个窗口&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;code&gt;&amp;quot;&lt;/code&gt;&lt;/td&gt;
@@ -124,7 +124,7 @@
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;code&gt;d&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;脱离会话（任务继续后台运行）&lt;/td&gt;
+					&lt;td&gt;脱离会话（任务继续在后台运行）&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;code&gt;[&lt;/code&gt;&lt;/td&gt;
@@ -140,7 +140,7 @@
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 首次连接：创建会话&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s work
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行你的程序（如 opencode、vim、npm run dev）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行程序（如 opencode、vim、npm run dev）&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 临时断开（不中断任务）: Ctrl+B 然后按 D&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
@@ -148,12 +148,12 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t work
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-小技巧"&gt;5. 小技巧&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;长时间任务配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内任&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
+&lt;li&gt;会话名建议使用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;长时间任务可配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;手机锁屏或切换 App 不影响 tmux 内的任务运行&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;避免使用 SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
-一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。&lt;/p&gt;</description></item><item><title>从零配置 SideStore &amp; WireGuard：实现远程无线安装 iOS 应用</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</guid><description>&lt;h1 id="sidestore--wireguard-环境搭建与远程-ios-开发安装配置指南"&gt;SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;避免使用SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
+一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。&lt;/p&gt;</description></item><item><title>从零配置 SideStore &amp; WireGuard：实现远程无线安装 iOS 应用</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</link><pubDate>Thu, 25 Jun 2026 18:56:30 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</guid><description>&lt;h1 id="sidestore--wireguard-环境搭建与远程-ios-开发安装配置指南"&gt;SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使自动化工具能远程构建 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能够远程构建 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item></channel></rss>
