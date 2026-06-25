@@ -2,13 +2,13 @@
 title: "Xcode 无线安装与远程调试完全指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T20:11:44+0800
-lastmod: 2026-06-25T20:11:44+0800
+date: 2026-06-25T21:31:11+0800
+lastmod: 2026-06-25T21:31:11+0800
 ---
 
 # Xcode 无线远程安装指南（基于 Tailscale）
 
-> **避免使用 SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
+> **避免使用SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
 > 一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。
 
 ---
@@ -16,14 +16,14 @@ lastmod: 2026-06-25T20:11:44+0800
 ## 第一部分：原理（为什么能远程安装）
 
 ### 1.1 无线调试的底层机制
-Xcode 依赖 Bonjour 协议在本地网络中自动发现设备。因此，只要 Mac 和 iPhone 连接在同一个 Wi-Fi 网络下，勾选 “Connect via network” 选项后即可实现无线调试。
+Xcode 通过 **Bonjour** 协议在本地网络自动发现设备，因此只要 Mac 和 iPhone 连在同一个 Wi‑Fi 下，勾选 “Connect via network” 后即可无线运行。
 
 ### 1.2 突破本地网络的限制
 Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`**，允许你**直接指定设备的 IP 地址或 UDID** 来安装应用，完全绕过 Bonjour。因此，只要 Mac 和 iPhone 能通过网络互相访问（例如通过 Tailscale 组建的虚拟局域网），就能实现真正的远程安装。
 
 ### 1.3 你的任务
 - **第一次（需 USB 线）**：建立信任关系，获取设备标识。  
-- **以后每次**：在 Mac 上执行一条命令（或通过自动化脚本执行），自动构建并通过 Tailscale IP 安装到手机。
+- **以后每次**：在 Mac 上执行一条命令（或让 OpenCode 执行），自动构建并通过 Tailscale IP 安装到手机。
 
 ---
 
@@ -49,7 +49,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ---
 
-### 🚀 日常远程安装（通过自动化脚本）
+### 🚀 日常远程安装（让 OpenCode 自动做）
 
 创建一个脚本 `~/Desktop/code/PackPack/remote-install.sh`，内容如下（**请根据你的实际路径和 Tailscale IP 修改**）：
 
@@ -87,13 +87,11 @@ chmod +x ~/Desktop/code/PackPack/remote-install.sh
 
 ---
 
-### 📲 每次修改代码后，执行脚本：
+### 📲 每次修改代码后，告诉 OpenCode：
 
-```bash
-~/Desktop/code/PackPack/remote-install.sh
-```
+> “请执行 `~/Desktop/code/PackPack/remote-install.sh` 安装最新版本到我的 iPhone。”
 
-自动化脚本会自动完成：
+OpenCode 会自动完成：
 1. 清理并重新构建项目  
 2. 通过 Tailscale IP 将 App 无线推送到你的手机  
 3. 输出成功信息
@@ -108,7 +106,7 @@ chmod +x ~/Desktop/code/PackPack/remote-install.sh
 | 首次运行脚本时提示“未信任” | 重新用 USB 线连接一次，运行 `xcrun devicectl device info --device <UDID>` 并点击“信任”。 |
 | 构建失败 | 检查 Xcode 项目路径、Scheme 名称是否正确；确保 Xcode 能正常编译。 |
 | 安装成功但 App 闪退 | 签名问题。在 Xcode 中先用 USB 运行一次，确保 Team 选择正确且设备已注册。 |
-| 无线安装速度慢 | 正常，Wi-Fi + VPN 会比 USB 慢。可先用 USB 安装大版本，增量更新用无线。 |
+| 无线安装速度慢 | 正常，Wi‑Fi + VPN 会比 USB 慢。可先用 USB 安装大版本，增量更新用无线。 |
 
 ---
 
@@ -117,5 +115,5 @@ chmod +x ~/Desktop/code/PackPack/remote-install.sh
 | 场景 | 方案 | 是否需要 USB |
 |------|------|-------------|
 | 首次配置 | 有线配对 + 记录 UDID / Tailscale IP | ✅ 需要一次 |
-| 在家同 Wi-Fi | Xcode 直接 `Cmd+R`（无线调试） | ❌ 不需要 |
+| 在家同 Wi‑Fi | Xcode 直接 `Cmd+R`（无线调试） | ❌ 不需要 |
 | 远程（通过 Tailscale） | 执行 `remote-install.sh` 脚本 | ❌ 不需要 |

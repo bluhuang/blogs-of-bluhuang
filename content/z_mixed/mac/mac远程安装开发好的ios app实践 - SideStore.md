@@ -2,13 +2,13 @@
 title: "mac远程安装开发好的ios app实践 - SideStore"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T20:11:44+0800
-lastmod: 2026-06-25T20:11:44+0800
+date: 2026-06-25T21:31:11+0800
+lastmod: 2026-06-25T21:31:11+0800
 ---
 
 # SideStore 无线远程安装方案（Packpack 开发实践）
 
-> **目标**：在家庭网络之外，通过 SideStore 将 Mac 上由自动构建工具生成的 `.ipa` 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。
+> **目标**：在家庭以外的任意地点，通过 SideStore 将 Mac 上由 OpenCode 自动构建的 `.ipa` 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。
 
 ## 一、原理：SideStore 如何实现“无线远程安装”？
 
@@ -22,11 +22,11 @@ lastmod: 2026-06-25T20:11:44+0800
 - **配对文件**：通过 `iLoader` 工具生成设备配对文件（`.plist`），授权 SideStore 与手机通信，无需依赖 Mac 常驻服务。
 - **安装机制**：用户从 iCloud 下载 `.ipa` 后，SideStore 通过本地 VPN 完成签名并安装，**仅需手机连接任意 Wi-Fi**（不要求与 Mac 同网络）。
 
-### 1.3 工作流程
+### 1.3 我们的工作流
 ```
-自动构建工具 (Mac) → 自动构建 .ipa → 存入 iCloud 云盘
+OpenCode (Mac) → 自动构建 .ipa → 存入 iCloud 云盘
                 ↓
-iPhone → 从 iCloud 下载 .ipa → 分享到 SideStore → 安装
+你 (iPhone) → 从 iCloud 下载 .ipa → 分享到 SideStore → 安装
                 ↓
            每隔 7 天打开 SideStore（LocalDevVPN 开启）自动续签
 ```
@@ -63,9 +63,9 @@ iPhone → 从 iCloud 下载 .ipa → 分享到 SideStore → 安装
 - 准备一个测试 `.ipa` 文件（例如 Xcode 导出的 Ad Hoc IPA）。
 - 在 iPhone 的“文件”App 中点击该 IPA，选择分享 → SideStore → 输入 Apple ID 密码，应能成功安装。
 
-## 三、日常远程开发操作（自动化构建）
+## 三、日常远程开发操作（OpenCode 自动化）
 
-### 3.1 Mac 端：让自动构建工具自动构建并上传 iCloud
+### 3.1 Mac 端：让 OpenCode 自动构建并上传 iCloud
 创建脚本 `~/Desktop/code/PackPack/build_and_export_ipa.sh`，内容如下：
 
 ```bash
@@ -111,8 +111,8 @@ echo "✅ IPA 已保存至: $DEST_DIR/Packpack.ipa"
 chmod +x ~/Desktop/code/PackPack/build_and_export_ipa.sh
 ```
 
-**使用自动化工具触发执行**：  
-每次修改代码后，只需调用该脚本即可自动完成构建、命名、上传。
+**让 OpenCode 执行**：  
+每次修改代码后，只需对 OpenCode 说：“执行 `build_and_export_ipa.sh` 打包并上传 iCloud”。它会自动完成构建、命名、上传。
 
 ### 3.2 iPhone 端：安装最新版本
 1. 打开 **“文件”App** → iCloud 云盘 → `interact/PackPackInterAct/ipa/` → 选择最新日期的文件夹。
