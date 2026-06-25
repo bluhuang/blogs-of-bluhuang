@@ -2,11 +2,11 @@
 title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T19:08:36+0800
+date: 2026-06-25T20:01:35+0800
 lastmod: 2026-06-04
 ---
 
-> 终端复用器：SSH 断开后会话不中断，任务继续运行。
+> 终端复用器，SSH 断开后会话不中断，任务继续运行。
 
 ## 1. 安装
 
@@ -72,5 +72,5 @@ tmux attach -t work
 ## 5. 小技巧
 
 - 会话名用短单词：`w`、`c`、`o`
-- 长时间任务可配合 `caffeinate` 防止 Mac 睡眠（在另一个终端中执行 `caffeinate`）
-- 手机锁屏或切换 App 不影响 tmux 内的任务
+- 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
+- 手机锁屏/切换 App 不影响 tmux 内任务

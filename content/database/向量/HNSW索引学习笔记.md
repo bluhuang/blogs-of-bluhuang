@@ -2,19 +2,19 @@
 title: "HNSW索引学习笔记"
 categories: ["database"]
 author: "BluHuang"
-date: 2026-06-25T19:08:36+0800
+date: 2026-06-25T20:01:35+0800
 lastmod: 2026-04-02
 ---
 
 HNSW 算法完全学习笔记
 
-基于技术实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。
+基于实际项目经验与深入讨论整理，涵盖原理、操作、参数调优与工程实现。
 
 ---
 
 1. 概述
 
-HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。
+HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（如 Chroma、Milvus、Weaviate）和 RAG 系统。
 
 ---
 
@@ -50,7 +50,7 @@ HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻�
 ef_construction 构建索引 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 100~200
 ef_search 查询 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 10~100
 
-为什么需要“搜索宽度”？
+为何需要“搜索宽度”？
 HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。
 
 极端情况：若 ef_search 等于该层节点总数，则退化为暴力搜索——精确但极慢。HNSW 的巧妙在于用较小的 ef 换取 95% 以上的召回率。
@@ -204,7 +204,7 @@ ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ 
 
 ---
 
-11. 在向量数据库中的使用示例
+11. 在 Chroma 中的使用示例
 
 ```python
 # 创建 collection 时指定 HNSW 参数
@@ -240,6 +240,6 @@ retriever = vector_store.as_retriever(
 
 13. 参考资源
 
-· 原始论文：Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs (2018).
-· hnswlib 开源库：https://github.com/nmslib/hnswlib
-· 向量数据库 HNSW 参数文档
+· 原始论文：Malkov & Yashunin (2018). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
+· hnswlib 库：https://github.com/nmslib/hnswlib
+· Chroma HNSW 文档：https://docs.trychroma.com/usage#hnsw-parameters

@@ -2,8 +2,8 @@
 title: "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T19:08:36+0800
-lastmod: 2026-06-25T19:08:36+0800
+date: 2026-06-25T20:01:35+0800
+lastmod: 2026-06-25T20:01:35+0800
 ---
 
 # SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南

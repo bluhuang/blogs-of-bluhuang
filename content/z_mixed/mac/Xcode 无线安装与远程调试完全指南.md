@@ -2,8 +2,8 @@
 title: "Xcode 无线安装与远程调试完全指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T19:08:36+0800
-lastmod: 2026-06-25T19:08:36+0800
+date: 2026-06-25T20:01:35+0800
+lastmod: 2026-06-25T20:01:35+0800
 ---
 
 # Xcode 无线远程安装指南（基于 Tailscale）
@@ -23,7 +23,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ### 1.3 你的任务
 - **第一次（需 USB 线）**：建立信任关系，获取设备标识。  
-- **以后每次**：在 Mac 上执行一条命令（或让自动化脚本执行），自动构建并通过 Tailscale IP 安装到手机。
+- **以后每次**：在 Mac 上执行一条命令（或让脚本自动执行），自动构建并通过 Tailscale IP 安装到手机。
 
 ---
 
@@ -49,7 +49,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ---
 
-### 🚀 日常远程安装（使用脚本自动化）
+### 🚀 日常远程安装（让脚本自动执行）
 
 创建一个脚本 `~/Desktop/code/PackPack/remote-install.sh`，内容如下（**请根据你的实际路径和 Tailscale IP 修改**）：
 
@@ -87,9 +87,8 @@ chmod +x ~/Desktop/code/PackPack/remote-install.sh
 
 ---
 
-### 📲 每次修改代码后，执行脚本即可：
+### 📲 每次修改代码后，执行以下命令：
 
-执行命令：
 ```bash
 ~/Desktop/code/PackPack/remote-install.sh
 ```

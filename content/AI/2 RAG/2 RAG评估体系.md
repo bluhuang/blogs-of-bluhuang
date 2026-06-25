@@ -3,8 +3,8 @@ title: "RAG评估体系"
 image: "/images/AI/2%20RAG/Pasted%20image%2020260527154928.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-25T19:08:36+0800
-lastmod: 2026-06-25T19:08:36+0800
+date: 2026-06-25T20:01:35+0800
+lastmod: 2026-06-25T20:01:35+0800
 ---
 
 ## 1 RAG 评估体系层级
