@@ -2,7 +2,7 @@
 title: "全排列 std, next_permutation"
 categories: ["coding"]
 author: "BluHuang"
-date: 2026-06-25T00:00:48+0800
+date: 2026-06-25T18:56:30+0800
 lastmod: 2026-02-14
 ---
 
@@ -14,7 +14,7 @@ https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
 ## 2.1 一句话总结原理
 从右向左找到第一个可以变大的元素的位置，把它换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。
 
-`next_permutation` 算法的精髓就是**三步**：
+`next_permutation` 算法的精髓就是**三步**：
 
 1. 从右找第一个升序对（确定要动的位）。
 2. 从右找第一个大于该位的数（确定交换的位）。
@@ -26,15 +26,15 @@ https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
 | 步骤 | 数组状态 | 说明 |
 |------|----------|------|
 | 初始 | `[1, 3, 5, 4, 2]` | |
-| **1. 找 i** | 从右向左找 `nums[i] < nums[i+1]`：`2` 无右；`4>2` 不成立；`5>4` 不成立；`3<5` ✅，所以 `i = 1`（指向 `3`） | 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 |
-| **2. 找 j** | 在 i 右边 `[5,4,2]` 中从右向左找第一个大于 3 的数：`2` 不大于；`4` 大于，所以 `j = 3`（指向 `4`） | 找到刚好比 3 大的数 4 |
+| **1. 找 i** | 从右向左找 `nums[i] < nums[i+1]`：`2`无右；`4>2`不成立；`5>4`不成立；`3<5`✅，所以 `i = 1`（指向 `3`） | 找到第一个可增大的位置 i=1，【元素3后面的数都已经是降序，不可能再变大了】 |
+| **2. 找 j** | 在 i 右边 `[5,4,2]` 中从右向左找第一个大于 3 的数：`2`不大于；`4`大于，所以 `j = 3`（指向 `4`） | 找到刚好比 3 大的数 4 |
 | **3. 交换** | 交换 `nums[1]` 和 `nums[3]` → `[1, 4, 5, 3, 2]` | |
 | **4. 反转** | 将 i+1（索引2）到末尾 `[5,3,2]` 反转 → `[2,3,5]` | 最终 `[1,4,2,3,5]` |
 
 结果 `14235` 确实是 `13542` 的下一个排列。
 
 ## 为什么最后可以反转？
-因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字。交换后，元素 3（j 位置）的左边都比它大（不然不会交换 j），右边都比它小（因为是找到第一个比 3 大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。
+因为交换的两个元素，就是找到的正好比原先 i 要正好大一点的数字，交换后元素3（j位置）的左边都比它大（不然不会交换j），右边都比它小（因为是找到第一个比3大的元素进行的交换），所以交换后，右边的这些元素还是保持降序，反转后会变成升序。
 
 ## 为什么步骤必须这样？
 
@@ -44,7 +44,7 @@ https://en.cppreference.com/w/cpp/algorithm/next_permutation.html
 
 # 3 代码实现（简洁版）
 
-```cpp
+```
 bool nextPermutation(vector<int>& nums) {
     int n = nums.size();
     int i = n - 2;
@@ -65,13 +65,13 @@ bool nextPermutation(vector<int>& nums) {
 
 ### 头文件
 
-```cpp
+```
 #include <algorithm>
 ```
 
 ### 函数原型
 
-```cpp
+```
 // 使用 operator< 比较元素
 bool next_permutation (BidirectionalIterator first, BidirectionalIterator last);
 // 使用自定义比较函数 comp
@@ -87,7 +87,7 @@ bool next_permutation (BidirectionalIterator first, BidirectionalIterator last, 
 
 ### 示例代码：生成全排列
 
-```cpp
+```
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -109,7 +109,7 @@ int main() {
 
 例如，对字符串按长度排序（长度小的在前，相同长度按字典序）：
 
-```cpp
+```
 vector<string> words = {"apple", "banana", "cherry"};
 auto comp = [](const string& a, const string& b) {
     return a.length() < b.length();   // 按长度升序

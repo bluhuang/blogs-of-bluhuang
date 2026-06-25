@@ -2,13 +2,13 @@
 title: "Xcode 无线安装与远程调试完全指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T00:00:48+0800
-lastmod: 2026-06-25T00:00:48+0800
+date: 2026-06-25T18:56:30+0800
+lastmod: 2026-06-25T18:56:30+0800
 ---
 
 # Xcode 无线远程安装指南（基于 Tailscale）
 
-> **避免使用 SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
+> **避免使用SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
 > 一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。
 
 ---

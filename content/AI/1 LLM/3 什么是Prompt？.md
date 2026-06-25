@@ -2,8 +2,8 @@
 title: "什么是Prompt？"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-25T00:00:48+0800
-lastmod: 2026-06-25T00:00:48+0800
+date: 2026-06-25T18:56:30+0800
+lastmod: 2026-06-25T18:56:30+0800
 ---
 
 ### 📌 本章重点总结（Prompt基础）
