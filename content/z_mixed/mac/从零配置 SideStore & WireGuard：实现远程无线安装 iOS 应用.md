@@ -2,13 +2,13 @@
 title: "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T20:01:35+0800
-lastmod: 2026-06-25T20:01:35+0800
+date: 2026-06-25T20:11:44+0800
+lastmod: 2026-06-25T20:11:44+0800
 ---
 
 # SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南
 
-> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
+> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使得远程构建 `.ipa` 后，通过手机上的 SideStore 直接安装，无需 USB。
 
 ---
 
@@ -16,9 +16,9 @@ lastmod: 2026-06-25T20:01:35+0800
 
 - **免费 Apple ID** 签名的应用只有 **7 天有效期**，到期需重新签名。
 - **SideStore** 是一款侧载工具，能在 iPhone 上独立完成应用签名和续签（**无需电脑**）。
-- **WireGuard** 用于建立虚拟局域网，让 SideStore 能跟 Apple 的签名服务器通信。
+- **WireGuard** 用于建立虚拟局域网，让 SideStore 能与 Apple 的签名服务器通信。
 - **Jitterbug** 生成配对文件（`.plist`），使 SideStore 能免电脑控制设备。
-- **iLoader** 是一个图形化工具，用于把 SideStore 安装到 iPhone。
+- **iLoader** 是一个图形化工具，用于将 SideStore 安装到 iPhone。
 
 整个过程分为 **准备文件 → 安装 WireGuard → 生成配对文件 → 安装 SideStore → 导入配置 → 日常使用**。
 
@@ -33,7 +33,7 @@ lastmod: 2026-06-25T20:01:35+0800
 - `SideStore.ipa` – SideStore 应用本身（需安装到 iPhone）
 - `sidestore.conf` – WireGuard 的隧道配置文件
 - `jitterbugpair` – 生成配对文件的命令行工具
-- `iLoader.dmg` – 用于在 Mac 上把 SideStore 安装到 iPhone 的工具
+- `iLoader.dmg` – 用于在 Mac 上将 SideStore 安装到 iPhone 的工具
 
 ### 🤔 为什么这样做？
 这些文件下载源都在 GitHub，国内访问不稳定，让 OpenCode 用 Mac 终端下载更快、更可靠，且集中存放便于管理。
