@@ -64,10 +64,9 @@ mac
 <span class="text-xs text-text-light ml-1.5">(6)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 RAG</a></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">6 CNN中的其他常见操作</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-激活函数relu>1 激活函数（ReLU）</a><ol><li><a href=#11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</a></li><li><a href=#12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</a></li><li><a href=#13-为什么-relu-如此流行>1.3 为什么 ReLU 如此流行？</a></li><li><a href=#14-代码中的-relu>1.4 代码中的 ReLU</a></li><li><a href=#15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</a></li></ol></li><li><a href=#2-池化层pooling>2 池化层（Pooling）</a><ol><li><a href=#21-池化层是什么>2.1 池化层是什么？</a></li><li><a href=#22-池化层的两种类型>2.2 池化层的两种类型</a></li><li><a href=#23-池化层的作用>2.3 池化层的作用</a></li><li><a href=#24-池化层的局限>2.4 池化层的局限</a></li><li><a href=#25-代码中的池化层>2.5 代码中的池化层</a></li><li><a href=#26-卷积已经缩小尺寸提升感受野-为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野, 为什么还要有池化？</a><ol><li><a href=#第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</a></li><li><a href=#第二层功能区别池化提供平移不变性卷积提供可学习的下采样>第二层：功能区别——池化提供“平移不变性”，卷积提供“可学习的下采样”</a></li><li><a href=#第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</a></li></ol></li></ol></li><li><a href=#3-batch-normalization批量归一化>3 Batch Normalization（批量归一化）</a><ol><li><a href=#31-为什么需要-batch-normalization>3.1 为什么需要 Batch Normalization？</a></li><li><a href=#32-batch-normalization-做了什么>3.2 Batch Normalization 做了什么？</a></li><li><a href=#33-bn-的好处>3.3 BN 的好处</a></li><li><a href=#34-bn-的问题>3.4 BN 的问题</a></li><li><a href=#35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</a></li></ol></li><li><a href=#4-depthwise-convolution深度可分离卷积>4 Depthwise Convolution（深度可分离卷积）</a><ol><li><a href=#41-标准卷积的问题>4.1 标准卷积的问题</a></li><li><a href=#42-depthwise-卷积>4.2 Depthwise 卷积</a></li><li><a href=#43-参数量对比>4.3 参数量对比</a></li><li><a href=#44-为什么-npu-喜欢-depthwise>4.4 为什么 NPU 喜欢 Depthwise？</a></li><li><a href=#45-代码中的-depthwise>4.5 代码中的 Depthwise</a></li></ol></li><li><a href=#5-分组卷积group-convolution>5 分组卷积（Group Convolution）</a><ol><li><a href=#51-分组卷积是什么>5.1 分组卷积是什么？</a></li><li><a href=#52-分组卷积的参数量>5.2 分组卷积的参数量</a></li><li><a href=#53-代码中的分组卷积>5.3 代码中的分组卷积</a></li><li><a href=#54-三种卷积的对比>5.4 三种卷积的对比</a></li></ol></li><li><a href=#6-本章小结>6 本章小结</a></li></ol></nav></details><h1 id=卷积神经网络中的其他常见操作>卷积神经网络中的其他常见操作</h1><blockquote><p><strong>前置知识</strong>：你已经了解了卷积层的基本计算（单通道、多通道）、Bayer RAW 的特殊处理、感受野的概念，以及完整的去噪网络结构（DMNet、UNet、Bnet_base.py）。现在，我们来补充 CNN 中其他常见的“零件”——它们不一定每个都在你的代码里出现，但理解它们能帮你读懂更广泛的模型，也理解为什么你的代码做了某些设计选择。</p></blockquote><h2 id=1-激活函数relu>1 激活函数（ReLU）</h2><h3 id=11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</h3><p>在“神经网络工作原理”里学过神经元的公式：</p><p>$$
+2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-激活函数relu>1 激活函数（ReLU）</a><ol><li><a href=#11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</a></li><li><a href=#12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</a></li><li><a href=#13-为什么-relu-如此流行>1.3 为什么 ReLU 如此流行？</a></li><li><a href=#14-代码中的-relu>1.4 代码中的 ReLU</a></li><li><a href=#15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</a></li></ol></li><li><a href=#2-池化层pooling>2 池化层（Pooling）</a><ol><li><a href=#21-池化层是什么>2.1 池化层是什么？</a></li><li><a href=#22-池化层的两种类型>2.2 池化层的两种类型</a></li><li><a href=#23-池化层的作用>2.3 池化层的作用</a></li><li><a href=#24-池化层的局限>2.4 池化层的局限</a></li><li><a href=#25-代码中的池化层>2.5 代码中的池化层</a></li><li><a href=#26-卷积已经缩小尺寸提升感受野为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野，为什么还要有池化？</a><ol><li><a href=#第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</a></li><li><a href=#第二层功能区别池化提供平移不变性卷积提供可学习的下采样>第二层：功能区别——池化提供“平移不变性”，卷积提供“可学习的下采样”</a></li><li><a href=#第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</a></li></ol></li></ol></li><li><a href=#3-batch-normalization批量归一化>3 Batch Normalization（批量归一化）</a><ol><li><a href=#31-为什么需要-batch-normalization>3.1 为什么需要 Batch Normalization？</a></li><li><a href=#32-batch-normalization-做了什么>3.2 Batch Normalization 做了什么？</a></li><li><a href=#33-bn-的好处>3.3 BN 的好处</a></li><li><a href=#34-bn-的问题>3.4 BN 的问题</a></li><li><a href=#35-为什么网络不用-bn>3.5 为什么网络不用 BN？</a></li></ol></li><li><a href=#4-depthwise-convolution深度可分离卷积>4 Depthwise Convolution（深度可分离卷积）</a><ol><li><a href=#41-标准卷积的问题>4.1 标准卷积的问题</a></li><li><a href=#42-depthwise-卷积>4.2 Depthwise 卷积</a></li><li><a href=#43-参数量对比>4.3 参数量对比</a></li><li><a href=#44-为什么-npu-喜欢-depthwise>4.4 为什么 NPU 喜欢 Depthwise？</a></li><li><a href=#45-代码中的-depthwise>4.5 代码中的 Depthwise</a></li></ol></li><li><a href=#5-分组卷积group-convolution>5 分组卷积（Group Convolution）</a><ol><li><a href=#51-分组卷积是什么>5.1 分组卷积是什么？</a></li><li><a href=#52-分组卷积的参数量>5.2 分组卷积的参数量</a></li><li><a href=#53-代码中的分组卷积>5.3 代码中的分组卷积</a></li><li><a href=#54-三种卷积的对比>5.4 三种卷积的对比</a></li></ol></li><li><a href=#6-本章小结>6 本章小结</a></li></ol></nav></details><h1 id=卷积神经网络中的其他常见操作>卷积神经网络中的其他常见操作</h1><blockquote><p><strong>前置知识</strong>：你已经了解了卷积层的基本计算（单通道、多通道）、Bayer RAW 的特殊处理、感受野的概念，以及完整的去噪网络结构（DMNet、UNet、network_base.py）。现在，我们来补充 CNN 中其他常见的“零件”——它们不一定每个都在你的代码里出现，但理解它们能帮你读懂更广泛的模型，也理解为什么你的代码做了某些设计选择。</p></blockquote><h2 id=1-激活函数relu>1 激活函数（ReLU）</h2><h3 id=11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</h3><p>在“神经网络工作原理”里学过神经元的公式：</p><p>$$
 a = \sigma(w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b)
-$$
-公式里的 $\sigma$ 就是<strong>激活函数</strong>。它的作用是<strong>引入非线性</strong>——如果没有它，无论堆叠多少层，网络都只能表达线性关系（直线、平面），无法拟合现实世界的复杂问题。</p><blockquote><p><strong>术语解释</strong>：<strong>激活函数（Activation Function）</strong> 是一个对神经元输出做非线性变换的数学函数。它在神经网络中的位置是“卷积层/全连接层之后，输出之前”。简单理解：卷积层算出一个数，激活函数决定“这个数要不要传递给下一层、以什么强度传递”。</p></blockquote><h3 id=12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</h3><p><strong>ReLU</strong>（Rectified Linear Unit，修正线性单元）是目前深度学习中<strong>最常用</strong>的激活函数，公式极其简单：</p><p>$$
+$$</p><p>公式里的 $\sigma$ 就是<strong>激活函数</strong>。它的作用是<strong>引入非线性</strong>——如果没有它，无论堆叠多少层，网络都只能表达线性关系（直线、平面），无法拟合现实世界的复杂问题。</p><blockquote><p><strong>术语解释</strong>：<strong>激活函数（Activation Function）</strong> 是一个对神经元输出做非线性变换的数学函数。它在神经网络中的位置是“卷积层/全连接层之后，输出之前”。简单理解：卷积层算出一个数，激活函数决定“这个数要不要传递给下一层、以什么强度传递”。</p></blockquote><h3 id=12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</h3><p><strong>ReLU</strong>（Rectified Linear Unit，修正线性单元）是目前深度学习中<strong>最常用</strong>的激活函数，公式极其简单：</p><p>$$
 \text{ReLU}(x) = \max(0, x)
 $$</p><pre tabindex=0><code class=language-desmos-graph data-lang=desmos-graph>left=-5
 right=5
@@ -88,7 +87,7 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>    nn<span style=color:#f92672>.</span>Conv2d(<span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>4</span>, kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, stride<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>, padding<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>),
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 最后一层没有 ReLU（输出需要保持原始数值范围）</span>
 </span></span><span style=display:flex><span>)
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># models/Bnet_base.py 中的激活函数（使用自定义的 hi_relu2）</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># models/network_base.py 中的激活函数（使用自定义的 hi_relu2）</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>from</span> models.raw_video_nr_40g_nn <span style=color:#f92672>import</span> hi_relu2
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># hi_relu2 是 ReLU 的一个变体，做了细微调整</span>
@@ -107,7 +106,7 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>│ 1  3        │
 </span></span><span style=display:flex><span>│ 5  6        │  ──→  只保留 6，丢弃了 1、3、5
 </span></span><span style=display:flex><span>└─────────────┘
-</span></span></code></pre></div><p>在<strong>去噪任务</strong>中，每个像素都可能包含有用的信息（噪声是无处不在的），丢掉像素可能损失细节。因此，现代去噪网络通常<strong>用步长卷积（stride=2 的卷积）来代替池化层</strong>。</p><h3 id=25-代码中的池化层>2.5 代码中的池化层</h3><p>在去噪代码中，<strong>几乎没有使用池化层</strong>。下采样是通过 <code>stride=2</code> 的卷积实现的：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Bnet_base.py 中的 down_block（简化）</span>
+</span></span></code></pre></div><p>在<strong>去噪任务</strong>中，每个像素都可能包含有用的信息（噪声是无处不在的），丢掉像素可能损失细节。因此，现代去噪网络通常<strong>用步长卷积（stride=2 的卷积）来代替池化层</strong>。</p><h3 id=25-代码中的池化层>2.5 代码中的池化层</h3><p>在去噪代码中，<strong>几乎没有使用池化层</strong>。下采样是通过 <code>stride=2</code> 的卷积实现的：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># network_base.py 中的 down_block（简化）</span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>down_block</span>(x):
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 使用 stride=2 的卷积来缩小尺寸，而不是池化层</span>
 </span></span><span style=display:flex><span>    conv <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>Conv2d(in_ch, out_ch, kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, stride<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>, padding<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>)
@@ -115,7 +114,7 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># 输入 [B, C, H, W] → 输出 [B, C&#39;, H/2, W/2]</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># 尺寸减半的同时，通道数增加，保留了所有像素信息</span>
-</span></span></code></pre></div><blockquote><p><strong>“步长卷积 vs 池化层”的对比</strong>：</p><ul><li>池化层：只做固定的取最大值/平均值操作，没有可训练参数，会丢弃部分信息</li><li>stride=2 卷积：可训练参数，通过学习决定如何保留信息，不直接丢弃任何值</li></ul><p>在去噪任务中，stride=2 卷积效果更好（保留更多细节），因此代码中选择了步长卷积代替池化层。</p></blockquote><h3 id=26-卷积已经缩小尺寸提升感受野-为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野, 为什么还要有池化？</h3><h4 id=第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</h4><p>在深度学习早期（AlexNet、VGG 时代），GPU 算力非常有限。<strong>卷积运算是乘法加法（乘加运算），而池化运算是取最大值或平均值（比较/加法）</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>卷积（stride=2）： 每个输出值需要 3×3 = 9 次乘法 + 8 次加法 = 17 次运算
+</span></span></code></pre></div><blockquote><p><strong>“步长卷积 vs 池化层”的对比</strong>：</p><ul><li>池化层：只做固定的取最大值/平均值操作，没有可训练参数，会丢弃部分信息</li><li>stride=2 卷积：可训练参数，通过学习决定如何保留信息，不直接丢弃任何值</li></ul><p>在去噪任务中，stride=2 卷积效果更好（保留更多细节），因此代码中选择了步长卷积代替池化层。</p></blockquote><h3 id=26-卷积已经缩小尺寸提升感受野为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野，为什么还要有池化？</h3><h4 id=第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</h4><p>在深度学习早期（AlexNet、VGG 时代），GPU 算力非常有限。<strong>卷积运算是乘法加法（乘加运算），而池化运算是取最大值或平均值（比较/加法）</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>卷积（stride=2）： 每个输出值需要 3×3 = 9 次乘法 + 8 次加法 = 17 次运算
 </span></span><span style=display:flex><span>池化（Max Pooling）：每个输出值只需要 3×3 = 9 次比较
 </span></span><span style=display:flex><span>池化层的计算量约为卷积层的 1/2，而且没有可训练参数。
 </span></span></code></pre></div><p>所以当时的设计是：<strong>用卷积提取特征，用池化来“免费”缩小尺寸</strong>，以降低后续层的计算负担。</p><h4 id=第二层功能区别池化提供平移不变性卷积提供可学习的下采样>第二层：功能区别——池化提供“平移不变性”，卷积提供“可学习的下采样”</h4><p>这是两者最核心的区别，我用一个具体例子来说明。</p><p><strong>场景</strong>：识别一张图片里有没有“眼睛”。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始图像中，眼睛在左上角位置：
@@ -144,8 +143,7 @@ y = \max(0, x)
 ┌─────────┐    ┌─────────┐
 │ 有特征   │    │ 有特征   │
 └─────────┘    └─────────┘
-</code></pre><p><strong>无论眼睛在窗口的哪个位置，只要它出现在 2×2 区域内，最大池化都会输出“有特征”。</strong> 这就是<strong>平移不变性（Translation Invariance）</strong>——模型对物体的精确位置不敏感，只关心“有没有”。</p><p><strong>用步长卷积</strong>：
-步长卷积对每个像素位置做加权求和，<strong>位置偏移 2 个像素，输出数值就会变化</strong>。它保留了位置信息，但牺牲了对轻微位移的容忍度。</p><blockquote><p><strong>术语解释</strong>：<strong>平移不变性</strong>指输入中的物体发生位置偏移时，模型的输出保持不变。这在大规模图像分类任务中很有用（“猫在图片的左边还是右边，它都是猫”）。</p></blockquote><h4 id=第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</h4><p>原因在于去噪任务的目标和分类任务完全不同：</p><table><thead><tr><th>任务</th><th>关心的是什么</th><th>是否需要平移不变性</th><th>对细节的要求</th></tr></thead><tbody><tr><td><strong>图像分类</strong></td><td>“有没有猫？”</td><td>✅ 需要（猫在哪不重要）</td><td>低（轮廓模糊也能认）</td></tr><tr><td><strong>图像去噪</strong></td><td>“这个像素是不是噪点？”</td><td>❌ 不需要（噪点在哪很重要）</td><td>极高（每个像素都要算对）</td></tr></tbody></table><pre tabindex=0><code>去噪任务中，如果使用最大池化：
+</code></pre><p><strong>无论眼睛在窗口的哪个位置，只要它出现在 2×2 区域内，最大池化都会输出“有特征”。</strong> 这就是<strong>平移不变性（Translation Invariance）</strong>——模型对物体的精确位置不敏感，只关心“有没有”。</p><p><strong>用步长卷积</strong>：</p><p>步长卷积对每个像素位置做加权求和，<strong>位置偏移 2 个像素，输出数值就会变化</strong>。它保留了位置信息，但牺牲了对轻微位移的容忍度。</p><blockquote><p><strong>术语解释</strong>：<strong>平移不变性</strong>指输入中的物体发生位置偏移时，模型的输出保持不变。这在大规模图像分类任务中很有用（“猫在图片的左边还是右边，它都是猫”）。</p></blockquote><h4 id=第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</h4><p>原因在于去噪任务的目标和分类任务完全不同：</p><table><thead><tr><th>任务</th><th>关心的是什么</th><th>是否需要平移不变性</th><th>对细节的要求</th></tr></thead><tbody><tr><td><strong>图像分类</strong></td><td>“有没有猫？”</td><td>✅ 需要（猫在哪不重要）</td><td>低（轮廓模糊也能认）</td></tr><tr><td><strong>图像去噪</strong></td><td>“这个像素是不是噪点？”</td><td>❌ 不需要（噪点在哪很重要）</td><td>极高（每个像素都要算对）</td></tr></tbody></table><pre tabindex=0><code>去噪任务中，如果使用最大池化：
 
 原始细节：                经过最大池化后：
 ┌──────────────────┐      ┌──────────────┐
@@ -175,12 +173,12 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>  可学习的缩放因子              可学习的偏移量
 </span></span></code></pre></div><pre class=mermaid>
 flowchart LR
-    A["输入 x<br>（分布不稳定）"] 
+    A["输入 x<br>（分布不稳定）"]
     B["减去均值 μ<br>（中心化）"]
     C["除以标准差 σ<br>（标准化）"]
     D["γ × 归一化值 + β<br>（可学习的变换）"]
     E["输出 y<br>（分布稳定，网络自适应的范围）"]
-    
+
     A --> B --> C --> D --> E
 </pre><script type=module>
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
@@ -301,7 +299,7 @@ flowchart LR
     attributes: true,
     attributeFilter: ["class"],
   });
-</script><h3 id=33-bn-的好处>3.3 BN 的好处</h3><table><thead><tr><th>好处</th><th>解释</th></tr></thead><tbody><tr><td><strong>加速训练</strong></td><td>每层输入分布稳定，可以用更大的学习率，训练更快</td></tr><tr><td><strong>提高稳定性</strong></td><td>减少梯度消失/爆炸的问题</td></tr><tr><td><strong>减少对初始化的依赖</strong></td><td>参数初始化不好，BN 能“救回来”一部分</td></tr><tr><td><strong>有轻微的正则化效果</strong></td><td>因为每个 mini-batch 的均值方差略有不同，相当于添加了噪声</td></tr></tbody></table><h3 id=34-bn-的问题>3.4 BN 的问题</h3><table><thead><tr><th>问题</th><th>解释</th><th>对你的影响</th></tr></thead><tbody><tr><td><strong>训练和推理行为不同</strong></td><td>训练时用当前 batch 的均值/方差；推理时用历史积累的全局均值/方差</td><td>模型转换时容易出错</td></tr><tr><td><strong>依赖 batch size</strong></td><td>batch size 太小，统计不够准确，效果变差</td><td>部署到移动端（小 batch）可能出问题</td></tr><tr><td><strong>额外计算开销</strong></td><td>推理时要额外做归一化计算</td><td>对 NPU/移动端不友好</td></tr></tbody></table><h3 id=35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</h3><p>在Bnet代码中，BN 被<strong>刻意避免</strong>了。<code>Bnet_base.py</code> 的设计明确采用 <strong>“No BN”</strong> 策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Bnet_base.py 中的下采样块（命名包含 NoBN）</span>
+</script><h3 id=33-bn-的好处>3.3 BN 的好处</h3><table><thead><tr><th>好处</th><th>解释</th></tr></thead><tbody><tr><td><strong>加速训练</strong></td><td>每层输入分布稳定，可以用更大的学习率，训练更快</td></tr><tr><td><strong>提高稳定性</strong></td><td>减少梯度消失/爆炸的问题</td></tr><tr><td><strong>减少对初始化的依赖</strong></td><td>参数初始化不好，BN 能“救回来”一部分</td></tr><tr><td><strong>有轻微的正则化效果</strong></td><td>因为每个 mini-batch 的均值方差略有不同，相当于添加了噪声</td></tr></tbody></table><h3 id=34-bn-的问题>3.4 BN 的问题</h3><table><thead><tr><th>问题</th><th>解释</th><th>对你的影响</th></tr></thead><tbody><tr><td><strong>训练和推理行为不同</strong></td><td>训练时用当前 batch 的均值/方差；推理时用历史积累的全局均值/方差</td><td>模型转换时容易出错</td></tr><tr><td><strong>依赖 batch size</strong></td><td>batch size 太小，统计不够准确，效果变差</td><td>部署到移动端（小 batch）可能出问题</td></tr><tr><td><strong>额外计算开销</strong></td><td>推理时要额外做归一化计算</td><td>对 NPU/移动端不友好</td></tr></tbody></table><h3 id=35-为什么网络不用-bn>3.5 为什么网络不用 BN？</h3><p>在网络代码中，BN 被<strong>刻意避免</strong>了。<code>network_base.py</code> 的设计明确采用 <strong>“No BN”</strong> 策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># network_base.py 中的下采样块（命名包含 NoBN）</span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>down_res_block_add_NoRelu2_stride2</span>(nn<span style=color:#f92672>.</span>Module):
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 注意 &#34;NoBN&#34; 字样 —— 这个模块没有 Batch Normalization</span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 取而代之的是：卷积 → 激活 → 卷积 → 激活（直接堆叠）</span>
@@ -342,12 +340,12 @@ flowchart LR
         D["每个通道<br>独立 3×3 卷积"]
         O1["中间输出<br>C_in 通道"]
     end
-    
+
     subgraph Pointwise
         P["1×1 卷积<br>跨通道融合"]
         O["最终输出<br>C_out 通道"]
     end
-    
+
     I1 --> D --> O1 --> P --> O
 </pre><script type=module>
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
@@ -501,13 +499,13 @@ flowchart LR
         C1["标准卷积<br>（组内全连接）"]
         O1["输出通道 1-8"]
     end
-    
+
     subgraph 分组2
         I2["输入通道 17-32"]
         C2["标准卷积<br>（组内全连接）"]
         O2["输出通道 9-16"]
     end
-    
+
     I1 --> C1 --> O1
     I2 --> C2 --> O2
     O1 --> Concat["拼接"]
@@ -644,7 +642,7 @@ flowchart LR
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>Depthwise 卷积（groups=C_in）：
 </span></span><span style=display:flex><span>  每个输入通道独立连接到自己的输出通道
-</span></span></code></pre></div><h3 id=53-代码中的分组卷积>5.3 代码中的分组卷积</h3><p>在代码中，<code>Bnet_base.py</code> 使用了 <code>Group_Conv2d</code>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># models/Bnet_base.py</span>
+</span></span></code></pre></div><h3 id=53-代码中的分组卷积>5.3 代码中的分组卷积</h3><p>在代码中，<code>network_base.py</code> 使用了 <code>Group_Conv2d</code>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># models/network_base.py</span>
 </span></span><span style=display:flex><span><span style=color:#f92672>from</span> models.raw_video_nr_40g_nn <span style=color:#f92672>import</span> Group_Conv2d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Group_Conv2d 就是分组卷积</span>
@@ -658,11 +656,11 @@ flowchart LR
     subgraph 普通卷积
         A1["输入 4 通道"] --> A2["1个核<br>厚度=4"] --> A3["输出 1 通道"]
     end
-    
+
     subgraph 分组卷积
         B1["输入 4 通道<br>分2组"] --> B2["2个核<br>每个厚度=2"] --> B3["输出 2 通道"]
     end
-    
+
     subgraph Depthwise
         C1["输入 4 通道<br>分4组"] --> C2["4个核<br>每个厚度=1"] --> C3["输出 4 通道"]
     end
@@ -792,13 +790,13 @@ flowchart TD
     A --> D["Batch Normalization"]
     A --> E["Depthwise 卷积"]
     A --> F["分组卷积"]
-    
+
     B --> B1["位置：Conv → ReLU<br>作用：引入非线性<br>代码：nn.ReLU()"]
     C --> C1["作用：缩小尺寸<br>去噪中少用<br>代码：几乎无"]
-    D --> D1["作用：稳定训练<br>Bnet 刻意不用<br>原因：NPU 部署"]
+    D --> D1["作用：稳定训练<br>网络刻意不用<br>原因：NPU 部署"]
     E --> E1["作用：降低算力<br>参数量约 1/8<br>代码：groups=C_in"]
     F --> F1["作用：分组混合<br>Depthwise 是特例<br>代码：Group_Conv2d"]
-    
+
     style B fill:#e3f2fd
     style C fill:#fff3e0
     style D fill:#ffcdd2
@@ -923,4 +921,4 @@ flowchart TD
     attributes: true,
     attributeFilter: ["class"],
   });
-</script><p><strong>一句话总结</strong>：</p><blockquote><p>ReLU 是让网络“变弯”的非线性激活函数，几乎每层都用；池化层在去噪网络中被 stride=2 卷积替代；Batch Normalization 能加速训练但 Bnet 为 NPU 部署特意不用；Depthwise 卷积把参数量降到 1/8，是轻量部署的关键；分组卷积是 Depthwise 的“广义版本”，<code>groups=C_in</code> 时就是 Depthwise。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</script><p><strong>一句话总结</strong>：</p><blockquote><p>ReLU 是让网络“变弯”的非线性激活函数，几乎每层都用；池化层在去噪网络中被 stride=2 卷积替代；Batch Normalization 能加速训练但网络为 NPU 部署特意不用；Depthwise 卷积把参数量降到 1/8，是轻量部署的关键；分组卷积是 Depthwise 的“广义版本”，<code>groups=C_in</code> 时就是 Depthwise。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
