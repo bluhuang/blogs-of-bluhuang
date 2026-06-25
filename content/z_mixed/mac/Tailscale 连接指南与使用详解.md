@@ -2,7 +2,7 @@
 title: "Tailscale 连接指南与使用详解"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T18:56:30+0800
+date: 2026-06-25T19:08:36+0800
 lastmod: 2026-06-04
 ---
 
@@ -49,7 +49,7 @@ sudo tailscale set --relay-server-port=40000
 
 ## 3. 出现 relay 怎么办？
 
-### 3.1 优先尝试：重启 Mac（最有效）
+### 3.1 优先尝试：重启设备（最有效）
 
 清除残留虚拟网卡和路由表，恢复 IPv6 直连。
 
@@ -61,7 +61,7 @@ sudo tailscale set --relay-server-port=40000
 sudo pkill -f Tailscale && sleep 3 && sudo tailscale up
 ```
 
-**临时关闭 macOS 防火墙（测试用）**
+**临时关闭防火墙（测试用）**
 
 ```bash
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate off
@@ -96,7 +96,7 @@ tun:
 sudo tailscale set --relay-server-port=40000
 ```
 
-然后在路由器上做端口转发（UDP 40000 → Mac 内网 IP），并在 Tailscale 后台 ACL 中授权。  
+然后在路由器上做端口转发（UDP 40000 → 内网 IP），并在 Tailscale 后台 ACL 中授权。  
 之后状态会显示 `via peer-relay`（比公共 DERP 快）。
 
 ## 4. 与 Clash 共存的已知经验
@@ -107,4 +107,4 @@ sudo tailscale set --relay-server-port=40000
 
 ## 5. 一句话总结
 
-**`tailscale status` 显示 `direct` 或 `idle`（无 relay）即正常；出现 relay 优先重启 Mac。**
+**`tailscale status` 显示 `direct` 或 `idle`（无 relay）即正常；出现 relay 优先重启设备。**

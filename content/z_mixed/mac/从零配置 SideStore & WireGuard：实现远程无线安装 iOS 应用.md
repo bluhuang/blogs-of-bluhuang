@@ -2,13 +2,13 @@
 title: "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T18:56:30+0800
-lastmod: 2026-06-25T18:56:30+0800
+date: 2026-06-25T19:08:36+0800
+lastmod: 2026-06-25T19:08:36+0800
 ---
 
 # SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南
 
-> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能够远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
+> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
 
 ---
 
@@ -16,7 +16,7 @@ lastmod: 2026-06-25T18:56:30+0800
 
 - **免费 Apple ID** 签名的应用只有 **7 天有效期**，到期需重新签名。
 - **SideStore** 是一款侧载工具，能在 iPhone 上独立完成应用签名和续签（**无需电脑**）。
-- **WireGuard** 用于建立虚拟局域网，让 SideStore 能与 Apple 的签名服务器通信。
+- **WireGuard** 用于建立虚拟局域网，让 SideStore 能跟 Apple 的签名服务器通信。
 - **Jitterbug** 生成配对文件（`.plist`），使 SideStore 能免电脑控制设备。
 - **iLoader** 是一个图形化工具，用于把 SideStore 安装到 iPhone。
 
@@ -124,7 +124,7 @@ iLoader 是最简单的图形化安装工具，能自动处理签名和设备识
 6. 在 iPhone 上：**设置 → 通用 → VPN 与设备管理** → 找到你的 Apple ID 描述文件 → 点击“信任”。
 7. 进入 **设置 → 隐私与安全性 → 开发者模式** → 打开开关 → 重启手机。
 
-> ⚠️ 如果 iLoader 提示“No device”，请检查数据线连接或更换 USB 口。
+> ⚠️ 如果 iLoader 提示“No device”，检查数据线连接或更换 USB 口。
 
 ---
 

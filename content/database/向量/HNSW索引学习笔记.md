@@ -2,13 +2,13 @@
 title: "HNSW索引学习笔记"
 categories: ["database"]
 author: "BluHuang"
-date: 2026-06-25T18:56:30+0800
+date: 2026-06-25T19:08:36+0800
 lastmod: 2026-04-02
 ---
 
 HNSW 算法完全学习笔记
 
-基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。
+基于技术实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。
 
 ---
 
@@ -46,10 +46,9 @@ HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻�
 
 这两个参数控制搜索的广度，是 HNSW 速度-精度权衡的核心。
 
-| 参数 | 阶段 | 作用 | 典型值 |
-|------|------|------|--------|
-| ef_construction | 构建索引 | 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 | 100~200 |
-| ef_search | 查询 | 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 | 10~100 |
+参数 阶段 作用 典型值
+ef_construction 构建索引 为新节点寻找邻居时，维护的候选队列大小。越大索引质量越高，构建越慢。 100~200
+ef_search 查询 每层搜索时维护的候选队列大小。越大召回率越高，查询越慢。 10~100
 
 为什么需要“搜索宽度”？
 HNSW 在每层不是只走一条贪心路径（容易局部最优），而是维护一个大小为 ef 的候选队列，同时探索多个方向，类似 Dijkstra 算法。ef 越大，探索越广，结果越接近全局最优，但耗时增加。
@@ -176,11 +175,10 @@ HNSW 支持动态插入，无需预先分配容量。
 
 9. 参数调优总结
 
-| 参数 | 影响 | 调优建议 |
-|------|------|----------|
-| M | 精度、内存、构建时间 | 越大精度越高。典型 16~64。 |
-| ef_construction | 索引质量、构建时间 | 越大索引越准。典型 100~200。需 ≥ M。 |
-| ef_search | 查询召回率、速度 | 越大召回越高。典型 10~100。需 ≥ k。 |
+参数 影响 调优建议
+M 精度、内存、构建时间 越大精度越高。典型 16~64。
+ef_construction 索引质量、构建时间 越大索引越准。典型 100~200。需 ≥ M。
+ef_search 查询召回率、速度 越大召回越高。典型 10~100。需 ≥ k。
 
 原则：
 
@@ -242,6 +240,6 @@ retriever = vector_store.as_retriever(
 
 13. 参考资源
 
-· 原始论文：Malkov & Yashunin (2018). Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs.
-· hnswlib 库：https://github.com/nmslib/hnswlib
-· 向量数据库 HNSW 文档：可参考各向量数据库官方指南中的 HNSW 参数说明。
+· 原始论文：Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs (2018).
+· hnswlib 开源库：https://github.com/nmslib/hnswlib
+· 向量数据库 HNSW 参数文档

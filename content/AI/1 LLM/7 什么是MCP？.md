@@ -2,13 +2,13 @@
 title: "什么是MCP？"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-25T18:56:30+0800
-lastmod: 2026-06-25T18:56:30+0800
+date: 2026-06-25T19:08:36+0800
+lastmod: 2026-06-25T19:08:36+0800
 ---
 
 ### 📌 本章重点总结（MCP）
 
-1. **MCP 是什么**：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
+1. **MCP 是什么**：某公司推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。
 2. **为什么需要 MCP**：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。
 3. **三大核心角色**：
    - **Host**：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。
@@ -25,15 +25,15 @@ lastmod: 2026-06-25T18:56:30+0800
 
 ### 为什么需要两者配合，缺一不可？
 - **只有Function Calling，没有MCP**：  
-    大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。
+    大模型能说出“调用天气工具”，但Host还是要自己写代码去连接天气API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。
     
 - **只有MCP，没有Function Calling**：  
-    Host 能通过 MCP 调用工具，但大模型输出的工具名和参数可能乱七八糟（比如“用 check_the_weather 工具，城市=上海明天”），Host 没法可靠地转换成 MCP 请求。
+    Host能通过MCP调用工具，但大模型输出的工具名和参数可能乱七八糟（比如“用check_the_weather工具，城市=上海明天”），Host没法可靠地转换成MCP请求。
     
 - **两者配合**：  
     Function Calling 保证大模型**说得准**（工具名、参数格式都正确）。  
-    MCP 保证 Host **找得到、调得对**（按统一协议连接工具服务）。  
-    大模型只管“**说**”，MCP Server 只管“**做**”，Host 只管“**传**”。各司其职，形成标准化流水线。
+    MCP 保证Host**找得到、调得对**（按统一协议连接工具服务）。  
+    大模型只管“**说**”，MCP Server只管“**做**”，Host只管“**传**”。各司其职，形成标准化流水线。
 
 > **Function Calling 是“嘴”，大模型用它下指令；  
 > MCP 是“手”，Host 用它去执行。  
@@ -49,7 +49,7 @@ lastmod: 2026-06-25T18:56:30+0800
 
 ## 没有 MCP 之前：重复造轮子的噩梦
 
-假设你正在开发一个 Agent，需要它能读取 GitHub 代码仓库、查询公司数据库、操作本地文件系统、还能发 Slack 消息。
+假设你正在开发一个 Agent，需要它能读取 GitHub 代码仓库、查询内部数据库、操作本地文件系统、还能发 Slack 消息。
 
 每一个工具，你都得自己来：
 
@@ -75,7 +75,7 @@ lastmod: 2026-06-25T18:56:30+0800
 
 ## MCP 的出现：给 AI 工具世界定一个标准
 
-这就是 Anthropic 在 2024 年 11 月推出 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
+这就是 2024 年 11 月推出的 **MCP（Model Context Protocol，模型上下文协议）** 的背景。
 
 MCP 要解决的核心问题，可以用一句话概括： **把工具的「写好」和「用起来」彻底拆开。**
 
@@ -127,7 +127,7 @@ Server 和 Host 可以运行在同一台机器上（本地 Server），也可以
 
 ## MCP 和 Function Calling 是什么关系？
 
-学到这里，很多开发者脑子里会冒出一个问题：上一章学了 Function Calling，说大模型通过 Function Calling 告诉 Agent 调哪个工具；这章又学了 MCP，说 Agent 通过 MCP 来调用工具。这两个东西，到底有什么区别？MCP 是不是把 Function Calling 给替代了？
+学到这里，很多同学脑子里会冒出一个问题：上一章学了 Function Calling，说大模型通过 Function Calling 告诉 Agent 调哪个工具；这章又学了 MCP，说 Agent 通过 MCP 来调用工具。这两个东西，到底有什么区别？MCP 是不是把 Function Calling 给替代了？
 
 完全不是。 **Function Calling 和 MCP 解决的是不同层面的问题，它们是配合关系，不是替代关系。** 我们来一步步理清楚。
 
@@ -153,7 +153,7 @@ MCP 负责下半段：Agent 通过 MCP 协议，找到对应的 MCP Server，把
 
 还是查天气的场景，用户问「上海明天天气怎样」：
 
-1. 大模型通过 **Function Calling** 返回调用指令，「调 check_weather，city=上海」。这是 Function Calling 层，大模型在开口下指令。
+1. 大模型通过 **Function Calling** 返回调用指令，「调 check\_weather，city=上海」。这是 Function Calling 层，大模型在开口下指令。
 
 2. Agent 里的 MCP Client 收到这条 Function Calling 指令，通过 **MCP 协议** 找到天气 MCP Server，把请求路由过去。这是 MCP 层，Agent 在找到并执行工具。
 
@@ -228,7 +228,7 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 整理一下这一章的核心认知：
 
-* **MCP 是什么**：Anthropic 推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
+* **MCP 是什么**：某公司推出的开放标准协议，定义了 AI 应用和工具服务之间如何标准化通信，是 AI 工具世界的「USB-C」。
 
 * **为什么需要它**：没有统一标准时，每个工具都要自己写集成，多模型场景下是 N×M 的重复工作量；MCP 把这个问题变成 N+M，工具写一次，全平台可用。
 
