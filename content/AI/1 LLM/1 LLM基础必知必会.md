@@ -3,13 +3,11 @@ title: "LLM基础必知必会"
 image: "/images/AI/1%20LLM/IMG_4302.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-25T21:31:11+0800
-lastmod: 2026-06-25T21:31:11+0800
+date: 2026-06-26T16:59:51+0800
+lastmod: 2026-06-26T16:59:51+0800
 ---
 
 # LLM 学习笔记：核心概念与实践方法
-
-> 参考：[https://example.com/discuss/618031032440217600](https://example.com/discuss/618031032440217600)
 
 ## 1. 大语言模型基础
 

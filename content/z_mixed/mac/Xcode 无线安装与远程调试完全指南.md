@@ -2,8 +2,8 @@
 title: "Xcode 无线安装与远程调试完全指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-25T21:31:11+0800
-lastmod: 2026-06-25T21:31:11+0800
+date: 2026-06-26T16:59:51+0800
+lastmod: 2026-06-26T16:59:51+0800
 ---
 
 # Xcode 无线远程安装指南（基于 Tailscale）
