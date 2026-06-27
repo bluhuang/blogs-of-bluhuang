@@ -2,7 +2,7 @@
 title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-26T16:59:51+0800
+date: 2026-06-27T14:23:39+0800
 lastmod: 2026-06-04
 ---
 
@@ -14,7 +14,7 @@ lastmod: 2026-06-04
 brew install tmux
 ```
 
-## 2. 会话管理（每条命令可单独复制）
+## 2. 会话管理（每条命令均可单独复制）
 
 ```bash
 tmux new -s 会话名
@@ -40,7 +40,7 @@ tmux kill-session -t 会话名
 tmux kill-server
 ```
 
-## 3. 会话内快捷键（先按 `Ctrl+B`，再按以下键）
+## 3. 会话内快捷键（先按 `Ctrl+B`，再按相应的键）
 
 | 快捷键 | 作用 |
 |--------|------|
@@ -50,7 +50,7 @@ tmux kill-server
 | `"` | 水平分割面板（上下） |
 | `%` | 垂直分割面板（左右） |
 | `方向键` | 切换面板 |
-| `x` | 关闭当前面板（按 y 确认） |
+| `x` | 关闭当前面板（按 `y` 确认） |
 | `d` | 脱离会话（任务继续后台运行） |
 | `[` | 进入滚动/复制模式（按 `q` 退出） |
 | `?` | 显示帮助 |
@@ -63,7 +63,7 @@ tmux new -s work
 
 # 运行程序（如 opencode、vim、npm run dev）
 
-# 临时断开（不中断任务）: Ctrl+B 然后按 D
+# 临时断开（不中断任务）：Ctrl+B 然后按 D
 
 # 下次连接：恢复会话
 tmux attach -t work
@@ -72,5 +72,5 @@ tmux attach -t work
 ## 5. 小技巧
 
 - 会话名用短单词：`w`、`c`、`o`
-- 长时间任务配合 `caffeinate` 防止 Mac 睡眠（另开终端执行 `caffeinate`）
-- 手机锁屏/切换 App 不影响 tmux 内任务
+- 长时间任务可配合 `caffeinate` 防止 Mac 睡眠，在另一终端执行 `caffeinate` 即可
+- 手机锁屏或切换 App 不影响 tmux 内的任务

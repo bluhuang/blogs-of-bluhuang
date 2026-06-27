@@ -2,21 +2,21 @@
 title: "Xcode 无线安装与远程调试完全指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-26T16:59:51+0800
-lastmod: 2026-06-26T16:59:51+0800
+date: 2026-06-27T14:23:39+0800
+lastmod: 2026-06-27T14:23:39+0800
 ---
 
 # Xcode 无线远程安装指南（基于 Tailscale）
 
 > **避免使用SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
-> 一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。
+> 一次配置后，无论在家还是在外，都能一键将 App 安装到 iPhone。
 
 ---
 
-## 第一部分：原理（为什么能远程安装）
+## 第一部分：原理（为何能远程安装）
 
 ### 1.1 无线调试的底层机制
-Xcode 通过 **Bonjour** 协议在本地网络自动发现设备，因此只要 Mac 和 iPhone 连在同一个 Wi‑Fi 下，勾选 “Connect via network” 后即可无线运行。
+Xcode 通过 **Bonjour** 协议在本地网络自动发现设备，因此只要 Mac 和 iPhone 连接在同一个 Wi‑Fi 下，勾选 “Connect via network” 后即可无线运行。
 
 ### 1.2 突破本地网络的限制
 Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`**，允许你**直接指定设备的 IP 地址或 UDID** 来安装应用，完全绕过 Bonjour。因此，只要 Mac 和 iPhone 能通过网络互相访问（例如通过 Tailscale 组建的虚拟局域网），就能实现真正的远程安装。
@@ -49,7 +49,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ---
 
-### 🚀 日常远程安装（让 OpenCode 自动做）
+### 🚀 日常远程安装（让 OpenCode 自动执行）
 
 创建一个脚本 `~/Desktop/code/PackPack/remote-install.sh`，内容如下（**请根据你的实际路径和 Tailscale IP 修改**）：
 
