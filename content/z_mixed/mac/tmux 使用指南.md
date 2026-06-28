@@ -3,7 +3,7 @@ title: "tmux 使用指南"
 categories: ["z_mixed"]
 author: "BluHuang"
 date: 2026-06-04T09:42:47+0800
-lastmod: 2026-06-04
+lastmod: 2026-06-04T09:42:47+0800
 ---
 
 > 终端复用器，SSH 断开后会话不中断，任务继续运行。

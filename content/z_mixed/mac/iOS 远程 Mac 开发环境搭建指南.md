@@ -3,7 +3,7 @@ title: "iOS 远程 Mac 开发环境搭建指南"
 categories: ["z_mixed"]
 author: "BluHuang"
 date: 2026-06-04T09:42:47+0800
-lastmod: 2026-06-04
+lastmod: 2026-06-04T09:42:47+0800
 ---
 
 > 目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。

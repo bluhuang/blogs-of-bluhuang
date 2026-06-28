@@ -3,7 +3,7 @@ title: "Application-Defined SQL Functions"
 categories: ["database"]
 author: "BluHuang"
 date: 2026-06-02T13:04:44+0800
-lastmod: 2025-12-30
+lastmod: 2026-06-02T13:04:44+0800
 ---
 
 [[programming interfaces]]

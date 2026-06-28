@@ -3,7 +3,7 @@ title: "二叉树的Morris展开与中序遍历"
 categories: ["coding"]
 author: "BluHuang"
 date: 2026-06-02T13:04:44+0800
-lastmod: 2026-03-11
+lastmod: 2026-06-02T13:04:44+0800
 ---
 
 ### 一、什么是 Morris 遍历？
