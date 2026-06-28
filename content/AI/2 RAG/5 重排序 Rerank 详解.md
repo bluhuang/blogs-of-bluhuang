@@ -2,8 +2,8 @@
 title: "重排序 Rerank 详解"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
-lastmod: 2026-06-27T14:23:39+0800
+date: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 ## 1. 核心概念：什么是 Rerank

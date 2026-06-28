@@ -2,7 +2,7 @@
 title: "iOS 远程 Mac 开发环境搭建指南"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
+date: 2026-06-04T09:42:47+0800
 lastmod: 2026-06-04
 ---
 

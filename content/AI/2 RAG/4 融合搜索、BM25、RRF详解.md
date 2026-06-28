@@ -2,8 +2,8 @@
 title: "融合搜索、BM25、RRF详解"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
-lastmod: 2026-06-27T14:23:39+0800
+date: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 # Why RAG Needs Hybrid Retrieval：BM25 + 向量 + RRF 融合学习笔记

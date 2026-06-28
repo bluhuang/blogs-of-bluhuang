@@ -2,7 +2,7 @@
 title: "全排列 std, next_permutation"
 categories: ["coding"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
+date: 2026-06-02T13:04:44+0800
 lastmod: 2026-02-14
 ---
 

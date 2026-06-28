@@ -3,8 +3,8 @@ title: "LLM基础必知必会"
 image: "/images/AI/1%20LLM/IMG_4302.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
-lastmod: 2026-06-27T14:23:39+0800
+date: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 # LLM 学习笔记：核心概念与实践方法

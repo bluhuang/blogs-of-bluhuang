@@ -3,8 +3,8 @@ title: "GraphRAG 与 LightRAG"
 image: "/images/AI/2%20RAG/823575cb1d227b3f.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
-lastmod: 2026-06-27T14:23:39+0800
+date: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 # GraphRAG与LightRAG

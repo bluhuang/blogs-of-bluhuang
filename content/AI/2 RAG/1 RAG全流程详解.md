@@ -3,8 +3,8 @@ title: "RAG全流程详解"
 image: "/images/AI/2%20RAG/f5ea2081fd5716f6.png"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
-lastmod: 2026-06-27T14:23:39+0800
+date: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 ## 1. 什么是 RAG？为什么需要 RAG？

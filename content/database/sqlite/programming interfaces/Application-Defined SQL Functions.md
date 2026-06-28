@@ -2,7 +2,7 @@
 title: "Application-Defined SQL Functions"
 categories: ["database"]
 author: "BluHuang"
-date: 2026-06-27T14:23:39+0800
+date: 2026-06-02T13:04:44+0800
 lastmod: 2025-12-30
 ---
 
