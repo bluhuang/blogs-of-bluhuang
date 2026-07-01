@@ -98,6 +98,36 @@
   "AI/4 深度学习/2.6 CNN中的其他常见操作.md": {
     "hash": "37b319cf96071b0e74134323a33defb6"
   },
+  "AI/5 ISP与图像处理/1 噪声的原理 —— 从物理源头到AI建模.md": {
+    "hash": "ffa0115e0f063c2120c6bd64082e95ac"
+  },
+  "AI/5 ISP与图像处理/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md": {
+    "hash": "107c7b071a08b2b964e99be295c91052"
+  },
+  "AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
+    "hash": "2b0b0258642640178454d48dc36f04da"
+  },
+  "AI/5 ISP与图像处理/3 Gamma 校正与逆 Gamma.md": {
+    "hash": "c8a0fefbe144b4f0924bbe7cef40c04f"
+  },
+  "AI/5 ISP与图像处理/4 YUV 色彩空间：亮度和颜色的分离.md": {
+    "hash": "88ccd268eaf3dcb0f5d3590205968b86"
+  },
+  "AI/5 ISP与图像处理/5 ISP 图像信号处理器（Image Signal Processor）.md": {
+    "hash": "1728315ea41bb5cf7be181ffaaef0ee2"
+  },
+  "AI/5 ISP与图像处理/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md": {
+    "hash": "e96f91f1a57980b7f63625cde9b235f4"
+  },
+  "AI/5 ISP与图像处理/7 BLC（Black Level Correction，黑电平校正）.md": {
+    "hash": "1287e55f28ab0e1828dfe953779e0776"
+  },
+  "AI/5 ISP与图像处理/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md": {
+    "hash": "7456ad136846c4c54532bbc8ed6534e8"
+  },
+  "AI/5 ISP与图像处理/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
+    "hash": "a8e845b4c2a5d79e322f8f31cea3f2fa"
+  },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
   },
