@@ -128,6 +128,18 @@
   "AI/5 ISP与图像处理/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
     "hash": "a8e845b4c2a5d79e322f8f31cea3f2fa"
   },
+  "AI/6 AI去噪/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
+    "hash": "4f2dcb14a2ade885834986f04d1ea0b6"
+  },
+  "AI/7 模型训练/1 模型训练全景.md": {
+    "hash": "72df53a160b8f9f08642dee767981519"
+  },
+  "AI/7 模型训练/2 SSIM（结构相似性指标）.md": {
+    "hash": "37d986ec7bd7ce84216edd0c6e709cfa"
+  },
+  "AI/7 模型训练/3 学习率调度（Learning Rate Scheduling）.md": {
+    "hash": "ecc9558f44e586ecd3443f255f100add"
+  },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
   },
