@@ -4,6 +4,22 @@
     "url": "/AI/",
     "children": [
       {
+        "title": "0 Paper",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "CV",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising",
+                "url": "/AI/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/"
+              }
+            ]
+          }
+        ]
+      },
+      {
         "title": "0 基础",
         "url": "/AI/",
         "children": [

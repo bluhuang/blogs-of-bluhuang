@@ -1,0 +1,397 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta property="og:title" content="DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/"><meta name=twitter:title content="DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(48)</span></summary><ul style=padding-left:12px><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-paper/ class="flex-1 hover:underline truncate font-medium">0 Paper</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-paper/cv/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+CV
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+6 AI去噪
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+7 模型训练
+<span class="text-xs text-text-light ml-1.5">(3)</span></a></li><li><a href=/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+5 ISP与图像处理
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(6)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(17)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(16)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li></ul></div><div class=lg:col-9><article><div class=mb-10></div><div class="article-hero mb-8"><h1 class="h2 mb-3">DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年7月7日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-论文要解决什么问题>1. 论文要解决什么问题</a><ol><li><a href=#11-痛点一传统方法依赖人工设计的先验>1.1 痛点一：传统方法依赖人工设计的先验</a></li><li><a href=#12-痛点二深度学习方法需要为每个噪声水平单独训练一个模型>1.2 痛点二：深度学习方法需要为每个噪声水平单独训练一个模型</a></li><li><a href=#13-痛点三网络做深了训练反而不稳定>1.3 痛点三：网络做深了，训练反而不稳定</a></li><li><a href=#14-dncnn-的目标>1.4 DnCNN 的目标</a></li><li><a href=#15-论文具体做了什么>1.5 论文具体做了什么</a><ol><li><a href=#151--把去噪当作判别式学习问题而非先验建模问题>1.5.1 <strong>① 把去噪当作“判别式学习”问题，而非“先验建模”问题</strong></a></li><li><a href=#152--预测噪声而非干净图残差学习>1.5.2 <strong>② 预测“噪声”而非“干净图”（残差学习）</strong></a></li><li><a href=#153--引入批量归一化bn>1.5.3 <strong>③ 引入批量归一化（BN）</strong></a></li><li><a href=#154--一个模型覆盖多个噪声水平盲去噪>1.5.4 <strong>④ 一个模型覆盖多个噪声水平（盲去噪）</strong></a></li></ol></li><li><a href=#前置知识补充>前置知识补充</a><ol><li><a href=#优化器是什么和学习率是什么关系>优化器是什么？和“学习率”是什么关系？</a></li><li><a href=#判别式模型学习-vs-传统模型>判别式模型学习 vs 传统模型</a></li></ol></li></ol></li><li><a href=#2-核心方法>2. 核心方法</a><ol><li><a href=#21-网络结构三层设计--17层深度>2.1 网络结构（三层设计 + 17层深度）</a><ol><li><a href=#211-整体架构>2.1.1 整体架构</a></li><li><a href=#212-三种层类型详解>2.1.2 三种层类型详解</a><ol><li><a href=#第-1-层conv--relu><strong>第 1 层：Conv + ReLU</strong></a></li><li><a href=#第-2-16-层conv--bn--relu><strong>第 2-16 层：Conv + BN + ReLU</strong></a></li><li><a href=#最后一层conv><strong>最后一层：Conv</strong></a></li></ol></li><li><a href=#213-感受野计算>2.1.3 感受野计算</a></li><li><a href=#214-为什么去掉池化层>2.1.4 为什么去掉池化层？</a></li><li><a href=#215-为什么选择-17-层>2.1.5 为什么选择 17 层？</a></li></ol></li><li><a href=#22-残差学习为什么预测噪声>2.2 残差学习（为什么预测噪声）</a><ol><li><a href=#221-两种学习策略的对比>2.2.1 两种学习策略的对比</a></li><li><a href=#222-为什么预测噪声比预测干净图更容易>2.2.2 为什么预测噪声比预测干净图更容易？</a></li><li><a href=#223-隐层自动分离噪声和信号>2.2.3 隐层自动分离噪声和信号</a><ol><li><a href=#为什么隐层学会了减去干净图只让噪声向后传递>为什么隐层学会了减去干净图，只让噪声向后传递？</a></li></ol></li><li><a href=#224-数学形式>2.2.4 数学形式</a></li></ol></li><li><a href=#23-批量归一化为什么-bn--残差是黄金搭档>2.3 批量归一化（为什么 BN + 残差是黄金搭档）</a><ol><li><a href=#231-什么是内部协变量偏移internal-covariate-shift>2.3.1 什么是内部协变量偏移（Internal Covariate Shift）？</a></li><li><a href=#232-bn-是什么>2.3.2 BN 是什么？</a></li><li><a href=#233-为什么-bn-允许使用更大的学习率>2.3.3 为什么 BN 允许使用更大的学习率？</a></li><li><a href=#234-为什么残差学习和-bn-是黄金搭档>2.3.4 为什么残差学习和 BN 是“黄金搭档”？</a><ol><li><a href=#一方面残差学习受益于-bn><strong>一方面，残差学习受益于 BN</strong>：</a></li><li><a href=#另一方面bn-受益于残差学习><strong>另一方面，BN 受益于残差学习</strong>：</a></li></ol></li></ol></li><li><a href=#24-盲去噪一个模型覆盖多种噪声水平>2.4 盲去噪（一个模型覆盖多种噪声水平）</a><ol><li><a href=#241-传统方法的局限性>2.4.1 传统方法的局限性</a><ol><li><a href=#多层感知器mlp>多层感知器（MLP）</a></li><li><a href=#级联收缩场csf>级联收缩场（CSF）</a></li><li><a href=#可训练非线性反应扩散tnrd>可训练非线性反应扩散（TNRD）</a></li></ol></li><li><a href=#242-dncnn-为什么能实现盲去噪>2.4.2 DnCNN 为什么能实现盲去噪？</a></li><li><a href=#243-盲去噪的训练策略>2.4.3 盲去噪的训练策略</a></li><li><a href=#244-扩展到多种任务>2.4.4 扩展到多种任务</a></li></ol></li></ol></li><li><a href=#3-实验结果关键数据>3. 实验结果（关键数据）</a><ol><li><a href=#31-实验设置>3.1 实验设置</a><ol><li><a href=#训练数据>训练数据</a></li><li><a href=#训练参数>训练参数</a></li></ol></li><li><a href=#32-定量结果psnr>3.2 定量结果（PSNR）</a><ol><li><a href=#dncnn-s-vs-其他方法bsd68-数据集>DnCNN-S vs 其他方法（BSD68 数据集）</a></li><li><a href=#12-张测试图上的表现>12 张测试图上的表现</a></li></ol></li><li><a href=#33-定性结果视觉效果>3.3 定性结果（视觉效果）</a><ol><li><a href=#彩色图像去噪>彩色图像去噪</a></li><li><a href=#真实图像去噪>真实图像去噪</a></li></ol></li><li><a href=#34-结论>3.4 结论</a></li></ol></li><li><a href=#4-一句话总结>4. 一句话总结</a></li></ol></nav></details><h2 id=1-论文要解决什么问题>1. 论文要解决什么问题</h2><p>在 DnCNN 出现之前，图像去噪主要面临三个痛点：</p><h3 id=11-痛点一传统方法依赖人工设计的先验>1.1 痛点一：传统方法依赖人工设计的先验</h3><p>传统去噪方法（如 BM3D）基于图像的自相似性——在一张图像中寻找相似的图像块，然后加权平均去噪。这种方法虽然有效，但本质上是在“手工设计规则”，通用性有限，不同场景需要不同的参数配置。</p><h3 id=12-痛点二深度学习方法需要为每个噪声水平单独训练一个模型>1.2 痛点二：深度学习方法需要为每个噪声水平单独训练一个模型</h3><p>当时的主流深度学习去噪方法是<strong>判别式模型学习</strong>——直接训练一个网络，输入带噪图，输出干净图。</p><blockquote><p><strong>术语解释</strong>：<strong>判别式模型学习（Discriminative Model Learning）</strong>，简单说就是“让网络学习从输入到输出的直接映射”。在去噪任务里，就是让网络看大量（带噪图，干净图）配对数据，自己学会“怎么去掉噪声”。这和生成式模型（学习数据分布）相对，判别式模型只关心决策边界/映射关系，不关心数据本身是怎么生成的。</p></blockquote><p>但这种方法的一个明显问题是：训练时用了什么噪声水平（如 σ=25），模型就只会处理 σ=25 的噪声。如果推理时噪声水平不同，效果就会大幅下降。这意味着每换一个噪声水平，就需要重新训练一个模型，实用性很受限制。</p><h3 id=13-痛点三网络做深了训练反而不稳定>1.3 痛点三：网络做深了，训练反而不稳定</h3><p>直觉上，网络越深应该效果越好。但直接堆叠卷积层会出现梯度消失/爆炸的问题——深层网络的梯度在反向传播时逐层衰减，浅层参数几乎得不到有效更新，训练难以收敛。</p><h3 id=14-dncnn-的目标>1.4 DnCNN 的目标</h3><p>这篇论文的目标是<strong>用一套方案同时解决以上三个问题</strong>：</p><ol><li>用深度学习自动学习去噪映射，替代手工设计的规则</li><li>用一个模型覆盖多个噪声水平（称为“盲去噪”，即 Blind Denoising）</li><li>借助残差学习和批量归一化，把网络推到 17 层深度，且训练稳定</li></ol><h3 id=15-论文具体做了什么>1.5 论文具体做了什么</h3><p>这篇论文提出的 DnCNN 有四个核心设计：</p><h4 id=151--把去噪当作判别式学习问题而非先验建模问题>1.5.1 <strong>① 把去噪当作“判别式学习”问题，而非“先验建模”问题</strong></h4><p>传统方法（BM3D等）是先设计一个关于“干净图像长什么样”的数学模型（先验），然后在推理时求解这个模型。DnCNN 的做法更直接：输入带噪图，输出干净图，中间所有映射关系都让网络从数据里学。网络不需要显式地知道“图像先验”是什么——它自己学会了。</p><blockquote><p><strong>术语解释</strong>：<strong>先验（Prior）</strong> 在图像去噪中指“我们预先假设干净图像有什么性质”。比如“自然图像是局部平滑的”就是一种先验。传统方法需要人工设计这些先验，然后通过数学优化来求解。DnCNN 不依赖人工设计的先验，而是让网络从大量数据中自己学会“什么样的图像是干净的”。</p></blockquote><h4 id=152--预测噪声而非干净图残差学习>1.5.2 <strong>② 预测“噪声”而非“干净图”（残差学习）</strong></h4><p>网络学习目标不是 <code>x</code>（干净图），而是 <code>v = y - x</code>（噪声）。推理时，干净图 = 输入带噪图 - 网络预测的噪声。
+这样做的原因是：噪声的分布（零均值、类高斯）比图像内容简单得多，网络更容易学。残差学习也给了梯度一条“捷径”，让深层网络的训练更稳定。</p><h4 id=153--引入批量归一化bn>1.5.3 <strong>③ 引入批量归一化（BN）</strong></h4><p>BN 把每层输入标准化到均值为 0、方差为 1，解决了深层网络训练不稳定的问题，允许使用更大的学习率。论文发现 BN 和残差学习是“黄金搭档”——两者组合的效果远大于各自单独使用的效果之和。</p><h4 id=154--一个模型覆盖多个噪声水平盲去噪>1.5.4 <strong>④ 一个模型覆盖多个噪声水平（盲去噪）</strong></h4><p>传统判别式方法要为每个噪声水平（σ=15、25、50 等）单独训练一个模型。DnCNN 用一个模型处理未知噪声水平。
+为什么能做到？因为残差学习的本质是“预测退化”——无论是 σ=15 还是 σ=50 的噪声，网络学的都是“输入到噪声的映射”（即退化过程），学的是噪声的通用模式，而不是针对某个具体的 σ 值。</p><blockquote><p><strong>术语解释</strong>：<strong>盲去噪（Blind Denoising）</strong> 指模型在推理时不知道噪声水平 σ，但仍然能有效去噪。DnCNN 能够实现盲去噪，是因为它学的是“噪声的统计特征”而不是“某个特定 σ 下的噪声值”——模型通过输入图像的局部统计信息来推断当前的噪声强度，并自适应地去噪。</p></blockquote><h3 id=前置知识补充>前置知识补充</h3><h4 id=优化器是什么和学习率是什么关系>优化器是什么？和“学习率”是什么关系？</h4><p>优化器是决定“怎么更新参数”的算法，学习率是优化器里的一个参数。
+用下山比喻来理解：</p><ul><li><strong>优化器（Optimizer）</strong>：决定“往哪个方向走、走路的策略是什么”。比如 SGD 是“每次都朝最陡的方向迈一步”，Adam 是“根据历史经验自适应地调整步伐大小”。</li><li><strong>学习率（Learning Rate）</strong>：决定“每一步迈多大”。它是优化器的一个超参数，0.01 表示每步迈 1 厘米，0.1 表示每步迈 10 厘米。</li><li><strong>关系</strong>：优化器负责计算“方向”（梯度），学习率负责控制“步幅”。两者配合才能有效更新参数。</li></ul><table><thead><tr><th>组件</th><th>作用</th><th>类比</th></tr></thead><tbody><tr><td>梯度（Gradient）</td><td>告诉你“往哪个方向走最陡”</td><td>方向感</td></tr><tr><td>优化器（Optimizer）</td><td>决定“用什么样的策略来走”</td><td>走路策略</td></tr><tr><td>学习率（Learning Rate）</td><td>决定“每一步走多远”</td><td>步幅</td></tr></tbody></table><p>DnCNN 论文中使用了 SGD 优化器（带动量），学习率从 <code>1e-1</code> 开始，逐步衰减到 <code>1e-4</code>。</p><h4 id=判别式模型学习-vs-传统模型>判别式模型学习 vs 传统模型</h4><p>传统去噪方法（如 BM3D）是“先设计一个数学模型，再求解”。判别式模型学习是“直接让网络看大量数据，自己学会映射”。前者需要人工设计规则，后者让数据驱动学习。</p><h2 id=2-核心方法>2. 核心方法</h2><h3 id=21-网络结构三层设计--17层深度>2.1 网络结构（三层设计 + 17层深度）</h3><p><img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig1_architecture.png alt=DnCNN_Fig1_architecture loading=lazy decoding=async>
+【Fig. 1】</p><h4 id=211-整体架构>2.1.1 整体架构</h4><p>DnCNN 的网络结构借鉴了 VGG 网络的设计思路，但做了针对去噪任务的特殊调整。</p><blockquote><p><strong>术语解释</strong>：<strong>VGG 网络</strong> 是 2014 年由牛津大学提出的经典 CNN 架构，核心特点是<strong>全部使用 3×3 小卷积核堆叠</strong>，通过加深网络来扩大感受野，而不是使用大卷积核（如 7×7）。这种设计在减少参数量的同时保持了很好的表达能力。DnCNN 沿用了“全部 3×3 卷积”的思路，但去掉了 VGG 中的池化层。</p></blockquote><p>整个网络由 17 个卷积层堆叠而成，去掉所有池化层，分为三种不同的层类型：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入：带噪图 (灰度图，1通道)
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│ 第1层：Conv + ReLU                                   │
+</span></span><span style=display:flex><span>│   conv(3×3, 64个卷积核, stride=1, padding=1) + ReLU  │
+</span></span><span style=display:flex><span>│   输出：64通道特征图                                  │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────────────────┘
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│ 第2-16层：Conv + BN + ReLU（重复15次）                │
+</span></span><span style=display:flex><span>│   conv(3×3, 64个卷积核) → BN → ReLU                  │
+</span></span><span style=display:flex><span>│   输出：64通道特征图（尺寸不变）                       │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────────────────┘
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>┌──────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│ 第17层：Conv（无BN，无ReLU）                          │
+</span></span><span style=display:flex><span>│   conv(3×3, 1个卷积核) → 输出噪声图                   │
+</span></span><span style=display:flex><span>└──────────────────────────────────────────────────────┘
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>输出：预测噪声 (1通道，和输入尺寸相同)
+</span></span></code></pre></div><h4 id=212-三种层类型详解>2.1.2 三种层类型详解</h4><h5 id=第-1-层conv--relu><strong>第 1 层：Conv + ReLU</strong></h5><blockquote><p><strong>术语解释</strong>：在深度学习中，“一层”通常指一个<strong>可训练的操作</strong>（如卷积）加上其后的<strong>激活函数</strong>。所以“Conv + ReLU”整体算作网络的一层，其中 Conv 负责提取特征，ReLU 负责引入非线性。两者结合才构成一个完整的层。</p></blockquote><p>这一层接收原始带噪图（1 通道），用 64 个 3×3 卷积核提取基础特征，然后经过 ReLU 激活函数。</p><p>为什么不用 Batch Normalization？输入层的统计数据（均值和方差）主要由原始图像的亮度分布决定，而不是由网络的中间特征决定，BN 在这里的作用有限，且可能改变输入数据的原始分布。论文中第一层不加 BN 是一种常见设计选择。</p><h5 id=第-2-16-层conv--bn--relu><strong>第 2-16 层：Conv + BN + ReLU</strong></h5><p>这是 DnCNN 的主体部分，重复 15 次。</p><blockquote><p><strong>术语解释</strong>：<strong>BN（Batch Normalization，批量归一化）</strong> 是一种让网络训练更稳定的技术。它把每一层的输出<strong>标准化</strong>（不是映射到 0-1，而是让它们的均值为 0、方差为 1）。这样做的效果是：不管前一层的数据怎么变化，进入当前层的信号始终分布在一个稳定的范围内，训练就不会因为信号过大或过小而崩溃。</p></blockquote><p>BN 的具体操作是对一个 mini-batch 的所有样本，对每个通道分别计算均值和方差，然后用公式 <code>(x - mean) / sqrt(var + eps)</code> 把数据标准化到均值为 0、方差为 1 的分布。在训练过程中，BN 还会额外学习两个参数（缩放因子 γ 和平移因子 β），让网络可以“撤销”标准化带来的影响。这两个参数是可训练的，所以网络不会失去表达能力。</p><blockquote><p><strong>术语解释</strong>：<strong>ReLU 函数</strong> 定义为 <code>ReLU(x) = max(0, x)</code>，即正数保持不变，负数变成 0。这个函数有两个特点：计算简单（只需比较大小）；在正区间导数为 1，梯度不会衰减。</p></blockquote><p>中间层的顺序是 <strong>Conv → BN → ReLU</strong>，而不是 Conv → ReLU → BN。BN 在激活函数之前作用，能让进入 ReLU 的信号分布更稳定——ReLU 对负数直接输出 0，如果某一层输出的大部分值都是负数，那么经过 ReLU 后大部分神经元都会“死亡”（永远输出 0），再也学不到东西。BN 先把信号分布拉回正负均衡的状态，再送入 ReLU，能有效避免这种“神经元死亡”现象。</p><h5 id=最后一层conv><strong>最后一层：Conv</strong></h5><p>最后一层只有纯卷积，没有 BN 也没有 ReLU。因为网络要输出噪声图，噪声值可以是正数也可以是负数，ReLU 会把负值截断为 0，无法输出负噪声，所以不能用。BN 也不需要用，因为最后一层不需要为后续层提供稳定的分布。</p><h4 id=213-感受野计算>2.1.3 感受野计算</h4><blockquote><p><strong>术语解释</strong>：<strong>感受野（Receptive Field）</strong> 是输出特征图上的一个像素，对应输入图像上的多大区域。在 DnCNN 中，由于去掉了池化层，感受野完全由卷积层数决定。每经过一层 3×3 卷积，感受野在当前值基础上扩展 2（因为卷积核宽度为 3，步长为 1，感受野的扩张量等于 kernel_size - 1）。第 1 层感受野是 3×3，第 2 层变成 5×5，第 3 层变成 7×7……经过 <code>d</code> 层后，感受野为 <code>(2d+1)×(2d+1)</code>。层数越深，感受野越大，能利用的上下文信息越多。</p></blockquote><p>DnCNN 深度设置为 17 层，对应感受野：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>第1层 (d=1)： 3×3
+</span></span><span style=display:flex><span>第2层 (d=2)： 5×5
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>第17层 (d=17)： (2×17+1) = 35×35
+</span></span></code></pre></div><pre class=mermaid>
+xychart-beta
+    title "感受野随层数增长"
+    x-axis "网络层数 (d)"
+    y-axis "感受野大小"
+    line [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h4 id=214-为什么去掉池化层>2.1.4 为什么去掉池化层？</h4><blockquote><p><strong>术语解释</strong>：<strong>池化层（Pooling Layer）</strong> 是 CNN 中常见的一种下采样操作。以最大池化（Max Pooling）为例，它在图像上滑动一个窗口（如 2×2），每次取窗口内的最大值作为输出，从而将图像尺寸缩小一半（如 128×128 → 64×64）。池化层的作用是扩大感受野、减少计算量，但同时会<strong>丢失精确的位置信息</strong>。</p></blockquote><p>在图像分类任务中，位置信息不重要（猫在图片中间还是左上角，分类结果都是“猫”）。但在去噪任务中，<strong>每个像素的精确位置都需要恢复</strong>。如果用池化层缩小了图像，后续上采样恢复时位置会有偏差，导致边缘模糊。因此 DnCNN 去掉所有池化层，用纯卷积堆叠来扩大感受野，同时保留每个像素的精确位置。</p><h4 id=215-为什么选择-17-层>2.1.5 为什么选择 17 层？</h4><p>论文以噪声水平 σ=25 为基准，分析当时主流去噪方法的“有效 patch 大小”，作为 DnCNN 深度的参考依据：</p><table><thead><tr><th>方法</th><th>有效 patch 大小</th></tr></thead><tbody><tr><td>EPLL</td><td>36×36</td></tr><tr><td>BM3D</td><td>49×49</td></tr><tr><td>MLP</td><td>47×47</td></tr><tr><td>CSF / TNRD</td><td>61×61</td></tr></tbody></table><blockquote><p><strong>术语解释</strong>：<strong>有效 patch 大小（Effective Patch Size）</strong> 指一种去噪方法在做推理时实际用到的像素范围。比如 BM3D 在一个 25×25 的搜索窗口内寻找相似块并做两次迭代，最终相当于用到了 49×49 范围的信息。这个范围越大，方法能利用的上下文越多，但计算量也越大。</p></blockquote><p>DnCNN 选择感受野 35×35（对应 17 层），接近 EPLL 的 36×36。这个深度在性能和计算效率之间取得了较好的平衡——感受野足够大以利用上下文信息，又不会因为网络过深导致训练困难。</p><p>对于其他任务（如超分辨率、JPEG 去块），论文采用了更大的感受野，对应 20 层深度。</p><h3 id=22-残差学习为什么预测噪声>2.2 残差学习（为什么预测噪声）</h3><h4 id=221-两种学习策略的对比>2.2.1 两种学习策略的对比</h4><p>在 DnCNN 之前，判别式去噪模型（如 MLP、CSF）的目标是学习一个映射函数 $F(\mathbf{y}) = \mathbf{x}$，即<strong>直接从带噪图预测干净图</strong>。</p><p>DnCNN 采用了不同的策略：<strong>让网络预测噪声本身</strong>，而不是直接预测干净图。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>传统做法（原始映射学习）：
+</span></span><span style=display:flex><span>带噪图 y → [网络] → 预测干净图 F(y) ≈ x
+</span></span><span style=display:flex><span>目标：让输出直接逼近 x
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>DnCNN 的做法（残差学习）：
+</span></span><span style=display:flex><span>带噪图 y → [网络] → 预测噪声 R(y) ≈ v
+</span></span><span style=display:flex><span>最终输出：x = y - R(y)（带噪图减去预测噪声）
+</span></span></code></pre></div><blockquote><p><strong>术语解释</strong>：<strong>残差（Residual）</strong> 在这里指“带噪图和干净图之间的差”，即噪声本身。数学上，$\mathbf{v} = \mathbf{y} - \mathbf{x}$。残差学习就是让网络学习这个差值，而不是学习完整的目标图像。这个思路最早来自 ResNet（残差网络），DnCNN 将其引入到图像去噪任务中。</p></blockquote><h4 id=222-为什么预测噪声比预测干净图更容易>2.2.2 为什么预测噪声比预测干净图更容易？</h4><p><strong>核心原因：带噪图比噪声图更接近“恒等映射”</strong></p><p>残差学习的基本原理来自 ResNet：<strong>当一个映射更接近恒等映射时，学习残差比学习原始映射更容易</strong>。</p><p>在去噪任务中：</p><ul><li>带噪图 $\mathbf{y} = \mathbf{x} + \mathbf{v}$，其中噪声 $\mathbf{v}$ 通常较小（σ=25 时，噪声只占信号的一小部分）</li><li>因此，<strong>带噪图 $\mathbf{y}$ 比噪声图 $\mathbf{v}$ 更接近干净图 $\mathbf{x}$</strong></li></ul><table><thead><tr><th>映射</th><th>目标</th><th>与恒等映射的接近程度</th><th>学习难度</th></tr></thead><tbody><tr><td>原始映射 $F(\mathbf{y}) = \mathbf{x}$</td><td>预测干净图</td><td>非常接近（输入就是“带噪干净图”）</td><td>相对容易</td></tr><tr><td>残差映射 $R(\mathbf{y}) = \mathbf{v}$</td><td>预测噪声</td><td>完全不接近（输入是图，目标是噪声）</td><td><strong>更容易</strong></td></tr></tbody></table><p>论文原文指出：噪声水平越低，$\mathbf{y}$ 越接近 $\mathbf{x}$，$F(\mathbf{y})$ 越接近恒等映射，残差映射 $R(\mathbf{y})$ 的学习难度就越低。因此<strong>残差学习策略特别适合图像去噪任务</strong>。</p><p><strong>为什么残差映射反而更容易？</strong> 学习噪声的“通用模式”比学习图像的“复杂内容”要简单得多——噪声近似服从零均值高斯分布，而图像内容千变万化（人脸、建筑、纹理等）。网络只需要学会“提取噪声”，而不需要学会“生成图像”。</p><h4 id=223-隐层自动分离噪声和信号>2.2.3 隐层自动分离噪声和信号</h4><p>论文中有一个关键观察：</p><blockquote><p>==With the residual learning strategy, DnCNN implicitly removes the latent clean image in the hidden layers.==</p></blockquote><p><strong>这句话是什么意思？</strong></p><p>==采用残差学习后，DnCNN 的中间隐层<strong>自动学会从输入中“减去”干净图像的内容，只让噪声信息继续向后传递</strong>。输入信号会在逐层卷积+ReLU的过程中被逐步“剥离”，最终在最后一层只剩下噪声。==</p><p>这种机制与传统的迭代去噪方法（如 EPLL、WNNM）类似——多步迭代逐步去除噪声。但 DnCNN 的不同之处在于：<strong>整个“逐步剥离”的过程是在端到端训练中自动学到的</strong>，而不是人工设计的迭代规则。</p><h5 id=为什么隐层学会了减去干净图只让噪声向后传递>为什么隐层学会了减去干净图，只让噪声向后传递？</h5><h6 id=1-先理解背景网络看到的目标>1. 先理解背景：网络看到的“目标”</h6><p>DnCNN 的<strong>损失函数</strong>是：
+$L=∥网络输出−真实噪声∥$
+整个网络唯一的任务是：<strong>输出一个纯噪声图 R(y)R(y)</strong>。网络的每一层、每一个卷积核，都在为这个目标服务。</p><h6 id=2-为什么网络会把干净图像丢掉核心原理>2. 为什么网络会把“干净图像”丢掉？（核心原理）</h6><p>输入是 y=干净图+噪声y=干净图+噪声。输入信号里混杂了两种成分：</p><ul><li><strong>干净图像内容</strong>（如边缘、纹理、人脸）——这是<strong>干扰项</strong></li><li><strong>噪声</strong>（随机高斯分布）——这是<strong>目标</strong></li></ul><p><strong>推理逻辑链条</strong>：</p><ol><li><strong>收敛压力</strong>：如果某一层的特征图里保留了大量“干净图像”的信息（比如边缘、纹理），这些信息在后续层中会妨碍网络输出准确的噪声值，因为这些信息与噪声目标没有关系，属于干扰项。</li><li><strong>梯度惩罚</strong>：反向传播计算损失时，只要网络输出中混有图像内容导致噪声预测不准，梯度就会调整权重，<strong>抑制</strong>那些提取“图像内容”的神经元。</li><li><strong>逐层剥离</strong>：当网络足够深（17层）时，浅层可能还会提取边缘等局部特征，但随着层数加深，梯度会反复施压，迫使深层神经元<strong>只对随机的像素波动（噪声）敏感，而对有结构的纹理（内容）不再响应</strong>。最终，图像内容的痕迹在深层被“洗掉”了，只剩下噪声特征。</li></ol><h4 id=224-数学形式>2.2.4 数学形式</h4><p>DnCNN 学习的是一个残差映射 $R(\mathbf{y}) \approx \mathbf{v}$，其中 $\mathbf{v} = \mathbf{y} - \mathbf{x}$ 是噪声。</p><p>训练时使用的损失函数是<strong>均方误差（MSE）</strong>：
+$$
+\mathcal{L}(\Theta) = \frac{1}{2N} \sum_{i=1}^{N} \left| R(\mathbf{y}_i; \Theta) - (\mathbf{y}_i - \mathbf{x}_i) \right|_F^2
+$$</p><p>其中 ${(\mathbf{y}_i, \mathbf{x}<em>i)}</em>{i=1}^{N}$ 是 $N$ 对（带噪图，干净图）训练数据，$\Theta$ 是网络中所有可训练的参数。</p><p>推理时：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>带噪图 y 输入网络 → 网络预测噪声 R(y) → 干净图 = y - R(y)
+</span></span></code></pre></div><h3 id=23-批量归一化为什么-bn--残差是黄金搭档>2.3 批量归一化（为什么 BN + 残差是黄金搭档）</h3><h4 id=231-什么是内部协变量偏移internal-covariate-shift>2.3.1 什么是内部协变量偏移（Internal Covariate Shift）？</h4><blockquote><p><strong>术语解释</strong>：<strong>内部协变量偏移</strong>是指在训练过程中，由于前面层的参数不断更新，导致当前层的输入分布持续变化的现象。这会使训练变慢，因为每一层都需要不断适应新的输入分布。</p></blockquote><p>具体来说：</p><ul><li>第 1 层更新参数 → 第 2 层的输入分布改变 → 第 2 层需要适应新分布</li><li>第 2 层更新参数 → 第 3 层的输入分布改变 → 第 3 层需要适应新分布</li><li>&mldr; 这种连锁反应在深层网络中会被放大</li></ul><p><strong>后果</strong>：</p><ul><li>需要<strong>更小的学习率</strong>（防止震荡）</li><li>需要<strong>更精细的参数初始化</strong></li><li>训练速度<strong>大幅降低</strong></li></ul><h4 id=232-bn-是什么>2.3.2 BN 是什么？</h4><blockquote><p><strong>术语解释</strong>：<strong>批量归一化（Batch Normalization）</strong> 是一种让网络训练更稳定的技术。它对每一层的输出做标准化处理——让它们的<strong>均值为 0、方差为 1</strong>，而不是映射到 0-1。</p></blockquote><p>BN 的具体操作：</p><ol><li>对当前 mini-batch，计算每个通道的均值 $\mu$ 和方差 $\sigma^2$</li><li>标准化：$\hat{x} = (x - \mu) / \sqrt{\sigma^2 + \epsilon}$</li><li>缩放和平移：$y = \gamma \times \hat{x} + \beta$（$\gamma$ 和 $\beta$ 是可学习的参数）</li></ol><p><strong>BN 的位置</strong>：在 DnCNN 中，BN 被插入在卷积层和 ReLU 激活函数之间（<code>Conv → BN → ReLU</code>）。这个顺序让 BN 在激活函数之前作用，能让进入 ReLU 的信号分布更稳定——ReLU 对负数直接输出 0，如果某一层输出的大部分值都是负数，经过 ReLU 后大部分神经元都会“死亡”（永远输出 0），再也学不到东西。BN 先把信号分布拉回正负均衡的状态，再送入 ReLU，能有效避免这种“神经元死亡”现象。</p><h4 id=233-为什么-bn-允许使用更大的学习率>2.3.3 为什么 BN 允许使用更大的学习率？</h4><p>BN 让每层输入的分布稳定在 0 均值、1 方差的范围内，使得损失函数曲面更平滑。因此可以用更大的步长（学习率）而不担心跳过最优点。</p><table><thead><tr><th>学习率</th><th>无 BN</th><th>有 BN</th></tr></thead><tbody><tr><td>1e-4</td><td>✅ 收敛慢</td><td>✅ 收敛慢</td></tr><tr><td>1e-3</td><td>⚠️ 可能震荡</td><td>✅ 收敛良好</td></tr><tr><td>1e-2</td><td>❌ 梯度爆炸</td><td>✅ 收敛较快</td></tr></tbody></table><h4 id=234-为什么残差学习和-bn-是黄金搭档>2.3.4 为什么残差学习和 BN 是“黄金搭档”？</h4><p>论文通过实验证明，<strong>残差学习和 BN 可以互相促进，组合后效果远大于各自单独使用</strong>。</p><h5 id=一方面残差学习受益于-bn><strong>一方面，残差学习受益于 BN</strong>：</h5><p>没有 BN 时，残差学习虽然收敛快，但最终性能不如有 BN 的版本。BN 解决了内部协变量偏移问题，让残差学习能稳定地收敛到更优的解。</p><h5 id=另一方面bn-受益于残差学习><strong>另一方面，BN 受益于残差学习</strong>：</h5><p>论文指出，残差学习让 DnCNN 的隐层<strong>自动去掉了干净图像</strong>，使得每层输入的分布更接近<strong>高斯分布</strong>，各通道之间的相关性更低，与图像内容的依赖更小。这为 BN 的标准化操作创造了更有利的条件。</p><pre class=mermaid>
+xychart-beta
+    title "残差学习 + BN 的效果对比"
+    x-axis "训练轮次"
+    y-axis "PSNR (dB)"
+    line [24.0, 26.5, 28.0, 28.5, 28.8, 28.9]
+    line [26.0, 28.0, 28.8, 29.0, 29.1, 29.1]
+    line [25.0, 28.5, 29.5, 29.8, 29.9, 29.9]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>论文的发现：</p><ul><li>无残差无BN：收敛最慢，效果最差</li><li>有残差无BN：收敛快，但最终效果不佳（因为内部协变量偏移限制了性能）</li><li>有残差有BN：收敛快且效果好（达到最优性能）</li></ul><p><strong>两者的互补关系</strong>：</p><table><thead><tr><th></th><th>残差学习解决的问题</th><th>BN 解决的问题</th></tr></thead><tbody><tr><td><strong>问题</strong></td><td>梯度消失（深层网络训练困难）</td><td>内部协变量偏移（输入分布不稳定）</td></tr><tr><td><strong>机制</strong></td><td>提供梯度直达通道</td><td>标准化每层输入分布</td></tr><tr><td><strong>效果</strong></td><td>让浅层能收到梯度信号</td><td>让梯度更稳定，可用更大学习率</td></tr><tr><td><strong>互补性</strong></td><td>让网络能建得深</td><td>让深层网络能稳定训练</td></tr></tbody></table><p><strong>总结</strong>：残差学习让网络可以建到 17 层而不梯度消失，BN 让这 17 层网络的训练稳定且快速。两者结合，缺一个另一个的效果都会大打折扣。</p><h3 id=24-盲去噪一个模型覆盖多种噪声水平>2.4 盲去噪（一个模型覆盖多种噪声水平）</h3><h4 id=241-传统方法的局限性>2.4.1 传统方法的局限性</h4><p>在 DnCNN 之前，判别式去噪方法（MLP、CSF、TNRD）都有一个共同的限制：<strong>为每个噪声水平单独训练一个模型</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>传统做法（多个模型）：
+</span></span><span style=display:flex><span>σ=15 的训练数据 → 模型_A → 只能处理 σ=15
+</span></span><span style=display:flex><span>σ=25 的训练数据 → 模型_B → 只能处理 σ=25
+</span></span><span style=display:flex><span>σ=50 的训练数据 → 模型_C → 只能处理 σ=50
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>推理时：先估计噪声水平 → 选择对应的模型 → 去噪
+</span></span></code></pre></div><blockquote><p><strong>术语解释</strong>：<strong>盲去噪（Blind Denoising）</strong> 指模型在推理时<strong>不需要知道噪声水平 σ</strong>，就能对任意强度的噪声进行有效去噪。DnCNN 是第一个在深度学习去噪中实现真正盲去噪的方法。</p></blockquote><blockquote><p><strong>术语解释</strong>：<strong>噪声水平（Noise Level）</strong> 用高斯噪声的标准差 σ 来衡量。σ=15 是轻度噪声，σ=25 是中度噪声，σ=50 是重度噪声。数值越大，噪声越强。</p></blockquote><p>这种方法的局限性很明显：</p><ol><li><strong>推理时需要先估计噪声水平</strong>——估计不准，去噪效果就受影响。即估算误差会直接影响去噪效果</li><li><strong>无法处理未知噪声分布</strong>——如果噪声不是高斯分布（如 JPEG 压缩噪声、超分辨率的退化噪声），这些方法完全无法适用</li><li><strong>需要多个模型</strong>：部署时臃肿，不同噪声水平需要不同的权重文件</li></ol><p>这三个都是 DnCNN 出现前，在图像去噪领域具有代表性的<strong>判别式学习方法</strong>。与基于人工设计规则的传统方法（如 BM3D）不同，它们都试图从大量数据中学习一个从“带噪图”到“干净图”的映射。</p><h5 id=多层感知器mlp>多层感知器（MLP）</h5><blockquote><p>MLP（Multi-Layer Perceptron，多层感知器）是最早被用于图像去噪的深度学习方法之一。它由多个全连接层堆叠而成，直接从图像块学习映射关系。其核心思想是将图像分成小块，把每个小块的所有像素拉成一个长向量，输入 MLP，让网络直接学习从“带噪图像块”到“干净图像块”的映射。</p></blockquote><blockquote><p>然而，MLP 本质上是“全连接”的，参数量巨大且忽略了像素间的空间关系。随着网络层数加深，训练极为困难，因此去噪效果很快遇到了瓶颈。</p></blockquote><h5 id=级联收缩场csf>级联收缩场（CSF）</h5><blockquote><p>CSF（Cascade of Shrinkage Fields，级联收缩场）是 Schmidt 等人在 2014 年提出的一种方法。它试图将传统的优化算法（如半二次分裂）与随机场模型统一到一个可以端到端学习的框架中。</p></blockquote><blockquote><p>通俗地说，CSF 将传统去噪算法的<strong>多次迭代优化步骤</strong>，展开成<strong>一个固定层数的前馈网络</strong>。每一层对应一次迭代，其核心操作是“收缩”（Shrinkage），类似于传统算法中的软阈值去噪。</p></blockquote><blockquote><p>CSF 的优势是比传统方法快得多，且效果优于早期 MLP。但其局限也很明显：仍然依赖人工设计的先验模型，并且<strong>需要为每个噪声水平训练一个专用模型</strong>。</p></blockquote><h5 id=可训练非线性反应扩散tnrd>可训练非线性反应扩散（TNRD）</h5><blockquote><p>TNRD（Trainable Nonlinear Reaction Diffusion，可训练非线性反应扩散）是 Chen 等人在 2015 年提出的方法。它从物理和数学中的<strong>反应-扩散方程</strong>获得灵感，将图像去噪建模为一个动态演化过程，并用一个可训练的 CNN 来模拟这个演化过程。</p></blockquote><blockquote><p>TNRD 可以被理解为一个“展开的”迭代算法。它将传统优化算法的每一次迭代“展开”成网络的一层，而网络的所有参数（包括滤波器、非线性函数等）都通过数据学习得到。这使得 TNRD 在不同任务间具有很好的泛化能力，可同时用于去噪、超分辨率、JPEG 去块等多种任务。</p></blockquote><blockquote><p>TNRD 的局限在于其网络深度有限，通常只有 5 个阶段（10 层卷积），且在高噪声下容易产生伪影。而 DnCNN 在其基础上做了三点关键改进：</p><ol><li>用更简单的 ReLU 替代了复杂的影响函数，让网络更容易训练。</li><li>将网络加深到 17 层，极大提升了模型对复杂图像特征的表达能力。</li><li>引入批量归一化（BN），有效加速了训练并提升了去噪性能。</li></ol></blockquote><h4 id=242-dncnn-为什么能实现盲去噪>2.4.2 DnCNN 为什么能实现盲去噪？</h4><p><strong>核心原因：残差学习学的是“从输入中去除干净图像”这个通用操作，而不是针对某个特定 σ 的噪声模式。</strong></p><p>前面的章节也有提到，残差学习让 DnCNN 的隐层<strong>自动学会从输入中“剥离”干净图像的内容，只让噪声信息继续向后传递</strong>。这个“剥离干净图像”的操作是<strong>与噪声强度无关的</strong>——无论 σ=15 还是 σ=50，网络做的都是同一件事：去掉图像内容，保留噪声。</p><p><strong>数学基础</strong>：</p><p>在 DnCNN 与 TNRD 的联系中，论文给出了残差估计的数学形式。单阶段 TNRD 的残差估计可以写成：</p><p>$$
+\mathbf{v}<em>1 = \alpha \lambda \sum</em>{k=1}^{K} \left( \bar{\mathbf{f}}_k \ast \phi_k(\mathbf{f}_k \ast \mathbf{y}) \right)
+$$</p><p>其中 $\mathbf{v}_1$ 是估计的残差（噪声），$\mathbf{y}$ 是带噪输入。这个式子本质上就是一个<strong>两层 CNN</strong>。</p><blockquote><p><strong>术语解释</strong>：<strong>残差估计（Residual Estimation）</strong> 指网络从带噪输入中提取噪声的过程。公式中的 $\mathbf{f}_k \ast \mathbf{y}$ 是卷积操作提取特征，$\phi_k$ 是非线性函数，$\bar{\mathbf{f}}_k \ast$ 是反卷积重构噪声。整个过程就是“提取特征 → 非线性变换 → 重构噪声”。</p></blockquote><p>DnCNN 在此基础上做了三个关键的泛化，使其能处理任意噪声水平：</p><table><thead><tr><th>泛化方向</th><th>TNRD（单阶段）</th><th>DnCNN（17层）</th><th>为什么能支持盲去噪</th></tr></thead><tbody><tr><td><strong>深度</strong></td><td>2层（一层提取特征，一层重构）</td><td>17层</td><td>更深的网络能学习更复杂的噪声模式，泛化能力更强</td></tr><tr><td><strong>非线性</strong></td><td>固定的影响函数 $\phi_k$</td><td>ReLU（可学习）</td><td>ReLU 让网络能适应不同强度的噪声输入</td></tr><tr><td><strong>归一化</strong></td><td>无</td><td>BN</td><td>BN 让不同 σ 的输入分布稳定在同一范围</td></tr></tbody></table><p><strong>残差学习的“去内容”特性</strong>：
+从数学上看，残差估计 $\mathbf{v}_1 = \mathbf{y} - \mathbf{x}_1$ 本质上就是在计算“输入信号中被去掉的部分”。无论输入噪声的强度如何，网络的核心任务始终是：<strong>识别哪些是“内容”，哪些是“噪声”，然后把“内容”去掉</strong>。这个“识别和去除”的能力一旦学到，就可以应用于不同强度的噪声。</p><h4 id=243-盲去噪的训练策略>2.4.3 盲去噪的训练策略</h4><p>DnCNN 的训练数据覆盖一个<strong>宽范围的噪声水平</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>训练数据：
+</span></span><span style=display:flex><span>σ ∈ [0, 55] 的带噪图（从干净图加不同强度的噪声）
+</span></span><span style=display:flex><span>     ↓
+</span></span><span style=display:flex><span>同一个 DnCNN 模型
+</span></span><span style=display:flex><span>     ↓
+</span></span><span style=display:flex><span>推理时：任意 σ ∈ [0, 55] 的带噪图直接输入 → 无需估计噪声水平
+</span></span></code></pre></div><p>训练时，每个 mini-batch 的噪声水平 σ 是<strong>随机采样</strong>的：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># 一种常见做法的伪代码</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>generate_training_batch</span>(clean_images):
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 随机采样噪声水平</span>
+</span></span><span style=display:flex><span>    sigma <span style=color:#f92672>=</span> random<span style=color:#f92672>.</span>uniform(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>55</span>)
+</span></span><span style=display:flex><span>    <span style=color:#75715e># 生成带噪图</span>
+</span></span><span style=display:flex><span>    noisy <span style=color:#f92672>=</span> clean_images <span style=color:#f92672>+</span> sigma <span style=color:#f92672>*</span> torch<span style=color:#f92672>.</span>randn_like(clean_images)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> noisy, clean_images
+</span></span></code></pre></div><p>这样模型在训练过程中看到了各种噪声强度的数据，自然学会了适应不同的 σ。</p><h4 id=244-扩展到多种任务>2.4.4 扩展到多种任务</h4><p>DnCNN 不仅能处理不同强度的<strong>高斯噪声</strong>，还能处理其他类型的图像退化：</p><table><thead><tr><th>任务</th><th>退化类型</th><th>训练数据</th><th>推理</th></tr></thead><tbody><tr><td><strong>高斯去噪</strong></td><td>加性高斯白噪声</td><td>不同 σ 的带噪图</td><td>输入带噪图 → 输出去噪图</td></tr><tr><td><strong>超分辨率（SISR）</strong></td><td>下采样 + 上采样退化</td><td>低分辨率图 → 高分辨率图</td><td>输入低分辨率图 → 输出高分辨率图</td></tr><tr><td><strong>JPEG去块</strong></td><td>JPEG 压缩伪影</td><td>不同质量因子的 JPEG 图</td><td>输入 JPEG 图 → 输出无块效应图</td></tr></tbody></table><blockquote><p><strong>术语解释</strong>：<strong>SISR（Single Image Super-Resolution，单图像超分辨率）</strong> 是从一张低分辨率图像重建高分辨率图像的任务。<strong>JPEG去块（Deblocking）</strong> 是去除 JPEG 压缩产生的 8×8 块状伪影的任务。在 DnCNN 中，这些任务都被统一为“从退化图像中恢复干净图像”的框架，残差学习同样适用（残差 = 退化造成的失真）。</p></blockquote><p><strong>为什么能扩展到多任务？</strong></p><p>因为残差学习的本质是“预测输入中的退化成分”——无论是高斯噪声、下采样模糊还是 JPEG 块效应，都可以统一看作“干净图像”到“退化图像”的退化过程。DnCNN 学的是“逆向退化”——从退化图像中提取退化成分，然后恢复干净图像。</p><h2 id=3-实验结果关键数据>3. 实验结果（关键数据）</h2><h3 id=31-实验设置>3.1 实验设置</h3><h4 id=训练数据>训练数据</h4><table><thead><tr><th>模型</th><th>训练数据</th><th>噪声水平范围</th><th>patch 数量</th></tr></thead><tbody><tr><td><strong>DnCNN-S</strong>（固定噪声水平）</td><td>400 张 180×180 图像</td><td>σ=15, 25, 50（分别训练三个模型）</td><td>128×1,600 个 40×40 patch</td></tr><tr><td><strong>DnCNN-B</strong>（盲去噪）</td><td>400 张 180×180 图像</td><td>σ∈[0, 55]（随机采样）</td><td>128×3,000 个 50×50 patch</td></tr><tr><td><strong>CDnCNN-B</strong>（彩色盲去噪）</td><td>432 张彩色图像（BSD 剩余）</td><td>σ∈[0, 55]</td><td>128×3,000 个 50×50 patch</td></tr><tr><td><strong>DnCNN-3</strong>（三任务通用）</td><td>91 张图像 + 200 张 BSD 图像</td><td>三种退化混合（高斯噪声/超分/JPEG）</td><td>128×8,000 个 50×50 patch</td></tr></tbody></table><p><strong>测试数据集</strong>：BSD68（68 张自然图像）、12 张标准测试图（如 Set12）</p><h4 id=训练参数>训练参数</h4><ul><li>网络深度：DnCNN-S 为 17 层，DnCNN-B 和 DnCNN-3 为 20 层</li><li>优化器：SGD + 动量 0.9 + 权重衰减 0.0001</li><li>Batch size：128</li><li>Epochs：50</li><li>学习率：从 1e-1 指数衰减到 1e-4</li></ul><blockquote><p><strong>patch 数量</strong>：指训练时从原始图像中裁剪出的固定大小的小图像块的总数（如 <code>128×1,600</code> 个 <code>40×40</code> 的块），用于在有限显存下增加训练样本量并覆盖更多局部特征，而不是把整张原图直接塞进网络。</p></blockquote><blockquote><p><strong>SGD（随机梯度下降）</strong>：优化算法，每次随机选一小批数据计算梯度来更新权重，是深度学习中最基础的训练方法。</p></blockquote><blockquote><p><strong>动量 0.9</strong>：SGD 的超参数，让参数更新时保留上一轮的一部分更新方向（0.9 即保留 90%），用于加速收敛并减少梯度震荡。</p></blockquote><blockquote><p><strong>权重衰减 0.0001</strong>：L2 正则化系数，在损失函数中额外惩罚过大的权重值（即限制参数不能太大），防止模型对训练数据过拟合。</p></blockquote><blockquote><p><strong>Epochs（训练轮数）</strong>：完整遍历整个训练数据集（所有图像）的次数，50 轮即让模型把全部训练数据看了 50 遍，确保充分学习。</p></blockquote><h3 id=32-定量结果psnr>3.2 定量结果（PSNR）</h3><blockquote><p><strong>PSNR（峰值信噪比）</strong>：衡量图像质量的客观指标，单位为 dB，数值越大表示去噪后的图像与原始干净图的像素误差越小，通常 30 dB 以上算良好，40 dB 以上算优秀。</p></blockquote><h4 id=dncnn-s-vs-其他方法bsd68-数据集>DnCNN-S vs 其他方法（BSD68 数据集）</h4><table><thead><tr><th>方法</th><th>σ=15</th><th>σ=25</th><th>σ=50</th></tr></thead><tbody><tr><td>BM3D</td><td>31.08 dB</td><td>28.57 dB</td><td>25.62 dB</td></tr><tr><td>TNRD</td><td>~31.42 dB</td><td>~28.92 dB</td><td>~25.97 dB</td></tr><tr><td><strong>DnCNN-S</strong></td><td><strong>~31.73 dB</strong></td><td><strong>~29.23 dB</strong></td><td><strong>~26.23 dB</strong></td></tr></tbody></table><p><strong>结论</strong>：</p><ul><li>DnCNN-S 在全部三个噪声水平上比 BM3D 高出约 <strong>0.6 dB</strong></li><li>当 σ=50 时，DnCNN-S 非常接近 BM3D 的估计 PSNR 上限（0.7 dB），说明该模型在高噪声下达到传统方法的理论极限</li><li>DnCNN-B（不知道噪声水平）的 PSNR 甚至超过了其他方法（它们是为已知噪声水平训练的）</li></ul><h4 id=12-张测试图上的表现>12 张测试图上的表现</h4><p><strong>结论</strong>：</p><ul><li>DnCNN-S 在大部分图像上获得最高 PSNR（优势 0.2-0.6 dB）</li><li>仅在 <strong>“House”</strong> 和 <strong>“Barbara”</strong> 两张规则重复结构的图像上落后于 BM3D</li><li>原因：非局部相似性方法（如 BM3D）在重复结构图像上表现更好；判别式方法（如 DnCNN）在不规则纹理图像上表现更好</li></ul><h3 id=33-定性结果视觉效果>3.3 定性结果（视觉效果）</h3><p><img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig4_visual_comparison.png alt=DnCNN_Fig4_visual_comparison loading=lazy decoding=async>
+<img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig5_visual_comparison.png alt=DnCNN_Fig5_visual_comparison loading=lazy decoding=async></p><table><thead><tr><th>方法</th><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>BM3D / WNNM / EPLL / MLP</td><td>去噪效果稳定</td><td>边缘和纹理过平滑</td></tr><tr><td>TNRD</td><td>保留锐利边缘和细节</td><td>在平滑区域产生伪影（artifact）</td></tr><tr><td><strong>DnCNN-S / DnCNN-B</strong></td><td><strong>保留锐利边缘 + 平滑区域无伪影</strong></td><td>—</td></tr><tr><td><strong>CDnCNN-B</strong></td><td>比 CBM3D 更自然、细节更丰富</td><td>—</td></tr></tbody></table><p><strong>关键结论</strong>：【Fig. 4-5】显示 DnCNN 能同时做到：保留锐利边缘、恢复精细纹理、平滑区域干净无伪影。</p><h4 id=彩色图像去噪>彩色图像去噪</h4><p><img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig6_color_denoise_1.png alt=DnCNN_Fig6_color_denoise_1 loading=lazy decoding=async>
+<img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig7_color_denoise_2.png alt=DnCNN_Fig7_color_denoise_2 loading=lazy decoding=async>
+【Fig. 6-7】CDnCNN-B 与 CBM3D 对比：</p><ul><li>CBM3D：在某些区域产生<strong>假色伪影</strong></li><li>CDnCNN-B：颜色更自然、边缘更锐利、细节更丰富</li></ul><h4 id=真实图像去噪>真实图像去噪</h4><p><img src=/blogs-of-bluhuang/images/AI/0%20Paper/CV/DnCNN_Fig8_real_image_denoise.png alt=DnCNN_Fig8_real_image_denoise loading=lazy decoding=async>
+【Fig. 8】DnCNN-B 和 CDnCNN-B 在真实噪声图像上的表现：</p><ul><li>虽然只训练了高斯噪声，但 DnCNN 能很好地处理<strong>真实噪声图像</strong></li><li>即使噪声不是严格高斯分布，残差学习的去内容机制仍然有效</li></ul><h3 id=34-结论>3.4 结论</h3><p>DnCNN 的四个核心优势：</p><ol><li><strong>定量效果</strong>：PSNR 在所有噪声水平上均优于 BM3D、WNNM、TNRD 等</li><li><strong>定性效果</strong>：边缘锐利、纹理清晰、平滑区域干净，无伪影</li><li><strong>盲去噪</strong>：一个模型覆盖 σ∈[0,55] 的宽范围噪声水平</li><li><strong>多任务泛化</strong>：一个 DnCNN-3 模型能同时处理高斯去噪、超分辨率和 JPEG 去块，且每个任务的表现都优于或接近专用的单任务模型</li></ol><h2 id=4-一句话总结>4. 一句话总结</h2><blockquote><p><strong>DnCNN 在定量（PSNR）和定性（视觉效果）上都达到当时最优水平，GPU 推理速度极快（512×512 仅 60ms）。单模型（DnCNN-B）可覆盖宽范围噪声水平的盲去噪，单模型（DnCNN-3）还能同时处理超分辨率和 JPEG 去块，验证了残差学习“预测退化”的泛化能力。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
