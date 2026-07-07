@@ -222,6 +222,34 @@
             "url": "/AI/9-awbauto-white-balance自动白平衡-让白色在任何光源下都是白色/"
           }
         ]
+      },
+      {
+        "title": "6 AI去噪",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制",
+            "url": "/AI/1-iir-训练循环-多帧去噪的递归引擎记忆机制/"
+          }
+        ]
+      },
+      {
+        "title": "7 模型训练",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 模型训练全景",
+            "url": "/AI/1-模型训练全景/"
+          },
+          {
+            "title": "2 SSIM（结构相似性指标）",
+            "url": "/AI/2-ssim结构相似性指标/"
+          },
+          {
+            "title": "3 学习率调度（Learning Rate Scheduling）",
+            "url": "/AI/3-学习率调度learning-rate-scheduling/"
+          }
+        ]
       }
     ]
   },
