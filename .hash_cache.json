@@ -107,6 +107,18 @@
   "AI/5 ISP与图像处理/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md": {
     "hash": "107c7b071a08b2b964e99be295c91052"
   },
+  "AI/5 ISP与图像处理/11 ISP 中的 3A 算法：AE、AWB、AF.md": {
+    "hash": "0f2d7a59f91e7b8b6a49238d7e661845"
+  },
+  "AI/5 ISP与图像处理/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md": {
+    "hash": "8f5222a4408bc9538a58dafca3220d33"
+  },
+  "AI/5 ISP与图像处理/13 Sensor基础.md": {
+    "hash": "29996fa3e14ef7ba8e44dc0b6048c3c7"
+  },
+  "AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md": {
+    "hash": "5384ff083b9c67a38444b5380bf81204"
+  },
   "AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "2b0b0258642640178454d48dc36f04da"
   },
