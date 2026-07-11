@@ -206,6 +206,22 @@
             "url": "/AI/10-ccm-color-correction-matrix色彩校正矩阵-把-sensor-的颜色拉回标准空间/"
           },
           {
+            "title": "11 ISP 中的 3A 算法：AE、AWB、AF",
+            "url": "/AI/11-isp-中的-3a-算法aeawbaf/"
+          },
+          {
+            "title": "12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）",
+            "url": "/AI/12-视频编解码与图形处理dvpp-digital-vision-pre-processing-数字视频预处理/"
+          },
+          {
+            "title": "13 Sensor基础",
+            "url": "/AI/13-sensor基础/"
+          },
+          {
+            "title": "14 ISP补充： 完整ISP Pipeline",
+            "url": "/AI/14-isp补充-完整isp-pipeline/"
+          },
+          {
             "title": "2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）",
             "url": "/AI/2-bayer阵列bayer-pattern-bayer-filter-mosaic-拜耳阵列/"
           },
