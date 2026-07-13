@@ -1,6 +1,9 @@
 {
-  "AI/0 Paper/CV/DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md": {
+  "AI/0 Paper/CV/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md": {
     "hash": "2ad858606a29ccfc62392fb5c26e64de"
+  },
+  "AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md": {
+    "hash": "dfc3df4197f20369749fd44515995de0"
   },
   "AI/1 LLM/1 LLM基础必知必会.md": {
     "hash": "1d98be5f08c18b030e94f00d7218ea8d"
@@ -211,9 +214,6 @@
   },
   "database/向量/HNSW索引学习笔记.md": {
     "hash": "f5942b7ebb7ec71f60f79f5335ef697f"
-  },
-  "z_efficiency/prompt/user prompt/学习笔记生成.md": {
-    "hash": "d8c960a25e94fc1b5b8ad8c70de556f8"
   },
   "z_mixed/mac/Tailscale 连接指南与使用详解.md": {
     "hash": "95b418bb533645dc5f7e148e2ec84abb"
