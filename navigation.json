@@ -12,8 +12,12 @@
             "url": "/AI/",
             "children": [
               {
-                "title": "DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising",
-                "url": "/AI/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/"
+                "title": "1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising",
+                "url": "/AI/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/"
+              },
+              {
+                "title": "2 ResNet - Deep Residual Learning for Image Recognition",
+                "url": "/AI/2-resnet---deep-residual-learning-for-image-recognition/"
               }
             ]
           }
@@ -421,13 +425,7 @@
         "children": [
           {
             "title": "user prompt",
-            "url": "/z_efficiency/",
-            "children": [
-              {
-                "title": "学习笔记生成",
-                "url": "/z_efficiency/学习笔记生成/"
-              }
-            ]
+            "url": "/z_efficiency/"
           }
         ]
       }

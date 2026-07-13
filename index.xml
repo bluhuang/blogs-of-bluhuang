@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>ISP 中的 3A 算法：AE、AWB、AF</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</guid><description>&lt;h2 id="1-什么是-3a-算法"&gt;1. 什么是 3A 算法？&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
+&lt;p&gt;在 DnCNN 出现之前，图像去噪主要面临三个痛点：&lt;/p&gt;
+&lt;h3 id="11-痛点一传统方法依赖人工设计的先验"&gt;1.1 痛点一：传统方法依赖人工设计的先验&lt;/h3&gt;
+&lt;p&gt;传统去噪方法（如 BM3D）基于图像的自相似性——在一张图像里找相似的图像块，然后加权平均去噪。这种方法虽然有效，但本质上是在“手工设计规则”，通用性有限，不同场景需要不同的参数配置。&lt;/p&gt;</description></item><item><title>ResNet - Deep Residual Learning for Image Recognition</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</guid><description>&lt;h2 id="1-论文信息"&gt;1. 论文信息&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：Deep Residual Learning for Image Recognition&lt;br&gt;
+&lt;strong&gt;作者&lt;/strong&gt;：匿名&lt;br&gt;
+&lt;strong&gt;会议&lt;/strong&gt;：CVPR 2016&lt;/p&gt;
+&lt;p&gt;这篇论文提出了 &lt;strong&gt;ResNet（Residual Network，残差网络）&lt;/strong&gt;，核心目标不是单纯设计一个分类网络，而是解决：&lt;/p&gt;</description></item><item><title>ISP 中的 3A 算法：AE、AWB、AF</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</guid><description>&lt;h2 id="1-什么是-3a-算法"&gt;1. 什么是 3A 算法？&lt;/h2&gt;
 &lt;h3 id="11-3a-的含义"&gt;1.1 3A 的含义&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;3A&lt;/strong&gt; 是相机系统中三个核心自动控制算法的统称：&lt;/p&gt;
 &lt;table&gt;
@@ -199,10 +206,7 @@ flowchart TB
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;Sensor（图像传感器）&lt;/strong&gt; 是相机的“眼睛”——它把镜头汇聚进来的光信号（光子）转换成电信号，再通过模数转换（ADC）变成数字信号（RAW 图），交给 ISP 处理。&lt;/p&gt;</description></item><item><title>视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/</guid><description>&lt;h2 id="1-dvpp-是什么"&gt;1. DVPP 是什么？&lt;/h2&gt;
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;DVPP（Digital Video Pre-Processing，数字视频预处理）&lt;/strong&gt; 是 SoC（如 Hi3516）内部专门负责&lt;strong&gt;视频编解码&lt;/strong&gt;和&lt;strong&gt;图像处理加速&lt;/strong&gt;的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。&lt;/p&gt;</description></item><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Tue, 07 Jul 2026 17:09:03 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
-&lt;p&gt;在 DnCNN 出现之前，图像去噪主要面临三个痛点：&lt;/p&gt;
-&lt;h3 id="11-痛点一传统方法依赖人工设计的先验"&gt;1.1 痛点一：传统方法依赖人工设计的先验&lt;/h3&gt;
-&lt;p&gt;传统去噪方法（如 BM3D）基于图像的自相似性——在一张图像中寻找相似的图像块，然后加权平均去噪。这种方法虽然有效，但本质上是在“手工设计规则”，通用性有限，不同场景需要不同的参数配置。&lt;/p&gt;</description></item><item><title>IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/1-iir-%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF--%E5%A4%9A%E5%B8%A7%E5%8E%BB%E5%99%AA%E7%9A%84%E9%80%92%E5%BD%92%E5%BC%95%E6%93%8E%E8%AE%B0%E5%BF%86%E6%9C%BA%E5%88%B6/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/1-iir-%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF--%E5%A4%9A%E5%B8%A7%E5%8E%BB%E5%99%AA%E7%9A%84%E9%80%92%E5%BD%92%E5%BC%95%E6%93%8E%E8%AE%B0%E5%BF%86%E6%9C%BA%E5%88%B6/</guid><description>&lt;h2 id="1-什么是-iir"&gt;1. 什么是 IIR？&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;DVPP（Digital Video Pre-Processing，数字视频预处理）&lt;/strong&gt; 是 SoC（如 Hi3516）内部专门负责&lt;strong&gt;视频编解码&lt;/strong&gt;和&lt;strong&gt;图像处理加速&lt;/strong&gt;的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。&lt;/p&gt;</description></item><item><title>IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/1-iir-%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF--%E5%A4%9A%E5%B8%A7%E5%8E%BB%E5%99%AA%E7%9A%84%E9%80%92%E5%BD%92%E5%BC%95%E6%93%8E%E8%AE%B0%E5%BF%86%E6%9C%BA%E5%88%B6/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/1-iir-%E8%AE%AD%E7%BB%83%E5%BE%AA%E7%8E%AF--%E5%A4%9A%E5%B8%A7%E5%8E%BB%E5%99%AA%E7%9A%84%E9%80%92%E5%BD%92%E5%BC%95%E6%93%8E%E8%AE%B0%E5%BF%86%E6%9C%BA%E5%88%B6/</guid><description>&lt;h2 id="1-什么是-iir"&gt;1. 什么是 IIR？&lt;/h2&gt;
 &lt;h3 id="11-从字面拆解"&gt;1.1 从字面拆解&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;IIR&lt;/strong&gt; 全称是 &lt;strong&gt;Infinite Impulse Response&lt;/strong&gt;（无限脉冲响应）。&lt;/p&gt;
 &lt;p&gt;这 4 个字看起来很吓人，但拆开看就不难了：&lt;/p&gt;</description></item><item><title>SSIM（结构相似性指标）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/2-ssim%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E6%80%A7%E6%8C%87%E6%A0%87/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/2-ssim%E7%BB%93%E6%9E%84%E7%9B%B8%E4%BC%BC%E6%80%A7%E6%8C%87%E6%A0%87/</guid><description>&lt;h1 id="ssim结构相似性指标"&gt;SSIM（结构相似性指标）&lt;/h1&gt;
@@ -934,42 +938,7 @@ flowchart TB
 &lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;长时间任务可配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠，在另一终端执行 &lt;code&gt;caffeinate&lt;/code&gt; 即可&lt;/li&gt;
 &lt;li&gt;手机锁屏或切换 App 不影响 tmux 内的任务&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>学习笔记生成</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%94%9F%E6%88%90/</link><pubDate>Thu, 04 Jun 2026 09:42:47 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E7%94%9F%E6%88%90/</guid><description>&lt;h2 id="学习笔记生成要求"&gt;学习笔记生成要求&lt;/h2&gt;
-&lt;p&gt;我需要你围绕我指定的技术主题，生成一份&lt;strong&gt;自包含、可直接学习&lt;/strong&gt;的笔记，兼顾理论和实践。请遵循以下规则：&lt;/p&gt;
-&lt;h3 id="1-内容来源"&gt;1. 内容来源&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;你需要主动从网络搜索高质量资料（优先选择：权威博客、技术社区、论文、官方文档）。&lt;/li&gt;
-&lt;li&gt;至少引用 2-3 篇有代表性的文章或论文（在笔记末尾列出参考链接）。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="2-笔记结构必须包含"&gt;2. 笔记结构（必须包含）&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;核心概念精讲&lt;/strong&gt;：用通俗语言解释关键术语/原理，确保读者能直接从笔记中理解，无需查其他资料。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;对比表格&lt;/strong&gt;：当存在多种方案/模型/策略时，用表格列出优缺点、适用场景、关键差异。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;知识速查卡&lt;/strong&gt;：以 Q&amp;amp;A 形式总结 3-5 个高频问题，给出简洁但完整的回答要点。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="3-格式与风格"&gt;3. 格式与风格&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;使用 Markdown，标题层级从 &lt;code&gt;##&lt;/code&gt; 开始。&lt;/li&gt;
-&lt;li&gt;避免大段抽象论述，尽量结构化（列表、表格、小标题）。&lt;/li&gt;
-&lt;li&gt;不用给出可运行的代码（除非我特别要求），但可以描述伪代码或逻辑。&lt;/li&gt;
-&lt;li&gt;术语第一次出现时给出英文全称和缩写。&lt;/li&gt;
-&lt;li&gt;如果涉及数学公式，用 LaTeX 格式（&lt;code&gt;$...$&lt;/code&gt; 或 &lt;code&gt;$$...$$&lt;/code&gt;）。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="4-深度要求"&gt;4. 深度要求&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;原理层面：讲清楚“为什么”和“怎么做”，不要只罗列概念。&lt;/li&gt;
-&lt;li&gt;实战导向：能指导我理解该技术在我的 RAG 项目中的价值或集成方式。&lt;/li&gt;
-&lt;li&gt;知识要点：每个问题回答控制在 2-3 句话，命中核心要点。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="5-特别偏好"&gt;5. 特别偏好&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;拒绝空泛的“重要性”论述&lt;/strong&gt;，直接进入实质内容。&lt;/li&gt;
-&lt;li&gt;如果该技术有常见误区，请单独指出。&lt;/li&gt;
-&lt;li&gt;如果涉及中文处理（如分词），需说明中文场景的特殊性和选型建议。&lt;/li&gt;
-&lt;li&gt;笔记必须自包含，读者看完笔记就能掌握该技术的核心知识，不需要再去其他地方查找。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="6-输出格式"&gt;6. 输出格式&lt;/h3&gt;
-&lt;p&gt;直接返回笔记正文，不要添加额外解释（如“好的，这是你的笔记”）。如果信息不足以生成完整笔记，请提问澄清。&lt;/p&gt;</description></item><item><title>Application-Defined SQL Functions</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p&gt;[[programming interfaces]]&lt;/p&gt;
+&lt;/ul&gt;</description></item><item><title>Application-Defined SQL Functions</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p&gt;[[programming interfaces]]&lt;/p&gt;
 &lt;p&gt;source: &lt;a href="https://sqlite.org/appfunc.html"
 
 
