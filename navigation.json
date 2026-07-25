@@ -18,6 +18,14 @@
               {
                 "title": "2 ResNet - Deep Residual Learning for Image Recognition",
                 "url": "/AI/2-resnet---deep-residual-learning-for-image-recognition/"
+              },
+              {
+                "title": "3 U-Net - Convolutional Networks for Biomedical Image Segmentation",
+                "url": "/AI/3-u-net---convolutional-networks-for-biomedical-image-segmentation/"
+              },
+              {
+                "title": "4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks",
+                "url": "/AI/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/"
               }
             ]
           }
@@ -226,6 +234,18 @@
             "url": "/AI/14-isp补充-完整isp-pipeline/"
           },
           {
+            "title": "16 空域降噪",
+            "url": "/AI/16-空域降噪/"
+          },
+          {
+            "title": "17 频域降噪",
+            "url": "/AI/17-频域降噪/"
+          },
+          {
+            "title": "18 时域降噪",
+            "url": "/AI/18-时域降噪/"
+          },
+          {
             "title": "2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）",
             "url": "/AI/2-bayer阵列bayer-pattern-bayer-filter-mosaic-拜耳阵列/"
           },
@@ -284,6 +304,10 @@
           {
             "title": "3 学习率调度（Learning Rate Scheduling）",
             "url": "/AI/3-学习率调度learning-rate-scheduling/"
+          },
+          {
+            "title": "4 Raw - L1 Loss、SSIM Loss 与组合 Loss",
+            "url": "/AI/4-raw---l1-lossssim-loss-与组合-loss/"
           }
         ]
       }
@@ -332,6 +356,10 @@
           {
             "title": "15 环形链表与隐式环形链表",
             "url": "/coding/15-环形链表与隐式环形链表/"
+          },
+          {
+            "title": "16 双指针解决去重排列组合问题",
+            "url": "/coding/16-双指针解决去重排列组合问题/"
           },
           {
             "title": "2 差分数组",
@@ -437,6 +465,20 @@
     "children": [
       {
         "title": "mac",
+        "url": "/z_mixed/"
+      },
+      {
+        "title": "skills",
+        "url": "/z_mixed/",
+        "children": [
+          {
+            "title": "未命名",
+            "url": "/z_mixed/未命名/"
+          }
+        ]
+      },
+      {
+        "title": "远程开发",
         "url": "/z_mixed/",
         "children": [
           {

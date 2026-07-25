@@ -1,0 +1,3402 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/><title>MobileNetV2 - Inverted Residuals and Linear Bottlenecks</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="MobileNetV2 - Inverted Residuals and Linear Bottlenecks"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/"><meta name=twitter:title content="MobileNetV2 - Inverted Residuals and Linear Bottlenecks"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-paper/ class="flex-1 hover:underline truncate font-medium">0 Paper</a>
+<span class="text-xs text-text-light ml-1.5">(4)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-paper/cv/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+CV
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+5 ISP与图像处理
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+7 模型训练
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li><li><a href=/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+6 AI去噪
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(18)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">MobileNetV2 - Inverted Residuals and Linear Bottlenecks</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年7月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-论文信息与问题端侧网络到底在优化什么>1. 论文信息与问题：端侧网络到底在优化什么</a><ol><li><a href=#11-算力flops--madds>1.1 算力：FLOPs / MAdds</a></li><li><a href=#12-速度latency>1.2 速度：Latency</a></li><li><a href=#13-内存占用memory-usage>1.3 内存占用：Memory Usage</a></li><li><a href=#14-内存访问开销>1.4 内存访问开销</a></li><li><a href=#15-精度accuracy-与-psnr>1.5 精度：Accuracy 与 PSNR</a></li></ol></li><li><a href=#2-标准卷积为什么昂贵>2. 标准卷积为什么昂贵</a><ol><li><a href=#21-一个具体数字>2.1 一个具体数字</a></li><li><a href=#22-为什么c_intimes-c_out很贵>2.2 为什么$C_{in}\times C_{out}$很贵</a></li></ol></li><li><a href=#3-第一次优化深度可分离卷积>3. 第一次优化：深度可分离卷积</a><ol><li><a href=#31-标准卷积是怎么计算的>3.1 标准卷积是怎么计算的</a><ol><li><a href=#单个输出像素怎么算>单个输出像素怎么算</a></li><li><a href=#具体数字演示>具体数字演示</a></li></ol></li><li><a href=#32-标准卷积为什么计算量大>3.2 标准卷积为什么计算量大</a></li><li><a href=#33-深度可分离卷积如何拆分标准卷积>3.3 深度可分离卷积如何拆分标准卷积</a></li><li><a href=#34-depthwise-convolution逐通道卷积-是怎么计算的>3.4 Depthwise Convolution(逐通道卷积) 是怎么计算的</a><ol><li><a href=#depthwise-的公式>Depthwise 的公式</a></li><li><a href=#用刚才的数字继续演示>用刚才的数字继续演示</a></li></ol></li><li><a href=#35-depthwise-convolution-为什么便宜>3.5 Depthwise Convolution 为什么便宜</a></li><li><a href=#36-pointwise-convolution-逐点卷积是怎么计算的>3.6 Pointwise Convolution （逐点卷积）是怎么计算的</a><ol><li><a href=#pointwise-的公式>Pointwise 的公式</a></li><li><a href=#继续使用刚才的数字>继续使用刚才的数字</a></li></ol></li><li><a href=#37-标准卷积与深度可分离卷积的本质区别>3.7 标准卷积与深度可分离卷积的本质区别</a></li><li><a href=#38-深度可分离卷积的计算量>3.8 深度可分离卷积的计算量</a></li><li><a href=#39-为什么-pointwise-仍然占主要计算量>3.9 为什么 Pointwise 仍然占主要计算量</a></li><li><a href=#310-group-convolution-与-depthwise-convolution>3.10 Group Convolution 与 Depthwise Convolution</a></li><li><a href=#311-这一节真正重要的内容>3.11 这一节真正重要的内容</a></li></ol></li><li><a href=#4-深度可分离卷积带来的新矛盾>4. 深度可分离卷积带来的新矛盾</a><ol><li><a href=#41-什么是低维空间>4.1 什么是低维空间</a></li><li><a href=#42-activation-manifold>4.2 Activation Manifold</a></li><li><a href=#43-relu-为什么可能丢失信息>4.3 ReLU 为什么可能丢失信息</a></li><li><a href=#44-为什么高维空间中的-relu-更安全>4.4 为什么高维空间中的 ReLU 更安全</a></li></ol></li><li><a href=#5-核心对策一linear-bottleneck>5. 核心对策一：Linear Bottleneck</a><ol><li><a href=#51-bottleneck-是什么>5.1 Bottleneck 是什么</a></li><li><a href=#52-linear-bottleneck-是什么>5.2 Linear Bottleneck 是什么</a></li><li><a href=#53-为什么低维输出不能再接-relu>5.3 为什么低维输出不能再接 ReLU</a></li><li><a href=#54-反事实推理>5.4 反事实推理</a></li></ol></li><li><a href=#6-核心对策二inverted-residual>6. 核心对策二：Inverted Residual</a><ol><li><a href=#61-倒残差的完整流程>6.1 倒残差的完整流程</a></li><li><a href=#62-expansion-ratio>6.2 Expansion Ratio</a></li><li><a href=#63-为什么要先升维>6.3 为什么要先升维</a></li><li><a href=#64-为什么最后还要降维>6.4 为什么最后还要降维</a></li><li><a href=#65-为什么叫-inverted-residual>6.5 为什么叫 Inverted Residual</a></li><li><a href=#66-为什么不能先压缩再-depthwise>6.6 为什么不能先压缩再 Depthwise</a></li></ol></li><li><a href=#7-block-的计算量relu6-与代码>7. Block 的计算量、ReLU6 与代码</a><ol><li><a href=#71-inverted-residual-的计算量>7.1 Inverted Residual 的计算量</a></li><li><a href=#72-pointwise-conv-往往是主要计算量>7.2 Pointwise Conv 往往是主要计算量</a></li><li><a href=#73-relu6>7.3 ReLU6</a></li><li><a href=#74-pytorch-代码>7.4 PyTorch 代码</a></li></ol></li><li><a href=#8-从-flops-到真实端侧速度>8. 从 FLOPs 到真实端侧速度</a><ol><li><a href=#81-flops-降低为什么不保证更快>8.1 FLOPs 降低为什么不保证更快</a></li><li><a href=#82-depthwise-conv-可能是内存受限算子>8.2 Depthwise Conv 可能是内存受限算子</a></li><li><a href=#83-倒残差为什么有利于内存>8.3 倒残差为什么有利于内存</a></li><li><a href=#84-扩张层不是也很大吗>8.4 扩张层不是也很大吗</a></li><li><a href=#85-过度拆分也可能变慢>8.5 过度拆分也可能变慢</a></li></ol></li><li><a href=#9-一句话总结>9. 一句话总结</a></li></ol></nav></details><h1 id=mobilenetv2---inverted-residuals-and-linear-bottlenecks>MobileNetV2 - Inverted Residuals and Linear Bottlenecks</h1><h2 id=1-论文信息与问题端侧网络到底在优化什么>1. 论文信息与问题：端侧网络到底在优化什么</h2><p><strong>论文标题</strong>：MobileNetV2: Inverted Residuals and Linear Bottlenecks<br><strong>会议</strong>：CVPR 2018</p><p>MobileNetV2 的目标不是单纯减少参数量，而是设计一种适合移动端和嵌入式设备的网络结构：</p><blockquote><p>在有限算力、有限内存和有限功耗下，尽量保留模型效果。</p></blockquote><p>论文提出的核心模块是：</p><ul><li><strong>Depthwise Separable Convolution，深度可分离卷积</strong>；</li><li><strong>Linear Bottleneck，线性瓶颈</strong>；</li><li><strong>Inverted Residual，倒残差</strong>。</li></ul><p>整体推理链条是：</p><pre class=mermaid>
+flowchart LR
+    A["端侧算力和内存有限"] --> B["标准卷积计算量过大"]
+    B --> C["使用深度可分离卷积降低计算量"]
+    C --> D["通道变窄后<br>ReLU 容易破坏信息"]
+    D --> E["低维输出使用线性瓶颈"]
+    E --> F["先扩张到高维提取特征<br>再压缩回低维"]
+    F --> G["形成倒残差结构"]
+    G --> H["降低计算与内存开销<br>尽量保持精度"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>论文不仅比较了参数量和 Multiply-Adds，也实际比较了推理延迟，并专门分析了推理时的中间特征内存占用。</p><h3 id=11-算力flops--madds>1.1 算力：FLOPs / MAdds</h3><p><strong>FLOPs，Floating Point Operations</strong>：模型执行了多少次浮点运算。</p><p>论文主要使用 <strong>MAdds，Multiply-Adds</strong>，即乘加次数。</p><p>需要注意，不同统计工具的口径可能不同：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>一次 a × b + c
+</span></span><span style=display:flex><span>有的工具记为 1 次 MAdd
+</span></span><span style=display:flex><span>有的工具记为 2 次 FLOPs
+</span></span></code></pre></div><p>因此，比较模型时必须使用同一种统计口径。</p><p>算力描述的是：</p><blockquote><p>理论上需要执行多少计算。</p></blockquote><p>算力越高，通常需要更多时间和能量，但它并不直接等于真实运行速度。</p><h3 id=12-速度latency>1.2 速度：Latency</h3><p><strong>Latency，推理延迟</strong>：</p><blockquote><p>从输入一张图，到模型产生输出，实际经过了多少毫秒。</p></blockquote><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>模型 A：20 ms
+</span></span><span style=display:flex><span>模型 B：35 ms
+</span></span></code></pre></div><p>用户真正感知的是延迟，而不是 FLOPs。</p><p>延迟还受以下因素影响：</p><ul><li>芯片计算单元数量；</li><li>算子是否被硬件加速；</li><li>内存带宽；</li><li>Cache 大小；</li><li>数据排列；</li><li>算子融合；</li><li>并行度；</li><li>量化精度。</li></ul><p>所以：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>FLOPs 更少
+</span></span><span style=display:flex><span>   ≠
+</span></span><span style=display:flex><span>Latency 一定更低
+</span></span></code></pre></div><h3 id=13-内存占用memory-usage>1.3 内存占用：Memory Usage</h3><p>模型推理时主要有两类内存：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>模型内存
+</span></span><span style=display:flex><span>├── 权重参数
+</span></span><span style=display:flex><span>└── 中间特征图
+</span></span></code></pre></div><p>权重内存近似为：
+$$<br>M_{\text{weight}}</p><p>N_{\text{parameter}}<br>\times<br>\text{每个参数的字节数}<br>$$</p><p>例如 100 万个 FP16 参数：
+$$<br>1{,}000{,}000\times2</p><p>2\text{ MB}<br>$$</p><p>中间特征图内存近似为：
+$$<br>M_{\text{feature}}</p><p>B\times C\times H\times W<br>\times<br>\text{每个元素的字节数}<br>$$</p><p>例如一个 FP16 特征图：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B,C,H,W]=[1,64,256,256]
+</span></span></code></pre></div><p>需要：
+$$<br>1\times64\times256\times256\times2</p><p>8{,}388{,}608\text{ Bytes}<br>\approx8\text{ MB}<br>$$</p><p>对于高分辨率去噪模型，中间特征图经常比权重更占内存。</p><h3 id=14-内存访问开销>1.4 内存访问开销</h3><p>计算卷积时，芯片不仅要执行乘法和加法，还要不断搬运数据，包括：</p><pre tabindex=0><code>输入特征
+权重参数
+中间特征
+输出特征
+</code></pre><p>数据通常需要经过：</p><pre tabindex=0><code>主内存
+  ↓
+Cache / SRAM
+  ↓
+计算单元
+  ↓
+Cache / SRAM
+  ↓
+主内存
+</code></pre><p><strong>内存访问开销</strong>，指的就是这些数据在主内存、片上缓存和计算单元之间读写所消耗的时间与能量。</p><p>端侧芯片的高速片上缓存容量通常有限。当一个中间特征图放不进片上缓存时，数据就需要频繁写回主内存，再重新读取。即使模型的乘加次数不高，这些数据搬运也可能造成较大的推理延迟。</p><p>因此，真实推理速度不只取决于计算量：</p><pre tabindex=0><code>推理延迟
+≈
+计算耗时
++
+内存读写耗时
++
+算子调度耗时
+</code></pre><p>这也是为什么两个 FLOPs 相近的网络，在同一块芯片上的实际速度可能差很多。</p><p>MobileNetV2 不仅降低卷积计算量，还让残差连接发生在低通道的 Bottleneck 特征上，从而减少需要长期保留和搬运的大尺寸中间特征。</p><blockquote><p>**算子（Operator）**可以理解为：
+对输入张量执行一次明确计算，并产生输出张量的基本计算单元。</p><p>在神经网络中，数据通常以 Tensor 形式流动：</p><pre tabindex=0><code>输入 Tensor
+   ↓
+算子
+   ↓
+输出 Tensor
+</code></pre><p>例如：</p><pre tabindex=0><code>输入特征
+   ↓ Conv2d 算子
+卷积结果
+   ↓ ReLU 算子
+激活结果
+   ↓ Add 算子
+相加结果
+</code></pre></blockquote><p>[attachments/mobilenetv2_memory_hierarchy_3d.png]</p><h3 id=15-精度accuracy-与-psnr>1.5 精度：Accuracy 与 PSNR</h3><p>MobileNetV2 原论文主要处理分类、检测和分割，因此使用 Accuracy、mAP、mIOU 等指标。</p><p>在图像去噪中，对应的效果指标可能是：</p><ul><li>PSNR；</li><li>SSIM；</li><li>主观纹理；</li><li>色噪；</li><li>边缘清晰度；</li><li>时序稳定性。</li></ul><p>因此，端侧轻量化实际上是在寻找：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>计算量
+</span></span><span style=display:flex><span>+
+</span></span><span style=display:flex><span>延迟
+</span></span><span style=display:flex><span>+
+</span></span><span style=display:flex><span>内存
+</span></span><span style=display:flex><span>+
+</span></span><span style=display:flex><span>效果
+</span></span></code></pre></div><p>之间的折中，而不是把 FLOPs 压到最低。</p><h2 id=2-标准卷积为什么昂贵>2. 标准卷积为什么昂贵</h2><p>假设输入特征为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B,Cin,H,W]
+</span></span></code></pre></div><p>卷积核大小为$K\times K$，输出通道数为$C_{out}$。</p><p>标准卷积的乘加次数约为：
+$$<br>\operatorname{Cost}_{\text{standard}}</p><p>H\times W\times K^2<br>\times C_{in}\times C_{out}<br>$$</p><p>原因是每个输出位置、每个输出通道，都需要读取：K × K × Cin个输入值。</p><h3 id=21-一个具体数字>2.1 一个具体数字</h3><p>假设：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>H=W=56
+</span></span><span style=display:flex><span>Cin=64
+</span></span><span style=display:flex><span>Cout=64
+</span></span><span style=display:flex><span>K=3
+</span></span></code></pre></div><p>那么计算量为：</p><p>$$<br>56\times56\times3^2\times64\times64<br>$$</p><p>$$</p><p>115{,}605{,}504<br>$$</p><p>也就是大约：</p><p>$$<br>115.6\text{ MAdds}<br>$$</p><p>这只是一个卷积层。</p><p>如果模型中有很多高分辨率标准卷积，计算量会快速累积。</p><h3 id=22-为什么c_intimes-c_out很贵>2.2 为什么$C_{in}\times C_{out}$很贵</h3><p>标准卷积同时完成两件事：</p><ol><li>在空间上提取局部特征；</li><li>在通道之间进行融合。</li></ol><p>对于一个输出通道，它会读取所有输入通道：</p><pre class=mermaid>
+flowchart LR
+    A["所有输入通道"] --> B["K×K 标准卷积"]
+    B --> C["一个输出通道"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>一共有$C_{out}$个输出通道，因此计算量包含：</p><p>$$<br>C_{in}\times C_{out}<br>$$</p><p>这部分在通道数较大时非常昂贵。</p><h2 id=3-第一次优化深度可分离卷积>3. 第一次优化：深度可分离卷积</h2><p>MobileNetV2 延续了 MobileNetV1 的核心轻量化方法：</p><blockquote><p>把一次标准卷积拆成两步：先用 Depthwise Convolution 处理空间信息，再用 Pointwise Convolution 融合通道信息。</p></blockquote><p>要理解为什么这样能省计算，必须先弄清楚标准卷积究竟在算什么。</p><h3 id=31-标准卷积是怎么计算的>3.1 标准卷积是怎么计算的</h3><p>假设输入特征图 Shape 为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B, Cin, H, W]
+</span></span></code></pre></div><p>卷积层参数为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>卷积核大小：K×K
+</span></span><span style=display:flex><span>输入通道数：Cin
+</span></span><span style=display:flex><span>输出通道数：Cout
+</span></span></code></pre></div><p>卷积权重的 Shape 是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[Cout, Cin, K, K]
+</span></span></code></pre></div><p>这意味着：</p><blockquote><p>每一个输出通道，都有一组覆盖全部输入通道的卷积核。</p></blockquote><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Cin = 3
+</span></span><span style=display:flex><span>Cout = 4
+</span></span><span style=display:flex><span>K = 3
+</span></span></code></pre></div><p>卷积权重 Shape 为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[4, 3, 3, 3]
+</span></span></code></pre></div><p>可以把它理解成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输出通道 0：
+</span></span><span style=display:flex><span>├── 处理输入通道 0 的 3×3 Kernel
+</span></span><span style=display:flex><span>├── 处理输入通道 1 的 3×3 Kernel
+</span></span><span style=display:flex><span>└── 处理输入通道 2 的 3×3 Kernel
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>输出通道 1：
+</span></span><span style=display:flex><span>├── 处理输入通道 0 的 3×3 Kernel
+</span></span><span style=display:flex><span>├── 处理输入通道 1 的 3×3 Kernel
+</span></span><span style=display:flex><span>└── 处理输入通道 2 的 3×3 Kernel
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>输出通道 2：
+</span></span><span style=display:flex><span>同样包含 3 个 3×3 Kernel
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>输出通道 3：
+</span></span><span style=display:flex><span>同样包含 3 个 3×3 Kernel
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    I0["输入通道 0"] --> O0["输出通道 0"]
+    I1["输入通道 1"] --> O0
+    I2["输入通道 2"] --> O0
+
+    I0 --> O1["输出通道 1"]
+    I1 --> O1
+    I2 --> O1
+
+    I0 --> O2["输出通道 2"]
+    I1 --> O2
+    I2 --> O2
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>标准卷积中，一个输出通道会读取所有输入通道。</p><h4 id=单个输出像素怎么算>单个输出像素怎么算</h4><p>对于输出通道$o$、位置$(i,j)$：</p><p>$$<br>y_o(i,j)</p><p>\sum_{c=1}^{C_{in}}<br>\sum_{u=1}^{K}<br>\sum_{v=1}^{K}<br>W_{o,c,u,v}<br>x_c(i+u,j+v)<br>+b_o<br>$$</p><p>其中：</p><ul><li>$x_c$：第$c$个输入通道；</li><li>$W_{o,c}$：输出通道$o$对应输入通道$c$的卷积核；</li><li>$y_o$：第$o$个输出通道；</li><li>$b_o$：输出通道$o$的偏置。</li></ul><p>实际过程可以拆成三步：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>第一步：每个输入通道分别与对应 Kernel 做卷积
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>第二步：把所有输入通道的卷积结果相加
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>第三步：加上 Bias，得到一个输出通道的一个像素
+</span></span></code></pre></div><h4 id=具体数字演示>具体数字演示</h4><p>假设某个位置上，输入有两个通道，每个通道取一个$2\times2$区域。</p><p>输入通道 0：</p><p>$$<br>X_0=<br>\begin{bmatrix}<br>1 & 2\<br>3 & 4<br>\end{bmatrix}<br>$$</p><p>输入通道 1：</p><p>$$<br>X_1=<br>\begin{bmatrix}<br>5 & 6\<br>7 & 8<br>\end{bmatrix}<br>$$</p><p>现在计算输出通道 0。</p><p>它需要两张卷积核：</p><p>$$<br>W_{0,0}=<br>\begin{bmatrix}<br>1 & 0\<br>0 & 1<br>\end{bmatrix}<br>$$</p><p>$$<br>W_{0,1}=<br>\begin{bmatrix}<br>1 & 1\<br>1 & 1<br>\end{bmatrix}<br>$$</p><p>输入通道 0 的卷积结果：</p><p>$$<br>1\times1<br>+<br>2\times0<br>+<br>3\times0<br>+<br>4\times1<br>=5<br>$$</p><p>输入通道 1 的卷积结果：</p><p>$$<br>5\times1<br>+<br>6\times1<br>+<br>7\times1<br>+<br>8\times1<br>=26<br>$$</p><p>将两个通道的结果相加：</p><p>$$<br>y_0=5+26=31<br>$$</p><p>所以标准卷积计算一个输出通道时，不只是做空间卷积，还会把所有输入通道融合到一起。</p><pre class=mermaid>
+flowchart LR
+    A["输入通道 0<br>2×2 区域"] --> B["与 Kernel 0 做乘加<br>得到 5"]
+    C["输入通道 1<br>2×2 区域"] --> D["与 Kernel 1 做乘加<br>得到 26"]
+    B --> E["跨通道求和"]
+    D --> E
+    E --> F["输出通道 0<br>结果 31"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>如果还要生成输出通道 1，就需要另一套完全不同的卷积核，再重新执行一次上述过程。</p><p>因此标准卷积同时做了两件事：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>空间特征提取：
+</span></span><span style=display:flex><span>每个 K×K Kernel 读取局部邻域
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>通道特征融合：
+</span></span><span style=display:flex><span>每个输出通道读取全部输入通道
+</span></span></code></pre></div><h3 id=32-标准卷积为什么计算量大>3.2 标准卷积为什么计算量大</h3><p>对于输出特征图中的每一个位置、每一个输出通道，都要执行：</p><p>$$<br>K^2\times C_{in}<br>$$</p><p>次乘加。</p><p>一共有：</p><p>$$<br>H\times W\times C_{out}<br>$$</p><p>个输出位置，因此标准卷积总计算量约为：</p><p>$$<br>\operatorname{Cost}_{\text{standard}}</p><p>H\times W\times K^2<br>\times C_{in}\times C_{out}<br>$$</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>H = W = 56
+</span></span><span style=display:flex><span>Cin = 64
+</span></span><span style=display:flex><span>Cout = 64
+</span></span><span style=display:flex><span>K = 3
+</span></span></code></pre></div><p>计算量为：</p><p>$$<br>56\times56\times3^2\times64\times64<br>$$</p><p>$$</p><p>115{,}605{,}504<br>$$</p><p>约为：</p><p>$$<br>115.6\text{ MAdds}<br>$$</p><p>最昂贵的地方是：</p><p>$$<br>K^2\times C_{in}\times C_{out}<br>$$</p><p>因为空间卷积和通道融合被绑定在了一起。</p><h3 id=33-深度可分离卷积如何拆分标准卷积>3.3 深度可分离卷积如何拆分标准卷积</h3><p>深度可分离卷积把标准卷积拆成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>第一步：Depthwise Convolution
+</span></span><span style=display:flex><span>只处理空间，不融合通道
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>第二步：Pointwise Convolution
+</span></span><span style=display:flex><span>只融合通道，不处理较大空间邻域
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["输入特征<br>Cin 通道"] --> B["Depthwise Conv<br>每个通道单独做 K×K 卷积"]
+    B --> C["中间特征<br>Cin 通道"]
+    C --> D["Pointwise Conv<br>1×1 卷积融合通道"]
+    D --> E["输出特征<br>Cout 通道"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>标准卷积原本一次完成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>空间处理 + 通道融合
+</span></span></code></pre></div><p>深度可分离卷积改成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>空间处理
+</span></span><span style=display:flex><span>     ↓
+</span></span><span style=display:flex><span>通道融合
+</span></span></code></pre></div><p>两步分别完成。</p><h3 id=34-depthwise-convolution逐通道卷积-是怎么计算的>3.4 Depthwise Convolution(逐通道卷积) 是怎么计算的</h3><p><strong>Depthwise Convolution，逐通道卷积</strong>：</p><blockquote><p>每个输入通道只与自己的卷积核进行空间卷积，不读取其他输入通道。</p></blockquote><p>假设：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Cin = 3
+</span></span><span style=display:flex><span>K = 3
+</span></span></code></pre></div><p>Depthwise 卷积权重 Shape 为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[3, 1, 3, 3]
+</span></span></code></pre></div><p>可以理解为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道 0 → Kernel 0 → 输出通道 0
+</span></span><span style=display:flex><span>输入通道 1 → Kernel 1 → 输出通道 1
+</span></span><span style=display:flex><span>输入通道 2 → Kernel 2 → 输出通道 2
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    I0["输入通道 0"] --> K0["3×3 Kernel 0"] --> O0["输出通道 0"]
+    I1["输入通道 1"] --> K1["3×3 Kernel 1"] --> O1["输出通道 1"]
+    I2["输入通道 2"] --> K2["3×3 Kernel 2"] --> O2["输出通道 2"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>与标准卷积不同：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积：
+</span></span><span style=display:flex><span>一个输出通道读取所有输入通道
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Depthwise Conv：
+</span></span><span style=display:flex><span>一个输出通道只读取一个输入通道
+</span></span></code></pre></div><h4 id=depthwise-的公式>Depthwise 的公式</h4><p>对于通道$c$：</p><p>$$<br>z_c(i,j)</p><p>\sum_{u=1}^{K}<br>\sum_{v=1}^{K}<br>D_{c,u,v}<br>x_c(i+u,j+v)<br>$$</p><p>这里没有对输入通道$c$求和。</p><p>也就是说：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道 0 不会参与输出通道 1
+</span></span><span style=display:flex><span>输入通道 1 不会参与输出通道 2
+</span></span><span style=display:flex><span>不同通道之间完全独立
+</span></span></code></pre></div><h4 id=用刚才的数字继续演示>用刚才的数字继续演示</h4><p>输入通道 0：</p><p>$$<br>X_0=<br>\begin{bmatrix}<br>1 & 2\<br>3 & 4<br>\end{bmatrix}<br>$$</p><p>输入通道 1：</p><p>$$<br>X_1=<br>\begin{bmatrix}<br>5 & 6\<br>7 & 8<br>\end{bmatrix}<br>$$</p><p>Depthwise Kernel 0：</p><p>$$<br>D_0=<br>\begin{bmatrix}<br>1 & 0\<br>0 & 1<br>\end{bmatrix}<br>$$</p><p>Depthwise Kernel 1：</p><p>$$<br>D_1=<br>\begin{bmatrix}<br>1 & 1\<br>1 & 1<br>\end{bmatrix}<br>$$</p><p>通道 0 的输出：</p><p>$$<br>z_0</p><p>1\times1<br>+<br>2\times0<br>+<br>3\times0<br>+<br>4\times1<br>=5<br>$$</p><p>通道 1 的输出：</p><p>$$<br>z_1</p><p>5+6+7+8<br>=26<br>$$</p><p>Depthwise 卷积的输出是：</p><p>$$<br>z=<br>\begin{bmatrix}<br>5\<br>26<br>\end{bmatrix}<br>$$</p><p>注意，此时没有执行：</p><p>$$<br>5+26<br>$$</p><p>因为不同通道之间还没有融合。</p><pre class=mermaid>
+flowchart LR
+    A["输入通道 0"] --> B["空间卷积"] --> C["结果 5"]
+    D["输入通道 1"] --> E["空间卷积"] --> F["结果 26"]
+    C --> G["保持为独立通道"]
+    F --> G
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>Depthwise Conv 只回答：</p><blockquote><p>每个通道自己的局部空间特征是什么？</p></blockquote><p>它不能回答：</p><blockquote><p>不同通道组合起来代表什么？</p></blockquote><h3 id=35-depthwise-convolution-为什么便宜>3.5 Depthwise Convolution 为什么便宜</h3><p>对于每一个输入通道，只执行一次$K\times K$空间卷积。</p><p>计算量为：</p><p>$$<br>\operatorname{Cost}_{\text{DW}}</p><p>H\times W\times K^2\times C_{in}<br>$$</p><p>标准卷积是：</p><p>$$<br>H\times W\times K^2<br>\times C_{in}\times C_{out}<br>$$</p><p>Depthwise 没有$C_{out}$这一项，因为它不会为每个输出通道重新读取全部输入通道。</p><p>但这也带来了一个问题：</p><blockquote><p>Depthwise Conv 不能进行通道融合。</p></blockquote><p>所以后面必须再接 Pointwise Conv。</p><h3 id=36-pointwise-convolution-逐点卷积是怎么计算的>3.6 Pointwise Convolution （逐点卷积）是怎么计算的</h3><p><strong>Pointwise Convolution，逐点卷积</strong>：</p><blockquote><p>使用$1\times1$卷积，在每一个空间位置上读取全部输入通道，并重新组合成新的输出通道。</p></blockquote><p>假设 Depthwise 输出为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B, Cin, H, W]
+</span></span></code></pre></div><p>Pointwise Conv 的权重 Shape 为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[Cout, Cin, 1, 1]
+</span></span></code></pre></div><p>对于每一个空间位置，它不会读取周围的$3\times3$区域，只读取当前位置的全部通道。</p><pre class=mermaid>
+flowchart LR
+    C0["当前位置的通道 0"] --> O0["输出通道 0"]
+    C1["当前位置的通道 1"] --> O0
+    C2["当前位置的通道 2"] --> O0
+
+    C0 --> O1["输出通道 1"]
+    C1 --> O1
+    C2 --> O1
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>Pointwise Conv 的本质是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>同一空间位置
+</span></span><span style=display:flex><span>Cin 维向量
+</span></span><span style=display:flex><span>     ↓ 线性组合
+</span></span><span style=display:flex><span>Cout 维向量
+</span></span></code></pre></div><h4 id=pointwise-的公式>Pointwise 的公式</h4><p>对于输出通道$o$：</p><p>$$<br>y_o(i,j)</p><p>\sum_{c=1}^{C_{in}}<br>P_{o,c}<br>z_c(i,j)<br>+b_o<br>$$</p><p>其中：</p><ul><li>$z_c(i,j)$：Depthwise 输出在位置$(i,j)$的第$c$个通道；</li><li>$P_{o,c}$：$1\times1$卷积权重；</li><li>$y_o(i,j)$：Pointwise 输出。</li></ul><h4 id=继续使用刚才的数字>继续使用刚才的数字</h4><p>Depthwise 输出：</p><p>$$<br>z=<br>\begin{bmatrix}<br>5\<br>26<br>\end{bmatrix}<br>$$</p><p>现在希望输出两个通道。</p><p>输出通道 0 的 Pointwise 权重：</p><p>$$<br>P_0=<br>\begin{bmatrix}<br>1 & 1<br>\end{bmatrix}<br>$$</p><p>因此：</p><p>$$<br>y0​=1×5+1×26=31
+$$</p><p>输出通道 1 的权重：</p><p>$$<br>P_1=<br>\begin{bmatrix}<br>2 & -1<br>\end{bmatrix}<br>$$</p><p>因此：</p><p>$$<br>y1​=2×5+(−1)×26=−16
+$$</p><p>最终得到：</p><p>$$<br>y=<br>\begin{bmatrix}<br>31\<br>-16<br>\end{bmatrix}<br>$$</p><pre class=mermaid>
+flowchart LR
+    A["Depthwise 通道 0<br>值 5"] --> C["1×1 Conv<br>跨通道加权"]
+    B["Depthwise 通道 1<br>值 26"] --> C
+    C --> D["输出通道 0<br>31"]
+    C --> E["输出通道 1<br>-16"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>所以 Pointwise Conv 只回答：</p><blockquote><p>当前空间位置上的多个通道，应该怎样重新组合？</p></blockquote><h3 id=37-标准卷积与深度可分离卷积的本质区别>3.7 标准卷积与深度可分离卷积的本质区别</h3><p>标准卷积：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>对于每一个输出通道：
+</span></span><span style=display:flex><span>    对所有输入通道分别做 K×K 空间卷积
+</span></span><span style=display:flex><span>    再把结果相加
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["全部输入通道"] --> B["K×K 空间卷积<br>同时跨通道融合"]
+    B --> C["一个输出通道"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>深度可分离卷积：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Depthwise：
+</span></span><span style=display:flex><span>每个通道独立做 K×K 空间卷积
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Pointwise：
+</span></span><span style=display:flex><span>在每个位置使用 1×1 卷积融合全部通道
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["输入特征"] --> B["Depthwise Conv<br>空间处理"]
+    B --> C["通道仍彼此独立"]
+    C --> D["Pointwise Conv<br>通道融合"]
+    D --> E["输出特征"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>可以概括为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积：
+</span></span><span style=display:flex><span>空间处理和通道融合绑在一起完成
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>深度可分离卷积：
+</span></span><span style=display:flex><span>先处理空间，再融合通道
+</span></span></code></pre></div><p>[attachments/mobilenetv2_conv_factorization_3d.png]</p><h3 id=38-深度可分离卷积的计算量>3.8 深度可分离卷积的计算量</h3><p>Depthwise 部分：</p><p>$$<br>\operatorname{Cost}_{\text{DW}}</p><p>H\times W\times K^2\times C_{in}<br>$$</p><p>Pointwise 部分：</p><p>$$<br>\operatorname{Cost}_{\text{PW}}</p><p>H\times W\times C_{in}\times C_{out}<br>$$</p><p>总计算量：</p><p>$$<br>\operatorname{Cost}_{\text{separable}}</p><p>HWC_{in}K^2<br>+<br>HWC_{in}C_{out}<br>$$</p><p>标准卷积计算量：</p><p>$$<br>\operatorname{Cost}_{\text{standard}}</p><p>HWK^2C_{in}C_{out}<br>$$</p><p>两者比例：</p><p>$$<br>\frac{<br>\operatorname{Cost}<em>{\text{separable}}<br>}{<br>\operatorname{Cost}</em>{\text{standard}}<br>}</p><p>\frac{<br>HWC_{in}K^2<br>+<br>HWC_{in}C_{out}<br>}{<br>HWK^2C_{in}C_{out}<br>}<br>$$</p><p>约分后：</p><p>$$<br>\frac{1}{C_{out}}<br>+<br>\frac{1}{K^2}<br>$$</p><p>当：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>K = 3
+</span></span><span style=display:flex><span>Cout = 64
+</span></span></code></pre></div><p>比例为：</p><p>$$<br>\frac{1}{64}<br>+<br>\frac{1}{9}<br>\approx0.1267<br>$$</p><p>也就是说，深度可分离卷积的计算量约为标准卷积的：12.67% ，约减少到原来的八分之一。</p><h3 id=39-为什么-pointwise-仍然占主要计算量>3.9 为什么 Pointwise 仍然占主要计算量</h3><p>在上面的例子中：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Depthwise：1.8 MAdds
+</span></span><span style=display:flex><span>Pointwise：12.8 MAdds
+</span></span></code></pre></div><p>虽然 Pointwise 只使用$1\times1$卷积，但它要执行：</p><p>$$<br>C_{in}\times C_{out}<br>$$</p><p>次通道组合。</p><p>因此轻量网络中经常出现：</p><blockquote><p>Depthwise Conv 已经非常便宜，真正占计算量的是前后的$1\times1$ Pointwise Conv。</p></blockquote><p>这也是后面理解 MobileNetV2 Expansion Ratio 时必须注意的地方：通道一旦扩张，$1\times1$卷积的计算量也会明显增加。</p><h3 id=310-group-convolution-与-depthwise-convolution>3.10 Group Convolution 与 Depthwise Convolution</h3><p>标准卷积中，<strong>每个输出通道都会读取全部输入通道</strong>。</p><p>假设输入和输出都是 4 个通道：</p><pre class=mermaid>
+flowchart LR
+    I["4 个输入通道"] --> O0["输出通道 0"]
+    I --> O1["输出通道 1"]
+    I --> O2["输出通道 2"]
+    I --> O3["输出通道 3"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>Group Convolution，分组卷积</strong>：把输入通道和输出通道分成若干组，每组独立做卷积，组与组之间不连接。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道数：4
+</span></span><span style=display:flex><span>输出通道数：4
+</span></span><span style=display:flex><span>groups：2
+</span></span></code></pre></div><p>分组后：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>第 1 组：
+</span></span><span style=display:flex><span>输入通道 0、1 → 输出通道 0、1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>第 2 组：
+</span></span><span style=display:flex><span>输入通道 2、3 → 输出通道 2、3
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    I01["输入通道 0、1"] --> O01["输出通道 0、1"]
+    I23["输入通道 2、3"] --> O23["输出通道 2、3"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>输出通道 0、1 看不到输入通道 2、3，因此计算量会降低。</p><p>如果组数为 $g$，每个输出通道只读取：</p><p>$$<br>\frac{C_{in}}{g}<br>$$</p><p>个输入通道。</p><p>计算量约为标准卷积的：</p><p>$$<br>\frac{1}{g}<br>$$</p><p><strong>Depthwise Convolution 是 Group Convolution 的特殊情况。</strong></p><p>当：</p><p>$$<br>g=C_{in}<br>$$</p><p>每组只有一个输入通道。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道数：4
+</span></span><span style=display:flex><span>groups：4
+</span></span></code></pre></div><p>连接关系变成：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道 0 → 输出通道 0
+</span></span><span style=display:flex><span>输入通道 1 → 输出通道 1
+</span></span><span style=display:flex><span>输入通道 2 → 输出通道 2
+</span></span><span style=display:flex><span>输入通道 3 → 输出通道 3
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    I0["输入通道 0"] --> O0["输出通道 0"]
+    I1["输入通道 1"] --> O1["输出通道 1"]
+    I2["输入通道 2"] --> O2["输出通道 2"]
+    I3["输入通道 3"] --> O3["输出通道 3"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>这就是 Depthwise Convolution：每个通道只处理自己的空间信息，不与其他通道融合。</p><p>概念关系：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>groups = 1
+</span></span><span style=display:flex><span>→ 标准卷积
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>1 &lt; groups &lt; Cin
+</span></span><span style=display:flex><span>→ 普通分组卷积
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>groups = Cin
+</span></span><span style=display:flex><span>→ Depthwise Convolution
+</span></span></code></pre></div><p>PyTorch 写法：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>depthwise <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>    in_channels<span style=color:#f92672>=</span>channels,
+</span></span><span style=display:flex><span>    out_channels<span style=color:#f92672>=</span>channels,
+</span></span><span style=display:flex><span>    kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>    padding<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>    groups<span style=color:#f92672>=</span>channels,
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div><p>判断代码中的<code>Group_Conv2d</code>是不是 Depthwise Convolution，主要看：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>groups <span style=color:#f92672>==</span> in_channels
+</span></span></code></pre></div><p>Depthwise Convolution 不融合通道，所以后面通常还要接一个 $1\times1$ Pointwise Convolution，重新组合不同通道的信息。</p><p><strong>一句话理解：Group Convolution 是让每个输出通道只读取部分输入通道；当每组只剩一个输入通道时，就是 Depthwise Convolution。</strong></p><p>[attachments/mobilenetv2_group_connectivity_3d.png]</p><h3 id=311-这一节真正重要的内容>3.11 这一节真正重要的内容</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积：
+</span></span><span style=display:flex><span>每个输出通道都对全部输入通道执行 K×K 卷积
+</span></span><span style=display:flex><span>空间处理和通道融合同时完成
+</span></span><span style=display:flex><span>计算量高
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Depthwise Conv：
+</span></span><span style=display:flex><span>每个输入通道独立做 K×K 卷积
+</span></span><span style=display:flex><span>只处理空间，不融合通道
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Pointwise Conv：
+</span></span><span style=display:flex><span>在每个空间位置使用 1×1 卷积读取全部通道
+</span></span><span style=display:flex><span>只融合通道，不扩大空间范围
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>深度可分离卷积：
+</span></span><span style=display:flex><span>把标准卷积拆成 Depthwise + Pointwise
+</span></span><span style=display:flex><span>用较小计算量近似完成原本的空间处理和通道融合
+</span></span></code></pre></div><p><strong>一句话理解：标准卷积会让每个输出通道同时读取所有输入通道的空间邻域，而深度可分离卷积先让每个通道独立处理空间，再用$1\times1$卷积统一融合通道，因此避免了昂贵的$K^2C_{in}C_{out}$联合计算。</strong></p><h2 id=4-深度可分离卷积带来的新矛盾>4. 深度可分离卷积带来的新矛盾</h2><p>深度可分离卷积大幅降低了计算量，但它并没有回答一个问题：</p><blockquote><p>当网络通道很少时，怎样避免非线性激活破坏信息？</p></blockquote><p>需要先修正一个常见但不够准确的表述：</p><blockquote><p>MobileNetV2 原论文并没有把核心问题描述为“Depthwise 卷积核参数太少，所以很多卷积核训练成空核”。</p></blockquote><p>论文真正讨论的是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>低维特征
+</span></span><span style=display:flex><span>+
+</span></span><span style=display:flex><span>ReLU
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>部分不同输入可能被映射到相同输出
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>信息不可恢复
+</span></span></code></pre></div><p>它关注的是<strong>激活信息被压缩或坍塌</strong>，不是卷积核参数本身变成空。</p><h3 id=41-什么是低维空间>4.1 什么是低维空间</h3><p>假设某个像素位置有$C$个通道：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x=[x1,x2,...,xC]
+</span></span></code></pre></div><p>它可以看作$C$维特征向量。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>通道数 64 → 64 维空间
+</span></span><span style=display:flex><span>通道数 16 → 16 维空间
+</span></span></code></pre></div><p>减少通道数就是降低特征空间维度。</p><h3 id=42-activation-manifold>4.2 Activation Manifold</h3><p><strong>Activation Manifold，激活流形</strong>：</p><blockquote><p>对真实输入数据而言，网络特征并不会填满整个高维空间，而通常集中在某个更低维、具有结构的区域中。</p></blockquote><p>例如，某层有 64 个通道，并不意味着有效信息一定需要 64 个完全独立的维度。</p><p>有效数据可能主要分布在其中一个更低维的结构上。</p><p>MobileNetV2 的假设是：</p><blockquote><p>有效信息本身可能是低维的，因此可以使用窄 Bottleneck 保存；但进行复杂非线性变换时，需要先把它映射到更高维空间。</p></blockquote><h3 id=43-relu-为什么可能丢失信息>4.3 ReLU 为什么可能丢失信息</h3><p>ReLU 为：</p><p>$$<br>f(x)=\max(0,x)<br>$$</p><p>负数全部变成 0。</p><p>假设低维特征为：</p><p>$$<br>x=<br>\begin{bmatrix}<br>-0.4\<br>0.3<br>\end{bmatrix}<br>$$</p><p>经过 ReLU：</p><p>$$<br>\operatorname{ReLU}(x)</p><p>\begin{bmatrix}<br>0\<br>0.3<br>\end{bmatrix}<br>$$</p><p>此时无法判断第一个值原来是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>-0.4
+</span></span><span style=display:flex><span>-1.0
+</span></span><span style=display:flex><span>-10.0
+</span></span></code></pre></div><p>因为它们都会变成 0。</p><p>假设一个 16 维特征中有 11 个负数：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>ReLU 前：16 个有符号特征值
+</span></span><span style=display:flex><span>ReLU 后：11 个变成 0，只剩 5 个非零值
+</span></span></code></pre></div><p>这只是一个说明信息丢失机制的例子，并不表示所有网络都固定只剩 5 个有效值。</p><h3 id=44-为什么高维空间中的-relu-更安全>4.4 为什么高维空间中的 ReLU 更安全</h3><p>假设原始信息只有 2 个自由维度，但先把它投影到 12 个通道：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>2维信息
+</span></span><span style=display:flex><span>  ↓ 线性扩张
+</span></span><span style=display:flex><span>12维表示
+</span></span></code></pre></div><p>同一份信息可以分散在多个坐标中。</p><p>ReLU 即使把部分坐标置 0，其他坐标仍可能保留足够的信息。</p><pre class=mermaid>
+flowchart LR
+    A["低维有效信息"] --> B["扩张到高维空间"]
+    B --> C["多个通道共同编码信息"]
+    C --> D["ReLU 将部分坐标置 0"]
+    D --> E["其他通道仍可能保留完整信息"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>论文 Figure 1 展示了同一个二维螺旋被映射到不同维度后再经过 ReLU：当输出维度很低时，不同点容易发生重叠；当维度提升到 15 或 30 时，结构能够更好地保留。</p><p>因此，真正的矛盾是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>为了省计算：
+</span></span><span style=display:flex><span>希望通道尽量少
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>为了安全使用 ReLU：
+</span></span><span style=display:flex><span>希望非线性变换发生在更高维空间
+</span></span></code></pre></div><p>MobileNetV2 的两个核心设计，就是为了解决这个矛盾。</p><p>[attachments/mobilenetv2_relu_manifold_3d.png]</p><h2 id=5-核心对策一linear-bottleneck>5. 核心对策一：Linear Bottleneck</h2><h3 id=51-bottleneck-是什么>5.1 Bottleneck 是什么</h3><p><strong>Bottleneck，瓶颈层</strong>：</p><blockquote><p>通道数较少、用于保存模块输入或输出的低维特征层。</p></blockquote><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>高维中间特征：144 通道
+</span></span><span style=display:flex><span>低维 Bottleneck：24 通道
+</span></span></code></pre></div><p>MobileNetV2 Block 的输入和输出都是窄 Bottleneck。</p><h3 id=52-linear-bottleneck-是什么>5.2 Linear Bottleneck 是什么</h3><p><strong>Linear Bottleneck，线性瓶颈</strong>：</p><blockquote><p>最后一个$1\times1$卷积把高维特征压缩回低维时，不再接 ReLU，而是保留线性输出。</p></blockquote><p>结构为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>1×1 Projection Conv
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>BatchNorm
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>直接输出
+</span></span></code></pre></div><p>而不是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>1×1 Projection Conv
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>BatchNorm
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>ReLU
+</span></span></code></pre></div><p>论文实验显示，在窄 Bottleneck 上保留非线性会使性能下降，而去掉非线性能够更好地保留低维信息。</p><h3 id=53-为什么低维输出不能再接-relu>5.3 为什么低维输出不能再接 ReLU</h3><p>假设高维特征被压缩成：</p><p>$$<br>z=<br>\begin{bmatrix}<br>-0.8\<br>0.2\<br>-0.3\<br>0.7<br>\end{bmatrix}<br>$$</p><p>如果这是 Block 最终用于传给下一层的低维表示，ReLU 会得到：</p><p>$$<br>\operatorname{ReLU}(z)</p><p>\begin{bmatrix}<br>0\<br>0.2\<br>0\<br>0.7<br>\end{bmatrix}<br>$$</p><p>两个负向特征被直接抹掉。</p><p>如果后面没有额外的冗余通道，丢失的信息很难恢复。</p><p>所以最后一层使用：</p><p>$$<br>y=Wz<br>$$</p><p>而不是：</p><p>$$<br>y=\operatorname{ReLU}(Wz)<br>$$</p><p>这里的“Linear”并不是说整个 Block 都是线性的。</p><p>Block 内部仍然包含：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>1×1 Conv + ReLU6
+</span></span><span style=display:flex><span>3×3 Depthwise Conv + ReLU6
+</span></span></code></pre></div><p>只有最后压缩回 Bottleneck 的 Projection 层不使用激活函数。</p><h3 id=54-反事实推理>5.4 反事实推理</h3><p>假设保留 ReLU：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>高维特征
+</span></span><span style=display:flex><span>  ↓ 1×1 压缩到 16 通道
+</span></span><span style=display:flex><span>低维特征
+</span></span><span style=display:flex><span>  ↓ ReLU
+</span></span><span style=display:flex><span>部分通道永久变成 0
+</span></span><span style=display:flex><span>  ↓
+</span></span><span style=display:flex><span>下一层收到的信息不完整
+</span></span></code></pre></div><p>去掉最后的 ReLU：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>高维特征
+</span></span><span style=display:flex><span>  ↓ 线性压缩到 16 通道
+</span></span><span style=display:flex><span>正值和负值都保留
+</span></span><span style=display:flex><span>  ↓
+</span></span><span style=display:flex><span>下一层仍能区分不同输入
+</span></span></code></pre></div><p>因此：</p><blockquote><p>非线性负责提高表达能力，但不应该放在最容易发生信息丢失的窄输出层。</p></blockquote><p>[attachments/mobilenetv2_block_evolution_3d.png]</p><h2 id=6-核心对策二inverted-residual>6. 核心对策二：Inverted Residual</h2><h3 id=61-倒残差的完整流程>6.1 倒残差的完整流程</h3><p>一个典型 MobileNetV2 Block 为：</p><pre class=mermaid>
+flowchart LR
+    A["低维输入<br>C 通道"] --> B["1×1 Expand Conv<br>扩张到 tC 通道"]
+    B --> C["BN + ReLU6"]
+    C --> D["3×3 Depthwise Conv"]
+    D --> E["BN + ReLU6"]
+    E --> F["1×1 Projection Conv<br>压缩到 Cout"]
+    F --> G["BN<br>不使用 ReLU"]
+    A --> H["Shortcut"]
+    G --> I["逐元素相加"]
+    H --> I
+    I --> J["低维输出"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>当 stride 为 1，且输入输出 Shape 相同时：</p><p>$$<br>y=x+F(x)<br>$$</p><p>当空间尺寸或通道数变化时，通常不使用 Shortcut。</p><h3 id=62-expansion-ratio>6.2 Expansion Ratio</h3><p><strong>Expansion Ratio，扩张倍率</strong>，记为$t$：</p><p>$$<br>C_{\text{hidden}}=tC_{in}<br>$$</p><p>MobileNetV2 主体网络通常使用：</p><p>$$<br>t=6<br>$$</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入：24 通道
+</span></span><span style=display:flex><span>扩张：24 × 6 = 144 通道
+</span></span><span style=display:flex><span>输出：24 通道
+</span></span></code></pre></div><p>论文的主要实验采用扩张倍率 6，并发现 5 到 10 之间的扩张倍率具有相近的效果趋势。</p><h3 id=63-为什么要先升维>6.3 为什么要先升维</h3><p>Depthwise Convolution 不负责通道融合，它只会对每个通道单独做空间卷积。</p><p>如果直接在 16 个通道上做 Depthwise：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>16 个输入通道
+</span></span><span style=display:flex><span>→
+</span></span><span style=display:flex><span>16 个彼此独立的空间卷积
+</span></span></code></pre></div><p>网络只有 16 条独立空间处理路径。</p><p>如果先扩张到 96 通道：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>16 通道
+</span></span><span style=display:flex><span>→ 1×1 Conv
+</span></span><span style=display:flex><span>→ 96 通道
+</span></span><span style=display:flex><span>→ 96 个 Depthwise 空间卷积
+</span></span></code></pre></div><p>模型可以在更高维的表示中构造更多特征，再对每个特征分别进行空间处理。</p><p>完整分工是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>第一个 1×1 Conv：
+</span></span><span style=display:flex><span>跨通道组合，生成更多高维特征
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>3×3 Depthwise Conv：
+</span></span><span style=display:flex><span>分别对每个高维特征做空间处理
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>最后一个 1×1 Conv：
+</span></span><span style=display:flex><span>重新融合并压缩回低维输出
+</span></span></code></pre></div><h3 id=64-为什么最后还要降维>6.4 为什么最后还要降维</h3><p>如果一直保持高维特征：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B,144,H,W]
+</span></span></code></pre></div><p>那么：</p><ul><li>后续层计算量增加；</li><li>中间特征内存增加；</li><li>Shortcut 需要保存高维 Tensor；</li><li>主内存访问增加。</li></ul><p>所以 MobileNetV2 把高维空间视为：</p><blockquote><p>Block 内部完成非线性变换的临时工作空间。</p></blockquote><p>Block 对外只保留低维 Bottleneck：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入低维
+</span></span><span style=display:flex><span>→ 内部高维处理
+</span></span><span style=display:flex><span>→ 输出低维
+</span></span></code></pre></div><p>论文将这种设计解释为：Bottleneck 表示网络每层保存的信息容量，Expansion 表示 Block 内部变换的表达能力，从而把“保存多少信息”和“变换多复杂”部分解耦。</p><h3 id=65-为什么叫-inverted-residual>6.5 为什么叫 Inverted Residual</h3><p>这里比较的是 <strong>ResNet Bottleneck Block</strong>，不是所有 ResNet Block。</p><p>ResNet Bottleneck：</p><pre class=mermaid>
+flowchart LR
+    A["高维输入"] --> B["1×1 Conv<br>降维"]
+    B --> C["3×3 Conv<br>低维空间处理"]
+    C --> D["1×1 Conv<br>升维"]
+    D --> E["高维输出"]
+    A --> F["高维 Shortcut"]
+    F --> G["Add"]
+    E --> G
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>形状是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>宽 → 窄 → 宽
+</span></span></code></pre></div><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>256 → 64 → 256
+</span></span></code></pre></div><p>MobileNetV2：</p><pre class=mermaid>
+flowchart LR
+    A["低维输入"] --> B["1×1 Conv<br>升维"]
+    B --> C["3×3 Depthwise Conv<br>高维空间处理"]
+    C --> D["1×1 Conv<br>降维"]
+    D --> E["低维输出"]
+    A --> F["低维 Shortcut"]
+    F --> G["Add"]
+    E --> G
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>形状是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>窄 → 宽 → 窄
+</span></span></code></pre></div><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>24 → 144 → 24
+</span></span></code></pre></div><p>因此称为“倒残差”。</p><p>[Pasted image 20260721154402.png]
+【Fig3】</p><p>论文 Figure 3 的关键区别正是：</p><ul><li>传统 Bottleneck Residual 的 Shortcut 连接高维层；</li><li>Inverted Residual 的 Shortcut 连接低维 Bottleneck。</li></ul><p>[attachments/mobilenetv2_residual_comparison_3d.png]</p><h3 id=66-为什么不能先压缩再-depthwise>6.6 为什么不能先压缩再 Depthwise</h3><p>反事实结构：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>64 通道
+</span></span><span style=display:flex><span>→ 压缩到 16 通道
+</span></span><span style=display:flex><span>→ 16 通道 Depthwise Conv
+</span></span><span style=display:flex><span>→ 再恢复到 64 通道
+</span></span></code></pre></div><p>问题是：</p><ol><li><p>空间卷积只在 16 个通道上运行；</p></li><li><p>Depthwise 不会跨通道创建新组合；</p></li><li><p>如果压缩时已经丢失特征，后面无法依靠 Depthwise 找回来；</p></li><li><p>ReLU 在窄空间中进一步增加信息丢失风险。</p></li></ol><p>MobileNetV2 改为：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>16 通道
+</span></span><span style=display:flex><span>→ 扩张到 96 通道
+</span></span><span style=display:flex><span>→ 96 通道 Depthwise Conv
+</span></span><span style=display:flex><span>→ 线性压缩到 16 通道
+</span></span></code></pre></div><p>这样把非线性和空间处理放在高维空间中，把低维空间主要用于传输和保存信息。</p><h2 id=7-block-的计算量relu6-与代码>7. Block 的计算量、ReLU6 与代码</h2><h3 id=71-inverted-residual-的计算量>7.1 Inverted Residual 的计算量</h3><p>假设：</p><ul><li><p>输入通道$C_{in}$；</p></li><li><p>输出通道$C_{out}$；</p></li><li><p>扩张倍率$t$；</p></li><li><p>卷积核$K\times K$；</p></li><li><p>空间尺寸$H\times W$。</p></li></ul><p>第一层$1\times1$扩张卷积：</p><p>$$<br>HW\times C_{in}\times tC_{in}<br>$$</p><p>Depthwise 卷积：</p><p>$$<br>HW\times tC_{in}\times K^2<br>$$</p><p>最后$1\times1$投影卷积：</p><p>$$<br>HW\times tC_{in}\times C_{out}<br>$$</p><p>总计算量为：</p><p>$$<br>\operatorname{Cost}_{\text{block}}</p><p>HWC_{in}t<br>\left(<br>C_{in}+K^2+C_{out}<br>\right)<br>$$</p><p>这与论文给出的 Block 计算公式一致。</p><p>需要注意：</p><blockquote><p>MobileNetV2 Block 比简单的 V1 深度可分离卷积多了一个$1\times1$扩张卷积。</p></blockquote><p>所以它并不是“每个 Block 无条件比任何卷积都便宜”。</p><p>它的优势来自组合设计：</p><ul><li><p>输入输出通道保持较窄；</p></li><li><p>昂贵的空间卷积使用 Depthwise；</p></li><li><p>高维特征只存在于 Block 内部；</p></li><li><p>Shortcut 连接低维 Tensor。</p></li></ul><h3 id=72-pointwise-conv-往往是主要计算量>7.2 Pointwise Conv 往往是主要计算量</h3><p>以：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>H=W=56
+</span></span><span style=display:flex><span>Cin=Cout=24
+</span></span><span style=display:flex><span>t=6
+</span></span><span style=display:flex><span>K=3
+</span></span></code></pre></div><p>为例。</p><p>扩张后的通道数：</p><p>$$<br>24\times6=144<br>$$</p><p>扩张$1\times1$卷积：</p><p>$$<br>56\times56\times24\times144</p><p>10{,}838{,}016<br>$$</p><p>Depthwise：</p><p>$$<br>56\times56\times144\times9</p><p>4{,}064{,}256<br>$$</p><p>投影$1\times1$卷积：</p><p>$$<br>56\times56\times144\times24</p><p>10{,}838{,}016<br>$$</p><p>可以看到，两次$1\times1$卷积占据了大部分计算量。</p><p>因此轻量网络中：</p><blockquote><p>Depthwise 很便宜，但 Pointwise 不便宜。</p></blockquote><p>优化轻量网络时不能只盯着$3\times3$卷积，还要重点检查：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>1×1 Conv 的通道数
+</span></span><span style=display:flex><span>+
+</span></span><span style=display:flex><span>高分辨率阶段的通道扩张
+</span></span></code></pre></div><p>[attachments/mobilenetv2_compute_breakdown_3d.png]</p><h3 id=73-relu6>7.3 ReLU6</h3><p>MobileNetV2 在扩张层和 Depthwise 层后使用 ReLU6：</p><p>$$<br>f(x)</p><p>\min(\max(0,x),6)<br>$$</p><pre class=mermaid>
+xychart-beta
+    title "ReLU6"
+    x-axis [-3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+    y-axis "f(x)" 0 --> 6
+    line [0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 6, 6]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>特点：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x&lt;0：输出 0
+</span></span><span style=display:flex><span>0≤x≤6：输出 x
+</span></span><span style=display:flex><span>x&gt;6：输出 6
+</span></span></code></pre></div><p>论文选择 ReLU6，是因为它在低精度计算下具有更好的鲁棒性。</p><p>但最后的 Linear Bottleneck 不使用 ReLU6：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Expand Conv → ReLU6
+</span></span><span style=display:flex><span>Depthwise Conv → ReLU6
+</span></span><span style=display:flex><span>Project Conv → Linear
+</span></span></code></pre></div><h3 id=74-pytorch-代码>7.4 PyTorch 代码</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> torch
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> torch.nn <span style=color:#66d9ef>as</span> nn
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>InvertedResidual</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(
+</span></span><span style=display:flex><span>        self,
+</span></span><span style=display:flex><span>        in_channels: int,
+</span></span><span style=display:flex><span>        out_channels: int,
+</span></span><span style=display:flex><span>        stride: int,
+</span></span><span style=display:flex><span>        expansion_ratio: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>,
+</span></span><span style=display:flex><span>    ) <span style=color:#f92672>-&gt;</span> <span style=color:#66d9ef>None</span>:
+</span></span><span style=display:flex><span>        super()<span style=color:#f92672>.</span><span style=color:#a6e22e>__init__</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> stride <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> (<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>):
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>ValueError</span>(<span style=color:#e6db74>&#34;stride must be 1 or 2&#34;</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        hidden_channels <span style=color:#f92672>=</span> in_channels <span style=color:#f92672>*</span> expansion_ratio
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>use_residual <span style=color:#f92672>=</span> (
+</span></span><span style=display:flex><span>            stride <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>and</span> in_channels <span style=color:#f92672>==</span> out_channels
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        layers <span style=color:#f92672>=</span> []
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 1. 升维：跨通道融合</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> expansion_ratio <span style=color:#f92672>!=</span> <span style=color:#ae81ff>1</span>:
+</span></span><span style=display:flex><span>            layers<span style=color:#f92672>.</span>extend([
+</span></span><span style=display:flex><span>                nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>                    in_channels,
+</span></span><span style=display:flex><span>                    hidden_channels,
+</span></span><span style=display:flex><span>                    kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                    bias<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>,
+</span></span><span style=display:flex><span>                ),
+</span></span><span style=display:flex><span>                nn<span style=color:#f92672>.</span>BatchNorm2d(hidden_channels),
+</span></span><span style=display:flex><span>                nn<span style=color:#f92672>.</span>ReLU6(inplace<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>),
+</span></span><span style=display:flex><span>            ])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># 2. Depthwise：每个通道独立做空间卷积</span>
+</span></span><span style=display:flex><span>        layers<span style=color:#f92672>.</span>extend([
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>                hidden_channels,
+</span></span><span style=display:flex><span>                hidden_channels,
+</span></span><span style=display:flex><span>                kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                stride<span style=color:#f92672>=</span>stride,
+</span></span><span style=display:flex><span>                padding<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                groups<span style=color:#f92672>=</span>hidden_channels,
+</span></span><span style=display:flex><span>                bias<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>,
+</span></span><span style=display:flex><span>            ),
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>BatchNorm2d(hidden_channels),
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>ReLU6(inplace<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>),
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            <span style=color:#75715e># 3. 线性压缩：不接 ReLU</span>
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>                hidden_channels,
+</span></span><span style=display:flex><span>                out_channels,
+</span></span><span style=display:flex><span>                kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                bias<span style=color:#f92672>=</span><span style=color:#66d9ef>False</span>,
+</span></span><span style=display:flex><span>            ),
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>BatchNorm2d(out_channels),
+</span></span><span style=display:flex><span>        ])
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>block <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>Sequential(<span style=color:#f92672>*</span>layers)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x: torch<span style=color:#f92672>.</span>Tensor) <span style=color:#f92672>-&gt;</span> torch<span style=color:#f92672>.</span>Tensor:
+</span></span><span style=display:flex><span>        output <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>block(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>use_residual:
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span> x <span style=color:#f92672>+</span> output
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> output
+</span></span></code></pre></div><p>关键点有三个：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>groups<span style=color:#f92672>=</span>hidden_channels
+</span></span></code></pre></div><p>表示 Depthwise Convolution。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>    hidden_channels,
+</span></span><span style=display:flex><span>    out_channels,
+</span></span><span style=display:flex><span>    kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div><p>表示压缩回低维。</p><p>最后没有：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>nn<span style=color:#f92672>.</span>ReLU6()
+</span></span></code></pre></div><p>这就是 Linear Bottleneck。</p><p>Shortcut 的条件是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>stride <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>and</span> in_channels <span style=color:#f92672>==</span> out_channels
+</span></span></code></pre></div><p>否则 Shape 不相同，不能直接相加。</p><h2 id=8-从-flops-到真实端侧速度>8. 从 FLOPs 到真实端侧速度</h2><h3 id=81-flops-降低为什么不保证更快>8.1 FLOPs 降低为什么不保证更快</h3><p>考虑两个模型：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>模型 A：
+</span></span><span style=display:flex><span>100 MAdds
+</span></span><span style=display:flex><span>算子高度优化
+</span></span><span style=display:flex><span>数据连续
+</span></span><span style=display:flex><span>Cache 命中率高
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>模型 B：
+</span></span><span style=display:flex><span>60 MAdds
+</span></span><span style=display:flex><span>大量小算子
+</span></span><span style=display:flex><span>频繁改变数据布局
+</span></span><span style=display:flex><span>算子不被芯片原生支持
+</span></span><span style=display:flex><span>频繁访问主内存
+</span></span></code></pre></div><p>模型 B 的 FLOPs 更低，但可能运行得更慢。</p><p>真实延迟可以粗略理解为：</p><p>$$<br>T_{\text{latency}}<br>\approx<br>T_{\text{compute}}<br>+<br>T_{\text{memory}}<br>+<br>T_{\text{schedule}}<br>$$</p><p>其中：</p><ul><li><p>$T_{\text{compute}}$：计算耗时；</p></li><li><p>$T_{\text{memory}}$：读写内存耗时；</p></li><li><p>$T_{\text{schedule}}$：算子调度、同步和启动耗时。</p></li></ul><h3 id=82-depthwise-conv-可能是内存受限算子>8.2 Depthwise Conv 可能是内存受限算子</h3><p>Depthwise Conv 的乘加次数很少，但每个权重只处理一个通道。</p><p>它的计算密度可能低于标准卷积：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>读取一批数据
+</span></span><span style=display:flex><span>→ 只做少量计算
+</span></span><span style=display:flex><span>→ 很快又要读取下一批数据
+</span></span></code></pre></div><p>如果芯片对 Depthwise 没有专门优化，FLOPs 虽低，Latency 不一定按同样比例下降。</p><p>因此需要在目标芯片上实际测量：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准 Conv Latency
+</span></span><span style=display:flex><span>Depthwise Conv Latency
+</span></span><span style=display:flex><span>1×1 Conv Latency
+</span></span><span style=display:flex><span>整块 Inverted Residual Latency
+</span></span></code></pre></div><h3 id=83-倒残差为什么有利于内存>8.3 倒残差为什么有利于内存</h3><p>传统残差连接需要保留 Shortcut 输入，直到主分支计算完成。</p><p>如果 Shortcut 连接的是高维特征：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B,256,H,W]
+</span></span></code></pre></div><p>就必须长时间保留一个较大的 Tensor。</p><p>MobileNetV2 的 Shortcut 连接低维 Bottleneck：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[B,24,H,W]
+</span></span></code></pre></div><p>需要长期保留的 Tensor 更小。</p><p>论文 Table 3 在假设激活使用 16-bit 的情况下，对比了不同网络在各分辨率下需要物化的最大中间特征；其比较中 MobileNetV2 最大约为 400 KB，而 MobileNetV1 约为 1600 KB。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>112×112×64×2 Bytes
+</span></span><span style=display:flex><span>≈1.6 MB
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>112×112×16×2 Bytes
+</span></span><span style=display:flex><span>≈0.4 MB
+</span></span></code></pre></div><p>这正好对应：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>高维端点
+</span></span><span style=display:flex><span>与
+</span></span><span style=display:flex><span>低维 Bottleneck 端点
+</span></span></code></pre></div><h3 id=84-扩张层不是也很大吗>8.4 扩张层不是也很大吗</h3><p>是的。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 Bottleneck：16 通道
+</span></span><span style=display:flex><span>扩张倍率：6
+</span></span><span style=display:flex><span>内部特征：96 通道
+</span></span></code></pre></div><p>如果框架把完整的 96 通道 Tensor 全部保存下来，它会占用很大内存。</p><p>MobileNetV2 论文指出，由于内部操作包含逐通道变换，可以把高维中间 Tensor 分块计算并逐步累加，从而不需要一次完整物化全部扩张特征。</p><p>但是这依赖推理实现。</p><p>在普通训练框架中，可能仍然出现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Expand 输出完整写入内存
+</span></span><span style=display:flex><span>→ Depthwise 读取
+</span></span><span style=display:flex><span>→ 完整结果再次写入
+</span></span><span style=display:flex><span>→ Projection 再读取
+</span></span></code></pre></div><p>所以必须区分：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>结构理论上支持低内存
+</span></span><span style=display:flex><span>        与
+</span></span><span style=display:flex><span>当前编译器是否真的实现融合和分块
+</span></span></code></pre></div><h3 id=85-过度拆分也可能变慢>8.5 过度拆分也可能变慢</h3><p>论文还指出，把一次大的矩阵乘法拆成很多小矩阵乘法，虽然乘加次数不变，却可能因为 Cache Miss 增多而损害运行速度。论文建议分块数量保持为较小常数，在内存节省和高效矩阵计算之间折中。</p><p>这说明：</p><blockquote><p>轻量化不是把算子拆得越碎越好，而是要让算子形态符合芯片和编译器最擅长的执行方式。</p></blockquote><h2 id=9-一句话总结>9. 一句话总结</h2><p><strong>MobileNetV2 的核心不是单纯减少卷积，而是用 Depthwise Convolution 降低空间计算，用高维 Expansion 承载非线性特征提取，用 Linear Bottleneck 保存低维信息，再让 Residual Shortcut 只连接窄特征，从而同时控制计算量、信息损失和端侧内存开销。</strong></p><h1 id=tag-matplot-code>TAG: Matplot code</h1><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_memory_hierarchy_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+def add_box(ax, origin, size, facecolor, edgecolor, alpha=0.9):
+    x, y, z = origin
+    dx, dy, dz = size
+    vertices = [
+        (x, y, z), (x + dx, y, z), (x + dx, y + dy, z), (x, y + dy, z),
+        (x, y, z + dz), (x + dx, y, z + dz), (x + dx, y + dy, z + dz), (x, y + dy, z + dz),
+    ]
+    faces = [
+        [vertices[i] for i in [0, 1, 2, 3]],
+        [vertices[i] for i in [4, 5, 6, 7]],
+        [vertices[i] for i in [0, 1, 5, 4]],
+        [vertices[i] for i in [1, 2, 6, 5]],
+        [vertices[i] for i in [2, 3, 7, 6]],
+        [vertices[i] for i in [3, 0, 4, 7]],
+    ]
+    poly = Poly3DCollection(faces, facecolors=facecolor, edgecolors=edgecolor, linewidths=1.0, alpha=alpha)
+    ax.add_collection3d(poly)
+
+fig = plt.figure(figsize=(11, 7))
+ax = fig.add_subplot(111, projection=&#34;3d&#34;)
+
+blue_dark = &#34;#345995&#34;
+blue_mid = &#34;#5f83c2&#34;
+blue_light = &#34;#b8cae8&#34;
+red = &#34;#d95f59&#34;
+edge = &#34;#2f3e56&#34;
+
+levels = [
+    ((0.0, 0.0, 0.0), (8.0, 5.0, 0.8), blue_light),
+    ((1.2, 0.8, 1.7), (5.6, 3.4, 0.8), blue_mid),
+    ((2.5, 1.6, 3.4), (3.0, 1.8, 0.8), blue_dark),
+]
+
+for origin, size, color in levels:
+    add_box(ax, origin, size, color, edge, 0.92)
+
+ax.text2D(0.72, 0.64, &#34;Compute array&#34;, transform=ax.transAxes, fontsize=11, weight=&#34;bold&#34;)
+ax.text2D(0.72, 0.60, &#34;Multiply-accumulate units&#34;, transform=ax.transAxes, fontsize=8.5)
+ax.text2D(0.76, 0.48, &#34;Cache / SRAM&#34;, transform=ax.transAxes, fontsize=11, weight=&#34;bold&#34;)
+ax.text2D(0.76, 0.44, &#34;Small capacity, fast access&#34;, transform=ax.transAxes, fontsize=8.5)
+ax.text2D(0.80, 0.31, &#34;Main memory&#34;, transform=ax.transAxes, fontsize=11, weight=&#34;bold&#34;)
+ax.text2D(0.80, 0.27, &#34;Large capacity, high transfer cost&#34;, transform=ax.transAxes, fontsize=8.5)
+
+for start, end in [
+    ((4.0, 2.5, 0.85), (4.0, 2.5, 1.65)),
+    ((4.0, 2.5, 2.55), (4.0, 2.5, 3.35)),
+]:
+    sx, sy, sz = start
+    ex, ey, ez = end
+    ax.quiver(sx, sy, sz, ex - sx, ey - sy, ez - sz, color=red, linewidth=2.2, arrow_length_ratio=0.25)
+    ax.quiver(ex + 0.35, ey, ez, sx + 0.35 - ex, sy - ey, sz - ez, color=red, linewidth=1.4, arrow_length_ratio=0.25, alpha=0.75)
+
+for offset in [0.0, 0.55, 1.1]:
+    add_box(ax, (0.7 + offset, 0.55, 0.82), (0.4, 0.4, 0.35), red, edge, 0.85)
+for offset in [0.0, 0.55]:
+    add_box(ax, (2.0 + offset, 1.25, 2.52), (0.4, 0.4, 0.35), red, edge, 0.85)
+
+
+ax.set_xlim(-0.3, 11.0)
+ax.set_ylim(-0.3, 6.2)
+ax.set_zlim(0.0, 4.9)
+ax.view_init(elev=23, azim=-57)
+ax.set_title(&#34;Memory hierarchy behind mobile inference&#34;, pad=18, fontsize=15, weight=&#34;bold&#34;)
+ax.set_axis_off()
+
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_conv_factorization_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+def add_plate(ax, x, y, z, width, height, depth, color, edge, alpha=0.9):
+    vertices = [
+        (x, y, z), (x + depth, y, z), (x + depth, y + width, z), (x, y + width, z),
+        (x, y, z + height), (x + depth, y, z + height), (x + depth, y + width, z + height), (x, y + width, z + height),
+    ]
+    faces = [
+        [vertices[i] for i in [0, 1, 2, 3]],
+        [vertices[i] for i in [4, 5, 6, 7]],
+        [vertices[i] for i in [0, 1, 5, 4]],
+        [vertices[i] for i in [1, 2, 6, 5]],
+        [vertices[i] for i in [2, 3, 7, 6]],
+        [vertices[i] for i in [3, 0, 4, 7]],
+    ]
+    ax.add_collection3d(Poly3DCollection(faces, facecolors=color, edgecolors=edge, linewidths=0.8, alpha=alpha))
+
+def draw_stack(ax, x, count, color, y0=0.0, z0=0.0):
+    for c in range(count):
+        add_plate(ax, x, y0 + c * 0.17, z0 + c * 0.13, 2.6, 2.6, 0.10, color, &#34;#2f3e56&#34;, 0.82)
+
+def connect(ax, x0, y0, z0, x1, y1, z1, color, alpha=0.35, width=0.8):
+    ax.plot([x0, x1], [y0, y1], [z0, z1], color=color, alpha=alpha, linewidth=width)
+
+fig = plt.figure(figsize=(13, 6))
+blue = &#34;#4b74b8&#34;
+blue_light = &#34;#a8bfe3&#34;
+red = &#34;#d95f59&#34;
+edge = &#34;#2f3e56&#34;
+
+ax1 = fig.add_subplot(121, projection=&#34;3d&#34;)
+draw_stack(ax1, 0.0, 4, blue)
+draw_stack(ax1, 5.0, 4, blue_light)
+for i in range(4):
+    for j in range(4):
+        connect(ax1, 0.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 5.0, 1.3 + j * 0.17, 1.3 + j * 0.13, red, 0.24, 0.9)
+add_plate(ax1, 2.35, 1.1, 1.1, 0.8, 0.8, 0.28, red, edge, 0.9)
+ax1.text2D(0.05, 0.12, &#34;Input channels&#34;, transform=ax1.transAxes, fontsize=10, weight=&#34;bold&#34;)
+ax1.text2D(0.69, 0.12, &#34;Output channels&#34;, transform=ax1.transAxes, fontsize=10, weight=&#34;bold&#34;)
+ax1.set_title(&#34;Standard convolution&#34;, pad=12, fontsize=13, weight=&#34;bold&#34;)
+ax1.set_xlim(-0.5, 6.0)
+ax1.set_ylim(-0.3, 3.5)
+ax1.set_zlim(-0.9, 4.2)
+ax1.view_init(elev=22, azim=-58)
+ax1.set_axis_off()
+
+ax2 = fig.add_subplot(122, projection=&#34;3d&#34;)
+draw_stack(ax2, 0.0, 4, blue)
+draw_stack(ax2, 3.0, 4, blue)
+draw_stack(ax2, 6.0, 4, blue_light)
+for i in range(4):
+    connect(ax2, 0.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 3.0, 1.3 + i * 0.17, 1.3 + i * 0.13, red, 0.8, 1.3)
+for i in range(4):
+    for j in range(4):
+        connect(ax2, 3.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 6.0, 1.3 + j * 0.17, 1.3 + j * 0.13, red, 0.20, 0.8)
+add_plate(ax2, 1.3, 1.15, 1.15, 0.7, 0.7, 0.24, red, edge, 0.9)
+add_plate(ax2, 4.45, 1.15, 1.15, 0.7, 0.7, 0.24, red, edge, 0.9)
+ax2.text2D(0.02, 0.12, &#34;Input&#34;, transform=ax2.transAxes, fontsize=10, weight=&#34;bold&#34;)
+ax2.text2D(0.34, 0.12, &#34;Depthwise output&#34;, transform=ax2.transAxes, fontsize=10, weight=&#34;bold&#34;)
+ax2.text2D(0.70, 0.12, &#34;Pointwise output&#34;, transform=ax2.transAxes, fontsize=10, weight=&#34;bold&#34;)
+ax2.set_title(&#34;Depthwise separable convolution&#34;, pad=12, fontsize=13, weight=&#34;bold&#34;)
+ax2.set_xlim(-0.5, 7.0)
+ax2.set_ylim(-0.3, 3.5)
+ax2.set_zlim(-0.9, 4.2)
+ax2.view_init(elev=22, azim=-58)
+ax2.set_axis_off()
+
+fig.suptitle(&#34;Factorizing spatial filtering and channel mixing&#34;, fontsize=16, weight=&#34;bold&#34;, y=0.98)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_group_connectivity_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+channels = 8
+patterns = []
+
+dense = np.ones((channels, channels))
+patterns.append((&#34;Standard convolution&#34;, dense))
+
+grouped = np.zeros((channels, channels))
+grouped[:4, :4] = 1
+grouped[4:, 4:] = 1
+patterns.append((&#34;Group convolution, g=2&#34;, grouped))
+
+depthwise = np.eye(channels)
+patterns.append((&#34;Depthwise convolution&#34;, depthwise))
+
+fig = plt.figure(figsize=(14, 5))
+for index, (title, matrix) in enumerate(patterns, start=1):
+    ax = fig.add_subplot(1, 3, index, projection=&#34;3d&#34;)
+    xs, ys = np.meshgrid(np.arange(channels), np.arange(channels), indexing=&#34;ij&#34;)
+    active = matrix.ravel() &gt; 0
+    xpos = xs.ravel()[active]
+    ypos = ys.ravel()[active]
+    zpos = np.zeros_like(xpos, dtype=float)
+    dx = np.full_like(xpos, 0.72, dtype=float)
+    dy = np.full_like(ypos, 0.72, dtype=float)
+    dz = np.full_like(xpos, 1.0, dtype=float)
+    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color=&#34;#4b74b8&#34;, edgecolor=&#34;#2f3e56&#34;, alpha=0.9, shade=True)
+    ax.set_xlabel(&#34;Input channel&#34;, labelpad=8)
+    ax.set_ylabel(&#34;Output channel&#34;, labelpad=8)
+    ax.set_zlabel(&#34;Connection&#34;, labelpad=5)
+    ax.set_xticks(range(channels))
+    ax.set_yticks(range(channels))
+    ax.set_zticks([0, 1])
+    ax.set_zlim(0, 1.3)
+    ax.view_init(elev=32, azim=-52)
+    ax.set_title(title, pad=12, fontsize=12, weight=&#34;bold&#34;)
+    ax.grid(False)
+
+fig.suptitle(&#34;Channel connectivity becomes progressively sparse&#34;, fontsize=16, weight=&#34;bold&#34;, y=1.02)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_relu_manifold_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+rng = np.random.default_rng(7)
+t = np.linspace(0.15, 4.6 * np.pi, 500)
+radius = np.linspace(0.08, 1.0, t.size)
+source = np.vstack([radius * np.cos(t), radius * np.sin(t)])
+
+transform = np.array([
+    [1.05, -0.55],
+    [0.35, 1.15],
+    [-0.85, 0.45],
+])
+embedded = transform @ source
+activated = np.maximum(embedded, 0.0)
+recovered = np.linalg.pinv(transform) @ activated
+
+colors = t
+
+fig = plt.figure(figsize=(15, 5))
+
+ax1 = fig.add_subplot(131, projection=&#34;3d&#34;)
+ax1.scatter(source[0], source[1], np.zeros_like(t), c=colors, cmap=&#34;coolwarm&#34;, s=7)
+ax1.plot(source[0], source[1], np.zeros_like(t), color=&#34;#4b74b8&#34;, linewidth=1.2, alpha=0.7)
+ax1.set_title(&#34;Low-dimensional manifold&#34;, pad=12, fontsize=12, weight=&#34;bold&#34;)
+ax1.set_xlabel(&#34;Feature 1&#34;)
+ax1.set_ylabel(&#34;Feature 2&#34;)
+ax1.set_zlabel(&#34;&#34;)
+
+ax2 = fig.add_subplot(132, projection=&#34;3d&#34;)
+ax2.scatter(embedded[0], embedded[1], embedded[2], c=colors, cmap=&#34;coolwarm&#34;, s=7)
+ax2.plot(embedded[0], embedded[1], embedded[2], color=&#34;#4b74b8&#34;, linewidth=1.0, alpha=0.6)
+grid = np.linspace(-1.2, 1.2, 8)
+yy, zz = np.meshgrid(grid, grid)
+xx = np.zeros_like(yy)
+ax2.plot_surface(xx, yy, zz, color=&#34;#d95f59&#34;, alpha=0.10, linewidth=0)
+ax2.set_title(&#34;Embedded in a wider space&#34;, pad=12, fontsize=12, weight=&#34;bold&#34;)
+ax2.set_xlabel(&#34;Channel 1&#34;)
+ax2.set_ylabel(&#34;Channel 2&#34;)
+ax2.set_zlabel(&#34;Channel 3&#34;)
+
+ax3 = fig.add_subplot(133, projection=&#34;3d&#34;)
+ax3.scatter(recovered[0], recovered[1], np.zeros_like(t), c=colors, cmap=&#34;coolwarm&#34;, s=7)
+ax3.plot(recovered[0], recovered[1], np.zeros_like(t), color=&#34;#d95f59&#34;, linewidth=1.0, alpha=0.7)
+collapsed = np.sum(np.linalg.norm(np.diff(recovered, axis=1), axis=0) &lt; 1e-4)
+ax3.text(0.0, 0.0, 0.45, &#34;ReLU clips negative coordinates&#34;, ha=&#34;center&#34;, fontsize=9)
+ax3.set_title(&#34;Projected back after ReLU&#34;, pad=12, fontsize=12, weight=&#34;bold&#34;)
+ax3.set_xlabel(&#34;Recovered 1&#34;)
+ax3.set_ylabel(&#34;Recovered 2&#34;)
+ax3.set_zlabel(&#34;&#34;)
+
+for ax in [ax1, ax2, ax3]:
+    ax.view_init(elev=26, azim=-55)
+    ax.grid(False)
+
+fig.suptitle(&#34;Why narrow ReLU layers can collapse information&#34;, fontsize=16, weight=&#34;bold&#34;, y=1.02)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_block_evolution_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+def add_layer(ax, x, channels, color, linear=False):
+    depth = 0.35 + channels * 0.035
+    y = -depth / 2
+    z = -channels * 0.018
+    width = 0.22
+    height = 1.3 + channels * 0.028
+    vertices = [
+        (x, y, z), (x + width, y, z), (x + width, y + depth, z), (x, y + depth, z),
+        (x, y, z + height), (x + width, y, z + height), (x + width, y + depth, z + height), (x, y + depth, z + height),
+    ]
+    faces = [
+        [vertices[i] for i in [0, 1, 2, 3]],
+        [vertices[i] for i in [4, 5, 6, 7]],
+        [vertices[i] for i in [0, 1, 5, 4]],
+        [vertices[i] for i in [1, 2, 6, 5]],
+        [vertices[i] for i in [2, 3, 7, 6]],
+        [vertices[i] for i in [3, 0, 4, 7]],
+    ]
+    hatch = &#34;///&#34; if linear else None
+    poly = Poly3DCollection(faces, facecolors=color, edgecolors=&#34;#2f3e56&#34;, linewidths=0.9, alpha=0.88, hatch=hatch)
+    ax.add_collection3d(poly)
+    return x + width / 2, 0.0, z + height / 2
+
+def connect(ax, start, end, color=&#34;#d95f59&#34;):
+    sx, sy, sz = start
+    ex, ey, ez = end
+    ax.plot([sx, ex], [sy, ey], [sz, ez], color=color, linewidth=2.0, alpha=0.8)
+
+designs = [
+    (&#34;Regular&#34;, [64, 64], [False, False]),
+    (&#34;Separable&#34;, [64, 64, 64], [False, False, False]),
+    (&#34;Linear bottleneck&#34;, [64, 24, 64], [False, True, False]),
+    (&#34;Expansion block&#34;, [24, 144, 24], [True, False, True]),
+]
+
+fig = plt.figure(figsize=(13, 9))
+for idx, (title, channels, linear_flags) in enumerate(designs, start=1):
+    ax = fig.add_subplot(2, 2, idx, projection=&#34;3d&#34;)
+    points = []
+    xs = np.linspace(0.0, 4.5, len(channels))
+    for x, c, linear in zip(xs, channels, linear_flags):
+        color = &#34;#4b74b8&#34; if c &gt; 32 else &#34;#b8cae8&#34;
+        points.append(add_layer(ax, x, c, color, linear))
+    for p0, p1 in zip(points[:-1], points[1:]):
+        connect(ax, p0, p1)
+    for x, c in zip(xs, channels):
+        ax.text(x + 0.1, 0.0, 2.6, str(c) + &#34; ch&#34;, ha=&#34;center&#34;, fontsize=9)
+    ax.set_title(title, pad=10, fontsize=12, weight=&#34;bold&#34;)
+    ax.set_xlim(-0.5, 5.2)
+    ax.set_ylim(-3.2, 3.2)
+    ax.set_zlim(-1.0, 3.2)
+    ax.view_init(elev=22, azim=-58)
+    ax.set_axis_off()
+
+fig.suptitle(&#34;Evolution from regular convolution to an expansion bottleneck&#34;, fontsize=16, weight=&#34;bold&#34;, y=0.98)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_residual_comparison_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+def add_layer(ax, x, channels, color, linear=False):
+    depth = 0.55 + channels * 0.012
+    height = 1.4 + channels * 0.008
+    width = 0.28
+    y = -depth / 2
+    z = -height / 2
+    vertices = [
+        (x, y, z), (x + width, y, z), (x + width, y + depth, z), (x, y + depth, z),
+        (x, y, z + height), (x + width, y, z + height), (x + width, y + depth, z + height), (x, y + depth, z + height),
+    ]
+    faces = [
+        [vertices[i] for i in [0, 1, 2, 3]],
+        [vertices[i] for i in [4, 5, 6, 7]],
+        [vertices[i] for i in [0, 1, 5, 4]],
+        [vertices[i] for i in [1, 2, 6, 5]],
+        [vertices[i] for i in [2, 3, 7, 6]],
+        [vertices[i] for i in [3, 0, 4, 7]],
+    ]
+    poly = Poly3DCollection(
+        faces,
+        facecolors=color,
+        edgecolors=&#34;#2f3e56&#34;,
+        linewidths=0.9,
+        alpha=0.90,
+        hatch=&#34;///&#34; if linear else None,
+    )
+    ax.add_collection3d(poly)
+    return np.array([x + width / 2, 0.0, 0.0])
+
+def draw_skip(ax, start, end, lift, color):
+    t = np.linspace(0.0, 1.0, 120)
+    x = start[0] + (end[0] - start[0]) * t
+    y = np.full_like(t, -lift)
+    z = 4.0 * lift * t * (1.0 - t)
+    ax.plot(x, y, z, color=color, linewidth=2.2)
+    ax.quiver(x[-2], y[-2], z[-2], x[-1] - x[-2], y[-1] - y[-2], z[-1] - z[-2], color=color, arrow_length_ratio=0.5)
+
+def draw_block(ax, title, channels, inverted):
+    xs = [0.0, 2.2, 4.4]
+    points = []
+    for idx, (x, c) in enumerate(zip(xs, channels)):
+        linear = inverted and idx in [0, 2]
+        color = &#34;#b8cae8&#34; if c &lt;= 32 else &#34;#4b74b8&#34;
+        points.append(add_layer(ax, x, c, color, linear))
+        ax.text(x + 0.14, 0.0, 2.15, str(c) + &#34; ch&#34;, ha=&#34;center&#34;, fontsize=9)
+    for p0, p1 in zip(points[:-1], points[1:]):
+        ax.plot([p0[0], p1[0]], [0.0, 0.0], [0.0, 0.0], color=&#34;#d95f59&#34;, linewidth=2.0)
+    draw_skip(ax, points[0], points[-1], 2.1 if inverted else 3.0, &#34;#2f3e56&#34;)
+    ax.text(2.2, -2.5 if inverted else -3.4, 1.9, &#34;Shortcut&#34;, ha=&#34;center&#34;, fontsize=9)
+    ax.set_title(title, pad=12, fontsize=13, weight=&#34;bold&#34;)
+    ax.set_xlim(-0.6, 5.2)
+    ax.set_ylim(-4.2, 3.6)
+    ax.set_zlim(-2.2, 3.0)
+    ax.view_init(elev=23, azim=-58)
+    ax.set_axis_off()
+
+fig = plt.figure(figsize=(13, 6))
+ax1 = fig.add_subplot(121, projection=&#34;3d&#34;)
+draw_block(ax1, &#34;Classic residual bottleneck&#34;, [256, 64, 256], False)
+
+ax2 = fig.add_subplot(122, projection=&#34;3d&#34;)
+draw_block(ax2, &#34;MobileNetV2 inverted residual&#34;, [24, 144, 24], True)
+
+fig.suptitle(&#34;The shortcut moves from wide layers to thin bottlenecks&#34;, fontsize=16, weight=&#34;bold&#34;, y=0.98)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_compute_breakdown_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+height = 56
+width = 56
+cin = 24
+cout = 24
+kernel = 3
+ratios = np.array([1, 2, 4, 6, 8], dtype=int)
+stages = [&#34;Expand 1x1&#34;, &#34;Depthwise 3x3&#34;, &#34;Project 1x1&#34;]
+
+values = []
+for ratio in ratios:
+    hidden = cin * ratio
+    expand = height * width * cin * hidden / 1e6
+    depthwise = height * width * hidden * kernel * kernel / 1e6
+    project = height * width * hidden * cout / 1e6
+    values.append([expand, depthwise, project])
+values = np.array(values)
+
+fig = plt.figure(figsize=(11, 7))
+ax = fig.add_subplot(111, projection=&#34;3d&#34;)
+
+stage_colors = [&#34;#4b74b8&#34;, &#34;#d95f59&#34;, &#34;#9bb5dd&#34;]
+for x_index, ratio in enumerate(ratios):
+    for y_index, stage in enumerate(stages):
+        ax.bar3d(
+            x_index - 0.32,
+            y_index - 0.32,
+            0.0,
+            0.64,
+            0.64,
+            values[x_index, y_index],
+            color=stage_colors[y_index],
+            edgecolor=&#34;#2f3e56&#34;,
+            alpha=0.92,
+            shade=True,
+        )
+
+ax.set_xticks(np.arange(len(ratios)))
+ax.set_xticklabels([&#34;t=&#34; + str(v) for v in ratios])
+ax.set_yticks(np.arange(len(stages)))
+ax.set_yticklabels(stages)
+ax.set_zlabel(&#34;MAdds&#34;)
+ax.set_xlabel(&#34;Expansion ratio&#34;)
+ax.set_ylabel(&#34;Block stage&#34;)
+ax.set_title(&#34;Where MobileNetV2 block computation is spent&#34;, pad=18, fontsize=15, weight=&#34;bold&#34;)
+ax.view_init(elev=28, azim=-55)
+ax.grid(False)
+
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre><pre tabindex=0><code class=language-run-python data-lang=run-python>import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+save_path = Path(r&#34;D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_tensor_lifetime_3d.png&#34;)
+save_path.parent.mkdir(parents=True, exist_ok=True)
+
+def draw_lifetimes(ax, title, tensors):
+    colors = [&#34;#4b74b8&#34;, &#34;#9bb5dd&#34;, &#34;#d95f59&#34;, &#34;#b8cae8&#34;]
+    for idx, item in enumerate(tensors):
+        name, start, duration, memory = item
+        ax.bar3d(
+            start,
+            idx - 0.30,
+            0.0,
+            duration,
+            0.60,
+            memory,
+            color=colors[idx % len(colors)],
+            edgecolor=&#34;#2f3e56&#34;,
+            alpha=0.9,
+            shade=True,
+        )
+        ax.text(start + duration / 2, idx, memory + 0.08, str(memory) + &#34; MB&#34;, ha=&#34;center&#34;, fontsize=8)
+    ax.set_yticks(np.arange(len(tensors)))
+    ax.set_yticklabels([item[0] for item in tensors])
+    ax.set_xlabel(&#34;Execution stage&#34;)
+    ax.set_zlabel(&#34;Tensor size&#34;)
+    ax.set_xlim(0, 4.2)
+    ax.set_zlim(0, 2.8)
+    ax.set_title(title, pad=12, fontsize=12, weight=&#34;bold&#34;)
+    ax.view_init(elev=27, azim=-56)
+    ax.grid(False)
+
+classic = [
+    (&#34;Wide shortcut&#34;, 0.0, 4.0, 1.6),
+    (&#34;Reduced feature&#34;, 0.7, 1.2, 0.4),
+    (&#34;Spatial feature&#34;, 1.8, 1.2, 0.4),
+    (&#34;Expanded output&#34;, 2.9, 0.9, 1.6),
+]
+
+inverted = [
+    (&#34;Thin shortcut&#34;, 0.0, 4.0, 0.4),
+    (&#34;Expanded feature&#34;, 0.7, 1.0, 2.4),
+    (&#34;Depthwise feature&#34;, 1.7, 1.0, 2.4),
+    (&#34;Projected output&#34;, 2.8, 0.9, 0.4),
+]
+
+fig = plt.figure(figsize=(13, 6))
+ax1 = fig.add_subplot(121, projection=&#34;3d&#34;)
+draw_lifetimes(ax1, &#34;Classic residual tensor lifetime&#34;, classic)
+
+ax2 = fig.add_subplot(122, projection=&#34;3d&#34;)
+draw_lifetimes(ax2, &#34;Inverted residual tensor lifetime&#34;, inverted)
+
+fig.suptitle(&#34;Peak memory depends on tensor size and lifetime&#34;, fontsize=16, weight=&#34;bold&#34;, y=0.98)
+plt.savefig(save_path, dpi=180, bbox_inches=&#34;tight&#34;, facecolor=&#34;white&#34;)
+plt.close()
+print(&#34;OK&#34;)
+</code></pre></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

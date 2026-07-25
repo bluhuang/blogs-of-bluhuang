@@ -1,4 +1,33 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Coding on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/coding/</link><description>Recent content in Coding on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Tue, 02 Jun 2026 13:04:44 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/coding/index.xml" rel="self" type="application/rss+xml"/><item><title>背包问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Coding on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/categories/coding/</link><description>Recent content in Coding on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 25 Jul 2026 11:33:29 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/categories/coding/index.xml" rel="self" type="application/rss+xml"/><item><title>双指针解决去重排列组合问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/16-%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E5%86%B3%E5%8E%BB%E9%87%8D%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/16-%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E5%86%B3%E5%8E%BB%E9%87%8D%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="双指针解决去重排列组合问题"&gt;双指针解决去重排列组合问题&lt;/h1&gt;
+&lt;h2 id="一题型识别"&gt;一、题型识别&lt;/h2&gt;
+&lt;p&gt;这类题属于 &lt;strong&gt;“N 数之和”双指针题型&lt;/strong&gt;，核心特征是：&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;特征&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;说明&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;输入是&lt;strong&gt;无序数组&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;必须先排序&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;要求返回&lt;strong&gt;所有不重复的组合&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;code&gt;[a,b]&lt;/code&gt; 和 &lt;code&gt;[b,a]&lt;/code&gt; 视为同一个&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;组合&lt;strong&gt;顺序不重要&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;只关心元素集合，不关心排列顺序&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;暴力枚举会超时&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;必须用双指针压缩搜索空间&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;一句话识别&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>背包问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
 &lt;h2 id="1-核心区别"&gt;1. 核心区别&lt;/h2&gt;
 &lt;table&gt;
 	&lt;thead&gt;
@@ -128,19 +157,56 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h2 id="核心区分什么时候用什么"&gt;核心区分：什么时候用什么？&lt;/h2&gt;
+&lt;p&gt;只需看一个关键问题：&lt;/p&gt;
+&lt;h3 id="题目是否需要频繁判断任意区间-"&gt;&lt;strong&gt;题目是否需要“频繁判断任意区间 [i, j] 是否为回文”？&lt;/strong&gt;&lt;/h3&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;情况&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;用什么&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;为什么&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;只需要找最长的那个&lt;/strong&gt;（LeetCode 5）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;中心扩展法&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;不需要预处理所有区间，边扩展边记录最大值即可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;只需要统计个数&lt;/strong&gt;（LeetCode 647）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;中心扩展法&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;扩展过程中顺便计数，O(1) 空间&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;需要反复判断不同区间&lt;/strong&gt;（如回溯、DP 转移中频繁查表）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;二维 DP 预处理&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;一次性算出所有 &lt;code&gt;dp[i][j]&lt;/code&gt;，后续 O(1) 查询&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="具体判断流程"&gt;具体判断流程&lt;/h3&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;题目要求什么？
+├── 输出一个值（最长子串长度/位置、计数）
+│ └── 用「中心扩展法」
+│ 例题：5. 最长回文子串、647. 回文子串计数
+│
+├── 输出所有方案（所有分割方式）
+│ └── 用「回溯 + 二维 DP 预处理」
+│ 例题：131. 分割回文串
+│
+├── 求最少分割次数
+│ └── 用「一维 DP + 二维 DP 预处理」
+│ 例题：132. 分割回文串 II
+│
+└── 子序列问题（不连续）
+ └── 用「区间 DP」（不是中心扩展，因为子序列不连续）
+ 例题：516. 最长回文子序列
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别与核心特征"&gt;一、题型识别与核心特征&lt;/h2&gt;
-&lt;p&gt;LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;回文串&lt;/strong&gt;：正着读和倒着读一样的字符串。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;问题类型通常分为三类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;验证/计数型&lt;/strong&gt;：判断是否是回文、统计回文子串数量。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;构造/分割型&lt;/strong&gt;：分割出所有回文子串（回溯）、最少分割次数（DP）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;最长/极值型&lt;/strong&gt;：找最长的回文子串。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;所有问题的根基都是&lt;strong&gt;如何高效判断一个子串是回文&lt;/strong&gt;。一旦你熟练掌握了子串回文的判断，所有问题无非是在此基础上&lt;strong&gt;遍历、计数、分割或求极值&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>括号问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
+&lt;p&gt;LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p&gt;</description></item><item><title>括号问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
 &lt;h2 id="一leetcode-32-最长有效括号--栈解法精要"&gt;一、LeetCode 32 最长有效括号 — 栈解法精要&lt;/h2&gt;
 &lt;h3 id="1-题目与题型"&gt;1. 题目与题型&lt;/h3&gt;
 &lt;ul&gt;

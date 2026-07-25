@@ -1,0 +1,1752 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/><title>U-Net - Convolutional Networks for Biomedical Image Segmentation</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="U-Net - Convolutional Networks for Biomedical Image Segmentation"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/"><meta name=twitter:title content="U-Net - Convolutional Networks for Biomedical Image Segmentation"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-paper/ class="flex-1 hover:underline truncate font-medium">0 Paper</a>
+<span class="text-xs text-text-light ml-1.5">(4)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-paper/cv/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+CV
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+5 ISP与图像处理
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+7 模型训练
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li><li><a href=/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+6 AI去噪
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(18)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">U-Net - Convolutional Networks for Biomedical Image Segmentation</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年7月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-论文信息>1. 论文信息</a></li><li><a href=#2-u-net-要解决什么问题>2. U-Net 要解决什么问题</a><ol><li><a href=#21-什么是图像分割>2.1 什么是图像分割</a></li><li><a href=#22-图像分割的核心矛盾>2.2 图像分割的核心矛盾</a></li><li><a href=#23-早期的-sliding-window-方法>2.3 早期的 Sliding Window 方法</a></li></ol></li><li><a href=#3-u-net-的整体结构>3. U-Net 的整体结构</a><ol><li><a href=#31-contracting-path收缩路径>3.1 Contracting Path（收缩路径）</a></li><li><a href=#32-expansive-path扩张路径>3.2 Expansive Path（扩张路径）</a></li><li><a href=#33-bottleneck瓶颈层>3.3 Bottleneck（瓶颈层）</a></li><li><a href=#34-skip-connection跳跃连接>3.4 Skip Connection（跳跃连接）</a></li><li><a href=#35-四个部分如何协同工作>3.5 四个部分如何协同工作</a></li></ol></li><li><a href=#4-contracting-path怎样获得上下文>4. Contracting Path：怎样获得上下文</a><ol><li><a href=#41-一个下采样阶段的结构>4.1 一个下采样阶段的结构</a></li><li><a href=#42-relu>4.2 ReLU</a></li><li><a href=#43-max-pooling>4.3 Max Pooling</a></li><li><a href=#44-为什么下采样后通道加倍>4.4 为什么下采样后通道加倍</a></li></ol></li><li><a href=#5-expansive-path-与-skip-connection>5. Expansive Path 与 Skip Connection</a><ol><li><a href=#51-一个上采样阶段的结构>5.1 一个上采样阶段的结构</a></li><li><a href=#52-up-convolution上卷积也叫转置卷积>5.2 Up-Convolution（<strong>上卷积，也叫转置卷积</strong>）</a></li><li><a href=#53-skip-connection-为什么重要>5.3 Skip Connection 为什么重要</a></li><li><a href=#54-u-net-的-skip-与-resnet-不同>5.4 U-Net 的 Skip 与 ResNet 不同</a></li><li><a href=#55-一个完整上采样阶段的尺寸>5.5 一个完整上采样阶段的尺寸</a></li></ol></li><li><a href=#6-为什么需要-crop原始-u-net-的尺寸变化>6. 为什么需要 Crop：原始 U-Net 的尺寸变化</a><ol><li><a href=#61-valid-convolution>6.1 Valid Convolution</a></li><li><a href=#62-为什么-encoder-特征要裁剪>6.2 为什么 Encoder 特征要裁剪</a></li><li><a href=#63-输入为什么是-572输出却是-388>6.3 输入为什么是 572，输出却是 388</a></li><li><a href=#64-overlap-tile-strategy>6.4 Overlap-Tile Strategy</a></li></ol></li><li><a href=#7-训练目标逐像素分类与边界加权>7. 训练目标：逐像素分类与边界加权</a><ol><li><a href=#71-pixel-wise-softmax>7.1 Pixel-Wise Softmax</a></li><li><a href=#72-pixel-wise-cross-entropy>7.2 Pixel-Wise Cross Entropy</a></li><li><a href=#73-为什么需要-weight-map>7.3 为什么需要 Weight Map</a></li><li><a href=#74-边界权重怎么算>7.4 边界权重怎么算</a></li><li><a href=#75-为什么使用-d_1d_2>7.5 为什么使用 $d_1+d_2$</a></li></ol></li><li><a href=#8-少样本训练elastic-deformation>8. 少样本训练：Elastic Deformation</a><ol><li><a href=#81-为什么普通增强不够>8.1 为什么普通增强不够</a></li><li><a href=#82-什么是-elastic-deformation>8.2 什么是 Elastic Deformation</a></li><li><a href=#83-权重初始化>8.3 权重初始化</a></li><li><a href=#84-训练设置只需记住的结论>8.4 训练设置只需记住的结论</a></li><li><a href=#85-实验结论>8.5 实验结论</a></li></ol></li><li><a href=#9-从结构到代码>9. 从结构到代码</a><ol><li><a href=#91-两次-valid-convolution>9.1 两次 Valid Convolution</a></li><li><a href=#92-下采样模块>9.2 下采样模块</a></li><li><a href=#93-中心裁剪>9.3 中心裁剪</a></li><li><a href=#94-上采样模块>9.4 上采样模块</a></li><li><a href=#95-完整-u-net>9.5 完整 U-Net</a></li><li><a href=#96-代码中的概念对应关系>9.6 代码中的概念对应关系</a></li></ol></li><li><a href=#10-一句话总结>10. 一句话总结</a></li></ol></nav></details><h1 id=u-net-convolutional-networks-for-biomedical-image-segmentation>U-Net: Convolutional Networks for Biomedical Image Segmentation</h1><h2 id=1-论文信息>1. 论文信息</h2><p><strong>论文标题</strong>：U-Net: Convolutional Networks for Biomedical Image Segmentation</p><p><strong>作者</strong>：Olaf Ronneberger, Philipp Fischer, Thomas Brox</p><p><strong>会议</strong>：MICCAI 2015</p><p>这篇论文提出了 <strong>U-Net</strong>，核心目标不是设计一个通用的分割网络，而是解决：</p><blockquote><p>在生物医学图像分割中，标注样本极其有限（通常只有几十张），如何设计一个网络结构和训练策略，能够在小样本条件下实现精确的像素级分割。</p></blockquote><p>U-Net 在 2015 年 ISBI 细胞追踪挑战赛中获胜，并在电子显微镜堆栈的神经元结构分割任务中超越了当时的最佳方法。</p><h2 id=2-u-net-要解决什么问题>2. U-Net 要解决什么问题</h2><h3 id=21-什么是图像分割>2.1 什么是图像分割</h3><p><strong>Image Segmentation，图像分割</strong>：给图像中的每一个像素分配类别。</p><p>例如一张显微镜细胞图像：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入：显微镜灰度图像
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>输出：
+</span></span><span style=display:flex><span>像素属于细胞     → 类别 1
+</span></span><span style=display:flex><span>像素属于背景     → 类别 0
+</span></span></code></pre></div><p>它与图像分类的区别是：</p><table><thead><tr><th>任务</th><th>输入</th><th>输出</th></tr></thead><tbody><tr><td>图像分类</td><td>一张图像</td><td>一个类别</td></tr><tr><td>图像分割</td><td>一张图像</td><td>与图像空间对应的像素分类图</td></tr></tbody></table><pre class=mermaid>
+flowchart LR
+    A["输入图像<br>H×W"] --> B["卷积网络"]
+    B --> C["每个像素的类别概率<br>K×H×W"]
+    C --> D["分割结果<br>H×W"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=22-图像分割的核心矛盾>2.2 图像分割的核心矛盾</h3><p>分割任务面临一个根本性的矛盾：</p><ul><li><strong>需要上下文（Context）</strong>：要知道一个像素属于什么物体，必须看它周围更大范围的信息</li><li><strong>需要精确定位（Localization）</strong>：要知道物体的精确边界在哪里，必须保留高分辨率空间信息</li></ul><p>这两个需求是相互冲突的：</p><ul><li>看更大的范围 → 需要更多的下采样 → 空间信息丢失更多 → 定位变差</li><li>保留更多细节 → 减少下采样 → 感受野变小 → 上下文理解不足</li></ul><h3 id=23-早期的-sliding-window-方法>2.3 早期的 Sliding Window 方法</h3><p>在 U-Net 之前，一种常见做法是 <strong>Sliding Window，滑动窗口</strong>：</p><ol><li>以某个像素为中心截取一个局部图像块</li><li>将图像块输入分类网络</li><li>预测中心像素的类别</li><li>对所有像素重复执行</li></ol><pre class=mermaid>
+flowchart LR
+    A["完整图像"] --> B["截取像素周围 Patch"]
+    B --> C["卷积网络"]
+    C --> D["预测中心像素"]
+    D --> E["移动窗口"]
+    E --> B
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>这种方法存在两个问题：</p><p><strong>问题一：速度极慢</strong>
+相邻像素的 Patch 大量重叠，网络会重复计算相同区域。一个 512×512 的图像如果逐像素滑动，需要运行 26 万次网络前向传播。</p><p><strong>问题二：上下文与定位的矛盾无法调和</strong></p><ul><li>Patch 较大：能看到更多上下文，但需要更多池化 → 空间定位变差</li><li>Patch 较小：定位相对准确，但看不到足够的上下文 → 容易误判</li></ul><p>U-Net 不再逐像素运行网络，而是一次输入一个较大的图像区域，直接输出整块区域的分割结果，从根本上绕过了滑动窗口的效率问题。</p><h2 id=3-u-net-的整体结构>3. U-Net 的整体结构</h2><p>U-Net 之所以叫 U-Net，是因为它的网络结构画出来像一个大写的字母 <strong>U</strong>——左侧向下走（收缩），底部横穿，右侧向上走（扩张）。</p><p>整体结构可以分成四个相互依赖的部分，它们共同完成了"看懂图像 → 精确分割每个像素"的任务：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>U-Net
+</span></span><span style=display:flex><span>├── Contracting Path（收缩路径）：不断下采样，看懂&#34;图像里有什么&#34;
+</span></span><span style=display:flex><span>├── Bottleneck（瓶颈层）：最底部，语义最丰富、分辨率最低
+</span></span><span style=display:flex><span>├── Expansive Path（扩张路径）：不断上采样，恢复&#34;每个像素在哪&#34;
+</span></span><span style=display:flex><span>└── Skip Connection（跳跃连接）：把收缩路径的细节直接传给扩张路径
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["输入图像"] --> B["下采样层 1<br>高分辨率、低语义"]
+    B --> C["下采样层 2"]
+    C --> D["下采样层 3"]
+    D --> E["Bottleneck<br>低分辨率、强上下文"]
+    E --> F["上采样层 3"]
+    F --> G["上采样层 2"]
+    G --> H["上采样层 1"]
+    H --> I["逐像素分类"]
+
+    B -.-> J["Copy and Crop"] --> H
+    C -.-> K["Copy and Crop"] --> G
+    D -.-> L["Copy and Crop"] --> F
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>图中的 <strong>Copy and Crop</strong> 就是跳跃连接的具体操作：把左侧高分辨率特征图复制一份，裁剪到与右侧上采样层相同尺寸，然后拼接在一起。</p><h3 id=31-contracting-path收缩路径>3.1 Contracting Path（收缩路径）</h3><p><strong>Contracting Path 是什么？</strong></p><p>Contracting Path 是 U-Net 的左侧部分，从输入图像开始，逐层向下。它的名字叫"收缩路径"，因为每一层都在<strong>压缩特征图的空间尺寸</strong>。</p><p><strong>每一层做什么？</strong></p><p>每一层由两个操作组成：</p><ol><li><strong>两个 3×3 卷积</strong>：提取特征</li><li><strong>一个 2×2 最大池化（步长=2）</strong>：缩小特征图</li></ol><p><strong>尺寸变化规律：</strong></p><p>每次经过池化，特征图的<strong>高度和宽度减半</strong>；每次经过池化后的卷积，<strong>通道数翻倍</strong>。</p><blockquote><p>池化负责"让高度和宽度减半"，卷积层负责"让通道数翻倍"。两者配合，构成每个下采样阶段的完整变化。</p></blockquote><p><strong>池化（Max Pooling）是什么？</strong></p><p>池化是一种下采样操作，在特征图上滑动一个窗口，从每个窗口里<strong>只保留最大的那个值</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始 4×4 区域：                   池化后 2×2 区域：
+</span></span><span style=display:flex><span> 1  3  2  4                       3  4
+</span></span><span style=display:flex><span> 0  5  1  2        ──────&gt;        6  9
+</span></span><span style=display:flex><span> 4  6  8  9
+</span></span><span style=display:flex><span> 7  2  0  1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>每个 2×2 块取最大值，尺寸减半
+</span></span></code></pre></div><p><strong>为什么用最大池化，而不是平均池化？</strong></p><p>最大池化保留的是<strong>最强烈的激活信号</strong>，它告诉网络：&ldquo;在这个局部区域里，最能代表某种特征的值是什么&rdquo;。这个特性更有利于保持特征的<strong>位置不变性</strong>。</p><p><strong>卷积层是怎么让通道数翻倍的？</strong></p><p>卷积层的输出通道数<strong>等于该层使用的卷积核的个数</strong>。</p><ul><li>输入是 64 个通道 → 用 128 个卷积核（每个卷积核深度=64）→ 输出 128 个通道</li><li><code>out_channels = in_channels × 2</code> 是设计者写死在代码里的</li></ul><p>所以"通道数翻倍"是设计者的选择，不是卷积运算自动产生的。</p><p><strong>为什么要这样设计？</strong></p><table><thead><tr><th>变化</th><th>效果</th></tr></thead><tbody><tr><td>尺寸减半</td><td>每个像素对应的原始图像范围扩大（感受野变大），能理解更大的上下文</td></tr><tr><td>通道翻倍</td><td>空间信息少了，用更多的"特征种类"来补偿表达能力</td></tr></tbody></table><p>低层特征图大、通道少 → 负责局部细节；深层特征图小、通道多 → 负责全局语义。通道数随深度增加而增加，是深度网络的一个常见设计模式。</p><h3 id=32-expansive-path扩张路径>3.2 Expansive Path（扩张路径）</h3><p><strong>Expansive Path 是什么？</strong></p><p>Expansive Path 是 U-Net 的右侧部分，从底部的瓶颈层开始，逐层向上。它的名字叫"扩张路径"，因为每一层都在<strong>放大特征图的空间尺寸</strong>。</p><p><strong>每一层做什么？</strong></p><p>每一层由两个操作组成：</p><ol><li><strong>一个 2×2 转置卷积</strong>：放大特征图的尺寸</li><li><strong>两个 3×3 卷积</strong>：提取并精炼特征</li></ol><p><strong>尺寸变化规律：</strong></p><p>每次上采样，特征图的<strong>高度和宽度翻倍</strong>，<strong>通道数减半</strong>。</p><blockquote><p>转置卷积负责"让高度和宽度翻倍"，后面的 3×3 卷积负责"让通道数减半"。这和收缩路径正好相反。</p></blockquote><p><strong>转置卷积（Transposed Convolution）是什么？</strong></p><p>转置卷积是一种通过卷积操作来<strong>放大</strong>特征图尺寸的方法。</p><p><strong>第一步：先理解普通卷积的输出尺寸</strong></p><p>普通卷积（stride=1, padding=0, kernel_size=2）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 2×2：        卷积核 2×2：
+</span></span><span style=display:flex><span> 1  2              a  b
+</span></span><span style=display:flex><span> 3  4              c  d
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>卷积运算：核在输入上滑动，每个位置做逐元素相乘后求和
+</span></span><span style=display:flex><span>输出：1×1（单个标量）
+</span></span></code></pre></div><p>普通卷积把 4 个输入值"浓缩"成了 1 个输出值，<strong>空间尺寸减小了</strong>。</p><p><strong>第二步：转置卷积反过来做</strong></p><p>转置卷积的意图是：用 1 个输入值，生成 4 个输出值。</p><p>操作方式：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 2×2：                转置卷积后输出 4×4：
+</span></span><span style=display:flex><span> 1  2                     1  0  2  0
+</span></span><span style=display:flex><span> 3  4        ──────&gt;      0  0  0  0
+</span></span><span style=display:flex><span>                           3  0  4  0
+</span></span><span style=display:flex><span>                           0  0  0  0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Step 1：把每个输入值放在对应位置，周围插入零（stride=2）
+</span></span><span style=display:flex><span>Step 2：用卷积核处理这个稀疏矩阵，得到输出
+</span></span></code></pre></div><p>U-Net 的 2×2 转置卷积，就是把 2×2 的特征图放大到 4×4。具体来说：每个输入像素在输出中占据 2×2 区域，输入像素之间的位置用零填充，然后用可学习的卷积核处理整个矩阵，把零填充的位置"填上"有意义的值。网络在训练中学习"怎么填"。</p><p><strong>转置卷积是普通卷积的"反向"吗？</strong></p><p><strong>不是数学上的逆运算，而是尺寸上的反向关系。</strong></p><table><thead><tr><th>对比</th><th>普通卷积</th><th>转置卷积</th></tr></thead><tbody><tr><td>输入尺寸</td><td>4×4</td><td>2×2</td></tr><tr><td>输出尺寸</td><td>2×2</td><td>4×4</td></tr><tr><td>尺寸变化</td><td>缩小</td><td>放大</td></tr><tr><td>可学习参数</td><td>有（卷积核权重）</td><td>有（卷积核权重）</td></tr></tbody></table><p>转置卷积也有可训练的参数，网络会自己学习如何最有效地放大特征图。</p><p><strong>为什么不用简单的插值（如双线性插值）做上采样？</strong></p><p>双线性插值用固定公式计算新像素值，不涉及训练。它的问题在于：<strong>上采样时丢失的细节无法靠固定插值恢复</strong>。</p><p>转置卷积的优势是<strong>可学习的</strong>。网络可以根据任务需要，学会如何最优地填充放大后的像素值，而不是用固定的插值公式。当然，转置卷积也有缺点——可能产生棋盘格伪影，但 U-Net 配合跳跃连接可以有效缓解这个问题。</p><p><strong>上采样后为什么通道数减半？</strong></p><p>和收缩路径的"通道翻倍"对称——特征图尺寸变大（细节增多），不再需要那么多"特征种类"来描述，所以逐层减半。</p><h3 id=33-bottleneck瓶颈层>3.3 Bottleneck（瓶颈层）</h3><p><strong>Bottleneck 是什么？</strong></p><p>Bottleneck 是连接收缩路径和扩张路径的<strong>最底部</strong>，也是整个网络中分辨率最低、语义最丰富的一层。</p><p>在 U-Net 中，瓶颈层是：</p><ul><li>分辨率最低（32×32）</li><li>通道数最高（1024）</li><li>感受野最大（能看到整张图）</li></ul><p><strong>它回答什么问题？</strong></p><p>&ldquo;在理解了整张图像之后，综合判断每个区域属于什么。&rdquo;</p><p>这时候，网络已经看过了整张图，对全局上下文有了完整理解。瓶颈层就是这个"理解"的压缩表达。</p><p><strong>U-Net 的 Bottleneck 与 ResNet 的 Bottleneck 不是一回事</strong></p><table><thead><tr><th>对比项</th><th>U-Net 的 Bottleneck</th><th>ResNet 的 Bottleneck Block</th></tr></thead><tbody><tr><td>位置</td><td>收缩路径和扩张路径的连接处</td><td>网络内部的某个残差块</td></tr><tr><td>结构</td><td>两个 3×3 卷积</td><td>1×1 → 3×3 → 1×1</td></tr><tr><td>作用</td><td>作为<strong>语义信息的"压缩包"</strong>，在最低分辨率下提炼最强的全局上下文，供解码器恢复定位</td><td>在<strong>不爆炸计算量</strong>的前提下<strong>堆叠更深网络</strong>，通过降维让 3×3 卷积在低维空间高效提取特征，再升维恢复通道</td></tr></tbody></table><p>U-Net 的 Bottleneck 是<strong>一个位置</strong>（U 形底部的"连接点"），ResNet 的 Bottleneck 是<strong>一种结构</strong>（通道压缩的残差块）。两者都叫 Bottleneck，但含义完全不同。</p><h3 id=34-skip-connection跳跃连接>3.4 Skip Connection（跳跃连接）</h3><p><strong>Skip Connection 是什么？</strong></p><p>Skip Connection 是<strong>从收缩路径直接连接到扩张路径对应层的 shortcut</strong>。</p><p>在 U-Net 中，每一层下采样层都有一条线连接到对应层的上采样层。</p><p><strong>它回答什么问题？</strong></p><p>&ldquo;如何把下采样中丢失的空间细节补回来？&rdquo;</p><p><strong>它怎么做？</strong></p><p>在 U-Net 中，跳跃连接的操作是 <strong>Copy and Crop</strong>：</p><ol><li><strong>Copy</strong>：复制收缩路径对应层的特征图</li><li><strong>Crop</strong>：裁剪到与上采样层相同的尺寸</li><li><strong>Concatenate</strong>：在通道维度上拼接</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>上采样层特征图：64×64×512
+</span></span><span style=display:flex><span>跳跃连接特征图：64×64×512（从编码器复制）
+</span></span><span style=display:flex><span>        │
+</span></span><span style=display:flex><span>        ▼ 拼接（Concatenate）
+</span></span><span style=display:flex><span>64×64×1024（通道数翻倍）
+</span></span><span style=display:flex><span>        │
+</span></span><span style=display:flex><span>        ▼ 两个 3×3 卷积
+</span></span><span style=display:flex><span>64×64×512
+</span></span></code></pre></div><p><strong>为什么需要跳跃连接？</strong></p><p>编码器在层层下采样中丢失了空间细节（边缘、纹理、精确位置）。解码器仅靠上采样无法恢复这些丢失的信息。</p><p>跳跃连接的作用是：</p><blockquote><p>把编码器保留的高分辨率细节直接传递给解码器，让解码器在做像素级分类时既有"语义上下文"（来自深层），又有"精确位置"（来自浅层）。</p></blockquote><p><strong>为什么是拼接（Concatenate）而不是相加（Add）？</strong></p><p>拼接不改变每个信息源的内容，只把它们并列在一起，让网络自己决定怎么用；相加会把信息混合，可能互相干扰。U-Net 需要同时保留高分辨率细节和高层语义，拼接更合适。</p><h3 id=35-四个部分如何协同工作>3.5 四个部分如何协同工作</h3><pre class=mermaid>
+flowchart LR
+    subgraph A["收缩路径"]
+        A1["逐步压缩<br>理解上下文"]
+    end
+    A --> B["Bottleneck<br>压缩语义<br>全局理解"]
+    B --> C["扩张路径"]
+    C --> D["输出分割"]
+
+    A -.->|"跳跃连接<br>传递细节"| C
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p><strong>一句话串起整个流程：</strong></p><blockquote><p><strong>收缩路径用池化不断压缩空间尺寸、扩大感受野，看懂"图像里有什么"；瓶颈层把全局理解压缩成最浓缩的特征；扩张路径用转置卷积逐步恢复分辨率，同时通过跳跃连接把收缩路径保留的细节补回来，最终逐像素决定"每个点属于什么"。</strong></p></blockquote><h2 id=4-contracting-path怎样获得上下文>4. Contracting Path：怎样获得上下文</h2><h3 id=41-一个下采样阶段的结构>4.1 一个下采样阶段的结构</h3><p>原始 U-Net 的每个下采样阶段包含：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>3×3 Conv
+</span></span><span style=display:flex><span>→ ReLU
+</span></span><span style=display:flex><span>→ 3×3 Conv
+</span></span><span style=display:flex><span>→ ReLU
+</span></span><span style=display:flex><span>→ 2×2 Max Pooling，stride=2
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["输入特征"] --> B["3×3 Conv"]
+    B --> C["ReLU"]
+    C --> D["3×3 Conv"]
+    D --> E["ReLU"]
+    E --> F["2×2 Max Pool<br>stride=2"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=42-relu>4.2 ReLU</h3><p><strong>ReLU，Rectified Linear Unit，线性整流函数</strong>：</p><p>$$ \operatorname{ReLU}(x)=\max(0,x) $$</p><p>它将负数变成 0，正数保持不变，为网络引入非线性。</p><pre class=mermaid>
+xychart-beta
+    title "ReLU 函数"
+    x-axis "x" [-3, -2, -1, 0, 1, 2, 3]
+    y-axis "ReLU(x)" 0 --> 3
+    line [0, 0, 0, 0, 1, 2, 3]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>对应代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>x <span style=color:#f92672>=</span> convolution(x)
+</span></span><span style=display:flex><span>x <span style=color:#f92672>=</span> torch<span style=color:#f92672>.</span>relu(x)
+</span></span></code></pre></div><h3 id=43-max-pooling>4.3 Max Pooling</h3><p><strong>Max Pooling，最大池化</strong>：在每个局部窗口中保留最大值。</p><p>原论文使用：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>pool <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>MaxPool2d(
+</span></span><span style=display:flex><span>    kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>    stride<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div><p>空间尺寸减半：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>568×568
+</span></span><span style=display:flex><span>   ↓
+</span></span><span style=display:flex><span>284×284
+</span></span></code></pre></div><p>池化的主要作用不是简单删除像素，而是：</p><ul><li>降低特征图空间尺寸</li><li>使后续卷积覆盖更大的输入区域</li><li>逐步聚合更大范围的上下文信息</li></ul><h3 id=44-为什么下采样后通道加倍>4.4 为什么下采样后通道加倍</h3><p>原论文每下采样一次，特征通道数加倍：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>64 → 128 → 256 → 512 → 1024
+</span></span></code></pre></div><p>空间尺寸减少后，每个特征位置需要描述更复杂、更大范围的结构，因此使用更多通道承载不同类型的特征。</p><p>原始 U-Net 左侧尺寸变化如下：</p><table><thead><tr><th>阶段</th><th>两次卷积后尺寸</th><th>通道数</th><th>池化后尺寸</th></tr></thead><tbody><tr><td>输入</td><td>572×572</td><td>1</td><td>—</td></tr><tr><td>Level 1</td><td>568×568</td><td>64</td><td>284×284</td></tr><tr><td>Level 2</td><td>280×280</td><td>128</td><td>140×140</td></tr><tr><td>Level 3</td><td>136×136</td><td>256</td><td>68×68</td></tr><tr><td>Level 4</td><td>64×64</td><td>512</td><td>32×32</td></tr><tr><td>Bottleneck</td><td>28×28</td><td>1024</td><td>—</td></tr></tbody></table><p>每一级都使用两个不带 Padding 的 3×3 卷积，然后使用 2×2 最大池化。</p><h2 id=5-expansive-path-与-skip-connection>5. Expansive Path 与 Skip Connection</h2><h3 id=51-一个上采样阶段的结构>5.1 一个上采样阶段的结构</h3><p>原始 U-Net 的一个上采样阶段包含：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>上采样
+</span></span><span style=display:flex><span>→ 2×2 Up-Convolution
+</span></span><span style=display:flex><span>→ 通道减半
+</span></span><span style=display:flex><span>→ 与 Encoder 特征拼接
+</span></span><span style=display:flex><span>→ 3×3 Conv + ReLU
+</span></span><span style=display:flex><span>→ 3×3 Conv + ReLU
+</span></span></code></pre></div><pre class=mermaid>
+flowchart LR
+    A["低分辨率 Decoder 特征"] --> B["2×2 Up-Conv<br>尺寸扩大、通道减半"]
+    B --> C["Concat"]
+    D["对应 Encoder 特征"] --> E["Crop"]
+    E --> C
+    C --> F["3×3 Conv + ReLU"]
+    F --> G["3×3 Conv + ReLU"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=52-up-convolution上卷积也叫转置卷积>5.2 Up-Convolution（<strong>上卷积，也叫转置卷积</strong>）</h3><p><strong>Up-Convolution，转置卷积</strong>：原论文中用于扩大特征图空间尺寸并减少通道数。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入：1024×28×28
+</span></span><span style=display:flex><span>   ↓ 2×2 Up-Convolution
+</span></span><span style=display:flex><span>输出：512×56×56
+</span></span></code></pre></div><h3 id=53-skip-connection-为什么重要>5.3 Skip Connection 为什么重要</h3><p>下采样路径中的深层特征拥有较强的上下文信息，但空间尺寸较小。</p><p>浅层特征拥有：</p><ul><li>边缘</li><li>局部形状</li><li>精确空间位置</li></ul><p>如果 Decoder 只依赖最低分辨率特征逐步上采样，可能知道"这里存在一个细胞"，但无法准确恢复细胞边界。</p><p>因此 U-Net 将同一尺度的 Encoder 特征直接传给 Decoder：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Decoder 上采样特征
+</span></span><span style=display:flex><span>    +
+</span></span><span style=display:flex><span>Encoder 高分辨率特征
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>在通道维度拼接
+</span></span><span style=display:flex><span>    ↓
+</span></span><span style=display:flex><span>同时获得上下文与定位信息
+</span></span></code></pre></div><h3 id=54-u-net-的-skip-与-resnet-不同>5.4 U-Net 的 Skip 与 ResNet 不同</h3><p>U-Net 与 ResNet 都有跨层连接，但作用和合并方式不同。</p><table><thead><tr><th>对比项</th><th>U-Net</th><th>ResNet</th></tr></thead><tbody><tr><td>主要目的</td><td>恢复空间定位信息</td><td>改善深层网络优化</td></tr><tr><td>连接位置</td><td>Encoder 到 Decoder</td><td>Residual Block 内部</td></tr><tr><td>合并方式</td><td>Concat</td><td>Add</td></tr><tr><td>输出通道</td><td>拼接后增加</td><td>相加后不变</td></tr><tr><td>两侧分辨率</td><td>先调整到相同尺寸</td><td>原本相同或投影对齐</td></tr></tbody></table><p>U-Net 使用通道拼接：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Encoder：512×56×56
+</span></span><span style=display:flex><span>Decoder：512×56×56
+</span></span><span style=display:flex><span>             ↓ Concat
+</span></span><span style=display:flex><span>输出：1024×56×56
+</span></span></code></pre></div><p>而不是相加：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>512×56×56 + 512×56×56
+</span></span></code></pre></div><h3 id=55-一个完整上采样阶段的尺寸>5.5 一个完整上采样阶段的尺寸</h3><p>以 U-Net 底部的第一次上采样为例：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Bottleneck：
+</span></span><span style=display:flex><span>1024×28×28
+</span></span><span style=display:flex><span>       ↓ Up-Conv
+</span></span><span style=display:flex><span>512×56×56
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Encoder 对应特征：
+</span></span><span style=display:flex><span>512×64×64
+</span></span><span style=display:flex><span>       ↓ Crop
+</span></span><span style=display:flex><span>512×56×56
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Concat：
+</span></span><span style=display:flex><span>1024×56×56
+</span></span><span style=display:flex><span>       ↓ 两次 Valid 3×3 Conv
+</span></span><span style=display:flex><span>512×52×52
+</span></span></code></pre></div><p>Crop 的原因来自原始 U-Net 使用不带 Padding 的卷积。</p><h2 id=6-为什么需要-crop原始-u-net-的尺寸变化>6. 为什么需要 Crop：原始 U-Net 的尺寸变化</h2><h3 id=61-valid-convolution>6.1 Valid Convolution</h3><p>原始 U-Net 使用 <strong>Unpadded Convolution，无填充卷积</strong>，也称为 Valid Convolution。</p><p>卷积输出尺寸为：</p><p>$$ H_{\text{out}} = \left\lfloor \frac{H_{\text{in}}+2P-K}{S} \right\rfloor + 1 $$</p><p>当：</p><ul><li>卷积核 K=3</li><li>Padding P=0</li><li>Stride S=1</li></ul><p>有：</p><p>$$ H_{\text{out}}=H_{\text{in}}-2 $$</p><p>因此连续两次 3×3 卷积：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>572 → 570 → 568
+</span></span></code></pre></div><p>每个阶段的高度和宽度都会减少 4。</p><h3 id=62-为什么-encoder-特征要裁剪>6.2 为什么 Encoder 特征要裁剪</h3><p>Encoder 和 Decoder 对应层虽然处于相近尺度，但 Encoder 特征经过了更多 Valid Convolution，尺寸与上采样结果不完全一致。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Encoder 特征：64×64
+</span></span><span style=display:flex><span>Decoder 上采样：56×56
+</span></span></code></pre></div><p>不能直接拼接。</p><p>因此需要从 Encoder 特征中心裁剪：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>64×64
+</span></span><span style=display:flex><span>  ↓ Center Crop
+</span></span><span style=display:flex><span>56×56
+</span></span></code></pre></div><p>然后才能沿通道维度拼接。</p><p>对应代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>center_crop</span>(encoder_feature, target_feature):
+</span></span><span style=display:flex><span>    diff_h <span style=color:#f92672>=</span> encoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>2</span>) <span style=color:#f92672>-</span> target_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>    diff_w <span style=color:#f92672>=</span> encoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>3</span>) <span style=color:#f92672>-</span> target_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>3</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> encoder_feature[
+</span></span><span style=display:flex><span>        :,
+</span></span><span style=display:flex><span>        :,
+</span></span><span style=display:flex><span>        diff_h <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span>: diff_h <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> target_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>2</span>),
+</span></span><span style=display:flex><span>        diff_w <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span>: diff_w <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> target_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>3</span>),
+</span></span><span style=display:flex><span>    ]
+</span></span></code></pre></div><h3 id=63-输入为什么是-572输出却是-388>6.3 输入为什么是 572，输出却是 388</h3><p>原始 U-Net：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入图像：572×572
+</span></span><span style=display:flex><span>输出分割：388×388
+</span></span></code></pre></div><p>原因不是网络忘记恢复分辨率，而是每个 Valid Convolution 都会丢失边缘位置。</p><p>论文只输出那些拥有完整输入上下文的像素，因此输出区域小于输入区域。</p><h3 id=64-overlap-tile-strategy>6.4 Overlap-Tile Strategy</h3><p>为了分割任意大的图像，论文使用 <strong>Overlap-Tile Strategy，重叠分块策略</strong>：</p><ol><li>从大图中提取一个输入区域</li><li>网络只预测中间的有效区域</li><li>相邻输入区域彼此重叠</li><li>将不同输出区域无缝拼接</li></ol><p>图像边界缺少上下文时，通过镜像外推补充输入像素。</p><pre class=mermaid>
+flowchart LR
+    A["大尺寸图像"] --> B["提取重叠输入 Tile"]
+    B --> C["U-Net"]
+    C --> D["只保留中心有效输出"]
+    D --> E["拼接多个输出 Tile"]
+    E --> F["完整分割结果"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>这样可以处理大于 GPU 显存容量的图像，同时保证输出像素拥有完整上下文。</p><h2 id=7-训练目标逐像素分类与边界加权>7. 训练目标：逐像素分类与边界加权</h2><h3 id=71-pixel-wise-softmax>7.1 Pixel-Wise Softmax</h3><p>U-Net 最后一层使用 1×1 卷积，将每个像素位置的 64 维特征映射为 K 个类别分数。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入特征：64×H×W
+</span></span><span style=display:flex><span>       ↓ 1×1 Conv
+</span></span><span style=display:flex><span>类别 Logits：K×H×W
+</span></span></code></pre></div><p><strong>Logit</strong>：Softmax 前的原始类别分数。</p><p>对于像素位置 x，类别 k 的概率是：</p><p>$$ p_k(x) = \frac{\exp(a_k(x))}{\sum_{k&rsquo;=1}^{K}\exp(a_{k&rsquo;}(x))} $$</p><p>其中：</p><ul><li>$a_k(x)$：位置 x 对类别 k 的 Logit</li><li>$p_k(x)$：位置 x 属于类别 k 的概率</li><li>$K$：类别总数</li></ul><h3 id=72-pixel-wise-cross-entropy>7.2 Pixel-Wise Cross Entropy</h3><p>对每个像素计算交叉熵：</p><p>$$ E = -\sum_{x\in\Omega} w(x)\log p_{\ell(x)}(x) $$</p><p>其中：</p><ul><li>$\Omega$：所有需要分类的像素位置</li><li>$\ell(x)$：像素 x 的真实类别</li><li>$p_{\ell(x)}(x)$：网络给真实类别分配的概率</li><li>$w(x)$：像素 x 的 Loss 权重</li></ul><p>普通交叉熵相当于所有像素的 $w(x)=1$。</p><p>代码形式：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>pixel_loss <span style=color:#f92672>=</span> F<span style=color:#f92672>.</span>cross_entropy(
+</span></span><span style=display:flex><span>    logits,
+</span></span><span style=display:flex><span>    target,
+</span></span><span style=display:flex><span>    reduction<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;none&#34;</span>,
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>loss <span style=color:#f92672>=</span> (pixel_loss <span style=color:#f92672>*</span> weight_map)<span style=color:#f92672>.</span>mean()
+</span></span></code></pre></div><h3 id=73-为什么需要-weight-map>7.3 为什么需要 Weight Map</h3><p><strong>Weight Map，权重图</strong>：为不同像素设置不同的 Loss 权重。</p><p>论文使用它解决两个问题：</p><ol><li>平衡不同类别的像素数量</li><li>强化相邻细胞之间狭窄背景边界的监督</li></ol><p>如果两个相邻细胞被预测成一个连通区域，普通像素准确率可能仍然很高，但实例分离结果会明显错误。</p><p>因此，两个细胞之间的少量边界像素需要更高权重。论文 Figure 3 展示了原图、实例标注、分割标签和边界权重图。</p><h3 id=74-边界权重怎么算>7.4 边界权重怎么算</h3><p>论文定义：</p><p>$$ w(x) = w_c(x) + w_0 \exp\left(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2}\right) $$</p><p>其中：</p><ul><li>$w_c(x)$：用于平衡类别频率的基础权重</li><li>$d_1(x)$：像素到最近细胞边界的距离</li><li>$d_2(x)$：像素到第二近细胞边界的距离</li><li>$w_0$：边界额外权重的最大强度</li><li>$\sigma$：控制高权重区域的宽度</li></ul><p>论文设置：
+$$ w_0=10,\qquad \sigma\approx5 $$</p><h3 id=75-为什么使用-d_1d_2>7.5 为什么使用 $d_1+d_2$</h3><p>如果一个像素位于两个细胞之间：</p><ul><li>到第一个细胞边界很近：$d_1$ 小</li><li>到第二个细胞边界也很近：$d_2$ 小</li></ul><p>因此 $d_1+d_2$ 很小，指数项接近 1，额外权重接近 $w_0$。</p><p>如果一个像素只靠近一个细胞，而离第二个细胞很远，$d_1+d_2$ 会变大，额外权重迅速下降。</p><p>令 $d=d_1+d_2$，边界附加权重是：</p><p>$$ w_{\text{border}}(d) = 10\exp\left(-\frac{d^2}{50}\right) $$</p><pre class=mermaid>
+xychart-beta
+    title "边界附加权重随 d1+d2 增大而衰减"
+    x-axis "d1+d2（像素）" [0, 2, 4, 6, 8, 10, 12, 14, 16]
+    y-axis "附加权重" 0 --> 10
+    line [10, 9.23, 7.26, 4.87, 2.78, 1.35, 0.56, 0.20, 0.06]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>例如：</p><ul><li>$d_1=1$，$d_2=1$ → $d_1+d_2=2$ → 附加权重约为 9.23</li><li>$d_1=5$，$d_2=5$ → $d_1+d_2=10$ → 附加权重约为 1.35</li></ul><p>因此网络会特别关注两个目标之间的狭窄分离区域。</p><h2 id=8-少样本训练elastic-deformation>8. 少样本训练：Elastic Deformation</h2><h3 id=81-为什么普通增强不够>8.1 为什么普通增强不够</h3><p>生物医学图像中的组织和细胞经常出现：</p><ul><li>旋转</li><li>平移</li><li>局部形变</li><li>灰度变化</li></ul><p>训练图像数量有限时，网络无法自然见到足够多的形态变化。</p><p>论文因此使用大量数据增强，尤其强调 <strong>Elastic Deformation，弹性形变</strong>。</p><h3 id=82-什么是-elastic-deformation>8.2 什么是 Elastic Deformation</h3><p>弹性形变不是将整张图像统一旋转或缩放，而是让图像不同区域产生平滑、连续的局部位移。</p><p>论文的过程是：</p><ol><li>在一个粗糙的 3×3 网格上生成随机位移</li><li>位移从标准差为 10 像素的高斯分布采样</li><li>使用双三次插值，将稀疏位移扩展为逐像素位移场</li><li>使用同一个位移场同时变换图像和标签</li></ol><pre class=mermaid>
+flowchart LR
+    A["原始图像与标签"] --> B["建立 3×3 粗网格"]
+    B --> C["每个网格点采样随机位移"]
+    C --> D["双三次插值得到稠密位移场"]
+    D --> E["同时变形图像与标签"]
+    E --> F["新的训练样本"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><p>关键是图像和标签必须使用完全相同的几何变换，否则像素标注会错位。</p><h3 id=83-权重初始化>8.3 权重初始化</h3><p>论文使用标准差为 $\sqrt{2/N}$ 的高斯分布初始化卷积权重。</p><p>其中 $N$ 是一个神经元的输入连接数量。</p><p>例如前一层有 64 个通道，卷积核为 3×3：</p><p>$$ N=3\times3\times64=576 $$</p><p>因此初始化标准差为：</p><p>$$ \sqrt{\frac{2}{576}} \approx0.0589 $$</p><p>这属于后续常说的 <strong>He Initialization</strong>，适用于 ReLU 网络。</p><p>对应代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>nn<span style=color:#f92672>.</span>init<span style=color:#f92672>.</span>kaiming_normal_(
+</span></span><span style=display:flex><span>    conv<span style=color:#f92672>.</span>weight,
+</span></span><span style=display:flex><span>    mode<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fan_in&#34;</span>,
+</span></span><span style=display:flex><span>    nonlinearity<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;relu&#34;</span>,
+</span></span><span style=display:flex><span>)
+</span></span></code></pre></div><h3 id=84-训练设置只需记住的结论>8.4 训练设置只需记住的结论</h3><p>原论文使用：</p><ul><li>随机梯度下降</li><li>Batch Size 为 1</li><li>Momentum 为 0.99</li><li>大尺寸输入 Tile</li><li>下采样路径末端使用 Dropout</li><li>强弹性形变增强</li></ul><p>Batch Size 设为 1，主要是为了在有限 GPU 显存中使用尽可能大的输入区域，而不是说明 U-Net 必须使用 Batch Size 1。</p><h3 id=85-实验结论>8.5 实验结论</h3><p>论文在三个生物医学分割任务上进行了验证。</p><p>EM 神经结构分割任务只有 30 张完整标注的 512×512 训练图像。U-Net 获得约：</p><ul><li>Warping Error：0.000353</li><li>Rand Error：0.0382</li></ul><p>在 ISBI 细胞跟踪挑战中：</p><table><thead><tr><th>数据集</th><th>U-Net IOU</th><th>当时第二名</th></tr></thead><tbody><tr><td>PhC-U373</td><td>0.9203</td><td>约 0.83</td></tr><tr><td>DIC-HeLa</td><td>0.7756</td><td>约 0.46</td></tr></tbody></table><p>实验的主要意义不是某个具体指标，而是证明：</p><blockquote><p>对称的 Encoder-Decoder、跨层特征拼接和强数据增强，可以在少量标注图像条件下同时获得上下文理解与精确定位。</p></blockquote><h2 id=9-从结构到代码>9. 从结构到代码</h2><p>下面是与原论文结构对应的 PyTorch 简化实现，不是原作者 Caffe 代码的逐行翻译。</p><h3 id=91-两次-valid-convolution>9.1 两次 Valid Convolution</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> torch
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> torch.nn <span style=color:#66d9ef>as</span> nn
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> torch.nn.functional <span style=color:#66d9ef>as</span> F
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>DoubleConv</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, in_channels, out_channels):
+</span></span><span style=display:flex><span>        super()<span style=color:#f92672>.</span><span style=color:#a6e22e>__init__</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>layers <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>Sequential(
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>                in_channels,
+</span></span><span style=display:flex><span>                out_channels,
+</span></span><span style=display:flex><span>                kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                padding<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>            ),
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>ReLU(inplace<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>),
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>                out_channels,
+</span></span><span style=display:flex><span>                out_channels,
+</span></span><span style=display:flex><span>                kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                padding<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>            ),
+</span></span><span style=display:flex><span>            nn<span style=color:#f92672>.</span>ReLU(inplace<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>),
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x):
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>layers(x)
+</span></span></code></pre></div><p>这里使用 <code>padding=0</code>，因此对应原论文的 Valid Convolution，每次卷积使高度和宽度减少 2。</p><h3 id=92-下采样模块>9.2 下采样模块</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Down</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, in_channels, out_channels):
+</span></span><span style=display:flex><span>        super()<span style=color:#f92672>.</span><span style=color:#a6e22e>__init__</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv <span style=color:#f92672>=</span> DoubleConv(
+</span></span><span style=display:flex><span>            in_channels,
+</span></span><span style=display:flex><span>            out_channels,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>pool <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>MaxPool2d(
+</span></span><span style=display:flex><span>            kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>            stride<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x):
+</span></span><span style=display:flex><span>        feature <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>conv(x)
+</span></span><span style=display:flex><span>        downsampled <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>pool(feature)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> feature, downsampled
+</span></span></code></pre></div><p>这里返回两个结果：</p><ul><li><code>feature</code> → 保存给 Skip Connection</li><li><code>downsampled</code> → 继续进入下一层 Encoder</li></ul><h3 id=93-中心裁剪>9.3 中心裁剪</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>center_crop</span>(encoder_feature, decoder_feature):
+</span></span><span style=display:flex><span>    target_h <span style=color:#f92672>=</span> decoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>    target_w <span style=color:#f92672>=</span> decoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>3</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    diff_h <span style=color:#f92672>=</span> encoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>2</span>) <span style=color:#f92672>-</span> target_h
+</span></span><span style=display:flex><span>    diff_w <span style=color:#f92672>=</span> encoder_feature<span style=color:#f92672>.</span>size(<span style=color:#ae81ff>3</span>) <span style=color:#f92672>-</span> target_w
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> encoder_feature[
+</span></span><span style=display:flex><span>        :,
+</span></span><span style=display:flex><span>        :,
+</span></span><span style=display:flex><span>        diff_h <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span>: diff_h <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> target_h,
+</span></span><span style=display:flex><span>        diff_w <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span>: diff_w <span style=color:#f92672>//</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> target_w,
+</span></span><span style=display:flex><span>    ]
+</span></span></code></pre></div><h3 id=94-上采样模块>9.4 上采样模块</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Up</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, in_channels, skip_channels, out_channels):
+</span></span><span style=display:flex><span>        super()<span style=color:#f92672>.</span><span style=color:#a6e22e>__init__</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>ConvTranspose2d(
+</span></span><span style=display:flex><span>            in_channels,
+</span></span><span style=display:flex><span>            out_channels,
+</span></span><span style=display:flex><span>            kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>            stride<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>conv <span style=color:#f92672>=</span> DoubleConv(
+</span></span><span style=display:flex><span>            out_channels <span style=color:#f92672>+</span> skip_channels,
+</span></span><span style=display:flex><span>            out_channels,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x, skip):
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        skip <span style=color:#f92672>=</span> center_crop(
+</span></span><span style=display:flex><span>            encoder_feature<span style=color:#f92672>=</span>skip,
+</span></span><span style=display:flex><span>            decoder_feature<span style=color:#f92672>=</span>x,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> torch<span style=color:#f92672>.</span>cat(
+</span></span><span style=display:flex><span>            [skip, x],
+</span></span><span style=display:flex><span>            dim<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>conv(x)
+</span></span></code></pre></div><p><code>torch.cat(..., dim=1)</code> 表示在通道维度拼接：</p><ul><li>Encoder 特征通道 + Decoder 特征通道</li></ul><h3 id=95-完整-u-net>9.5 完整 U-Net</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>UNetOriginal</span>(nn<span style=color:#f92672>.</span>Module):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>__init__</span>(self, in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>, num_classes<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>):
+</span></span><span style=display:flex><span>        super()<span style=color:#f92672>.</span><span style=color:#a6e22e>__init__</span>()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>down1 <span style=color:#f92672>=</span> Down(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>64</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>down2 <span style=color:#f92672>=</span> Down(<span style=color:#ae81ff>64</span>, <span style=color:#ae81ff>128</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>down3 <span style=color:#f92672>=</span> Down(<span style=color:#ae81ff>128</span>, <span style=color:#ae81ff>256</span>)
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>down4 <span style=color:#f92672>=</span> Down(<span style=color:#ae81ff>256</span>, <span style=color:#ae81ff>512</span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>bottleneck <span style=color:#f92672>=</span> DoubleConv(
+</span></span><span style=display:flex><span>            <span style=color:#ae81ff>512</span>,
+</span></span><span style=display:flex><span>            <span style=color:#ae81ff>1024</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up4 <span style=color:#f92672>=</span> Up(
+</span></span><span style=display:flex><span>            in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>1024</span>,
+</span></span><span style=display:flex><span>            skip_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>512</span>,
+</span></span><span style=display:flex><span>            out_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>512</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up3 <span style=color:#f92672>=</span> Up(
+</span></span><span style=display:flex><span>            in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>512</span>,
+</span></span><span style=display:flex><span>            skip_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>256</span>,
+</span></span><span style=display:flex><span>            out_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>256</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up2 <span style=color:#f92672>=</span> Up(
+</span></span><span style=display:flex><span>            in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>256</span>,
+</span></span><span style=display:flex><span>            skip_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>128</span>,
+</span></span><span style=display:flex><span>            out_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>128</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>up1 <span style=color:#f92672>=</span> Up(
+</span></span><span style=display:flex><span>            in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>128</span>,
+</span></span><span style=display:flex><span>            skip_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>64</span>,
+</span></span><span style=display:flex><span>            out_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>64</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>output <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>Conv2d(
+</span></span><span style=display:flex><span>            in_channels<span style=color:#f92672>=</span><span style=color:#ae81ff>64</span>,
+</span></span><span style=display:flex><span>            out_channels<span style=color:#f92672>=</span>num_classes,
+</span></span><span style=display:flex><span>            kernel_size<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>forward</span>(self, x):
+</span></span><span style=display:flex><span>        skip1, x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>down1(x)
+</span></span><span style=display:flex><span>        skip2, x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>down2(x)
+</span></span><span style=display:flex><span>        skip3, x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>down3(x)
+</span></span><span style=display:flex><span>        skip4, x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>down4(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>bottleneck(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up4(x, skip4)
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up3(x, skip3)
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up2(x, skip2)
+</span></span><span style=display:flex><span>        x <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>up1(x, skip1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        logits <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>output(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> logits
+</span></span></code></pre></div><p>前向过程对应：</p><pre class=mermaid>
+flowchart LR
+    A["输入"] --> B["Down 1"]
+    B --> C["Down 2"]
+    C --> D["Down 3"]
+    D --> E["Down 4"]
+    E --> F["Bottleneck"]
+    F --> G["Up 4 + Skip 4"]
+    G --> H["Up 3 + Skip 3"]
+    H --> I["Up 2 + Skip 2"]
+    I --> J["Up 1 + Skip 1"]
+    J --> K["1×1 Conv"]
+    K --> L["Pixel Logits"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><h3 id=96-代码中的概念对应关系>9.6 代码中的概念对应关系</h3><table><thead><tr><th>论文概念</th><th>代码</th></tr></thead><tbody><tr><td>两次 3×3 卷积</td><td><code>DoubleConv</code></td></tr><tr><td>Contracting Path</td><td><code>Down</code></td></tr><tr><td>Max Pooling</td><td><code>nn.MaxPool2d</code></td></tr><tr><td>Expansive Path</td><td><code>Up</code></td></tr><tr><td>Up-Convolution</td><td><code>nn.ConvTranspose2d</code></td></tr><tr><td>Copy and Crop</td><td><code>center_crop()</code></td></tr><tr><td>Skip Connection</td><td><code>torch.cat()</code></td></tr><tr><td>Pixel-Wise Classification</td><td>最后的 <code>nn.Conv2d(kernel_size=1)</code></td></tr><tr><td>Pixel-Wise Softmax</td><td>由 <code>cross_entropy</code> 内部完成</td></tr><tr><td>Weighted Loss</td><td><code>pixel_loss * weight_map</code></td></tr></tbody></table><h2 id=10-一句话总结>10. 一句话总结</h2><p><strong>U-Net 通过下采样路径理解大范围上下文，通过上采样路径恢复空间分辨率，并将 Encoder 的高分辨率特征裁剪后拼接到 Decoder，使网络能够在少量训练图像条件下同时完成语义判断和精确像素定位。</strong></p></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

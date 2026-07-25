@@ -1,0 +1,594 @@
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/><title>空域降噪</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="空域降噪"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/"><meta name=twitter:title content="空域降噪"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
+<svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
+dark:border-darkmode-border mr-5 inline-block border-r pr-5
+text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-target=search-modal>
+<i class="fa-solid fa-search"></i></button><div class="theme-switcher mr-5 invisible"><input id=theme-switcher data-theme-switcher type=checkbox>
+<label for=theme-switcher><span class=sr-only>theme switcher</span>
+<span><svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-100 dark:opacity-0" viewBox="0 0 56 56" fill="#fff" height="16" width="16"><path d="M30 4.6c0-1-.9-2-2-2a2 2 0 00-2 2v5c0 1 .9 2 2 2s2-1 2-2zm9.6 9a2 2 0 000 2.8c.8.8 2 .8 2.9.0L46 13a2 2 0 000-2.9 2 2 0 00-3 0zm-26 2.8c.7.8 2 .8 2.8.0.8-.7.8-2 0-2.9L13 10c-.7-.7-2-.8-2.9.0-.7.8-.7 2.1.0 3zM28 16A12 12 0 0016 28a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0028 16zm23.3 14c1.1.0 2-.9 2-2s-.9-2-2-2h-4.9a2 2 0 00-2 2c0 1.1 1 2 2 2zM4.7 26a2 2 0 00-2 2c0 1.1.9 2 2 2h4.9c1 0 2-.9 2-2s-1-2-2-2zm37.8 13.6a2 2 0 00-3 0 2 2 0 000 2.9l3.6 3.5a2 2 0 002.9.0c.8-.8.8-2.1.0-3zM10 43.1a2 2 0 000 2.9c.8.7 2.1.8 3 0l3.4-3.5c.8-.8.8-2.1.0-2.9s-2-.8-2.9.0zm20 3.4c0-1.1-.9-2-2-2a2 2 0 00-2 2v4.9c0 1 .9 2 2 2s2-1 2-2z"/></svg>
+<svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 opacity-0 dark:opacity-100" viewBox="0 0 24 24" fill="none" height="16" width="16"><path fill="#000" fill-rule="evenodd" clip-rule="evenodd" d="M8.2 2.2c1-.4 2 .6 1.6 1.5-1 3-.4 6.4 1.8 8.7a8.4 8.4.0 008.7 1.8c1-.3 2 .5 1.5 1.5v.1A10.3 10.3.0 0112.4 22 10.3 10.3.0 013.2 6.7c1-2 2.9-3.5 4.9-4.4z"/></svg></span></label></div><script>var darkMode=localStorage.getItem("theme")==="dark";localStorage.getItem("theme")===null&&(darkMode=!1,window.matchMedia("(prefers-color-scheme: dark)").matches&&(darkMode=!0)),darkMode?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark"),document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll("[data-theme-switcher]"),t=document.querySelector(".theme-switcher");[].forEach.call(e,function(e){e.checked=darkMode,e.addEventListener("click",()=>{document.documentElement.classList.toggle("dark"),localStorage.setItem("theme",document.documentElement.classList.contains("dark")?"dark":"light")})}),t.classList.remove("invisible")})</script></div></nav></header><div class=search-modal aria-hidden=true style=--color-primary:#007AFF><div data-target=close-search-modal class=search-modal-overlay></div><div class=search-wrapper data-image=true data-description=true data-tags=true data-categories=true><div class=search-wrapper-header><label for=search-modal-input style=margin-top:-1px><span class=sr-only>search icon</span>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-icon" data-type="search"><path fill="currentColor" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8.0 45.3s-32.8 12.5-45.3.0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9.0 208S93.1.0 208 0 416 93.1 416 208zM208 352a144 144 0 100-288 144 144 0 100 288z"/></svg>
+<svg viewBox="0 0 512 512" height="18" width="18" class="search-reset" data-type="reset"><path fill="currentColor" d="M256 512A256 256 0 10256 0a256 256 0 100 512zM175 175c9.4-9.4 24.6-9.4 33.9.0l47 47 47-47c9.4-9.4 24.6-9.4 33.9.0s9.4 24.6.0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6.0 33.9s-24.6 9.4-33.9.0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9.0s-9.4-24.6.0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6.0-33.9z"/></svg>
+</label><input id=search-modal-input type=text data-search-input autocomplete=off aria-label=Search placeholder=搜索文章...></div><div class=search-wrapper-body><div class=search-result data-search-result></div><span class=search-result-empty>输入关键词开始搜索...</span></div><div class=search-wrapper-footer><span><kbd><svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 011.506.0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 01-.753-1.659z"/></svg>
+</kbd><kbd><svg width="14" height="14" fill="currentColor" style="margin-top:1px" viewBox="0 0 16 16"><path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 001.506.0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 00-.753 1.659z"/></svg>
+</kbd>导航
+</span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
+</kbd>选择
+</span><span class=search-result-info></span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
+<span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-paper/ class="flex-1 hover:underline truncate font-medium">0 Paper</a>
+<span class="text-xs text-text-light ml-1.5">(4)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-paper/cv/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+CV
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+5 ISP与图像处理
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+7 模型训练
+<span class="text-xs text-text-light ml-1.5">(4)</span></a></li><li><a href=/blogs-of-bluhuang/ai/6-ai%E5%8E%BB%E5%99%AA/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+6 AI去噪
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+4 深度学习
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/1-llm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 LLM
+<span class="text-xs text-text-light ml-1.5">(11)</span></a></li><li><a href=/blogs-of-bluhuang/ai/2-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+2 RAG
+<span class="text-xs text-text-light ml-1.5">(10)</span></a></li><li><a href=/blogs-of-bluhuang/ai/3-agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+3 Agent
+<span class="text-xs text-text-light ml-1.5">(2)</span></a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ class="flex-1 hover:underline truncate font-medium">0 基础</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/agent/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+Agent</a></li><li><a href=/blogs-of-bluhuang/ai/0-%E5%9F%BA%E7%A1%80/ai%E5%9F%BA%E7%A1%80/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+AI基础</a></li></ul></details></li><li><a href=/blogs-of-bluhuang/ai/1-rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+1 RAG</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/coding/ class="flex-1 hover:underline truncate font-medium">coding</a>
+<span class="text-xs text-text-light ml-1.5">(18)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/coding/coding-algorithm/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+coding algorithm
+<span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+std算法
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
+<span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/database/sqlite/ class="flex-1 hover:underline truncate font-medium">sqlite</a>
+<span class="text-xs text-text-light ml-1.5">(1)</span></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/database/sqlite/programming-interfaces/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+programming interfaces
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+向量
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><a href=/blogs-of-bluhuang/rag/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/ class="flex-1 hover:underline truncate font-medium">z_efficiency</a></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">空域降噪</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
+<a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
+2026年7月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-空域降噪的基本概念>1. 空域降噪的基本概念</a><ol><li><a href=#11-什么是空域降噪>1.1 什么是空域降噪</a></li><li><a href=#12-空域降噪方法分类>1.2 空域降噪方法分类</a></li></ol></li><li><a href=#2-均值滤波>2. 均值滤波</a><ol><li><a href=#21-原理>2.1 原理</a></li><li><a href=#22-数学形式>2.2 数学形式</a></li><li><a href=#23-特点>2.3 特点</a></li></ol></li><li><a href=#3-中值滤波>3. 中值滤波</a><ol><li><a href=#31-原理>3.1 原理</a></li><li><a href=#32-为什么中值滤波对椒盐噪声效果好>3.2 为什么中值滤波对椒盐噪声效果好？</a></li><li><a href=#33-特点>3.3 特点</a></li></ol></li><li><a href=#4-高斯滤波>4. 高斯滤波</a><ol><li><a href=#41-原理>4.1 原理</a></li><li><a href=#42-数学形式>4.2 数学形式</a></li><li><a href=#43-高斯核-vs-均值核>4.3 高斯核 vs 均值核</a></li></ol></li><li><a href=#5-双边滤波bilateral-filter>5. 双边滤波（Bilateral Filter）</a><ol><li><a href=#51-原理考虑像素值相似度>5.1 原理：考虑“像素值相似度”</a></li><li><a href=#52-数学形式>5.2 数学形式</a></li><li><a href=#53-参数控制>5.3 参数控制</a></li><li><a href=#54-双边滤波的优缺点>5.4 双边滤波的优缺点</a></li></ol></li><li><a href=#6-引导滤波guided-filter>6. 引导滤波（Guided Filter）</a><ol><li><a href=#61-原理利用引导图>6.1 原理：利用引导图</a></li><li><a href=#62-直觉理解>6.2 直觉理解</a></li><li><a href=#63-引导滤波-vs-双边滤波>6.3 引导滤波 vs 双边滤波</a></li></ol></li><li><a href=#7-非局部均值算法non-local-meansnlm>7. 非局部均值算法（Non-Local Means，NLM）</a><ol><li><a href=#71-原理在整张图中找相似块>7.1 原理：在整张图中找相似块</a></li><li><a href=#72-核心机制>7.2 核心机制</a></li><li><a href=#73-优缺点>7.3 优缺点</a></li></ol></li><li><a href=#8-复合降噪策略>8. 复合降噪策略</a><ol><li><a href=#81-渐进式图像降噪处理>8.1 渐进式图像降噪处理</a></li><li><a href=#82-自适应降噪>8.2 自适应降噪</a></li><li><a href=#83-复合降噪的典型流程>8.3 复合降噪的典型流程</a></li></ol></li><li><a href=#9-各方法对比总结>9. 各方法对比总结</a></li><li><a href=#10-一句话总结>10. 一句话总结</a></li></ol></nav></details><h2 id=1-空域降噪的基本概念>1. 空域降噪的基本概念</h2><h3 id=11-什么是空域降噪>1.1 什么是空域降噪</h3><blockquote><p><strong>术语解释</strong>：<strong>空域降噪（Spatial Denoising）</strong> 指在同一帧图像内部，利用像素与周围像素之间的空间关系来去除噪声的方法。它不依赖多帧信息，只处理当前这一帧。</p></blockquote><p>空域降噪的核心假设是：<strong>图像中相邻像素之间存在相关性，而噪声是随机的、不相关的。</strong> 基于这个假设，可以通过观察某个像素及其邻居来推断“这个像素到底应该是多少”——如果某个像素的值和周围邻居差异太大，它大概率是噪声。</p><p>这与时域降噪（利用多帧之间的时间相关性）形成对比，两者可以互补使用。</p><h3 id=12-空域降噪方法分类>1.2 空域降噪方法分类</h3><pre class=mermaid>
+flowchart LR
+    subgraph 空域降噪
+        A["线性滤波"] --> A1["均值滤波"]
+        A --> A2["高斯滤波"]
+        
+        B["非线性滤波"] --> B1["中值滤波"]
+        B --> B2["双边滤波"]
+        B --> B3["引导滤波"]
+        B --> B4["非局部均值（NLM）"]
+        
+        C["复合策略"] --> C1["渐进式降噪"]
+        C --> C2["自适应降噪"]
+    end
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><ul><li><strong>线性滤波</strong>：权重是<strong>固定公式</strong>算出来的，<strong>一旦算好就不变了</strong>。不管你图像里是什么内容，只要像素位置不变，这个像素被赋予的权重就是固定的。</li><li><strong>非线性滤波</strong>：权重<strong>完全取决于像素本身的值</strong>，或者计算方式根本不是“加权求和”，而是“排序”。</li></ul><h2 id=2-均值滤波>2. 均值滤波</h2><h3 id=21-原理>2.1 原理</h3><p>用窗口内所有像素的<strong>平均值</strong>替换中心像素的值。</p><blockquote><p><strong>术语解释</strong>：<strong>均值滤波</strong>是空域降噪中最基本的方法——把目标像素周围一个方形窗口内所有像素的亮度加起来求平均，作为该像素的新值。平均操作会平滑掉噪声，但也会把边缘一起“抹平”。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    均值滤波示意                                             │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  原始窗口（3×3）：                                                         │
+</span></span><span style=display:flex><span>│  ┌─────────────┐                                                          │
+</span></span><span style=display:flex><span>│  │ 10  12  11  │                                                          │
+</span></span><span style=display:flex><span>│  │  9  100  13 │  ← 中心像素 100 明显是噪声（比周围亮得多）                │
+</span></span><span style=display:flex><span>│  │ 10  11  12  │                                                          │
+</span></span><span style=display:flex><span>│  └─────────────┘                                                          │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  均值滤波后：                                                              │
+</span></span><span style=display:flex><span>│  新值 = (10+12+11+9+100+13+10+11+12) / 9 = 188 / 9 ≈ 21                   │
+</span></span><span style=display:flex><span>│  100 → 21（被拉回正常范围）                                                │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  代价：真正的边缘像素也会被拉低/拉高（边缘模糊）                            │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=22-数学形式>2.2 数学形式</h3><p>输出图像 $g$ 在位置 $(x,y)$ 的值是输入图像 $f$ 在窗口 $W$ 内的均值：</p><p>$$
+g(x,y) = \frac{1}{m \times n} \sum_{(i,j) \in W} f(i,j)
+$$</p><p>其中 $m \times n$ 是窗口大小（如 3×3、5×5）。</p><h3 id=23-特点>2.3 特点</h3><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>计算简单，速度极快</td><td>边缘和细节被模糊</td></tr><tr><td>对高斯噪声有一定效果</td><td>对椒盐噪声效果差</td></tr><tr><td>硬件实现容易</td><td>窗口越大模糊越严重</td></tr></tbody></table><blockquote><p><strong>术语解释</strong>：<strong>椒盐噪声（Salt-and-Pepper Noise）</strong> 指图像中随机出现的纯白或纯黑像素点（像撒了一把盐和胡椒）。均值滤波对这类噪声效果不佳，因为异常值仍会被平均到结果中，中值滤波更适合处理椒盐噪声。</p></blockquote><blockquote><p><strong>适用位置</strong>：均值滤波常用在预处理阶段，用很小的窗口（如 3×3）快速去除细微噪声，不作为主要的降噪手段。</p></blockquote><h2 id=3-中值滤波>3. 中值滤波</h2><h3 id=31-原理>3.1 原理</h3><p>用窗口内所有像素的<strong>中值</strong>替换中心像素的值。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    中值滤波示意                                             │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  原始窗口（3×3）：                                                         │
+</span></span><span style=display:flex><span>│  ┌─────────────┐                                                          │
+</span></span><span style=display:flex><span>│  │ 10  12  11  │                                                          │
+</span></span><span style=display:flex><span>│  │  9  255  13 │  ← 中心像素 255 是椒盐噪声（纯白）                       │
+</span></span><span style=display:flex><span>│  │ 10  11  12  │                                                          │
+</span></span><span style=display:flex><span>│  └─────────────┘                                                          │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  排序：9, 10, 10, 11, 11, 12, 12, 13, 255                                │
+</span></span><span style=display:flex><span>│  中值（第5个）= 11                                                         │
+</span></span><span style=display:flex><span>│  255 → 11（噪声被完美去除）                                                │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  均值滤波会把 255 平均成约 38（还是偏亮）                                  │
+</span></span><span style=display:flex><span>│  中值滤波直接把离群的异常值替换掉                                          │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=32-为什么中值滤波对椒盐噪声效果好>3.2 为什么中值滤波对椒盐噪声效果好？</h3><p>椒盐噪声的像素值是极端值（0 或 255），在排序后一定排在开头或末尾。中值是排序后的中间值，永远不会落在极端位置上，所以椒盐噪声被直接忽略。</p><h3 id=33-特点>3.3 特点</h3><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>对椒盐噪声效果极好</td><td>计算量比均值滤波大（需要排序）</td></tr><tr><td>能保留边缘（不引入模糊）</td><td>对高斯噪声效果一般</td></tr><tr><td>不引入新的像素值</td><td>大窗口下仍会损失细节</td></tr></tbody></table><h2 id=4-高斯滤波>4. 高斯滤波</h2><h3 id=41-原理>4.1 原理</h3><p>用<strong>高斯核</strong>对窗口内的像素做加权平均——离中心越近的像素权重越大，离中心越远的像素权重越小。</p><blockquote><p><strong>术语解释</strong>：<strong>高斯滤波</strong>是均值滤波的“升级版”——均值滤波给窗口内所有像素相同的权重，高斯滤波则根据像素到中心的距离分配权重（中心权重最大，边缘权重最小）。这样更符合自然图像的统计规律：离得越近的像素相关性越强。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    高斯核（3×3，σ=1.0）                                    │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  ┌─────────────────┐                                                      │
+</span></span><span style=display:flex><span>│  │ 0.075  0.124  0.075│                                                   │
+</span></span><span style=display:flex><span>│  │ 0.124  0.204  0.124│  ← 中心权重最高（0.204）                          │
+</span></span><span style=display:flex><span>│  │ 0.075  0.124  0.075│  ← 边缘权重最低（0.075）                          │
+</span></span><span style=display:flex><span>│  └─────────────────┘                                                      │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  权重总和 = 1.0                                                           │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  均值核：        高斯核：                                                  │
+</span></span><span style=display:flex><span>│  所有权重相同    越靠近中心权重越高                                        │
+</span></span><span style=display:flex><span>│  边缘模糊严重    边缘保留更好                                              │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=42-数学形式>4.2 数学形式</h3><p>二维高斯函数：</p><p>$$
+G(x,y) = \frac{1}{2\pi\sigma^2} e^{-\frac{x^2 + y^2}{2\sigma^2}}
+$$</p><p>其中 $\sigma$（标准差）控制平滑程度：</p><ul><li>$\sigma$ 越大 → 核越宽 → 越平滑（去噪更强，但更模糊）</li><li>$\sigma$ 越小 → 核越集中 → 细节保留更多（去噪较弱）</li></ul><h3 id=43-高斯核-vs-均值核>4.3 高斯核 vs 均值核</h3><table><thead><tr><th></th><th>均值核</th><th>高斯核</th></tr></thead><tbody><tr><td>权重分布</td><td>所有像素相同</td><td>中心高、边缘低</td></tr><tr><td>边缘模糊</td><td>严重</td><td>较轻</td></tr><tr><td>计算复杂度</td><td>简单（只求和）</td><td>需要乘权重</td></tr><tr><td>控制参数</td><td>窗口大小</td><td>窗口大小 + $\sigma$</td></tr></tbody></table><h2 id=5-双边滤波bilateral-filter>5. 双边滤波（Bilateral Filter）</h2><h3 id=51-原理考虑像素值相似度>5.1 原理：考虑“像素值相似度”</h3><p>均值滤波和高斯滤波都只考虑<strong>空间距离</strong>——离中心越近权重越大。但它们都不关心<strong>像素值本身</strong>——如果边缘两侧的像素值差异很大，它们仍然会被平均在一起，导致边缘模糊。</p><p><strong>双边滤波的改进</strong>：权重由两个因素共同决定：</p><ol><li><strong>空间距离</strong>：离中心越近权重越大</li><li><strong>像素值相似度</strong>：像素值越接近中心像素权重越大</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    双边滤波核心思想                                         │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  场景：一个边缘区域，左侧暗、右侧亮                                        │
+</span></span><span style=display:flex><span>│  ┌──────────────────────────────────────────────────────────────────┐       │
+</span></span><span style=display:flex><span>│  │  暗区（值=50）  │  边界  │  亮区（值=200）                     │       │
+</span></span><span style=display:flex><span>│  │  50  50  50  50 │  50 200 │  200 200 200 200                   │       │
+</span></span><span style=display:flex><span>│  │  50  50  50  50 │  50 200 │  200 200 200 200                   │       │
+</span></span><span style=display:flex><span>│  │  50  50  50  50 │  50 200 │  200 200 200 200                   │       │
+</span></span><span style=display:flex><span>│  └──────────────────────────────────────────────────────────────────┘       │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  目标：去噪中心像素（50），同时保留边缘                                    │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  高斯滤波：把左右两侧的 50 和 200 一起平均 → 像素变成 125（边缘模糊）     │
+</span></span><span style=display:flex><span>│  双边滤波：右侧 200 的像素因“值不相似”权重被压低 → 只用左侧 50 平均 →     │
+</span></span><span style=display:flex><span>│  边缘清晰保留                                                              │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=52-数学形式>5.2 数学形式</h3><p>$$
+g(x,y) = \frac{\sum_{(i,j) \in W} f(i,j) \times w_s(i,j) \times w_r(i,j)}{\sum_{(i,j) \in W} w_s(i,j) \times w_r(i,j)}
+$$</p><p>其中：</p><ul><li>$w_s$：空间权重（距离越近越大），基于高斯函数</li><li>$w_r$：值域权重（值越接近越大），基于高斯函数</li><li>两个权重相乘得到最终的滤波权重</li></ul><h3 id=53-参数控制>5.3 参数控制</h3><table><thead><tr><th>参数</th><th>含义</th><th>调大后效果</th></tr></thead><tbody><tr><td>$\sigma_s$</td><td>空间高斯的标准差</td><td>影响范围更大（更平滑，但可能模糊远距离结构）</td></tr><tr><td>$\sigma_r$</td><td>值域高斯的标准差</td><td>允许更多不同像素值被加权（去噪更强，但边缘保留减弱）</td></tr></tbody></table><blockquote><p><strong>关键直觉</strong>：$\sigma_s$ 控制“多远的邻居参与平均”，$\sigma_r$ 控制“多大差异的邻居参与平均”。参数调优的关键是平衡去噪力度与边缘保留。</p></blockquote><h3 id=54-双边滤波的优缺点>5.4 双边滤波的优缺点</h3><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>去噪同时保留边缘</td><td>计算量大（需要同时计算空间和值域权重）</td></tr><tr><td>不需要依赖多帧</td><td>在纹理丰富区域可能产生“卡通化”伪影</td></tr><tr><td>参数可调适应不同场景</td><td>高噪声下边缘检测不可靠</td></tr></tbody></table><h2 id=6-引导滤波guided-filter>6. 引导滤波（Guided Filter）</h2><h3 id=61-原理利用引导图>6.1 原理：利用引导图</h3><blockquote><p><strong>术语解释</strong>：<strong>引导滤波（Guided Filter）</strong> 使用另一张“引导图”来决定滤波权重。引导图通常是原始图像的平滑版本或另一个视角的图像。如果某个像素在引导图中和邻居差异大（边缘），滤波时就少平均；如果差异小（平坦区域），就多平均。</p></blockquote><p>双边滤波的权重只依赖当前像素的局部信息。引导滤波的核心思想是：<strong>用一张“引导图”来决定权重的分配</strong>——引导图提供了更全局的上下文信息，能更准确地判断哪里是边缘、哪里是平坦区域。</p><blockquote><p><strong>“引导图”从哪来？</strong> 在一种常见做法中，引导图就是<strong>原始图像本身</strong>（自引导），或者<strong>经过高斯滤波后的图像</strong>（更稳定的版本）。另一种做法是使用<strong>另一个传感器</strong>（如深度图）或<strong>同一场景的不同曝光图像</strong>作为引导图。</p></blockquote><h3 id=62-直觉理解>6.2 直觉理解</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>引导图：                   输入带噪图：                输出：
+</span></span><span style=display:flex><span>┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+</span></span><span style=display:flex><span>│ ████████░░░░░░░ │       │ ██▄█▄█░░░▄█░░░ │       │ ████████░░░░░░░ │
+</span></span><span style=display:flex><span>│ ████████░░░░░░░ │  +    │ █▄███░░░▄▄░░░░ │  →    │ ████████░░░░░░░ │
+</span></span><span style=display:flex><span>│ ████████░░░░░░░ │       │ ████░░░░░░░░░░ │       │ ████████░░░░░░░ │
+</span></span><span style=display:flex><span>└─────────────────┘       └─────────────────┘       └─────────────────┘
+</span></span><span style=display:flex><span>  清晰的边缘信息           带噪声的输入             去噪+边缘保留
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>关键：引导图告诉我们“边缘在哪里”，所以滤波时边缘两侧不互相平均
+</span></span></code></pre></div><h3 id=63-引导滤波-vs-双边滤波>6.3 引导滤波 vs 双边滤波</h3><table><thead><tr><th></th><th>双边滤波</th><th>引导滤波</th></tr></thead><tbody><tr><td>权重依据</td><td>当前像素的局部信息（空间距离+值域差异）</td><td>引导图（可来自外部，提供更全局的上下文）</td></tr><tr><td>边缘保留</td><td>好（依赖当前像素的值域差异）</td><td>更好（引导图能提供更准确的边缘信息）</td></tr><tr><td>计算复杂度</td><td>高</td><td>较低（有快速实现）</td></tr><tr><td>适用场景</td><td>通用去噪</td><td>高精度边缘保留（如抠图、HDR 融合）</td></tr><tr><td>伪影风险</td><td>可能出现卡通化</td><td>梯度反转（边缘周围出现光晕）</td></tr></tbody></table><h2 id=7-非局部均值算法non-local-meansnlm>7. 非局部均值算法（Non-Local Means，NLM）</h2><h3 id=71-原理在整张图中找相似块>7.1 原理：在整张图中找相似块</h3><blockquote><p><strong>术语解释</strong>：<strong>非局部均值（Non-Local Means）</strong> 不再局限于目标像素周围的小窗口，而是在整张图像中搜索所有“相似”的图像块，用这些相似块的平均值来去噪。</p></blockquote><p>“局部”方法（均值、高斯、双边）只参考目标像素周围的邻居。“非局部”意味着在整张图像中寻找<strong>结构相似的块</strong>——即使它们距离很远。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│                    非局部均值算法                                          │
+</span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  图像中有多个相似的纹理块：                                                │
+</span></span><span style=display:flex><span>│  ┌──────┐  ┌──────┐  ┌──────┐                                               │
+</span></span><span style=display:flex><span>│  │ ████ │  │ ████ │  │ ████ │  ← 这四个块结构相似（都是横条纹）           │
+</span></span><span style=display:flex><span>│  │ ████ │  │ ████ │  │ ████ │                                               │
+</span></span><span style=display:flex><span>│  │ ████ │  │ ████ │  │ ████ │                                               │
+</span></span><span style=display:flex><span>│  └──────┘  └──────┘  └──────┘                                               │
+</span></span><span style=display:flex><span>│     ↑          ↑          ↑                                               │
+</span></span><span style=display:flex><span>│  目标块      远处相似块   远处相似块                                       │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>│  传统局部方法：只用目标块周围的像素 → 去噪效果有限                         │
+</span></span><span style=display:flex><span>│  NLM：把三个相似块都拿过来平均 → 噪声被大幅抵消，结构保留更好             │
+</span></span><span style=display:flex><span>│                                                                             │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><h3 id=72-核心机制>7.2 核心机制</h3><ol><li>对每个目标像素，取一个<strong>邻域块</strong>（如 7×7）</li><li>在整张图像中搜索与这个块<strong>结构相似</strong>的其他块</li><li>用<strong>结构相似度</strong>（如块与块的 L2 距离）作为权重</li><li>所有相似块的像素值<strong>加权平均</strong>得到去噪结果</li></ol><h3 id=73-优缺点>7.3 优缺点</h3><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>去噪效果极好（保留纹理细节）</td><td>计算量巨大（需要搜索整张图）</td></tr><tr><td>能恢复重复纹理</td><td>对非重复纹理效果一般</td></tr><tr><td>不依赖边缘检测</td><td>参数敏感</td></tr></tbody></table><blockquote><p>NLM 是很多传统去噪方法的基石，BM3D 就是 NLM 的“升级版”——加入了块匹配和 3D 变换。</p></blockquote><h2 id=8-复合降噪策略>8. 复合降噪策略</h2><h3 id=81-渐进式图像降噪处理>8.1 渐进式图像降噪处理</h3><blockquote><p><strong>术语解释</strong>：<strong>渐进式降噪</strong>指用<strong>多个阶段</strong>逐步去除噪声，而不是一步到位。每个阶段用不同的参数或不同的方法，先粗后精。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>渐进式降噪流程：
+</span></span><span style=display:flex><span>带噪图 → 粗降噪（大窗口，强平滑）→ 中降噪 → 精降噪（小窗口，边缘保护）→ 去噪图
+</span></span></code></pre></div><p><strong>典型实现</strong>：</p><ol><li>用大窗口高斯滤波去除强噪声（代价：边缘模糊）</li><li>用引导滤波恢复边缘（把模糊的边缘重新“拉”清晰）</li><li>用小窗口双边滤波做最后的精细处理</li></ol><p>这种“先粗后精”的策略，比单次滤波更能平衡去噪和细节保留。</p><h3 id=82-自适应降噪>8.2 自适应降噪</h3><blockquote><p><strong>术语解释</strong>：<strong>自适应降噪</strong>指根据图像<strong>局部内容</strong>动态调整降噪强度——平坦区域用力降噪，纹理/边缘区域轻降噪或跳过降噪。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>自适应策略：
+</span></span><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span><span style=display:flex><span>│  对每个像素：                                                              │
+</span></span><span style=display:flex><span>│  ① 计算局部方差（判断是平坦还是纹理区域）                                  │
+</span></span><span style=display:flex><span>│  ② 平坦区域：大方差 → 用强降噪（大窗口、低阈值）                         │
+</span></span><span style=display:flex><span>│  ③ 纹理/边缘区域：小方差 → 用弱降噪（小窗口、高阈值）                    │
+</span></span><span style=display:flex><span>│  ④ 高纹理区域：跳过降噪                                                   │
+</span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
+</span></span></code></pre></div><blockquote><p><strong>为什么自适应降噪更优？</strong> 因为它能避免“一刀切”——在最需要去噪的平坦区域用力处理，在最需要保留细节的纹理/边缘区域轻处理。这与在 AI 去噪中“让模型根据 k/b 动态调整去噪力度”的思路是一致的。</p></blockquote><h3 id=83-复合降噪的典型流程>8.3 复合降噪的典型流程</h3><pre class=mermaid>
+flowchart LR
+    A["输入带噪图"] --> B["噪声估计<br>（局部方差分析）"]
+    B --> C{"区域分类"}
+    C -->|平坦| D["强降噪<br>（大窗口均值/高斯）"]
+    C -->|边缘| E["轻降噪<br>（小窗口双边/引导）"]
+    C -->|纹理| F["跳过去噪<br>（或极轻降噪）"]
+    D --> G["融合"]
+    E --> G
+    F --> G
+    G --> H["后处理<br>（锐化/细节增强）"]
+    H --> I["输出"]
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><blockquote><p><strong>关键理解</strong>：没有一种滤波方法能适合所有场景。复合降噪通过“分而治之”策略——平坦区域用强平滑，边缘区域用保边滤波，纹理区域保持原样——达到最优的整体效果。</p></blockquote><h2 id=9-各方法对比总结>9. 各方法对比总结</h2><pre class=mermaid>
+flowchart LR
+    subgraph 线性
+        A["均值滤波"] --> A1["最简单、最快<br>边缘模糊严重"]
+        B["高斯滤波"] --> B1["加权平均<br>边缘保留较好"]
+    end
+    
+    subgraph 非线性
+        C["中值滤波"] --> C1["椒盐噪声特效<br>不引入模糊"]
+        D["双边滤波"] --> D1["保边去噪<br>可能卡通化"]
+        E["引导滤波"] --> E1["引导图辅助<br>边缘精准"]
+        F["非局部均值"] --> F1["全局搜索<br>纹理保留最好"]
+    end
+    
+    subgraph 复合
+        G["渐进式"] --> G1["多阶段<br>粗→精"]
+        H["自适应"] --> H1["按内容<br>动态调节"]
+    end
+</pre><script type=module>
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
+
+  
+  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
+  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
+  const THEME_REGEX = /^\s*theme:/;
+  const THEME_VARS_REGEX = /^\s*themeVariables:/;
+
+  
+  const getMermaidConfig = (startOnLoad = true) => ({
+    startOnLoad,
+    theme: "default",
+    securityLevel: "loose",
+    flowchart: { curve: "basis" },
+  });
+
+  
+  function processContent(content, isDarkMode) {
+    if (!isDarkMode) return content;
+
+    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
+
+    if (hasFrontmatter) {
+      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
+        const lines = configContent.split("\n");
+        const filtered = [];
+        let skipUntilDedent = false;
+        let themeVarIndent = 0;
+
+        for (const line of lines) {
+          const indent = line.search(/\S/);
+
+          if (THEME_REGEX.test(line)) continue;
+
+          if (THEME_VARS_REGEX.test(line)) {
+            skipUntilDedent = true;
+            themeVarIndent = indent;
+            continue;
+          }
+
+          if (skipUntilDedent) {
+            if (line.trim() && indent > themeVarIndent) continue;
+            skipUntilDedent = false;
+          }
+
+          filtered.push(line);
+        }
+
+        filtered.unshift("  theme: dark");
+        return before + filtered.join("\n") + after;
+      });
+    }
+    
+    return `---\nconfig:\n  theme: dark\n---\n${content}`;
+  }
+
+  
+  async function rerenderDiagrams() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const elements = document.querySelectorAll(".mermaid");
+    
+    if (elements.length === 0) return;
+
+    const validElements = [];
+
+    for (const element of elements) {
+      if (!element.isConnected) continue;
+      
+      const originalContent = element.getAttribute("data-original");
+      if (originalContent) {
+        const content = processContent(originalContent, isDark);
+        element.textContent = content;
+        element.removeAttribute("data-processed");
+        validElements.push(element);
+      }
+    }
+
+    if (validElements.length === 0) return;
+
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    try {
+      await mermaid.run({ nodes: validElements });
+    } catch (error) {
+      console.error("Mermaid rendering error:", error);
+    }
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const isDark = document.documentElement.classList.contains("dark");
+
+    document.querySelectorAll(".mermaid").forEach((element) => {
+      if (!element.hasAttribute("data-original")) {
+        const originalContent = element.textContent.trim();
+        element.setAttribute("data-original", originalContent);
+        element.textContent = processContent(originalContent, isDark);
+      }
+    });
+  });
+
+  mermaid.initialize(getMermaidConfig());
+
+  
+  let previousDarkMode = document.documentElement.classList.contains("dark");
+
+  new MutationObserver(() => {
+    const currentDarkMode = document.documentElement.classList.contains("dark");
+
+    if (currentDarkMode !== previousDarkMode) {
+      previousDarkMode = currentDarkMode;
+      mermaid.initialize(getMermaidConfig(false));
+      rerenderDiagrams();
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+</script><table><thead><tr><th>方法</th><th>去噪能力</th><th>边缘保留</th><th>计算量</th><th>适用场景</th></tr></thead><tbody><tr><td>均值滤波</td><td>低</td><td>差</td><td>极低</td><td>快速预处理</td></tr><tr><td>高斯滤波</td><td>中</td><td>一般</td><td>低</td><td>通用平滑</td></tr><tr><td>中值滤波</td><td>中（椒盐噪声高）</td><td>好</td><td>中</td><td>椒盐噪声</td></tr><tr><td>双边滤波</td><td>中高</td><td>好</td><td>较高</td><td>保边去噪</td></tr><tr><td>引导滤波</td><td>中高</td><td>极好</td><td>中</td><td>高质量保边</td></tr><tr><td>非局部均值</td><td>高</td><td>极好</td><td>极高</td><td>高质量纹理保留</td></tr><tr><td>复合降噪</td><td>高</td><td>极好</td><td>视组合而定</td><td>工业级应用</td></tr></tbody></table><h2 id=10-一句话总结>10. 一句话总结</h2><blockquote><p><strong>空域降噪在同一帧内利用像素间空间关系去除噪声：线性滤波（均值/高斯）简单快速但模糊边缘，非线性滤波（中值/双边/引导）保边但计算更复杂，非局部均值（NLM）用全局相似块获得最佳效果，复合策略（渐进式/自适应）通过分区域、分阶段处理达到最优平衡。实际 ISP 中常将多种方法组合使用，根据图像内容自适应选择降噪策略。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

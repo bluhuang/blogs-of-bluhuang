@@ -1,4 +1,207 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;一台 Mac（保持开机，连接家里 Wi-Fi）&lt;/li&gt;
+&lt;li&gt;一部 iPhone（可连接 5G 或其它 Wi-Fi）&lt;/li&gt;
+&lt;li&gt;两个设备登录同一个 Apple ID（非必需，但方便）&lt;/li&gt;
+&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用来装软件）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2-mac-端安装与配置"&gt;2. Mac 端安装与配置&lt;/h2&gt;
+&lt;h3 id="21-安装-tailscale组网工具"&gt;2.1 安装 Tailscale（组网工具）&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;打开官网 &lt;a href="https://tailscale.com/download"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
+&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
+&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;打开 &lt;strong&gt;系统设置 → 通用 → 共享&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;打开 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
+&lt;li&gt;下方“允许访问”建议设为“所有用户”，或者只允许你的 Mac 用户名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="23-安装-tmux防断连工具"&gt;2.3 安装 tmux（防断连工具）&lt;/h3&gt;
+&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>mac远程安装开发好的ios app实践 - SideStore</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</guid><description>&lt;h1 id="sidestore-无线远程安装方案packpack-开发实践"&gt;SideStore 无线远程安装方案（Packpack 开发实践）&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在家外的任意地点，通过 SideStore 将 Mac 上由 OpenCode 自动构建的 &lt;code&gt;.ipa&lt;/code&gt; 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。&lt;/p&gt;</description></item><item><title>MobileNetV2 - Inverted Residuals and Linear Bottlenecks</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/</guid><description>&lt;h1 id="mobilenetv2---inverted-residuals-and-linear-bottlenecks"&gt;MobileNetV2 - Inverted Residuals and Linear Bottlenecks&lt;/h1&gt;
+&lt;h2 id="1-论文信息与问题端侧网络到底在优化什么"&gt;1. 论文信息与问题：端侧网络到底在优化什么&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：MobileNetV2: Inverted Residuals and Linear Bottlenecks&lt;br&gt;
+&lt;strong&gt;会议&lt;/strong&gt;：CVPR 2018&lt;/p&gt;</description></item><item><title>Raw - L1 Loss、SSIM Loss 与组合 Loss</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/</guid><description>&lt;h2 id="1-损失函数在训练流程中的位置"&gt;1 损失函数在训练流程中的位置&lt;/h2&gt;
+&lt;p&gt;损失函数（Loss Function）是整个训练流程的“方向盘”。它不决定模型能学到什么的上限，但它决定了模型朝哪个方向更新。&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;快速参考：状态判断、与 Clash 冲突解决、relay 问题处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="1-常用命令"&gt;1. 常用命令&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale status
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale ping 100.88.241.40
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale netcheck
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale down
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo pkill -f Tailscale &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; sleep &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo tailscale up
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo tailscale set --relay-server-port&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;40000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-状态解读"&gt;2. 状态解读&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;状态&lt;/th&gt;
+					&lt;th&gt;含义&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;active; direct&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;✅ 点对点直连，速度最快&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;active; direct [IPv6地址]&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;✅ IPv6 直连，也很快&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;idle&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;✅ 空闲待机，有流量自动激活，无 relay 即正常&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;active; relay &amp;quot;hkg/lax/...&amp;quot;&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ 走公共中继，速度慢，需处理&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="3-出现-relay-怎么办"&gt;3. 出现 relay 怎么办？&lt;/h2&gt;
+&lt;h3 id="31-优先尝试重启-mac最有效"&gt;3.1 优先尝试：重启 Mac（最有效）&lt;/h3&gt;
+&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;终端复用器，SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id="1-安装"&gt;1. 安装&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;brew install tmux
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-会话管理每条命令可单独复制"&gt;2. 会话管理（每条命令可单独复制）&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s 会话名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux ls
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t 会话名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux kill-session -t 会话名
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux kill-server
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-会话内快捷键先按-ctrlb再按以下键"&gt;3. 会话内快捷键（先按 &lt;code&gt;Ctrl+B&lt;/code&gt;，再按以下键）&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;快捷键&lt;/th&gt;
+					&lt;th&gt;作用&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;c&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;创建新窗口&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;n&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;下一个窗口&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;上一个窗口&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;&amp;quot;&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;水平分割面板（上下）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;%&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;垂直分割面板（左右）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;方向键&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;切换面板&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;x&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;关闭当前面板（按 y 确认）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;d&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;脱离会话（任务继续后台运行）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;[&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;进入滚动/复制模式（按 &lt;code&gt;q&lt;/code&gt; 退出）&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;?&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;显示帮助&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="4-典型工作流"&gt;4. 典型工作流&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 首次连接：创建会话&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s work
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行你的程序（如 opencode、vim、npm run dev）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 临时断开（不中断任务）: Ctrl+B 然后按 D&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 下次连接：恢复会话&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t work
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-小技巧"&gt;5. 小技巧&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;长时间任务配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内运行的任务&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>U-Net - Convolutional Networks for Biomedical Image Segmentation</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/</guid><description>&lt;h1 id="u-net-convolutional-networks-for-biomedical-image-segmentation"&gt;U-Net: Convolutional Networks for Biomedical Image Segmentation&lt;/h1&gt;
+&lt;h2 id="1-论文信息"&gt;1. 论文信息&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：U-Net: Convolutional Networks for Biomedical Image Segmentation&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;作者&lt;/strong&gt;：Olaf Ronneberger, Philipp Fischer, Thomas Brox&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;会议&lt;/strong&gt;：MICCAI 2015&lt;/p&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不建议使用SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
+一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。&lt;/p&gt;</description></item><item><title>从零配置 SideStore &amp; WireGuard：实现远程无线安装 iOS 应用</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</guid><description>&lt;h1 id="sidestore--wireguard-环境搭建与远程-ios-开发安装配置指南"&gt;SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item><item><title>空域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-空域降噪的基本概念"&gt;1. 空域降噪的基本概念&lt;/h2&gt;
+&lt;h3 id="11-什么是空域降噪"&gt;1.1 什么是空域降噪&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;空域降噪（Spatial Denoising）&lt;/strong&gt; 指在同一帧图像内部，利用像素与周围像素之间的空间关系来去除噪声的方法。它不依赖多帧信息，只处理当前这一帧。&lt;/p&gt;</description></item><item><title>频域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-频域降噪的背景"&gt;1. 频域降噪的背景&lt;/h2&gt;
+&lt;h3 id="11-为什么需要频域降噪"&gt;1.1 为什么需要频域降噪？&lt;/h3&gt;
+&lt;p&gt;空域降噪在像素矩阵上直接操作，有一个根本性的限制：&lt;strong&gt;它只能利用局部信息&lt;/strong&gt;。无论窗口开多大，都只看到有限范围内的像素。&lt;/p&gt;</description></item><item><title>时域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-时域降噪的背景与原理"&gt;1. 时域降噪的背景与原理&lt;/h2&gt;
+&lt;h3 id="11-为什么需要时域降噪"&gt;1.1 为什么需要时域降噪？&lt;/h3&gt;
+&lt;p&gt;空域降噪和频域降噪都在&lt;strong&gt;单帧内部&lt;/strong&gt;操作——无论算法多先进，都受限于“这一帧只有这么多信息”这一事实。当噪声强度超过一定程度时，单帧降噪会严重损伤图像细节。&lt;/p&gt;</description></item><item><title>双指针解决去重排列组合问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/16-%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E5%86%B3%E5%8E%BB%E9%87%8D%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/16-%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E5%86%B3%E5%8E%BB%E9%87%8D%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="双指针解决去重排列组合问题"&gt;双指针解决去重排列组合问题&lt;/h1&gt;
+&lt;h2 id="一题型识别"&gt;一、题型识别&lt;/h2&gt;
+&lt;p&gt;这类题属于 &lt;strong&gt;“N 数之和”双指针题型&lt;/strong&gt;，核心特征是：&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;特征&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;说明&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;输入是&lt;strong&gt;无序数组&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;必须先排序&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;要求返回&lt;strong&gt;所有不重复的组合&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;code&gt;[a,b]&lt;/code&gt; 和 &lt;code&gt;[b,a]&lt;/code&gt; 视为同一个&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;组合&lt;strong&gt;顺序不重要&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;只关心元素集合，不关心排列顺序&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;暴力枚举会超时&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;必须用双指针压缩搜索空间&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;一句话识别&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>未命名</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p&gt;最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中遇到一个非常隐蔽的问题。&lt;/p&gt;
+&lt;p&gt;表面上看，我已经在 ChatGPT 的 GitHub 应用中完成登录和授权，GitHub 的 &lt;strong&gt;Authorized OAuth Apps&lt;/strong&gt; 页面里也能看到 ChatGPT。整个流程看起来都成功了。&lt;/p&gt;</description></item><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
 &lt;p&gt;在 DnCNN 出现之前，图像去噪主要面临三个痛点：&lt;/p&gt;
 &lt;h3 id="11-痛点一传统方法依赖人工设计的先验"&gt;1.1 痛点一：传统方法依赖人工设计的先验&lt;/h3&gt;
 &lt;p&gt;传统去噪方法（如 BM3D）基于图像的自相似性——在一张图像里找相似的图像块，然后加权平均去噪。这种方法虽然有效，但本质上是在“手工设计规则”，通用性有限，不同场景需要不同的参数配置。&lt;/p&gt;</description></item><item><title>ResNet - Deep Residual Learning for Image Recognition</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</guid><description>&lt;h2 id="1-论文信息"&gt;1. 论文信息&lt;/h2&gt;
@@ -461,9 +664,7 @@ flowchart TB
 &lt;p&gt;在技术实践中，RAG系统常遇到“检索到了但答不对”的情况，或者“RAG检索到了正确信息，但生成的回答还是拼凑感很强”。这些问题本质上反映了RAG的固有局限。&lt;/p&gt;</description></item><item><title>LLM基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法"&gt;LLM 学习笔记：核心概念与实践方法&lt;/h1&gt;
 &lt;h2 id="1-大语言模型基础"&gt;1. 大语言模型基础&lt;/h2&gt;
 &lt;h3 id="11-什么是-llm"&gt;1.1 什么是 LLM&lt;/h3&gt;
-&lt;p&gt;大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p&gt;</description></item><item><title>mac远程安装开发好的ios app实践 - SideStore</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</guid><description>&lt;h1 id="sidestore-无线远程安装方案packpack-开发实践"&gt;SideStore 无线远程安装方案（PackPack 开发实践）&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在家外任意地点，通过 SideStore 将 Mac 上自动化构建的 &lt;code&gt;.ipa&lt;/code&gt; 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。&lt;/p&gt;</description></item><item><title>RAG 题汇总</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="rag技术要点汇总"&gt;RAG技术要点汇总&lt;/h1&gt;
+&lt;p&gt;大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p&gt;</description></item><item><title>RAG 题汇总</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="rag技术要点汇总"&gt;RAG技术要点汇总&lt;/h1&gt;
 &lt;h2 id="模块1基础概念"&gt;模块1：基础概念&lt;/h2&gt;
 &lt;h3 id="q1-什么是rag为什么需要rag"&gt;Q1: 什么是RAG？为什么需要RAG？&lt;/h3&gt;
 &lt;h4 id="llm-的三大知识缺陷"&gt;LLM 的三大知识缺陷&lt;/h4&gt;
@@ -782,163 +983,7 @@ flowchart TB
  /&gt;
 &lt;/p&gt;
 &lt;p&gt;你可能当时就想问： &lt;strong&gt;为什么要专门用向量数据库？MySQL 不能存吗？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>重排序 Rerank 详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/5-%E9%87%8D%E6%8E%92%E5%BA%8F-rerank-%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h2 id="1-核心概念什么是-rerank"&gt;1. 核心概念：什么是 Rerank&lt;/h2&gt;
-&lt;p&gt;Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索（向量检索 / BM25）从大规模知识库中快速召回大量候选文档（如 Top-100），Rerank 对这些候选进行精细的二次评分和排序，只将最相关的少量文档（如 Top-5）传递给 LLM 用于生成答案。检索和 Rerank 的核心定位区别如下：&lt;/p&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 11 Jun 2026 09:25:19 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;避免使用SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
-一次配置后，无论在家还是在外，都能一键将 App 安装到 iPhone。&lt;/p&gt;</description></item><item><title>从零配置 SideStore &amp; WireGuard：实现远程无线安装 iOS 应用</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</link><pubDate>Thu, 11 Jun 2026 09:25:19 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</guid><description>&lt;h1 id="sidestore--wireguard-环境搭建与远程-ios-开发安装配置指南"&gt;SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使构建工具能远程生成 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 09:42:47 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;一台 Mac（保持开机，连接家里 Wi-Fi）&lt;/li&gt;
-&lt;li&gt;一部 iPhone（可连接 5G 或其它 Wi-Fi）&lt;/li&gt;
-&lt;li&gt;两个设备登录同一个 Apple ID（非必需，但方便）&lt;/li&gt;
-&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用来装软件）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id="2-mac-端安装与配置"&gt;2. Mac 端安装与配置&lt;/h2&gt;
-&lt;h3 id="21-安装-tailscale组网工具"&gt;2.1 安装 Tailscale（组网工具）&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;打开官网 &lt;a href="https://tailscale.com/download"
-
-
-
-
- target="_blank"
- 
-
-
-&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
-&lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
-&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;打开 &lt;strong&gt;系统设置 → 通用 → 共享&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;打开 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
-&lt;li&gt;下方“允许访问”建议设为“所有用户”，或者只允许你的 Mac 用户名&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="23-安装-tmux防断连工具"&gt;2.3 安装 tmux（防断连工具）&lt;/h3&gt;
-&lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>Tailscale 连接指南与使用详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 04 Jun 2026 09:42:47 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tailscale-%E8%BF%9E%E6%8E%A5%E6%8C%87%E5%8D%97%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;快速参考：状态判断、与 Clash 冲突解决、relay 问题处理。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="1-常用命令"&gt;1. 常用命令&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale status
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale ping 100.88.241.40
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale netcheck
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale down
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tailscale up
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo pkill -f Tailscale &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; sleep &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo tailscale up
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo tailscale set --relay-server-port&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;40000&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-状态解读"&gt;2. 状态解读&lt;/h2&gt;
-&lt;table&gt;
-	&lt;thead&gt;
-			&lt;tr&gt;
-					&lt;th&gt;状态&lt;/th&gt;
-					&lt;th&gt;含义&lt;/th&gt;
-			&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;active; direct&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;✅ 点对点直连，速度最快&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;active; direct [IPv6地址]&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;✅ IPv6 直连，也很快&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;idle&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;✅ 空闲待机，有流量自动激活，无 relay 即正常&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;active; relay &amp;quot;hkg/lax/...&amp;quot;&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;❌ 走公共中继，速度慢，需处理&lt;/td&gt;
-			&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id="3-出现-relay-怎么办"&gt;3. 出现 relay 怎么办？&lt;/h2&gt;
-&lt;h3 id="31-优先尝试重启-mac最有效"&gt;3.1 优先尝试：重启 Mac（最有效）&lt;/h3&gt;
-&lt;p&gt;清除残留虚拟网卡和路由表，恢复 IPv6 直连。&lt;/p&gt;</description></item><item><title>tmux 使用指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link><pubDate>Thu, 04 Jun 2026 09:42:47 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/mac/tmux-%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;终端复用器，SSH 断开后会话不中断，任务继续运行。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id="1-安装"&gt;1. 安装&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;brew install tmux
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-会话管理每条命令均可单独复制"&gt;2. 会话管理（每条命令均可单独复制）&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s 会话名
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux ls
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t 会话名
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux kill-session -t 会话名
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux kill-server
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-会话内快捷键先按-ctrlb再按相应的键"&gt;3. 会话内快捷键（先按 &lt;code&gt;Ctrl+B&lt;/code&gt;，再按相应的键）&lt;/h2&gt;
-&lt;table&gt;
-	&lt;thead&gt;
-			&lt;tr&gt;
-					&lt;th&gt;快捷键&lt;/th&gt;
-					&lt;th&gt;作用&lt;/th&gt;
-			&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;c&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;创建新窗口&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;n&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;下一个窗口&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;p&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;上一个窗口&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;&amp;quot;&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;水平分割面板（上下）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;%&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;垂直分割面板（左右）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;方向键&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;切换面板&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;x&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;关闭当前面板（按 &lt;code&gt;y&lt;/code&gt; 确认）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;d&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;脱离会话（任务继续后台运行）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;[&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;进入滚动/复制模式（按 &lt;code&gt;q&lt;/code&gt; 退出）&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;&lt;code&gt;?&lt;/code&gt;&lt;/td&gt;
-					&lt;td&gt;显示帮助&lt;/td&gt;
-			&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id="4-典型工作流"&gt;4. 典型工作流&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 首次连接：创建会话&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux new -s work
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行程序（如 opencode、vim、npm run dev）&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 临时断开（不中断任务）：Ctrl+B 然后按 D&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 下次连接：恢复会话&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t work
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-小技巧"&gt;5. 小技巧&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;长时间任务可配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠，在另一终端执行 &lt;code&gt;caffeinate&lt;/code&gt; 即可&lt;/li&gt;
-&lt;li&gt;手机锁屏或切换 App 不影响 tmux 内的任务&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>Application-Defined SQL Functions</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p&gt;[[programming interfaces]]&lt;/p&gt;
+&lt;p&gt;Rerank（重排序）是 RAG 系统中的第二阶段排序技术。初始检索（向量检索 / BM25）从大规模知识库中快速召回大量候选文档（如 Top-100），Rerank 对这些候选进行精细的二次评分和排序，只将最相关的少量文档（如 Top-5）传递给 LLM 用于生成答案。检索和 Rerank 的核心定位区别如下：&lt;/p&gt;</description></item><item><title>Application-Defined SQL Functions</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/sqlite/programming-interfaces/application-defined-sql-functions/</guid><description>&lt;p&gt;[[programming interfaces]]&lt;/p&gt;
 &lt;p&gt;source: &lt;a href="https://sqlite.org/appfunc.html"
 
 
@@ -1267,19 +1312,56 @@ flowchart TB
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;核心特征&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>回文</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/13-%E5%9B%9E%E6%96%87/</guid><description>&lt;h2 id="核心区分什么时候用什么"&gt;核心区分：什么时候用什么？&lt;/h2&gt;
+&lt;p&gt;只需看一个关键问题：&lt;/p&gt;
+&lt;h3 id="题目是否需要频繁判断任意区间-"&gt;&lt;strong&gt;题目是否需要“频繁判断任意区间 [i, j] 是否为回文”？&lt;/strong&gt;&lt;/h3&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style="text-align: left"&gt;情况&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;用什么&lt;/th&gt;
+					&lt;th style="text-align: left"&gt;为什么&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;只需要找最长的那个&lt;/strong&gt;（LeetCode 5）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;中心扩展法&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;不需要预处理所有区间，边扩展边记录最大值即可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;只需要统计个数&lt;/strong&gt;（LeetCode 647）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;中心扩展法&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;扩展过程中顺便计数，O(1) 空间&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;需要反复判断不同区间&lt;/strong&gt;（如回溯、DP 转移中频繁查表）&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;&lt;strong&gt;二维 DP 预处理&lt;/strong&gt;&lt;/td&gt;
+					&lt;td style="text-align: left"&gt;一次性算出所有 &lt;code&gt;dp[i][j]&lt;/code&gt;，后续 O(1) 查询&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id="具体判断流程"&gt;具体判断流程&lt;/h3&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;题目要求什么？
+├── 输出一个值（最长子串长度/位置、计数）
+│ └── 用「中心扩展法」
+│ 例题：5. 最长回文子串、647. 回文子串计数
+│
+├── 输出所有方案（所有分割方式）
+│ └── 用「回溯 + 二维 DP 预处理」
+│ 例题：131. 分割回文串
+│
+├── 求最少分割次数
+│ └── 用「一维 DP + 二维 DP 预处理」
+│ 例题：132. 分割回文串 II
+│
+└── 子序列问题（不连续）
+ └── 用「区间 DP」（不是中心扩展，因为子序列不连续）
+ 例题：516. 最长回文子序列
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h1 id="回文palindrome串题型完整笔记"&gt;回文（Palindrome）串题型完整笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别与核心特征"&gt;一、题型识别与核心特征&lt;/h2&gt;
-&lt;p&gt;LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;回文串&lt;/strong&gt;：正着读和倒着读一样的字符串。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;问题类型通常分为三类：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;验证/计数型&lt;/strong&gt;：判断是否是回文、统计回文子串数量。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;构造/分割型&lt;/strong&gt;：分割出所有回文子串（回溯）、最少分割次数（DP）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;最长/极值型&lt;/strong&gt;：找最长的回文子串。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;所有问题的根基都是&lt;strong&gt;如何高效判断一个子串是回文&lt;/strong&gt;。一旦你熟练掌握了子串回文的判断，所有问题无非是在此基础上&lt;strong&gt;遍历、计数、分割或求极值&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>括号问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
+&lt;p&gt;LeetCode 中所有回文串问题都围绕一个核心定义：&lt;/p&gt;</description></item><item><title>括号问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/12-%E6%8B%AC%E5%8F%B7%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="括号问题全解leetcode-32-栈解法--通用决策框架"&gt;括号问题全解：LeetCode 32 栈解法 + 通用决策框架&lt;/h1&gt;
 &lt;h2 id="一leetcode-32-最长有效括号--栈解法精要"&gt;一、LeetCode 32 最长有效括号 — 栈解法精要&lt;/h2&gt;
 &lt;h3 id="1-题目与题型"&gt;1. 题目与题型&lt;/h3&gt;
 &lt;ul&gt;
