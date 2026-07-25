@@ -5,6 +5,12 @@
   "AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md": {
     "hash": "dfc3df4197f20369749fd44515995de0"
   },
+  "AI/0 Paper/CV/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md": {
+    "hash": "66d7daca7d59637e39df380ec9c3d2cd"
+  },
+  "AI/0 Paper/CV/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md": {
+    "hash": "e581c16d2df8a90eec33fac57f664909"
+  },
   "AI/1 LLM/1 LLM基础必知必会.md": {
     "hash": "1d98be5f08c18b030e94f00d7218ea8d"
   },
@@ -122,6 +128,15 @@
   "AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md": {
     "hash": "5384ff083b9c67a38444b5380bf81204"
   },
+  "AI/5 ISP与图像处理/16 空域降噪.md": {
+    "hash": "4f319b48f06fcb09d15ade5a49e06af8"
+  },
+  "AI/5 ISP与图像处理/17 频域降噪.md": {
+    "hash": "525187d4c131d8bc779dcf0b57b943d3"
+  },
+  "AI/5 ISP与图像处理/18 时域降噪.md": {
+    "hash": "0cf86dfb88d8c252dce34e4a691203d1"
+  },
   "AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "2b0b0258642640178454d48dc36f04da"
   },
@@ -158,6 +173,9 @@
   "AI/7 模型训练/3 学习率调度（Learning Rate Scheduling）.md": {
     "hash": "ecc9558f44e586ecd3443f255f100add"
   },
+  "AI/7 模型训练/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
+    "hash": "cc4daf11755b246bb61f2378d1ef644f"
+  },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "c334236642e33795ce6f102295be23cf"
   },
@@ -174,13 +192,16 @@
     "hash": "451574b253a2b17ced041260aa46c2b2"
   },
   "coding/coding algorithm/13 回文.md": {
-    "hash": "4360fe390ed32f8428aae8891d6c172d"
+    "hash": "523ae2b8d12ce40b9cc2b3ea56e1933e"
   },
   "coding/coding algorithm/14 下一个排列与排列题型.md": {
     "hash": "359f886decba43cb9b35ed92041308dd"
   },
   "coding/coding algorithm/15 环形链表与隐式环形链表.md": {
     "hash": "57f4a1c5e1cd8d61b61703a7091efbbd"
+  },
+  "coding/coding algorithm/16 双指针解决去重排列组合问题.md": {
+    "hash": "09c28f9db6f179e34e213d31051940a7"
   },
   "coding/coding algorithm/2 差分数组.md": {
     "hash": "f2c5eeedf7146199c413f281904a0999"
@@ -215,22 +236,25 @@
   "database/向量/HNSW索引学习笔记.md": {
     "hash": "f5942b7ebb7ec71f60f79f5335ef697f"
   },
-  "z_mixed/mac/Tailscale 连接指南与使用详解.md": {
+  "z_mixed/skills/未命名.md": {
+    "hash": "0284d34234e138e62611a4c312b50fa2"
+  },
+  "z_mixed/远程开发/Tailscale 连接指南与使用详解.md": {
     "hash": "95b418bb533645dc5f7e148e2ec84abb"
   },
-  "z_mixed/mac/Xcode 无线安装与远程调试完全指南.md": {
+  "z_mixed/远程开发/Xcode 无线安装与远程调试完全指南.md": {
     "hash": "f352dedd9f361917a1c604e2145f3d8f"
   },
-  "z_mixed/mac/iOS 远程 Mac 开发环境搭建指南.md": {
+  "z_mixed/远程开发/iOS 远程 Mac 开发环境搭建指南.md": {
     "hash": "3ae3a4ed4fccb41e443543365c30dd51"
   },
-  "z_mixed/mac/mac远程安装开发好的ios app实践 - SideStore.md": {
+  "z_mixed/远程开发/mac远程安装开发好的ios app实践 - SideStore.md": {
     "hash": "8383bf52ae3761bbf89ba7056a451220"
   },
-  "z_mixed/mac/tmux 使用指南.md": {
+  "z_mixed/远程开发/tmux 使用指南.md": {
     "hash": "b21789e96cbf0eb865ebc891b734c89a"
   },
-  "z_mixed/mac/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
+  "z_mixed/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
     "hash": "a72224d5e68e3253b1516d7f93b28a43"
   }
 }

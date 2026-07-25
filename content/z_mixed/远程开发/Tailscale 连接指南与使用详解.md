@@ -2,8 +2,8 @@
 title: "Tailscale 连接指南与使用详解"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-04T09:42:47+0800
-lastmod: 2026-06-04T09:42:47+0800
+date: 2026-07-25T11:33:29+0800
+lastmod: 2026-07-25T11:33:29+0800
 ---
 
 > 快速参考：状态判断、与 Clash 冲突解决、relay 问题处理。

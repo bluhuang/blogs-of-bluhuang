@@ -2,13 +2,13 @@
 title: "mac远程安装开发好的ios app实践 - SideStore"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+date: 2026-07-25T11:33:29+0800
+lastmod: 2026-07-25T11:33:29+0800
 ---
 
-# SideStore 无线远程安装方案（PackPack 开发实践）
+# SideStore 无线远程安装方案（Packpack 开发实践）
 
-> **目标**：在家外任意地点，通过 SideStore 将 Mac 上自动化构建的 `.ipa` 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。
+> **目标**：在家外的任意地点，通过 SideStore 将 Mac 上由 OpenCode 自动构建的 `.ipa` 安装到 iPhone，无需 USB 线、无需同一 Wi-Fi，完全免费。
 
 ## 一、原理：SideStore 如何实现“无线远程安装”？
 
@@ -63,9 +63,9 @@ OpenCode (Mac) → 自动构建 .ipa → 存入 iCloud 云盘
 - 准备一个测试 `.ipa` 文件（例如 Xcode 导出的 Ad Hoc IPA）。
 - 在 iPhone 的“文件”App 中点击该 IPA，选择分享 → SideStore → 输入 Apple ID 密码，应能成功安装。
 
-## 三、日常远程开发操作（自动化构建）
+## 三、日常远程开发操作（OpenCode 自动化）
 
-### 3.1 Mac 端：让自动化工具自动构建并上传 iCloud
+### 3.1 Mac 端：让 OpenCode 自动构建并上传 iCloud
 创建脚本 `~/Desktop/code/PackPack/build_and_export_ipa.sh`，内容如下：
 
 ```bash
@@ -73,7 +73,7 @@ OpenCode (Mac) → 自动构建 .ipa → 存入 iCloud 云盘
 set -euo pipefail
 
 PROJECT_DIR="$HOME/Desktop/code/PackPack"
-SCHEME="PackPack"
+SCHEME="Packpack"
 CONFIGURATION="Release"
 ICLOUD_BASE="$HOME/Library/Mobile Documents/com~apple~CloudDocs/interact/PackPackInterAct/ipa"
 
@@ -99,11 +99,11 @@ PAYLOAD="Payload"
 rm -rf "$PAYLOAD"
 mkdir "$PAYLOAD"
 cp -R "$APP_PATH" "$PAYLOAD/"
-zip -qr "PackPack.ipa" "$PAYLOAD"
+zip -qr "Packpack.ipa" "$PAYLOAD"
 rm -rf "$PAYLOAD"
 
-mv "PackPack.ipa" "$DEST_DIR/"
-echo "✅ IPA 已保存至: $DEST_DIR/PackPack.ipa"
+mv "Packpack.ipa" "$DEST_DIR/"
+echo "✅ IPA 已保存至: $DEST_DIR/Packpack.ipa"
 ```
 
 **赋予执行权限**：
@@ -111,12 +111,12 @@ echo "✅ IPA 已保存至: $DEST_DIR/PackPack.ipa"
 chmod +x ~/Desktop/code/PackPack/build_and_export_ipa.sh
 ```
 
-**让自动化工具执行**：  
-每次修改代码后，只需调用脚本即可自动完成构建、命名、上传。
+**让 OpenCode 执行**：  
+每次修改代码后，只需对 OpenCode 说：“执行 `build_and_export_ipa.sh` 打包并上传 iCloud”。它会自动完成构建、命名、上传。
 
 ### 3.2 iPhone 端：安装最新版本
 1. 打开 **“文件”App** → iCloud 云盘 → `interact/PackPackInterAct/ipa/` → 选择最新日期的文件夹。
-2. 点击 `PackPack.ipa` 文件。
+2. 点击 `Packpack.ipa` 文件。
 3. 点击右上角 **分享** 按钮 → 选择 **SideStore**。
 4. 输入你的 Apple ID 密码，等待安装完成。
 5. 安装后，建议立即打开 SideStore，确认证书剩余时间（7 天）。
@@ -168,7 +168,7 @@ chmod +x ~/Desktop/code/PackPack/build_and_export_ipa.sh
 | TestFlight (99美元) | 99美元/年 | ✅（蜂窝亦可） | 自动 | ⭐⭐⭐⭐⭐（稳定） |
 
 **最终建议**：  
-如果不愿每年支付 99 美元，SideStore 是免费方案中的最佳选择。按照本文配置后，可以在任何有 Wi‑Fi 的地方远程安装最新版 App，且无需担心 7 天过期问题。如果未来需要更稳定的体验或发布到 App Store，再考虑付费账号。
+如果你不愿意每年支付 99 美元，SideStore 是免费方案中的最佳选择。按照本文配置后，你可以在任何有 Wi‑Fi 的地方远程安装最新版 App，且无需担心 7 天过期问题。如果未来需要更稳定的体验或发布到 App Store，再考虑付费账号。
 
 **最后更新**：2026-06-14  
 **适用系统**：iOS 26.0+ / macOS 15.7+（Intel 或 Apple Silicon 均可）
