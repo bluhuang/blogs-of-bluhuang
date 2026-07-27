@@ -128,14 +128,18 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 
 **计算步骤**：
 1. **计算 n-gram 精确率**（通常取 n=1~4）：
-   $$P_n = \frac{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}_{\text{clip}}(n\text{-gram})}{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}(n\text{-gram})}$$
+   $$
+P_n = \frac{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}_{\text{clip}}(n\text{-gram})}{\sum_{n\text{-gram} \in \text{Candidate}} \text{Count}(n\text{-gram})}
+$$
    - $\text{Count}_{\text{clip}}(n\text{-gram})$ 表示将该 n-gram 在候选句子中的出现次数裁剪到不超过它在任何参考句子中的最大出现次数（避免重复词被过度奖励）。
 2. **计算长度惩罚 BP（Brevity Penalty）**：
    - 设 $c$ 为候选句子长度，$r$ 为参考句子长度（若多个参考，取与 $c$ 最接近的长度）。  
      若 $c > r$，则 $BP = 1$；否则 $BP = e^{(1 - r/c)}$。
    - 惩罚过短的候选翻译（即使 n-gram 匹配率高，但漏译内容也要扣分）。
 3. **最终 BLEU**：
-   $$ \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log P_n\right)$$
+   $$
+\text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \log P_n\right)
+$$
    通常 $N=4$，$w_n = 1/4$（等权平均）。
 
 **特点**：
@@ -152,7 +156,9 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 **计算**：
 - 召回率 $R_{\text{lcs}} = \frac{L}{\text{len(参考)}}$
 - 精确率 $P_{\text{lcs}} = \frac{L}{\text{len(候选)}}$
-- $$ \text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P_{\text{lcs}}} $$
+- $$
+\text{ROUGE-L} = \frac{(1+\beta^2) R_{\text{lcs}} P_{\text{lcs}}}{R_{\text{lcs}} + \beta^2 P_{\text{lcs}}}
+$$
   $\beta$ 通常取很大（如 $\beta \to \infty$）使 F 值约等于召回率，即强调覆盖程度。
 
 **特点**：
@@ -164,15 +170,25 @@ n-gram 的核心思想是：两个文本越相似，它们共享的 n-gram 就�
 
 **计算步骤**：
 1. 用 BERT 分别将候选句子 $x$ 和参考句子 $y$ 编码为上下文词向量序列：
-   $$\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}$$
+   $$
+\mathbf{x} = \{\mathbf{x}_1, ..., \mathbf{x}_m\}, \quad \mathbf{y} = \{\mathbf{y}_1, ..., \mathbf{y}_n\}
+$$
 2. 对候选中的每个词 $x_i$，计算它与参考中所有词 $y_j$ 的**余弦相似度**，取最大值作为该词的匹配分数：
-   $$\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}$$
+   $$
+\text{sim}(x_i, y) = \max_{j} \ \frac{\mathbf{x}_i^\top \mathbf{y}_j}{\|\mathbf{x}_i\| \|\mathbf{y}_j\|}
+$$
 3. **召回率**（参考中内容被候选覆盖的程度）：
-   $$ R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j) $$
+   $$
+R_{\text{BERT}} = \frac{1}{n} \sum_{j=1}^{n} \max_{i} \text{sim}(x_i, y_j)
+$$
    **精确率**（候选中的内容与参考相关的比例）：
-   $$ P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j} \text{sim}(x_i, y_j) $$
+   $$
+P_{\text{BERT}} = \frac{1}{m} \sum_{i=1}^{m} \max_{j} \text{sim}(x_i, y_j)
+$$
 4. **F1 值**：
-   $$ \text{BERTScore} = 2 \cdot \frac{P_{\text{BERT}} \cdot R_{\text{BERT}}}{P_{\text{BERT}} + R_{\text{BERT}}} $$
+   $$
+\text{BERTScore} = 2 \cdot \frac{P_{\text{BERT}} \cdot R_{\text{BERT}}}{P_{\text{BERT}} + R_{\text{BERT}}}
+$$
 
 **特点**：
 - 优点：无需精确字符串匹配，能识别语义相似的表达（如 “快速” 与 “迅速”），与人类判断相关性高。

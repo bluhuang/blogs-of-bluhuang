@@ -1,14 +1,14 @@
 ---
-title: "未命名"
+title: "GPT连接Github - 授权不代表真连接"
 categories: ["z_mixed"]
 author: "BluHuang"
-date: 2026-07-25T11:33:29+0800
-lastmod: 2026-07-25T11:33:29+0800
+date: 2026-07-27T09:12:57+0800
+lastmod: 2026-07-27T09:12:57+0800
 ---
 
-最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中遇到一个非常隐蔽的问题。
+最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中踩了一个非常隐蔽的坑。
 
-表面上看，我已经在 ChatGPT 的 GitHub 应用中完成登录和授权，GitHub 的 **Authorized OAuth Apps** 页面里也能看到 ChatGPT。整个流程看起来都成功了。
+表面上看，已经在 ChatGPT 的 GitHub 应用中完成登录和授权，GitHub 的 **Authorized OAuth Apps** 页面里也能看到 ChatGPT。整个流程看起来都成功了。
 
 但回到 ChatGPT 后，私有仓库始终不可见。
 
@@ -20,7 +20,7 @@ lastmod: 2026-07-25T11:33:29+0800
 
 ## 真正缺失的步骤
 
-OpenAI 的帮助文档中有这样一段说明：
+帮助文档中有这样一段说明：
 
 > 私有或新创建的代码仓库：如果你的代码仓库是私有的，或是在最初连接到 GitHub 后创建的，它可能不会立即显示在 ChatGPT 中。请访问此链接，或在 ChatGPT 中 GitHub 的设置页面点按齿轮图标，以配置对所需代码仓库的访问权限。
 

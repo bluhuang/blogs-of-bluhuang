@@ -8,7 +8,7 @@ lastmod: 2026-07-25T11:33:29+0800
 
 # Xcode 无线远程安装指南（基于 Tailscale）
 
-> **不建议使用SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
+> **避免使用SideStore**，使用 Xcode + Tailscale 实现真正的远程无线安装。  
 > 一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。
 
 ---
@@ -23,7 +23,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ### 1.3 你的任务
 - **第一次（需 USB 线）**：建立信任关系，获取设备标识。  
-- **以后每次**：在 Mac 上执行一条命令（或让自动化工具执行），自动构建并通过 Tailscale IP 安装到手机。
+- **以后每次**：在 Mac 上执行一条命令（或让 OpenCode 执行），自动构建并通过 Tailscale IP 安装到手机。
 
 ---
 
@@ -49,7 +49,7 @@ Bonjour 无法跨子网或 VPN。但苹果提供了命令行工具 **`devicectl`
 
 ---
 
-### 🚀 日常远程安装（让自动化工具自动做）
+### 🚀 日常远程安装（让 OpenCode 自动做）
 
 创建一个脚本 `~/Desktop/code/PackPack/remote-install.sh`，内容如下（**请根据你的实际路径和 Tailscale IP 修改**）：
 
@@ -87,11 +87,11 @@ chmod +x ~/Desktop/code/PackPack/remote-install.sh
 
 ---
 
-### 📲 每次修改代码后，告诉自动化工具：
+### 📲 每次修改代码后，告诉 OpenCode：
 
 > “请执行 `~/Desktop/code/PackPack/remote-install.sh` 安装最新版本到我的 iPhone。”
 
-自动化工具会自动完成：
+OpenCode 会自动完成：
 1. 清理并重新构建项目  
 2. 通过 Tailscale IP 将 App 无线推送到你的手机  
 3. 输出成功信息

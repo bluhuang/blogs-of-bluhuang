@@ -8,7 +8,7 @@ lastmod: 2026-07-13T09:12:23+0800
 
 ## 1. 论文信息
 **论文标题**：Deep Residual Learning for Image Recognition  
-**作者**：匿名  
+**作者**：  
 **会议**：CVPR 2016
 
 这篇论文提出了 **ResNet（Residual Network，残差网络）**，核心目标不是单纯设计一个分类网络，而是解决：
@@ -60,7 +60,7 @@ flowchart LR
     D --> E[理论上不应比20层更差]
 ```
 【Fig1】
-[Pasted image 20260711171423.png]
+![[Pasted image 20260711171423.png]]
 但论文实验显示：
 - 56 层 Plain Network 的训练误差高于 20 层 Plain Network；
 - 测试误差也更高。
@@ -121,14 +121,14 @@ flowchart LR
 
 假设每层局部梯度都是 0.5，连续经过 10 层：
 
-$$  
-0.5^{10}=0.0009765625  
+$$
+0.5^{10}=0.0009765625
 $$
 
 经过 50 层：
 
-$$  
-0.5^{50}\approx8.88\times10^{-16}  
+$$
+0.5^{50}\approx8.88\times10^{-16}
 $$
 
 梯度会变得非常小。
@@ -138,7 +138,6 @@ $$
 - Batch Normalization；
 - 正常的 SGD 训练。
     
-
 作者还检查了前向信号和反向梯度，认为它们保持了正常的数值范围。因此，论文中的退化问题不能简单归结为梯度完全消失。作者更谨慎地将其描述为 **深层 Plain Network 的优化困难**。
 
 所以不要简单当成：
@@ -156,8 +155,8 @@ $$
 
 假设一组卷积层需要学习：
 
-$$  
-H(x)=x  
+$$
+H(x)=x
 $$
 
 Plain Network 必须让多层卷积、BN 和 ReLU 组合起来，最终精确复现输入。
@@ -203,7 +202,9 @@ flowchart LR
     A --> Y["最终输出 H(x) = x + F(x)"]
 ```
 
-**一句话理解：$$F(x)=H(x)-x$$ ==不是额外执行的一次减法，而是在定义“目标输出相对于输入还差多少”，ResNet 让卷积分支学习这个差值，再把输入通过 Shortcut 加回来。==
+**一句话理解：$$
+F(x)=H(x)-x
+$$ ==不是额外执行的一次减法，而是在定义“目标输出相对于输入还差多少”，ResNet 让卷积分支学习这个差值，再把输入通过 Shortcut 加回来。==
 
 > 为什么要通过shortcut把输入x加回来？
 > 因为残差分支学习的不是完整输出，而是**输入到目标输出之间的变化量**。学习到变化量之后，要把输入加回来，才能得到目标结果。即 $H(x) = x + F(x)$
@@ -217,14 +218,14 @@ flowchart LR
 
 Plain Network 直接用若干卷积层学习完整映射：
 
-$$  
-x\rightarrow H(x)  
+$$
+x\rightarrow H(x)
 $$
 
 ResNet 则把目标映射拆成：
 
-$$  
-H(x)=x+F(x)  
+$$
+H(x)=x+F(x)
 $$
 
 其中：
@@ -234,16 +235,16 @@ $$
 
 因此：
 
-$$  
-F(x)=H(x)-x  
+$$
+F(x)=H(x)-x
 $$
 
 这里的$F(x)=H(x)-x$是对“残差是什么”的定义，并不是网络先算出$H(x)$，再执行一次减法。
 
 实际前向计算是：
 
-$$  
-y=F(x)+x  
+$$
+y=F(x)+x
 $$
 
 也就是：
@@ -265,8 +266,8 @@ Block 输出 y
 
 那么：
 
-$$  
-y=5+2=7  
+$$
+y=5+2=7
 $$
 
 残差分支只负责计算“相对输入要改变多少”，原输入由另一条路径保留下来。
@@ -275,7 +276,7 @@ $$
 
 ## 6.2 Residual Block 的两条路径
 【Fig2】
-[Pasted image 20260711181532.png]
+![[Pasted image 20260711181532.png]]
 
 论文 **Figure 2** 展示了最基础的 Residual Block。
 
@@ -310,8 +311,8 @@ x ──────────────────────────
 
 最终输出：
 
-$$  
-y=F(x)+x  
+$$
+y=F(x)+x
 $$
 
 原始论文中的结构在相加之后还会再经过一次 ReLU。
@@ -329,18 +330,17 @@ Residual Block 为信息提供了一条绕过卷积层的直接路径。
 
 对于：
 
-$$  
-y=x+F(x)  
+$$
+y=x+F(x)
 $$
 
 有：
- $$  
+$$
 \frac{\partial L}{\partial x}
-
 \frac{\partial L}{\partial y}  
 \left(  
 1+\frac{\partial F(x)}{\partial x}  
-\right)  
+\right)
 $$
 
 其中的$1$来自 Shortcut 分支。
@@ -371,14 +371,14 @@ Shortcut Connection
 
 **Identity Shortcut，恒等捷径**：Shortcut 分支不改变输入，直接传递$x$。
 
-$$  
-y=F(x)+x  
+$$
+y=F(x)+x
 $$
 
 适用条件是：
 
-$$  
-Shape(F(x))=Shape(x)  
+$$
+Shape(F(x))=Shape(x)
 $$
 
 例如：
@@ -412,8 +412,8 @@ F(x)    ：[8,128,28,28]
 
 此时 Shortcut 分支需要先把$x$变换到与$F(x)$相同的 Shape：
 
-$$  
-y=F(x)+W_sx  
+$$
+y=F(x)+W_sx
 $$
 
 其中$W_s$表示 Shortcut 上的线性投影，一般由$1\times1$卷积实现。
@@ -503,7 +503,7 @@ flowchart LR
     C --> D["1×1 Conv<br/>恢复通道"]
 ```
 【Fig5】
-[Pasted image 20260711182248.png]
+![[Pasted image 20260711182248.png]]
 
 论文中用于：
 - ResNet-50；
@@ -520,14 +520,14 @@ flowchart LR
 
 直接在 256 通道上做$3\times3$卷积，参数量为：
 
-$$  
-3\times3\times256\times256=589824  
+$$
+3\times3\times256\times256=589824
 $$
 
 压缩到 64 通道后再做：
 
-$$  
-3\times3\times64\times64=36864  
+$$
+3\times3\times64\times64=36864
 $$
 
 因此，Bottleneck 并不是完全不增加参数，而是：
@@ -626,8 +626,8 @@ conv3_x：128通道，28×28
 
 卷积计算量可以近似写成：
 
-$$  
-H\times W\times C_{in}\times C_{out}\times K^2  
+$$
+H\times W\times C_{in}\times C_{out}\times K^2
 $$
 
 当空间尺寸减半时，面积变为原来的四分之一；如果通道数加倍，通道相关计算约增加四倍。
@@ -646,7 +646,8 @@ $$
 |ResNet-50|Bottleneck|3、4、6、3|
 |ResNet-101|Bottleneck|3、4、23、3|
 |ResNet-152|Bottleneck|3、8、36、3|
-1. 更深网络主要通过增加各 Stage 的 Block 数量实现。
+
+更深网络主要通过增加各 Stage 的 Block 数量实现。
 
 # 10. 训练与实验结论
 
@@ -702,14 +703,14 @@ $$
 
 ResNet 在网络内部学习特征变化：
 
-$$  
-F(x)=H(x)-x  
+$$
+F(x)=H(x)-x
 $$
 
 最终输出：
 
-$$  
-y=x+F(x)  
+$$
+y=x+F(x)
 $$
 
 残差表示：
@@ -721,22 +722,22 @@ $$
 
 带噪图像可以表示为：
 
-$$  
-y=x+v  
+$$
+y=x+v
 $$
 
 其中$v$是噪声。
 
 DnCNN 预测噪声：
 
-$$  
-R(y)\approx v  
+$$
+R(y)\approx v
 $$
 
 最后恢复干净图：
 
-$$  
-\hat{x}=y-R(y)  
+$$
+\hat{x}=y-R(y)
 $$
 
 残差表示：

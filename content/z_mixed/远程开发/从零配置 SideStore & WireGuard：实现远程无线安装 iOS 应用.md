@@ -8,7 +8,7 @@ lastmod: 2026-07-25T11:33:29+0800
 
 # SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南
 
-> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
+> **目标**：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 远程构建 `.ipa`，并通过手机上的 SideStore 直接安装，无需 USB。
 
 ---
 
@@ -16,8 +16,8 @@ lastmod: 2026-07-25T11:33:29+0800
 
 - **免费 Apple ID** 签名的应用只有 **7 天有效期**，到期需重新签名。
 - **SideStore** 是一款侧载工具，能在 iPhone 上独立完成应用签名和续签（**无需电脑**）。
-- **WireGuard** 用于建立虚拟局域网，让 SideStore 能跟 Apple 的签名服务器通信。
-- **Jitterbug** 生成配对文件（`.plist`），使 SideStore 能免电脑控制设备。
+- **WireGuard** 用于建立虚拟局域网，让 SideStore 能与 Apple 的签名服务器通信。
+- **Jitterbug** 生成配对文件（`.plist`），使 SideStore 无需电脑即可控制设备。
 - **iLoader** 是一个图形化工具，用于把 SideStore 安装到 iPhone。
 
 整个过程分为 **准备文件 → 安装 WireGuard → 生成配对文件 → 安装 SideStore → 导入配置 → 日常使用**。
@@ -74,7 +74,7 @@ lastmod: 2026-07-25T11:33:29+0800
 
 ### 🧑‍💻 手动操作步骤
 1. 在 iPhone 上**使用非国区 Apple ID** 登录 App Store。
-   > 💡 **为什么必须非国区账号？** WireGuard 在中国大陆 App Store 未上架。如果你没有外区账号，可以用 **LocalDevVPN** 作为替代（但配置稍复杂）。
+   > 💡 **为什么必须非国区账号？** WireGuard 在中国大陆 App Store 未上架。如果没有外区账号，可以用 **LocalDevVPN** 作为替代（但配置稍复杂）。
 2. 搜索 “WireGuard” 并安装。
 3. 打开 WireGuard，保持空状态（后面会导入配置文件）。
 
@@ -88,7 +88,7 @@ lastmod: 2026-07-25T11:33:29+0800
 用数据线连接 iPhone 和 Mac，运行 `jitterbugpair` 生成配对文件（`.plist`）。
 
 ### 🤔 为什么这样做？
-配对文件是 SideStore 能“免电脑”操作的关键。它授权 SideStore 与手机通信，完成签名和安装。
+配对文件是 SideStore 实现“免电脑”操作的关键。它授权 SideStore 与手机通信，完成签名和安装。
 
 ### 🧑‍💻 手动操作步骤
 1. 用数据线连接 iPhone 到 Mac。

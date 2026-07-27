@@ -12,7 +12,7 @@ lastmod: 2026-07-25T11:33:29+0800
 
 **论文标题**：U-Net: Convolutional Networks for Biomedical Image Segmentation
 
-**作者**：Olaf Ronneberger, Philipp Fischer, Thomas Brox
+**作者**：已脱敏
 
 **会议**：MICCAI 2015
 
@@ -371,7 +371,9 @@ flowchart LR
 
 **ReLU，Rectified Linear Unit，线性整流函数**：
 
-$$ \operatorname{ReLU}(x)=\max(0,x) $$
+$$
+\operatorname{ReLU}(x)=\max(0,x)
+$$
 
 它将负数变成 0，正数保持不变，为网络引入非线性。
 
@@ -558,7 +560,9 @@ Crop 的原因来自原始 U-Net 使用不带 Padding 的卷积。
 
 卷积输出尺寸为：
 
-$$ H_{\text{out}} = \left\lfloor \frac{H_{\text{in}}+2P-K}{S} \right\rfloor + 1 $$
+$$
+H_{\text{out}} = \left\lfloor \frac{H_{\text{in}}+2P-K}{S} \right\rfloor + 1
+$$
 
 当：
 - 卷积核 K=3
@@ -567,7 +571,9 @@ $$ H_{\text{out}} = \left\lfloor \frac{H_{\text{in}}+2P-K}{S} \right\rfloor + 1 
 
 有：
 
-$$ H_{\text{out}}=H_{\text{in}}-2 $$
+$$
+H_{\text{out}}=H_{\text{in}}-2
+$$
 
 因此连续两次 3×3 卷积：
 
@@ -666,7 +672,9 @@ U-Net 最后一层使用 1×1 卷积，将每个像素位置的 64 维特征映�
 
 对于像素位置 x，类别 k 的概率是：
 
-$$ p_k(x) = \frac{\exp(a_k(x))}{\sum_{k'=1}^{K}\exp(a_{k'}(x))} $$
+$$
+p_k(x) = \frac{\exp(a_k(x))}{\sum_{k'=1}^{K}\exp(a_{k'}(x))}
+$$
 
 其中：
 - $a_k(x)$：位置 x 对类别 k 的 Logit
@@ -677,7 +685,9 @@ $$ p_k(x) = \frac{\exp(a_k(x))}{\sum_{k'=1}^{K}\exp(a_{k'}(x))} $$
 
 对每个像素计算交叉熵：
 
-$$ E = -\sum_{x\in\Omega} w(x)\log p_{\ell(x)}(x) $$
+$$
+E = -\sum_{x\in\Omega} w(x)\log p_{\ell(x)}(x)
+$$
 
 其中：
 - $\Omega$：所有需要分类的像素位置
@@ -715,7 +725,9 @@ loss = (pixel_loss * weight_map).mean()
 
 论文定义：
 
-$$ w(x) = w_c(x) + w_0 \exp\left(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2}\right) $$
+$$
+w(x) = w_c(x) + w_0 \exp\left(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2}\right)
+$$
 
 其中：
 - $w_c(x)$：用于平衡类别频率的基础权重
@@ -725,7 +737,9 @@ $$ w(x) = w_c(x) + w_0 \exp\left(-\frac{(d_1(x)+d_2(x))^2}{2\sigma^2}\right) $$
 - $\sigma$：控制高权重区域的宽度
 
 论文设置：
-$$ w_0=10,\qquad \sigma\approx5 $$
+$$
+w_0=10,\qquad \sigma\approx5
+$$
 
 ### 7.5 为什么使用 $d_1+d_2$
 
@@ -739,7 +753,9 @@ $$ w_0=10,\qquad \sigma\approx5 $$
 
 令 $d=d_1+d_2$，边界附加权重是：
 
-$$ w_{\text{border}}(d) = 10\exp\left(-\frac{d^2}{50}\right) $$
+$$
+w_{\text{border}}(d) = 10\exp\left(-\frac{d^2}{50}\right)
+$$
 
 ```mermaid
 xychart-beta
@@ -799,11 +815,15 @@ flowchart LR
 
 例如前一层有 64 个通道，卷积核为 3×3：
 
-$$ N=3\times3\times64=576 $$
+$$
+N=3\times3\times64=576
+$$
 
 因此初始化标准差为：
 
-$$ \sqrt{\frac{2}{576}} \approx0.0589 $$
+$$
+\sqrt{\frac{2}{576}} \approx0.0589
+$$
 
 这属于后续常说的 **He Initialization**，适用于 ReLU 网络。
 

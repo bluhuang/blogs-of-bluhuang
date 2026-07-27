@@ -19,7 +19,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 | 特性 | 静态 Embedding | 动态 Embedding |
 |------|----------------|----------------|
-| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, 某商业API模型 |
+| **代表模型** | Word2Vec, GloVe, FastText | BERT, SBERT, BGE, M3E, OpenAI embeddings |
 | **向量生成方式** | 每个词对应一个固定向量，查表得到 | 根据上下文实时计算，同一个词在不同句子中向量不同 |
 | **上下文感知** | ❌ 无 | ✅ 有（通过自注意力机制） |
 | **一词多义处理** | 无法区分（“bank” 河流/银行共享同一向量） | 能区分（根据周围词生成不同向量） |
@@ -32,7 +32,9 @@ lastmod: 2026-06-16T10:31:22+0800
 
 1. **输入表示**：将文本切分为 token（如 WordPiece），每个 token 初始化为一个随机向量 + 位置编码。
 2. **自注意力层**：每个 token 的向量会“看到”句子中所有其他 token，通过计算注意力权重，聚合全局信息。公式：
-   $$ \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V $$
+   $$
+\text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+$$
    其中 Q、K、V 均由输入向量线性变换得到。
 3. **多层堆叠**：经过多层自注意力 + 前馈网络，最终每个 token 的向量融合了上下文信息。例如：
    - “bank” 出现在 “river bank” → 向量接近“河岸”
@@ -59,7 +61,9 @@ lastmod: 2026-06-16T10:31:22+0800
 - negative：与 anchor 语义不相似的文本（不相关文档）
 
 **损失函数：InfoNCE**
-$$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) + \sum_{i=1}^{N} \exp(\text{sim}(q, n_i) / \tau)} $$
+$$
+L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) + \sum_{i=1}^{N} \exp(\text{sim}(q, n_i) / \tau)}
+$$
 - `sim`：余弦相似度
 - `τ`：温度系数（典型值 0.01~0.1），控制模型对负样本的严厉程度
   - τ 越小 → 对负样本区分越严厉，适合困难负采样
@@ -85,7 +89,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 | **语言支持** | 单语 vs 多语 | 混合语言场景需多语模型 |
 
 ### 3.2 MTEB 基准
-- **全称**：Massive Text Embedding Benchmark（由模型社区维护）
+- **全称**：Massive Text Embedding Benchmark（HuggingFace 维护）
 - **覆盖**：58 个数据集，8 类任务（检索、重排序、分类、聚类等）
 - **中文子集**：C-MTEB, MLDR, T2Retrieval
 - **重要指标**：
@@ -103,9 +107,9 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 | 模型 | 类型 | 最大长度 | 语言 | 特点与推荐场景 |
 |------|------|----------|------|----------------|
-| **BGE-M3**（某机构） | 开源 | 8192 | 多语言 | **首选推荐**：长文档、中英混合、需混合检索（稠密+稀疏） |
-| **M3E-base**（某开源项目） | 开源 | 512 | 中英 | **无 GPU 备选**：CPU 可跑，速度快，中文优化 |
-| **text-embedding-3-small**（某商业API服务） | 商业 API | 8192 | 多语言 | **快速验证**：不想管基础设施，精度中等，成本低 |
+| **BGE-M3**（BAAI） | 开源 | 8192 | 多语言 | **首选推荐**：长文档、中英混合、需混合检索（稠密+稀疏） |
+| **M3E-base**（moka-ai） | 开源 | 512 | 中英 | **无 GPU 备选**：CPU 可跑，速度快，中文优化 |
+| **text-embedding-3-small**（OpenAI） | 商业 API | 8192 | 多语言 | **快速验证**：不想管基础设施，精度中等，成本低 |
 | **paraphrase-multilingual-MiniLM**（SBERT） | 开源 | 512 | 多语言 | **速度优先**：极轻量，实时性要求极高场景 |
 
 > 其他模型（BGE-large-zh、text-embedding-3-large、all-mpnet 等）可作为备选，但上述四款已覆盖 90% 需求。
@@ -115,7 +119,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 2. **文档很长（>512 tokens）？** → BGE-M3（唯一支持 8192 且中文优秀）
 3. **有 GPU？** → BGE-M3 或 M3E-base（GPU 加速）
 4. **无 GPU，纯 CPU？** → M3E-base（速度尚可）
-5. **不想部署，快速验证？** → 某商业API服务 text-embedding-3-small
+5. **不想部署，快速验证？** → OpenAI text-embedding-3-small
 
 ---
 
@@ -132,7 +136,7 @@ $$ L = -\log \frac{\exp(\text{sim}(q, p) / \tau)}{\exp(\text{sim}(q, p) / \tau) 
 
 ---
 
-## 七、参考资源
+## 六、参考资源
 
 1. **BGE M3 论文**：Chen et al., "BGE M3-Embedding" (2024)  
    https://arxiv.org/abs/2402.03216

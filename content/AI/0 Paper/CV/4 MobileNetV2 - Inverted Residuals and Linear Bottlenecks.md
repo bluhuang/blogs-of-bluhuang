@@ -1,5 +1,6 @@
 ---
 title: "MobileNetV2 - Inverted Residuals and Linear Bottlenecks"
+image: "/images/AI/0%20Paper/CV/attachments/mobilenetv2_memory_hierarchy_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-25T11:33:29+0800
@@ -102,28 +103,25 @@ Latency 一定更低
 ```
 
 权重内存近似为：
- $$  
+$$
 M_{\text{weight}}
-
 N_{\text{parameter}}  
 \times  
-\text{每个参数的字节数}  
+\text{每个参数的字节数}
 $$
 
 例如 100 万个 FP16 参数：
- $$  
+$$
 1{,}000{,}000\times2
-
-2\text{ MB}  
+2\text{ MB}
 $$
 
 中间特征图内存近似为：
- $$  
+$$
 M_{\text{feature}}
-
 B\times C\times H\times W  
 \times  
-\text{每个元素的字节数}  
+\text{每个元素的字节数}
 $$
 
 例如一个 FP16 特征图：
@@ -133,11 +131,10 @@ $$
 ```
 
 需要： 
-$$  
+$$
 1\times64\times256\times256\times2
-
 8{,}388{,}608\text{ Bytes}  
-\approx8\text{ MB}  
+\approx8\text{ MB}
 $$
 
 对于高分辨率去噪模型，中间特征图经常比权重更占内存。
@@ -211,7 +208,7 @@ MobileNetV2 不仅降低卷积计算量，还让残差连接发生在低通道�
 > ```
 
 
-[attachments/mobilenetv2_memory_hierarchy_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_memory_hierarchy_3d.png)
 
 ### 1.5 精度：Accuracy 与 PSNR
 
@@ -250,11 +247,10 @@ MobileNetV2 原论文主要处理分类、检测和分割，因此使用 Accurac
 卷积核大小为$K\times K$，输出通道数为$C_{out}$。
 
 标准卷积的乘加次数约为：
-$$  
+$$
 \operatorname{Cost}_{\text{standard}}
-
 H\times W\times K^2  
-\times C_{in}\times C_{out}  
+\times C_{in}\times C_{out}
 $$
 
 原因是每个输出位置、每个输出通道，都需要读取：K × K × Cin个输入值。
@@ -272,19 +268,18 @@ K=3
 
 那么计算量为：
 
-$$  
-56\times56\times3^2\times64\times64  
+$$
+56\times56\times3^2\times64\times64
 $$
 
 $$
-
-115{,}605{,}504  
+115{,}605{,}504
 $$
 
 也就是大约：
 
-$$  
-115.6\text{ MAdds}  
+$$
+115.6\text{ MAdds}
 $$
 
 这只是一个卷积层。
@@ -307,8 +302,8 @@ flowchart LR
 
 一共有$C_{out}$个输出通道，因此计算量包含：
 
-$$  
-C_{in}\times C_{out}  
+$$
+C_{in}\times C_{out}
 $$
 
 这部分在通道数较大时非常昂贵。
@@ -402,15 +397,14 @@ flowchart LR
 
 对于输出通道$o$、位置$(i,j)$：
 
-$$  
+$$
 y_o(i,j)
-
 \sum_{c=1}^{C_{in}}  
 \sum_{u=1}^{K}  
 \sum_{v=1}^{K}  
 W_{o,c,u,v}  
 x_c(i+u,j+v)  
-+b_o  
++b_o
 $$
 
 其中：
@@ -435,47 +429,47 @@ $$
 
 输入通道 0：
 
-$$  
+$$
 X_0=  
 \begin{bmatrix}  
 1 & 2\  
 3 & 4  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 输入通道 1：
 
-$$  
+$$
 X_1=  
 \begin{bmatrix}  
 5 & 6\  
 7 & 8  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 现在计算输出通道 0。
 
 它需要两张卷积核：
 
-$$  
+$$
 W_{0,0}=  
 \begin{bmatrix}  
 1 & 0\  
 0 & 1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
-$$  
+$$
 W_{0,1}=  
 \begin{bmatrix}  
 1 & 1\  
 1 & 1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 输入通道 0 的卷积结果：
 
-$$  
+$$
 1\times1  
 +  
 2\times0  
@@ -483,12 +477,12 @@ $$
 3\times0  
 +  
 4\times1  
-=5  
+=5
 $$
 
 输入通道 1 的卷积结果：
 
-$$  
+$$
 5\times1  
 +  
 6\times1  
@@ -496,13 +490,13 @@ $$
 7\times1  
 +  
 8\times1  
-=26  
+=26
 $$
 
 将两个通道的结果相加：
 
-$$  
-y_0=5+26=31  
+$$
+y_0=5+26=31
 $$
 
 所以标准卷积计算一个输出通道时，不只是做空间卷积，还会把所有输入通道融合到一起。
@@ -532,25 +526,24 @@ flowchart LR
 
 对于输出特征图中的每一个位置、每一个输出通道，都要执行：
 
-$$  
-K^2\times C_{in}  
+$$
+K^2\times C_{in}
 $$
 
 次乘加。
 
 一共有：
 
-$$  
-H\times W\times C_{out}  
+$$
+H\times W\times C_{out}
 $$
 
 个输出位置，因此标准卷积总计算量约为：
 
-$$  
+$$
 \operatorname{Cost}_{\text{standard}}
-
 H\times W\times K^2  
-\times C_{in}\times C_{out}  
+\times C_{in}\times C_{out}
 $$
 
 例如：
@@ -564,25 +557,24 @@ K = 3
 
 计算量为：
 
-$$  
-56\times56\times3^2\times64\times64  
+$$
+56\times56\times3^2\times64\times64
 $$
 
 $$
-
-115{,}605{,}504  
+115{,}605{,}504
 $$
 
 约为：
 
-$$  
-115.6\text{ MAdds}  
+$$
+115.6\text{ MAdds}
 $$
 
 最昂贵的地方是：
 
-$$  
-K^2\times C_{in}\times C_{out}  
+$$
+K^2\times C_{in}\times C_{out}
 $$
 
 因为空间卷积和通道融合被绑定在了一起。
@@ -671,13 +663,12 @@ Depthwise Conv：
 
 对于通道$c$：
 
-$$  
+$$
 z_c(i,j)
-
 \sum_{u=1}^{K}  
 \sum_{v=1}^{K}  
 D_{c,u,v}  
-x_c(i+u,j+v)  
+x_c(i+u,j+v)
 $$
 
 这里没有对输入通道$c$求和。
@@ -694,49 +685,48 @@ $$
 
 输入通道 0：
 
-$$  
+$$
 X_0=  
 \begin{bmatrix}  
 1 & 2\  
 3 & 4  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 输入通道 1：
 
-$$  
+$$
 X_1=  
 \begin{bmatrix}  
 5 & 6\  
 7 & 8  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 Depthwise Kernel 0：
 
-$$  
+$$
 D_0=  
 \begin{bmatrix}  
 1 & 0\  
 0 & 1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 Depthwise Kernel 1：
 
-$$  
+$$
 D_1=  
 \begin{bmatrix}  
 1 & 1\  
 1 & 1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 通道 0 的输出：
 
-$$  
+$$
 z_0
-
 1\times1  
 +  
 2\times0  
@@ -744,32 +734,31 @@ z_0
 3\times0  
 +  
 4\times1  
-=5  
+=5
 $$
 
 通道 1 的输出：
 
-$$  
+$$
 z_1
-
 5+6+7+8  
-=26  
+=26
 $$
 
 Depthwise 卷积的输出是：
 
-$$  
+$$
 z=  
 \begin{bmatrix}  
 5\  
 26  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 注意，此时没有执行：
 
-$$  
-5+26  
+$$
+5+26
 $$
 
 因为不同通道之间还没有融合。
@@ -796,17 +785,16 @@ Depthwise Conv 只回答：
 
 计算量为：
 
-$$  
+$$
 \operatorname{Cost}_{\text{DW}}
-
-H\times W\times K^2\times C_{in}  
+H\times W\times K^2\times C_{in}
 $$
 
 标准卷积是：
 
-$$  
+$$
 H\times W\times K^2  
-\times C_{in}\times C_{out}  
+\times C_{in}\times C_{out}
 $$
 
 Depthwise 没有$C_{out}$这一项，因为它不会为每个输出通道重新读取全部输入通道。
@@ -861,13 +849,12 @@ Cout 维向量
 
 对于输出通道$o$：
 
-$$  
+$$
 y_o(i,j)
-
 \sum_{c=1}^{C_{in}}  
 P_{o,c}  
 z_c(i,j)  
-+b_o  
++b_o
 $$
 
 其中：
@@ -879,54 +866,54 @@ $$
 
 Depthwise 输出：
 
-$$  
+$$
 z=  
 \begin{bmatrix}  
 5\  
 26  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 现在希望输出两个通道。
 
 输出通道 0 的 Pointwise 权重：
 
-$$  
+$$
 P_0=  
 \begin{bmatrix}  
 1 & 1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 因此：
 
-$$  
+$$
 y0​=1×5+1×26=31
 $$
 
 输出通道 1 的权重：
 
-$$  
+$$
 P_1=  
 \begin{bmatrix}  
 2 & -1  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 因此：
 
-$$  
+$$
 y1​=2×5+(−1)×26=−16
 $$
 
 最终得到：
 
-$$  
+$$
 y=  
 \begin{bmatrix}  
 31\  
 -16  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 ```mermaid
@@ -985,68 +972,63 @@ flowchart LR
 先处理空间，再融合通道
 ```
 
-[attachments/mobilenetv2_conv_factorization_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_conv_factorization_3d.png)
 
 ### 3.8 深度可分离卷积的计算量
 
 Depthwise 部分：
 
-$$  
+$$
 \operatorname{Cost}_{\text{DW}}
-
-H\times W\times K^2\times C_{in}  
+H\times W\times K^2\times C_{in}
 $$
 
 Pointwise 部分：
 
-$$  
+$$
 \operatorname{Cost}_{\text{PW}}
-
-H\times W\times C_{in}\times C_{out}  
+H\times W\times C_{in}\times C_{out}
 $$
 
 总计算量：
 
-$$  
+$$
 \operatorname{Cost}_{\text{separable}}
-
 HWC_{in}K^2  
 +  
-HWC_{in}C_{out}  
+HWC_{in}C_{out}
 $$
 
 标准卷积计算量：
 
-$$  
+$$
 \operatorname{Cost}_{\text{standard}}
-
-HWK^2C_{in}C_{out}  
+HWK^2C_{in}C_{out}
 $$
 
 两者比例：
 
-$$  
+$$
 \frac{  
 \operatorname{Cost}_{\text{separable}}  
 }{  
 \operatorname{Cost}_{\text{standard}}  
 }
-
 \frac{  
 HWC_{in}K^2  
 +  
 HWC_{in}C_{out}  
 }{  
 HWK^2C_{in}C_{out}  
-}  
+}
 $$
 
 约分后：
 
-$$  
+$$
 \frac{1}{C_{out}}  
 +  
-\frac{1}{K^2}  
+\frac{1}{K^2}
 $$
 
 当：
@@ -1058,11 +1040,11 @@ Cout = 64
 
 比例为：
 
-$$  
+$$
 \frac{1}{64}  
 +  
 \frac{1}{9}  
-\approx0.1267  
+\approx0.1267
 $$
 
 也就是说，深度可分离卷积的计算量约为标准卷积的：12.67%  ，约减少到原来的八分之一。
@@ -1078,8 +1060,8 @@ Pointwise：12.8 MAdds
 
 虽然 Pointwise 只使用$1\times1$卷积，但它要执行：
 
-$$  
-C_{in}\times C_{out}  
+$$
+C_{in}\times C_{out}
 $$
 
 次通道组合。
@@ -1134,24 +1116,24 @@ flowchart LR
 
 如果组数为 $g$，每个输出通道只读取：
 
-$$  
-\frac{C_{in}}{g}  
+$$
+\frac{C_{in}}{g}
 $$
 
 个输入通道。
 
 计算量约为标准卷积的：
 
-$$  
-\frac{1}{g}  
+$$
+\frac{1}{g}
 $$
 
 **Depthwise Convolution 是 Group Convolution 的特殊情况。**
 
 当：
 
-$$  
-g=C_{in}  
+$$
+g=C_{in}
 $$
 
 每组只有一个输入通道。
@@ -1217,7 +1199,7 @@ Depthwise Convolution 不融合通道，所以后面通常还要接一个 $1\tim
 
 **一句话理解：Group Convolution 是让每个输出通道只读取部分输入通道；当每组只剩一个输入通道时，就是 Depthwise Convolution。**
 
-[attachments/mobilenetv2_group_connectivity_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_group_connectivity_3d.png)
 
 ### 3.11 这一节真正重要的内容
 
@@ -1303,31 +1285,30 @@ MobileNetV2 的假设是：
 
 ReLU 为：
 
-$$  
-f(x)=\max(0,x)  
+$$
+f(x)=\max(0,x)
 $$
 
 负数全部变成 0。
 
 假设低维特征为：
 
-$$  
+$$
 x=  
 \begin{bmatrix}  
 -0.4\  
 0.3  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 经过 ReLU：
 
-$$  
+$$
 \operatorname{ReLU}(x)
-
 \begin{bmatrix}  
 0\  
 0.3  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 此时无法判断第一个值原来是：
@@ -1385,7 +1366,7 @@ flowchart LR
 
 MobileNetV2 的两个核心设计，就是为了解决这个矛盾。
 
-[attachments/mobilenetv2_relu_manifold_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_relu_manifold_3d.png)
 
 ## 5. 核心对策一：Linear Bottleneck
 
@@ -1436,27 +1417,26 @@ ReLU
 
 假设高维特征被压缩成：
 
-$$  
+$$
 z=  
 \begin{bmatrix}  
 -0.8\  
 0.2\  
 -0.3\  
 0.7  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 如果这是 Block 最终用于传给下一层的低维表示，ReLU 会得到：
 
-$$  
+$$
 \operatorname{ReLU}(z)
-
 \begin{bmatrix}  
 0\  
 0.2\  
 0\  
 0.7  
-\end{bmatrix}  
+\end{bmatrix}
 $$
 
 两个负向特征被直接抹掉。
@@ -1465,14 +1445,14 @@ $$
 
 所以最后一层使用：
 
-$$  
-y=Wz  
+$$
+y=Wz
 $$
 
 而不是：
 
-$$  
-y=\operatorname{ReLU}(Wz)  
+$$
+y=\operatorname{ReLU}(Wz)
 $$
 
 这里的“Linear”并不是说整个 Block 都是线性的。
@@ -1514,7 +1494,7 @@ Block 内部仍然包含：
 
 > 非线性负责提高表达能力，但不应该放在最容易发生信息丢失的窄输出层。
 
-[attachments/mobilenetv2_block_evolution_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_block_evolution_3d.png)
 
 ## 6. 核心对策二：Inverted Residual
 
@@ -1538,8 +1518,8 @@ flowchart LR
 
 当 stride 为 1，且输入输出 Shape 相同时：
 
-$$  
-y=x+F(x)  
+$$
+y=x+F(x)
 $$
 
 当空间尺寸或通道数变化时，通常不使用 Shortcut。
@@ -1548,14 +1528,14 @@ $$
 
 **Expansion Ratio，扩张倍率**，记为$t$：
 
-$$  
-C_{\text{hidden}}=tC_{in}  
+$$
+C_{\text{hidden}}=tC_{in}
 $$
 
 MobileNetV2 主体网络通常使用：
 
-$$  
-t=6  
+$$
+t=6
 $$
 
 例如：
@@ -1688,14 +1668,14 @@ flowchart LR
 
 因此称为“倒残差”。
 
-[Pasted image 20260721154402.png]
+![[Pasted image 20260721154402.png]]
 【Fig3】
 
 论文 Figure 3 的关键区别正是：
 - 传统 Bottleneck Residual 的 Shortcut 连接高维层；
 - Inverted Residual 的 Shortcut 连接低维 Bottleneck。
 
-[attachments/mobilenetv2_residual_comparison_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_residual_comparison_3d.png)
 
 ### 6.6 为什么不能先压缩再 Depthwise
 
@@ -1749,31 +1729,30 @@ MobileNetV2 改为：
 
 第一层$1\times1$扩张卷积：
 
-$$  
-HW\times C_{in}\times tC_{in}  
+$$
+HW\times C_{in}\times tC_{in}
 $$
 
 Depthwise 卷积：
 
-$$  
-HW\times tC_{in}\times K^2  
+$$
+HW\times tC_{in}\times K^2
 $$
 
 最后$1\times1$投影卷积：
 
-$$  
-HW\times tC_{in}\times C_{out}  
+$$
+HW\times tC_{in}\times C_{out}
 $$
 
 总计算量为：
 
-$$  
+$$
 \operatorname{Cost}_{\text{block}}
-
 HWC_{in}t  
 \left(  
 C_{in}+K^2+C_{out}  
-\right)  
+\right)
 $$
 
 这与论文给出的 Block 计算公式一致。
@@ -1810,32 +1789,29 @@ K=3
 
 扩张后的通道数：
 
-$$  
-24\times6=144  
+$$
+24\times6=144
 $$
 
 扩张$1\times1$卷积：
 
-$$  
+$$
 56\times56\times24\times144
-
-10{,}838{,}016  
+10{,}838{,}016
 $$
 
 Depthwise：
 
-$$  
+$$
 56\times56\times144\times9
-
-4{,}064{,}256  
+4{,}064{,}256
 $$
 
 投影$1\times1$卷积：
 
-$$  
+$$
 56\times56\times144\times24
-
-10{,}838{,}016  
+10{,}838{,}016
 $$
 
 可以看到，两次$1\times1$卷积占据了大部分计算量。
@@ -1852,16 +1828,15 @@ $$
 高分辨率阶段的通道扩张
 ```
 
-[attachments/mobilenetv2_compute_breakdown_3d.png]
+![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_compute_breakdown_3d.png)
 
 ### 7.3 ReLU6
 
 MobileNetV2 在扩张层和 Depthwise 层后使用 ReLU6：
 
-$$  
+$$
 f(x)
-
-\min(\max(0,x),6)  
+\min(\max(0,x),6)
 $$
 
 ```mermaid
@@ -2027,14 +2002,14 @@ Cache 命中率高
 
 真实延迟可以粗略理解为：
 
-$$  
+$$
 T_{\text{latency}}  
 \approx  
 T_{\text{compute}}  
 +  
 T_{\text{memory}}  
 +  
-T_{\text{schedule}}  
+T_{\text{schedule}}
 $$
 
 其中：
@@ -2156,550 +2131,3 @@ Expand 输出完整写入内存
 ## 9. 一句话总结
 
 **MobileNetV2 的核心不是单纯减少卷积，而是用 Depthwise Convolution 降低空间计算，用高维 Expansion 承载非线性特征提取，用 Linear Bottleneck 保存低维信息，再让 Residual Shortcut 只连接窄特征，从而同时控制计算量、信息损失和端侧内存开销。**
-
-
-# TAG: Matplot code
-
-
-```run-python
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_memory_hierarchy_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-def add_box(ax, origin, size, facecolor, edgecolor, alpha=0.9):
-    x, y, z = origin
-    dx, dy, dz = size
-    vertices = [
-        (x, y, z), (x + dx, y, z), (x + dx, y + dy, z), (x, y + dy, z),
-        (x, y, z + dz), (x + dx, y, z + dz), (x + dx, y + dy, z + dz), (x, y + dy, z + dz),
-    ]
-    faces = [
-        [vertices[i] for i in [0, 1, 2, 3]],
-        [vertices[i] for i in [4, 5, 6, 7]],
-        [vertices[i] for i in [0, 1, 5, 4]],
-        [vertices[i] for i in [1, 2, 6, 5]],
-        [vertices[i] for i in [2, 3, 7, 6]],
-        [vertices[i] for i in [3, 0, 4, 7]],
-    ]
-    poly = Poly3DCollection(faces, facecolors=facecolor, edgecolors=edgecolor, linewidths=1.0, alpha=alpha)
-    ax.add_collection3d(poly)
-
-fig = plt.figure(figsize=(11, 7))
-ax = fig.add_subplot(111, projection="3d")
-
-blue_dark = "#345995"
-blue_mid = "#5f83c2"
-blue_light = "#b8cae8"
-red = "#d95f59"
-edge = "#2f3e56"
-
-levels = [
-    ((0.0, 0.0, 0.0), (8.0, 5.0, 0.8), blue_light),
-    ((1.2, 0.8, 1.7), (5.6, 3.4, 0.8), blue_mid),
-    ((2.5, 1.6, 3.4), (3.0, 1.8, 0.8), blue_dark),
-]
-
-for origin, size, color in levels:
-    add_box(ax, origin, size, color, edge, 0.92)
-
-ax.text2D(0.72, 0.64, "Compute array", transform=ax.transAxes, fontsize=11, weight="bold")
-ax.text2D(0.72, 0.60, "Multiply-accumulate units", transform=ax.transAxes, fontsize=8.5)
-ax.text2D(0.76, 0.48, "Cache / SRAM", transform=ax.transAxes, fontsize=11, weight="bold")
-ax.text2D(0.76, 0.44, "Small capacity, fast access", transform=ax.transAxes, fontsize=8.5)
-ax.text2D(0.80, 0.31, "Main memory", transform=ax.transAxes, fontsize=11, weight="bold")
-ax.text2D(0.80, 0.27, "Large capacity, high transfer cost", transform=ax.transAxes, fontsize=8.5)
-
-for start, end in [
-    ((4.0, 2.5, 0.85), (4.0, 2.5, 1.65)),
-    ((4.0, 2.5, 2.55), (4.0, 2.5, 3.35)),
-]:
-    sx, sy, sz = start
-    ex, ey, ez = end
-    ax.quiver(sx, sy, sz, ex - sx, ey - sy, ez - sz, color=red, linewidth=2.2, arrow_length_ratio=0.25)
-    ax.quiver(ex + 0.35, ey, ez, sx + 0.35 - ex, sy - ey, sz - ez, color=red, linewidth=1.4, arrow_length_ratio=0.25, alpha=0.75)
-
-for offset in [0.0, 0.55, 1.1]:
-    add_box(ax, (0.7 + offset, 0.55, 0.82), (0.4, 0.4, 0.35), red, edge, 0.85)
-for offset in [0.0, 0.55]:
-    add_box(ax, (2.0 + offset, 1.25, 2.52), (0.4, 0.4, 0.35), red, edge, 0.85)
-
-
-ax.set_xlim(-0.3, 11.0)
-ax.set_ylim(-0.3, 6.2)
-ax.set_zlim(0.0, 4.9)
-ax.view_init(elev=23, azim=-57)
-ax.set_title("Memory hierarchy behind mobile inference", pad=18, fontsize=15, weight="bold")
-ax.set_axis_off()
-
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_conv_factorization_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-def add_plate(ax, x, y, z, width, height, depth, color, edge, alpha=0.9):
-    vertices = [
-        (x, y, z), (x + depth, y, z), (x + depth, y + width, z), (x, y + width, z),
-        (x, y, z + height), (x + depth, y, z + height), (x + depth, y + width, z + height), (x, y + width, z + height),
-    ]
-    faces = [
-        [vertices[i] for i in [0, 1, 2, 3]],
-        [vertices[i] for i in [4, 5, 6, 7]],
-        [vertices[i] for i in [0, 1, 5, 4]],
-        [vertices[i] for i in [1, 2, 6, 5]],
-        [vertices[i] for i in [2, 3, 7, 6]],
-        [vertices[i] for i in [3, 0, 4, 7]],
-    ]
-    ax.add_collection3d(Poly3DCollection(faces, facecolors=color, edgecolors=edge, linewidths=0.8, alpha=alpha))
-
-def draw_stack(ax, x, count, color, y0=0.0, z0=0.0):
-    for c in range(count):
-        add_plate(ax, x, y0 + c * 0.17, z0 + c * 0.13, 2.6, 2.6, 0.10, color, "#2f3e56", 0.82)
-
-def connect(ax, x0, y0, z0, x1, y1, z1, color, alpha=0.35, width=0.8):
-    ax.plot([x0, x1], [y0, y1], [z0, z1], color=color, alpha=alpha, linewidth=width)
-
-fig = plt.figure(figsize=(13, 6))
-blue = "#4b74b8"
-blue_light = "#a8bfe3"
-red = "#d95f59"
-edge = "#2f3e56"
-
-ax1 = fig.add_subplot(121, projection="3d")
-draw_stack(ax1, 0.0, 4, blue)
-draw_stack(ax1, 5.0, 4, blue_light)
-for i in range(4):
-    for j in range(4):
-        connect(ax1, 0.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 5.0, 1.3 + j * 0.17, 1.3 + j * 0.13, red, 0.24, 0.9)
-add_plate(ax1, 2.35, 1.1, 1.1, 0.8, 0.8, 0.28, red, edge, 0.9)
-ax1.text2D(0.05, 0.12, "Input channels", transform=ax1.transAxes, fontsize=10, weight="bold")
-ax1.text2D(0.69, 0.12, "Output channels", transform=ax1.transAxes, fontsize=10, weight="bold")
-ax1.set_title("Standard convolution", pad=12, fontsize=13, weight="bold")
-ax1.set_xlim(-0.5, 6.0)
-ax1.set_ylim(-0.3, 3.5)
-ax1.set_zlim(-0.9, 4.2)
-ax1.view_init(elev=22, azim=-58)
-ax1.set_axis_off()
-
-ax2 = fig.add_subplot(122, projection="3d")
-draw_stack(ax2, 0.0, 4, blue)
-draw_stack(ax2, 3.0, 4, blue)
-draw_stack(ax2, 6.0, 4, blue_light)
-for i in range(4):
-    connect(ax2, 0.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 3.0, 1.3 + i * 0.17, 1.3 + i * 0.13, red, 0.8, 1.3)
-for i in range(4):
-    for j in range(4):
-        connect(ax2, 3.12, 1.3 + i * 0.17, 1.3 + i * 0.13, 6.0, 1.3 + j * 0.17, 1.3 + j * 0.13, red, 0.20, 0.8)
-add_plate(ax2, 1.3, 1.15, 1.15, 0.7, 0.7, 0.24, red, edge, 0.9)
-add_plate(ax2, 4.45, 1.15, 1.15, 0.7, 0.7, 0.24, red, edge, 0.9)
-ax2.text2D(0.02, 0.12, "Input", transform=ax2.transAxes, fontsize=10, weight="bold")
-ax2.text2D(0.34, 0.12, "Depthwise output", transform=ax2.transAxes, fontsize=10, weight="bold")
-ax2.text2D(0.70, 0.12, "Pointwise output", transform=ax2.transAxes, fontsize=10, weight="bold")
-ax2.set_title("Depthwise separable convolution", pad=12, fontsize=13, weight="bold")
-ax2.set_xlim(-0.5, 7.0)
-ax2.set_ylim(-0.3, 3.5)
-ax2.set_zlim(-0.9, 4.2)
-ax2.view_init(elev=22, azim=-58)
-ax2.set_axis_off()
-
-fig.suptitle("Factorizing spatial filtering and channel mixing", fontsize=16, weight="bold", y=0.98)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_group_connectivity_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-channels = 8
-patterns = []
-
-dense = np.ones((channels, channels))
-patterns.append(("Standard convolution", dense))
-
-grouped = np.zeros((channels, channels))
-grouped[:4, :4] = 1
-grouped[4:, 4:] = 1
-patterns.append(("Group convolution, g=2", grouped))
-
-depthwise = np.eye(channels)
-patterns.append(("Depthwise convolution", depthwise))
-
-fig = plt.figure(figsize=(14, 5))
-for index, (title, matrix) in enumerate(patterns, start=1):
-    ax = fig.add_subplot(1, 3, index, projection="3d")
-    xs, ys = np.meshgrid(np.arange(channels), np.arange(channels), indexing="ij")
-    active = matrix.ravel() > 0
-    xpos = xs.ravel()[active]
-    ypos = ys.ravel()[active]
-    zpos = np.zeros_like(xpos, dtype=float)
-    dx = np.full_like(xpos, 0.72, dtype=float)
-    dy = np.full_like(ypos, 0.72, dtype=float)
-    dz = np.full_like(xpos, 1.0, dtype=float)
-    ax.bar3d(xpos, ypos, zpos, dx, dy, dz, color="#4b74b8", edgecolor="#2f3e56", alpha=0.9, shade=True)
-    ax.set_xlabel("Input channel", labelpad=8)
-    ax.set_ylabel("Output channel", labelpad=8)
-    ax.set_zlabel("Connection", labelpad=5)
-    ax.set_xticks(range(channels))
-    ax.set_yticks(range(channels))
-    ax.set_zticks([0, 1])
-    ax.set_zlim(0, 1.3)
-    ax.view_init(elev=32, azim=-52)
-    ax.set_title(title, pad=12, fontsize=12, weight="bold")
-    ax.grid(False)
-
-fig.suptitle("Channel connectivity becomes progressively sparse", fontsize=16, weight="bold", y=1.02)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_relu_manifold_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-rng = np.random.default_rng(7)
-t = np.linspace(0.15, 4.6 * np.pi, 500)
-radius = np.linspace(0.08, 1.0, t.size)
-source = np.vstack([radius * np.cos(t), radius * np.sin(t)])
-
-transform = np.array([
-    [1.05, -0.55],
-    [0.35, 1.15],
-    [-0.85, 0.45],
-])
-embedded = transform @ source
-activated = np.maximum(embedded, 0.0)
-recovered = np.linalg.pinv(transform) @ activated
-
-colors = t
-
-fig = plt.figure(figsize=(15, 5))
-
-ax1 = fig.add_subplot(131, projection="3d")
-ax1.scatter(source[0], source[1], np.zeros_like(t), c=colors, cmap="coolwarm", s=7)
-ax1.plot(source[0], source[1], np.zeros_like(t), color="#4b74b8", linewidth=1.2, alpha=0.7)
-ax1.set_title("Low-dimensional manifold", pad=12, fontsize=12, weight="bold")
-ax1.set_xlabel("Feature 1")
-ax1.set_ylabel("Feature 2")
-ax1.set_zlabel("")
-
-ax2 = fig.add_subplot(132, projection="3d")
-ax2.scatter(embedded[0], embedded[1], embedded[2], c=colors, cmap="coolwarm", s=7)
-ax2.plot(embedded[0], embedded[1], embedded[2], color="#4b74b8", linewidth=1.0, alpha=0.6)
-grid = np.linspace(-1.2, 1.2, 8)
-yy, zz = np.meshgrid(grid, grid)
-xx = np.zeros_like(yy)
-ax2.plot_surface(xx, yy, zz, color="#d95f59", alpha=0.10, linewidth=0)
-ax2.set_title("Embedded in a wider space", pad=12, fontsize=12, weight="bold")
-ax2.set_xlabel("Channel 1")
-ax2.set_ylabel("Channel 2")
-ax2.set_zlabel("Channel 3")
-
-ax3 = fig.add_subplot(133, projection="3d")
-ax3.scatter(recovered[0], recovered[1], np.zeros_like(t), c=colors, cmap="coolwarm", s=7)
-ax3.plot(recovered[0], recovered[1], np.zeros_like(t), color="#d95f59", linewidth=1.0, alpha=0.7)
-collapsed = np.sum(np.linalg.norm(np.diff(recovered, axis=1), axis=0) < 1e-4)
-ax3.text(0.0, 0.0, 0.45, "ReLU clips negative coordinates", ha="center", fontsize=9)
-ax3.set_title("Projected back after ReLU", pad=12, fontsize=12, weight="bold")
-ax3.set_xlabel("Recovered 1")
-ax3.set_ylabel("Recovered 2")
-ax3.set_zlabel("")
-
-for ax in [ax1, ax2, ax3]:
-    ax.view_init(elev=26, azim=-55)
-    ax.grid(False)
-
-fig.suptitle("Why narrow ReLU layers can collapse information", fontsize=16, weight="bold", y=1.02)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_block_evolution_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-def add_layer(ax, x, channels, color, linear=False):
-    depth = 0.35 + channels * 0.035
-    y = -depth / 2
-    z = -channels * 0.018
-    width = 0.22
-    height = 1.3 + channels * 0.028
-    vertices = [
-        (x, y, z), (x + width, y, z), (x + width, y + depth, z), (x, y + depth, z),
-        (x, y, z + height), (x + width, y, z + height), (x + width, y + depth, z + height), (x, y + depth, z + height),
-    ]
-    faces = [
-        [vertices[i] for i in [0, 1, 2, 3]],
-        [vertices[i] for i in [4, 5, 6, 7]],
-        [vertices[i] for i in [0, 1, 5, 4]],
-        [vertices[i] for i in [1, 2, 6, 5]],
-        [vertices[i] for i in [2, 3, 7, 6]],
-        [vertices[i] for i in [3, 0, 4, 7]],
-    ]
-    hatch = "///" if linear else None
-    poly = Poly3DCollection(faces, facecolors=color, edgecolors="#2f3e56", linewidths=0.9, alpha=0.88, hatch=hatch)
-    ax.add_collection3d(poly)
-    return x + width / 2, 0.0, z + height / 2
-
-def connect(ax, start, end, color="#d95f59"):
-    sx, sy, sz = start
-    ex, ey, ez = end
-    ax.plot([sx, ex], [sy, ey], [sz, ez], color=color, linewidth=2.0, alpha=0.8)
-
-designs = [
-    ("Regular", [64, 64], [False, False]),
-    ("Separable", [64, 64, 64], [False, False, False]),
-    ("Linear bottleneck", [64, 24, 64], [False, True, False]),
-    ("Expansion block", [24, 144, 24], [True, False, True]),
-]
-
-fig = plt.figure(figsize=(13, 9))
-for idx, (title, channels, linear_flags) in enumerate(designs, start=1):
-    ax = fig.add_subplot(2, 2, idx, projection="3d")
-    points = []
-    xs = np.linspace(0.0, 4.5, len(channels))
-    for x, c, linear in zip(xs, channels, linear_flags):
-        color = "#4b74b8" if c > 32 else "#b8cae8"
-        points.append(add_layer(ax, x, c, color, linear))
-    for p0, p1 in zip(points[:-1], points[1:]):
-        connect(ax, p0, p1)
-    for x, c in zip(xs, channels):
-        ax.text(x + 0.1, 0.0, 2.6, str(c) + " ch", ha="center", fontsize=9)
-    ax.set_title(title, pad=10, fontsize=12, weight="bold")
-    ax.set_xlim(-0.5, 5.2)
-    ax.set_ylim(-3.2, 3.2)
-    ax.set_zlim(-1.0, 3.2)
-    ax.view_init(elev=22, azim=-58)
-    ax.set_axis_off()
-
-fig.suptitle("Evolution from regular convolution to an expansion bottleneck", fontsize=16, weight="bold", y=0.98)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_residual_comparison_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-def add_layer(ax, x, channels, color, linear=False):
-    depth = 0.55 + channels * 0.012
-    height = 1.4 + channels * 0.008
-    width = 0.28
-    y = -depth / 2
-    z = -height / 2
-    vertices = [
-        (x, y, z), (x + width, y, z), (x + width, y + depth, z), (x, y + depth, z),
-        (x, y, z + height), (x + width, y, z + height), (x + width, y + depth, z + height), (x, y + depth, z + height),
-    ]
-    faces = [
-        [vertices[i] for i in [0, 1, 2, 3]],
-        [vertices[i] for i in [4, 5, 6, 7]],
-        [vertices[i] for i in [0, 1, 5, 4]],
-        [vertices[i] for i in [1, 2, 6, 5]],
-        [vertices[i] for i in [2, 3, 7, 6]],
-        [vertices[i] for i in [3, 0, 4, 7]],
-    ]
-    poly = Poly3DCollection(
-        faces,
-        facecolors=color,
-        edgecolors="#2f3e56",
-        linewidths=0.9,
-        alpha=0.90,
-        hatch="///" if linear else None,
-    )
-    ax.add_collection3d(poly)
-    return np.array([x + width / 2, 0.0, 0.0])
-
-def draw_skip(ax, start, end, lift, color):
-    t = np.linspace(0.0, 1.0, 120)
-    x = start[0] + (end[0] - start[0]) * t
-    y = np.full_like(t, -lift)
-    z = 4.0 * lift * t * (1.0 - t)
-    ax.plot(x, y, z, color=color, linewidth=2.2)
-    ax.quiver(x[-2], y[-2], z[-2], x[-1] - x[-2], y[-1] - y[-2], z[-1] - z[-2], color=color, arrow_length_ratio=0.5)
-
-def draw_block(ax, title, channels, inverted):
-    xs = [0.0, 2.2, 4.4]
-    points = []
-    for idx, (x, c) in enumerate(zip(xs, channels)):
-        linear = inverted and idx in [0, 2]
-        color = "#b8cae8" if c <= 32 else "#4b74b8"
-        points.append(add_layer(ax, x, c, color, linear))
-        ax.text(x + 0.14, 0.0, 2.15, str(c) + " ch", ha="center", fontsize=9)
-    for p0, p1 in zip(points[:-1], points[1:]):
-        ax.plot([p0[0], p1[0]], [0.0, 0.0], [0.0, 0.0], color="#d95f59", linewidth=2.0)
-    draw_skip(ax, points[0], points[-1], 2.1 if inverted else 3.0, "#2f3e56")
-    ax.text(2.2, -2.5 if inverted else -3.4, 1.9, "Shortcut", ha="center", fontsize=9)
-    ax.set_title(title, pad=12, fontsize=13, weight="bold")
-    ax.set_xlim(-0.6, 5.2)
-    ax.set_ylim(-4.2, 3.6)
-    ax.set_zlim(-2.2, 3.0)
-    ax.view_init(elev=23, azim=-58)
-    ax.set_axis_off()
-
-fig = plt.figure(figsize=(13, 6))
-ax1 = fig.add_subplot(121, projection="3d")
-draw_block(ax1, "Classic residual bottleneck", [256, 64, 256], False)
-
-ax2 = fig.add_subplot(122, projection="3d")
-draw_block(ax2, "MobileNetV2 inverted residual", [24, 144, 24], True)
-
-fig.suptitle("The shortcut moves from wide layers to thin bottlenecks", fontsize=16, weight="bold", y=0.98)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_compute_breakdown_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-height = 56
-width = 56
-cin = 24
-cout = 24
-kernel = 3
-ratios = np.array([1, 2, 4, 6, 8], dtype=int)
-stages = ["Expand 1x1", "Depthwise 3x3", "Project 1x1"]
-
-values = []
-for ratio in ratios:
-    hidden = cin * ratio
-    expand = height * width * cin * hidden / 1e6
-    depthwise = height * width * hidden * kernel * kernel / 1e6
-    project = height * width * hidden * cout / 1e6
-    values.append([expand, depthwise, project])
-values = np.array(values)
-
-fig = plt.figure(figsize=(11, 7))
-ax = fig.add_subplot(111, projection="3d")
-
-stage_colors = ["#4b74b8", "#d95f59", "#9bb5dd"]
-for x_index, ratio in enumerate(ratios):
-    for y_index, stage in enumerate(stages):
-        ax.bar3d(
-            x_index - 0.32,
-            y_index - 0.32,
-            0.0,
-            0.64,
-            0.64,
-            values[x_index, y_index],
-            color=stage_colors[y_index],
-            edgecolor="#2f3e56",
-            alpha=0.92,
-            shade=True,
-        )
-
-ax.set_xticks(np.arange(len(ratios)))
-ax.set_xticklabels(["t=" + str(v) for v in ratios])
-ax.set_yticks(np.arange(len(stages)))
-ax.set_yticklabels(stages)
-ax.set_zlabel("MAdds")
-ax.set_xlabel("Expansion ratio")
-ax.set_ylabel("Block stage")
-ax.set_title("Where MobileNetV2 block computation is spent", pad=18, fontsize=15, weight="bold")
-ax.view_init(elev=28, azim=-55)
-ax.grid(False)
-
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
-
-```run-python
-import matplotlib.pyplot as plt
-import numpy as np
-from pathlib import Path
-
-save_path = Path(r"D:\user\notes\blu-obsidian-main\2 Notes\AI\0 Paper\CV\attachments\mobilenetv2_tensor_lifetime_3d.png")
-save_path.parent.mkdir(parents=True, exist_ok=True)
-
-def draw_lifetimes(ax, title, tensors):
-    colors = ["#4b74b8", "#9bb5dd", "#d95f59", "#b8cae8"]
-    for idx, item in enumerate(tensors):
-        name, start, duration, memory = item
-        ax.bar3d(
-            start,
-            idx - 0.30,
-            0.0,
-            duration,
-            0.60,
-            memory,
-            color=colors[idx % len(colors)],
-            edgecolor="#2f3e56",
-            alpha=0.9,
-            shade=True,
-        )
-        ax.text(start + duration / 2, idx, memory + 0.08, str(memory) + " MB", ha="center", fontsize=8)
-    ax.set_yticks(np.arange(len(tensors)))
-    ax.set_yticklabels([item[0] for item in tensors])
-    ax.set_xlabel("Execution stage")
-    ax.set_zlabel("Tensor size")
-    ax.set_xlim(0, 4.2)
-    ax.set_zlim(0, 2.8)
-    ax.set_title(title, pad=12, fontsize=12, weight="bold")
-    ax.view_init(elev=27, azim=-56)
-    ax.grid(False)
-
-classic = [
-    ("Wide shortcut", 0.0, 4.0, 1.6),
-    ("Reduced feature", 0.7, 1.2, 0.4),
-    ("Spatial feature", 1.8, 1.2, 0.4),
-    ("Expanded output", 2.9, 0.9, 1.6),
-]
-
-inverted = [
-    ("Thin shortcut", 0.0, 4.0, 0.4),
-    ("Expanded feature", 0.7, 1.0, 2.4),
-    ("Depthwise feature", 1.7, 1.0, 2.4),
-    ("Projected output", 2.8, 0.9, 0.4),
-]
-
-fig = plt.figure(figsize=(13, 6))
-ax1 = fig.add_subplot(121, projection="3d")
-draw_lifetimes(ax1, "Classic residual tensor lifetime", classic)
-
-ax2 = fig.add_subplot(122, projection="3d")
-draw_lifetimes(ax2, "Inverted residual tensor lifetime", inverted)
-
-fig.suptitle("Peak memory depends on tensor size and lifetime", fontsize=16, weight="bold", y=0.98)
-plt.savefig(save_path, dpi=180, bbox_inches="tight", facecolor="white")
-plt.close()
-print("OK")
-```
