@@ -3,7 +3,7 @@
     "hash": "a0e157cf6a4d957f3bcfb2d1d3334ff9fa3fef2f02f7601043e79469e2688a59"
   },
   "AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md": {
-    "hash": "640beb73e8b4eeee566118d90f6f65550eea75486927af6eed289b4851c30b28"
+    "hash": "9195ed6abf064cc507c585b8d60612c3715c151be73416966f5517a8aeee0017"
   },
   "AI/0 Paper/CV/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md": {
     "hash": "5419ae267d586eb033770dd0b5d17ce08f55810f314ac0b8350f41812824a13c"
@@ -117,13 +117,13 @@
     "hash": "cedbb492d7cea77bedaa5c832a93d3da3b0b8e7664cf48cf600ac4312e98f099"
   },
   "AI/5 ISP与图像处理/11 ISP 中的 3A 算法：AE、AWB、AF.md": {
-    "hash": "75f221f3c9f605ce5029bceff2b0ba376a7b1daaa4596ceebe77bbd691947c0f"
+    "hash": "34181e8f161a03aca50f0bae7bc105f6c70583bd3961ae97892b01669ddcc749"
   },
   "AI/5 ISP与图像处理/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md": {
     "hash": "47a9bf3f6290a48f6c6ff93ce1ce4bae043cfae7eb09f0c59e3a1aeea079f3c7"
   },
   "AI/5 ISP与图像处理/13 Sensor基础.md": {
-    "hash": "e7aeed73fac147a5642de20911e3c6d37ac4127edc95cf4d446cd4051458e3bf"
+    "hash": "8d009e4427a4d86240e70aa973df133fc2366890432f23374ec86b721eb06c5e"
   },
   "AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md": {
     "hash": "1e47981a7c21e1205a82da441be807db8f101ccd6b02e19dbe7388de6e757baf"
@@ -138,7 +138,7 @@
     "hash": "9edeec3e41e82615926cca13838aa987ada5d7084ac977172bacc371b2ea8f59"
   },
   "AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
-    "hash": "8dbff4d302d90e53d9238768d313399af31bbc46cc1f91b091602b1205d51222"
+    "hash": "c63f03b9fd3126522853b3111ca8290604b173ea84f0023a4114594672bc84e9"
   },
   "AI/5 ISP与图像处理/3 Gamma 校正与逆 Gamma.md": {
     "hash": "637740627fe800ec580131f28fbb8174e6afab02a8578a38d19b7829b0bef871"
@@ -175,6 +175,12 @@
   },
   "AI/7 模型训练/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
     "hash": "f7d389db6e68c29b6e3da9c5e0893fb280f53c8f5413f21e94f7ba74e717f243"
+  },
+  "AI/7 模型训练/5 YUV 色彩空间 Loss.md": {
+    "hash": "d7591ec7451a6f0f6fa45e9b105446074179eb4ec8172f1c0ff876bf12e99d5e"
+  },
+  "AI/7 模型训练/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
+    "hash": "388499bdb53c09c9ecbe1c13779e6d869f9a6125a8371a0c763cc09a8ab5b9a7"
   },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "9c66713e2845189861c8c70908ad5e15f74d8ba732f3519881b671743a43a6a9"

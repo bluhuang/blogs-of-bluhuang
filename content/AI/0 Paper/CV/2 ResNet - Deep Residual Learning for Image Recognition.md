@@ -3,12 +3,12 @@ title: "ResNet - Deep Residual Learning for Image Recognition"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-13T09:12:23+0800
-lastmod: 2026-07-13T09:12:23+0800
+lastmod: 2026-07-27T12:13:57+0800
 ---
 
 ## 1. 论文信息
 **论文标题**：Deep Residual Learning for Image Recognition  
-**作者**：  
+**作者**：Kaiming He、Xiangyu Zhang、Shaoqing Ren、Jian Sun  
 **会议**：CVPR 2016
 
 这篇论文提出了 **ResNet（Residual Network，残差网络）**，核心目标不是单纯设计一个分类网络，而是解决：
@@ -60,7 +60,6 @@ flowchart LR
     D --> E[理论上不应比20层更差]
 ```
 【Fig1】
-![[Pasted image 20260711171423.png]]
 但论文实验显示：
 - 56 层 Plain Network 的训练误差高于 20 层 Plain Network；
 - 测试误差也更高。
@@ -138,6 +137,7 @@ $$
 - Batch Normalization；
 - 正常的 SGD 训练。
     
+
 作者还检查了前向信号和反向梯度，认为它们保持了正常的数值范围。因此，论文中的退化问题不能简单归结为梯度完全消失。作者更谨慎地将其描述为 **深层 Plain Network 的优化困难**。
 
 所以不要简单当成：
@@ -276,7 +276,6 @@ $$
 
 ## 6.2 Residual Block 的两条路径
 【Fig2】
-![[Pasted image 20260711181532.png]]
 
 论文 **Figure 2** 展示了最基础的 Residual Block。
 
@@ -336,11 +335,7 @@ $$
 
 有：
 $$
-\frac{\partial L}{\partial x}
-\frac{\partial L}{\partial y}  
-\left(  
-1+\frac{\partial F(x)}{\partial x}  
-\right)
+\frac{\partial L}{\partial x} \frac{\partial L}{\partial y} \left( 1+\frac{\partial F(x)}{\partial x} \right)
 $$
 
 其中的$1$来自 Shortcut 分支。
@@ -503,7 +498,6 @@ flowchart LR
     C --> D["1×1 Conv<br/>恢复通道"]
 ```
 【Fig5】
-![[Pasted image 20260711182248.png]]
 
 论文中用于：
 - ResNet-50；
@@ -646,8 +640,7 @@ $$
 |ResNet-50|Bottleneck|3、4、6、3|
 |ResNet-101|Bottleneck|3、4、23、3|
 |ResNet-152|Bottleneck|3、8、36、3|
-
-更深网络主要通过增加各 Stage 的 Block 数量实现。
+1. 更深网络主要通过增加各 Stage 的 Block 数量实现。
 
 # 10. 训练与实验结论
 
