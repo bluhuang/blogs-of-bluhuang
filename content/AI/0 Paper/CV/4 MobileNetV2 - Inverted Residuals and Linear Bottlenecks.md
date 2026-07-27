@@ -4,12 +4,10 @@ image: "/images/AI/0%20Paper/CV/attachments/mobilenetv2_memory_hierarchy_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-25T11:33:29+0800
-lastmod: 2026-07-25T11:33:29+0800
+lastmod: 2026-07-27T11:55:39+0800
 ---
 
-# MobileNetV2 - Inverted Residuals and Linear Bottlenecks
 ## 1. 论文信息与问题：端侧网络到底在优化什么
-
 **论文标题**：MobileNetV2: Inverted Residuals and Linear Bottlenecks  
 **会议**：CVPR 2018
 
@@ -38,7 +36,6 @@ flowchart LR
 论文不仅比较了参数量和 Multiply-Adds，也实际比较了推理延迟，并专门分析了推理时的中间特征内存占用。
 
 ### 1.1 算力：FLOPs / MAdds
-
 **FLOPs，Floating Point Operations**：模型执行了多少次浮点运算。
 
 论文主要使用 **MAdds，Multiply-Adds**，即乘加次数。
@@ -60,7 +57,6 @@ flowchart LR
 算力越高，通常需要更多时间和能量，但它并不直接等于真实运行速度。
 
 ### 1.2 速度：Latency
-
 **Latency，推理延迟**：
 
 > 从输入一张图，到模型产生输出，实际经过了多少毫秒。
@@ -93,7 +89,6 @@ Latency 一定更低
 ```
 
 ### 1.3 内存占用：Memory Usage
-
 模型推理时主要有两类内存：
 
 ```text
@@ -104,24 +99,17 @@ Latency 一定更低
 
 权重内存近似为：
 $$
-M_{\text{weight}}
-N_{\text{parameter}}  
-\times  
-\text{每个参数的字节数}
+M_{\text{weight}} = N_{\text{parameter}} \times \text{每个参数的字节数}
 $$
 
 例如 100 万个 FP16 参数：
 $$
-1{,}000{,}000\times2
-2\text{ MB}
+1{,}000{,}000 \times 2 = 2{,}000{,}000\text{ Bytes} \approx 2\text{ MB}
 $$
 
 中间特征图内存近似为：
 $$
-M_{\text{feature}}
-B\times C\times H\times W  
-\times  
-\text{每个元素的字节数}
+M_{\text{feature}} = B \times C \times H \times W \times \text{每个元素的字节数}
 $$
 
 例如一个 FP16 特征图：
@@ -132,15 +120,12 @@ $$
 
 需要： 
 $$
-1\times64\times256\times256\times2
-8{,}388{,}608\text{ Bytes}  
-\approx8\text{ MB}
+1 \times 64 \times 256 \times 256 \times 2 = 8{,}388{,}608\text{ Bytes} \approx 8\text{ MB}
 $$
 
 对于高分辨率去噪模型，中间特征图经常比权重更占内存。
 
 ### 1.4 内存访问开销
-
 计算卷积时，芯片不仅要执行乘法和加法，还要不断搬运数据，包括：
 
 ```
@@ -207,11 +192,9 @@ MobileNetV2 不仅降低卷积计算量，还让残差连接发生在低通道�
 > 相加结果
 > ```
 
-
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_memory_hierarchy_3d.png)
 
 ### 1.5 精度：Accuracy 与 PSNR
-
 MobileNetV2 原论文主要处理分类、检测和分割，因此使用 Accuracy、mAP、mIOU 等指标。
 
 在图像去噪中，对应的效果指标可能是：
@@ -237,7 +220,6 @@ MobileNetV2 原论文主要处理分类、检测和分割，因此使用 Accurac
 之间的折中，而不是把 FLOPs 压到最低。
 
 ## 2. 标准卷积为什么昂贵
-
 假设输入特征为：
 
 ```text
@@ -248,15 +230,12 @@ MobileNetV2 原论文主要处理分类、检测和分割，因此使用 Accurac
 
 标准卷积的乘加次数约为：
 $$
-\operatorname{Cost}_{\text{standard}}
-H\times W\times K^2  
-\times C_{in}\times C_{out}
+\operatorname{Cost}_{\text{standard}} = H \times W \times K^2 \times C_{in} \times C_{out}
 $$
 
 原因是每个输出位置、每个输出通道，都需要读取：K × K × Cin个输入值。
 
 ### 2.1 一个具体数字
-
 假设：
 
 ```text
@@ -269,11 +248,7 @@ K=3
 那么计算量为：
 
 $$
-56\times56\times3^2\times64\times64
-$$
-
-$$
-115{,}605{,}504
+56 \times 56 \times 3^2 \times 64 \times 64 = 115{,}605{,}504
 $$
 
 也就是大约：
@@ -286,8 +261,7 @@ $$
 
 如果模型中有很多高分辨率标准卷积，计算量会快速累积。
 
-### 2.2 为什么$C_{in}\times C_{out}$很贵
-
+### 2.2 为什么C_in C_out很贵
 标准卷积同时完成两件事：
 1. 在空间上提取局部特征；
 2. 在通道之间进行融合。
@@ -309,7 +283,6 @@ $$
 这部分在通道数较大时非常昂贵。
 
 ## 3. 第一次优化：深度可分离卷积
-
 MobileNetV2 延续了 MobileNetV1 的核心轻量化方法：
 
 > 把一次标准卷积拆成两步：先用 Depthwise Convolution 处理空间信息，再用 Pointwise Convolution 融合通道信息。
@@ -317,7 +290,6 @@ MobileNetV2 延续了 MobileNetV1 的核心轻量化方法：
 要理解为什么这样能省计算，必须先弄清楚标准卷积究竟在算什么。
 
 ### 3.1 标准卷积是怎么计算的
-
 假设输入特征图 Shape 为：
 
 ```text
@@ -394,17 +366,10 @@ flowchart LR
 标准卷积中，一个输出通道会读取所有输入通道。
 
 #### 单个输出像素怎么算
-
 对于输出通道$o$、位置$(i,j)$：
 
 $$
-y_o(i,j)
-\sum_{c=1}^{C_{in}}  
-\sum_{u=1}^{K}  
-\sum_{v=1}^{K}  
-W_{o,c,u,v}  
-x_c(i+u,j+v)  
-+b_o
+y_o(i,j) = \sum_{c=1}^{C_{in}} \sum_{u=1}^{K} \sum_{v=1}^{K} W_{o,c,u,v} x_c(i+u,j+v) + b_o
 $$
 
 其中：
@@ -424,27 +389,18 @@ $$
 ```
 
 #### 具体数字演示
-
 假设某个位置上，输入有两个通道，每个通道取一个$2\times2$区域。
 
 输入通道 0：
 
 $$
-X_0=  
-\begin{bmatrix}  
-1 & 2\  
-3 & 4  
-\end{bmatrix}
+X_0= \begin{bmatrix} 1 & 2\\ 3 & 4 \end{bmatrix}
 $$
 
 输入通道 1：
 
 $$
-X_1=  
-\begin{bmatrix}  
-5 & 6\  
-7 & 8  
-\end{bmatrix}
+X_1= \begin{bmatrix} 5 & 6\\ 7 & 8 \end{bmatrix}
 $$
 
 现在计算输出通道 0。
@@ -452,45 +408,23 @@ $$
 它需要两张卷积核：
 
 $$
-W_{0,0}=  
-\begin{bmatrix}  
-1 & 0\  
-0 & 1  
-\end{bmatrix}
+W_{0,0}= \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}
 $$
 
 $$
-W_{0,1}=  
-\begin{bmatrix}  
-1 & 1\  
-1 & 1  
-\end{bmatrix}
+W_{0,1}= \begin{bmatrix} 1 & 1\\ 1 & 1 \end{bmatrix}
 $$
 
 输入通道 0 的卷积结果：
 
 $$
-1\times1  
-+  
-2\times0  
-+  
-3\times0  
-+  
-4\times1  
-=5
+1\times1 + 2\times0 + 3\times0 + 4\times1 =5
 $$
 
 输入通道 1 的卷积结果：
 
 $$
-5\times1  
-+  
-6\times1  
-+  
-7\times1  
-+  
-8\times1  
-=26
+5\times1 + 6\times1 + 7\times1 + 8\times1 =26
 $$
 
 将两个通道的结果相加：
@@ -523,7 +457,6 @@ flowchart LR
 ```
 
 ### 3.2 标准卷积为什么计算量大
-
 对于输出特征图中的每一个位置、每一个输出通道，都要执行：
 
 $$
@@ -541,9 +474,7 @@ $$
 个输出位置，因此标准卷积总计算量约为：
 
 $$
-\operatorname{Cost}_{\text{standard}}
-H\times W\times K^2  
-\times C_{in}\times C_{out}
+\operatorname{Cost}_{\text{standard}} = H \times W \times K^2 \times C_{in} \times C_{out}
 $$
 
 例如：
@@ -558,11 +489,7 @@ K = 3
 计算量为：
 
 $$
-56\times56\times3^2\times64\times64
-$$
-
-$$
-115{,}605{,}504
+56 \times 56 \times 3^2 \times 64 \times 64 = 115{,}605{,}504
 $$
 
 约为：
@@ -580,7 +507,6 @@ $$
 因为空间卷积和通道融合被绑定在了一起。
 
 ### 3.3 深度可分离卷积如何拆分标准卷积
-
 深度可分离卷积把标准卷积拆成：
 
 ```text
@@ -616,7 +542,6 @@ flowchart LR
 两步分别完成。
 
 ### 3.4 Depthwise Convolution(逐通道卷积) 是怎么计算的
-
 **Depthwise Convolution，逐通道卷积**：
 
 > 每个输入通道只与自己的卷积核进行空间卷积，不读取其他输入通道。
@@ -660,15 +585,10 @@ Depthwise Conv：
 ```
 
 #### Depthwise 的公式
-
 对于通道$c$：
 
 $$
-z_c(i,j)
-\sum_{u=1}^{K}  
-\sum_{v=1}^{K}  
-D_{c,u,v}  
-x_c(i+u,j+v)
+z_c(i,j) = \sum_{u=1}^{K} \sum_{v=1}^{K} D_{c,u,v} x_c(i+u,j+v)
 $$
 
 这里没有对输入通道$c$求和。
@@ -682,77 +602,46 @@ $$
 ```
 
 #### 用刚才的数字继续演示
-
 输入通道 0：
 
 $$
-X_0=  
-\begin{bmatrix}  
-1 & 2\  
-3 & 4  
-\end{bmatrix}
+X_0= \begin{bmatrix} 1 & 2\\ 3 & 4 \end{bmatrix}
 $$
 
 输入通道 1：
 
 $$
-X_1=  
-\begin{bmatrix}  
-5 & 6\  
-7 & 8  
-\end{bmatrix}
+X_1= \begin{bmatrix} 5 & 6\\ 7 & 8 \end{bmatrix}
 $$
 
 Depthwise Kernel 0：
 
 $$
-D_0=  
-\begin{bmatrix}  
-1 & 0\  
-0 & 1  
-\end{bmatrix}
+D_0= \begin{bmatrix} 1 & 0\\ 0 & 1 \end{bmatrix}
 $$
 
 Depthwise Kernel 1：
 
 $$
-D_1=  
-\begin{bmatrix}  
-1 & 1\  
-1 & 1  
-\end{bmatrix}
+D_1= \begin{bmatrix} 1 & 1\\ 1 & 1 \end{bmatrix}
 $$
 
 通道 0 的输出：
 
 $$
-z_0
-1\times1  
-+  
-2\times0  
-+  
-3\times0  
-+  
-4\times1  
-=5
+z_0 = 1\times1 + 2\times0 + 3\times0 + 4\times1 =5
 $$
 
 通道 1 的输出：
 
 $$
-z_1
-5+6+7+8  
-=26
+z_1 = 5+6+7+8 =26
 $$
 
 Depthwise 卷积的输出是：
 
 $$
-z=  
-\begin{bmatrix}  
-5\  
-26  
-\end{bmatrix}
+z= \begin{bmatrix} 5\\ 26 \end{bmatrix}
 $$
 
 注意，此时没有执行：
@@ -780,21 +669,18 @@ Depthwise Conv 只回答：
 > 不同通道组合起来代表什么？
 
 ### 3.5 Depthwise Convolution 为什么便宜
-
 对于每一个输入通道，只执行一次$K\times K$空间卷积。
 
 计算量为：
 
 $$
-\operatorname{Cost}_{\text{DW}}
-H\times W\times K^2\times C_{in}
+\operatorname{Cost}_{\text{DW}} = H \times W \times K^2 \times C_{in}
 $$
 
 标准卷积是：
 
 $$
-H\times W\times K^2  
-\times C_{in}\times C_{out}
+H\times W\times K^2 \times C_{in}\times C_{out}
 $$
 
 Depthwise 没有$C_{out}$这一项，因为它不会为每个输出通道重新读取全部输入通道。
@@ -806,7 +692,6 @@ Depthwise 没有$C_{out}$这一项，因为它不会为每个输出通道重新�
 所以后面必须再接 Pointwise Conv。
 
 ### 3.6 Pointwise Convolution （逐点卷积）是怎么计算的
-
 **Pointwise Convolution，逐点卷积**：
 
 > 使用$1\times1$卷积，在每一个空间位置上读取全部输入通道，并重新组合成新的输出通道。
@@ -846,15 +731,10 @@ Cout 维向量
 ```
 
 #### Pointwise 的公式
-
 对于输出通道$o$：
 
 $$
-y_o(i,j)
-\sum_{c=1}^{C_{in}}  
-P_{o,c}  
-z_c(i,j)  
-+b_o
+y_o(i,j) = \sum_{c=1}^{C_{in}} P_{o,c} z_c(i,j) + b_o
 $$
 
 其中：
@@ -863,15 +743,10 @@ $$
 - $y_o(i,j)$：Pointwise 输出。
 
 #### 继续使用刚才的数字
-
 Depthwise 输出：
 
 $$
-z=  
-\begin{bmatrix}  
-5\  
-26  
-\end{bmatrix}
+z= \begin{bmatrix} 5\\ 26 \end{bmatrix}
 $$
 
 现在希望输出两个通道。
@@ -879,41 +754,31 @@ $$
 输出通道 0 的 Pointwise 权重：
 
 $$
-P_0=  
-\begin{bmatrix}  
-1 & 1  
-\end{bmatrix}
+P_0= \begin{bmatrix} 1 & 1 \end{bmatrix}
 $$
 
 因此：
 
 $$
-y0​=1×5+1×26=31
+y_0 = 1 \times 5 + 1 \times 26 = 31
 $$
 
 输出通道 1 的权重：
 
 $$
-P_1=  
-\begin{bmatrix}  
-2 & -1  
-\end{bmatrix}
+P_1= \begin{bmatrix} 2 & -1 \end{bmatrix}
 $$
 
 因此：
 
 $$
-y1​=2×5+(−1)×26=−16
+y_1 = 2 \times 5 + (-1) \times 26 = -16
 $$
 
 最终得到：
 
 $$
-y=  
-\begin{bmatrix}  
-31\  
--16  
-\end{bmatrix}
+y= \begin{bmatrix} 31\\ -16 \end{bmatrix}
 $$
 
 ```mermaid
@@ -929,7 +794,6 @@ flowchart LR
 > 当前空间位置上的多个通道，应该怎样重新组合？
 
 ### 3.7 标准卷积与深度可分离卷积的本质区别
-
 标准卷积：
 
 ```text
@@ -975,60 +839,40 @@ flowchart LR
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_conv_factorization_3d.png)
 
 ### 3.8 深度可分离卷积的计算量
-
 Depthwise 部分：
 
 $$
-\operatorname{Cost}_{\text{DW}}
-H\times W\times K^2\times C_{in}
+\operatorname{Cost}_{\text{DW}} = H \times W \times K^2 \times C_{in}
 $$
 
 Pointwise 部分：
 
 $$
-\operatorname{Cost}_{\text{PW}}
-H\times W\times C_{in}\times C_{out}
+\operatorname{Cost}_{\text{PW}} = H \times W \times C_{in} \times C_{out}
 $$
 
 总计算量：
 
 $$
-\operatorname{Cost}_{\text{separable}}
-HWC_{in}K^2  
-+  
-HWC_{in}C_{out}
+\operatorname{Cost}_{\text{separable}} = HWC_{in}K^2 + HWC_{in}C_{out}
 $$
 
 标准卷积计算量：
 
 $$
-\operatorname{Cost}_{\text{standard}}
-HWK^2C_{in}C_{out}
+\operatorname{Cost}_{\text{standard}} = HWK^2C_{in}C_{out}
 $$
 
 两者比例：
 
 $$
-\frac{  
-\operatorname{Cost}_{\text{separable}}  
-}{  
-\operatorname{Cost}_{\text{standard}}  
-}
-\frac{  
-HWC_{in}K^2  
-+  
-HWC_{in}C_{out}  
-}{  
-HWK^2C_{in}C_{out}  
-}
+\frac{\operatorname{Cost}_{\text{separable}}} {\operatorname{Cost}_{\text{standard}}} = \frac{HWC_{in}K^2 + HWC_{in}C_{out}} {HWK^2C_{in}C_{out}}
 $$
 
 约分后：
 
 $$
-\frac{1}{C_{out}}  
-+  
-\frac{1}{K^2}
+\frac{1}{C_{out}} + \frac{1}{K^2}
 $$
 
 当：
@@ -1041,16 +885,12 @@ Cout = 64
 比例为：
 
 $$
-\frac{1}{64}  
-+  
-\frac{1}{9}  
-\approx0.1267
+\frac{1}{64} + \frac{1}{9} \approx0.1267
 $$
 
 也就是说，深度可分离卷积的计算量约为标准卷积的：12.67%  ，约减少到原来的八分之一。
 
 ### 3.9 为什么 Pointwise 仍然占主要计算量
-
 在上面的例子中：
 
 ```text
@@ -1073,7 +913,6 @@ $$
 这也是后面理解 MobileNetV2 Expansion Ratio 时必须注意的地方：通道一旦扩张，$1\times1$卷积的计算量也会明显增加。
 
 ### 3.10 Group Convolution 与 Depthwise Convolution
-
 标准卷积中，**每个输出通道都会读取全部输入通道**。
 
 假设输入和输出都是 4 个通道：
@@ -1202,7 +1041,6 @@ Depthwise Convolution 不融合通道，所以后面通常还要接一个 $1\tim
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_group_connectivity_3d.png)
 
 ### 3.11 这一节真正重要的内容
-
 ```text
 标准卷积：
 每个输出通道都对全部输入通道执行 K×K 卷积
@@ -1225,7 +1063,6 @@ Pointwise Conv：
 **一句话理解：标准卷积会让每个输出通道同时读取所有输入通道的空间邻域，而深度可分离卷积先让每个通道独立处理空间，再用$1\times1$卷积统一融合通道，因此避免了昂贵的$K^2C_{in}C_{out}$联合计算。**
 
 ## 4. 深度可分离卷积带来的新矛盾
-
 深度可分离卷积大幅降低了计算量，但它并没有回答一个问题：
 
 > 当网络通道很少时，怎样避免非线性激活破坏信息？
@@ -1249,7 +1086,6 @@ ReLU
 它关注的是**激活信息被压缩或坍塌**，不是卷积核参数本身变成空。
 
 ### 4.1 什么是低维空间
-
 假设某个像素位置有$C$个通道：
 
 ```text
@@ -1268,7 +1104,6 @@ x=[x1,x2,...,xC]
 减少通道数就是降低特征空间维度。
 
 ### 4.2 Activation Manifold
-
 **Activation Manifold，激活流形**：
 
 > 对真实输入数据而言，网络特征并不会填满整个高维空间，而通常集中在某个更低维、具有结构的区域中。
@@ -1282,7 +1117,6 @@ MobileNetV2 的假设是：
 > 有效信息本身可能是低维的，因此可以使用窄 Bottleneck 保存；但进行复杂非线性变换时，需要先把它映射到更高维空间。
 
 ### 4.3 ReLU 为什么可能丢失信息
-
 ReLU 为：
 
 $$
@@ -1294,21 +1128,13 @@ $$
 假设低维特征为：
 
 $$
-x=  
-\begin{bmatrix}  
--0.4\  
-0.3  
-\end{bmatrix}
+x= \begin{bmatrix} -0.4\\ 0.3 \end{bmatrix}
 $$
 
 经过 ReLU：
 
 $$
-\operatorname{ReLU}(x)
-\begin{bmatrix}  
-0\  
-0.3  
-\end{bmatrix}
+\operatorname{ReLU}(x) = \begin{bmatrix} 0\\ 0.3 \end{bmatrix}
 $$
 
 此时无法判断第一个值原来是：
@@ -1331,7 +1157,6 @@ ReLU 后：11 个变成 0，只剩 5 个非零值
 这只是一个说明信息丢失机制的例子，并不表示所有网络都固定只剩 5 个有效值。
 
 ### 4.4 为什么高维空间中的 ReLU 更安全
-
 假设原始信息只有 2 个自由维度，但先把它投影到 12 个通道：
 
 ```text
@@ -1369,9 +1194,7 @@ MobileNetV2 的两个核心设计，就是为了解决这个矛盾。
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_relu_manifold_3d.png)
 
 ## 5. 核心对策一：Linear Bottleneck
-
 ### 5.1 Bottleneck 是什么
-
 **Bottleneck，瓶颈层**：
 
 > 通道数较少、用于保存模块输入或输出的低维特征层。
@@ -1386,7 +1209,6 @@ MobileNetV2 的两个核心设计，就是为了解决这个矛盾。
 MobileNetV2 Block 的输入和输出都是窄 Bottleneck。
 
 ### 5.2 Linear Bottleneck 是什么
-
 **Linear Bottleneck，线性瓶颈**：
 
 > 最后一个$1\times1$卷积把高维特征压缩回低维时，不再接 ReLU，而是保留线性输出。
@@ -1414,29 +1236,16 @@ ReLU
 论文实验显示，在窄 Bottleneck 上保留非线性会使性能下降，而去掉非线性能够更好地保留低维信息。
 
 ### 5.3 为什么低维输出不能再接 ReLU
-
 假设高维特征被压缩成：
 
 $$
-z=  
-\begin{bmatrix}  
--0.8\  
-0.2\  
--0.3\  
-0.7  
-\end{bmatrix}
+z= \begin{bmatrix} -0.8\\ 0.2\\ -0.3\\ 0.7 \end{bmatrix}
 $$
 
 如果这是 Block 最终用于传给下一层的低维表示，ReLU 会得到：
 
 $$
-\operatorname{ReLU}(z)
-\begin{bmatrix}  
-0\  
-0.2\  
-0\  
-0.7  
-\end{bmatrix}
+\operatorname{ReLU}(z) = \begin{bmatrix} 0\\ 0.2\\ 0\\ 0.7 \end{bmatrix}
 $$
 
 两个负向特征被直接抹掉。
@@ -1467,7 +1276,6 @@ Block 内部仍然包含：
 只有最后压缩回 Bottleneck 的 Projection 层不使用激活函数。
 
 ### 5.4 反事实推理
-
 假设保留 ReLU：
 
 ```text
@@ -1497,9 +1305,7 @@ Block 内部仍然包含：
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_block_evolution_3d.png)
 
 ## 6. 核心对策二：Inverted Residual
-
 ### 6.1 倒残差的完整流程
-
 一个典型 MobileNetV2 Block 为：
 
 ```mermaid
@@ -1525,7 +1331,6 @@ $$
 当空间尺寸或通道数变化时，通常不使用 Shortcut。
 
 ### 6.2 Expansion Ratio
-
 **Expansion Ratio，扩张倍率**，记为$t$：
 
 $$
@@ -1549,7 +1354,6 @@ $$
 论文的主要实验采用扩张倍率 6，并发现 5 到 10 之间的扩张倍率具有相近的效果趋势。
 
 ### 6.3 为什么要先升维
-
 Depthwise Convolution 不负责通道融合，它只会对每个通道单独做空间卷积。
 
 如果直接在 16 个通道上做 Depthwise：
@@ -1587,7 +1391,6 @@ Depthwise Convolution 不负责通道融合，它只会对每个通道单独做�
 ```
 
 ### 6.4 为什么最后还要降维
-
 如果一直保持高维特征：
 
 ```text
@@ -1613,7 +1416,6 @@ Block 对外只保留低维 Bottleneck：
 论文将这种设计解释为：Bottleneck 表示网络每层保存的信息容量，Expansion 表示 Block 内部变换的表达能力，从而把“保存多少信息”和“变换多复杂”部分解耦。
 
 ### 6.5 为什么叫 Inverted Residual
-
 这里比较的是 **ResNet Bottleneck Block**，不是所有 ResNet Block。
 
 ResNet Bottleneck：
@@ -1668,9 +1470,6 @@ flowchart LR
 
 因此称为“倒残差”。
 
-![[Pasted image 20260721154402.png]]
-【Fig3】
-
 论文 Figure 3 的关键区别正是：
 - 传统 Bottleneck Residual 的 Shortcut 连接高维层；
 - Inverted Residual 的 Shortcut 连接低维 Bottleneck。
@@ -1678,7 +1477,6 @@ flowchart LR
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_residual_comparison_3d.png)
 
 ### 6.6 为什么不能先压缩再 Depthwise
-
 反事实结构：
 
 ```text
@@ -1711,9 +1509,7 @@ MobileNetV2 改为：
 这样把非线性和空间处理放在高维空间中，把低维空间主要用于传输和保存信息。
 
 ## 7. Block 的计算量、ReLU6 与代码
-
 ### 7.1 Inverted Residual 的计算量
-
 假设：
 
 - 输入通道$C_{in}$；
@@ -1748,11 +1544,7 @@ $$
 总计算量为：
 
 $$
-\operatorname{Cost}_{\text{block}}
-HWC_{in}t  
-\left(  
-C_{in}+K^2+C_{out}  
-\right)
+\operatorname{Cost}_{\text{block}} = HWC_{in}t\left(C_{in}+K^2+C_{out}\right)
 $$
 
 这与论文给出的 Block 计算公式一致。
@@ -1775,7 +1567,6 @@ $$
     
 
 ### 7.2 Pointwise Conv 往往是主要计算量
-
 以：
 
 ```text
@@ -1796,22 +1587,19 @@ $$
 扩张$1\times1$卷积：
 
 $$
-56\times56\times24\times144
-10{,}838{,}016
+56\times56\times24\times144 = 10{,}838{,}016
 $$
 
 Depthwise：
 
 $$
-56\times56\times144\times9
-4{,}064{,}256
+56\times56\times144\times9 = 4{,}064{,}256
 $$
 
 投影$1\times1$卷积：
 
 $$
-56\times56\times144\times24
-10{,}838{,}016
+56\times56\times144\times24 = 10{,}838{,}016
 $$
 
 可以看到，两次$1\times1$卷积占据了大部分计算量。
@@ -1831,12 +1619,10 @@ $$
 ![](/images/AI/0%20Paper/CV/attachments/mobilenetv2_compute_breakdown_3d.png)
 
 ### 7.3 ReLU6
-
 MobileNetV2 在扩张层和 Depthwise 层后使用 ReLU6：
 
 $$
-f(x)
-\min(\max(0,x),6)
+f(x) = \min(\max(0,x),6)
 $$
 
 ```mermaid
@@ -1866,7 +1652,6 @@ Project Conv → Linear
 ```
 
 ### 7.4 PyTorch 代码
-
 ```python
 import torch
 import torch.nn as nn
@@ -1978,9 +1763,7 @@ and in_channels == out_channels
 否则 Shape 不相同，不能直接相加。
 
 ## 8. 从 FLOPs 到真实端侧速度
-
 ### 8.1 FLOPs 降低为什么不保证更快
-
 考虑两个模型：
 
 ```text
@@ -2003,13 +1786,7 @@ Cache 命中率高
 真实延迟可以粗略理解为：
 
 $$
-T_{\text{latency}}  
-\approx  
-T_{\text{compute}}  
-+  
-T_{\text{memory}}  
-+  
-T_{\text{schedule}}
+T_{\text{latency}} \approx T_{\text{compute}} + T_{\text{memory}} + T_{\text{schedule}}
 $$
 
 其中：
@@ -2022,7 +1799,6 @@ $$
     
 
 ### 8.2 Depthwise Conv 可能是内存受限算子
-
 Depthwise Conv 的乘加次数很少，但每个权重只处理一个通道。
 
 它的计算密度可能低于标准卷积：
@@ -2045,7 +1821,6 @@ Depthwise Conv Latency
 ```
 
 ### 8.3 倒残差为什么有利于内存
-
 传统残差连接需要保留 Shortcut 输入，直到主分支计算完成。
 
 如果 Shortcut 连接的是高维特征：
@@ -2085,7 +1860,6 @@ MobileNetV2 的 Shortcut 连接低维 Bottleneck：
 ```
 
 ### 8.4 扩张层不是也很大吗
-
 是的。
 
 例如：
@@ -2120,14 +1894,11 @@ Expand 输出完整写入内存
 ```
 
 ### 8.5 过度拆分也可能变慢
-
 论文还指出，把一次大的矩阵乘法拆成很多小矩阵乘法，虽然乘加次数不变，却可能因为 Cache Miss 增多而损害运行速度。论文建议分块数量保持为较小常数，在内存节省和高效矩阵计算之间折中。
 
 这说明：
 
 > 轻量化不是把算子拆得越碎越好，而是要让算子形态符合芯片和编译器最擅长的执行方式。
 
-
 ## 9. 一句话总结
-
 **MobileNetV2 的核心不是单纯减少卷积，而是用 Depthwise Convolution 降低空间计算，用高维 Expansion 承载非线性特征提取，用 Linear Bottleneck 保存低维信息，再让 Residual Shortcut 只连接窄特征，从而同时控制计算量、信息损失和端侧内存开销。**
