@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>5 ISP与图像处理 on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link><description>Recent content in 5 ISP与图像处理 on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 25 Jul 2026 11:33:29 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>空域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-空域降噪的基本概念"&gt;1. 空域降噪的基本概念&lt;/h2&gt;
+
 &lt;h3 id="11-什么是空域降噪"&gt;1.1 什么是空域降噪&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;空域降噪（Spatial Denoising）&lt;/strong&gt; 指在同一帧图像内部，利用像素与周围像素之间的空间关系来去除噪声的方法。它不依赖多帧信息，只处理当前这一帧。&lt;/p&gt;</description></item><item><title>频域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-频域降噪的背景"&gt;1. 频域降噪的背景&lt;/h2&gt;
+
 &lt;h3 id="11-为什么需要频域降噪"&gt;1.1 为什么需要频域降噪？&lt;/h3&gt;
 &lt;p&gt;空域降噪在像素矩阵上直接操作，有一个根本性的限制：&lt;strong&gt;它只能利用局部信息&lt;/strong&gt;。无论窗口开多大，都只看到有限范围内的像素。&lt;/p&gt;</description></item><item><title>时域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-时域降噪的背景与原理"&gt;1. 时域降噪的背景与原理&lt;/h2&gt;
+
 &lt;h3 id="11-为什么需要时域降噪"&gt;1.1 为什么需要时域降噪？&lt;/h3&gt;
 &lt;p&gt;空域降噪和频域降噪都在&lt;strong&gt;单帧内部&lt;/strong&gt;操作——无论算法多先进，都受限于“这一帧只有这么多信息”这一事实。当噪声强度超过一定程度时，单帧降噪会严重损伤图像细节。&lt;/p&gt;</description></item><item><title>ISP 中的 3A 算法：AE、AWB、AF</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</guid><description>&lt;h2 id="1-什么是-3a-算法"&gt;1. 什么是 3A 算法？&lt;/h2&gt;
+
 &lt;h3 id="11-3a-的含义"&gt;1.1 3A 的含义&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;3A&lt;/strong&gt; 是相机系统中三个核心自动控制算法的统称：&lt;/p&gt;
 &lt;table&gt;
@@ -20,22 +24,22 @@
 			&lt;tr&gt;
 					&lt;td&gt;&lt;strong&gt;AE&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;Auto Exposure（自动曝光）&lt;/td&gt;
-					&lt;td&gt;画面太亮还是太暗？——控制进光量&lt;/td&gt;
+					&lt;td&gt;画面亮度是否合适？——控制进光量&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;strong&gt;AWB&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;Auto White Balance（自动白平衡）&lt;/td&gt;
-					&lt;td&gt;颜色偏黄还是偏蓝？——校正色温&lt;/td&gt;
+					&lt;td&gt;颜色是否偏色？——校正色温&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 					&lt;td&gt;&lt;strong&gt;AF&lt;/strong&gt;&lt;/td&gt;
 					&lt;td&gt;Auto Focus（自动对焦）&lt;/td&gt;
-					&lt;td&gt;画面模糊还是清晰？——控制镜头位置&lt;/td&gt;
+					&lt;td&gt;画面是否清晰？——控制镜头位置&lt;/td&gt;
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中核心的控制逻辑。
-![[Pasted image 20260707155825.png]]&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
+&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中最重要的控制逻辑。&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
+
 &lt;h2 id="1-isp-整体流程概览"&gt;1. ISP 整体流程概览&lt;/h2&gt;
 &lt;pre class="mermaid" data-mermaid-source="Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBTWyJDTU9TIFNlbnNvcjxici8&amp;#43;77yIQmF5ZXIgUkFX77yJIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUxWyLpmLbmrrXkuIDvvJpSQVcg5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBCTENbIuKRoCDpu5HnlLXlubPkuI7nur/mgKfljJYiXQogICAgICAgIERQQ1si4pGhIOWdj&amp;#43;eCueefq&amp;#43;atoyJdCiAgICAgICAgQk5SWyLikaIgUkFXIOWfn&amp;#43;mZjeWZqiJdCiAgICAgICAgTFNDWyLikaMg6ZWc5aS05pqX6KeS5qCh5q2jIl0KICAgICAgICBXQkdbIuKRpCDnmb3lubPooaHlop7nm4oiXQogICAgICAgIEdCQ1si4pGlIOe7v&amp;#43;W5s&amp;#43;ihoeagoeatoyJdCiAgICAgICAgREVNWyLikaYg5Y676ams6LWb5YWLIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUyWyLpmLbmrrXkuozvvJpSR0Ig5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBDQVsi4pGnIOiJsuW3ruagoeatoyJdCiAgICAgICAgQ0NNWyLikagg6Imy5b2p5qCh5q2jIl0KICAgICAgICBEUkNbIuKRqSDliqjmgIHojIPlm7TljovnvKkiXQogICAgICAgIEdBTU1BWyLikaogR2FtbWEiXQogICAgICAgIExVVDNEWyLikasgM0RMVVQiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOmYtuautTNbIumYtuauteS4ie&amp;#43;8mllVViDln5/lpITnkIYiXQogICAgICAgIENFWyLikawg6Imy5b2p5aKe5by6Il0KICAgICAgICBERVsi4pGtIOe7huiKguWinuW8uiJdCiAgICAgICAgU0hBUlBbIuKRriDplJDljJYiXQogICAgICAgIFlOUlsi4pGvIFlVViDln5/pmY3lmaoiXQogICAgICAgIFRNWyLikbAg6Imy6LCD5pig5bCEIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPWyJZVVYg6L6T5Ye6PGJyLz7vvIjmmL7npLov57yW56CB77yJIl0KICAgIGVuZAogICAgCiAgICBTIC0tPiBCTEMgLS0&amp;#43;IERQQyAtLT4gQk5SIC0tPiBMU0MgLS0&amp;#43;IFdCRyAtLT4gR0JDIC0tPiBERU0KICAgIERFTSAtLT4gQ0EgLS0&amp;#43;IENDTSAtLT4gRFJDIC0tPiBHQU1NQSAtLT4gTFVUM0QKICAgIExVVDNEIC0tPiBDRSAtLT4gREUgLS0&amp;#43;IFNIQVJQIC0tPiBZTlIgLS0&amp;#43;IFRNIC0tPiBP"&gt;flowchart TB
  subgraph 输入
@@ -75,11 +79,14 @@
  S --&amp;gt; BLC --&amp;gt; DPC --&amp;gt; BNR --&amp;gt; LSC --&amp;gt; WBG --&amp;gt; GBC --&amp;gt; DEM
  DEM --&amp;gt; CA --&amp;gt; CCM --&amp;gt; DRC --&amp;gt; GAMMA --&amp;gt; LUT3D
  LUT3D --&amp;gt; CE --&amp;gt; DE --&amp;gt; SHARP --&amp;gt; YNR --&amp;gt; TM --&amp;gt; O&lt;/pre&gt;
+
 &lt;h2 id="2-阶段一raw-域处理"&gt;2. 阶段一：RAW 域处理&lt;/h2&gt;
 &lt;p&gt;RAW 域是 ISP 流水线的第一阶段，处理的是 Sensor 直接输出的 Bayer 格式数据（未经过任何颜色插值）。这个阶段的核心目标是 &lt;strong&gt;“修复 Sensor 的物理缺陷，为后续色彩重建准备干净的数据”&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>Sensor基础</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</guid><description>&lt;h2 id="1-sensor-是什么"&gt;1. Sensor 是什么？&lt;/h2&gt;
+
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;Sensor（图像传感器）&lt;/strong&gt; 是相机的“眼睛”——它把镜头汇聚进来的光信号（光子）转换成电信号，再通过模数转换（ADC）变成数字信号（RAW 图），交给 ISP 处理。&lt;/p&gt;</description></item><item><title>视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/</guid><description>&lt;h2 id="1-dvpp-是什么"&gt;1. DVPP 是什么？&lt;/h2&gt;
+
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;DVPP（Digital Video Pre-Processing，数字视频预处理）&lt;/strong&gt; 是 SoC（如 Hi3516）内部专门负责&lt;strong&gt;视频编解码&lt;/strong&gt;和&lt;strong&gt;图像处理加速&lt;/strong&gt;的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。&lt;/p&gt;</description></item><item><title>AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</guid><description>&lt;h1 id="awb自动白平衡-让白色在任何光源下都是白色"&gt;AWB（自动白平衡）—— 让白色在任何光源下都是白色&lt;/h1&gt;
@@ -88,21 +95,27 @@
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;什么是黑电平？为什么 Sensor 在全黑时读数不是 0？BLC 是如何把它矫正回来的？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;h2 id="1-什么是-blc"&gt;1. 什么是 BLC&lt;/h2&gt;
+
 &lt;h3 id="11-blc-的定义"&gt;1.1 BLC 的定义&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;BLC（Black Level Correction，黑电平校正）&lt;/strong&gt; 是 ISP 流程中的第一个处理步骤，目的是把 Sensor 在全黑环境下的非零输出值修正为 0。&lt;/p&gt;</description></item><item><title>BNR，Bayer Noise Reduction（拜耳域降噪）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h1 id="bnr拜耳域降噪"&gt;BNR（拜耳域降噪）&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;BNR（Bayer Noise Reduction）是 &lt;strong&gt;RAW 域处理&lt;/strong&gt; 的一个环节，位于 BLC 和 DPC 之后、数字增益之前。现在要回答的问题是：&lt;strong&gt;为什么要在 Bayer 域做降噪？怎么做？传统 BNR 和 AIBNR 有什么区别？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Demosaic（Bayer→RGB）和 AWB（白平衡）的原理。现在要回答的问题是：&lt;strong&gt;为什么经过 AWB 之后，颜色还不够“准”？CCM 是怎么用一个 3×3 矩阵把颜色校正到标准色彩空间的？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要讨论的问题是：&lt;strong&gt;4 通道的 Bayer 数据，如何变成 3 通道的彩色 RGB 图像？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Gamma 校正与逆 Gamma</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</guid><description>&lt;h2 id="1-从亮度说起"&gt;1. 从“亮度”说起&lt;/h2&gt;
+
 &lt;h3 id="11-什么是亮度两个不同的亮度世界"&gt;1.1 什么是亮度？——两个不同的“亮度世界”&lt;/h3&gt;
 &lt;p&gt;我们先忘掉公式，想一个问题：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果我把一盏灯的亮度从“1”调到“2”，人眼感觉到的亮度变化，和从“10”调到“11”，感觉一样吗？&lt;/p&gt;</description></item><item><title>ISP 图像信号处理器（Image Signal Processor）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/5-isp-%E5%9B%BE%E5%83%8F%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E5%99%A8image-signal-processor/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/5-isp-%E5%9B%BE%E5%83%8F%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E5%99%A8image-signal-processor/</guid><description>&lt;h1 id="isp-图像信号处理器"&gt;ISP 图像信号处理器&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;RAW 图经过去噪后，还要经过哪些步骤才能变成人眼看到的彩色图像？&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id="1-什么是-isp"&gt;1. 什么是 ISP&lt;/h2&gt;
 &lt;p&gt;ISP 的全称是 Image Signal Processor（图像信号处理器）。它是 Sensor 输出 RAW 图之后，到最终输出彩色图像（YUV 或 RGB）之间的&lt;strong&gt;完整处理链路&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>YUV 色彩空间：亮度和颜色的分离</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/4-yuv-%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E4%BA%AE%E5%BA%A6%E5%92%8C%E9%A2%9C%E8%89%B2%E7%9A%84%E5%88%86%E7%A6%BB/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/4-yuv-%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E4%BA%AE%E5%BA%A6%E5%92%8C%E9%A2%9C%E8%89%B2%E7%9A%84%E5%88%86%E7%A6%BB/</guid><description>&lt;h1 id="yuv-色彩空间"&gt;YUV 色彩空间&lt;/h1&gt;
+
 &lt;h2 id="1-什么是-yuv"&gt;1. 什么是 YUV&lt;/h2&gt;
+
 &lt;h3 id="11-yuv-的定义"&gt;1.1 YUV 的定义&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;YUV&lt;/strong&gt; 是一种色彩空间，用三个分量来表示颜色：&lt;/p&gt;
 &lt;table&gt;
@@ -138,6 +151,7 @@
 &lt;/table&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;色彩空间（Color Space）&lt;/strong&gt; 是用一组数值来描述颜色的数学模型。RGB 和 YUV 都是色彩空间，只是描述方式不同。RGB 描述“每个像素有多少红/绿/蓝”，YUV 描述“这个像素有多亮、偏蓝还是偏红”。&lt;/p&gt;</description></item><item><title>噪声的原理 —— 从物理源头到AI建模</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</guid><description>&lt;h2 id="一噪声是什么-从为什么有噪点说起"&gt;一、噪声是什么？—— 从“为什么有噪点”说起&lt;/h2&gt;
+
 &lt;h3 id="11-直观感受噪声就是不该出现的像素值"&gt;1.1 直观感受：噪声就是“不该出现的像素值”&lt;/h3&gt;
 &lt;p&gt;你肯定见过这样的照片：&lt;/p&gt;
 &lt;ul&gt;

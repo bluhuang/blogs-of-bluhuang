@@ -308,6 +308,14 @@
           {
             "title": "4 Raw - L1 Loss、SSIM Loss 与组合 Loss",
             "url": "/AI/4-raw---l1-lossssim-loss-与组合-loss/"
+          },
+          {
+            "title": "5 YUV 色彩空间 Loss",
+            "url": "/AI/5-yuv-色彩空间-loss/"
+          },
+          {
+            "title": "6  UV 时域一致性 Loss、时域稳定性 Loss",
+            "url": "/AI/6-uv-时域一致性-loss时域稳定性-loss/"
           }
         ]
       }

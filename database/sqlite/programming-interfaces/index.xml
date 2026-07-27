@@ -9,17 +9,22 @@
 
 
 &gt;https://sqlite.org/appfunc.html&lt;/a&gt;&lt;/p&gt;
+
 &lt;h1 id="1-简介"&gt;1 简介&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;SQLite 支持用户实现自定义回调方法，以实现一些特殊的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
 &lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。&lt;/li&gt;
 &lt;li&gt;通过此机制可以创建可在 SQL 查询中使用的自定义函数，这些函数可以用 C 语言编写，也可以通过在 Python、Java 等其他语言中绑定实现。&lt;/li&gt;
 &lt;/ol&gt;
+
 &lt;h1 id="2-相关接口"&gt;2 相关接口&lt;/h1&gt;
+
 &lt;h2 id="sqlite3_create_function-family"&gt;sqlite3_create_function family&lt;/h2&gt;
+
 &lt;h3 id="1-sqlite3_create_function"&gt;1 sqlite3_create_function()&lt;/h3&gt;
+
 &lt;h4 id="基本信息"&gt;基本信息&lt;/h4&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function(
+&lt;div class="code-block code-block--" data-language=""&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function(
  sqlite3 *db, /* 数据库连接 */
  const char *zFuncName, /* 函数名 (UTF-8) */
  int nArg, /* 参数个数 (-1 = 可变) */
@@ -28,8 +33,9 @@
  void (*xFunc)(sqlite3_context*,int,sqlite3_value**), /* 标量函数 */
  void (*xStep)(sqlite3_context*,int,sqlite3_value**), /* 聚合step函数 */
  void (*xFinal)(sqlite3_context*) /* 聚合finalize函数 */
-);
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点"&gt;特点&lt;/h4&gt;
+);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id="特点"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;最基础版本&lt;/strong&gt;：最早引入的函数注册接口&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;编码指定&lt;/strong&gt;：使用 &lt;code&gt;eTextRep&lt;/code&gt; 参数指定文本编码偏好&lt;/li&gt;
@@ -42,9 +48,11 @@
 &lt;li&gt;&lt;strong&gt;应用数据&lt;/strong&gt;：通过 &lt;code&gt;pApp&lt;/code&gt; 传递用户数据&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;内存管理&lt;/strong&gt;：无自动清理机制，需要手动管理内存&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h3 id="2-sqlite3_create_function16"&gt;2 sqlite3_create_function16()&lt;/h3&gt;
+
 &lt;h4 id="基本信息-1"&gt;基本信息&lt;/h4&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function16(
+&lt;div class="code-block code-block--" data-language=""&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function16(
  sqlite3 *db, /* 数据库连接 */
  const void *zFuncName, /* 函数名 (UTF-16) */
  int nArg, /* 参数个数 */
@@ -53,8 +61,9 @@
  void (*xFunc)(sqlite3_context*,int,sqlite3_value**),
  void (*xStep)(sqlite3_context*,int,sqlite3_value**),
  void (*xFinal)(sqlite3_context*)
-);
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点-1"&gt;特点&lt;/h4&gt;
+);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id="特点-1"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;UTF-16 支持&lt;/strong&gt;：函数名使用 UTF-16 编码&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;向后兼容&lt;/strong&gt;：为需要 UTF-16 函数名的应用提供支持&lt;/li&gt;
@@ -66,9 +75,11 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h3 id="3-sqlite3_create_function_v2"&gt;3 sqlite3_create_function_v2()&lt;/h3&gt;
+
 &lt;h4 id="基本信息-2"&gt;基本信息&lt;/h4&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function_v2(
+&lt;div class="code-block code-block--" data-language=""&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function_v2(
  sqlite3 *db, /* 数据库连接 */
  const char *zFuncName, /* 函数名 (UTF-8) */
  int nArg, /* 参数个数 */
@@ -78,17 +89,20 @@
  void (*xStep)(sqlite3_context*,int,sqlite3_value**),
  void (*xFinal)(sqlite3_context*),
  void (*xDestroy)(void*) /* 析构函数 */
-);
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点-2"&gt;特点&lt;/h4&gt;
+);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id="特点-2"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;增强版本&lt;/strong&gt;：在基础版本上增加了析构函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;自动清理&lt;/strong&gt;：通过 &lt;code&gt;xDestroy&lt;/code&gt; 回调自动清理 &lt;code&gt;pApp&lt;/code&gt; 数据&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更安全&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;：SQLite 官方推荐使用此版本&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function&lt;/h3&gt;
+
 &lt;h4 id="基本信息-3"&gt;基本信息&lt;/h4&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_window_function(
+&lt;div class="code-block code-block--" data-language=""&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_window_function(
  sqlite3 *db, /* 数据库连接 */
  const char *zFuncName, /* 函数名 */
  int nArg, /* 参数个数 */
@@ -99,35 +113,41 @@
  void (*xValue)(sqlite3_context*), /* value函数 */
  void (*xInverse)(sqlite3_context*,int,sqlite3_value**), /* inverse函数 */
  void (*xDestroy)(void*) /* 析构函数 */
-);
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id="特点-3"&gt;特点&lt;/h4&gt;
+);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id="特点-3"&gt;特点&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;窗口函数专用&lt;/strong&gt;：专门用于注册窗口函数（SQLite 3.25.0+）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;额外回调&lt;/strong&gt;：需要实现更多回调函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;反向处理&lt;/strong&gt;：支持 &lt;code&gt;xInverse&lt;/code&gt; 用于优化窗口函数性能&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;复杂功能&lt;/strong&gt;：支持滑动窗口、排序、分组等高级功能&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h1 id="3-udf-类型"&gt;3 UDF 类型&lt;/h1&gt;
+
 &lt;h2 id="31-标量函数-scalar-functions"&gt;3.1 标量函数 (Scalar Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;接受参数，返回单个值&lt;/li&gt;
 &lt;li&gt;对每一行数据独立计算&lt;/li&gt;
 &lt;li&gt;示例：&lt;code&gt;UPPER()&lt;/code&gt;, &lt;code&gt;ABS()&lt;/code&gt;, &lt;code&gt;DATE()&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id="32-聚合函数-aggregate-functions"&gt;3.2 聚合函数 (Aggregate Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;跨多行数据操作，返回聚合结果&lt;/li&gt;
 &lt;li&gt;需要维护状态信息&lt;/li&gt;
 &lt;li&gt;示例：&lt;code&gt;SUM()&lt;/code&gt;, &lt;code&gt;AVG()&lt;/code&gt;, &lt;code&gt;COUNT()&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id="33-窗口函数-window-functions"&gt;3.3 窗口函数 (Window Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;SQLite 3.25.0+ 支持&lt;/li&gt;
 &lt;li&gt;在窗口帧上执行计算&lt;/li&gt;
 &lt;li&gt;示例：&lt;code&gt;ROW_NUMBER()&lt;/code&gt;, &lt;code&gt;RANK()&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h1 id="4-参数含义"&gt;4 参数含义&lt;/h1&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function_v2(
+&lt;div class="code-block code-block--" data-language=""&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;int sqlite3_create_function_v2(
  sqlite3 *db, /* 数据库连接 */
  const char *zFuncName, /* 函数名 (UTF-8) */
  int nArg, /* 参数个数 */
@@ -137,18 +157,21 @@
  void (*xStep)(sqlite3_context*,int,sqlite3_value**),
  void (*xFinal)(sqlite3_context*),
  void (*xDestroy)(void*) /* 析构函数 */
-);
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
+);&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;此参数传入方法名：第二个参数是要创建的 SQL 函数名。通常为 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求使用本机字节序的 UTF16 编码。&lt;/li&gt;
 &lt;li&gt;函数名长度限制为 255 字节（UTF8）。尝试创建名称更长的函数将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
 &lt;li&gt;UDF 注册支持重载：可以用相同函数名多次调用这些创建接口。例如，若两次调用参数数量不同，则会注册同一函数名的两个变体，各接受不同数量的参数。&lt;/li&gt;
 &lt;/ol&gt;
+
 &lt;h2 id="42-narg"&gt;4.2 nArg&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;表示参数数量，int 类型&lt;/li&gt;
 &lt;li&gt;参数大小范围为 -1 至 127（最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;，即 32767）。&lt;/li&gt;
 &lt;/ol&gt;
+
 &lt;h2 id="43-etextrep-文本编码"&gt;4.3 eTextRep 文本编码&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt;（位掩码）&lt;/li&gt;
@@ -164,7 +187,9 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id="44-papp"&gt;4.4 pApp&lt;/h2&gt;
+
 &lt;h3 id="详细说明"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt;（任意类型指针）&lt;/li&gt;
@@ -178,7 +203,9 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;h2 id="45-xfunc-标量函数指针"&gt;4.5 xFunc 标量函数指针&lt;/h2&gt;
+
 &lt;h3 id="详细说明-1"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：函数指针 &lt;code&gt;void (*)(sqlite3_context*, int, sqlite3_value**)&lt;/code&gt;&lt;/li&gt;
