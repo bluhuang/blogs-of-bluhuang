@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/><title>2 多通道卷积</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="2 多通道卷积"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/"><meta name=twitter:title content="2 多通道卷积"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/><title>2 多通道卷积</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="2 多通道卷积"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/"><meta name=twitter:title content="2 多通道卷积"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -50,14 +58,6 @@ coding algorithm
 <span class="text-xs text-text-light ml-1.5">(17)</span></a></li><li><a href=/blogs-of-bluhuang/coding/std%E7%AE%97%E6%B3%95/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -132,8 +132,7 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>│ └─────────┘ │
 </span></span><span style=display:flex><span>│ ...（共4个通道）│
 </span></span><span style=display:flex><span>└─────────────┘
-</span></span></code></pre></div><p><strong>关键理解</strong>：一个多通道卷积核的"厚度"等于输入通道数 <code>in_chn</code>。</p><h3 id=22-计算过程每个通道分别算然后跨通道相加>2.2 计算过程：每个通道分别算，然后跨通道相加</h3><p>以输入4通道（RGGB）为例，用一个3×3卷积核做卷积：</p><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><p><strong>关键理解</strong>：一个多通道卷积核的"厚度"等于输入通道数 <code>in_chn</code>。</p><h3 id=22-计算过程每个通道分别算然后跨通道相加>2.2 计算过程：每个通道分别算，然后跨通道相加</h3><p>以输入4通道（RGGB）为例，用一个3×3卷积核做卷积：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBSW1LpgJrpgZMgSMOXV10KICAgICAgICBHMVtHMemAmumBkyBIw5dXXQogICAgICAgIEcyW0cy6YCa6YGTIEjDl1ddCiAgICAgICAgQltC6YCa6YGTIEjDl1ddCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGgg5Y2356ev5qC4CiAgICAgICAgS3Jb5qC4LVIgM8OXM10KICAgICAgICBLZzFb5qC4LUcxIDPDlzNdCiAgICAgICAgS2cyW+aguC1HMiAzw5czXQogICAgICAgIEtiW+aguC1CIDPDlzNdCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGgg5Lit6Ze0CiAgICAgICAgU3VtUltS6YCa6YGT5Y2356ev57uT5p6cXQogICAgICAgIFN1bUcxW0cx6YCa6YGT5Y2356ev57uT5p6cXQogICAgICAgIFN1bUcyW0cy6YCa6YGT5Y2356ev57uT5p6cXQogICAgICAgIFN1bUJbQumAmumBk+WNt+enr+e7k+aenF0KICAgIGVuZAogICAgCiAgICBSIC0tPiBLciAtLT4gU3VtUgogICAgRzEgLS0+IEtnMSAtLT4gU3VtRzEKICAgIEcyIC0tPiBLZzIgLS0+IFN1bUcyCiAgICBCIC0tPiBLYiAtLT4gU3VtQgogICAgCiAgICBTdW1SIC0tPiDliqDmgLtb6YCQ5L2N572u55u45YqgXQogICAgU3VtRzEgLS0+IOWKoOaAuwogICAgU3VtRzIgLS0+IOWKoOaAuwogICAgU3VtQiAtLT4g5Yqg5oC7CiAgICAKICAgIOWKoOaAuyAtLT4g6L6T5Ye6W+i+k+WHuueJueW+geWbviAx6YCa6YGTXQ==">flowchart LR
     subgraph 输入
         R[R通道 H×W]
         G1[G1通道 H×W]
@@ -155,137 +154,17 @@ flowchart LR
         SumB[B通道卷积结果]
     end
     
-    R --> Kr --> SumR
-    G1 --> Kg1 --> SumG1
-    G2 --> Kg2 --> SumG2
-    B --> Kb --> SumB
+    R --&gt; Kr --&gt; SumR
+    G1 --&gt; Kg1 --&gt; SumG1
+    G2 --&gt; Kg2 --&gt; SumG2
+    B --&gt; Kb --&gt; SumB
     
-    SumR --> 加总[逐位置相加]
-    SumG1 --> 加总
-    SumG2 --> 加总
-    SumB --> 加总
+    SumR --&gt; 加总[逐位置相加]
+    SumG1 --&gt; 加总
+    SumG2 --&gt; 加总
+    SumB --&gt; 加总
     
-    加总 --> 输出[输出特征图 1通道]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>分步解释</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>步骤1：每个通道独立做卷积
+    加总 --&gt; 输出[输出特征图 1通道]</pre><p><strong>分步解释</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>步骤1：每个通道独立做卷积
 </span></span><span style=display:flex><span>   R通道   ×  R核  →  卷积结果R（每个位置一个数）
 </span></span><span style=display:flex><span>   G1通道  ×  G1核 →  卷积结果G1
 </span></span><span style=display:flex><span>   G2通道  ×  G2核 →  卷积结果G2
@@ -313,148 +192,27 @@ flowchart LR
 </span></span><span style=display:flex><span>输出值 = 结果R + 结果G1 + 结果G2 + 结果B（逐位置相加）
 </span></span></code></pre></div><h3 id=23-核心概念一个卷积核输出一个通道>2.3 核心概念：一个卷积核输出一个通道</h3><p><strong>一个多通道卷积核 → 输出 1 个通道的特征图。</strong></p><p><strong>输出通道数由"卷积核的个数"决定，而不是由输入通道数决定。</strong></p><h2 id=3-输入通道与输出通道>3 输入通道与输出通道</h2><h3 id=31-两个容易混淆的概念>3.1 两个容易混淆的概念</h3><table><thead><tr><th>概念</th><th>符号</th><th>含义</th><th>在 <code>nn.Conv2d</code> 中</th></tr></thead><tbody><tr><td><strong>输入通道数</strong></td><td><code>in_chn</code></td><td>输入数据的通道数</td><td>第1个参数</td></tr><tr><td><strong>输出通道数</strong></td><td><code>out_chn</code></td><td>输出数据的通道数（使用的卷积核个数）</td><td>第2个参数</td></tr><tr><td><strong>卷积核大小</strong></td><td><code>kernel_size</code></td><td>每个通道上的窗口大小（如3×3）</td><td>第3个参数</td></tr></tbody></table><h3 id=32-一个关键区别>3.2 一个关键区别</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入通道数 (in_chn) → 决定了&#34;一个卷积核有多厚&#34;
 </span></span><span style=display:flex><span>输出通道数 (out_chn) → 决定了&#34;这一层用了多少个卷积核&#34;
-</span></span></code></pre></div><h3 id=33-形状变化的完整图景>3.3 形状变化的完整图景</h3><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><h3 id=33-形状变化的完整图景>3.3 形状变化的完整图景</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBJW+i+k+WFpTxici8+QiwgaW5fY2huLCBILCBXXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOWNt+enr+WxggogICAgICAgIEtb5Y2356ev5qC457uEPGJyLz5vdXRfY2huIMOXIGluX2NobiDDlyBraCDDlyBrd10KICAgICAgICBDb252W+WNt+enr+i/kOeul10KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPW+i+k+WHujxici8+Qiwgb3V0X2NobiwgSF9vdXQsIFdfb3V0XQogICAgZW5kCiAgICAKICAgIEkgLS0+IENvbnYKICAgIEsgLS0+IENvbnYKICAgIENvbnYgLS0+IE8KICAgIAogICAgc3R5bGUgSSBmaWxsOiNlMWY1ZmUKICAgIHN0eWxlIEsgZmlsbDojZmZmM2UwCiAgICBzdHlsZSBPIGZpbGw6I2U4ZjVlOQ==">flowchart LR
     subgraph 输入
-        I[输入<br>B, in_chn, H, W]
+        I[输入&lt;br/&gt;B, in_chn, H, W]
     end
     
     subgraph 卷积层
-        K[卷积核组<br>out_chn × in_chn × kh × kw]
+        K[卷积核组&lt;br/&gt;out_chn × in_chn × kh × kw]
         Conv[卷积运算]
     end
     
     subgraph 输出
-        O[输出<br>B, out_chn, H_out, W_out]
+        O[输出&lt;br/&gt;B, out_chn, H_out, W_out]
     end
     
-    I --> Conv
-    K --> Conv
-    Conv --> O
+    I --&gt; Conv
+    K --&gt; Conv
+    Conv --&gt; O
     
     style I fill:#e1f5fe
     style K fill:#fff3e0
-    style O fill:#e8f5e9
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>解释</strong>：</p><ul><li>这一层有 <code>out_chn</code> 个卷积核</li><li>每个卷积核的形状是 <code>[in_chn, kh, kw]</code>（厚度=输入通道数）</li><li>每个卷积核独立运算，输出 1 个通道</li><li>所有 <code>out_chn</code> 个卷积核的输出堆叠在一起，形成 <code>[B, out_chn, H_out, W_out]</code></li></ul><h3 id=34-一个具体的形状对照conv2d4-8-3>3.4 一个具体的形状对照：<code>Conv2d(4, 8, 3)</code></h3><p>以代码中的第一层 <code>Conv2d(4, 8, 3)</code> 为例，我们来完整走一遍数据形状的变化。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入形状: [B, 4, H, W]     ← 4个通道（RGGB）
+    style O fill:#e8f5e9</pre><p><strong>解释</strong>：</p><ul><li>这一层有 <code>out_chn</code> 个卷积核</li><li>每个卷积核的形状是 <code>[in_chn, kh, kw]</code>（厚度=输入通道数）</li><li>每个卷积核独立运算，输出 1 个通道</li><li>所有 <code>out_chn</code> 个卷积核的输出堆叠在一起，形成 <code>[B, out_chn, H_out, W_out]</code></li></ul><h3 id=34-一个具体的形状对照conv2d4-8-3>3.4 一个具体的形状对照：<code>Conv2d(4, 8, 3)</code></h3><p>以代码中的第一层 <code>Conv2d(4, 8, 3)</code> 为例，我们来完整走一遍数据形状的变化。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入形状: [B, 4, H, W]     ← 4个通道（RGGB）
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>这一层有 8 个卷积核
 </span></span><span style=display:flex><span>每个卷积核的形状: [4, 3, 3]  ← 厚度=4（匹配输入通道数），窗口=3×3
@@ -532,148 +290,27 @@ flowchart LR
 </span></span><span style=display:flex><span>如果算上偏置：
 </span></span><span style=display:flex><span>  = 288 + 8（每个输出通道一个偏置）
 </span></span><span style=display:flex><span>  = 296
-</span></span></code></pre></div><p><strong>对比全连接层</strong>：如果把 4×H×W 像素拉平，全连接层需要 <code>4×H×W × 8</code> 个参数，即使 H=128，也有 4×128×128×8 = 524,288 个参数，是卷积的 <strong>1800 多倍</strong>。</p><h3 id=53-形状变化全景>5.3 形状变化全景</h3><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><p><strong>对比全连接层</strong>：如果把 4×H×W 像素拉平，全连接层需要 <code>4×H×W × 8</code> 个参数，即使 H=128，也有 4×128×128×8 = 524,288 个参数，是卷积的 <strong>1800 多倍</strong>。</p><h3 id=53-形状变化全景>5.3 形状变化全景</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBJWyJbQiwgNCwgSCwgV108YnIvPjTpgJrpgZNCYXllciBSQVciXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOWNt+enr+WxggogICAgICAgIEtbIjI4OOS4quWPguaVsDxici8+KDjkuKrmoLggw5cgNOmAmumBkyDDlyAzw5czKSJdCiAgICAgICAgQ1si5Y2356ev6L+Q566XPGJyLz5zdHJpZGU9MSwgcGFkZGluZz0xIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPWyJbQiwgOCwgSCwgV108YnIvPjjpgJrpgZPnibnlvoHlm748YnIvPu+8iDjnp43kuI3lkIznmoTnibnlvoHvvIkiXQogICAgZW5kCiAgICAKICAgIEkgLS0+IEMKICAgIEsgLS0+IEMKICAgIEMgLS0+IE8KICAgIAogICAgc3R5bGUgSSBmaWxsOiNlMWY1ZmUKICAgIHN0eWxlIEsgZmlsbDojZmZmM2UwCiAgICBzdHlsZSBPIGZpbGw6I2U4ZjVlOQ==">flowchart LR
     subgraph 输入
-        I["[B, 4, H, W]<br>4通道Bayer RAW"]
+        I[&#34;[B, 4, H, W]&lt;br/&gt;4通道Bayer RAW&#34;]
     end
     
     subgraph 卷积层
-        K["288个参数<br>(8个核 × 4通道 × 3×3)"]
-        C["卷积运算<br>stride=1, padding=1"]
+        K[&#34;288个参数&lt;br/&gt;(8个核 × 4通道 × 3×3)&#34;]
+        C[&#34;卷积运算&lt;br/&gt;stride=1, padding=1&#34;]
     end
     
     subgraph 输出
-        O["[B, 8, H, W]<br>8通道特征图<br>（8种不同的特征）"]
+        O[&#34;[B, 8, H, W]&lt;br/&gt;8通道特征图&lt;br/&gt;（8种不同的特征）&#34;]
     end
     
-    I --> C
-    K --> C
-    C --> O
+    I --&gt; C
+    K --&gt; C
+    C --&gt; O
     
     style I fill:#e1f5fe
     style K fill:#fff3e0
-    style O fill:#e8f5e9
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=54-数据流完整路径>5.4 数据流完整路径</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入: [B, 4, H, W]
+    style O fill:#e8f5e9</pre><h3 id=54-数据流完整路径>5.4 数据流完整路径</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入: [B, 4, H, W]
 </span></span><span style=display:flex><span>      ↓
 </span></span><span style=display:flex><span>Conv2d(4→8, 3×3, stride=1, padding=1)
 </span></span><span style=display:flex><span>      ↓
@@ -688,142 +325,21 @@ flowchart LR
 </span></span><span style=display:flex><span>Conv2d(8→4, 3×3, stride=1, padding=1)
 </span></span><span style=display:flex><span>      ↓
 </span></span><span style=display:flex><span>输出: [B, 4, H, W]  ← 压缩回4通道（去噪后的Bayer输出）
-</span></span></code></pre></div><p><strong>关键理解</strong>：</p><ul><li>第一层：用 <strong>8个不同的卷积核</strong> 分别扫描4通道输入，产生8种不同的特征图</li><li>每个卷积核内部有 <strong>4个3×3的二维核</strong>（每个输入通道一个），分别处理各自的通道</li><li>每个卷积核的4个通道结果<strong>相加</strong> → 输出1个通道</li><li>8个卷积核 → 输出8个通道</li></ul><h2 id=6-本章小结>6 本章小结</h2><pre class=mermaid>
-flowchart TD
-    A[多通道卷积的核心理解] --> B[输入通道数 in_chn]
-    A --> C[输出通道数 out_chn]
-    A --> D[计算方式]
+</span></span></code></pre></div><p><strong>关键理解</strong>：</p><ul><li>第一层：用 <strong>8个不同的卷积核</strong> 分别扫描4通道输入，产生8种不同的特征图</li><li>每个卷积核内部有 <strong>4个3×3的二维核</strong>（每个输入通道一个），分别处理各自的通道</li><li>每个卷积核的4个通道结果<strong>相加</strong> → 输出1个通道</li><li>8个卷积核 → 输出8个通道</li></ul><h2 id=6-本章小结>6 本章小结</h2><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IFRECiAgICBBW+WkmumAmumBk+WNt+enr+eahOaguOW/g+eQhuino10gLS0+IEJb6L6T5YWl6YCa6YGT5pWwIGluX2Nobl0KICAgIEEgLS0+IENb6L6T5Ye66YCa6YGT5pWwIG91dF9jaG5dCiAgICBBIC0tPiBEW+iuoeeul+aWueW8j10KICAgIAogICAgQiAtLT4gQjFbIuWGs+WumuWNt+enr+aguOeahCfljprluqYnPGJyLz7mr4/kuKrmoLjmnIkgaW5fY2huIOS4quS6jOe7tOaguCJdCiAgICBDIC0tPiBDMVsi5Yaz5a6a6L+Z5LiA5bGC55So5aSa5bCR5Liq5qC4PGJyLz7mr4/kuKrmoLjni6znq4vovpPlh7ox5Liq6YCa6YGTIl0KICAgIEQgLS0+IEQxWyLmr4/kuKrpgJrpgZPni6znq4vljbfnp68g4oaSIOmAkOS9jee9ruebuOWKoCDihpIg6L6T5Ye6MemAmumBkyJdCiAgICAKICAgIEIxIC0tPiBFWyJkbV9uZXQucHkg5Lit55qE5L6L5a2QOjxici8+Q29udjJkKDQsIDgsIDMpIl0KICAgIEMxIC0tPiBFCiAgICBEMSAtLT4gRQogICAgCiAgICBFIC0tPiBGWyLovpPlhaU6IDTpgJrpgZMg4oaSIDjkuKrmoLgg4oaSIOi+k+WHujogOOmAmumBkzxici8+5q+P5Liq5qC4OiA0w5czw5czID0gMzbkuKrlj4LmlbA8YnIvPuaAu+WPguaVsDogMzbDlzggPSAyODjkuKoiXQogICAgCiAgICBzdHlsZSBBIGZpbGw6I2UzZjJmZAogICAgc3R5bGUgRSBmaWxsOiNmZmYzZTAKICAgIHN0eWxlIEYgZmlsbDojZThmNWU5>flowchart TD
+    A[多通道卷积的核心理解] --&gt; B[输入通道数 in_chn]
+    A --&gt; C[输出通道数 out_chn]
+    A --&gt; D[计算方式]
     
-    B --> B1["决定卷积核的'厚度'<br>每个核有 in_chn 个二维核"]
-    C --> C1["决定这一层用多少个核<br>每个核独立输出1个通道"]
-    D --> D1["每个通道独立卷积 → 逐位置相加 → 输出1通道"]
+    B --&gt; B1[&#34;决定卷积核的&#39;厚度&#39;&lt;br/&gt;每个核有 in_chn 个二维核&#34;]
+    C --&gt; C1[&#34;决定这一层用多少个核&lt;br/&gt;每个核独立输出1个通道&#34;]
+    D --&gt; D1[&#34;每个通道独立卷积 → 逐位置相加 → 输出1通道&#34;]
     
-    B1 --> E["dm_net.py 中的例子:<br>Conv2d(4, 8, 3)"]
-    C1 --> E
-    D1 --> E
+    B1 --&gt; E[&#34;dm_net.py 中的例子:&lt;br/&gt;Conv2d(4, 8, 3)&#34;]
+    C1 --&gt; E
+    D1 --&gt; E
     
-    E --> F["输入: 4通道 → 8个核 → 输出: 8通道<br>每个核: 4×3×3 = 36个参数<br>总参数: 36×8 = 288个"]
+    E --&gt; F[&#34;输入: 4通道 → 8个核 → 输出: 8通道&lt;br/&gt;每个核: 4×3×3 = 36个参数&lt;br/&gt;总参数: 36×8 = 288个&#34;]
     
     style A fill:#e3f2fd
     style E fill:#fff3e0
-    style F fill:#e8f5e9
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>一句话记住本章</strong>：</p><blockquote><p>多通道卷积 = 每个输入通道配一个二维核，各通道独立卷积后逐位置相加，一个卷积核产生一个输出通道。输出通道数 = 这一层用了多少个卷积核。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+    style F fill:#e8f5e9</pre><p><strong>一句话记住本章</strong>：</p><blockquote><p>多通道卷积 = 每个输入通道配一个二维核，各通道独立卷积后逐位置相加，一个卷积核产生一个输出通道。输出通道数 = 这一层用了多少个卷积核。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

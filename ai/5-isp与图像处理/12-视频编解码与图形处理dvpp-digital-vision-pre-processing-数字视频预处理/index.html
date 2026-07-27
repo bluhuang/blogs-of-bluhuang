@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/><title>视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/"><meta name=twitter:title content="视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/><title>视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/"><meta name=twitter:title content="视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/12-%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%A4%84%E7%90%86dvpp-digital-vision-pre-processing-%E6%95%B0%E5%AD%97%E8%A7%86%E9%A2%91%E9%A2%84%E5%A4%84%E7%90%86/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -75,160 +75,39 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 <a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年7月11日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-dvpp-是什么>1. DVPP 是什么？</a><ol><li><a href=#11-一句话定义>1.1 一句话定义</a></li><li><a href=#12-dvpp-包含哪些子模块>1.2 DVPP 包含哪些子模块？</a></li><li><a href=#13-dvpp-在整体系统中的位置>1.3 DVPP 在整体系统中的位置</a></li></ol></li><li><a href=#2-为什么需要视频压缩-四个冗余原理>2. 为什么需要视频压缩？—— 四个冗余原理</a><ol><li><a href=#21-空间冗余spatial-redundancy>2.1 空间冗余（Spatial Redundancy）</a></li><li><a href=#22-时间冗余temporal-redundancy>2.2 时间冗余（Temporal Redundancy）</a></li><li><a href=#23-视觉冗余visual-redundancy>2.3 视觉冗余（Visual Redundancy）</a></li><li><a href=#24-信息熵冗余entropy-redundancy>2.4 信息熵冗余（Entropy Redundancy）</a></li></ol></li><li><a href=#3-视频编码的整体架构>3. 视频编码的整体架构</a><ol><li><a href=#31-编码器的目标把大变成小>3.1 编码器的目标：把“大”变成“小”</a></li><li><a href=#32-编码器内部流程>3.2 编码器内部流程</a></li><li><a href=#33-数据形状变化可视化>3.3 数据形状变化（可视化）</a></li></ol></li><li><a href=#4-视频帧分类ipb-帧>4. 视频帧分类（I/P/B 帧）</a><ol><li><a href=#41-为什么要分帧类型>4.1 为什么要分帧类型？</a></li><li><a href=#42-三种帧的具体含义>4.2 三种帧的具体含义</a></li><li><a href=#43-gop图像组结构>4.3 GOP（图像组）结构</a></li></ol></li><li><a href=#5-视频编码标准>5. 视频编码标准</a></li><li><a href=#6-图片编码原理jpeg>6. 图片编码原理（JPEG）</a></li><li><a href=#7-vpc--图像处理核心>7. VPC —— 图像处理核心</a></li><li><a href=#8-视频质量评估客观指标>8. 视频质量评估（客观指标）</a></li><li><a href=#9-一句话总结>9. 一句话总结</a></li></ol></nav></details><h2 id=1-dvpp-是什么>1. DVPP 是什么？</h2><h3 id=11-一句话定义>1.1 一句话定义</h3><blockquote><p><strong>术语解释</strong>：<strong>DVPP（Digital Video Pre-Processing，数字视频预处理）</strong> 是 SoC（如 Hi3516）内部专门负责<strong>视频编解码</strong>和<strong>图像处理加速</strong>的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。</p></blockquote><blockquote><p><strong>Soc</strong>: <strong>System on Chip</strong>，片上系统：指将 CPU（中央处理器）、ISP（图像处理器）、NPU（神经网络单元）、GPU（图形处理器）、VENC（视频编解码器）、DDR 控制器等高度集成在一块芯片上的处理器。</p></blockquote><p>用一句话概括：<strong>DVPP 是 SoC 的“视频和图片处理工具箱”</strong>。</p><h3 id=12-dvpp-包含哪些子模块>1.2 DVPP 包含哪些子模块？</h3><table><thead><tr><th>缩写</th><th>全称</th><th>中文含义</th><th>一句话作用</th></tr></thead><tbody><tr><td><strong>VENC</strong></td><td>Video Encoder</td><td>视频编码器</td><td>把 YUV 原始帧压缩成 H.264/H.265 码流（存文件/网络传输）</td></tr><tr><td><strong>VDEC</strong></td><td>Video Decoder</td><td>视频解码器</td><td>把 H.264/H.265 码流解压成 YUV 原始帧（播放/显示）</td></tr><tr><td><strong>JPEGE</strong></td><td>JPEG Encoder</td><td>JPEG 编码器</td><td>把 YUV/RGB 图像压缩成 JPEG 图片（拍照存盘）</td></tr><tr><td><strong>JPEGD</strong></td><td>JPEG Decoder</td><td>JPEG 解码器</td><td>把 JPEG 图片解压成 YUV/RGB 图像（显示/编辑）</td></tr><tr><td><strong>PNGD</strong></td><td>PNG Decoder</td><td>PNG 解码器</td><td>把 PNG 图片解压成 YUV/RGB 图像（显示带透明通道的图片）</td></tr><tr><td><strong>VPC</strong></td><td>Video Processing Core</td><td>视频处理核心</td><td>对图像做缩放、裁剪、旋转、镜像、拼接等操作</td></tr></tbody></table><blockquote><p><strong>注意</strong>：DVPP 中“没有 PNG 编码器”是因为 PNG 编码器通常由软件实现，不需要硬件加速。</p></blockquote><h3 id=13-dvpp-在整体系统中的位置>1.3 DVPP 在整体系统中的位置</h3><pre class=mermaid>
-flowchart LR
+2026年7月11日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-dvpp-是什么>1. DVPP 是什么？</a><ol><li><a href=#11-一句话定义>1.1 一句话定义</a></li><li><a href=#12-dvpp-包含哪些子模块>1.2 DVPP 包含哪些子模块？</a></li><li><a href=#13-dvpp-在整体系统中的位置>1.3 DVPP 在整体系统中的位置</a></li></ol></li><li><a href=#2-为什么需要视频压缩-四个冗余原理>2. 为什么需要视频压缩？—— 四个冗余原理</a><ol><li><a href=#21-空间冗余spatial-redundancy>2.1 空间冗余（Spatial Redundancy）</a></li><li><a href=#22-时间冗余temporal-redundancy>2.2 时间冗余（Temporal Redundancy）</a></li><li><a href=#23-视觉冗余visual-redundancy>2.3 视觉冗余（Visual Redundancy）</a></li><li><a href=#24-信息熵冗余entropy-redundancy>2.4 信息熵冗余（Entropy Redundancy）</a></li></ol></li><li><a href=#3-视频编码的整体架构>3. 视频编码的整体架构</a><ol><li><a href=#31-编码器的目标把大变成小>3.1 编码器的目标：把“大”变成“小”</a></li><li><a href=#32-编码器内部流程>3.2 编码器内部流程</a></li><li><a href=#33-数据形状变化可视化>3.3 数据形状变化（可视化）</a></li></ol></li><li><a href=#4-视频帧分类ipb-帧>4. 视频帧分类（I/P/B 帧）</a><ol><li><a href=#41-为什么要分帧类型>4.1 为什么要分帧类型？</a></li><li><a href=#42-三种帧的具体含义>4.2 三种帧的具体含义</a></li><li><a href=#43-gop图像组结构>4.3 GOP（图像组）结构</a></li></ol></li><li><a href=#5-视频编码标准>5. 视频编码标准</a></li><li><a href=#6-图片编码原理jpeg>6. 图片编码原理（JPEG）</a></li><li><a href=#7-vpc--图像处理核心>7. VPC —— 图像处理核心</a></li><li><a href=#8-视频质量评估客观指标>8. 视频质量评估（客观指标）</a></li><li><a href=#9-一句话总结>9. 一句话总结</a></li></ol></nav></details><h2 id=1-dvpp-是什么>1. DVPP 是什么？</h2><h3 id=11-一句话定义>1.1 一句话定义</h3><blockquote><p><strong>术语解释</strong>：<strong>DVPP（Digital Video Pre-Processing，数字视频预处理）</strong> 是 SoC（如 Hi3516）内部专门负责<strong>视频编解码</strong>和<strong>图像处理加速</strong>的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。</p></blockquote><blockquote><p><strong>SoC</strong>: <strong>System on Chip</strong>，片上系统：指将 CPU（中央处理器）、ISP（图像处理器）、NPU（神经网络单元）、GPU（图形处理器）、VENC（视频编解码器）、DDR 控制器等高度集成在一块芯片上的处理器。</p></blockquote><p>用一句话概括：<strong>DVPP 是 SoC 的“视频和图片处理工具箱”</strong>。</p><h3 id=12-dvpp-包含哪些子模块>1.2 DVPP 包含哪些子模块？</h3><table><thead><tr><th>缩写</th><th>全称</th><th>中文含义</th><th>一句话作用</th></tr></thead><tbody><tr><td><strong>VENC</strong></td><td>Video Encoder</td><td>视频编码器</td><td>把 YUV 原始帧压缩成 H.264/H.265 码流（存文件/网络传输）</td></tr><tr><td><strong>VDEC</strong></td><td>Video Decoder</td><td>视频解码器</td><td>把 H.264/H.265 码流解压成 YUV 原始帧（播放/显示）</td></tr><tr><td><strong>JPEGE</strong></td><td>JPEG Encoder</td><td>JPEG 编码器</td><td>把 YUV/RGB 图像压缩成 JPEG 图片（拍照存盘）</td></tr><tr><td><strong>JPEGD</strong></td><td>JPEG Decoder</td><td>JPEG 解码器</td><td>把 JPEG 图片解压成 YUV/RGB 图像（显示/编辑）</td></tr><tr><td><strong>PNGD</strong></td><td>PNG Decoder</td><td>PNG 解码器</td><td>把 PNG 图片解压成 YUV/RGB 图像（显示带透明通道的图片）</td></tr><tr><td><strong>VPC</strong></td><td>Video Processing Core</td><td>视频处理核心</td><td>对图像做缩放、裁剪、旋转、镜像、拼接等操作</td></tr></tbody></table><blockquote><p><strong>注意</strong>：DVPP 中“没有 PNG 编码器”是因为 PNG 编码器通常由软件实现，不需要硬件加速。</p></blockquote><h3 id=13-dvpp-在整体系统中的位置>1.3 DVPP 在整体系统中的位置</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBSQVdbIlNlbnNvciBSQVcg5Zu+Il0KICAgICAgICBGSUxFWyLlpJbpg6jop4bpopHnoIHmtYE8YnIvPu+8iC5oMjY0Ly5oMjY1IOaWh+S7tu+8iSJdCiAgICBlbmQKICAgIAogICAgc3ViZ3JhcGggSVNQ5qih5Z2XCiAgICAgICAgSVNQWyJJU1Ag5aSE55CGPGJyLz7vvIjljrvlmaovRGVtb3NhaWMvM0HvvIkiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIERWUFDmqKHlnZcKICAgICAgICBkaXJlY3Rpb24gVEIKICAgICAgICBWUENbIlZQQzxici8+77yI57yp5pS+L+ijgeWJqi/ml4vovazvvIkiXQogICAgICAgIFZFTkNbIlZFTkM8YnIvPu+8iOinhumikee8luegge+8iSJdCiAgICAgICAgVkRFQ1siVkRFQzxici8+77yI6KeG6aKR6Kej56CB77yJIl0KICAgICAgICBKUEVHWyJKUEVHRS9KUEVHRDxici8+77yISlBFRyDnvJbop6PnoIHvvIkiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOi+k+WHugogICAgICAgIFNUUkVBTVsi6KeG6aKR5rWBPGJyLz7vvIguaDI2NC8uaDI2Ne+8iSJdCiAgICAgICAgUElDWyJKUEVHIOWbvueJhzxici8+77yILmpwZ++8iSJdCiAgICAgICAgRElTUExBWVsi5pi+56S66L6T5Ye6PGJyLz7vvIhZVVYvUkdC77yJIl0KICAgIGVuZAogICAgCiAgICAlJSDnvJbnoIHot6/lvoTvvIhJU1Ag4oaSIERWUFAg4oaSIOWtmOWCqO+8iQogICAgUkFXIC0tPiBJU1AgLS0+IFZQQyAtLT4gVkVOQyAtLT4gU1RSRUFNCiAgICBWUEMgLS0+IEpQRUcgLS0+IFBJQwogICAgCiAgICAlJSDop6PnoIHot6/lvoTvvIjmlofku7Yg4oaSIERWUFAg4oaSIOaYvuekuu+8iQogICAgRklMRSAtLT4gVkRFQyAtLT4gVlBDIC0tPiBESVNQTEFZCiAgICAKICAgICUlIEpQRUcg6Kej56CB6Lev5b6E77yISlBFRyDmlofku7Yg4oaSIOaYvuekuu+8iQogICAgRklMRTJbIkpQRUcg5Zu+54mHPGJyLz7vvIguanBn77yJIl0gLS0+IEpQRUcgLS0+IFZQQyAtLT4gRElTUExBWQ==">flowchart LR
     subgraph 输入
-        RAW["Sensor RAW 图"]
-        FILE["外部视频码流<br>（.h264/.h265 文件）"]
+        RAW[&#34;Sensor RAW 图&#34;]
+        FILE[&#34;外部视频码流&lt;br/&gt;（.h264/.h265 文件）&#34;]
     end
     
     subgraph ISP模块
-        ISP["ISP 处理<br>（去噪/Demosaic/3A）"]
+        ISP[&#34;ISP 处理&lt;br/&gt;（去噪/Demosaic/3A）&#34;]
     end
     
     subgraph DVPP模块
         direction TB
-        VPC["VPC<br>（缩放/裁剪/旋转）"]
-        VENC["VENC<br>（视频编码）"]
-        VDEC["VDEC<br>（视频解码）"]
-        JPEG["JPEGE/JPEGD<br>（JPEG 编解码）"]
+        VPC[&#34;VPC&lt;br/&gt;（缩放/裁剪/旋转）&#34;]
+        VENC[&#34;VENC&lt;br/&gt;（视频编码）&#34;]
+        VDEC[&#34;VDEC&lt;br/&gt;（视频解码）&#34;]
+        JPEG[&#34;JPEGE/JPEGD&lt;br/&gt;（JPEG 编解码）&#34;]
     end
     
     subgraph 输出
-        STREAM["视频流<br>（.h264/.h265）"]
-        PIC["JPEG 图片<br>（.jpg）"]
-        DISPLAY["显示输出<br>（YUV/RGB）"]
+        STREAM[&#34;视频流&lt;br/&gt;（.h264/.h265）&#34;]
+        PIC[&#34;JPEG 图片&lt;br/&gt;（.jpg）&#34;]
+        DISPLAY[&#34;显示输出&lt;br/&gt;（YUV/RGB）&#34;]
     end
     
     %% 编码路径（ISP → DVPP → 存储）
-    RAW --> ISP --> VPC --> VENC --> STREAM
-    VPC --> JPEG --> PIC
+    RAW --&gt; ISP --&gt; VPC --&gt; VENC --&gt; STREAM
+    VPC --&gt; JPEG --&gt; PIC
     
     %% 解码路径（文件 → DVPP → 显示）
-    FILE --> VDEC --> VPC --> DISPLAY
+    FILE --&gt; VDEC --&gt; VPC --&gt; DISPLAY
     
     %% JPEG 解码路径（JPEG 文件 → 显示）
-    FILE2["JPEG 图片<br>（.jpg）"] --> JPEG --> VPC --> DISPLAY
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h2 id=2-为什么需要视频压缩-四个冗余原理>2. 为什么需要视频压缩？—— 四个冗余原理</h2><p>在理解 VENC 之前，先搞清楚一个问题：<strong>为什么原始视频必须压缩？</strong></p><blockquote><p><strong>术语解释</strong>：<strong>冗余（Redundancy）</strong> 指视频数据中可以被去除而不影响观看体验的重复信息。视频压缩就是利用这些冗余来“瘦身”。</p></blockquote><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>一张 1080p 图像：
+    FILE2[&#34;JPEG 图片&lt;br/&gt;（.jpg）&#34;] --&gt; JPEG --&gt; VPC --&gt; DISPLAY</pre><h2 id=2-为什么需要视频压缩-四个冗余原理>2. 为什么需要视频压缩？—— 四个冗余原理</h2><p>在理解 VENC 之前，先搞清楚一个问题：<strong>为什么原始视频必须压缩？</strong></p><blockquote><p><strong>术语解释</strong>：<strong>冗余（Redundancy）</strong> 指视频数据中可以被去除而不影响观看体验的重复信息。视频压缩就是利用这些冗余来“瘦身”。</p></blockquote><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>一张 1080p 图像：
 </span></span><span style=display:flex><span>1920 × 1080 = 2,073,600 个像素 × 每个像素 3 字节（RGB）= 约 6.2 MB
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>30fps 视频（1 秒）：
@@ -267,148 +146,27 @@ flowchart LR
 </span></span><span style=display:flex><span>│  色度（UV）  → 不敏感   → 可大幅压缩     │
 </span></span><span style=display:flex><span>│  高频细节    → 不敏感   → 可丢（有损压缩）│
 </span></span><span style=display:flex><span>└──────────────────────────────────────────┘
-</span></span></code></pre></div><h3 id=24-信息熵冗余entropy-redundancy>2.4 信息熵冗余（Entropy Redundancy）</h3><p><strong>一句话</strong>：某些像素值出现频率高，可以用更短的二进制编码表示高频出现的值（类似霍夫曼编码）。</p><p>你说得对，我重新把这两个章节拆开，用更直白的方式讲清楚。</p><h2 id=3-视频编码的整体架构>3. 视频编码的整体架构</h2><h3 id=31-编码器的目标把大变成小>3.1 编码器的目标：把“大”变成“小”</h3><p>编码器要做的事情只有一件：<strong>把原始视频帧（很大）压缩成码流（很小），同时尽量保持画质不下降。</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始帧数据（大）   →   编码器   →   压缩码流（小）
+</span></span></code></pre></div><h3 id=24-信息熵冗余entropy-redundancy>2.4 信息熵冗余（Entropy Redundancy）</h3><p><strong>一句话</strong>：某些像素值出现频率高，可以用更短的二进制编码表示高频出现的值（类似霍夫曼编码）。</p><h2 id=3-视频编码的整体架构>3. 视频编码的整体架构</h2><h3 id=31-编码器的目标把大变成小>3.1 编码器的目标：把“大”变成“小”</h3><p>编码器要做的事情只有一件：<strong>把原始视频帧（很大）压缩成码流（很小），同时尽量保持画质不下降。</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原始帧数据（大）   →   编码器   →   压缩码流（小）
 </span></span><span style=display:flex><span>1920×1080 YUV          各种算法        文件（MB级别）
 </span></span><span style=display:flex><span>≈ 3MB/帧               处理            最终输出
-</span></span></code></pre></div><p>后面的所有步骤，都是在为实现这个目标服务。</p><h3 id=32-编码器内部流程>3.2 编码器内部流程</h3><pre class=mermaid>
-flowchart TD
-    A["① 原始 YUV 帧<br>1920×1080×3 ≈ 3MB/帧"]
-    B["② 帧类型决策<br>确定哪些帧当关键帧（I帧）"]
-    C["③ 块划分<br>把 1920×1080 切成 16×16 的小块"]
-    D{"④ 预测模式选择<br>用哪种方式压缩这一块？"}
-    E["帧内预测<br>参考本帧周围的像素<br>（利用空间冗余）"]
-    F["帧间预测<br>参考前后帧的像素<br>（利用时间冗余）"]
-    G["⑤ 变换（DCT）<br>把像素值变成频率值"]
-    H["⑥ 量化<br>去掉人眼不敏感的高频细节"]
-    I["⑦ 熵编码<br>把数字转成二进制码流"]
-    J["⑧ 输出压缩码流<br>文件体积大幅减小"]
+</span></span></code></pre></div><p>后面的所有步骤，都是在为实现这个目标服务。</p><h3 id=32-编码器内部流程>3.2 编码器内部流程</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IFRECiAgICBBWyLikaAg5Y6f5aeLIFlVViDluKc8YnIvPjE5MjDDlzEwODDDlzMg4omIIDNNQi/luKciXQogICAgQlsi4pGhIOW4p+exu+Wei+WGs+etljxici8+56Gu5a6a5ZOq5Lqb5bin5b2T5YWz6ZSu5bin77yISeW4p++8iSJdCiAgICBDWyLikaIg5Z2X5YiS5YiGPGJyLz7mioogMTkyMMOXMTA4MCDliIfmiJAgMTbDlzE2IOeahOWwj+WdlyJdCiAgICBEeyLikaMg6aKE5rWL5qih5byP6YCJ5oupPGJyLz7nlKjlk6rnp43mlrnlvI/ljovnvKnov5nkuIDlnZfvvJ8ifQogICAgRVsi5bin5YaF6aKE5rWLPGJyLz7lj4LogIPmnKzluKflkajlm7TnmoTlg4/ntKA8YnIvPu+8iOWIqeeUqOepuumXtOWGl+S9me+8iSJdCiAgICBGWyLluKfpl7TpooTmtYs8YnIvPuWPguiAg+WJjeWQjuW4p+eahOWDj+e0oDxici8+77yI5Yip55So5pe26Ze05YaX5L2Z77yJIl0KICAgIEdbIuKRpCDlj5jmjaLvvIhEQ1TvvIk8YnIvPuaKiuWDj+e0oOWAvOWPmOaIkOmikeeOh+WAvCJdCiAgICBIWyLikaUg6YeP5YyWPGJyLz7ljrvmjonkurrnnLzkuI3mlY/mhJ/nmoTpq5jpopHnu4boioIiXQogICAgSVsi4pGmIOeGtee8lueggTxici8+5oqK5pWw5a2X6L2s5oiQ5LqM6L+b5Yi256CB5rWBIl0KICAgIEpbIuKRpyDovpPlh7rljovnvKnnoIHmtYE8YnIvPuaWh+S7tuS9k+enr+Wkp+W5heWHj+WwjyJdCiAgICAKICAgIEEgLS0+IEIgLS0+IEMgLS0+IEQKICAgIEQgLS0+fCLmnKzluKflhoXpg6gifCBFCiAgICBEIC0tPnwi6Leo5binInwgRgogICAgRSAtLT4gRwogICAgRiAtLT4gRwogICAgRyAtLT4gSCAtLT4gSSAtLT4gSg==">flowchart TD
+    A[&#34;① 原始 YUV 帧&lt;br/&gt;1920×1080×3 ≈ 3MB/帧&#34;]
+    B[&#34;② 帧类型决策&lt;br/&gt;确定哪些帧当关键帧（I帧）&#34;]
+    C[&#34;③ 块划分&lt;br/&gt;把 1920×1080 切成 16×16 的小块&#34;]
+    D{&#34;④ 预测模式选择&lt;br/&gt;用哪种方式压缩这一块？&#34;}
+    E[&#34;帧内预测&lt;br/&gt;参考本帧周围的像素&lt;br/&gt;（利用空间冗余）&#34;]
+    F[&#34;帧间预测&lt;br/&gt;参考前后帧的像素&lt;br/&gt;（利用时间冗余）&#34;]
+    G[&#34;⑤ 变换（DCT）&lt;br/&gt;把像素值变成频率值&#34;]
+    H[&#34;⑥ 量化&lt;br/&gt;去掉人眼不敏感的高频细节&#34;]
+    I[&#34;⑦ 熵编码&lt;br/&gt;把数字转成二进制码流&#34;]
+    J[&#34;⑧ 输出压缩码流&lt;br/&gt;文件体积大幅减小&#34;]
     
-    A --> B --> C --> D
-    D -->|"本帧内部"| E
-    D -->|"跨帧"| F
-    E --> G
-    F --> G
-    G --> H --> I --> J
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>每一行具体在做什么：</strong></p><table><thead><tr><th>步骤</th><th>名称</th><th>输入</th><th>输出</th><th>一句话解释</th></tr></thead><tbody><tr><td>①</td><td>原始 YUV 帧</td><td>1920×1080 的像素矩阵</td><td>同一张图</td><td>就是你 ISP 输出的一帧图像</td></tr><tr><td>②</td><td>帧类型决策</td><td>连续多帧</td><td>哪些是 I 帧、哪些是 P/B 帧</td><td>告诉编码器“哪些帧要完整存，哪些只存变化”</td></tr><tr><td>③</td><td>块划分</td><td>一整张 1920×1080 的图</td><td>大量 16×16 的小块</td><td>把大图切成小块，逐块压缩（效率更高）</td></tr><tr><td>④</td><td>预测模式选择</td><td>一个 16×16 的块</td><td>决定用帧内还是帧间预测</td><td>对每一小块，决策“参考自己还是参考邻居”</td></tr><tr><td>⑤</td><td>变换（DCT）</td><td>16×16 像素值</td><td>16×16 频率值</td><td>把“亮度变化”转成“频率高低”</td></tr><tr><td>⑥</td><td>量化</td><td>16×16 频率值</td><td>高频部分被置零</td><td>丢掉“人眼注意不到”的高频细节（有损压缩的关键）</td></tr><tr><td>⑦</td><td>熵编码</td><td>量化后的数字</td><td>二进制码流（0/1 序列）</td><td>用最短的二进制码来表示高频出现的数字</td></tr><tr><td>⑧</td><td>输出码流</td><td>所有块的二进制码</td><td>压缩文件</td><td>最终输出</td></tr></tbody></table><h3 id=33-数据形状变化可视化>3.3 数据形状变化（可视化）</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>形状变化全过程：
+    A --&gt; B --&gt; C --&gt; D
+    D --&gt;|&#34;本帧内部&#34;| E
+    D --&gt;|&#34;跨帧&#34;| F
+    E --&gt; G
+    F --&gt; G
+    G --&gt; H --&gt; I --&gt; J</pre><p><strong>每一行具体在做什么：</strong></p><table><thead><tr><th>步骤</th><th>名称</th><th>输入</th><th>输出</th><th>一句话解释</th></tr></thead><tbody><tr><td>①</td><td>原始 YUV 帧</td><td>1920×1080 的像素矩阵</td><td>同一张图</td><td>就是你 ISP 输出的一帧图像</td></tr><tr><td>②</td><td>帧类型决策</td><td>连续多帧</td><td>哪些是 I 帧、哪些是 P/B 帧</td><td>告诉编码器“哪些帧要完整存，哪些只存变化”</td></tr><tr><td>③</td><td>块划分</td><td>一整张 1920×1080 的图</td><td>大量 16×16 的小块</td><td>把大图切成小块，逐块压缩（效率更高）</td></tr><tr><td>④</td><td>预测模式选择</td><td>一个 16×16 的块</td><td>决定用帧内还是帧间预测</td><td>对每一小块，决策“参考自己还是参考邻居”</td></tr><tr><td>⑤</td><td>变换（DCT）</td><td>16×16 像素值</td><td>16×16 频率值</td><td>把“亮度变化”转成“频率高低”</td></tr><tr><td>⑥</td><td>量化</td><td>16×16 频率值</td><td>高频部分被置零</td><td>丢掉“人眼注意不到”的高频细节（有损压缩的关键）</td></tr><tr><td>⑦</td><td>熵编码</td><td>量化后的数字</td><td>二进制码流（0/1 序列）</td><td>用最短的二进制码来表示高频出现的数字</td></tr><tr><td>⑧</td><td>输出码流</td><td>所有块的二进制码</td><td>压缩文件</td><td>最终输出</td></tr></tbody></table><h3 id=33-数据形状变化可视化>3.3 数据形状变化（可视化）</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>形状变化全过程：
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>【输入】
 </span></span><span style=display:flex><span>1920 × 1080 的像素矩阵（每个格子是一个像素）
@@ -470,6 +228,6 @@ flowchart TD
 </span></span><span style=display:flex><span>                          JPEGE（拍照）
 </span></span><span style=display:flex><span>                              ↓
 </span></span><span style=display:flex><span>                          显示输出
-</span></span></code></pre></div><h2 id=8-视频质量评估客观指标>8. 视频质量评估（客观指标）</h2><table><thead><tr><th>指标</th><th>全称</th><th>含义</th></tr></thead><tbody><tr><td><strong>PSNR</strong></td><td>Peak Signal-to-Noise Ratio</td><td>峰值信噪比，越大越好（通常 ≥ 35dB）</td></tr><tr><td><strong>SSIM</strong></td><td>Structural Similarity</td><td>结构相似度，越接近 1 越好</td></tr><tr><td><strong>VMAF</strong></td><td>Video Multi-Method Assessment Fusion</td><td>Netflix 提出的主观感知质量评分</td></tr></tbody></table><p><strong>PSNR 公式</strong>：</p><p>$$
+</span></span></code></pre></div><h2 id=8-视频质量评估客观指标>8. 视频质量评估（客观指标）</h2><table><thead><tr><th>指标</th><th>全称</th><th>含义</th></tr></thead><tbody><tr><td><strong>PSNR</strong></td><td>Peak Signal-to-Noise Ratio</td><td>峰值信噪比，越大越好（通常 ≥ 35dB）</td></tr><tr><td><strong>SSIM</strong></td><td>Structural Similarity</td><td>结构相似度，越接近 1 越好</td></tr><tr><td><strong>VMAF</strong></td><td>Video Multi-Method Assessment Fusion</td><td>Netflix 提出的主观感知质量评分</td></tr></tbody></table><p><strong>PSNR 公式</strong>：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>PSNR</mtext><mo>=</mo><mn>10</mn><mo>×</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>10</mn></msub><mrow><mo fence="true">(</mo><mfrac><msup><mn>255</mn><mn>2</mn></msup><mtext>MSE</mtext></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">
 \text{PSNR} = 10 \times \log_{10}\left(\frac{255^2}{\text{MSE}}\right)
-$$</p><p>其中 MSE 是原始帧与编码后重建帧之间的均方误差。</p><h2 id=9-一句话总结>9. 一句话总结</h2><blockquote><p><strong>DVPP 是 SoC 中负责视频和图像加速的硬件模块集合，包含 VENC（视频编码）、VDEC（视频解码）、JPEGE/JPEGD（JPEG 编解码）、PNGD（PNG 解码）、VPC（图像缩放/裁剪/旋转/拼接）。视频压缩利用空间冗余（帧内预测）、时间冗余（帧间预测/运动估计）、视觉冗余（丢弃高频）和信息熵冗余（短码高频值），将原始视频从 MB 级压缩到 KB 级，实现存储和传输的可行性。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6833em></span><span class="mord text"><span class=mord>PSNR</span></span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>10</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:2.4411em;vertical-align:-.95em></span><span class=mop><span class=mop>lo<span style=margin-right:.01389em>g</span></span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.207em><span style=top:-2.4559em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2441em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.1667em></span><span class=minner><span class="mopen delimcenter" style=top:0><span class="delimsizing size3">(</span></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.4911em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class="mord text"><span class=mord>MSE</span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>25</span><span class=mord><span class=mord>5</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8141em><span style=top:-3.063em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style=top:0><span class="delimsizing size3">)</span></span></span></span></span></span></span><p>其中 MSE 是原始帧与编码后重建帧之间的均方误差。</p><h2 id=9-一句话总结>9. 一句话总结</h2><blockquote><p><strong>DVPP 是 SoC 中负责视频和图像加速的硬件模块集合，包含 VENC（视频编码）、VDEC（视频解码）、JPEGE/JPEGD（JPEG 编解码）、PNGD（PNG 解码）、VPC（图像缩放/裁剪/旋转/拼接）。视频压缩利用空间冗余（帧内预测）、时间冗余（帧间预测/运动估计）、视觉冗余（丢弃高频）和信息熵冗余（短码高频值），将原始视频从 MB 级压缩到 KB 级，实现存储和传输的可行性。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

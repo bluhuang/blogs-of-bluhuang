@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/><title>ResNet - Deep Residual Learning for Image Recognition</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="ResNet - Deep Residual Learning for Image Recognition"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/"><meta name=twitter:title content="ResNet - Deep Residual Learning for Image Recognition"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/><title>ResNet - Deep Residual Learning for Image Recognition</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="ResNet - Deep Residual Learning for Image Recognition"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/"><meta name=twitter:title content="ResNet - Deep Residual Learning for Image Recognition"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -75,7 +75,7 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 <a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">ResNet - Deep Residual Learning for Image Recognition</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年7月13日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-论文信息>1. 论文信息</a></li></ol><ol><li><a href=#21-网络为什么需要变深>2.1 网络为什么需要变深</a></li><li><a href=#22-一个反常现象>2.2 一个反常现象</a></li></ol><ol><li><a href=#31-定义>3.1 定义</a></li><li><a href=#32-退化问题不是过拟合>3.2 退化问题不是过拟合</a><ol><li><a href=#过拟合>过拟合</a></li><li><a href=#退化问题>退化问题</a></li></ol></li><li><a href=#33-退化问题也不能简单等于梯度消失>3.3 退化问题也不能简单等于梯度消失</a><ol><li><a href=#梯度消失>梯度消失</a></li></ol></li></ol><ol><li><a href=#41-plain-network-的困难>4.1 Plain Network 的困难</a></li></ol><ol><li><a href=#51-从直接学习到学习差值>5.1 从“直接学习”到“学习差值”</a></li></ol><ol><li><a href=#61-residual-block-在计算什么>6.1 Residual Block 在计算什么</a></li><li><a href=#62-residual-block-的两条路径>6.2 Residual Block 的两条路径</a><ol><li><a href=#残差分支>残差分支</a></li><li><a href=#shortcut-分支>Shortcut 分支</a></li></ol></li><li><a href=#63-为什么有利于深层网络优化>6.3 为什么有利于深层网络优化</a></li></ol><ol><li><a href=#71-概念关系>7.1 概念关系</a></li><li><a href=#72-identity-shortcut>7.2 Identity Shortcut</a></li><li><a href=#73-projection-shortcut>7.3 Projection Shortcut</a></li><li><a href=#74-两种-shortcut-如何选择>7.4 两种 Shortcut 如何选择</a></li><li><a href=#75-resnet-使用的是相加不是拼接>7.5 ResNet 使用的是相加，不是拼接</a></li></ol><ol><li><a href=#81-basic-block>8.1 Basic Block</a></li><li><a href=#82-bottleneck-block>8.2 Bottleneck Block</a></li><li><a href=#83-两种-block-对比>8.3 两种 Block 对比</a></li></ol><ol><li><a href=#91-stage-是什么>9.1 Stage 是什么</a></li><li><a href=#92-stage-之间发生什么变化>9.2 Stage 之间发生什么变化</a></li><li><a href=#93-为什么尺寸减半通道加倍>9.3 为什么尺寸减半、通道加倍</a></li><li><a href=#94-不同-resnet-的区别>9.4 不同 ResNet 的区别</a></li></ol><ol><li><a href=#101-训练设置>10.1 训练设置</a></li><li><a href=#102-plain-network-与-resnet-的结论>10.2 Plain Network 与 ResNet 的结论</a></li><li><a href=#103-identity-与-projection-的结论>10.3 Identity 与 Projection 的结论</a></li><li><a href=#104-更深不代表一定更好>10.4 更深不代表一定更好</a></li></ol><ol><li><a href=#111-resnet>11.1 ResNet</a></li><li><a href=#112-dncnn>11.2 DnCNN</a></li><li><a href=#113-对比>11.3 对比</a></li><li><a href=#12-一句话总结>12. 一句话总结</a></li></ol></nav></details><h2 id=1-论文信息>1. 论文信息</h2><p><strong>论文标题</strong>：Deep Residual Learning for Image Recognition<br><strong>作者</strong>：匿名<br><strong>会议</strong>：CVPR 2016</p><p>这篇论文提出了 <strong>ResNet（Residual Network，残差网络）</strong>，核心目标不是单纯设计一个分类网络，而是解决：</p><blockquote><p>当神经网络不断加深时，为什么训练效果反而可能变差，以及怎样让几十层、上百层网络更容易优化。</p></blockquote><p>论文在 ImageNet 上训练了最深 152 层的残差网络，并通过 Plain Network 与 Residual Network 的严格对比，证明残差结构能够显著缓解深层网络的优化困难。</p><h1 id=2-resnet-要解决什么问题>2. ResNet 要解决什么问题</h1><h2 id=21-网络为什么需要变深>2.1 网络为什么需要变深</h2><p>卷积神经网络的不同层通常负责不同层级的特征：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入图像
+2026年7月13日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-论文信息>1. 论文信息</a></li></ol><ol><li><a href=#21-网络为什么需要变深>2.1 网络为什么需要变深</a></li><li><a href=#22-一个反常现象>2.2 一个反常现象</a></li></ol><ol><li><a href=#31-定义>3.1 定义</a></li><li><a href=#32-退化问题不是过拟合>3.2 退化问题不是过拟合</a><ol><li><a href=#过拟合>过拟合</a></li><li><a href=#退化问题>退化问题</a></li></ol></li><li><a href=#33-退化问题也不能简单等于梯度消失>3.3 退化问题也不能简单等于梯度消失</a><ol><li><a href=#梯度消失>梯度消失</a></li></ol></li></ol><ol><li><a href=#41-plain-network-的困难>4.1 Plain Network 的困难</a></li></ol><ol><li><a href=#51-从直接学习到学习差值>5.1 从“直接学习”到“学习差值”</a></li></ol><ol><li><a href=#61-residual-block-在计算什么>6.1 Residual Block 在计算什么</a></li><li><a href=#62-residual-block-的两条路径>6.2 Residual Block 的两条路径</a><ol><li><a href=#残差分支>残差分支</a></li><li><a href=#shortcut-分支>Shortcut 分支</a></li></ol></li><li><a href=#63-为什么有利于深层网络优化>6.3 为什么有利于深层网络优化</a></li></ol><ol><li><a href=#71-概念关系>7.1 概念关系</a></li><li><a href=#72-identity-shortcut>7.2 Identity Shortcut</a></li><li><a href=#73-projection-shortcut>7.3 Projection Shortcut</a></li><li><a href=#74-两种-shortcut-如何选择>7.4 两种 Shortcut 如何选择</a></li><li><a href=#75-resnet-使用的是相加不是拼接>7.5 ResNet 使用的是相加，不是拼接</a></li></ol><ol><li><a href=#81-basic-block>8.1 Basic Block</a></li><li><a href=#82-bottleneck-block>8.2 Bottleneck Block</a></li><li><a href=#83-两种-block-对比>8.3 两种 Block 对比</a></li></ol><ol><li><a href=#91-stage-是什么>9.1 Stage 是什么</a></li><li><a href=#92-stage-之间发生什么变化>9.2 Stage 之间发生什么变化</a></li><li><a href=#93-为什么尺寸减半通道加倍>9.3 为什么尺寸减半、通道加倍</a></li><li><a href=#94-不同-resnet-的区别>9.4 不同 ResNet 的区别</a></li></ol><ol><li><a href=#101-训练设置>10.1 训练设置</a></li><li><a href=#102-plain-network-与-resnet-的结论>10.2 Plain Network 与 ResNet 的结论</a></li><li><a href=#103-identity-与-projection-的结论>10.3 Identity 与 Projection 的结论</a></li><li><a href=#104-更深不代表一定更好>10.4 更深不代表一定更好</a></li></ol><ol><li><a href=#111-resnet>11.1 ResNet</a></li><li><a href=#112-dncnn>11.2 DnCNN</a></li><li><a href=#113-对比>11.3 对比</a></li><li><a href=#12-一句话总结>12. 一句话总结</a></li></ol></nav></details><h2 id=1-论文信息>1. 论文信息</h2><p><strong>论文标题</strong>：Deep Residual Learning for Image Recognition<br><strong>作者</strong>：<br><strong>会议</strong>：CVPR 2016</p><p>这篇论文提出了 <strong>ResNet（Residual Network，残差网络）</strong>，核心目标不是单纯设计一个分类网络，而是解决：</p><blockquote><p>当神经网络不断加深时，为什么训练效果反而可能变差，以及怎样让几十层、上百层网络更容易优化。</p></blockquote><p>论文在 ImageNet 上训练了最深 152 层的残差网络，并通过 Plain Network 与 Residual Network 的严格对比，证明残差结构能够显著缓解深层网络的优化困难。</p><h1 id=2-resnet-要解决什么问题>2. ResNet 要解决什么问题</h1><h2 id=21-网络为什么需要变深>2.1 网络为什么需要变深</h2><p>卷积神经网络的不同层通常负责不同层级的特征：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入图像
 </span></span><span style=display:flex><span>   │
 </span></span><span style=display:flex><span>   ▼
 </span></span><span style=display:flex><span>浅层：边缘、方向、颜色变化
@@ -89,133 +89,12 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>   ▼
 </span></span><span style=display:flex><span>分类结果
 </span></span></code></pre></div><p>理论上，增加网络深度可以增加网络的表达能力，使模型能够构造更复杂的特征。</p><p>但是，网络并不是简单地“越深越好”。</p><h2 id=22-一个反常现象>2.2 一个反常现象</h2><p>假设已经训练好一个 20 层网络，现在构造一个 56 层网络。
-理论上，可以：</p><ol><li>把原来 20 层网络的参数复制过来；</li><li>让新增加的 36 层什么都不改变；</li><li>这 36 层只执行恒等映射。</li></ol><p>因此，更深网络至少应该能够达到和浅层网络一样的训练误差。</p><pre class=mermaid>
-flowchart LR
-    A[20层网络] --> B[复制原有20层参数]
-    B --> C[增加36层恒等映射]
-    C --> D[构造56层网络]
-    D --> E[理论上不应比20层更差]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>【Fig1】
-[Pasted image 20260711171423.png]
+理论上，可以：</p><ol><li>把原来 20 层网络的参数复制过来；</li><li>让新增加的 36 层什么都不改变；</li><li>这 36 层只执行恒等映射。</li></ol><p>因此，更深网络至少应该能够达到和浅层网络一样的训练误差。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWzIw5bGC572R57ucXSAtLT4gQlvlpI3liLbljp/mnIkyMOWxguWPguaVsF0KICAgIEIgLS0+IENb5aKe5YqgMzblsYLmgZLnrYnmmKDlsIRdCiAgICBDIC0tPiBEW+aehOmAoDU25bGC572R57ucXQogICAgRCAtLT4gRVvnkIborrrkuIrkuI3lupTmr5QyMOWxguabtOW3rl0=">flowchart LR
+    A[20层网络] --&gt; B[复制原有20层参数]
+    B --&gt; C[增加36层恒等映射]
+    C --&gt; D[构造56层网络]
+    D --&gt; E[理论上不应比20层更差]</pre><p>【Fig1】
+![[Pasted image 20260711171423.png]]
 但论文实验显示：</p><ul><li>56 层 Plain Network 的训练误差高于 20 层 Plain Network；</li><li>测试误差也更高。</li></ul><p>这就是 <strong>Degradation Problem（退化问题）</strong>。论文的 Figure 1 直接展示了 CIFAR-10 上 20 层与 56 层普通网络的这种现象。</p><h1 id=3-什么是退化问题>3. 什么是退化问题</h1><h2 id=31-定义>3.1 定义</h2><p><strong>Degradation Problem，退化问题</strong>：</p><blockquote><p>当网络深度增加到一定程度后，更深的网络不但没有获得更低的训练误差，训练误差反而升高。</p></blockquote><p>关键是 <strong>训练误差升高</strong>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>网络深度增加
 </span></span><span style=display:flex><span>     │
 </span></span><span style=display:flex><span>     ▼
@@ -230,788 +109,99 @@ flowchart LR
 </span></span><span style=display:flex><span>测试误差：上升
 </span></span></code></pre></div><h3 id=退化问题>退化问题</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>训练误差：上升
 </span></span><span style=display:flex><span>测试误差：也上升
-</span></span></code></pre></div><p>对比：</p><table><thead><tr><th>问题</th><th style=text-align:right>训练误差</th><th style=text-align:right>测试误差</th><th>主要原因</th></tr></thead><tbody><tr><td>过拟合</td><td style=text-align:right>低</td><td style=text-align:right>高</td><td>泛化能力不足</td></tr><tr><td>退化问题</td><td style=text-align:right>高</td><td style=text-align:right>高</td><td>深层网络优化困难</td></tr></tbody></table><p>论文特别指出，更深的 Plain Network 连训练集都没有拟合好，因此这种现象不能用过拟合解释。</p><h2 id=33-退化问题也不能简单等于梯度消失>3.3 退化问题也不能简单等于梯度消失</h2><h3 id=梯度消失>梯度消失</h3><p><strong>Vanishing Gradient，梯度消失</strong>：反向传播时，梯度经过许多层连续相乘后越来越小，导致浅层参数几乎无法更新。</p><p>假设每层局部梯度都是 0.5，连续经过 10 层：</p><p>$$<br>0.5^{10}=0.0009765625<br>$$</p><p>经过 50 层：</p><p>$$<br>0.5^{50}\approx8.88\times10^{-16}<br>$$</p><p>梯度会变得非常小。</p><p>但 ResNet 论文中的 Plain Network 已经使用：</p><ul><li>合理的参数初始化；</li><li>Batch Normalization；</li><li>正常的 SGD 训练。</li></ul><p>作者还检查了前向信号和反向梯度，认为它们保持了正常的数值范围。因此，论文中的退化问题不能简单归结为梯度完全消失。作者更谨慎地将其描述为 <strong>深层 Plain Network 的优化困难</strong>。</p><p>所以不要简单当成：</p><blockquote><p>ResNet 解决了梯度消失。</p></blockquote><p>更准确的说法是：</p><blockquote><p>ResNet 通过残差重参数化和 Shortcut，缓解了深层网络的优化困难，同时也为信息和梯度提供了更直接的传播路径。</p></blockquote><hr><h1 id=4-plain-network-为什么难以学习恒等映射>4. Plain Network 为什么难以学习恒等映射</h1><h2 id=41-plain-network-的困难>4.1 Plain Network 的困难</h2><p>假设一组卷积层需要学习：</p><p>$$<br>H(x)=x<br>$$</p><p>Plain Network 必须让多层卷积、BN 和 ReLU 组合起来，最终精确复现输入。</p><pre class=mermaid>
-flowchart LR
-    A[x] --> B[Conv]
-    B --> C[BN]
-    C --> D[ReLU]
-    D --> E[Conv]
-    E --> F[BN]
-    F --> G[希望输出仍然等于x]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>理论上，神经网络有能力表示恒等映射。</p><p>但“能够表示”不等于“优化器容易找到”。</p><p>这正是论文关注的问题：</p><blockquote><p>更深网络的解空间包含浅层网络的解，但现有优化算法不一定能够在有限时间内找到这个解。</p></blockquote><hr><h1 id=5-残差学习的核心思想>5. 残差学习的核心思想</h1><h2 id=51-从直接学习到学习差值>5.1 从“直接学习”到“学习差值”</h2><p>假设我们希望网络学到一个映射 $\mathcal{H}(x)$（输入 $x$ 到输出的映射）。</p><p>$\mathcal{H}(x)$：希望网格块的最终输出</p><p><strong>普通网络的做法</strong>：让堆叠的非线性层直接拟合 $\mathcal{H}(x)$。</p><p><strong>ResNet 的做法</strong>：让堆叠的非线性层拟合<strong>残差</strong>：</p><pre class=mermaid>
-flowchart LR
-    X["输入特征 x"] --> S["Shortcut：保留原输入"]
-    X --> R["残差分支：学习变化量 F(x)"]
-    S --> A["逐元素相加"]
-    R --> A
-    A --> Y["最终输出 H(x) = x + F(x)"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>**一句话理解：$$F(x)=H(x)-x$$ ==不是额外执行的一次减法，而是在定义“目标输出相对于输入还差多少”，ResNet 让卷积分支学习这个差值，再把输入通过 Shortcut 加回来。==</p><blockquote><p>为什么要通过shortcut把输入x加回来？
-因为残差分支学习的不是完整输出，而是<strong>输入到目标输出之间的变化量</strong>。学习到变化量之后，要把输入加回来，才能得到目标结果。即 $H(x) = x + F(x)$</p></blockquote><h1 id=6-residual-blockresnet-的核心结构>6. Residual Block：ResNet 的核心结构</h1><h2 id=61-residual-block-在计算什么>6.1 Residual Block 在计算什么</h2><p>假设一个 Block 的输入特征是$x$，这个 Block 最终希望得到的目标映射是$H(x)$。</p><p>Plain Network 直接用若干卷积层学习完整映射：</p><p>$$<br>x\rightarrow H(x)<br>$$</p><p>ResNet 则把目标映射拆成：</p><p>$$<br>H(x)=x+F(x)<br>$$</p><p>其中：</p><ul><li>$x$：Block 原有的输入特征；</li><li>$F(x)$：目标输出相对输入需要产生的变化；</li><li>$H(x)$：Block 最终输出的目标特征。</li></ul><p>因此：</p><p>$$<br>F(x)=H(x)-x<br>$$</p><p>这里的$F(x)=H(x)-x$是对“残差是什么”的定义，并不是网络先算出$H(x)$，再执行一次减法。</p><p>实际前向计算是：</p><p>$$<br>y=F(x)+x<br>$$</p><p>也就是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原有特征 x
+</span></span></code></pre></div><p>对比：</p><table><thead><tr><th>问题</th><th style=text-align:right>训练误差</th><th style=text-align:right>测试误差</th><th>主要原因</th></tr></thead><tbody><tr><td>过拟合</td><td style=text-align:right>低</td><td style=text-align:right>高</td><td>泛化能力不足</td></tr><tr><td>退化问题</td><td style=text-align:right>高</td><td style=text-align:right>高</td><td>深层网络优化困难</td></tr></tbody></table><p>论文特别指出，更深的 Plain Network 连训练集都没有拟合好，因此这种现象不能用过拟合解释。</p><h2 id=33-退化问题也不能简单等于梯度消失>3.3 退化问题也不能简单等于梯度消失</h2><h3 id=梯度消失>梯度消失</h3><p><strong>Vanishing Gradient，梯度消失</strong>：反向传播时，梯度经过许多层连续相乘后越来越小，导致浅层参数几乎无法更新。</p><p>假设每层局部梯度都是 0.5，连续经过 10 层：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mn>0.5</mn><mn>10</mn></msup><mo>=</mo><mn>0.0009765625</mn></mrow><annotation encoding="application/x-tex">
+0.5^{10}=0.0009765625
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8641em></span><span class=mord>0.</span><span class=mord><span class=mord>5</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8641em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span></span></span></span></span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>0.0009765625</span></span></span></span></span><p>经过 50 层：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msup><mn>0.5</mn><mn>50</mn></msup><mo>≈</mo><mn>8.88</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
+0.5^{50}\approx8.88\times10^{-16}
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8641em></span><span class=mord>0.</span><span class=mord><span class=mord>5</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8641em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">50</span></span></span></span></span></span></span></span></span><span class=mspace style=margin-right:.2778em></span><span class=mrel>≈</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>8.88</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.8641em></span><span class=mord>1</span><span class=mord><span class=mord>0</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8641em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">16</span></span></span></span></span></span></span></span></span></span></span></span></span><p>梯度会变得非常小。</p><p>但 ResNet 论文中的 Plain Network 已经使用：</p><ul><li>合理的参数初始化；</li><li>Batch Normalization；</li><li>正常的 SGD 训练。</li></ul><p>作者还检查了前向信号和反向梯度，认为它们保持了正常的数值范围。因此，论文中的退化问题不能简单归结为梯度完全消失。作者更谨慎地将其描述为 <strong>深层 Plain Network 的优化困难</strong>。</p><p>所以不要简单当成：</p><blockquote><p>ResNet 解决了梯度消失。</p></blockquote><p>更准确的说法是：</p><blockquote><p>ResNet 通过残差重参数化和 Shortcut，缓解了深层网络的优化困难，同时也为信息和梯度提供了更直接的传播路径。</p></blockquote><hr><h1 id=4-plain-network-为什么难以学习恒等映射>4. Plain Network 为什么难以学习恒等映射</h1><h2 id=41-plain-network-的困难>4.1 Plain Network 的困难</h2><p>假设一组卷积层需要学习：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+H(x)=x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>Plain Network 必须让多层卷积、BN 和 ReLU 组合起来，最终精确复现输入。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBW3hdIC0tPiBCW0NvbnZdCiAgICBCIC0tPiBDW0JOXQogICAgQyAtLT4gRFtSZUxVXQogICAgRCAtLT4gRVtDb252XQogICAgRSAtLT4gRltCTl0KICAgIEYgLS0+IEdb5biM5pyb6L6T5Ye65LuN54S2562J5LqOeF0=">flowchart LR
+    A[x] --&gt; B[Conv]
+    B --&gt; C[BN]
+    C --&gt; D[ReLU]
+    D --&gt; E[Conv]
+    E --&gt; F[BN]
+    F --&gt; G[希望输出仍然等于x]</pre><p>理论上，神经网络有能力表示恒等映射。</p><p>但“能够表示”不等于“优化器容易找到”。</p><p>这正是论文关注的问题：</p><blockquote><p>更深网络的解空间包含浅层网络的解，但现有优化算法不一定能够在有限时间内找到这个解。</p></blockquote><hr><h1 id=5-残差学习的核心思想>5. 残差学习的核心思想</h1><h2 id=51-从直接学习到学习差值>5.1 从“直接学习”到“学习差值”</h2><p>假设我们希望网络学到一个映射 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{H}(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathcal" style=margin-right:.00965em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>（输入 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span> 到输出的映射）。</p><p><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{H}(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathcal" style=margin-right:.00965em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>：希望网格块的最终输出</p><p><strong>普通网络的做法</strong>：让堆叠的非线性层直接拟合 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{H}(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathcal" style=margin-right:.00965em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>。</p><p><strong>ResNet 的做法</strong>：让堆叠的非线性层拟合<strong>残差</strong>：</p><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBYWyLovpPlhaXnibnlvoEgeCJdIC0tPiBTWyJTaG9ydGN1dO+8muS/neeVmeWOn+i+k+WFpSJdCiAgICBYIC0tPiBSWyLmrovlt67liIbmlK/vvJrlrabkuaDlj5jljJbph48gRih4KSJdCiAgICBTIC0tPiBBWyLpgJDlhYPntKDnm7jliqAiXQogICAgUiAtLT4gQQogICAgQSAtLT4gWVsi5pyA57uI6L6T5Ye6IEgoeCkgPSB4ICsgRih4KSJd>flowchart LR
+    X[&#34;输入特征 x&#34;] --&gt; S[&#34;Shortcut：保留原输入&#34;]
+    X --&gt; R[&#34;残差分支：学习变化量 F(x)&#34;]
+    S --&gt; A[&#34;逐元素相加&#34;]
+    R --&gt; A
+    A --&gt; Y[&#34;最终输出 H(x) = x &#43; F(x)&#34;]</pre><p>**一句话理解：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+F(x)=H(x)-x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>==不是额外执行的一次减法，而是在定义“目标输出相对于输入还差多少”，ResNet 让卷积分支学习这个差值，再把输入通过 Shortcut 加回来。==</p><blockquote><p>为什么要通过shortcut把输入x加回来？
+因为残差分支学习的不是完整输出，而是<strong>输入到目标输出之间的变化量</strong>。学习到变化量之后，要把输入加回来，才能得到目标结果。即 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x) = x + F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></p></blockquote><h1 id=6-residual-blockresnet-的核心结构>6. Residual Block：ResNet 的核心结构</h1><h2 id=61-residual-block-在计算什么>6.1 Residual Block 在计算什么</h2><p>假设一个 Block 的输入特征是<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>，这个 Block 最终希望得到的目标映射是<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>。</p><p>Plain Network 直接用若干卷积层学习完整映射：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>→</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+x\rightarrow H(x)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><p>ResNet 则把目标映射拆成：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+H(x)=x+F(x)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><p>其中：</p><ul><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>：Block 原有的输入特征；</li><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>：目标输出相对输入需要产生的变化；</li><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>：Block 最终输出的目标特征。</li></ul><p>因此：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+F(x)=H(x)-x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>这里的<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">F(x)=H(x)-x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>是对“残差是什么”的定义，并不是网络先算出<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>，再执行一次减法。</p><p>实际前向计算是：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+y=F(x)+x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>也就是：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原有特征 x
 </span></span><span style=display:flex><span>    +
 </span></span><span style=display:flex><span>需要修改的部分 F(x)
 </span></span><span style=display:flex><span>    =
 </span></span><span style=display:flex><span>Block 输出 y
-</span></span></code></pre></div><p>例如：</p><ul><li><p>输入$x=5$；</p></li><li><p>残差分支输出$F(x)=2$；</p></li></ul><p>那么：</p><p>$$<br>y=5+2=7<br>$$</p><p>残差分支只负责计算“相对输入要改变多少”，原输入由另一条路径保留下来。</p><hr><h2 id=62-residual-block-的两条路径>6.2 Residual Block 的两条路径</h2><p>【Fig2】
-[Pasted image 20260711181532.png]</p><p>论文 <strong>Figure 2</strong> 展示了最基础的 Residual Block。</p><pre class=mermaid>
-flowchart LR
-    X["输入特征 x"] --> R["残差分支：计算 F(x)"]
-    X --> S["Shortcut 分支：传递输入"]
-    R --> A["逐元素相加"]
-    S --> A
-    A --> Y["输出 y"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>两条路径分别是：</p><h3 id=残差分支>残差分支</h3><p>负责学习特征变化$F(x)$：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x → Conv → BN → ReLU → Conv → BN → F(x)
+</span></span></code></pre></div><p>例如：</p><ul><li><p>输入<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">x=5</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>5</span></span></span></span>；</p></li><li><p>残差分支输出<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F(x)=2</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span></span></span></span>；</p></li></ul><p>那么：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mn>5</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">
+y=5+2=7
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>5</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>7</span></span></span></span></span><p>残差分支只负责计算“相对输入要改变多少”，原输入由另一条路径保留下来。</p><hr><h2 id=62-residual-block-的两条路径>6.2 Residual Block 的两条路径</h2><p>【Fig2】
+![[Pasted image 20260711181532.png]]</p><p>论文 <strong>Figure 2</strong> 展示了最基础的 Residual Block。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBYWyLovpPlhaXnibnlvoEgeCJdIC0tPiBSWyLmrovlt67liIbmlK/vvJrorqHnrpcgRih4KSJdCiAgICBYIC0tPiBTWyJTaG9ydGN1dCDliIbmlK/vvJrkvKDpgJLovpPlhaUiXQogICAgUiAtLT4gQVsi6YCQ5YWD57Sg55u45YqgIl0KICAgIFMgLS0+IEEKICAgIEEgLS0+IFlbIui+k+WHuiB5Il0=">flowchart LR
+    X[&#34;输入特征 x&#34;] --&gt; R[&#34;残差分支：计算 F(x)&#34;]
+    X --&gt; S[&#34;Shortcut 分支：传递输入&#34;]
+    R --&gt; A[&#34;逐元素相加&#34;]
+    S --&gt; A
+    A --&gt; Y[&#34;输出 y&#34;]</pre><p>两条路径分别是：</p><h3 id=残差分支>残差分支</h3><p>负责学习特征变化<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x → Conv → BN → ReLU → Conv → BN → F(x)
 </span></span></code></pre></div><h3 id=shortcut-分支>Shortcut 分支</h3><p>绕过中间卷积层，将输入传到加法节点。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x ───────────────────────────→ 加法节点
-</span></span></code></pre></div><p>两条路径同时存在，不是二选一。</p><p>最终输出：</p><p>$$<br>y=F(x)+x<br>$$</p><p>原始论文中的结构在相加之后还会再经过一次 ReLU。</p><h2 id=63-为什么有利于深层网络优化>6.3 为什么有利于深层网络优化</h2><p>Residual Block 为信息提供了一条绕过卷积层的直接路径。</p><p>前向传播时：</p><ul><li>原输入可以直接传到后面；</li><li>残差分支只负责补充变化。</li></ul><p>反向传播时，梯度也可以经过加法节点直接传回前面的层。</p><p>对于：</p><p>$$<br>y=x+F(x)<br>$$</p><p>有：
-$$<br>\frac{\partial L}{\partial x}</p><p>\frac{\partial L}{\partial y}<br>\left(<br>1+\frac{\partial F(x)}{\partial x}<br>\right)<br>$$</p><p>其中的$1$来自 Shortcut 分支。</p><p>这说明即使残差分支的梯度较小，仍存在一条直接的梯度传播路径。</p><p>但需要准确理解：</p><blockquote><p>原论文的核心结论是 Residual Learning 缓解了深层 Plain Network 的优化困难，而不是简单宣称“Shortcut 彻底解决了梯度消失”。</p></blockquote><hr><h1 id=7-shortcut-connection-的两种形式>7. Shortcut Connection 的两种形式</h1><h2 id=71-概念关系>7.1 概念关系</h2><p><strong>Shortcut Connection</strong> 是总称，表示绕过若干中间层、把前面的特征传到后面。</p><p>论文中主要有两种实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Shortcut Connection
+</span></span></code></pre></div><p>两条路径同时存在，不是二选一。</p><p>最终输出：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+y=F(x)+x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>原始论文中的结构在相加之后还会再经过一次 ReLU。</p><h2 id=63-为什么有利于深层网络优化>6.3 为什么有利于深层网络优化</h2><p>Residual Block 为信息提供了一条绕过卷积层的直接路径。</p><p>前向传播时：</p><ul><li>原输入可以直接传到后面；</li><li>残差分支只负责补充变化。</li></ul><p>反向传播时，梯度也可以经过加法节点直接传回前面的层。</p><p>对于：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+y=x+F(x)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><p>有：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>x</mi></mrow></mfrac><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>y</mi></mrow></mfrac><mrow><mo fence="true">(</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">∂</mi><mi>x</mi></mrow></mfrac><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\frac{\partial L}{\partial x}
+\frac{\partial L}{\partial y}  
+\left(  
+1+\frac{\partial F(x)}{\partial x}  
+\right)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:2.4em;vertical-align:-.95em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3714em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal">x</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal">L</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3714em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal">L</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.8804em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class=minner><span class="mopen delimcenter" style=top:0><span class="delimsizing size3">(</span></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.427em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal">x</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord style=margin-right:.05556em>∂</span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style=top:0><span class="delimsizing size3">)</span></span></span></span></span></span></span><p>其中的<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>来自 Shortcut 分支。</p><p>这说明即使残差分支的梯度较小，仍存在一条直接的梯度传播路径。</p><p>但需要准确理解：</p><blockquote><p>原论文的核心结论是 Residual Learning 缓解了深层 Plain Network 的优化困难，而不是简单宣称“Shortcut 彻底解决了梯度消失”。</p></blockquote><hr><h1 id=7-shortcut-connection-的两种形式>7. Shortcut Connection 的两种形式</h1><h2 id=71-概念关系>7.1 概念关系</h2><p><strong>Shortcut Connection</strong> 是总称，表示绕过若干中间层、把前面的特征传到后面。</p><p>论文中主要有两种实现：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Shortcut Connection
 </span></span><span style=display:flex><span>├── Identity Shortcut
 </span></span><span style=display:flex><span>└── Projection Shortcut
-</span></span></code></pre></div><h2 id=72-identity-shortcut>7.2 Identity Shortcut</h2><p><strong>Identity Shortcut，恒等捷径</strong>：Shortcut 分支不改变输入，直接传递$x$。</p><p>$$<br>y=F(x)+x<br>$$</p><p>适用条件是：</p><p>$$<br>Shape(F(x))=Shape(x)<br>$$</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x       ：[8,64,56,56]
+</span></span></code></pre></div><h2 id=72-identity-shortcut>7.2 Identity Shortcut</h2><p><strong>Identity Shortcut，恒等捷径</strong>：Shortcut 分支不改变输入，直接传递<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>。</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+y=F(x)+x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>适用条件是：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mi>h</mi><mi>a</mi><mi>p</mi><mi>e</mi><mo stretchy="false">(</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>S</mi><mi>h</mi><mi>a</mi><mi>p</mi><mi>e</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+Shape(F(x))=Shape(x)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.05764em>S</span><span class="mord mathnormal">ha</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class=mopen>(</span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>))</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.05764em>S</span><span class="mord mathnormal">ha</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x       ：[8,64,56,56]
 </span></span><span style=display:flex><span>F(x)    ：[8,64,56,56]
 </span></span><span style=display:flex><span>输出    ：[8,64,56,56]
-</span></span></code></pre></div><blockquote><p>这里的数字表示张量 Shape，而不是张量内部的数值。</p></blockquote><p>它的特点是：</p><ul><li>不增加卷积参数；</li><li>几乎不增加计算量；</li><li>完整保留输入特征。</li></ul><p>论文 <strong>Figure 2</strong> 中展示的就是 Identity Shortcut。</p><hr><h2 id=73-projection-shortcut>7.3 Projection Shortcut</h2><p>当主分支改变了通道数或特征图尺寸时，$F(x)$与$x$无法直接相加。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x       ：[8,64,56,56]
+</span></span></code></pre></div><blockquote><p>这里的数字表示张量 Shape，而不是张量内部的数值。</p></blockquote><p>它的特点是：</p><ul><li>不增加卷积参数；</li><li>几乎不增加计算量；</li><li>完整保留输入特征。</li></ul><p>论文 <strong>Figure 2</strong> 中展示的就是 Identity Shortcut。</p><hr><h2 id=73-projection-shortcut>7.3 Projection Shortcut</h2><p>当主分支改变了通道数或特征图尺寸时，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>与<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>无法直接相加。</p><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>x       ：[8,64,56,56]
 </span></span><span style=display:flex><span>F(x)    ：[8,128,28,28]
-</span></span></code></pre></div><p>此时 Shortcut 分支需要先把$x$变换到与$F(x)$相同的 Shape：</p><p>$$<br>y=F(x)+W_sx<br>$$</p><p>其中$W_s$表示 Shortcut 上的线性投影，一般由$1\times1$卷积实现。</p><pre class=mermaid>
-flowchart LR
-    X["输入 x：64×56×56"] --> R["残差分支"]
-    R --> F["F(x)：128×28×28"]
+</span></span></code></pre></div><p>此时 Shortcut 分支需要先把<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span>变换到与<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>相同的 Shape：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>W</mi><mi>s</mi></msub><mi>x</mi></mrow><annotation encoding="application/x-tex">
+y=F(x)+W_sx
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.8333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.13889em>W</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.1389em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class="mord mathnormal">x</span></span></span></span></span><p>其中<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>s</mi></msub></mrow><annotation encoding="application/x-tex">W_s</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.13889em>W</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.1389em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span>表示 Shortcut 上的线性投影，一般由<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>卷积实现。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBYWyLovpPlhaUgeO+8mjY0w5c1NsOXNTYiXSAtLT4gUlsi5q6L5beu5YiG5pSvIl0KICAgIFIgLS0+IEZbIkYoeCnvvJoxMjjDlzI4w5cyOCJdCgogICAgWCAtLT4gUFsiMcOXMeWNt+enr++8jHN0cmlkZT0yIl0KICAgIFAgLS0+IFNbIuaKleW9see7k+aenO+8mjEyOMOXMjjDlzI4Il0KCiAgICBGIC0tPiBBWyLpgJDlhYPntKDnm7jliqAiXQogICAgUyAtLT4gQQogICAgQSAtLT4gWVsi6L6T5Ye677yaMTI4w5cyOMOXMjgiXQ==">flowchart LR
+    X[&#34;输入 x：64×56×56&#34;] --&gt; R[&#34;残差分支&#34;]
+    R --&gt; F[&#34;F(x)：128×28×28&#34;]
 
-    X --> P["1×1卷积，stride=2"]
-    P --> S["投影结果：128×28×28"]
+    X --&gt; P[&#34;1×1卷积，stride=2&#34;]
+    P --&gt; S[&#34;投影结果：128×28×28&#34;]
 
-    F --> A["逐元素相加"]
-    S --> A
-    A --> Y["输出：128×28×28"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>$1\times1$卷积可以同时完成：</p><ul><li>调整通道数；</li><li>配合 stride 调整空间尺寸；</li><li>保证两条分支可以逐元素相加。</li></ul><h2 id=74-两种-shortcut-如何选择>7.4 两种 Shortcut 如何选择</h2><table><thead><tr><th>情况</th><th>Shortcut</th></tr></thead><tbody><tr><td>输入输出 Shape 相同</td><td>Identity Shortcut</td></tr><tr><td>通道数或空间尺寸变化</td><td>Projection Shortcut</td></tr></tbody></table><p>一个 Stage 内部，大多数 Block 的 Shape 不变，因此主要使用 Identity Shortcut。</p><p>只有在 Stage 切换、下采样或通道变化的位置，才需要 Projection Shortcut。</p><hr><h2 id=75-resnet-使用的是相加不是拼接>7.5 ResNet 使用的是相加，不是拼接</h2><p>Residual Block 使用逐元素相加：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[8,64,H,W]+[8,64,H,W]
+    F --&gt; A[&#34;逐元素相加&#34;]
+    S --&gt; A
+    A --&gt; Y[&#34;输出：128×28×28&#34;]</pre><p><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>卷积可以同时完成：</p><ul><li>调整通道数；</li><li>配合 stride 调整空间尺寸；</li><li>保证两条分支可以逐元素相加。</li></ul><h2 id=74-两种-shortcut-如何选择>7.4 两种 Shortcut 如何选择</h2><table><thead><tr><th>情况</th><th>Shortcut</th></tr></thead><tbody><tr><td>输入输出 Shape 相同</td><td>Identity Shortcut</td></tr><tr><td>通道数或空间尺寸变化</td><td>Projection Shortcut</td></tr></tbody></table><p>一个 Stage 内部，大多数 Block 的 Shape 不变，因此主要使用 Identity Shortcut。</p><p>只有在 Stage 切换、下采样或通道变化的位置，才需要 Projection Shortcut。</p><hr><h2 id=75-resnet-使用的是相加不是拼接>7.5 ResNet 使用的是相加，不是拼接</h2><p>Residual Block 使用逐元素相加：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>[8,64,H,W]+[8,64,H,W]
 </span></span><span style=display:flex><span>            ↓
 </span></span><span style=display:flex><span>       [8,64,H,W]
 </span></span></code></pre></div><p>相加后通道数不变。</p><p>而拼接会把通道合并：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>concat([8,64,H,W],[8,64,H,W])
 </span></span><span style=display:flex><span>                  ↓
 </span></span><span style=display:flex><span>             [8,128,H,W]
-</span></span></code></pre></div><p>ResNet 的经典 Residual Block 使用的是 <strong>Add</strong>，不是 <strong>Concat</strong>。</p><hr><h1 id=8-basic-block-与-bottleneck>8. Basic Block 与 Bottleneck</h1><h2 id=81-basic-block>8.1 Basic Block</h2><p><strong>Basic Block，基础残差块</strong>：由两个$3\times3$卷积组成。</p><p>论文中用于：</p><ul><li>ResNet-18；</li><li>ResNet-34。</li></ul><p>结构可直接参考论文 <strong>Figure 2</strong>：</p><pre class=mermaid>
-flowchart LR
-    A["3×3 Conv"] --> B["BN"] --> C["ReLU"] --> D["3×3 Conv"] --> E["BN"] --> F["与 Shortcut 相加"] --> G["ReLU"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>Basic Block 的特点是结构简单，适合深度相对较小的网络。</p><h2 id=82-bottleneck-block>8.2 Bottleneck Block</h2><p><strong>Bottleneck</strong>：由三个卷积组成：</p><pre class=mermaid>
-flowchart LR
-    A["高通道输入"] --> B["1×1 Conv<br>减少通道"]
-    B --> C["3×3 Conv<br>在低通道上提取特征"]
-    C --> D["1×1 Conv<br>恢复通道"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>【Fig5】
-[Pasted image 20260711182248.png]</p><p>论文中用于：</p><ul><li>ResNet-50；</li><li>ResNet-101；</li><li>ResNet-152。</li></ul><p>例如输入有 256 个通道：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>256 → 64 → 64 → 256
-</span></span></code></pre></div><p>最消耗计算的$3\times3$卷积只在 64 个通道上执行，而不是直接在 256 个通道上执行。</p><p>直接在 256 通道上做$3\times3$卷积，参数量为：</p><p>$$<br>3\times3\times256\times256=589824<br>$$</p><p>压缩到 64 通道后再做：</p><p>$$<br>3\times3\times64\times64=36864<br>$$</p><p>因此，Bottleneck 并不是完全不增加参数，而是：</p><blockquote><p><strong>在把网络堆得更深时，通过$1\times1$卷积先压缩通道，让主要卷积在较低通道数上运行，从而控制参数量和计算量，最后再恢复输出通道。</strong></p></blockquote><p>还要注意，最后恢复通道是为了让输出具有足够的特征容量，并与 Shortcut 分支的 Shape 对齐。</p><blockquote><p><strong>Bottleneck 是一种适合构建更深网络的残差块：先用$1\times1$卷积降低通道，再用$3\times3$卷积提取特征，最后用$1\times1$卷积恢复通道，以控制网络加深带来的参数量和计算量增长。</strong></p></blockquote><p>==<strong>中间通道比两端窄，因此称为 Bottleneck。</strong>==</p><h2 id=83-两种-block-对比>8.3 两种 Block 对比</h2><table><thead><tr><th>对比项</th><th>Basic Block</th><th>Bottleneck</th></tr></thead><tbody><tr><td>结构</td><td>$3\times3\rightarrow3\times3$</td><td>$1\times1\rightarrow3\times3\rightarrow1\times1$</td></tr><tr><td>卷积层数</td><td>2 层</td><td>3 层</td></tr><tr><td>使用网络</td><td>ResNet-18/34</td><td>ResNet-50/101/152</td></tr><tr><td>主要特点</td><td>简单直接</td><td>通过通道压缩控制计算量</td></tr></tbody></table><p>这是论文架构部分最需要掌握的区别。</p><hr><h1 id=9-resnet-的整体网络组织>9. ResNet 的整体网络组织</h1><h2 id=91-stage-是什么>9.1 Stage 是什么</h2><p><strong>Stage，网络阶段</strong>：一组具有相同输出空间尺寸和通道数的 Residual Blocks。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入图像
+</span></span></code></pre></div><p>ResNet 的经典 Residual Block 使用的是 <strong>Add</strong>，不是 <strong>Concat</strong>。</p><hr><h1 id=8-basic-block-与-bottleneck>8. Basic Block 与 Bottleneck</h1><h2 id=81-basic-block>8.1 Basic Block</h2><p><strong>Basic Block，基础残差块</strong>：由两个<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span></span></span></span>卷积组成。</p><p>论文中用于：</p><ul><li>ResNet-18；</li><li>ResNet-34。</li></ul><p>结构可直接参考论文 <strong>Figure 2</strong>：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyIzw5czIENvbnYiXSAtLT4gQlsiQk4iXSAtLT4gQ1siUmVMVSJdIC0tPiBEWyIzw5czIENvbnYiXSAtLT4gRVsiQk4iXSAtLT4gRlsi5LiOIFNob3J0Y3V0IOebuOWKoCJdIC0tPiBHWyJSZUxVIl0=">flowchart LR
+    A[&#34;3×3 Conv&#34;] --&gt; B[&#34;BN&#34;] --&gt; C[&#34;ReLU&#34;] --&gt; D[&#34;3×3 Conv&#34;] --&gt; E[&#34;BN&#34;] --&gt; F[&#34;与 Shortcut 相加&#34;] --&gt; G[&#34;ReLU&#34;]</pre><p>Basic Block 的特点是结构简单，适合深度相对较小的网络。</p><h2 id=82-bottleneck-block>8.2 Bottleneck Block</h2><p><strong>Bottleneck</strong>：由三个卷积组成：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLpq5jpgJrpgZPovpPlhaUiXSAtLT4gQlsiMcOXMSBDb252PGJyLz7lh4/lsJHpgJrpgZMiXQogICAgQiAtLT4gQ1siM8OXMyBDb252PGJyLz7lnKjkvY7pgJrpgZPkuIrmj5Dlj5bnibnlvoEiXQogICAgQyAtLT4gRFsiMcOXMSBDb252PGJyLz7mgaLlpI3pgJrpgZMiXQ==">flowchart LR
+    A[&#34;高通道输入&#34;] --&gt; B[&#34;1×1 Conv&lt;br/&gt;减少通道&#34;]
+    B --&gt; C[&#34;3×3 Conv&lt;br/&gt;在低通道上提取特征&#34;]
+    C --&gt; D[&#34;1×1 Conv&lt;br/&gt;恢复通道&#34;]</pre><p>【Fig5】
+![[Pasted image 20260711182248.png]]</p><p>论文中用于：</p><ul><li>ResNet-50；</li><li>ResNet-101；</li><li>ResNet-152。</li></ul><p>例如输入有 256 个通道：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>256 → 64 → 64 → 256
+</span></span></code></pre></div><p>最消耗计算的<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span></span></span></span>卷积只在 64 个通道上执行，而不是直接在 256 个通道上执行。</p><p>直接在 256 通道上做<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span></span></span></span>卷积，参数量为：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>256</mn><mo>×</mo><mn>256</mn><mo>=</mo><mn>589824</mn></mrow><annotation encoding="application/x-tex">
+3\times3\times256\times256=589824
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>256</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>256</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>589824</span></span></span></span></span><p>压缩到 64 通道后再做：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>64</mn><mo>×</mo><mn>64</mn><mo>=</mo><mn>36864</mn></mrow><annotation encoding="application/x-tex">
+3\times3\times64\times64=36864
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>64</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>64</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>36864</span></span></span></span></span><p>因此，Bottleneck 并不是完全不增加参数，而是：</p><blockquote><p><strong>在把网络堆得更深时，通过<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>卷积先压缩通道，让主要卷积在较低通道数上运行，从而控制参数量和计算量，最后再恢复输出通道。</strong></p></blockquote><p>还要注意，最后恢复通道是为了让输出具有足够的特征容量，并与 Shortcut 分支的 Shape 对齐。</p><blockquote><p><strong>Bottleneck 是一种适合构建更深网络的残差块：先用<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>卷积降低通道，再用<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span></span></span></span>卷积提取特征，最后用<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>卷积恢复通道，以控制网络加深带来的参数量和计算量增长。</strong></p></blockquote><p>==<strong>中间通道比两端窄，因此称为 Bottleneck。</strong>==</p><h2 id=83-两种-block-对比>8.3 两种 Block 对比</h2><table><thead><tr><th>对比项</th><th>Basic Block</th><th>Bottleneck</th></tr></thead><tbody><tr><td>结构</td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn><mo>→</mo><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times3\rightarrow3\times3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span></span></span></span></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mn>1</mn><mo>→</mo><mn>3</mn><mo>×</mo><mn>3</mn><mo>→</mo><mn>1</mn><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1\times1\rightarrow3\times3\rightarrow1\times1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>3</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>3</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span></td></tr><tr><td>卷积层数</td><td>2 层</td><td>3 层</td></tr><tr><td>使用网络</td><td>ResNet-18/34</td><td>ResNet-50/101/152</td></tr><tr><td>主要特点</td><td>简单直接</td><td>通过通道压缩控制计算量</td></tr></tbody></table><p>这是论文架构部分最需要掌握的区别。</p><hr><h1 id=9-resnet-的整体网络组织>9. ResNet 的整体网络组织</h1><h2 id=91-stage-是什么>9.1 Stage 是什么</h2><p><strong>Stage，网络阶段</strong>：一组具有相同输出空间尺寸和通道数的 Residual Blocks。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入图像
 </span></span><span style=display:flex><span>   ↓
 </span></span><span style=display:flex><span>conv1
 </span></span><span style=display:flex><span>   ↓
@@ -1042,4 +232,16 @@ flowchart LR
 </span></span></code></pre></div><hr><h2 id=92-stage-之间发生什么变化>9.2 Stage 之间发生什么变化</h2><p>从一个 Stage 进入下一个 Stage 时，通常：</p><ul><li><p>特征图高度和宽度减半；</p></li><li><p>通道数加倍；</p></li><li><p>第一个 Block 使用 stride=2；</p></li><li><p>Shortcut 使用 Projection 对齐 Shape。</p></li></ul><p>例如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>conv2_x：64通道，56×56
 </span></span><span style=display:flex><span>              ↓
 </span></span><span style=display:flex><span>conv3_x：128通道，28×28
-</span></span></code></pre></div><p>同一个 Stage 内的后续 Block 通常不改变 Shape，因此使用 Identity Shortcut。</p><h2 id=93-为什么尺寸减半通道加倍>9.3 为什么尺寸减半、通道加倍</h2><p>卷积计算量可以近似写成：</p><p>$$<br>H\times W\times C_{in}\times C_{out}\times K^2<br>$$</p><p>当空间尺寸减半时，面积变为原来的四分之一；如果通道数加倍，通道相关计算约增加四倍。</p><p>在简化条件下，两者可以大致抵消，使不同 Stage 的计算量保持在相近量级。</p><h2 id=94-不同-resnet-的区别>9.4 不同 ResNet 的区别</h2><p>论文 <strong>Table 1</strong> 给出了各网络的 Block 数量。</p><table><thead><tr><th>网络</th><th>Block 类型</th><th>各 Stage 的 Block 数</th></tr></thead><tbody><tr><td>ResNet-18</td><td>Basic</td><td>2、2、2、2</td></tr><tr><td>ResNet-34</td><td>Basic</td><td>3、4、6、3</td></tr><tr><td>ResNet-50</td><td>Bottleneck</td><td>3、4、6、3</td></tr><tr><td>ResNet-101</td><td>Bottleneck</td><td>3、4、23、3</td></tr><tr><td>ResNet-152</td><td>Bottleneck</td><td>3、8、36、3</td></tr></tbody></table><ol><li>更深网络主要通过增加各 Stage 的 Block 数量实现。</li></ol><h1 id=10-训练与实验结论>10. 训练与实验结论</h1><h2 id=101-训练设置>10.1 训练设置</h2><p>论文 Section 3.4 使用了：</p><ul><li>SGD；</li><li>Batch Size 256；</li><li>初始学习率 0.1；</li><li>Momentum 0.9；</li><li>Weight Decay 0.0001；</li><li>随机裁剪和水平翻转；</li><li>每个卷积后使用 BN；</li><li>不使用 Dropout。</li></ul><h2 id=102-plain-network-与-resnet-的结论>10.2 Plain Network 与 ResNet 的结论</h2><p>实验表明：</p><ul><li>更深的 Plain Network 训练误差反而更高，出现退化问题；</li><li>加入 Residual Block 后，更深的网络可以获得更低的训练误差；</li><li>说明残差结构改善了深层网络的可优化性。</li></ul><h2 id=103-identity-与-projection-的结论>10.3 Identity 与 Projection 的结论</h2><p>论文比较了不同 Shortcut 方案。</p><p>结论是：</p><ul><li>Identity Shortcut 已经能够显著改善优化；</li><li>Projection Shortcut 会带来少量性能提升；</li><li>Projection 不是所有 Block 都必须使用；</li><li>实际上主要在 Shape 变化时使用 Projection。</li></ul><h2 id=104-更深不代表一定更好>10.4 更深不代表一定更好</h2><p>论文在 CIFAR-10 上训练了 1202 层 ResNet：</p><ul><li><p>训练误差很低；</p></li><li><p>测试效果反而不如 110 层网络。</p></li></ul><p>这属于过拟合，而不是退化问题。</p><p>因此：</p><blockquote><p>ResNet 使超深网络更容易训练，但不保证网络越深，泛化效果一定越好。</p></blockquote><h1 id=11-resnet-与-dncnn-中的残差>11. ResNet 与 DnCNN 中的“残差”</h1><p>两篇论文都使用“残差学习”，但残差发生的位置不同。</p><h2 id=111-resnet>11.1 ResNet</h2><p>ResNet 在网络内部学习特征变化：</p><p>$$<br>F(x)=H(x)-x<br>$$</p><p>最终输出：</p><p>$$<br>y=x+F(x)<br>$$</p><p>残差表示：</p><blockquote><p>当前 Block 的目标特征相对于输入特征需要改变多少。</p></blockquote><h2 id=112-dncnn>11.2 DnCNN</h2><p>带噪图像可以表示为：</p><p>$$<br>y=x+v<br>$$</p><p>其中$v$是噪声。</p><p>DnCNN 预测噪声：</p><p>$$<br>R(y)\approx v<br>$$</p><p>最后恢复干净图：</p><p>$$<br>\hat{x}=y-R(y)<br>$$</p><p>残差表示：</p><blockquote><p>带噪图像与干净图像之间的噪声差值。</p></blockquote><h2 id=113-对比>11.3 对比</h2><table><thead><tr><th>对比项</th><th>ResNet</th><th>DnCNN</th></tr></thead><tbody><tr><td>残差位置</td><td>网络内部 Block</td><td>网络最终输出目标</td></tr><tr><td>残差含义</td><td>特征变化量</td><td>图像噪声</td></tr><tr><td>最终运算</td><td>输入加残差</td><td>带噪图减预测噪声</td></tr><tr><td>核心公式</td><td>$y=x+F(x)$</td><td>$\hat{x}=y-R(y)$</td></tr><tr><td>主要目的</td><td>改善深层网络优化</td><td>简化去噪目标</td></tr></tbody></table><p>共同思想是：</p><blockquote><p>已有输入中包含大量有用信息，网络只学习相对于输入需要修改的部分。</p></blockquote><h2 id=12-一句话总结>12. 一句话总结</h2><p><strong>ResNet 用 Shortcut 保留原输入，让卷积分支只学习需要修改的特征；Identity 和 Projection 是 Shortcut 的两种实现，Basic Block 与 Bottleneck 则是残差结构在不同深度网络中的两种主要形式。</strong></p></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</span></span></code></pre></div><p>同一个 Stage 内的后续 Block 通常不改变 Shape，因此使用 Identity Shortcut。</p><h2 id=93-为什么尺寸减半通道加倍>9.3 为什么尺寸减半、通道加倍</h2><p>卷积计算量可以近似写成：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo>×</mo><mi>W</mi><mo>×</mo><msub><mi>C</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>×</mo><msub><mi>C</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>×</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+H\times W\times C_{in}\times C_{out}\times K^2
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7667em;vertical-align:-.0833em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7667em;vertical-align:-.0833em></span><span class="mord mathnormal" style=margin-right:.13889em>W</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.8333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3117em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.8333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.2806em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.8641em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>K</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8641em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><p>当空间尺寸减半时，面积变为原来的四分之一；如果通道数加倍，通道相关计算约增加四倍。</p><p>在简化条件下，两者可以大致抵消，使不同 Stage 的计算量保持在相近量级。</p><h2 id=94-不同-resnet-的区别>9.4 不同 ResNet 的区别</h2><p>论文 <strong>Table 1</strong> 给出了各网络的 Block 数量。</p><table><thead><tr><th>网络</th><th>Block 类型</th><th>各 Stage 的 Block 数</th></tr></thead><tbody><tr><td>ResNet-18</td><td>Basic</td><td>2、2、2、2</td></tr><tr><td>ResNet-34</td><td>Basic</td><td>3、4、6、3</td></tr><tr><td>ResNet-50</td><td>Bottleneck</td><td>3、4、6、3</td></tr><tr><td>ResNet-101</td><td>Bottleneck</td><td>3、4、23、3</td></tr><tr><td>ResNet-152</td><td>Bottleneck</td><td>3、8、36、3</td></tr></tbody></table><p>更深网络主要通过增加各 Stage 的 Block 数量实现。</p><h1 id=10-训练与实验结论>10. 训练与实验结论</h1><h2 id=101-训练设置>10.1 训练设置</h2><p>论文 Section 3.4 使用了：</p><ul><li>SGD；</li><li>Batch Size 256；</li><li>初始学习率 0.1；</li><li>Momentum 0.9；</li><li>Weight Decay 0.0001；</li><li>随机裁剪和水平翻转；</li><li>每个卷积后使用 BN；</li><li>不使用 Dropout。</li></ul><h2 id=102-plain-network-与-resnet-的结论>10.2 Plain Network 与 ResNet 的结论</h2><p>实验表明：</p><ul><li>更深的 Plain Network 训练误差反而更高，出现退化问题；</li><li>加入 Residual Block 后，更深的网络可以获得更低的训练误差；</li><li>说明残差结构改善了深层网络的可优化性。</li></ul><h2 id=103-identity-与-projection-的结论>10.3 Identity 与 Projection 的结论</h2><p>论文比较了不同 Shortcut 方案。</p><p>结论是：</p><ul><li>Identity Shortcut 已经能够显著改善优化；</li><li>Projection Shortcut 会带来少量性能提升；</li><li>Projection 不是所有 Block 都必须使用；</li><li>实际上主要在 Shape 变化时使用 Projection。</li></ul><h2 id=104-更深不代表一定更好>10.4 更深不代表一定更好</h2><p>论文在 CIFAR-10 上训练了 1202 层 ResNet：</p><ul><li><p>训练误差很低；</p></li><li><p>测试效果反而不如 110 层网络。</p></li></ul><p>这属于过拟合，而不是退化问题。</p><p>因此：</p><blockquote><p>ResNet 使超深网络更容易训练，但不保证网络越深，泛化效果一定越好。</p></blockquote><h1 id=11-resnet-与-dncnn-中的残差>11. ResNet 与 DnCNN 中的“残差”</h1><p>两篇论文都使用“残差学习”，但残差发生的位置不同。</p><h2 id=111-resnet>11.1 ResNet</h2><p>ResNet 在网络内部学习特征变化：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>−</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">
+F(x)=H(x)-x
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.08125em>H</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">x</span></span></span></span></span><p>最终输出：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+y=x+F(x)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><p>残差表示：</p><blockquote><p>当前 Block 的目标特征相对于输入特征需要改变多少。</p></blockquote><h2 id=112-dncnn>11.2 DnCNN</h2><p>带噪图像可以表示为：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">
+y=x+v
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.03588em>v</span></span></span></span></span><p>其中<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.03588em>v</span></span></span></span>是噪声。</p><p>DnCNN 预测噪声：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>≈</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">
+R(y)\approx v
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.00773em>R</span><span class=mopen>(</span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>≈</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.03588em>v</span></span></span></span></span><p>最后恢复干净图：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>x</mi><mo>^</mo></mover><mo>=</mo><mi>y</mi><mo>−</mo><mi>R</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
+\hat{x}=y-R(y)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6944em></span><span class="mord accent"><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal">x</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.2222em><span class=mord>^</span></span></span></span></span></span></span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7778em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.00773em>R</span><span class=mopen>(</span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span></span></span></span></span><p>残差表示：</p><blockquote><p>带噪图像与干净图像之间的噪声差值。</p></blockquote><h2 id=113-对比>11.3 对比</h2><table><thead><tr><th>对比项</th><th>ResNet</th><th>DnCNN</th></tr></thead><tbody><tr><td>残差位置</td><td>网络内部 Block</td><td>网络最终输出目标</td></tr><tr><td>残差含义</td><td>特征变化量</td><td>图像噪声</td></tr><tr><td>最终运算</td><td>输入加残差</td><td>带噪图减预测噪声</td></tr><tr><td>核心公式</td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>x</mi><mo>+</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">y=x+F(x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class="mord mathnormal">x</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.13889em>F</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>x</mi><mo>^</mo></mover><mo>=</mo><mi>y</mi><mo>−</mo><mi>R</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat{x}=y-R(y)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6944em></span><span class="mord accent"><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal">x</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.2222em><span class=mord>^</span></span></span></span></span></span></span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7778em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.00773em>R</span><span class=mopen>(</span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span></span></span></span></td></tr><tr><td>主要目的</td><td>改善深层网络优化</td><td>简化去噪目标</td></tr></tbody></table><p>共同思想是：</p><blockquote><p>已有输入中包含大量有用信息，网络只学习相对于输入需要修改的部分。</p></blockquote><h2 id=12-一句话总结>12. 一句话总结</h2><p><strong>ResNet 用 Shortcut 保留原输入，让卷积分支只学习需要修改的特征；Identity 和 Projection 是 Shortcut 的两种实现，Basic Block 与 Bottleneck 则是残差结构在不同深度网络中的两种主要形式。</strong></p></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

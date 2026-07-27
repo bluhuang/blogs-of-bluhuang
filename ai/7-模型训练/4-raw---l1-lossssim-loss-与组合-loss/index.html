@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/><title>Raw - L1 Loss、SSIM Loss 与组合 Loss</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="Raw - L1 Loss、SSIM Loss 与组合 Loss"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/"><meta name=twitter:title content="Raw - L1 Loss、SSIM Loss 与组合 Loss"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/><title>Raw - L1 Loss、SSIM Loss 与组合 Loss</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="Raw - L1 Loss、SSIM Loss 与组合 Loss"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/"><meta name=twitter:title content="Raw - L1 Loss、SSIM Loss 与组合 Loss"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/4-raw---l1-lossssim-loss-%E4%B8%8E%E7%BB%84%E5%90%88-loss/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -75,699 +75,94 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 <a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">Raw - L1 Loss、SSIM Loss 与组合 Loss</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年7月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-损失函数在训练流程中的位置>1 损失函数在训练流程中的位置</a></li><li><a href=#2-raw-域-loss为什么在-raw-域算>2 RAW 域 Loss：为什么在 RAW 域算</a><ol><li><a href=#21-噪声未被放大>2.1 噪声未被放大</a></li><li><a href=#22-输入输出同域>2.2 输入输出同域</a></li><li><a href=#23-与模型目标一致>2.3 与模型目标一致</a></li></ol></li><li><a href=#3-l1-loss--像素级的绝对误差>3 L1 Loss —— 像素级的绝对误差</a><ol><li><a href=#31-定义>3.1 定义</a></li><li><a href=#32-l1-vs-l2--为什么选-l1>3.2 L1 vs L2 —— 为什么选 L1？</a><ol><li><a href=#为什么说梯度差异是本质>为什么说梯度差异是本质？</a></li></ol></li><li><a href=#33-为什么去噪任务选-l1>3.3 为什么去噪任务选 L1？</a></li><li><a href=#34-但-l1-不是完美的>3.4 但 L1 不是完美的</a></li></ol></li><li><a href=#4-ssim-loss--结构级的相似性损失>4 SSIM Loss —— 结构级的相似性损失</a><ol><li><a href=#41-为什么需要-ssim>4.1 为什么需要 SSIM？</a></li><li><a href=#42-ssim-的三个分量>4.2 SSIM 的三个分量</a></li><li><a href=#43-窗口计算ssim-怎么算的>4.3 窗口计算——SSIM 怎么“算”的？</a></li><li><a href=#44-为什么用-1---ssim-作为-loss>4.4 为什么用 <code>1 - SSIM</code> 作为 Loss？</a></li><li><a href=#45-优化时-ssim-loss-在干什么>4.5 优化时 SSIM Loss 在干什么？</a></li></ol></li><li><a href=#5-组合-loss--l1-与-ssim-的加权互补>5 组合 Loss —— L1 与 SSIM 的加权互补</a><ol><li><a href=#51-为什么不是只用-l1-或只用-ssim>5.1 为什么不是只用 L1 或只用 SSIM？</a></li><li><a href=#52-什么是-1---ssim它为什么重要>5.2 什么是 <code>1 - SSIM</code>？它为什么重要？</a></li><li><a href=#53-为什么不是-l1--ssim>5.3 为什么不是 <code>L1 + SSIM</code>？</a></li><li><a href=#54-权重-016-和-084-的来源>5.4 权重 <code>0.16</code> 和 <code>0.84</code> 的来源</a></li><li><a href=#55-l1-和-ssim-如何配合>5.5 L1 和 SSIM 如何配合？</a></li></ol></li><li><a href=#6-一句话总结>6 一句话总结</a></li></ol></nav></details><h2 id=1-损失函数在训练流程中的位置>1 损失函数在训练流程中的位置</h2><p>损失函数（Loss Function）是整个训练流程的“方向盘”。它不决定模型能学到什么的上限，但它决定了模型朝哪个方向更新。</p><p>训练全景图如下：</p><pre class=mermaid>
-flowchart LR
-    A["输入数据<br>（带噪 RAW）"] --> B["模型前向<br>forward()"]
-    B --> C["输出预测<br>（去噪 RAW）"]
-    C --> D["损失函数<br>Loss"]
-    D --> E["反向传播<br>backward()"]
-    E --> F["计算梯度<br>gradient"]
-    F --> G["优化器更新<br>optimizer.step()"]
-    G --> B
+2026年7月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-损失函数在训练流程中的位置>1 损失函数在训练流程中的位置</a></li><li><a href=#2-raw-域-loss为什么在-raw-域算>2 RAW 域 Loss：为什么在 RAW 域算</a><ol><li><a href=#21-噪声未被放大>2.1 噪声未被放大</a></li><li><a href=#22-输入输出同域>2.2 输入输出同域</a></li><li><a href=#23-与模型目标一致>2.3 与模型目标一致</a></li></ol></li><li><a href=#3-l1-loss--像素级的绝对误差>3 L1 Loss —— 像素级的绝对误差</a><ol><li><a href=#31-定义>3.1 定义</a></li><li><a href=#32-l1-vs-l2--为什么选-l1>3.2 L1 vs L2 —— 为什么选 L1？</a><ol><li><a href=#为什么说梯度差异是本质>为什么说梯度差异是本质？</a></li></ol></li><li><a href=#33-为什么去噪任务选-l1>3.3 为什么去噪任务选 L1？</a></li><li><a href=#34-但-l1-不是完美的>3.4 但 L1 不是完美的</a></li></ol></li><li><a href=#4-ssim-loss--结构级的相似性损失>4 SSIM Loss —— 结构级的相似性损失</a><ol><li><a href=#41-为什么需要-ssim>4.1 为什么需要 SSIM？</a></li><li><a href=#42-ssim-的三个分量>4.2 SSIM 的三个分量</a></li><li><a href=#43-窗口计算ssim-怎么算的>4.3 窗口计算——SSIM 怎么“算”的？</a></li><li><a href=#44-为什么用-1---ssim-作为-loss>4.4 为什么用 <code>1 - SSIM</code> 作为 Loss？</a></li><li><a href=#45-优化时-ssim-loss-在干什么>4.5 优化时 SSIM Loss 在干什么？</a></li></ol></li><li><a href=#5-组合-loss--l1-与-ssim-的加权互补>5 组合 Loss —— L1 与 SSIM 的加权互补</a><ol><li><a href=#51-为什么不是只用-l1-或只用-ssim>5.1 为什么不是只用 L1 或只用 SSIM？</a></li><li><a href=#52-什么是-1---ssim它为什么重要>5.2 什么是 <code>1 - SSIM</code>？它为什么重要？</a></li><li><a href=#53-为什么不是-l1--ssim>5.3 为什么不是 <code>L1 + SSIM</code>？</a></li><li><a href=#54-权重-016-和-084-的来源>5.4 权重 <code>0.16</code> 和 <code>0.84</code> 的来源</a></li><li><a href=#55-l1-和-ssim-如何配合>5.5 L1 和 SSIM 如何配合？</a></li></ol></li><li><a href=#6-一句话总结>6 一句话总结</a></li></ol></nav></details><h2 id=1-损失函数在训练流程中的位置>1 损失函数在训练流程中的位置</h2><p>损失函数（Loss Function）是整个训练流程的“方向盘”。它不决定模型能学到什么的上限，但它决定了模型朝哪个方向更新。</p><p>训练全景图如下：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLovpPlhaXmlbDmja48YnIvPu+8iOW4puWZqiBSQVfvvIkiXSAtLT4gQlsi5qih5Z6L5YmN5ZCRPGJyLz5mb3J3YXJkKCkiXQogICAgQiAtLT4gQ1si6L6T5Ye66aKE5rWLPGJyLz7vvIjljrvlmaogUkFX77yJIl0KICAgIEMgLS0+IERbIuaNn+WkseWHveaVsDxici8+TG9zcyJdCiAgICBEIC0tPiBFWyLlj43lkJHkvKDmkq08YnIvPmJhY2t3YXJkKCkiXQogICAgRSAtLT4gRlsi6K6h566X5qKv5bqmPGJyLz5ncmFkaWVudCJdCiAgICBGIC0tPiBHWyLkvJjljJblmajmm7TmlrA8YnIvPm9wdGltaXplci5zdGVwKCkiXQogICAgRyAtLT4gQgogICAgCiAgICBEIC0tPiBIWyJMMSBMb3NzIl0KICAgIEQgLS0+IElbIlNTSU0gTG9zcyJdCiAgICBIIC0tPiBKWyLnu4TlkIggTG9zczxici8+cmF3X2xvc3MiXQogICAgSSAtLT4gSg==">flowchart LR
+    A[&#34;输入数据&lt;br/&gt;（带噪 RAW）&#34;] --&gt; B[&#34;模型前向&lt;br/&gt;forward()&#34;]
+    B --&gt; C[&#34;输出预测&lt;br/&gt;（去噪 RAW）&#34;]
+    C --&gt; D[&#34;损失函数&lt;br/&gt;Loss&#34;]
+    D --&gt; E[&#34;反向传播&lt;br/&gt;backward()&#34;]
+    E --&gt; F[&#34;计算梯度&lt;br/&gt;gradient&#34;]
+    F --&gt; G[&#34;优化器更新&lt;br/&gt;optimizer.step()&#34;]
+    G --&gt; B
     
-    D --> H["L1 Loss"]
-    D --> I["SSIM Loss"]
-    H --> J["组合 Loss<br>raw_loss"]
-    I --> J
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
+    D --&gt; H[&#34;L1 Loss&#34;]
+    D --&gt; I[&#34;SSIM Loss&#34;]
+    H --&gt; J[&#34;组合 Loss&lt;br/&gt;raw_loss&#34;]
+    I --&gt; J</pre><p><strong>关键区分：</strong></p><table><thead><tr><th>概念</th><th>定义</th><th>作用</th><th>是否可微</th></tr></thead><tbody><tr><td><strong>Loss（损失函数）</strong></td><td>训练时优化的目标，衡量预测和目标之间的差距</td><td>生成梯度，驱动模型更新</td><td>必须可微</td></tr><tr><td><strong>Metric（评价指标）</strong></td><td>训练后评估模型质量的标准（如 PSNR、SSIM）</td><td>衡量最终效果，与人眼感知对齐</td><td>不一定可微</td></tr></tbody></table><p><strong>Loss 本质上是一个可微的数学函数</strong>，输入是预测值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{y}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span></span></span></span> 和目标值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span></span></span>，输出是一个标量，表征两者的“距离”。训练时，优化器通过最小化这个标量，让 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{y}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span></span></span></span> 逐渐逼近 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span></span></span>。</p><p>去噪任务中，Loss 决定模型对“什么是好的去噪结果”的定义。如果 Loss 只看像素差异，模型倾向于输出平滑图像；如果 Loss 也看结构相似性，模型会保留更多边缘和纹理。</p><h2 id=2-raw-域-loss为什么在-raw-域算>2 RAW 域 Loss：为什么在 RAW 域算</h2><p>AIBNR 模型处理的是 Bayer RAW 数据，输出也是 Bayer RAW。Loss 直接在 RAW 域计算，原因有三：</p><h3 id=21-噪声未被放大>2.1 噪声未被放大</h3><p>RAW 域是 ISP 流水线的起点，数据最接近 Sensor 原始输出。噪声还没有经过 Demosaic（去马赛克）、AWB（白平衡）、CCM（色彩校正）、Gamma 等模块的处理，没有被非线性变换放大或扭曲。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyJTZW5zb3IgUkFXPGJyLz7vvIjlmarlo7Dljp/lp4vlvaLmgIHvvIkiXSAtLT4gQlsiQUlCTlI8YnIvPu+8iOaooeWei+WkhOeQhu+8iSJdCiAgICBCIC0tPiBDWyLljrvlmarlkI4gUkFXPGJyLz7vvIhMb3NzIOWcqOi/memHjOeul++8iSJdCiAgICBDIC0tPiBEWyJEZW1vc2FpYyJdCiAgICBEIC0tPiBFWyJBV0IgLyBDQ00gLyBHYW1tYSJdCiAgICBFIC0tPiBGWyJZVVYg5Z+f5aSE55CGIl0KICAgIAogICAgc3R5bGUgQyBmaWxsOiNlODkyM2EsY29sb3I6I2ZmZg==">flowchart LR
+    A[&#34;Sensor RAW&lt;br/&gt;（噪声原始形态）&#34;] --&gt; B[&#34;AIBNR&lt;br/&gt;（模型处理）&#34;]
+    B --&gt; C[&#34;去噪后 RAW&lt;br/&gt;（Loss 在这里算）&#34;]
+    C --&gt; D[&#34;Demosaic&#34;]
+    D --&gt; E[&#34;AWB / CCM / Gamma&#34;]
+    E --&gt; F[&#34;YUV 域处理&#34;]
     
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>关键区分：</strong></p><table><thead><tr><th>概念</th><th>定义</th><th>作用</th><th>是否可微</th></tr></thead><tbody><tr><td><strong>Loss（损失函数）</strong></td><td>训练时优化的目标，衡量预测和目标之间的差距</td><td>生成梯度，驱动模型更新</td><td>必须可微</td></tr><tr><td><strong>Metric（评价指标）</strong></td><td>训练后评估模型质量的标准（如 PSNR、SSIM）</td><td>衡量最终效果，与人眼感知对齐</td><td>不一定可微</td></tr></tbody></table><p><strong>Loss 本质上是一个可微的数学函数</strong>，输入是预测值 $\hat{y}$ 和目标值 $y$，输出是一个标量，表征两者的“距离”。训练时，优化器通过最小化这个标量，让 $\hat{y}$ 逐渐逼近 $y$。</p><p>去噪任务中，Loss 决定模型对“什么是好的去噪结果”的定义。如果 Loss 只看像素差异，模型倾向于输出平滑图像；如果 Loss 也看结构相似性，模型会保留更多边缘和纹理。</p><h2 id=2-raw-域-loss为什么在-raw-域算>2 RAW 域 Loss：为什么在 RAW 域算</h2><p>AIBNR 模型处理的是 Bayer RAW 数据，输出也是 Bayer RAW。Loss 直接在 RAW 域计算，原因有三：</p><h3 id=21-噪声未被放大>2.1 噪声未被放大</h3><p>RAW 域是 ISP 流水线的起点，数据最接近 Sensor 原始输出。噪声还没有经过 Demosaic（去马赛克）、AWB（白平衡）、CCM（色彩校正）、Gamma 等模块的处理，没有被非线性变换放大或扭曲。</p><pre class=mermaid>
-flowchart LR
-    A["Sensor RAW<br>（噪声原始形态）"] --> B["AIBNR<br>（模型处理）"]
-    B --> C["去噪后 RAW<br>（Loss 在这里算）"]
-    C --> D["Demosaic"]
-    D --> E["AWB / CCM / Gamma"]
-    E --> F["YUV 域处理"]
-    
-    style C fill:#e8923a,color:#fff
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>如果在 RGB 或 YUV 域算 Loss，噪声已经被 ISP 的后续模块“加工”过，模型无法直接看到原始噪声的统计特性。</p><h3 id=22-输入输出同域>2.2 输入输出同域</h3><p>模型的输入是 Bayer RAW，输出也是 Bayer RAW。Loss 在同一个数据域计算，避免了跨域转换带来的额外误差。RGB 域的 Loss 需要先做 Demosaic（去马赛克），会引入插值误差；YUV 域的 Loss 需要经过色彩空间转换，会引入变换误差。</p><h3 id=23-与模型目标一致>2.3 与模型目标一致</h3><p>模型的目标就是“在 RAW 域去除噪声”，Loss 在 RAW 域衡量去噪效果，目标与 Loss 在同一个域上，没有偏移。</p><h2 id=3-l1-loss--像素级的绝对误差>3 L1 Loss —— 像素级的绝对误差</h2><h3 id=31-定义>3.1 定义</h3><p>L1 Loss（Mean Absolute Error, MAE）衡量预测值 $\hat{y}$ 与目标值 $y$ 之间绝对误差的平均值：</p><p>$$
+    style C fill:#e8923a,color:#fff</pre><p>如果在 RGB 或 YUV 域算 Loss，噪声已经被 ISP 的后续模块“加工”过，模型无法直接看到原始噪声的统计特性。</p><h3 id=22-输入输出同域>2.2 输入输出同域</h3><p>模型的输入是 Bayer RAW，输出也是 Bayer RAW。Loss 在同一个数据域计算，避免了跨域转换带来的额外误差。RGB 域的 Loss 需要先做 Demosaic（去马赛克），会引入插值误差；YUV 域的 Loss 需要经过色彩空间转换，会引入变换误差。</p><h3 id=23-与模型目标一致>2.3 与模型目标一致</h3><p>模型的目标就是“在 RAW 域去除噪声”，Loss 在 RAW 域衡量去噪效果，目标与 Loss 在同一个域上，没有偏移。</p><h2 id=3-l1-loss--像素级的绝对误差>3 L1 Loss —— 像素级的绝对误差</h2><h3 id=31-定义>3.1 定义</h3><p>L1 Loss（Mean Absolute Error, MAE）衡量预测值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{y}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span></span></span></span> 与目标值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span></span></span> 之间绝对误差的平均值：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mn>1</mn><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mo fence="true">∣</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">∣</mo></mrow></mrow><annotation encoding="application/x-tex">
 L1 = \frac{1}{N} \sum_{i=1}^{N} \left| \hat{y}_i - y_i \right|
-$$</p><p>其中 $N$ 是像素总数。对于去噪任务，$\hat{y}$ 是模型输出去噪后的 RAW，$y$ 是干净目标（Ground Truth）。</p><p>代码中的计算方式（PyTorch）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> torch.nn <span style=color:#66d9ef>as</span> nn
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal">L</span><span class=mord>1</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:3.106em;vertical-align:-1.2777em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3214em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class="mord mathnormal" style=margin-right:.10903em>N</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.8283em><span style=top:-1.8723em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style=top:-3.05em><span class=pstrut style=height:3.05em></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style=top:-4.3em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style=margin-right:.10903em>N</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:1.2777em><span></span></span></span></span></span><span class=mspace style=margin-right:.1667em></span><span class=minner><span class="mopen delimcenter" style=top:0>∣</span><span class=mord><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3117em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3117em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class="mclose delimcenter" style=top:0>∣</span></span></span></span></span></span><p>其中 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.10903em>N</span></span></span></span> 是像素总数。对于去噪任务，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{y}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span></span></span></span> 是模型输出去噪后的 RAW，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span></span></span> 是干净目标（Ground Truth）。</p><p>代码中的计算方式（PyTorch）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> torch.nn <span style=color:#66d9ef>as</span> nn
 </span></span><span style=display:flex><span>l1_loss_fn <span style=color:#f92672>=</span> nn<span style=color:#f92672>.</span>L1Loss()
 </span></span><span style=display:flex><span>loss_l1 <span style=color:#f92672>=</span> l1_loss_fn(net_out, target_mix_noise)
-</span></span></code></pre></div><p><code>nn.L1Loss()</code> 的默认行为是计算所有像素的绝对误差的平均值，即返回一个标量。</p><h3 id=32-l1-vs-l2--为什么选-l1>3.2 L1 vs L2 —— 为什么选 L1？</h3><p>L2 Loss（Mean Squared Error, MSE）定义为：</p><p>$$
+</span></span></code></pre></div><p><code>nn.L1Loss()</code> 的默认行为是计算所有像素的绝对误差的平均值，即返回一个标量。</p><h3 id=32-l1-vs-l2--为什么选-l1>3.2 L1 vs L2 —— 为什么选 L1？</h3><p>L2 Loss（Mean Squared Error, MSE）定义为：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mn>2</mn><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msup><mrow><mo fence="true">(</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
 L2 = \frac{1}{N} \sum_{i=1}^{N} \left( \hat{y}_i - y_i \right)^2
-$$</p><p>两者的核心差异在于<strong>对误差的惩罚方式</strong>：</p><table><thead><tr><th>维度</th><th>L1（MAE）</th><th>L2（MSE）</th></tr></thead><tbody><tr><td><strong>公式</strong></td><td>$\frac{1}{N}\sum |e|$</td><td>$\frac{1}{N}\sum e^2$</td></tr><tr><td><strong>对大误差的惩罚</strong></td><td>线性（$\propto |e|$）</td><td>平方（$\propto e^2$）</td></tr><tr><td><strong>梯度大小</strong></td><td>恒定（$\pm 1$）</td><td>与误差成正比（$2e$）</td></tr><tr><td><strong>对异常值的敏感度</strong></td><td>稳健，大误差不主导 Loss</td><td>敏感，大误差主导 Loss</td></tr><tr><td><strong>优化行为</strong></td><td>收敛慢但稳定</td><td>收敛快但可能震荡</td></tr></tbody></table><p><strong>梯度差异是 L1 和 L2 最本质的区别。</strong></p><pre class=mermaid>
-flowchart LR
-    subgraph Error["误差 e 的状态"]
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal">L</span><span class=mord>2</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:3.106em;vertical-align:-1.2777em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3214em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class="mord mathnormal" style=margin-right:.10903em>N</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.8283em><span style=top:-1.8723em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style=top:-3.05em><span class=pstrut style=height:3.05em></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style=top:-4.3em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style=margin-right:.10903em>N</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:1.2777em><span></span></span></span></span></span><span class=mspace style=margin-right:.1667em></span><span class=minner><span class=minner><span class="mopen delimcenter" style=top:0>(</span><span class=mord><span class="mord accent"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.6944em><span style=top:-3em><span class=pstrut style=height:3em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span></span><span style=top:-3em><span class=pstrut style=height:3em></span><span class=accent-body style=left:-.1944em><span class=mord>^</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.1944em><span></span></span></span></span></span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3117em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3117em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class="mclose delimcenter" style=top:0>)</span></span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.954em><span style=top:-3.2029em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><p>两者的核心差异在于<strong>对误差的惩罚方式</strong>：</p><table><thead><tr><th>维度</th><th>L1（MAE）</th><th>L2（MSE）</th></tr></thead><tbody><tr><td><strong>公式</strong></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>∑</mo><mi mathvariant="normal">∥</mi><mi>e</mi><mi mathvariant="normal">∥</mi></mrow><annotation encoding="application/x-tex">\frac{1}{N}\sum \|e\|</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1.1901em;vertical-align:-.345em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.8451em><span style=top:-2.655em><span class=pstrut style=height:3em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style=margin-right:.10903em>N</span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.394em><span class=pstrut style=height:3em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.345em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class="mop op-symbol small-op" style=position:relative;top:0>∑</span><span class=mspace style=margin-right:.1667em></span><span class=mord>∥</span><span class="mord mathnormal">e</span><span class=mord>∥</span></span></span></span></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mi>N</mi></mfrac><mo>∑</mo><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\frac{1}{N}\sum e^2</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1.1901em;vertical-align:-.345em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.8451em><span style=top:-2.655em><span class=pstrut style=height:3em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style=margin-right:.10903em>N</span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.394em><span class=pstrut style=height:3em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.345em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class="mop op-symbol small-op" style=position:relative;top:0>∑</span><span class=mspace style=margin-right:.1667em></span><span class=mord><span class="mord mathnormal">e</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8141em><span style=top:-3.063em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td></tr><tr><td><strong>对大误差的惩罚</strong></td><td>线性（<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∝</mo><mi mathvariant="normal">∥</mi><mi>e</mi><mi mathvariant="normal">∥</mi></mrow><annotation encoding="application/x-tex">\propto \|e\|</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class=mrel>∝</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mord>∥</span><span class="mord mathnormal">e</span><span class=mord>∥</span></span></span></span>）</td><td>平方（<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∝</mo><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\propto e^2</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class=mrel>∝</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.8141em></span><span class=mord><span class="mord mathnormal">e</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8141em><span style=top:-3.063em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>）</td></tr><tr><td><strong>梯度大小</strong></td><td>恒定（<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>±</span><span class=mord>1</span></span></span></span>）</td><td>与误差成正比（<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>e</mi></mrow><annotation encoding="application/x-tex">2e</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span><span class="mord mathnormal">e</span></span></span></span>）</td></tr><tr><td><strong>对异常值的敏感度</strong></td><td>稳健，大误差不主导 Loss</td><td>敏感，大误差主导 Loss</td></tr><tr><td><strong>优化行为</strong></td><td>收敛慢但稳定</td><td>收敛快但可能震荡</td></tr></tbody></table><p><strong>梯度差异是 L1 和 L2 最本质的区别。</strong></p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBFcnJvclsi6K+v5beuIGUg55qE54q25oCBIl0KICAgICAgICBkaXJlY3Rpb24gTFIKICAgICAgICBFMVsi5aSn6K+v5beuPGJyLz4o5L6L5aaCIGU9MykiXQogICAgICAgIEUyWyLkuK3or6/lt648YnIvPijkvovlpoIgZT0xKSJdCiAgICAgICAgRTNbIuWwj+ivr+W3rjxici8+KOS+i+WmgiBlPTAuMSkiXQogICAgZW5kCgogICAgc3ViZ3JhcGggTDFbIkwxIOair+W6piA9IMKxMSJdCiAgICAgICAgZGlyZWN0aW9uIFRCCiAgICAgICAgTDFfMVsi5aeL57uI5Li6IMKxMTxici8+5q2l6ZW/5oGS5a6a5LiN5Y+YIl0KICAgICAgICBMMV8yWyLlp4vnu4jkuLogwrExPGJyLz7mraXplb/mgZLlrprkuI3lj5giXQogICAgICAgIEwxXzNbIuWni+e7iOS4uiDCsTE8YnIvPuatpemVv+aBkuWumuS4jeWPmCJdCiAgICBlbmQKCiAgICBzdWJncmFwaCBMMlsiTDIg5qKv5bqmID0gMmUiXQogICAgICAgIGRpcmVjdGlvbiBUQgogICAgICAgIEwyXzFbIj0gNjxici8+5q2l6ZW/5beo5aSnPGJyLz7ov4fluqbmg6nnvZrlpKfor6/lt64iXQogICAgICAgIEwyXzJbIj0gMjxici8+5q2l6ZW/6YCC5LitIl0KICAgICAgICBMMl8zWyI9IDAuMjxici8+5q2l6ZW/5b6I5bCPPGJyLz7mjqXov5HmnIDkvJjml7boh6rliqjlh4/pgJ8iXQogICAgZW5kCgogICAgRTEgLS0+IEwxCiAgICBFMSAtLT4gTDIKICAgIEUyIC0tPiBMMQogICAgRTIgLS0+IEwyCiAgICBFMyAtLT4gTDEKICAgIEUzIC0tPiBMMgoKICAgIEwxIC0uLT4gUjFbIuKchSDlr7nlvILluLjlgLzkuI3mlY/mhJ88YnIvPumygeajkuaAp+W8uiJdCiAgICBMMiAtLi0+IFIyWyLinYwg6KKr5aSn6K+v5beu5Li75a+8PGJyLz7orq3nu4PkuI3nqLPlrpoiXQ==">flowchart LR
+    subgraph Error[&#34;误差 e 的状态&#34;]
         direction LR
-        E1["大误差<br>(例如 e=3)"]
-        E2["中误差<br>(例如 e=1)"]
-        E3["小误差<br>(例如 e=0.1)"]
+        E1[&#34;大误差&lt;br/&gt;(例如 e=3)&#34;]
+        E2[&#34;中误差&lt;br/&gt;(例如 e=1)&#34;]
+        E3[&#34;小误差&lt;br/&gt;(例如 e=0.1)&#34;]
     end
 
-    subgraph L1["L1 梯度 = ±1"]
+    subgraph L1[&#34;L1 梯度 = ±1&#34;]
         direction TB
-        L1_1["始终为 ±1<br>步长恒定不变"]
-        L1_2["始终为 ±1<br>步长恒定不变"]
-        L1_3["始终为 ±1<br>步长恒定不变"]
+        L1_1[&#34;始终为 ±1&lt;br/&gt;步长恒定不变&#34;]
+        L1_2[&#34;始终为 ±1&lt;br/&gt;步长恒定不变&#34;]
+        L1_3[&#34;始终为 ±1&lt;br/&gt;步长恒定不变&#34;]
     end
 
-    subgraph L2["L2 梯度 = 2e"]
+    subgraph L2[&#34;L2 梯度 = 2e&#34;]
         direction TB
-        L2_1["= 6<br>步长巨大<br>过度惩罚大误差"]
-        L2_2["= 2<br>步长适中"]
-        L2_3["= 0.2<br>步长很小<br>接近最优时自动减速"]
+        L2_1[&#34;= 6&lt;br/&gt;步长巨大&lt;br/&gt;过度惩罚大误差&#34;]
+        L2_2[&#34;= 2&lt;br/&gt;步长适中&#34;]
+        L2_3[&#34;= 0.2&lt;br/&gt;步长很小&lt;br/&gt;接近最优时自动减速&#34;]
     end
 
-    E1 --> L1
-    E1 --> L2
-    E2 --> L1
-    E2 --> L2
-    E3 --> L1
-    E3 --> L2
+    E1 --&gt; L1
+    E1 --&gt; L2
+    E2 --&gt; L1
+    E2 --&gt; L2
+    E3 --&gt; L1
+    E3 --&gt; L2
 
-    L1 -.-> R1["✅ 对异常值不敏感<br>鲁棒性强"]
-    L2 -.-> R2["❌ 被大误差主导<br>训练不稳定"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>L1 的梯度恒定为 $\pm 1$（当 $e \neq 0$），意味着每个像素不管误差大小，对梯度的贡献权重相同。L2 的梯度为 $2e$，误差越大的像素对梯度的影响越大，导致模型优先“修复”大误差区域。</p><h4 id=为什么说梯度差异是本质>为什么说梯度差异是本质？</h4><p>看 L1 和 L2 对误差 $e$ 的梯度：</p><table><thead><tr><th>损失函数</th><th>公式 $L(e)$</th><th>梯度 $\frac{\partial L}{\partial e}$</th><th>误差 $e$ 很大时，梯度表现</th></tr></thead><tbody><tr><td><strong>L2 (MSE)</strong></td><td>$e^2$</td><td>$2e$</td><td><strong>超大</strong>（误差越大，梯度线性增长）</td></tr><tr><td><strong>L1 (MAE)</strong></td><td>$|e|$</td><td>$\pm 1$（常数）</td><td><strong>恒定</strong>（无论误差多大，梯度都一样）</td></tr></tbody></table><p><strong>这意味着什么？</strong><br>当模型预测错误很严重时（$e$ 很大）：</p><ul><li><strong>L2 损失</strong>：梯度巨大 → 更新步长巨大 → 模型会“猛拐”去修正这个离群点，这会导致训练不稳定，甚至为了迁就几个噪声点而牺牲整体平滑度。</li><li><strong>L1 损失</strong>：梯度永远为 1 或 -1 → 更新步长适中 → 模型不会因为某个点误差大就惊慌失措，它稳健地朝正确方向走，对噪声和异常值更鲁棒。</li></ul><p><strong>L1 和 L2 最根本的不同，在于它们对误差施加的“加速度”不同（L1 恒定，L2 随误差增大而增大），这直接决定了模型训练时的鲁棒性和收敛行为。</strong></p><h3 id=33-为什么去噪任务选-l1>3.3 为什么去噪任务选 L1？</h3><p><strong>去噪任务中残留的噪声像素本身就是异常值</strong>。如果使用 L2 Loss，这些残留噪声（大误差）会主导梯度方向，模型会过度关注少数几个噪声点的像素值，而忽略整体纹理的保持。L1 Loss 对每个像素一视同仁，梯度更稳定。</p><h3 id=34-但-l1-不是完美的>3.4 但 L1 不是完美的</h3><p>L1 的梯度恒为常数，意味着当预测值已经接近目标值（$e \to 0$）时，梯度仍然保持 $\pm 1$，不会像 L2 那样自动减小步长。这会导致<strong>收敛到最优值附近时出现微小震荡</strong>，难以达到极高的精度。</p><p>这也是为什么 L1 通常不单独使用，而是与其他 Loss（如 SSIM）组合使用，弥补各自的不足。</p><h2 id=4-ssim-loss--结构级的相似性损失>4 SSIM Loss —— 结构级的相似性损失</h2><h3 id=41-为什么需要-ssim>4.1 为什么需要 SSIM？</h3><p>L1/L2 是像素级 Loss，但人眼评价图像质量时，更关注的是<strong>亮度、对比度、纹理结构</strong>等高层特征。两张像素值完全相同的图像一定相似，但像素值略有不同的两张图像，人眼可能觉得非常相似或完全不同——取决于差异是否影响结构感知。</p><p>SSIM 的设计目标是：<strong>让 Loss 的数值变化与人眼的主观感受对齐</strong>。</p><h3 id=42-ssim-的三个分量>4.2 SSIM 的三个分量</h3><p>SSIM（Structural Similarity Index）基于三个分量的乘积：</p><p>$$
+    L1 -.-&gt; R1[&#34;✅ 对异常值不敏感&lt;br/&gt;鲁棒性强&#34;]
+    L2 -.-&gt; R2[&#34;❌ 被大误差主导&lt;br/&gt;训练不稳定&#34;]</pre><p>L1 的梯度恒定为 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>±</span><span class=mord>1</span></span></span></span>（当 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo mathvariant="normal">≠</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e \neq 0</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord mathnormal">e</span><span class=mspace style=margin-right:.2778em></span><span class=mrel><span class=mrel><span class="mord vbox"><span class=thinbox><span class=rlap><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class=inner><span class=mord><span class=mrel></span></span></span><span class=fix></span></span></span></span></span><span class=mrel>=</span></span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>0</span></span></span></span>），意味着每个像素不管误差大小，对梯度的贡献权重相同。L2 的梯度为 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>e</mi></mrow><annotation encoding="application/x-tex">2e</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span><span class="mord mathnormal">e</span></span></span></span>，误差越大的像素对梯度的影响越大，导致模型优先“修复”大误差区域。</p><h4 id=为什么说梯度差异是本质>为什么说梯度差异是本质？</h4><p>看 L1 和 L2 对误差 ee 的梯度：</p><table><thead><tr><th>损失函数</th><th>公式 L(e)L(e)</th><th>梯度 ∂L∂e∂e∂L​</th><th>误差 ee 很大时，梯度表现</th></tr></thead><tbody><tr><td><strong>L2 (MSE)</strong></td><td>e2e2</td><td>2e2e</td><td><strong>超大</strong>（误差越大，梯度线性增长）</td></tr><tr><td><strong>L1 (MAE)</strong></td><td>∥e∥∥e∥</td><td>±1±1 （常数）</td><td><strong>恒定</strong>（无论误差多大，梯度都一样）</td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><p><strong>这意味着什么？</strong><br>当模型预测错误很严重时（ee 很大）：</p><ul><li><strong>L2 损失</strong>：梯度巨大 → 更新步长巨大 → 模型会“猛拐”去修正这个离群点，这会导致训练不稳定，甚至为了迁就几个噪声点而牺牲整体平滑度。</li><li><strong>L1 损失</strong>：梯度永远为 1 或 -1 → 更新步长适中 → 模型不会因为某个点误差大就惊慌失措，它稳健地朝正确方向走，对噪声和异常值更鲁棒。</li></ul><p><strong>L1 和 L2 最根本的不同，在于它们对误差施加的“加速度”不同（L1 恒定，L2 随误差增大而增大），这直接决定了模型训练时的鲁棒性和收敛行为。</strong></p><h3 id=33-为什么去噪任务选-l1>3.3 为什么去噪任务选 L1？</h3><p><strong>去噪任务中残留的噪声像素本身就是异常值</strong>。如果使用 L2 Loss，这些残留噪声（大误差）会主导梯度方向，模型会过度关注少数几个噪声点的像素值，而忽略整体纹理的保持。L1 Loss 对每个像素一视同仁，梯度更稳定。</p><h3 id=34-但-l1-不是完美的>3.4 但 L1 不是完美的</h3><p>L1 的梯度恒为常数，意味着当预测值已经接近目标值（<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">e \to 0</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">e</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>0</span></span></span></span>）时，梯度仍然保持 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>±</span><span class=mord>1</span></span></span></span>，不会像 L2 那样自动减小步长。这会导致<strong>收敛到最优值附近时出现微小震荡</strong>，难以达到极高的精度。</p><p>这也是为什么 L1 通常不单独使用，而是与其他 Loss（如 SSIM）组合使用，弥补各自的不足。</p><h2 id=4-ssim-loss--结构级的相似性损失>4 SSIM Loss —— 结构级的相似性损失</h2><h3 id=41-为什么需要-ssim>4.1 为什么需要 SSIM？</h3><p>L1/L2 是像素级 Loss，但人眼评价图像质量时，更关注的是<strong>亮度、对比度、纹理结构</strong>等高层特征。两张像素值完全相同的图像一定相似，但像素值略有不同的两张图像，人眼可能觉得非常相似或完全不同——取决于差异是否影响结构感知。</p><p>SSIM 的设计目标是：<strong>让 Loss 的数值变化与人眼的主观感受对齐</strong>。</p><h3 id=42-ssim-的三个分量>4.2 SSIM 的三个分量</h3><p>SSIM（Structural Similarity Index）基于三个分量的乘积：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>l</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><msup><mo stretchy="false">)</mo><mi>α</mi></msup><mo>⋅</mo><mi>c</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><msup><mo stretchy="false">)</mo><mi>β</mi></msup><mo>⋅</mo><mi>s</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><msup><mo stretchy="false">)</mo><mi>γ</mi></msup></mrow><annotation encoding="application/x-tex">
 SSIM(x, y) = l(x, y)^\alpha \cdot c(x, y)^\beta \cdot s(x, y)^\gamma
-$$</p><p>通常 $\alpha = \beta = \gamma = 1$，简化为：</p><p>$$
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.01968em>l</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose><span class=mclose>)</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.7144em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.0037em>α</span></span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>⋅</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1.1491em;vertical-align:-.25em></span><span class="mord mathnormal">c</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose><span class=mclose>)</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.8991em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.05278em>β</span></span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>⋅</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">s</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose><span class=mclose>)</span><span class=msupsub><span class=vlist-t><span class=vlist-r><span class=vlist style=height:.7144em><span style=top:-3.113em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.05556em>γ</span></span></span></span></span></span></span></span></span></span></span></span><p>通常 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mi>β</mi><mo>=</mo><mi>γ</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\alpha = \beta = \gamma = 1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.0037em>α</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.8889em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.05278em>β</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal" style=margin-right:.05556em>γ</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>，简化为：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>l</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi>c</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>⋅</mo><mi>s</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
 SSIM(x, y) = l(x, y) \cdot c(x, y) \cdot s(x, y)
-$$</p><p><strong>亮度</strong> $l$：比较两个窗口的均值 $\mu_x$、$\mu_y$</p><p>$$
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.01968em>l</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>⋅</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">c</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>⋅</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">s</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span></span></span></span></span><p><strong>亮度</strong> <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.6944em></span><span class="mord mathnormal" style=margin-right:.01968em>l</span></span></span></span>：比较两个窗口的均值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\mu_x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span>、<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">\mu_y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7167em;vertical-align:-.2861em></span><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span></span></span></span></p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>l</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mn>2</mn><msub><mi>μ</mi><mi>x</mi></msub><msub><mi>μ</mi><mi>y</mi></msub><mo>+</mo><msub><mi>C</mi><mn>1</mn></msub></mrow><mrow><msubsup><mi>μ</mi><mi>x</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>μ</mi><mi>y</mi><mn>2</mn></msubsup><mo>+</mo><msub><mi>C</mi><mn>1</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 l(x, y) = \frac{2\mu_x\mu_y + C_1}{\mu_x^2 + \mu_y^2 + C_1}
-$$</p><p><strong>对比度</strong> $c$：比较两个窗口的标准差 $\sigma_x$、$\sigma_y$</p><p>$$
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.01968em>l</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:2.4294em;vertical-align:-1.0691em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3603em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.7401em><span style=top:-2.453em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span><span style=top:-2.989em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.247em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.7401em><span style=top:-2.453em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span><span style=top:-2.989em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.3831em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>2</span><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal">μ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:1.0691em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><p><strong>对比度</strong> <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">c</span></span></span></span>：比较两个窗口的标准差 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_x</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.5806em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span>、<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_y</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7167em;vertical-align:-.2861em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span></span></span></span></p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>c</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mn>2</mn><msub><mi>σ</mi><mi>x</mi></msub><msub><mi>σ</mi><mi>y</mi></msub><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub></mrow><mrow><msubsup><mi>σ</mi><mi>x</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>σ</mi><mi>y</mi><mn>2</mn></msubsup><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 c(x, y) = \frac{2\sigma_x\sigma_y + C_2}{\sigma_x^2 + \sigma_y^2 + C_2}
-$$</p><p><strong>结构</strong> $s$：比较两个窗口的协方差 $\sigma_{xy}$（反映纹理相似性）</p><p>$$
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">c</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:2.4294em;vertical-align:-1.0691em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3603em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.7401em><span style=top:-2.453em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span><span style=top:-2.989em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.247em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.7401em><span style=top:-2.453em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span><span style=top:-2.989em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.3831em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>2</span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:1.0691em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><p><strong>结构</strong> <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">s</span></span></span></span>：比较两个窗口的协方差 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>x</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sigma_{xy}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7167em;vertical-align:-.2861em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span></span></span></span>（反映纹理相似性）</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>s</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><msub><mi>σ</mi><mrow><mi>x</mi><mi>y</mi></mrow></msub><mo>+</mo><msub><mi>C</mi><mn>3</mn></msub></mrow><mrow><msub><mi>σ</mi><mi>x</mi></msub><msub><mi>σ</mi><mi>y</mi></msub><mo>+</mo><msub><mi>C</mi><mn>3</mn></msub></mrow></mfrac></mrow><annotation encoding="application/x-tex">
 s(x, y) = \frac{\sigma_{xy} + C_3}{\sigma_x\sigma_y + C_3}
-$$</p><p>其中 $C_1, C_2, C_3$ 是微小常数，防止分母为零导致数值不稳定。</p><h3 id=43-窗口计算ssim-怎么算的>4.3 窗口计算——SSIM 怎么“算”的？</h3><p>SSIM 不是在整张图上算一次，而是在每个像素周围取一个局部窗口（通常是 $7 \times 7$ 或 $11 \times 11$ 的高斯加权窗口），在每个窗口内计算上述三个分量，窗口滑动覆盖整张图，最后对所有窗口取平均。</p><p>为什么需要窗口？因为“结构”是一个局部概念——边缘、纹理、对比度都来自像素间的局部关系，而不是全局统计。</p><p>计算过程：</p><pre class=mermaid>
-flowchart LR
-    A["预测图\n(hat y)"] --> B["对每个像素\n取 K×K 窗口"]
-    C["目标图\n(y)"] --> B
-    B --> D["计算窗口内\nmu_x, mu_y\nsigma_x, sigma_y\nsigma_xy"]
-    D --> E["计算该窗口的\nSSIM 值"]
-    E --> F["滑动到\n下一个像素"]
-    F --> D
-    F --> G["所有窗口\n取平均"]
-    G --> H["最终 SSIM 值\n(标量)"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=44-为什么用-1---ssim-作为-loss>4.4 为什么用 <code>1 - SSIM</code> 作为 Loss？</h3><p>SSIM 的取值范围是 $[-1, 1]$，两张完全相同的图像 SSIM = 1。Loss 需要“越小越好”，所以：</p><p>$$
-SSIM_Loss = 1 - SSIM
-$$</p><p>当两张图完全相同时，$SSIM_Loss = 0$；当两张图完全不同时，$SSIM_Loss \to 2$。</p><p>注意：代码中的 <code>raw_ssim_loss = 1 - self.ssim_loss(target_mix_noise, net_out)</code> 计算的就是这个值。</p><h3 id=45-优化时-ssim-loss-在干什么>4.5 优化时 SSIM Loss 在干什么？</h3><p>优化 SSIM Loss 时，模型不是在直接优化像素值，而是在优化<strong>每个局部窗口的统计特征</strong>：</p><ul><li>窗口均值 $\mu$ 趋近（亮度一致）</li><li>窗口标准差 $\sigma$ 趋近（对比度一致）</li><li>窗口协方差 $\sigma_{xy}$ 趋近（纹理结构一致）</li></ul><p>这意味着 SSIM Loss 对边缘、纹理、对比度的保持有天然优势，但对像素级精度的约束较弱——它不关心每个像素的具体值，只关心局部统计特征。</p><h2 id=5-组合-loss--l1-与-ssim-的加权互补>5 组合 Loss —— L1 与 SSIM 的加权互补</h2><h3 id=51-为什么不是只用-l1-或只用-ssim>5.1 为什么不是只用 L1 或只用 SSIM？</h3><table><thead><tr><th>只用 L1</th><th>只用 SSIM</th></tr></thead><tbody><tr><td>像素级精确，但对结构不敏感</td><td>结构保真，但对像素值不敏感</td></tr><tr><td>倾向于平滑，边缘变模糊</td><td>能保留边缘，但像素值可能偏移</td></tr><tr><td>收敛稳定，梯度方向明确</td><td>非凸，优化路径曲折</td></tr></tbody></table><p>两者互补：L1 管“每个像素对不对”，SSIM 管“局部结构像不像”。</p><h3 id=52-什么是-1---ssim它为什么重要>5.2 什么是 <code>1 - SSIM</code>？它为什么重要？</h3><p>SSIM 的输出范围是 $[-1, 1]$，作为 Loss 要“越小越好”。直接取负值会导致梯度方向反转，所以用 $1 - SSIM$ 将范围映射到 $[0, 2]$。</p><p>$1 - SSIM$ 可以看作一种<strong>结构距离</strong>：</p><ul><li>$1 - SSIM = 0$：两图在亮度、对比度、结构上完全一致</li><li>$1 - SSIM = 1$：两图完全不相似（SSIM = 0）</li><li>$1 - SSIM = 2$：两图完全负相关（SSIM = -1）</li></ul><p>代码中的组合：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>l1_loss_val <span style=color:#f92672>=</span> l1_loss_fn(net_out, target_mix_noise)
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">s</span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:2.3324em;vertical-align:-.9721em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3603em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.9721em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><p>其中 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>2</mn></msub><mo separator="true">,</mo><msub><mi>C</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">C_1, C_2, C_3</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.8778em;vertical-align:-.1944em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07153em>C</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0715em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span></span></span></span> 是微小常数，防止分母为零导致数值不稳定。</p><h3 id=43-窗口计算ssim-怎么算的>4.3 窗口计算——SSIM 怎么“算”的？</h3><p>SSIM 不是在整张图上算一次，而是在每个像素周围取一个局部窗口（通常是 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7 \times 7</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>7</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>7</span></span></span></span> 或 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>11</mn><mo>×</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">11 \times 11</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>11</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>×</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>11</span></span></span></span> 的高斯加权窗口），在每个窗口内计算上述三个分量，窗口滑动覆盖整张图，最后对所有窗口取平均。</p><p>为什么需要窗口？因为“结构”是一个局部概念——边缘、纹理、对比度都来自像素间的局部关系，而不是全局统计。</p><p>计算过程：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLpooTmtYvlm75cbihoYXQgeSkiXSAtLT4gQlsi5a+55q+P5Liq5YOP57SgXG7lj5YgS8OXSyDnqpflj6MiXQogICAgQ1si55uu5qCH5Zu+XG4oeSkiXSAtLT4gQgogICAgQiAtLT4gRFsi6K6h566X56qX5Y+j5YaFXG5tdV94LCBtdV95XG5zaWdtYV94LCBzaWdtYV95XG5zaWdtYV94eSJdCiAgICBEIC0tPiBFWyLorqHnrpfor6Xnqpflj6PnmoRcblNTSU0g5YC8Il0KICAgIEUgLS0+IEZbIua7keWKqOWIsFxu5LiL5LiA5Liq5YOP57SgIl0KICAgIEYgLS0+IEQKICAgIEYgLS0+IEdbIuaJgOacieeql+WPo1xu5Y+W5bmz5Z2HIl0KICAgIEcgLS0+IEhbIuacgOe7iCBTU0lNIOWAvFxuKOagh+mHjykiXQ==">flowchart LR
+    A[&#34;预测图\n(hat y)&#34;] --&gt; B[&#34;对每个像素\n取 K×K 窗口&#34;]
+    C[&#34;目标图\n(y)&#34;] --&gt; B
+    B --&gt; D[&#34;计算窗口内\nmu_x, mu_y\nsigma_x, sigma_y\nsigma_xy&#34;]
+    D --&gt; E[&#34;计算该窗口的\nSSIM 值&#34;]
+    E --&gt; F[&#34;滑动到\n下一个像素&#34;]
+    F --&gt; D
+    F --&gt; G[&#34;所有窗口\n取平均&#34;]
+    G --&gt; H[&#34;最终 SSIM 值\n(标量)&#34;]</pre><h3 id=44-为什么用-1---ssim-作为-loss>4.4 为什么用 <code>1 - SSIM</code> 作为 Loss？</h3><p>SSIM 的取值范围是 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-1, 1]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>−</span><span class=mord>1</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>1</span><span class=mclose>]</span></span></span></span>，两张完全相同的图像 SSIM = 1。Loss 需要“越小越好”，所以：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mi mathvariant="normal">_</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mo>=</mo><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">
+SSIM\_Loss = 1 - SSIM
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.9933em;vertical-align:-.31em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mord style=margin-right:.02778em>_</span><span class="mord mathnormal">L</span><span class="mord mathnormal">oss</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span></span></span></span></span><p>当两张图完全相同时，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mi mathvariant="normal">_</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">SSIM\_Loss = 0</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.9933em;vertical-align:-.31em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mord style=margin-right:.02778em>_</span><span class="mord mathnormal">L</span><span class="mord mathnormal">oss</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>0</span></span></span></span>；当两张图完全不同时，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mi mathvariant="normal">_</mi><mi>L</mi><mi>o</mi><mi>s</mi><mi>s</mi><mo>→</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">SSIM\_Loss \to 2</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.9933em;vertical-align:-.31em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mord style=margin-right:.02778em>_</span><span class="mord mathnormal">L</span><span class="mord mathnormal">oss</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>→</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span></span></span></span>。</p><p>注意：代码中的 <code>raw_ssim_loss = 1 - self.ssim_loss(target_mix_noise, net_out)</code> 计算的就是这个值。</p><h3 id=45-优化时-ssim-loss-在干什么>4.5 优化时 SSIM Loss 在干什么？</h3><p>优化 SSIM Loss 时，模型不是在直接优化像素值，而是在优化<strong>每个局部窗口的统计特征</strong>：</p><ul><li>窗口均值 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi></mrow><annotation encoding="application/x-tex">\mu</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.625em;vertical-align:-.1944em></span><span class="mord mathnormal">μ</span></span></span></span> 趋近（亮度一致）</li><li>窗口标准差 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.03588em>σ</span></span></span></span> 趋近（对比度一致）</li><li>窗口协方差 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mrow><mi>x</mi><mi>y</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sigma_{xy}</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7167em;vertical-align:-.2861em></span><span class=mord><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0359em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="mord mathnormal mtight" style=margin-right:.03588em>y</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.2861em><span></span></span></span></span></span></span></span></span></span> 趋近（纹理结构一致）</li></ul><p>这意味着 SSIM Loss 对边缘、纹理、对比度的保持有天然优势，但对像素级精度的约束较弱——它不关心每个像素的具体值，只关心局部统计特征。</p><h2 id=5-组合-loss--l1-与-ssim-的加权互补>5 组合 Loss —— L1 与 SSIM 的加权互补</h2><h3 id=51-为什么不是只用-l1-或只用-ssim>5.1 为什么不是只用 L1 或只用 SSIM？</h3><table><thead><tr><th>只用 L1</th><th>只用 SSIM</th></tr></thead><tbody><tr><td>像素级精确，但对结构不敏感</td><td>结构保真，但对像素值不敏感</td></tr><tr><td>倾向于平滑，边缘变模糊</td><td>能保留边缘，但像素值可能偏移</td></tr><tr><td>收敛稳定，梯度方向明确</td><td>非凸，优化路径曲折</td></tr></tbody></table><p>两者互补：L1 管“每个像素对不对”，SSIM 管“局部结构像不像”。</p><h3 id=52-什么是-1---ssim它为什么重要>5.2 什么是 <code>1 - SSIM</code>？它为什么重要？</h3><p>SSIM 的输出范围是 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-1, 1]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>−</span><span class=mord>1</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>1</span><span class=mclose>]</span></span></span></span>，作为 Loss 要“越小越好”。直接取负值会导致梯度方向反转，所以用 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">1 - SSIM</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span></span></span></span> 将范围映射到 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 2]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>0</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>2</span><span class=mclose>]</span></span></span></span>。</p><p><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi></mrow><annotation encoding="application/x-tex">1 - SSIM</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span></span></span></span> 可以看作一种<strong>结构距离</strong>：</p><ul><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">1 - SSIM = 0</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>0</span></span></span></span>：两图在亮度、对比度、结构上完全一致</li><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1 - SSIM = 1</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>1</span></span></span></span>：两图完全不相似（SSIM = 0）</li><li><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mi>S</mi><mi>S</mi><mi>I</mi><mi>M</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">1 - SSIM = 2</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.7278em;vertical-align:-.0833em></span><span class=mord>1</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>−</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6833em></span><span class="mord mathnormal" style=margin-right:.05764em>SS</span><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class="mord mathnormal" style=margin-right:.10903em>M</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:.6444em></span><span class=mord>2</span></span></span></span>：两图完全负相关（SSIM = -1）</li></ul><p>代码中的组合：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>l1_loss_val <span style=color:#f92672>=</span> l1_loss_fn(net_out, target_mix_noise)
 </span></span><span style=display:flex><span>ssim_val <span style=color:#f92672>=</span> ssim_loss_fn(target_mix_noise, net_out)
 </span></span><span style=display:flex><span>ssim_loss_val <span style=color:#f92672>=</span> <span style=color:#ae81ff>1.0</span> <span style=color:#f92672>-</span> ssim_val
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>raw_loss <span style=color:#f92672>=</span> raw_l1_weight <span style=color:#f92672>*</span> l1_loss_val <span style=color:#f92672>+</span> raw_ssim_weight <span style=color:#f92672>*</span> ssim_loss_val
-</span></span></code></pre></div><h3 id=53-为什么不是-l1--ssim>5.3 为什么不是 <code>L1 + SSIM</code>？</h3><p><code>L1 + SSIM</code> 的问题是两者量级不同。SSIM Loss 取值范围 $[0, 2]$，L1 Loss 的取值范围随数据动态变化（例如像素值在 $[0, 1]$ 时，L1 也在 $[0, 1]$ 附近）。直接相加会导致其中一项主导 Loss。</p><p>例如，如果 L1 的典型值是 0.05，SSIM Loss 的典型值是 0.2，那么 <code>L1 + SSIM</code> 中 SSIM 占主导，L1 几乎不起作用。权重正是用来平衡两者的量级，让它们都能有效贡献梯度。</p><h3 id=54-权重-016-和-084-的来源>5.4 权重 <code>0.16</code> 和 <code>0.84</code> 的来源</h3><p>这组权重不是公式推导出来的，而是经验调参的结果。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>raw_l1_weight <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.16</span>
+</span></span></code></pre></div><h3 id=53-为什么不是-l1--ssim>5.3 为什么不是 <code>L1 + SSIM</code>？</h3><p><code>L1 + SSIM</code> 的问题是两者量级不同。SSIM Loss 取值范围 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 2]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>0</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>2</span><span class=mclose>]</span></span></span></span>，L1 Loss 的取值范围随数据动态变化（例如像素值在 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>0</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>1</span><span class=mclose>]</span></span></span></span> 时，L1 也在 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mopen>[</span><span class=mord>0</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class=mord>1</span><span class=mclose>]</span></span></span></span> 附近）。直接相加会导致其中一项主导 Loss。</p><p>例如，如果 L1 的典型值是 0.05，SSIM Loss 的典型值是 0.2，那么 <code>L1 + SSIM</code> 中 SSIM 占主导，L1 几乎不起作用。权重正是用来平衡两者的量级，让它们都能有效贡献梯度。</p><h3 id=54-权重-016-和-084-的来源>5.4 权重 <code>0.16</code> 和 <code>0.84</code> 的来源</h3><p>这组权重不是公式推导出来的，而是经验调参的结果。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span>raw_l1_weight <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.16</span>
 </span></span><span style=display:flex><span>raw_ssim_weight <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.84</span>
-</span></span></code></pre></div><table><thead><tr><th>权重</th><th>值</th><th>含义</th></tr></thead><tbody><tr><td><code>raw_l1_weight</code></td><td>0.16</td><td>L1 占 16%，以像素级精度为主</td></tr><tr><td><code>raw_ssim_weight</code></td><td>0.84</td><td>SSIM 占 84%，以结构保真为主</td></tr></tbody></table><p>这组配比体现了一个核心设计思路：<strong>以结构保真为主（SSIM 主导），以像素精度为辅（L1 兜底）</strong>。</p><p>如果 L1 权重过高，图像会更平滑但边缘模糊；如果 SSIM 权重过高，图像会更清晰但像素值可能出现偏移。0.16/0.84 是当前实验中找到的平衡点。</p><h3 id=55-l1-和-ssim-如何配合>5.5 L1 和 SSIM 如何配合？</h3><pre class=mermaid>
-flowchart LR
-    A["模型输出\n(net_out)"] --> B["L1 Loss"]
-    A --> C["SSIM Loss"]
-    B --> D["梯度方向 A\n（逐像素）"]
-    C --> E["梯度方向 B\n（窗口统计）"]
-    D --> F["加权求和\n0.16×grad_A + 0.84×grad_B"]
-    E --> F
-    F --> G["模型参数更新\n← 既保像素又保结构"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>L1 提供<strong>逐像素的稳定约束</strong>，确保每个像素的值不偏离目标太远；SSIM 提供<strong>局部结构的保真约束</strong>，确保边缘、纹理、对比度不被 L1 的平滑效应抹掉。两者梯度在加权平均后，共同决定模型的更新方向。</p><h2 id=6-一句话总结>6 一句话总结</h2><p><strong>L1 Loss 管“每个像素对不对”，SSIM Loss 管“局部结构像不像”，两者按 0.16/0.84 加权组合，让模型在保持像素精度的同时保留边缘和纹理，最终输出既干净又清晰。</strong></p></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</span></span></code></pre></div><table><thead><tr><th>权重</th><th>值</th><th>含义</th></tr></thead><tbody><tr><td><code>raw_l1_weight</code></td><td>0.16</td><td>L1 占 16%，以像素级精度为主</td></tr><tr><td><code>raw_ssim_weight</code></td><td>0.84</td><td>SSIM 占 84%，以结构保真为主</td></tr></tbody></table><p>这组配比体现了一个核心设计思路：<strong>以结构保真为主（SSIM 主导），以像素精度为辅（L1 兜底）</strong>。</p><p>如果 L1 权重过高，图像会更平滑但边缘模糊；如果 SSIM 权重过高，图像会更清晰但像素值可能出现偏移。0.16/0.84 是当前实验中找到的平衡点。</p><h3 id=55-l1-和-ssim-如何配合>5.5 L1 和 SSIM 如何配合？</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLmqKHlnovovpPlh7pcbihuZXRfb3V0KSJdIC0tPiBCWyJMMSBMb3NzIl0KICAgIEEgLS0+IENbIlNTSU0gTG9zcyJdCiAgICBCIC0tPiBEWyLmoq/luqbmlrnlkJEgQVxu77yI6YCQ5YOP57Sg77yJIl0KICAgIEMgLS0+IEVbIuair+W6puaWueWQkSBCXG7vvIjnqpflj6Pnu5/orqHvvIkiXQogICAgRCAtLT4gRlsi5Yqg5p2D5rGC5ZKMXG4wLjE2w5dncmFkX0EgKyAwLjg0w5dncmFkX0IiXQogICAgRSAtLT4gRgogICAgRiAtLT4gR1si5qih5Z6L5Y+C5pWw5pu05pawXG7ihpAg5pei5L+d5YOP57Sg5Y+I5L+d57uT5p6EIl0=">flowchart LR
+    A[&#34;模型输出\n(net_out)&#34;] --&gt; B[&#34;L1 Loss&#34;]
+    A --&gt; C[&#34;SSIM Loss&#34;]
+    B --&gt; D[&#34;梯度方向 A\n（逐像素）&#34;]
+    C --&gt; E[&#34;梯度方向 B\n（窗口统计）&#34;]
+    D --&gt; F[&#34;加权求和\n0.16×grad_A &#43; 0.84×grad_B&#34;]
+    E --&gt; F
+    F --&gt; G[&#34;模型参数更新\n← 既保像素又保结构&#34;]</pre><p>L1 提供<strong>逐像素的稳定约束</strong>，确保每个像素的值不偏离目标太远；SSIM 提供<strong>局部结构的保真约束</strong>，确保边缘、纹理、对比度不被 L1 的平滑效应抹掉。两者梯度在加权平均后，共同决定模型的更新方向。</p><h2 id=6-一句话总结>6 一句话总结</h2><p><strong>L1 Loss 管“每个像素对不对”，SSIM Loss 管“局部结构像不像”，两者按 0.16/0.84 加权组合，让模型在保持像素精度的同时保留边缘和纹理，最终输出既干净又清晰。</strong></p></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

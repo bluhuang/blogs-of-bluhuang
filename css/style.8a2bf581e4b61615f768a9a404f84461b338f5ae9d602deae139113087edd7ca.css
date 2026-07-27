@@ -1485,6 +1485,9 @@ h1, h2, h3, h4, h5, h6 {
   .hidden {
     display: none;
   }
+  .inline {
+    display: inline;
+  }
   .inline-block {
     display: inline-block;
   }
@@ -1908,6 +1911,9 @@ h1, h2, h3, h4, h5, h6 {
   }
   .underline {
     text-decoration-line: underline;
+  }
+  .accent-body {
+    accent-color: var(--color-body);
   }
   .opacity-0 {
     opacity: 0%;

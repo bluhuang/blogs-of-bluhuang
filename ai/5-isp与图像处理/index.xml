@@ -34,172 +34,48 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中最重要的控制逻辑。
-[Pasted image 20260707155825.png]&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
+&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中核心的控制逻辑。
+![[Pasted image 20260707155825.png]]&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
 &lt;h2 id="1-isp-整体流程概览"&gt;1. ISP 整体流程概览&lt;/h2&gt;
-
-&lt;pre class="mermaid"&gt;
-flowchart TB
+&lt;pre class="mermaid" data-mermaid-source="Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBTWyJDTU9TIFNlbnNvcjxici8&amp;#43;77yIQmF5ZXIgUkFX77yJIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUxWyLpmLbmrrXkuIDvvJpSQVcg5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBCTENbIuKRoCDpu5HnlLXlubPkuI7nur/mgKfljJYiXQogICAgICAgIERQQ1si4pGhIOWdj&amp;#43;eCueefq&amp;#43;atoyJdCiAgICAgICAgQk5SWyLikaIgUkFXIOWfn&amp;#43;mZjeWZqiJdCiAgICAgICAgTFNDWyLikaMg6ZWc5aS05pqX6KeS5qCh5q2jIl0KICAgICAgICBXQkdbIuKRpCDnmb3lubPooaHlop7nm4oiXQogICAgICAgIEdCQ1si4pGlIOe7v&amp;#43;W5s&amp;#43;ihoeagoeatoyJdCiAgICAgICAgREVNWyLikaYg5Y676ams6LWb5YWLIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUyWyLpmLbmrrXkuozvvJpSR0Ig5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBDQVsi4pGnIOiJsuW3ruagoeatoyJdCiAgICAgICAgQ0NNWyLikagg6Imy5b2p5qCh5q2jIl0KICAgICAgICBEUkNbIuKRqSDliqjmgIHojIPlm7TljovnvKkiXQogICAgICAgIEdBTU1BWyLikaogR2FtbWEiXQogICAgICAgIExVVDNEWyLikasgM0RMVVQiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOmYtuautTNbIumYtuauteS4ie&amp;#43;8mllVViDln5/lpITnkIYiXQogICAgICAgIENFWyLikawg6Imy5b2p5aKe5by6Il0KICAgICAgICBERVsi4pGtIOe7huiKguWinuW8uiJdCiAgICAgICAgU0hBUlBbIuKRriDplJDljJYiXQogICAgICAgIFlOUlsi4pGvIFlVViDln5/pmY3lmaoiXQogICAgICAgIFRNWyLikbAg6Imy6LCD5pig5bCEIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPWyJZVVYg6L6T5Ye6PGJyLz7vvIjmmL7npLov57yW56CB77yJIl0KICAgIGVuZAogICAgCiAgICBTIC0tPiBCTEMgLS0&amp;#43;IERQQyAtLT4gQk5SIC0tPiBMU0MgLS0&amp;#43;IFdCRyAtLT4gR0JDIC0tPiBERU0KICAgIERFTSAtLT4gQ0EgLS0&amp;#43;IENDTSAtLT4gRFJDIC0tPiBHQU1NQSAtLT4gTFVUM0QKICAgIExVVDNEIC0tPiBDRSAtLT4gREUgLS0&amp;#43;IFNIQVJQIC0tPiBZTlIgLS0&amp;#43;IFRNIC0tPiBP"&gt;flowchart TB
  subgraph 输入
- S["CMOS Sensor&lt;br/&gt;（Bayer RAW）"]
+ S[&amp;#34;CMOS Sensor&amp;lt;br/&amp;gt;（Bayer RAW）&amp;#34;]
  end
  
- subgraph 阶段1["阶段一：RAW 域处理"]
- BLC["① 黑电平与线性化"]
- DPC["② 坏点矫正"]
- BNR["③ RAW 域降噪"]
- LSC["④ 镜头暗角校正"]
- WBG["⑤ 白平衡增益"]
- GBC["⑥ 绿平衡校正"]
- DEM["⑦ 去马赛克"]
+ subgraph 阶段1[&amp;#34;阶段一：RAW 域处理&amp;#34;]
+ BLC[&amp;#34;① 黑电平与线性化&amp;#34;]
+ DPC[&amp;#34;② 坏点矫正&amp;#34;]
+ BNR[&amp;#34;③ RAW 域降噪&amp;#34;]
+ LSC[&amp;#34;④ 镜头暗角校正&amp;#34;]
+ WBG[&amp;#34;⑤ 白平衡增益&amp;#34;]
+ GBC[&amp;#34;⑥ 绿平衡校正&amp;#34;]
+ DEM[&amp;#34;⑦ 去马赛克&amp;#34;]
  end
  
- subgraph 阶段2["阶段二：RGB 域处理"]
- CA["⑧ 色差校正"]
- CCM["⑨ 色彩校正"]
- DRC["⑩ 动态范围压缩"]
- GAMMA["⑪ Gamma"]
- LUT3D["⑫ 3DLUT"]
+ subgraph 阶段2[&amp;#34;阶段二：RGB 域处理&amp;#34;]
+ CA[&amp;#34;⑧ 色差校正&amp;#34;]
+ CCM[&amp;#34;⑨ 色彩校正&amp;#34;]
+ DRC[&amp;#34;⑩ 动态范围压缩&amp;#34;]
+ GAMMA[&amp;#34;⑪ Gamma&amp;#34;]
+ LUT3D[&amp;#34;⑫ 3DLUT&amp;#34;]
  end
  
- subgraph 阶段3["阶段三：YUV 域处理"]
- CE["⑬ 色彩增强"]
- DE["⑭ 细节增强"]
- SHARP["⑮ 锐化"]
- YNR["⑯ YUV 域降噪"]
- TM["⑰ 色调映射"]
+ subgraph 阶段3[&amp;#34;阶段三：YUV 域处理&amp;#34;]
+ CE[&amp;#34;⑬ 色彩增强&amp;#34;]
+ DE[&amp;#34;⑭ 细节增强&amp;#34;]
+ SHARP[&amp;#34;⑮ 锐化&amp;#34;]
+ YNR[&amp;#34;⑯ YUV 域降噪&amp;#34;]
+ TM[&amp;#34;⑰ 色调映射&amp;#34;]
  end
  
  subgraph 输出
- O["YUV 输出&lt;br/&gt;（显示/编码）"]
+ O[&amp;#34;YUV 输出&amp;lt;br/&amp;gt;（显示/编码）&amp;#34;]
  end
  
- S --&gt; BLC --&gt; DPC --&gt; BNR --&gt; LSC --&gt; WBG --&gt; GBC --&gt; DEM
- DEM --&gt; CA --&gt; CCM --&gt; DRC --&gt; GAMMA --&gt; LUT3D
- LUT3D --&gt; CE --&gt; DE --&gt; SHARP --&gt; YNR --&gt; TM --&gt; O
-&lt;/pre&gt;
-
-
-&lt;script type="module"&gt;
- import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
- 
- const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
- const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
- const THEME_REGEX = /^\s*theme:/;
- const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
- 
- const getMermaidConfig = (startOnLoad = true) =&gt; ({
- startOnLoad,
- theme: "default",
- securityLevel: "loose",
- flowchart: { curve: "basis" },
- });
-
- 
- function processContent(content, isDarkMode) {
- if (!isDarkMode) return content;
-
- const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
- if (hasFrontmatter) {
- return content.replace(CONFIG_REGEX, (match, before, configContent, after) =&gt; {
- const lines = configContent.split("\n");
- const filtered = [];
- let skipUntilDedent = false;
- let themeVarIndent = 0;
-
- for (const line of lines) {
- const indent = line.search(/\S/);
-
- if (THEME_REGEX.test(line)) continue;
-
- if (THEME_VARS_REGEX.test(line)) {
- skipUntilDedent = true;
- themeVarIndent = indent;
- continue;
- }
-
- if (skipUntilDedent) {
- if (line.trim() &amp;&amp; indent &gt; themeVarIndent) continue;
- skipUntilDedent = false;
- }
-
- filtered.push(line);
- }
-
- filtered.unshift(" theme: dark");
- return before + filtered.join("\n") + after;
- });
- }
- 
- return `---\nconfig:\n theme: dark\n---\n${content}`;
- }
-
- 
- async function rerenderDiagrams() {
- const isDark = document.documentElement.classList.contains("dark");
- const elements = document.querySelectorAll(".mermaid");
- 
- if (elements.length === 0) return;
-
- const validElements = [];
-
- for (const element of elements) {
- if (!element.isConnected) continue;
- 
- const originalContent = element.getAttribute("data-original");
- if (originalContent) {
- const content = processContent(originalContent, isDark);
- element.textContent = content;
- element.removeAttribute("data-processed");
- validElements.push(element);
- }
- }
-
- if (validElements.length === 0) return;
-
- await new Promise(resolve =&gt; setTimeout(resolve, 0));
-
- try {
- await mermaid.run({ nodes: validElements });
- } catch (error) {
- console.error("Mermaid rendering error:", error);
- }
- }
-
- 
- document.addEventListener("DOMContentLoaded", () =&gt; {
- const isDark = document.documentElement.classList.contains("dark");
-
- document.querySelectorAll(".mermaid").forEach((element) =&gt; {
- if (!element.hasAttribute("data-original")) {
- const originalContent = element.textContent.trim();
- element.setAttribute("data-original", originalContent);
- element.textContent = processContent(originalContent, isDark);
- }
- });
- });
-
- mermaid.initialize(getMermaidConfig());
-
- 
- let previousDarkMode = document.documentElement.classList.contains("dark");
-
- new MutationObserver(() =&gt; {
- const currentDarkMode = document.documentElement.classList.contains("dark");
-
- if (currentDarkMode !== previousDarkMode) {
- previousDarkMode = currentDarkMode;
- mermaid.initialize(getMermaidConfig(false));
- rerenderDiagrams();
- }
- }).observe(document.documentElement, {
- attributes: true,
- attributeFilter: ["class"],
- });
-&lt;/script&gt;&lt;h2 id="2-阶段一raw-域处理"&gt;2. 阶段一：RAW 域处理&lt;/h2&gt;
+ S --&amp;gt; BLC --&amp;gt; DPC --&amp;gt; BNR --&amp;gt; LSC --&amp;gt; WBG --&amp;gt; GBC --&amp;gt; DEM
+ DEM --&amp;gt; CA --&amp;gt; CCM --&amp;gt; DRC --&amp;gt; GAMMA --&amp;gt; LUT3D
+ LUT3D --&amp;gt; CE --&amp;gt; DE --&amp;gt; SHARP --&amp;gt; YNR --&amp;gt; TM --&amp;gt; O&lt;/pre&gt;
+&lt;h2 id="2-阶段一raw-域处理"&gt;2. 阶段一：RAW 域处理&lt;/h2&gt;
 &lt;p&gt;RAW 域是 ISP 流水线的第一阶段，处理的是 Sensor 直接输出的 Bayer 格式数据（未经过任何颜色插值）。这个阶段的核心目标是 &lt;strong&gt;“修复 Sensor 的物理缺陷，为后续色彩重建准备干净的数据”&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>Sensor基础</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</guid><description>&lt;h2 id="1-sensor-是什么"&gt;1. Sensor 是什么？&lt;/h2&gt;
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;blockquote&gt;
@@ -208,17 +84,17 @@ flowchart TB
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;DVPP（Digital Video Pre-Processing，数字视频预处理）&lt;/strong&gt; 是 SoC（如 Hi3516）内部专门负责&lt;strong&gt;视频编解码&lt;/strong&gt;和&lt;strong&gt;图像处理加速&lt;/strong&gt;的硬件模块集合。它不是单一模块，而是多个硬件加速器的统称，包括编码器、解码器、JPEG 编解码器、图像处理单元等。&lt;/p&gt;</description></item><item><title>AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</guid><description>&lt;h1 id="awb自动白平衡-让白色在任何光源下都是白色"&gt;AWB（自动白平衡）—— 让白色在任何光源下都是白色&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Bayer 阵列（每个像素只记录一种颜色）、Demosaic（Bayer→RGB），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;为什么同一张白纸，在日光下和白炽灯下拍出来颜色不一样？AWB 怎么把颜色&amp;quot;校正&amp;quot;回来？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</guid><description>&lt;p&gt;&lt;strong&gt;Bayer阵列（Bayer Pattern / Bayer Filter Mosaic）&lt;/strong&gt; 是数码相机、手机摄像头等几乎所有消费级图像传感器的&lt;strong&gt;底层核心技术&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>BLC（Black Level Correction，黑电平校正）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</guid><description>&lt;h1 id="blc-黑电平校正"&gt;BLC 黑电平校正&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Bayer 阵列（每个像素只记录一种颜色）、Demosaic（Bayer→RGB），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;为什么同一张白纸，在日光下和白炽灯下拍出来颜色不一样？AWB 怎么把颜色“校正”回来？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</guid><description>&lt;p&gt;&lt;strong&gt;Bayer阵列（Bayer Pattern / Bayer Filter Mosaic）&lt;/strong&gt; 是数码相机、手机摄像头等几乎所有消费级图像传感器的&lt;strong&gt;底层核心技术&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>BLC（Black Level Correction，黑电平校正）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</guid><description>&lt;h1 id="blc-黑电平校正"&gt;BLC 黑电平校正&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;什么是黑电平？为什么 Sensor 在全黑时读数不是 0？BLC 是如何把它矫正回来的？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-什么是-blc"&gt;1. 什么是 BLC&lt;/h2&gt;
 &lt;h3 id="11-blc-的定义"&gt;1.1 BLC 的定义&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;BLC（Black Level Correction，黑电平校正）&lt;/strong&gt; 是 ISP 流程中的第一个处理步骤，目的是将 Sensor 在全黑环境下的非零输出值修正为 0。&lt;/p&gt;</description></item><item><title>BNR，Bayer Noise Reduction（拜耳域降噪）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h1 id="bnr拜耳域降噪"&gt;BNR（拜耳域降噪）&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;BLC（Black Level Correction，黑电平校正）&lt;/strong&gt; 是 ISP 流程中的第一个处理步骤，目的是把 Sensor 在全黑环境下的非零输出值修正为 0。&lt;/p&gt;</description></item><item><title>BNR，Bayer Noise Reduction（拜耳域降噪）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h1 id="bnr拜耳域降噪"&gt;BNR（拜耳域降噪）&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;BNR（Bayer Noise Reduction）是 &lt;strong&gt;RAW 域处理&lt;/strong&gt; 的一个环节，位于 BLC 和 DPC 之后、数字增益之前。现在要回答的问题是：&lt;strong&gt;为什么要在 Bayer 域做降噪？怎么做？传统 BNR 和 AIBNR 有什么区别？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Demosaic（Bayer→RGB）和 AWB（白平衡）的原理。现在要回答的问题是：&lt;strong&gt;为什么经过 AWB 之后，颜色还不够“准”？CCM 是怎么用一个 3×3 矩阵把颜色校正到标准色彩空间的？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;4 通道的 Bayer 数据，怎么变成 3 通道的彩色 RGB 图像？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Gamma 校正与逆 Gamma</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</guid><description>&lt;h2 id="1-从亮度说起"&gt;1. 从“亮度”说起&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要讨论的问题是：&lt;strong&gt;4 通道的 Bayer 数据，如何变成 3 通道的彩色 RGB 图像？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Gamma 校正与逆 Gamma</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</guid><description>&lt;h2 id="1-从亮度说起"&gt;1. 从“亮度”说起&lt;/h2&gt;
 &lt;h3 id="11-什么是亮度两个不同的亮度世界"&gt;1.1 什么是亮度？——两个不同的“亮度世界”&lt;/h3&gt;
 &lt;p&gt;我们先忘掉公式，想一个问题：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -263,10 +139,10 @@ flowchart TB
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;色彩空间（Color Space）&lt;/strong&gt; 是用一组数值来描述颜色的数学模型。RGB 和 YUV 都是色彩空间，只是描述方式不同。RGB 描述“每个像素有多少红/绿/蓝”，YUV 描述“这个像素有多亮、偏蓝还是偏红”。&lt;/p&gt;</description></item><item><title>噪声的原理 —— 从物理源头到AI建模</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</guid><description>&lt;h2 id="一噪声是什么-从为什么有噪点说起"&gt;一、噪声是什么？—— 从“为什么有噪点”说起&lt;/h2&gt;
 &lt;h3 id="11-直观感受噪声就是不该出现的像素值"&gt;1.1 直观感受：噪声就是“不该出现的像素值”&lt;/h3&gt;
-&lt;p&gt;常见场景包括：&lt;/p&gt;
+&lt;p&gt;你肯定见过这样的照片：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;夜晚拍摄的室内照片，暗部区域出现密密麻麻的彩色小点&lt;/li&gt;
-&lt;li&gt;蓝天照片中，原本纯净的蓝色区域出现细小的颗粒感&lt;/li&gt;
-&lt;li&gt;使用高ISO（如ISO 3200）拍摄的图像，整个画面像铺了一层“沙”&lt;/li&gt;
+&lt;li&gt;夜晚拍的室内照片，暗部区域有密密麻麻的彩色小点&lt;/li&gt;
+&lt;li&gt;蓝天照片里，原本纯净的蓝色区域出现细小的颗粒感&lt;/li&gt;
+&lt;li&gt;用高ISO（如ISO 3200）拍的图，整个画面像铺了一层“沙”&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这些“不该出现的像素值偏差”，就是&lt;strong&gt;噪声&lt;/strong&gt;。&lt;/p&gt;</description></item></channel></rss>

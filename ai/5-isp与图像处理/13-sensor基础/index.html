@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/><title>Sensor基础</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="Sensor基础"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/"><meta name=twitter:title content="Sensor基础"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/><title>Sensor基础</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="Sensor基础"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/"><meta name=twitter:title content="Sensor基础"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -76,7 +76,7 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">Sensor基础</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
 2026年7月11日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-sensor-是什么>1. Sensor 是什么？</a><ol><li><a href=#11-一句话定义>1.1 一句话定义</a></li><li><a href=#12-ccd-vs-cmos--两种主流-sensor-技术>1.2 CCD vs CMOS —— 两种主流 Sensor 技术</a></li></ol></li><li><a href=#2-sensor-的关键参数>2. Sensor 的关键参数</a><ol><li><a href=#21-图像宽高分辨率>2.1 图像宽高（分辨率）</a></li><li><a href=#22-帧率frame-rate>2.2 帧率（Frame Rate）</a></li><li><a href=#23-像素时钟pixel-clock>2.3 像素时钟（Pixel Clock）</a></li><li><a href=#24-bayer-格式bayer-pattern>2.4 Bayer 格式（Bayer Pattern）</a></li><li><a href=#25-曝光时间exposure-time>2.5 曝光时间（Exposure Time）</a></li><li><a href=#26-增益gain>2.6 增益（Gain）</a></li><li><a href=#27-黑电平black-level>2.7 黑电平（Black Level）</a></li><li><a href=#28-输出格式output-format>2.8 输出格式（Output Format）</a></li></ol></li><li><a href=#3-sensor-的曝光时序>3. Sensor 的曝光时序</a><ol><li><a href=#31-帧读出时序图>3.1 帧读出时序图</a></li><li><a href=#32-关键时序参数>3.2 关键时序参数</a></li><li><a href=#33-帧率与曝光时序的关系>3.3 帧率与曝光时序的关系</a></li></ol></li><li><a href=#4-sensor-与-soc-的连接>4. Sensor 与 SoC 的连接</a><ol><li><a href=#41-信号连接图>4.1 信号连接图</a></li><li><a href=#42-关键信号说明>4.2 关键信号说明</a></li></ol></li><li><a href=#5-对接-sensor-的驱动开发流程>5. 对接 Sensor 的驱动开发流程</a><ol><li><a href=#51-完整流程>5.1 完整流程</a></li><li><a href=#52-各步骤详解>5.2 各步骤详解</a></li></ol></li><li><a href=#6-一句话总结>6. 一句话总结</a></li></ol></nav></details><h2 id=1-sensor-是什么>1. Sensor 是什么？</h2><h3 id=11-一句话定义>1.1 一句话定义</h3><blockquote><p><strong>术语解释</strong>：<strong>Sensor（图像传感器）</strong> 是相机的“眼睛”——它把镜头汇聚进来的光信号（光子）转换成电信号，再通过模数转换（ADC）变成数字信号（RAW 图），交给 ISP 处理。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>光信号（光子） → Sensor → 电信号（模拟） → ADC → 数字信号（RAW 图） → ISP
-</span></span></code></pre></div><h3 id=12-ccd-vs-cmos--两种主流-sensor-技术>1.2 CCD vs CMOS —— 两种主流 Sensor 技术</h3><p>[Pasted image 20260708142624.png]</p><table><thead><tr><th>特性</th><th>CCD（电荷耦合器件）</th><th>CMOS（互补金属氧化物半导体）</th></tr></thead><tbody><tr><td><strong>信号读取方式</strong></td><td>全局曝光，逐行搬移电荷</td><td>逐行读出（卷帘曝光）或全局曝光</td></tr><tr><td><strong>功耗</strong></td><td>高（需要多组供电）</td><td>低（单组供电即可）</td></tr><tr><td><strong>速度</strong></td><td>慢（电荷搬移受限）</td><td>快（每个像素独立读出）</td></tr><tr><td><strong>成本</strong></td><td>高（工艺复杂）</td><td>低（标准 CMOS 工艺）</td></tr><tr><td><strong>应用</strong></td><td>工业相机、高端摄影</td><td>手机、安防、车载（主流）</td></tr><tr><td><strong>噪声</strong></td><td>低</td><td>较高（但已通过技术改进）</td></tr><tr><td></td><td></td><td></td></tr></tbody></table><blockquote><p><strong>当前主流</strong>：车载和安防场景几乎全部使用 <strong>CMOS Sensor</strong>。</p></blockquote><blockquote><p><strong>术语解释</strong>：<strong>全局曝光（Global Shutter）</strong> 指所有像素同时曝光，适合拍摄运动物体；<strong>卷帘曝光（Rolling Shutter）</strong> 指像素逐行曝光，拍运动物体时可能出现“果冻效应”（图像倾斜扭曲）。CMOS 技术已发展出全局快门型号（如某些高端系列），但卷帘快门仍更常见，因其成本和功耗更低。</p></blockquote><h2 id=2-sensor-的关键参数>2. Sensor 的关键参数</h2><h3 id=21-图像宽高分辨率>2.1 图像宽高（分辨率）</h3><blockquote><p><strong>术语解释</strong>：<strong>图像宽高</strong>指 Sensor 输出的 RAW 图的像素尺寸，通常用“宽度 × 高度”表示，如 1920×1080 表示宽 1920 个像素、高 1080 个像素。总像素数 = 宽 × 高。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>常见分辨率：
+</span></span></code></pre></div><h3 id=12-ccd-vs-cmos--两种主流-sensor-技术>1.2 CCD vs CMOS —— 两种主流 Sensor 技术</h3><p>![[Pasted image 20260708142624.png]]</p><table><thead><tr><th>特性</th><th>CCD（电荷耦合器件）</th><th>CMOS（互补金属氧化物半导体）</th></tr></thead><tbody><tr><td><strong>信号读取方式</strong></td><td>全局曝光，逐行搬移电荷</td><td>逐行读出（卷帘曝光）或全局曝光</td></tr><tr><td><strong>功耗</strong></td><td>高（需要多组供电）</td><td>低（单组供电即可）</td></tr><tr><td><strong>速度</strong></td><td>慢（电荷搬移受限）</td><td>快（每个像素独立读出）</td></tr><tr><td><strong>成本</strong></td><td>高（工艺复杂）</td><td>低（标准 CMOS 工艺）</td></tr><tr><td><strong>应用</strong></td><td>工业相机、高端摄影</td><td>手机、安防、车载（主流）</td></tr><tr><td><strong>噪声</strong></td><td>低</td><td>较高（但已通过技术改进）</td></tr><tr><td></td><td></td><td></td></tr></tbody></table><blockquote><p><strong>当前主流</strong>：车载和安防场景几乎全部使用 <strong>CMOS Sensor</strong>。</p></blockquote><blockquote><p><strong>术语解释</strong>：<strong>全局曝光（Global Shutter）</strong> 指所有像素同时曝光，适合拍摄运动物体；<strong>卷帘曝光（Rolling Shutter）</strong> 指像素逐行曝光，拍运动物体时可能出现“果冻效应”（图像倾斜扭曲）。CMOS 技术已发展出全局快门型号（如某厂商的 IMX 系列部分型号），但卷帘快门仍更常见，因其成本和功耗更低。</p></blockquote><h2 id=2-sensor-的关键参数>2. Sensor 的关键参数</h2><h3 id=21-图像宽高分辨率>2.1 图像宽高（分辨率）</h3><blockquote><p><strong>术语解释</strong>：<strong>图像宽高</strong>指 Sensor 输出的 RAW 图的像素尺寸，通常用“宽度 × 高度”表示，如 1920×1080 表示宽 1920 个像素、高 1080 个像素。总像素数 = 宽 × 高。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>常见分辨率：
 </span></span><span style=display:flex><span>2M（200万像素）：1920 × 1080 = 2,073,600 像素
 </span></span><span style=display:flex><span>4M（400万像素）：2688 × 1520 ≈ 4,085,760 像素
 </span></span><span style=display:flex><span>8M（800万像素）：3840 × 2160 = 8,294,400 像素
@@ -84,7 +84,8 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>安防监控：15-30fps
 </span></span><span style=display:flex><span>车载前视：30-60fps
 </span></span><span style=display:flex><span>高速检测：120fps 以上
-</span></span></code></pre></div><p><strong>帧率与分辨率的关系</strong>（<strong>带宽限制</strong>原理）：</p><blockquote><p><strong>术语解释</strong>：<strong>带宽</strong>指 Sensor 每秒输出的总数据量，等于“分辨率 × 位深 × 帧率”。Sensor 的最大带宽由硬件（MIPI 通道数、时钟频率）决定，分辨率越高，帧率必须越低，否则数据量超过带宽上限。</p></blockquote><blockquote><p><strong>位深（Bit Depth）</strong>，在图像传感器（Sensor）的语境下，就是<strong>每个像素用多少个“二进制位（bit）”来存储它的亮度值</strong>。简单来说，它决定了**“从纯黑到纯白之间，一共能区分出多少个灰度等级”**。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>带宽公式：总数据量 = 宽 × 高 × 位深 × 帧率
+</span></span></code></pre></div><p><strong>帧率与分辨率的关系</strong>（<strong>带宽限制</strong>原理）：</p><blockquote><p><strong>术语解释</strong>：<strong>带宽</strong>指 Sensor 每秒输出的总数据量，等于“分辨率 × 位深 × 帧率”。Sensor 的最大带宽由硬件（MIPI 通道数、时钟频率）决定，分辨率越高，帧率必须越低，否则数据量超过带宽上限。</p></blockquote><blockquote><p><strong>位深（Bit Depth）</strong>，在图像传感器（Sensor）的语境下，就是<strong>每个像素用多少个“二进制位（bit）”来存储它的亮度值</strong>。
+简单来说，它决定了**“从纯黑到纯白之间，一共能区分出多少个灰度等级”**。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>带宽公式：总数据量 = 宽 × 高 × 位深 × 帧率
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>例：10-bit 1920×1080 Sensor
 </span></span><span style=display:flex><span>带宽上限 ≈ 800 Mbps（由 MIPI 通道数和时钟决定）
@@ -95,7 +96,7 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>每像素有效位数 = 10 bit
 </span></span><span style=display:flex><span>总数据率 = 1920 × 1080 × 10 × 30 ≈ 622 Mbps
 </span></span><span style=display:flex><span>像素时钟 ≈ 622 / 4（lane）≈ 155 MHz
-</span></span></code></pre></div><blockquote><p><strong>在驱动中的体现</strong>：像素时钟决定了 MIPI 的传输速率，驱动需要根据分辨率/帧率计算正确的时钟配置。</p></blockquote><blockquote><p><strong>MIPI</strong> 在这里是 <strong>MIPI CSI-2</strong> 的简称，它是<strong>摄像头和 SoC（处理器）之间传输原始图像数据的高速物理接口标准</strong>。</p></blockquote><h3 id=24-bayer-格式bayer-pattern>2.4 Bayer 格式（Bayer Pattern）</h3><blockquote><p><strong>术语解释</strong>：<strong>Bayer 格式</strong>指 Sensor 输出的 RAW 图中颜色滤镜的排列方式。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>常见 Bayer 格式：
+</span></span></code></pre></div><blockquote><p><strong>在驱动中的体现</strong>：像素时钟决定了 MIPI 的传输速率，驱动需要根据分辨率/帧率计算正确的时钟配置。</p></blockquote><blockquote><p><strong>MIPI</strong> 在这里是 <strong>MIPI CSI-2</strong> 的简称，它是<strong>摄像头和 SoC（处理器）之间传输原始图像数据的高速物理接口标准</strong>。</p></blockquote><h3 id=24-bayer-格式bayer-pattern>2.4 Bayer 格式（Bayer Pattern）</h3><blockquote><p><strong>术语解释</strong>：<strong>Bayer 格式</strong>指 Sensor 输出的 RAW 图中颜色滤镜的排列方式。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>常见 Bayer 格式：
 </span></span><span style=display:flex><span>RGGB：第一行 R G R G...，第二行 G B G B...（最常用）
 </span></span><span style=display:flex><span>GRBG：第一行 G R G R...，第二行 B G B G...
 </span></span><span style=display:flex><span>GBRG：第一行 G B G B...，第二行 R G R G...
@@ -104,7 +105,7 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>行曝光 = 曝光行数 × 每行时间
 </span></span><span style=display:flex><span>例：1080p Sensor，每行时间 ≈ 30μs，曝光行数 = 200
 </span></span><span style=display:flex><span>曝光时间 = 200 × 30μs = 6,000μs = 6ms
-</span></span></code></pre></div><blockquote><p><strong>AE 调节的优先级</strong>：AE 算法优先调节曝光时间（噪声最小），曝光时间达到上限（一帧周期）后才开始增加增益。在低光场景下，曝光时间可能超过帧周期，直接导致帧率下降——这是正常现象，因为 Sensor 必须等待足够的光信号积累。</p></blockquote><h3 id=26-增益gain>2.6 增益（Gain）</h3><blockquote><p><strong>术语解释</strong>：<strong>增益（Gain）</strong> 是对 Sensor 输出信号的放大倍数。在暗光场景下，即使曝光时间达到上限，图像仍然偏暗，这时就需要增加增益（放大信号）。增益越大，亮度越高，但噪声也会被同步放大（信噪比下降）。</p></blockquote><table><thead><tr><th>增益类型</th><th>阶段</th><th>特点</th></tr></thead><tbody><tr><td><strong>Again（模拟增益）</strong></td><td>Sensor 内部，信号被 ADC 读出之前</td><td>噪声最小，优先使用</td></tr><tr><td><strong>Dgain（数字增益）</strong></td><td>Sensor 内部 ADC 转换之后</td><td>噪声中等，次优先</td></tr><tr><td><strong>ispDgain</strong></td><td>ISP 内部的数字放大</td><td>噪声最大，最后使用</td></tr></tbody></table><blockquote><p><strong>AE 分配的优先级</strong>：Again（+6dB）→ Dgain（+6dB）→ ispDgain（+3dB），目的是在保证亮度的同时尽量减少噪声放大。AE 算法的核心任务之一就是动态分配三者的比例。</p></blockquote><h3 id=27-黑电平black-level>2.7 黑电平（Black Level）</h3><blockquote><p><strong>术语解释</strong>：<strong>黑电平（Black Level）</strong> 是 Sensor 在全黑环境下输出的基准值，通常不是 0，而是一个固定偏置（如 256 或 300，对于 12-bit 数据）。这个偏置是 Sensor 硬件的“读出噪声”，必须在 ISP 中减去，否则图像整体偏亮（黑色不黑）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>读取到的像素值 = 真实信号 + 黑电平偏置
+</span></span></code></pre></div><blockquote><p><strong>AE 调节的优先级</strong>：AE 算法优先调节曝光时间（噪声最小），曝光时间达到上限（一帧周期）后才开始增加增益。在低光场景下，曝光时间可能超过帧周期，直接导致帧率下降——这是正常现象，因为 Sensor 必须等待足够的光信号积累。</p></blockquote><h3 id=26-增益gain>2.6 增益（Gain）</h3><blockquote><p><strong>术语解释</strong>：<strong>增益（Gain）</strong> 是<strong>对 Sensor 输出信号的放大倍数</strong>。在暗光场景下，即使曝光时间达到上限，图像仍然偏暗，这时就需要增加增益（放大信号）。增益越大，亮度越高，但噪声也会被同步放大（信噪比下降）。</p></blockquote><table><thead><tr><th>增益类型</th><th>阶段</th><th>特点</th></tr></thead><tbody><tr><td><strong>Again（模拟增益）</strong></td><td>Sensor 内部，信号被 ADC 读出之前</td><td>噪声最小，优先使用</td></tr><tr><td><strong>Dgain（数字增益）</strong></td><td>Sensor 内部 ADC 转换之后</td><td>噪声中等，次优先</td></tr><tr><td><strong>ispDgain</strong></td><td>ISP 内部的数字放大</td><td>噪声最大，最后使用</td></tr></tbody></table><blockquote><p><strong>AE 分配的优先级</strong>：Again（+6dB）→ Dgain（+6dB）→ ispDgain（+3dB），目的是在保证亮度的同时尽量减少噪声放大。AE 算法的核心任务之一就是动态分配三者的比例。</p></blockquote><h3 id=27-黑电平black-level>2.7 黑电平（Black Level）</h3><blockquote><p><strong>术语解释</strong>：<strong>黑电平（Black Level）</strong> 是 Sensor 在全黑环境下输出的基准值，通常不是 0，而是一个固定偏置（如 256 或 300，对于 12-bit 数据）。这个偏置是 Sensor 硬件的“读出噪声”，必须在 ISP 中减去，否则图像整体偏亮（黑色不黑）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>读取到的像素值 = 真实信号 + 黑电平偏置
 </span></span><span style=display:flex><span>真实信号 = 读取值 - 黑电平偏置
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>例：12-bit Sensor，黑电平 = 256
@@ -149,280 +150,38 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>帧率 = 1 / 帧周期
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>曝光时间的上限 = 帧周期 - 读出时间
-</span></span></code></pre></div><blockquote><p><strong>关键理解</strong>：当曝光时间需求超过帧周期时，Sensor 会自动延长 VBLANK 来满足曝光需求（导致帧率下降）。驱动必须正确配置 VTS 和 VBLANK，确保曝光时间范围满足实际场景需求。</p></blockquote><h2 id=4-sensor-与-soc-的连接>4. Sensor 与 SoC 的连接</h2><h3 id=41-信号连接图>4.1 信号连接图</h3><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><blockquote><p><strong>关键理解</strong>：当曝光时间需求超过帧周期时，Sensor 会自动延长 VBLANK 来满足曝光需求（导致帧率下降）。驱动必须正确配置 VTS 和 VBLANK，确保曝光时间范围满足实际场景需求。</p></blockquote><h2 id=4-sensor-与-soc-的连接>4. Sensor 与 SoC 的连接</h2><h3 id=41-信号连接图>4.1 信号连接图</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBTZW5zb3IKICAgICAgICBTRU5TWyLlm77lg4/kvKDmhJ/lmag8YnIvPu+8iElNWDMyNy9PUzA0QS4uLu+8iSJdCiAgICAgICAgSTJDX1NbIkkyQyDku47orr7lpIciXQogICAgICAgIE1JUElfU1siTUlQSSDlj5HpgIHnq68iXQogICAgICAgIENMS19TWyLml7bpkp/ovpPlhaUiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIFNvQwogICAgICAgIENQVVsiQ1BVPGJyLz7vvIjov5DooYzpqbHliqjvvIkiXQogICAgICAgIEkyQ19NWyJJMkMg5Li76K6+5aSHIl0KICAgICAgICBNSVBJX1JbIk1JUEkg5o6l5pS256uvIl0KICAgICAgICBDTEtfT1si5pe26ZKf6L6T5Ye6Il0KICAgICAgICBWSVsiVkkg5qih5Z2XIl0KICAgIGVuZAogICAgCiAgICBJMkNfTSAtLS0gSTJDX1MKICAgIE1JUElfUyAtLT4gTUlQSV9SCiAgICBDTEtfTyAtLT4gQ0xLX1MKICAgIENQVSAtLT4gSTJDX00KICAgIE1JUElfUiAtLT4gVkk=">flowchart LR
     subgraph Sensor
-        SENS["图像传感器<br>（型号示例）"]
-        I2C_S["I2C 从设备"]
-        MIPI_S["MIPI 发送端"]
-        CLK_S["时钟输入"]
+        SENS[&#34;图像传感器&lt;br/&gt;（IMX327/OS04A...）&#34;]
+        I2C_S[&#34;I2C 从设备&#34;]
+        MIPI_S[&#34;MIPI 发送端&#34;]
+        CLK_S[&#34;时钟输入&#34;]
     end
     
     subgraph SoC
-        CPU["CPU<br>（运行驱动）"]
-        I2C_M["I2C 主设备"]
-        MIPI_R["MIPI 接收端"]
-        CLK_O["时钟输出"]
-        VI["VI 模块"]
+        CPU[&#34;CPU&lt;br/&gt;（运行驱动）&#34;]
+        I2C_M[&#34;I2C 主设备&#34;]
+        MIPI_R[&#34;MIPI 接收端&#34;]
+        CLK_O[&#34;时钟输出&#34;]
+        VI[&#34;VI 模块&#34;]
     end
     
     I2C_M --- I2C_S
-    MIPI_S --> MIPI_R
-    CLK_O --> CLK_S
-    CPU --> I2C_M
-    MIPI_R --> VI
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
+    MIPI_S --&gt; MIPI_R
+    CLK_O --&gt; CLK_S
+    CPU --&gt; I2C_M
+    MIPI_R --&gt; VI</pre><h3 id=42-关键信号说明>4.2 关键信号说明</h3><table><thead><tr><th>信号类型</th><th>方向</th><th>作用</th></tr></thead><tbody><tr><td><strong>I2C</strong></td><td>SoC → Sensor</td><td>发送命令（设置曝光、增益、帧率等寄存器）</td></tr><tr><td><strong>MIPI CSI</strong></td><td>Sensor → SoC</td><td>传输图像数据（高速差分信号）</td></tr><tr><td><strong>MCLK</strong></td><td>SoC → Sensor</td><td>提供 Sensor 工作时钟（通常 24MHz/27MHz/37.125MHz）</td></tr><tr><td><strong>RST</strong></td><td>SoC → Sensor</td><td>硬件复位 Sensor</td></tr><tr><td><strong>PWDN</strong></td><td>SoC → Sensor</td><td>电源开关控制（低功耗休眠）</td></tr></tbody></table><h2 id=5-对接-sensor-的驱动开发流程>5. 对接 Sensor 的驱动开发流程</h2><h3 id=51-完整流程>5.1 完整流程</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IFRECiAgICBBWyLikaAg5Yib5bu6IHh4eF9jbW9zLmM8YnIvPlNlbnNvciDpqbHliqjmlofku7YiXQogICAgQlsi4pGhIOmFjee9riBTZW5zb3Ig5Z+656GA5Y+C5pWwPGJyLz7liIbovqjnjocv5bin546HL0JheWVyL+S9jea3sSJdCiAgICBDWyLikaIg6YWN572u56Gs5Lu25o6l5Y+jPGJyLz5NSVBJL0xWRFMvU0xWUyJdCiAgICBEWyLikaMg6YWN572u5pe26ZKfPGJyLz5TZW5zb3IgQ2xvY2svTUlQSSBDbG9jay9WSSBDbG9jayJdCiAgICBFWyLikaQg6YWN572u5Yid5aeL5YyW5bqP5YiXPGJyLz7mjIkgU2Vuc29yIGRhdGFzaGVldCDloavlhpnlr4TlrZjlmagiXQogICAgRlsi4pGlIOmFjee9riBNSVBJL1ZJL0lTUC9WTzxici8+5bu656uL5a6M5pW06YCa6LevIl0KICAgIEdbIuKRpiDpqozor4Hlh7rlm748YnIvPuajgOafpeWbvuWDj+aYr+WQpuato+W4uCJdCiAgICBIWyLikacg5a6e546wIEFFIOWKn+iDvTxici8+5pud5YWJL+Winuebii/lr4TlrZjlmajlkIzmraUiXQogICAgSVsi4pGoIOWunueOsOmrmOe6p+WKn+iDvTxici8+5bin546H6K6+572uL0RQQy9TdGFuZGJ5Il0KICAgIAogICAgQSAtLT4gQiAtLT4gQyAtLT4gRCAtLT4gRSAtLT4gRiAtLT4gRyAtLT4gSCAtLT4gSQ==">flowchart TD
+    A[&#34;① 创建 xxx_cmos.c&lt;br/&gt;Sensor 驱动文件&#34;]
+    B[&#34;② 配置 Sensor 基础参数&lt;br/&gt;分辨率/帧率/Bayer/位深&#34;]
+    C[&#34;③ 配置硬件接口&lt;br/&gt;MIPI/LVDS/SLVS&#34;]
+    D[&#34;④ 配置时钟&lt;br/&gt;Sensor Clock/MIPI Clock/VI Clock&#34;]
+    E[&#34;⑤ 配置初始化序列&lt;br/&gt;按 Sensor datasheet 填写寄存器&#34;]
+    F[&#34;⑥ 配置 MIPI/VI/ISP/VO&lt;br/&gt;建立完整通路&#34;]
+    G[&#34;⑦ 验证出图&lt;br/&gt;检查图像是否正常&#34;]
+    H[&#34;⑧ 实现 AE 功能&lt;br/&gt;曝光/增益/寄存器同步&#34;]
+    I[&#34;⑨ 实现高级功能&lt;br/&gt;帧率设置/DPC/Standby&#34;]
     
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=42-关键信号说明>4.2 关键信号说明</h3><table><thead><tr><th>信号类型</th><th>方向</th><th>作用</th></tr></thead><tbody><tr><td><strong>I2C</strong></td><td>SoC → Sensor</td><td>发送命令（设置曝光、增益、帧率等寄存器）</td></tr><tr><td><strong>MIPI CSI</strong></td><td>Sensor → SoC</td><td>传输图像数据（高速差分信号）</td></tr><tr><td><strong>MCLK</strong></td><td>SoC → Sensor</td><td>提供 Sensor 工作时钟（通常 24MHz/27MHz/37.125MHz）</td></tr><tr><td><strong>RST</strong></td><td>SoC → Sensor</td><td>硬件复位 Sensor</td></tr><tr><td><strong>PWDN</strong></td><td>SoC → Sensor</td><td>电源开关控制（低功耗休眠）</td></tr></tbody></table><h2 id=5-对接-sensor-的驱动开发流程>5. 对接 Sensor 的驱动开发流程</h2><h3 id=51-完整流程>5.1 完整流程</h3><pre class=mermaid>
-flowchart TD
-    A["① 创建 xxx_cmos.c<br>Sensor 驱动文件"]
-    B["② 配置 Sensor 基础参数<br>分辨率/帧率/Bayer/位深"]
-    C["③ 配置硬件接口<br>MIPI/LVDS/SLVS"]
-    D["④ 配置时钟<br>Sensor Clock/MIPI Clock/VI Clock"]
-    E["⑤ 配置初始化序列<br>按 Sensor datasheet 填写寄存器"]
-    F["⑥ 配置 MIPI/VI/ISP/VO<br>建立完整通路"]
-    G["⑦ 验证出图<br>检查图像是否正常"]
-    H["⑧ 实现 AE 功能<br>曝光/增益/寄存器同步"]
-    I["⑨ 实现高级功能<br>帧率设置/DPC/Standby"]
-    
-    A --> B --> C --> D --> E --> F --> G --> H --> I
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=52-各步骤详解>5.2 各步骤详解</h3><p><strong>步骤 ①：创建 <code>xxx_cmos.c</code></strong></p><blockquote><p>Sensor 驱动的标准文件命名，<code>xxx</code> 代表 Sensor 型号（如 <code>xxx_cmos.c</code>）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>// 典型的 Sensor 驱动文件结构
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H --&gt; I</pre><h3 id=52-各步骤详解>5.2 各步骤详解</h3><p><strong>步骤 ①：创建 <code>xxx_cmos.c</code></strong></p><blockquote><p>Sensor 驱动的标准文件命名，<code>xxx</code> 代表 Sensor 型号（如 <code>imx327_cmos.c</code>、<code>os04a_cmos.c</code>）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>// 典型的 Sensor 驱动文件结构
 </span></span></span><span style=display:flex><span><span style=color:#66d9ef>struct</span> sensor_info {
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> width;          <span style=color:#75715e>// 图像宽度
 </span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> height;         <span style=color:#75715e>// 图像高度
@@ -445,7 +204,7 @@ flowchart TD
 </span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> bit_depth;      <span style=color:#75715e>// 10-bit/12-bit
 </span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> wdr_mode;       <span style=color:#75715e>// 宽动态模式（开/关）
 </span></span></span><span style=display:flex><span>};
-</span></span></code></pre></div><p><strong>步骤 ③：配置硬件接口</strong></p><blockquote><p><strong>术语解释</strong>：<strong>MIPI/LVDS/SLVS</strong> 是 Sensor 输出图像数据的不同物理接口标准。MIPI 是车载 Sensor 的主流接口，LVDS 用于较老的 Sensor，SLVS 是索尼的专有接口标准。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>MIPI CSI-2：主流接口，4 lane 可达 10Gbps+
+</span></span></code></pre></div><p><strong>步骤 ③：配置硬件接口</strong></p><blockquote><p><strong>术语解释</strong>：<strong>MIPI/LVDS/SLVS</strong> 是 Sensor 输出图像数据的不同物理接口标准。MIPI 是车载 Sensor 的主流接口，LVDS 用于较老的 Sensor，SLVS 是某厂商的专有接口标准。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>MIPI CSI-2：主流接口，4 lane 可达 10Gbps+
 </span></span><span style=display:flex><span>LVDS：较老接口，常用于 1080p 以下分辨率
 </span></span><span style=display:flex><span>SLVS：索尼专有接口
 </span></span></code></pre></div><p><strong>步骤 ④：配置时钟</strong></p><blockquote><p><strong>术语解释</strong>：<strong>Sensor 时钟（MCLK）</strong> 由 SoC 提供给 Sensor，驱动 Sensor 内部逻辑。<strong>MIPI 时钟</strong> 由 Sensor 输出，用于高速数据传输。<strong>VI 时钟</strong> 是 SoC 内部 VI（Video Input）模块的工作时钟，用于接收 MIPI 数据。三者必须同步配置，才能保证数据稳定传输。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>MCLK (24MHz) → Sensor 内部 PLL → 像素时钟 → MIPI 时钟 → VI 模块
@@ -464,4 +223,4 @@ flowchart TD
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>寄存器同步要求：
 </span></span><span style=display:flex><span>曝光和增益必须在帧消隐期写入，下一帧生效
-</span></span></code></pre></div><p><strong>步骤 ⑨：实现高级功能</strong></p><table><thead><tr><th>功能</th><th>作用</th><th>实现方式</th></tr></thead><tbody><tr><td><strong>帧率设置</strong></td><td>动态调整帧率</td><td>修改 VTS 寄存器</td></tr><tr><td><strong>自动降帧</strong></td><td>低光时降低帧率增加曝光时间</td><td>监测 AE 状态，调整 VTS</td></tr><tr><td><strong>DPC</strong></td><td>坏点校正（Defect Pixel Correction）</td><td>启用 Sensor 内部坏点校正功能</td></tr><tr><td><strong>Standby</strong></td><td>休眠模式</td><td>关闭时钟、MIPI、电源</td></tr><tr><td><strong>Restart</strong></td><td>恢复工作</td><td>重新初始化 Sensor</td></tr></tbody></table><h2 id=6-一句话总结>6. 一句话总结</h2><blockquote><p><strong>Sensor 把光信号转成数字 RAW 图，驱动开发的核心是：按 Sensor 手册配置初始化序列、MIPI/VI 通路、曝光和增益参数（AE），确保 ISP 能收到格式正确（分辨率/帧率/Bayer/位深）的图像数据。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</span></span></code></pre></div><p><strong>步骤 ⑨：实现高级功能</strong></p><table><thead><tr><th>功能</th><th>作用</th><th>实现方式</th></tr></thead><tbody><tr><td><strong>帧率设置</strong></td><td>动态调整帧率</td><td>修改 VTS 寄存器</td></tr><tr><td><strong>自动降帧</strong></td><td>低光时降低帧率增加曝光时间</td><td>监测 AE 状态，调整 VTS</td></tr><tr><td><strong>DPC</strong></td><td>坏点校正（Defect Pixel Correction）</td><td>启用 Sensor 内部坏点校正功能</td></tr><tr><td><strong>Standby</strong></td><td>休眠模式</td><td>关闭时钟、MIPI、电源</td></tr><tr><td><strong>Restart</strong></td><td>恢复工作</td><td>重新初始化 Sensor</td></tr></tbody></table><h2 id=6-一句话总结>6. 一句话总结</h2><blockquote><p><strong>Sensor 把光信号转成数字 RAW 图，驱动开发的核心是：按 Sensor 手册配置初始化序列、MIPI/VI 通路、曝光和增益参数（AE），确保 ISP 能收到格式正确（分辨率/帧率/Bayer/位深）的图像数据。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

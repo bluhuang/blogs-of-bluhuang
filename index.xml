@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/</link><description>Recent content on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/index.xml" rel="self" type="application/rss+xml"/><item><title>GPT连接Github - 授权不代表真连接</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/gpt%E8%BF%9E%E6%8E%A5github---%E6%8E%88%E6%9D%83%E4%B8%8D%E4%BB%A3%E8%A1%A8%E7%9C%9F%E8%BF%9E%E6%8E%A5/</link><pubDate>Mon, 27 Jul 2026 09:12:57 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/gpt%E8%BF%9E%E6%8E%A5github---%E6%8E%88%E6%9D%83%E4%B8%8D%E4%BB%A3%E8%A1%A8%E7%9C%9F%E8%BF%9E%E6%8E%A5/</guid><description>&lt;p&gt;最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中踩了一个非常隐蔽的坑。&lt;/p&gt;
+&lt;p&gt;表面上看，已经在 ChatGPT 的 GitHub 应用中完成登录和授权，GitHub 的 &lt;strong&gt;Authorized OAuth Apps&lt;/strong&gt; 页面里也能看到 ChatGPT。整个流程看起来都成功了。&lt;/p&gt;</description></item><item><title>iOS 远程 Mac 开发环境搭建指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ios-%E8%BF%9C%E7%A8%8B-mac-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;目标：让任何人能根据本指南，用 iPhone 远程连接家里的 Mac，通过终端或 Web 界面写代码。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-准备工作"&gt;1. 准备工作&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;一台 Mac（保持开机，连接家里 Wi-Fi）&lt;/li&gt;
+&lt;li&gt;一台 Mac（保持开机状态，连接家里 Wi-Fi）&lt;/li&gt;
 &lt;li&gt;一部 iPhone（可连接 5G 或其它 Wi-Fi）&lt;/li&gt;
-&lt;li&gt;两个设备登录同一个 Apple ID（非必需，但方便）&lt;/li&gt;
-&lt;li&gt;Mac 上已经安装了 Homebrew（推荐，用来装软件）&lt;/li&gt;
+&lt;li&gt;两个设备登录同一 Apple ID（非必需，但方便）&lt;/li&gt;
+&lt;li&gt;Mac 上已安装 Homebrew（推荐，用于安装软件）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="2-mac-端安装与配置"&gt;2. Mac 端安装与配置&lt;/h2&gt;
 &lt;h3 id="21-安装-tailscale组网工具"&gt;2.1 安装 Tailscale（组网工具）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;打开官网 &lt;a href="https://tailscale.com/download"
+&lt;li&gt;打开官网 &lt;a href="https://tailscale.com/download"
 
 
 
@@ -20,15 +21,15 @@
  
 
 
-&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
+&gt;https://tailscale.com/download&lt;/a&gt; → 下载 macOS 版安装包&lt;/li&gt;
 &lt;li&gt;安装后，启动 Tailscale，用你的账号（Google/Microsoft/GitHub）登录&lt;/li&gt;
-&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;菜单栏出现 Tailscale 图标，确保状态为 &lt;code&gt;Connected&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id="22-开启-mac-的远程登录"&gt;2.2 开启 Mac 的远程登录&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;打开 &lt;strong&gt;系统设置 → 通用 → 共享&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;打开 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
-&lt;li&gt;下方“允许访问”建议设为“所有用户”，或者只允许你的 Mac 用户名&lt;/li&gt;
+&lt;li&gt;打开 &lt;strong&gt;系统设置 → 通用 → 共享&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;打开 &lt;strong&gt;远程登录&lt;/strong&gt; 开关&lt;/li&gt;
+&lt;li&gt;下方“允许访问”建议设为“所有用户”，或仅允许你的 Mac 用户名&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="23-安装-tmux防断连工具"&gt;2.3 安装 tmux（防断连工具）&lt;/h3&gt;
 &lt;p&gt;打开 Mac 终端，执行：&lt;/p&gt;</description></item><item><title>mac远程安装开发好的ios app实践 - SideStore</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/mac%E8%BF%9C%E7%A8%8B%E5%AE%89%E8%A3%85%E5%BC%80%E5%8F%91%E5%A5%BD%E7%9A%84ios-app%E5%AE%9E%E8%B7%B5---sidestore/</guid><description>&lt;h1 id="sidestore-无线远程安装方案packpack-开发实践"&gt;SideStore 无线远程安装方案（Packpack 开发实践）&lt;/h1&gt;
@@ -152,19 +153,20 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;tmux attach -t work
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="5-小技巧"&gt;5. 小技巧&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;会话名用短单词：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;建议使用短单词作为会话名：&lt;code&gt;w&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;、&lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;长时间任务配合 &lt;code&gt;caffeinate&lt;/code&gt; 防止 Mac 睡眠（另开终端执行 &lt;code&gt;caffeinate&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内运行的任务&lt;/li&gt;
+&lt;li&gt;手机锁屏/切换 App 不影响 tmux 内任务&lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>U-Net - Convolutional Networks for Biomedical Image Segmentation</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/3-u-net---convolutional-networks-for-biomedical-image-segmentation/</guid><description>&lt;h1 id="u-net-convolutional-networks-for-biomedical-image-segmentation"&gt;U-Net: Convolutional Networks for Biomedical Image Segmentation&lt;/h1&gt;
 &lt;h2 id="1-论文信息"&gt;1. 论文信息&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：U-Net: Convolutional Networks for Biomedical Image Segmentation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;作者&lt;/strong&gt;：Olaf Ronneberger, Philipp Fischer, Thomas Brox&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;会议&lt;/strong&gt;：MICCAI 2015&lt;/p&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;作者&lt;/strong&gt;：已脱敏&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;会议&lt;/strong&gt;：MICCAI 2015&lt;/p&gt;
+&lt;p&gt;这篇论文提出了 &lt;strong&gt;U-Net&lt;/strong&gt;，核心目标不是设计一个通用的分割网络，而是解决：&lt;/p&gt;</description></item><item><title>Xcode 无线安装与远程调试完全指南</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/xcode-%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/</guid><description>&lt;h1 id="xcode-无线远程安装指南基于-tailscale"&gt;Xcode 无线远程安装指南（基于 Tailscale）&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;不建议使用SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;避免使用SideStore&lt;/strong&gt;，使用 Xcode + Tailscale 实现真正的远程无线安装。&lt;br&gt;
 一次配置，以后无论在家还是在外，都能一键将 App 装到 iPhone。&lt;/p&gt;</description></item><item><title>从零配置 SideStore &amp; WireGuard：实现远程无线安装 iOS 应用</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/%E4%BB%8E%E9%9B%B6%E9%85%8D%E7%BD%AE-sidestore--wireguard%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E6%97%A0%E7%BA%BF%E5%AE%89%E8%A3%85-ios-%E5%BA%94%E7%94%A8/</guid><description>&lt;h1 id="sidestore--wireguard-环境搭建与远程-ios-开发安装配置指南"&gt;SideStore + WireGuard 环境搭建与远程 iOS 开发安装配置指南&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 能远程构建 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item><item><title>空域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-空域降噪的基本概念"&gt;1. 空域降噪的基本概念&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在 Mac 和 iPhone 之间配置完全无线、可续签的 iOS App 安装环境，使 OpenCode 远程构建 &lt;code&gt;.ipa&lt;/code&gt;，并通过手机上的 SideStore 直接安装，无需 USB。&lt;/p&gt;</description></item><item><title>空域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/16-%E7%A9%BA%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-空域降噪的基本概念"&gt;1. 空域降噪的基本概念&lt;/h2&gt;
 &lt;h3 id="11-什么是空域降噪"&gt;1.1 什么是空域降噪&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;空域降噪（Spatial Denoising）&lt;/strong&gt; 指在同一帧图像内部，利用像素与周围像素之间的空间关系来去除噪声的方法。它不依赖多帧信息，只处理当前这一帧。&lt;/p&gt;</description></item><item><title>频域降噪</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/17-%E9%A2%91%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h2 id="1-频域降噪的背景"&gt;1. 频域降噪的背景&lt;/h2&gt;
@@ -200,13 +202,12 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&lt;strong&gt;一句话识别&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>未命名</title><link>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/%E6%9C%AA%E5%91%BD%E5%90%8D/</link><pubDate>Sat, 25 Jul 2026 11:33:29 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/z_mixed/skills/%E6%9C%AA%E5%91%BD%E5%90%8D/</guid><description>&lt;p&gt;最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中遇到一个非常隐蔽的问题。&lt;/p&gt;
-&lt;p&gt;表面上看，我已经在 ChatGPT 的 GitHub 应用中完成登录和授权，GitHub 的 &lt;strong&gt;Authorized OAuth Apps&lt;/strong&gt; 页面里也能看到 ChatGPT。整个流程看起来都成功了。&lt;/p&gt;</description></item><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;一句话识别&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
 &lt;p&gt;在 DnCNN 出现之前，图像去噪主要面临三个痛点：&lt;/p&gt;
 &lt;h3 id="11-痛点一传统方法依赖人工设计的先验"&gt;1.1 痛点一：传统方法依赖人工设计的先验&lt;/h3&gt;
 &lt;p&gt;传统去噪方法（如 BM3D）基于图像的自相似性——在一张图像里找相似的图像块，然后加权平均去噪。这种方法虽然有效，但本质上是在“手工设计规则”，通用性有限，不同场景需要不同的参数配置。&lt;/p&gt;</description></item><item><title>ResNet - Deep Residual Learning for Image Recognition</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</link><pubDate>Mon, 13 Jul 2026 09:12:23 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-resnet---deep-residual-learning-for-image-recognition/</guid><description>&lt;h2 id="1-论文信息"&gt;1. 论文信息&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：Deep Residual Learning for Image Recognition&lt;br&gt;
-&lt;strong&gt;作者&lt;/strong&gt;：匿名&lt;br&gt;
+&lt;strong&gt;作者&lt;/strong&gt;：&lt;br&gt;
 &lt;strong&gt;会议&lt;/strong&gt;：CVPR 2016&lt;/p&gt;
 &lt;p&gt;这篇论文提出了 &lt;strong&gt;ResNet（Residual Network，残差网络）&lt;/strong&gt;，核心目标不是单纯设计一个分类网络，而是解决：&lt;/p&gt;</description></item><item><title>ISP 中的 3A 算法：AE、AWB、AF</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/11-isp-%E4%B8%AD%E7%9A%84-3a-%E7%AE%97%E6%B3%95aeawbaf/</guid><description>&lt;h2 id="1-什么是-3a-算法"&gt;1. 什么是 3A 算法？&lt;/h2&gt;
 &lt;h3 id="11-3a-的含义"&gt;1.1 3A 的含义&lt;/h3&gt;
@@ -237,172 +238,48 @@
 			&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中最重要的控制逻辑。
-[Pasted image 20260707155825.png]&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
+&lt;p&gt;这三个算法共同决定了最终图像的&lt;strong&gt;亮度、颜色和清晰度&lt;/strong&gt;，是 ISP 中核心的控制逻辑。
+![[Pasted image 20260707155825.png]]&lt;/p&gt;</description></item><item><title>ISP补充： 完整ISP Pipeline</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/</guid><description>&lt;h1 id="isp-系统简介完整流水线解析"&gt;ISP 系统简介：完整流水线解析&lt;/h1&gt;
 &lt;h2 id="1-isp-整体流程概览"&gt;1. ISP 整体流程概览&lt;/h2&gt;
-
-&lt;pre class="mermaid"&gt;
-flowchart TB
+&lt;pre class="mermaid" data-mermaid-source="Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBTWyJDTU9TIFNlbnNvcjxici8&amp;#43;77yIQmF5ZXIgUkFX77yJIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUxWyLpmLbmrrXkuIDvvJpSQVcg5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBCTENbIuKRoCDpu5HnlLXlubPkuI7nur/mgKfljJYiXQogICAgICAgIERQQ1si4pGhIOWdj&amp;#43;eCueefq&amp;#43;atoyJdCiAgICAgICAgQk5SWyLikaIgUkFXIOWfn&amp;#43;mZjeWZqiJdCiAgICAgICAgTFNDWyLikaMg6ZWc5aS05pqX6KeS5qCh5q2jIl0KICAgICAgICBXQkdbIuKRpCDnmb3lubPooaHlop7nm4oiXQogICAgICAgIEdCQ1si4pGlIOe7v&amp;#43;W5s&amp;#43;ihoeagoeatoyJdCiAgICAgICAgREVNWyLikaYg5Y676ams6LWb5YWLIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUyWyLpmLbmrrXkuozvvJpSR0Ig5Z&amp;#43;f5aSE55CGIl0KICAgICAgICBDQVsi4pGnIOiJsuW3ruagoeatoyJdCiAgICAgICAgQ0NNWyLikagg6Imy5b2p5qCh5q2jIl0KICAgICAgICBEUkNbIuKRqSDliqjmgIHojIPlm7TljovnvKkiXQogICAgICAgIEdBTU1BWyLikaogR2FtbWEiXQogICAgICAgIExVVDNEWyLikasgM0RMVVQiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOmYtuautTNbIumYtuauteS4ie&amp;#43;8mllVViDln5/lpITnkIYiXQogICAgICAgIENFWyLikawg6Imy5b2p5aKe5by6Il0KICAgICAgICBERVsi4pGtIOe7huiKguWinuW8uiJdCiAgICAgICAgU0hBUlBbIuKRriDplJDljJYiXQogICAgICAgIFlOUlsi4pGvIFlVViDln5/pmY3lmaoiXQogICAgICAgIFRNWyLikbAg6Imy6LCD5pig5bCEIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPWyJZVVYg6L6T5Ye6PGJyLz7vvIjmmL7npLov57yW56CB77yJIl0KICAgIGVuZAogICAgCiAgICBTIC0tPiBCTEMgLS0&amp;#43;IERQQyAtLT4gQk5SIC0tPiBMU0MgLS0&amp;#43;IFdCRyAtLT4gR0JDIC0tPiBERU0KICAgIERFTSAtLT4gQ0EgLS0&amp;#43;IENDTSAtLT4gRFJDIC0tPiBHQU1NQSAtLT4gTFVUM0QKICAgIExVVDNEIC0tPiBDRSAtLT4gREUgLS0&amp;#43;IFNIQVJQIC0tPiBZTlIgLS0&amp;#43;IFRNIC0tPiBP"&gt;flowchart TB
  subgraph 输入
- S["CMOS Sensor&lt;br/&gt;（Bayer RAW）"]
+ S[&amp;#34;CMOS Sensor&amp;lt;br/&amp;gt;（Bayer RAW）&amp;#34;]
  end
  
- subgraph 阶段1["阶段一：RAW 域处理"]
- BLC["① 黑电平与线性化"]
- DPC["② 坏点矫正"]
- BNR["③ RAW 域降噪"]
- LSC["④ 镜头暗角校正"]
- WBG["⑤ 白平衡增益"]
- GBC["⑥ 绿平衡校正"]
- DEM["⑦ 去马赛克"]
+ subgraph 阶段1[&amp;#34;阶段一：RAW 域处理&amp;#34;]
+ BLC[&amp;#34;① 黑电平与线性化&amp;#34;]
+ DPC[&amp;#34;② 坏点矫正&amp;#34;]
+ BNR[&amp;#34;③ RAW 域降噪&amp;#34;]
+ LSC[&amp;#34;④ 镜头暗角校正&amp;#34;]
+ WBG[&amp;#34;⑤ 白平衡增益&amp;#34;]
+ GBC[&amp;#34;⑥ 绿平衡校正&amp;#34;]
+ DEM[&amp;#34;⑦ 去马赛克&amp;#34;]
  end
  
- subgraph 阶段2["阶段二：RGB 域处理"]
- CA["⑧ 色差校正"]
- CCM["⑨ 色彩校正"]
- DRC["⑩ 动态范围压缩"]
- GAMMA["⑪ Gamma"]
- LUT3D["⑫ 3DLUT"]
+ subgraph 阶段2[&amp;#34;阶段二：RGB 域处理&amp;#34;]
+ CA[&amp;#34;⑧ 色差校正&amp;#34;]
+ CCM[&amp;#34;⑨ 色彩校正&amp;#34;]
+ DRC[&amp;#34;⑩ 动态范围压缩&amp;#34;]
+ GAMMA[&amp;#34;⑪ Gamma&amp;#34;]
+ LUT3D[&amp;#34;⑫ 3DLUT&amp;#34;]
  end
  
- subgraph 阶段3["阶段三：YUV 域处理"]
- CE["⑬ 色彩增强"]
- DE["⑭ 细节增强"]
- SHARP["⑮ 锐化"]
- YNR["⑯ YUV 域降噪"]
- TM["⑰ 色调映射"]
+ subgraph 阶段3[&amp;#34;阶段三：YUV 域处理&amp;#34;]
+ CE[&amp;#34;⑬ 色彩增强&amp;#34;]
+ DE[&amp;#34;⑭ 细节增强&amp;#34;]
+ SHARP[&amp;#34;⑮ 锐化&amp;#34;]
+ YNR[&amp;#34;⑯ YUV 域降噪&amp;#34;]
+ TM[&amp;#34;⑰ 色调映射&amp;#34;]
  end
  
  subgraph 输出
- O["YUV 输出&lt;br/&gt;（显示/编码）"]
+ O[&amp;#34;YUV 输出&amp;lt;br/&amp;gt;（显示/编码）&amp;#34;]
  end
  
- S --&gt; BLC --&gt; DPC --&gt; BNR --&gt; LSC --&gt; WBG --&gt; GBC --&gt; DEM
- DEM --&gt; CA --&gt; CCM --&gt; DRC --&gt; GAMMA --&gt; LUT3D
- LUT3D --&gt; CE --&gt; DE --&gt; SHARP --&gt; YNR --&gt; TM --&gt; O
-&lt;/pre&gt;
-
-
-&lt;script type="module"&gt;
- import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
- 
- const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
- const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
- const THEME_REGEX = /^\s*theme:/;
- const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
- 
- const getMermaidConfig = (startOnLoad = true) =&gt; ({
- startOnLoad,
- theme: "default",
- securityLevel: "loose",
- flowchart: { curve: "basis" },
- });
-
- 
- function processContent(content, isDarkMode) {
- if (!isDarkMode) return content;
-
- const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
- if (hasFrontmatter) {
- return content.replace(CONFIG_REGEX, (match, before, configContent, after) =&gt; {
- const lines = configContent.split("\n");
- const filtered = [];
- let skipUntilDedent = false;
- let themeVarIndent = 0;
-
- for (const line of lines) {
- const indent = line.search(/\S/);
-
- if (THEME_REGEX.test(line)) continue;
-
- if (THEME_VARS_REGEX.test(line)) {
- skipUntilDedent = true;
- themeVarIndent = indent;
- continue;
- }
-
- if (skipUntilDedent) {
- if (line.trim() &amp;&amp; indent &gt; themeVarIndent) continue;
- skipUntilDedent = false;
- }
-
- filtered.push(line);
- }
-
- filtered.unshift(" theme: dark");
- return before + filtered.join("\n") + after;
- });
- }
- 
- return `---\nconfig:\n theme: dark\n---\n${content}`;
- }
-
- 
- async function rerenderDiagrams() {
- const isDark = document.documentElement.classList.contains("dark");
- const elements = document.querySelectorAll(".mermaid");
- 
- if (elements.length === 0) return;
-
- const validElements = [];
-
- for (const element of elements) {
- if (!element.isConnected) continue;
- 
- const originalContent = element.getAttribute("data-original");
- if (originalContent) {
- const content = processContent(originalContent, isDark);
- element.textContent = content;
- element.removeAttribute("data-processed");
- validElements.push(element);
- }
- }
-
- if (validElements.length === 0) return;
-
- await new Promise(resolve =&gt; setTimeout(resolve, 0));
-
- try {
- await mermaid.run({ nodes: validElements });
- } catch (error) {
- console.error("Mermaid rendering error:", error);
- }
- }
-
- 
- document.addEventListener("DOMContentLoaded", () =&gt; {
- const isDark = document.documentElement.classList.contains("dark");
-
- document.querySelectorAll(".mermaid").forEach((element) =&gt; {
- if (!element.hasAttribute("data-original")) {
- const originalContent = element.textContent.trim();
- element.setAttribute("data-original", originalContent);
- element.textContent = processContent(originalContent, isDark);
- }
- });
- });
-
- mermaid.initialize(getMermaidConfig());
-
- 
- let previousDarkMode = document.documentElement.classList.contains("dark");
-
- new MutationObserver(() =&gt; {
- const currentDarkMode = document.documentElement.classList.contains("dark");
-
- if (currentDarkMode !== previousDarkMode) {
- previousDarkMode = currentDarkMode;
- mermaid.initialize(getMermaidConfig(false));
- rerenderDiagrams();
- }
- }).observe(document.documentElement, {
- attributes: true,
- attributeFilter: ["class"],
- });
-&lt;/script&gt;&lt;h2 id="2-阶段一raw-域处理"&gt;2. 阶段一：RAW 域处理&lt;/h2&gt;
+ S --&amp;gt; BLC --&amp;gt; DPC --&amp;gt; BNR --&amp;gt; LSC --&amp;gt; WBG --&amp;gt; GBC --&amp;gt; DEM
+ DEM --&amp;gt; CA --&amp;gt; CCM --&amp;gt; DRC --&amp;gt; GAMMA --&amp;gt; LUT3D
+ LUT3D --&amp;gt; CE --&amp;gt; DE --&amp;gt; SHARP --&amp;gt; YNR --&amp;gt; TM --&amp;gt; O&lt;/pre&gt;
+&lt;h2 id="2-阶段一raw-域处理"&gt;2. 阶段一：RAW 域处理&lt;/h2&gt;
 &lt;p&gt;RAW 域是 ISP 流水线的第一阶段，处理的是 Sensor 直接输出的 Bayer 格式数据（未经过任何颜色插值）。这个阶段的核心目标是 &lt;strong&gt;“修复 Sensor 的物理缺陷，为后续色彩重建准备干净的数据”&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>Sensor基础</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 11 Jul 2026 16:37:39 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/13-sensor%E5%9F%BA%E7%A1%80/</guid><description>&lt;h2 id="1-sensor-是什么"&gt;1. Sensor 是什么？&lt;/h2&gt;
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
 &lt;blockquote&gt;
@@ -418,8 +295,8 @@ flowchart TB
 &lt;/blockquote&gt;
 &lt;h2 id="1-为什么需要-ssim"&gt;1. 为什么需要 SSIM？&lt;/h2&gt;
 &lt;h3 id="11-l1l2-的局限逐像素比较的视觉盲区"&gt;1.1 L1/L2 的局限：逐像素比较的“视觉盲区”&lt;/h3&gt;
-&lt;p&gt;L1 和 L2 损失都是&lt;strong&gt;逐像素比较&lt;/strong&gt;：把两张图的每个对应像素相减，然后求平均或平方和。&lt;/p&gt;</description></item><item><title>模型训练全景</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</guid><description>&lt;h2 id="1-模型训练的完整生命周期"&gt;1. 模型训练的完整生命周期&lt;/h2&gt;
-&lt;p&gt;首先通过一张全景图建立整体认知：&lt;/p&gt;
+&lt;p&gt;L1 和 L2 损失都是&lt;strong&gt;逐像素比较&lt;/strong&gt;：将两张图像的每个对应像素相减，然后求平均或平方和。&lt;/p&gt;</description></item><item><title>模型训练全景</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</guid><description>&lt;h2 id="1-模型训练的完整生命周期"&gt;1. 模型训练的完整生命周期&lt;/h2&gt;
+&lt;p&gt;先看一张全景图，建立整体认知：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌─────────────────────────────────────────────────────────────────────────────┐
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ 一个 AI 模型的完整生命周期 │
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─────────────────────────────────────────────────────────────────────────────┤
@@ -451,22 +328,22 @@ flowchart TB
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└─────────────────────────────────────────────────────────────────────────────┘
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这张图展示了模型的完整生命周期——从预训练到最终部署。&lt;/p&gt;</description></item><item><title>学习率调度（Learning Rate Scheduling）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6learning-rate-scheduling/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6learning-rate-scheduling/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：&lt;strong&gt;为什么训练过程中学习率不能固定不变？怎么动态调整学习率才能让模型收敛得更好？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：&lt;strong&gt;为什么训练过程中学习率不能固定不变？如何动态调整学习率以促进模型更好收敛？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-为什么需要动态调整学习率"&gt;1. 为什么需要动态调整学习率？&lt;/h2&gt;
 &lt;p&gt;如果从头到尾使用&lt;strong&gt;固定学习率&lt;/strong&gt;：&lt;/p&gt;</description></item><item><title>AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/9-awbauto-white-balance%E8%87%AA%E5%8A%A8%E7%99%BD%E5%B9%B3%E8%A1%A1-%E8%AE%A9%E7%99%BD%E8%89%B2%E5%9C%A8%E4%BB%BB%E4%BD%95%E5%85%89%E6%BA%90%E4%B8%8B%E9%83%BD%E6%98%AF%E7%99%BD%E8%89%B2/</guid><description>&lt;h1 id="awb自动白平衡-让白色在任何光源下都是白色"&gt;AWB（自动白平衡）—— 让白色在任何光源下都是白色&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Bayer 阵列（每个像素只记录一种颜色）、Demosaic（Bayer→RGB），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;为什么同一张白纸，在日光下和白炽灯下拍出来颜色不一样？AWB 怎么把颜色&amp;quot;校正&amp;quot;回来？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</guid><description>&lt;p&gt;&lt;strong&gt;Bayer阵列（Bayer Pattern / Bayer Filter Mosaic）&lt;/strong&gt; 是数码相机、手机摄像头等几乎所有消费级图像传感器的&lt;strong&gt;底层核心技术&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>BLC（Black Level Correction，黑电平校正）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</guid><description>&lt;h1 id="blc-黑电平校正"&gt;BLC 黑电平校正&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Bayer 阵列（每个像素只记录一种颜色）、Demosaic（Bayer→RGB），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;为什么同一张白纸，在日光下和白炽灯下拍出来颜色不一样？AWB 怎么把颜色“校正”回来？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/2-bayer%E9%98%B5%E5%88%97bayer-pattern-bayer-filter-mosaic-%E6%8B%9C%E8%80%B3%E9%98%B5%E5%88%97/</guid><description>&lt;p&gt;&lt;strong&gt;Bayer阵列（Bayer Pattern / Bayer Filter Mosaic）&lt;/strong&gt; 是数码相机、手机摄像头等几乎所有消费级图像传感器的&lt;strong&gt;底层核心技术&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>BLC（Black Level Correction，黑电平校正）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/7-blcblack-level-correction%E9%BB%91%E7%94%B5%E5%B9%B3%E6%A0%A1%E6%AD%A3/</guid><description>&lt;h1 id="blc-黑电平校正"&gt;BLC 黑电平校正&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;什么是黑电平？为什么 Sensor 在全黑时读数不是 0？BLC 是如何把它矫正回来的？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-什么是-blc"&gt;1. 什么是 BLC&lt;/h2&gt;
 &lt;h3 id="11-blc-的定义"&gt;1.1 BLC 的定义&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;BLC（Black Level Correction，黑电平校正）&lt;/strong&gt; 是 ISP 流程中的第一个处理步骤，目的是将 Sensor 在全黑环境下的非零输出值修正为 0。&lt;/p&gt;</description></item><item><title>BNR，Bayer Noise Reduction（拜耳域降噪）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h1 id="bnr拜耳域降噪"&gt;BNR（拜耳域降噪）&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;BLC（Black Level Correction，黑电平校正）&lt;/strong&gt; 是 ISP 流程中的第一个处理步骤，目的是把 Sensor 在全黑环境下的非零输出值修正为 0。&lt;/p&gt;</description></item><item><title>BNR，Bayer Noise Reduction（拜耳域降噪）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/6--bnrbayer-noise-reduction%E6%8B%9C%E8%80%B3%E5%9F%9F%E9%99%8D%E5%99%AA/</guid><description>&lt;h1 id="bnr拜耳域降噪"&gt;BNR（拜耳域降噪）&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;BNR（Bayer Noise Reduction）是 &lt;strong&gt;RAW 域处理&lt;/strong&gt; 的一个环节，位于 BLC 和 DPC 之后、数字增益之前。现在要回答的问题是：&lt;strong&gt;为什么要在 Bayer 域做降噪？怎么做？传统 BNR 和 AIBNR 有什么区别？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/10-ccm-color-correction-matrix%E8%89%B2%E5%BD%A9%E6%A0%A1%E6%AD%A3%E7%9F%A9%E9%98%B5-%E6%8A%8A-sensor-%E7%9A%84%E9%A2%9C%E8%89%B2%E6%8B%89%E5%9B%9E%E6%A0%87%E5%87%86%E7%A9%BA%E9%97%B4/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：了解了 Demosaic（Bayer→RGB）和 AWB（白平衡）的原理。现在要回答的问题是：&lt;strong&gt;为什么经过 AWB 之后，颜色还不够“准”？CCM 是怎么用一个 3×3 矩阵把颜色校正到标准色彩空间的？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/8-demosaic%E5%8E%BB%E9%A9%AC%E8%B5%9B%E5%85%8B-%E4%BB%8E-bayer-%E5%88%B0-rgb-%E7%9A%84%E6%A1%A5%E6%A2%81/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要回答的问题是：&lt;strong&gt;4 通道的 Bayer 数据，怎么变成 3 通道的彩色 RGB 图像？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Gamma 校正与逆 Gamma</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</guid><description>&lt;h2 id="1-从亮度说起"&gt;1. 从“亮度”说起&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要讨论的问题是：&lt;strong&gt;4 通道的 Bayer 数据，如何变成 3 通道的彩色 RGB 图像？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Gamma 校正与逆 Gamma</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/3-gamma-%E6%A0%A1%E6%AD%A3%E4%B8%8E%E9%80%86-gamma/</guid><description>&lt;h2 id="1-从亮度说起"&gt;1. 从“亮度”说起&lt;/h2&gt;
 &lt;h3 id="11-什么是亮度两个不同的亮度世界"&gt;1.1 什么是亮度？——两个不同的“亮度世界”&lt;/h3&gt;
 &lt;p&gt;我们先忘掉公式，想一个问题：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -511,11 +388,11 @@ flowchart TB
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;术语解释&lt;/strong&gt;：&lt;strong&gt;色彩空间（Color Space）&lt;/strong&gt; 是用一组数值来描述颜色的数学模型。RGB 和 YUV 都是色彩空间，只是描述方式不同。RGB 描述“每个像素有多少红/绿/蓝”，YUV 描述“这个像素有多亮、偏蓝还是偏红”。&lt;/p&gt;</description></item><item><title>噪声的原理 —— 从物理源头到AI建模</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</link><pubDate>Wed, 01 Jul 2026 16:40:55 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/1-%E5%99%AA%E5%A3%B0%E7%9A%84%E5%8E%9F%E7%90%86--%E4%BB%8E%E7%89%A9%E7%90%86%E6%BA%90%E5%A4%B4%E5%88%B0ai%E5%BB%BA%E6%A8%A1/</guid><description>&lt;h2 id="一噪声是什么-从为什么有噪点说起"&gt;一、噪声是什么？—— 从“为什么有噪点”说起&lt;/h2&gt;
 &lt;h3 id="11-直观感受噪声就是不该出现的像素值"&gt;1.1 直观感受：噪声就是“不该出现的像素值”&lt;/h3&gt;
-&lt;p&gt;常见场景包括：&lt;/p&gt;
+&lt;p&gt;你肯定见过这样的照片：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;夜晚拍摄的室内照片，暗部区域出现密密麻麻的彩色小点&lt;/li&gt;
-&lt;li&gt;蓝天照片中，原本纯净的蓝色区域出现细小的颗粒感&lt;/li&gt;
-&lt;li&gt;使用高ISO（如ISO 3200）拍摄的图像，整个画面像铺了一层“沙”&lt;/li&gt;
+&lt;li&gt;夜晚拍的室内照片，暗部区域有密密麻麻的彩色小点&lt;/li&gt;
+&lt;li&gt;蓝天照片里，原本纯净的蓝色区域出现细小的颗粒感&lt;/li&gt;
+&lt;li&gt;用高ISO（如ISO 3200）拍的图，整个画面像铺了一层“沙”&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这些“不该出现的像素值偏差”，就是&lt;strong&gt;噪声&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>1 卷积与CNN基础</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E5%8D%B7%E7%A7%AF%E4%B8%8Ecnn%E5%9F%BA%E7%A1%80/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E5%8D%B7%E7%A7%AF%E4%B8%8Ecnn%E5%9F%BA%E7%A1%80/</guid><description>&lt;h2 id="1-卷积是什么"&gt;1 卷积是什么？&lt;/h2&gt;
 &lt;h3 id="11-卷积的介绍"&gt;1.1 卷积的介绍&lt;/h3&gt;
@@ -535,8 +412,8 @@ flowchart TB
 &lt;h2 id="1-宏观概览深度学习如何学习"&gt;1. 宏观概览：深度学习如何“学习”？&lt;/h2&gt;
 &lt;h3 id="11-核心思想神经网络是万能函数近似器"&gt;1.1 核心思想：神经网络是“万能函数近似器”&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;一句话定义&lt;/strong&gt;：&lt;br&gt;
-一个训练好的神经网络，本质上是一个&lt;strong&gt;极其复杂的数学函数&lt;/strong&gt; $y = f(x)$，它能够将输入 $x$（比如一张噪声图片）映射到输出 $y$（比如一张干净图片）。&lt;br&gt;
-“万能近似定理”（Universal Approximation Theorem）指出：只要网络具有足够多的神经元和非线性激活函数，它在理论上可以逼近任意函数——即使该函数关系在现实中无法写出解析公式。&lt;/p&gt;</description></item><item><title>2 多通道卷积</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/</guid><description>&lt;h1 id="多通道卷积"&gt;多通道卷积&lt;/h1&gt;
+一个训练好的神经网络，本质上是一个&lt;strong&gt;极其复杂的数学函数&lt;/strong&gt; &lt;span class="katex"&gt;&lt;span class="katex-mathml"&gt;&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mo stretchy="false"&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy="false"&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;y = f(x)&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class="katex-html" aria-hidden="true"&gt;&lt;span class="base"&gt;&lt;span class="strut" style="height:0.625em;vertical-align:-0.1944em;"&gt;&lt;/span&gt;&lt;span class="mord mathnormal" style="margin-right:0.03588em;"&gt;y&lt;/span&gt;&lt;span class="mspace" style="margin-right:0.2778em;"&gt;&lt;/span&gt;&lt;span class="mrel"&gt;=&lt;/span&gt;&lt;span class="mspace" style="margin-right:0.2778em;"&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="base"&gt;&lt;span class="strut" style="height:1em;vertical-align:-0.25em;"&gt;&lt;/span&gt;&lt;span class="mord mathnormal" style="margin-right:0.10764em;"&gt;f&lt;/span&gt;&lt;span class="mopen"&gt;(&lt;/span&gt;&lt;span class="mord mathnormal"&gt;x&lt;/span&gt;&lt;span class="mclose"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;。它能够把输入 &lt;span class="katex"&gt;&lt;span class="katex-mathml"&gt;&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;x&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class="katex-html" aria-hidden="true"&gt;&lt;span class="base"&gt;&lt;span class="strut" style="height:0.4306em;"&gt;&lt;/span&gt;&lt;span class="mord mathnormal"&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;（比如一张噪声图片）映射到输出 &lt;span class="katex"&gt;&lt;span class="katex-mathml"&gt;&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding="application/x-tex"&gt;y&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class="katex-html" aria-hidden="true"&gt;&lt;span class="base"&gt;&lt;span class="strut" style="height:0.625em;vertical-align:-0.1944em;"&gt;&lt;/span&gt;&lt;span class="mord mathnormal" style="margin-right:0.03588em;"&gt;y&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;（比如一张干净图片）。&lt;br&gt;
+“万能近似定理”（Universal Approximation Theorem）说：只要网络有足够多的神经元和非线性激活函数，它就可以在理论上逼近任意函数——哪怕那个函数关系现实中根本写不出公式。&lt;/p&gt;</description></item><item><title>2 多通道卷积</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E5%A4%9A%E9%80%9A%E9%81%93%E5%8D%B7%E7%A7%AF/</guid><description>&lt;h1 id="多通道卷积"&gt;多通道卷积&lt;/h1&gt;
 &lt;h2 id="1-为什么需要多通道-从灰度图到bayer-raw"&gt;1 为什么需要多通道？—— 从灰度图到Bayer RAW&lt;/h2&gt;
 &lt;h3 id="11-灰度图1个通道就够了"&gt;1.1 灰度图：1个通道就够了&lt;/h3&gt;
 &lt;p&gt;一张灰度图（黑白照片），每个像素只有一个数值——&lt;strong&gt;亮度&lt;/strong&gt;（0=黑，255=白）。&lt;/p&gt;</description></item><item><title>2 反向传播原理详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.2-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.2-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%8E%9F%E7%90%86%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="反向传播详解"&gt;反向传播详解&lt;/h1&gt;
@@ -653,7 +530,7 @@ flowchart TB
 &lt;p&gt;&lt;code&gt;dm_net&lt;/code&gt; 是最简单的去噪网络。它只有 3 层卷积，没有其他复杂结构。&lt;/p&gt;</description></item><item><title>6 CNN中的其他常见操作</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/</link><pubDate>Thu, 25 Jun 2026 00:00:48 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/</guid><description>&lt;h1 id="卷积神经网络中的其他常见操作"&gt;卷积神经网络中的其他常见操作&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：你已经了解了卷积层的基本计算（单通道、多通道）、Bayer RAW 的特殊处理、感受野的概念，以及完整的去噪网络结构（DMNet、UNet、Bnet_base.py）。现在，我们来补充 CNN 中其他常见的“零件”——它们不一定每个都在你的代码里出现，但理解它们能帮你读懂更广泛的模型，也理解为什么你的代码做了某些设计选择。&lt;/p&gt;</description></item><item><title>Agent基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/3-agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/3-agent/1-agent%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="1-什么是agent"&gt;1 什么是Agent&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;Agent（智能体）&lt;/strong&gt; 是以 LLM 为核心推理引擎，结合&lt;strong&gt;规划、记忆和工具使用&lt;/strong&gt;能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果来动态调整后续策略。
+&lt;p&gt;&lt;strong&gt;Agent（智能体）&lt;/strong&gt; 是以 LLM 为核心推理引擎，结合&lt;strong&gt;规划、记忆和工具使用&lt;/strong&gt;能力，它能够自主地感知环境、制定计划、使用工具、执行行动，并且根据执行结果来动态调整后续策略。
 换句话说，LLM 在 Agent 架构中不再只是一个&amp;quot;回答问题的机器&amp;quot;，而是充当了整个系统的&amp;quot;大脑&amp;quot;，负责理解任务、推理决策、协调各种外部能力来完成复杂的目标。
 一句话总结：&lt;strong&gt;Agent = LLM + 工具 + 循环&lt;/strong&gt;。&lt;/p&gt;</description></item><item><title>Cross-Encoder核心原理：从 Self Attention到相关性分数</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/6-cross-encoder%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86%E4%BB%8E-self-attention%E5%88%B0%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%95%B0/</guid><description>&lt;h2 id="1-crossencoder-的核心定位"&gt;1. Cross‑Encoder 的核心定位&lt;/h2&gt;
 &lt;h3 id="11-一句话定义"&gt;1.1 一句话定义&lt;/h3&gt;
@@ -661,10 +538,22 @@ flowchart TB
 &lt;h3 id="11-什么是-embedding"&gt;1.1 什么是 Embedding？&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：将离散的文本符号（词、句子、文档）映射为连续的低维实数向量（通常 128~4096 维）。向量空间中的位置和方向编码了语义信息。&lt;/p&gt;</description></item><item><title>GraphRAG 与 LightRAG</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/9-graphrag-%E4%B8%8E-lightrag/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/9-graphrag-%E4%B8%8E-lightrag/</guid><description>&lt;h1 id="graphrag与lightrag"&gt;GraphRAG与LightRAG&lt;/h1&gt;
 &lt;h2 id="1-传统-rag-的三大天花板痛点"&gt;1. 传统 RAG 的三大天花板（痛点）&lt;/h2&gt;
-&lt;p&gt;在技术实践中，RAG系统常遇到“检索到了但答不对”的情况，或者“RAG检索到了正确信息，但生成的回答还是拼凑感很强”。这些问题本质上反映了RAG的固有局限。&lt;/p&gt;</description></item><item><title>LLM基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法"&gt;LLM 学习笔记：核心概念与实践方法&lt;/h1&gt;
+&lt;p&gt;常见的技术讨论中会问到：“你们 RAG 系统有没有遇到检索到了但答不对的情况？什么类型的问题答不好？”或者“RAG 检索到了正确信息，但生成的回答还是拼凑感很强，你怎么理解这个问题？”&lt;/p&gt;</description></item><item><title>LLM基础必知必会</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/1-llm%E5%9F%BA%E7%A1%80%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>&lt;h1 id="llm-学习笔记核心概念与实践方法"&gt;LLM 学习笔记：核心概念与实践方法&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考：&lt;a href="https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;https://www.nowcoder.com/discuss/618031032440217600?sourceSSR=dynamic&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="1-大语言模型基础"&gt;1. 大语言模型基础&lt;/h2&gt;
 &lt;h3 id="11-什么是-llm"&gt;1.1 什么是 LLM&lt;/h3&gt;
-&lt;p&gt;大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p&gt;</description></item><item><title>RAG 题汇总</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="rag技术要点汇总"&gt;RAG技术要点汇总&lt;/h1&gt;
+&lt;p&gt;大语言模型（Large Language Model，LLM）是基于海量文本数据训练的大规模神经网络，通常包含数十亿到数千亿参数。其核心能力源于 Transformer 架构和自回归生成方式：通过预测文本序列中的下一个词来学习语言的统计规律和世界知识。&lt;/p&gt;</description></item><item><title>RAG 题汇总</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/z_rag-%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB/</guid><description>&lt;h1 id="rag技术问题汇总"&gt;RAG技术问题汇总&lt;/h1&gt;
 &lt;h2 id="模块1基础概念"&gt;模块1：基础概念&lt;/h2&gt;
 &lt;h3 id="q1-什么是rag为什么需要rag"&gt;Q1: 什么是RAG？为什么需要RAG？&lt;/h3&gt;
 &lt;h4 id="llm-的三大知识缺陷"&gt;LLM 的三大知识缺陷&lt;/h4&gt;
@@ -709,8 +598,8 @@ flowchart TB
 &lt;/p&gt;
 &lt;h3 id="大模型的天然局限"&gt;大模型的天然局限&lt;/h3&gt;
 &lt;p&gt;大模型的知识仅限于训练数据（截止日期前的公开资料），面对企业私有文档、实时信息或长尾知识时无法直接回答。若尝试将整本手册作为 Prompt 输入，会面临三大问题：&lt;/p&gt;</description></item><item><title>ReAct - Reasoning + Acting</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/3-agent/2-react---reasoning-+-acting/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/3-agent/2-react---reasoning-+-acting/</guid><description>&lt;h1 id="1-什么是-react"&gt;1 什么是 ReAct&lt;/h1&gt;
-&lt;p&gt;ReAct（Reasoning + Acting）是由研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong&gt;推理轨迹&lt;/strong&gt;与&lt;strong&gt;任务操作&lt;/strong&gt;，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p&gt;</description></item><item><title>高级RAG技术：HyDE 与 Self-RAG</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑及对比表格。&lt;/p&gt;</description></item><item><title>融合搜索、BM25、RRF详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/4-%E8%9E%8D%E5%90%88%E6%90%9C%E7%B4%A2bm25rrf%E8%AF%A6%E8%A7%A3/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/4-%E8%9E%8D%E5%90%88%E6%90%9C%E7%B4%A2bm25rrf%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="why-rag-needs-hybrid-retrievalbm25--向量--rrf-融合学习笔记"&gt;Why RAG Needs Hybrid Retrieval：BM25 + 向量 + RRF 融合学习笔记&lt;/h1&gt;
+&lt;p&gt;ReAct（Reasoning + Acting）是由某研究机构于 2022 年提出的智能体框架，核心创新是让 LLM 交替生成&lt;strong&gt;推理轨迹&lt;/strong&gt;与&lt;strong&gt;任务操作&lt;/strong&gt;，模拟人类解决问题时的&amp;quot;思考-行动-观察&amp;quot;循环。&lt;/p&gt;</description></item><item><title>高级RAG技术：HyDE 与 Self-RAG</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/8-%E9%AB%98%E7%BA%A7rag%E6%8A%80%E6%9C%AFhyde-%E4%B8%8E-self-rag/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;本笔记自包含，深入讲解 HyDE（假设性文档嵌入）和 Self-RAG（自省式检索增强生成）的核心原理、实现逻辑、对比表格。&lt;/p&gt;</description></item><item><title>融合搜索、BM25、RRF详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/4-%E8%9E%8D%E5%90%88%E6%90%9C%E7%B4%A2bm25rrf%E8%AF%A6%E8%A7%A3/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/4-%E8%9E%8D%E5%90%88%E6%90%9C%E7%B4%A2bm25rrf%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h1 id="why-rag-needs-hybrid-retrievalbm25--向量--rrf-融合学习笔记"&gt;Why RAG Needs Hybrid Retrieval：BM25 + 向量 + RRF 融合学习笔记&lt;/h1&gt;
 &lt;h2 id="一为什么纯词法或纯语义都不够"&gt;一、为什么纯词法或纯语义都不够&lt;/h2&gt;
 &lt;p&gt;在技术文档、知识库或运维工单中，用户查询可分为两类：&lt;/p&gt;</description></item><item><title>什么是 Agent？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/4-%E4%BB%80%E4%B9%88%E6%98%AF-agent/</guid><description>&lt;h3 id="-本章重点总结agent-基础"&gt;📌 本章重点总结（Agent 基础）&lt;/h3&gt;
 &lt;ol&gt;
@@ -754,8 +643,7 @@ flowchart TB
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;极简 Agent 骨架&lt;/strong&gt;：&lt;code&gt;while&lt;/code&gt; 循环 → 调用 LLM 决策 → 若完成则退出 → 否则执行工具 → 结果追加到消息列表 → 继续循环。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr&gt;
-&lt;p&gt;前两章讲了大模型的底层逻辑，也讲了怎么写好 Prompt。到现在，你已经知道大模型是个&amp;quot;超级大脑&amp;quot;，能理解意图、会逻辑推理、能生成高质量内容。&lt;/p&gt;</description></item><item><title>什么是 Function Call？（协议）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;h3 id="-本章重点总结function-calling"&gt;📌 本章重点总结（Function Calling）&lt;/h3&gt;
+&lt;p&gt;正文：&lt;/p&gt;</description></item><item><title>什么是 Function Call？（协议）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/6-%E4%BB%80%E4%B9%88%E6%98%AF-function-call%E5%8D%8F%E8%AE%AE/</guid><description>&lt;h3 id="-本章重点总结function-calling"&gt;📌 本章重点总结（Function Calling）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Function Calling 是什么&lt;/strong&gt;：大模型与 Agent 之间的&lt;strong&gt;标准化工具调用协议&lt;/strong&gt;，解决“大模型做出决策后如何精准传递指令给 Agent”的问题。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为什么需要 Function Calling&lt;/strong&gt;：传统方式用自然语言在 System Prompt 里描述工具，导致大模型回复格式不可控（参数错乱、编造答案、不调用工具等），开发者需大量解析和纠错代码。Function Calling 用固定 JSON 格式彻底告别“猜谜”。&lt;/li&gt;
@@ -783,7 +671,7 @@ flowchart TB
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
-&lt;p&gt;上一章你已经知道了，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型靠工具描述来判断要不要调这个工具。&lt;/p&gt;</description></item><item><title>什么是 RAG？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;h3 id="-本章重点总结rag"&gt;📌 本章重点总结（RAG）&lt;/h3&gt;
+&lt;p&gt;上一章已经知道，一个工具 = 函数本体 + 名称 + 描述 + 参数定义，大模型靠工具描述来判断是否要调用该工具。&lt;/p&gt;</description></item><item><title>什么是 RAG？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/9-%E4%BB%80%E4%B9%88%E6%98%AF-rag/</guid><description>&lt;h3 id="-本章重点总结rag"&gt;📌 本章重点总结（RAG）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;RAG 是什么&lt;/strong&gt;：Retrieval-Augmented Generation（检索增强生成）。先检索私有知识库中最相关的内容，再将其注入 Prompt，让大模型基于有据可查的资料生成回答。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为什么需要 RAG&lt;/strong&gt;：大模型知识静态、封闭（截止日期、无私有数据、无实时数据），全量塞入 Prompt 受限于上下文窗口、成本高、注意力稀释。RAG 实现“按需检索 + 动态注入”。&lt;/li&gt;
@@ -827,12 +715,12 @@ flowchart TB
 &lt;li&gt;&lt;strong&gt;Skills&lt;/strong&gt;：上层业务封装，将 Prompt 和 MCP 工具组合成&lt;strong&gt;标准工作流&lt;/strong&gt;，实现工程化沉淀与复用。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;实战示例（某AI编程工具）&lt;/strong&gt;：在项目 &lt;code&gt;.claude/skills/&lt;/code&gt; 目录下按结构放置 &lt;code&gt;SKILL.md&lt;/code&gt; 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实战示例（Claude Code）&lt;/strong&gt;：在项目 &lt;code&gt;.claude/skills/&lt;/code&gt; 目录下按结构放置 &lt;code&gt;SKILL.md&lt;/code&gt; 和辅助脚本，AI 可通过触发技能自动执行多步骤任务（如图片压缩、转换格式、移动文件）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;核心价值&lt;/strong&gt;：Skills 让 AI 从“临时问一句”升级为“按标准化流程自动执行”，降低重复沟通成本，实现经验沉淀和团队协作。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
-&lt;h3 id="第一阶段ai-的破壁人-function-calling函数调用"&gt;第一阶段：AI 的“破壁人”， Function Calling（函数调用）&lt;/h3&gt;
-&lt;p&gt;先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong&gt;被关在小黑屋里的超级学霸&lt;/strong&gt;：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p&gt;</description></item><item><title>什么是 Tool？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础"&gt;📌 本章重点总结（Tool 基础）&lt;/h3&gt;
+&lt;h3 id="第一阶段ai-的破壁人--function-calling函数调用"&gt;第一阶段：AI 的“破壁人” ， Function Calling（函数调用）&lt;/h3&gt;
+&lt;p&gt;咱们先回想一下早期的 ChatGPT。那时的它就像是一个 &lt;strong&gt;被关在小黑屋里的超级学霸&lt;/strong&gt;：虽然上知天文下知地理，但他没网（没法查实时数据），也没手（没法帮你真正去执行操作，比如发邮件、查数据库）。&lt;/p&gt;</description></item><item><title>什么是 Tool？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/5-%E4%BB%80%E4%B9%88%E6%98%AF-tool/</guid><description>&lt;h3 id="-本章重点总结tool-基础"&gt;📌 本章重点总结（Tool 基础）&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;问题背景&lt;/strong&gt;：大模型被“关在盒子里”，只能输入输出文字，无法与外部世界交互。Tool 给大模型“装上手”，让它能执行真实操作。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Agent、大模型、Tool 的关系&lt;/strong&gt;：
@@ -864,7 +752,7 @@ flowchart TB
 &lt;hr&gt;
 &lt;p&gt;你有没有遇到过这种情况。&lt;/p&gt;</description></item><item><title>什么是Harness工程？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/11-%E4%BB%80%E4%B9%88%E6%98%AFharness%E5%B7%A5%E7%A8%8B/</guid><description>&lt;h3 id="-本章重点总结harness-engineering"&gt;📌 本章重点总结（Harness Engineering）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;概念来源&lt;/strong&gt;：由某位行业专家在 2026 年 2 月提出，随后某知名AI公司官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;概念来源&lt;/strong&gt;：由某位工程师在 2026 年 2 月提出，随后某AI公司官方博客推广。核心思想是“设计一套包裹模型的外部环境，让 Agent 稳定交付”。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;AI 工程重心的三次演进&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Prompt Engineering&lt;/strong&gt;：让模型“听懂”任务（表达）。&lt;/li&gt;
@@ -884,7 +772,7 @@ flowchart TB
 &lt;li&gt;⑥ 约束与恢复：模型出错了能不能爬起来？&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;五大难题与主流解法（对应五条原则）&lt;/strong&gt;：
+&lt;li&gt;&lt;strong&gt;五大难题与大厂解法（对应五条原则）&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;难题1：Agent 跑久了越走越偏&lt;/strong&gt; → 解决方案：Context Reset，状态外化到文件系统，每轮用干净上下文接手。原则：&lt;strong&gt;重启胜过修补，状态沉到文件里&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;难题2：Agent 自评总是偏乐观&lt;/strong&gt; → 解决方案：Planner + Generator + Evaluator 三角分工，验收与生产分离。原则：&lt;strong&gt;生产和验收必须分家，验收方要能摸到真实世界&lt;/strong&gt;。&lt;/li&gt;
@@ -900,11 +788,11 @@ flowchart TB
 &lt;h2 id="这个新词到底从哪儿冒出来的"&gt;这个新词到底从哪儿冒出来的？&lt;/h2&gt;
 &lt;p&gt;在开讲之前，我想先带你去「追个源」。&lt;/p&gt;</description></item><item><title>什么是MCP？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/7-%E4%BB%80%E4%B9%88%E6%98%AFmcp/</guid><description>&lt;h3 id="-本章重点总结mcp"&gt;📌 本章重点总结（MCP）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;MCP 是什么&lt;/strong&gt;：Anthropic 推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MCP 是什么&lt;/strong&gt;：某AI研究机构推出的开放标准协议（Model Context Protocol），定义了 AI 应用与工具服务之间的标准化通信方式，被誉为“AI 工具世界的 USB‑C”。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;为什么需要 MCP&lt;/strong&gt;：解决没有统一标准时，每个工具需单独集成、多模型场景下 N×M 套重复代码的问题。MCP 使工具写一次、全平台可用，将工作量降为 N+M。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;三大核心角色&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Host&lt;/strong&gt;：用户使用的 AI 应用（如 Claude Desktop、VS Code），负责发起任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Host&lt;/strong&gt;：用户使用的 AI 应用（如 AI桌面应用、代码编辑器），负责发起任务。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Client&lt;/strong&gt;：Host 内置的连接器，负责管理 MCP Server 的连接与请求路由。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Server&lt;/strong&gt;：暴露工具能力的轻量服务程序，负责实际执行工具。&lt;/li&gt;
 &lt;/ul&gt;
@@ -927,21 +815,21 @@ flowchart TB
 &lt;h3 id="为什么需要两者配合缺一不可"&gt;为什么需要两者配合，缺一不可？&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;只有 Function Calling，没有 MCP&lt;/strong&gt;：&lt;br&gt;
-大模型能说出“调用天气工具”，但 Host 还是要自己写代码去连接天气 API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p&gt;</description></item><item><title>什么是Prompt？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础"&gt;📌 本章重点总结（Prompt基础）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;只有Function Calling，没有MCP&lt;/strong&gt;：&lt;br&gt;
+大模型能说出“调用天气工具”，但Host还是要自己写代码去连接天气API、处理各种工具的特殊协议。换一个工具又得重写，无法复用。&lt;/p&gt;</description></item><item><title>什么是Prompt？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/3-%E4%BB%80%E4%B9%88%E6%98%AFprompt/</guid><description>&lt;h3 id="-本章重点总结prompt基础"&gt;📌 本章重点总结（Prompt基础）&lt;/h3&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Prompt定义&lt;/strong&gt;：你发给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Prompt定义&lt;/strong&gt;：你发送给大模型的所有输入内容，包括指令、背景、示例、格式要求等（不只是一句问题）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Prompt的重要性&lt;/strong&gt;：大模型是 next-token 预测机器，输入越精准，输出越稳定。在 Agent 开发中，输出稳定性直接决定流水线可靠性。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;User Prompt三要素&lt;/strong&gt;：目标明确、背景充足、输出要求。缺一不可。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;System Prompt三大用途&lt;/strong&gt;：身份设定、行为规则、输出格式约束。它比 User Prompt 更“稳”，是 Agent 行为可预测的核心保障。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;写好Prompt的6个核心原则&lt;/strong&gt;：
+&lt;li&gt;==&lt;strong&gt;写好Prompt的6个核心原则&lt;/strong&gt;：==
 &lt;ul&gt;
-&lt;li&gt;给模型角色 → 缩小搜索空间，输出更专业&lt;/li&gt;
-&lt;li&gt;正向约束优于负向禁止 → 明确“要做什么”&lt;/li&gt;
-&lt;li&gt;喂足背景信息 → 减少幻觉&lt;/li&gt;
-&lt;li&gt;指定输出格式（最好给JSON示例）→ Agent 解析的关键&lt;/li&gt;
-&lt;li&gt;使用 Few-shot（给例子）→ 胜过写规则&lt;/li&gt;
-&lt;li&gt;要求“先思考再回答”（思维链）→ 提升复杂问题准确率&lt;/li&gt;
+&lt;li&gt;==给模型角色 → 缩小搜索空间，输出更专业==&lt;/li&gt;
+&lt;li&gt;==正向约束优于负向禁止 → 明确“要做什么”==&lt;/li&gt;
+&lt;li&gt;==喂足背景信息 → 减少幻觉==&lt;/li&gt;
+&lt;li&gt;==指定输出格式（最好给JSON示例）→ Agent 解析的关键==&lt;/li&gt;
+&lt;li&gt;==使用 Few-shot（给例子）→ 胜过写规则==&lt;/li&gt;
+&lt;li&gt;==要求“先思考再回答”（思维链）→ 提升复杂问题准确率==&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Prompt迭代调试&lt;/strong&gt;：多准备典型输入，每次只改一个变量，观察输出变化。常见问题有对应排查方法。&lt;/li&gt;
@@ -975,7 +863,8 @@ flowchart TB
 &lt;/ol&gt;
 &lt;hr&gt;
 &lt;p&gt;正文：
-学 Agent 开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong&gt;大模型&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>什么是向量数据库？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;p&gt;上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。&lt;/p&gt;
+学 Agent 开发，第一件事是认识它的&amp;quot;大脑&amp;quot;：&lt;strong&gt;大模型&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>什么是向量数据库？</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/1-llm/10-%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/</guid><description>&lt;hr&gt;
+&lt;p&gt;上一章 RAG 里，在介绍 RAG 工作阶段的时候，说把向量存进「向量数据库」，当时一带而过。&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/%e4%bb%80%e4%b9%88%e6%98%af%e5%90%91%e9%87%8f%e6%95%b0%e6%8d%ae%e5%ba%93%ef%bc%9f-e3e2c7b799cc5b65291a9c49d28398fe.png"
  alt="什么是向量数据库？-e3e2c7b799cc5b65291a9c49d28398fe"
  loading="lazy"
@@ -996,9 +885,9 @@ flowchart TB
 &gt;https://sqlite.org/appfunc.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="1-简介"&gt;1 简介&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;SQLite 支持用户实现自定义回调方法，以完成某些特定的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
-&lt;li&gt;自定义的 SQLite UDF 可以是标量函数（scalar functions）、聚合函数（aggregate functions），也可以是窗口函数（window functions）。&lt;/li&gt;
-&lt;li&gt;创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言中实现（如 Python、Java 等）。&lt;/li&gt;
+&lt;li&gt;SQLite 支持用户实现自定义回调方法，以实现一些特殊的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
+&lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。&lt;/li&gt;
+&lt;li&gt;通过此机制可以创建可在 SQL 查询中使用的自定义函数，这些函数可以用 C 语言编写，也可以通过在 Python、Java 等其他语言中绑定实现。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id="2-相关接口"&gt;2 相关接口&lt;/h1&gt;
 &lt;h2 id="sqlite3_create_function-family"&gt;sqlite3_create_function family&lt;/h2&gt;
@@ -1020,8 +909,8 @@ flowchart TB
 &lt;li&gt;&lt;strong&gt;编码指定&lt;/strong&gt;：使用 &lt;code&gt;eTextRep&lt;/code&gt; 参数指定文本编码偏好&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;函数类型&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;若 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，则注册标量函数&lt;/li&gt;
-&lt;li&gt;若 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 均非 NULL，则注册聚合函数&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，注册标量函数&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，注册聚合函数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;应用数据&lt;/strong&gt;：通过 &lt;code&gt;pApp&lt;/code&gt; 传递用户数据&lt;/li&gt;
@@ -1043,7 +932,7 @@ flowchart TB
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;UTF-16 支持&lt;/strong&gt;：函数名使用 UTF-16 编码&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;向后兼容&lt;/strong&gt;：为需要 UTF-16 函数名的应用提供支持&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;功能相同&lt;/strong&gt;：与 &lt;code&gt;sqlite3_create_function()&lt;/code&gt; 功能相同，仅函数名编码不同&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;功能相同&lt;/strong&gt;：与 &lt;code&gt;sqlite3_create_function()&lt;/code&gt; 功能相同，只是函数名编码不同&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;Windows API 集成（Windows 原生使用 UTF-16）&lt;/li&gt;
@@ -1068,7 +957,7 @@ flowchart TB
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;增强版本&lt;/strong&gt;：在基础版本上增加了析构函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;自动清理&lt;/strong&gt;：通过 &lt;code&gt;xDestroy&lt;/code&gt; 回调自动清理 &lt;code&gt;pApp&lt;/code&gt; 数据&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更加安全&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更安全&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;：SQLite 官方推荐使用此版本&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function&lt;/h3&gt;
@@ -1092,7 +981,7 @@ flowchart TB
 &lt;li&gt;&lt;strong&gt;反向处理&lt;/strong&gt;：支持 &lt;code&gt;xInverse&lt;/code&gt; 用于优化窗口函数性能&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;复杂功能&lt;/strong&gt;：支持滑动窗口、排序、分组等高级功能&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="3-udf类型"&gt;3 UDF类型&lt;/h1&gt;
+&lt;h1 id="3-udf-类型"&gt;3 UDF 类型&lt;/h1&gt;
 &lt;h2 id="31-标量函数-scalar-functions"&gt;3.1 标量函数 (Scalar Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;接受参数，返回单个值&lt;/li&gt;
@@ -1125,34 +1014,34 @@ flowchart TB
 );
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;该参数传入方法名：第二个参数是正在创建的 SQL 函数的名称。通常使用 UTF8 编码，但对于 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt;，名称应采用本地字节序的 UTF16。&lt;/li&gt;
-&lt;li&gt;SQL 函数名称的最大长度是 255 字节（UTF8）。如果试图创建更长名称的函数，将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
-&lt;li&gt;UDF 注册支持重载：可以多次调用 SQL 函数创建接口，使用相同的函数名。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册两个不同参数数量的函数变体。&lt;/li&gt;
+&lt;li&gt;此参数传入方法名：第二个参数是要创建的 SQL 函数名。通常为 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求使用本机字节序的 UTF16 编码。&lt;/li&gt;
+&lt;li&gt;函数名长度限制为 255 字节（UTF8）。尝试创建名称更长的函数将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
+&lt;li&gt;UDF 注册支持重载：可以用相同函数名多次调用这些创建接口。例如，若两次调用参数数量不同，则会注册同一函数名的两个变体，各接受不同数量的参数。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="42-narg"&gt;4.2 nArg&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;表示参数数量，类型为 int&lt;/li&gt;
-&lt;li&gt;参数取值范围为 -1 到 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;（默认值为 127，最大值为 32767）。&lt;/li&gt;
+&lt;li&gt;表示参数数量，int 类型&lt;/li&gt;
+&lt;li&gt;参数大小范围为 -1 至 127（最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;，即 32767）。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id="43-etextrep-文本编码"&gt;4.3 &lt;strong&gt;eTextRep&lt;/strong&gt; 文本编码&lt;/h2&gt;
+&lt;h2 id="43-etextrep-文本编码"&gt;4.3 eTextRep 文本编码&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; - 位掩码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt;（位掩码）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：指定函数的文本编码偏好&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;取值&lt;/strong&gt;：
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF8&lt;/strong&gt; (0x01)：UTF-8 编码&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16LE&lt;/strong&gt; (0x02)：UTF-16 小端序&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16BE&lt;/strong&gt; (0x03)：UTF-16 大端序&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16&lt;/strong&gt; (0x04)：使用本地字节序的 UTF-16&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_ANY&lt;/strong&gt;：接受任何编码（已废弃）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;组合标志&lt;/strong&gt;：可与确定性标志组合&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF8&lt;/code&gt; (0x01)：UTF-8 编码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16LE&lt;/code&gt; (0x02)：UTF-16 小端序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16BE&lt;/code&gt; (0x03)：UTF-16 大端序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16&lt;/code&gt; (0x04)：使用本地字节序的 UTF-16&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_ANY&lt;/code&gt;：接受任何编码（已废弃）&lt;/li&gt;
+&lt;li&gt;组合标志：可与确定性标志组合&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="44-papp"&gt;4.4 pApp&lt;/h2&gt;
 &lt;h3 id="详细说明"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; - 任意类型指针&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt;（任意类型指针）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：传递用户自定义数据到函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;生命周期&lt;/strong&gt;：由 &lt;code&gt;xDestroy&lt;/code&gt; 回调管理&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
@@ -1177,12 +1066,12 @@ flowchart TB
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>HNSW索引学习笔记</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p&gt;HNSW 算法完全学习笔记&lt;/p&gt;
-&lt;p&gt;基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
+&lt;p&gt;基于实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li&gt;概述&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。&lt;/p&gt;</description></item><item><title>背包问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
+&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p&gt;</description></item><item><title>背包问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/9-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="背包问题速查笔记0-1--完全"&gt;背包问题速查笔记（0-1 + 完全）&lt;/h1&gt;
 &lt;h2 id="1-核心区别"&gt;1. 核心区别&lt;/h2&gt;
 &lt;table&gt;
 	&lt;thead&gt;
@@ -1277,13 +1166,15 @@ flowchart TB
 &lt;h2 id="二各算法思路与代码实现"&gt;二、各算法思路与代码实现&lt;/h2&gt;
 &lt;h3 id="1-快速排序-lomuto-分区"&gt;1. 快速排序 (Lomuto 分区)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;思路&lt;/strong&gt;：随机选 pivot 换到最右，用 &lt;code&gt;i&lt;/code&gt; 标记第一个 &amp;gt; pivot 的位置，&lt;code&gt;j&lt;/code&gt; 扫描，最后 pivot 归位并递归。&lt;/p&gt;</description></item><item><title>差分数组</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/2-%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/</guid><description>&lt;p&gt;差分数组（Difference Array）详解&lt;/p&gt;
-&lt;p&gt;差分数组是一种用于高效处理区间更新操作的数据结构。它主要解决这类问题：&lt;/p&gt;</description></item><item><title>单调栈</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;hr&gt;
-&lt;p&gt;单调栈笔记&lt;/p&gt;
+&lt;p&gt;差分数组是一种用于高效处理区间更新操作的数据结构。它主要用于解决以下问题：&lt;/p&gt;</description></item><item><title>单调栈</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/8-%E5%8D%95%E8%B0%83%E6%A0%88/</guid><description>&lt;p&gt;单调栈笔记&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;单调栈简介&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边或右边第一个比它大（或小）的元素位置，时间复杂度为 O(n)。&lt;/p&gt;</description></item><item><title>二叉树的Morris展开与中序遍历</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历"&gt;一、什么是 Morris 遍历？&lt;/h3&gt;
-&lt;p&gt;Morris 遍历是一种&lt;strong&gt;使用线索二叉树（threaded binary tree）思想&lt;/strong&gt;的二叉树遍历算法，由 J. H. Morris 在 1979 年提出。其&lt;strong&gt;核心特点&lt;/strong&gt;如下：&lt;/p&gt;</description></item><item><title>滑动窗口</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;p&gt;我已在笔记中对这两道题的思路部分进行了&lt;strong&gt;详细解释&lt;/strong&gt;，用通俗语言说明了为什么 424 要维护 &lt;code&gt;maxCount&lt;/code&gt;，以及为什么 992 不能直接找恰好 K 个而必须转换为「最多 K 个」减去「最多 K-1 个」。以下是完整笔记。&lt;/p&gt;</description></item><item><title>环形链表与隐式环形链表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</guid><description>&lt;h1 id="环形链表题型笔记"&gt;环形链表题型笔记&lt;/h1&gt;
+&lt;p&gt;单调栈是一种特殊的栈结构，栈内元素保持单调递增或单调递减。它常用于求解数组中每个元素左边/右边第一个比它大（或小）的元素位置，时间复杂度 O(n)。&lt;/p&gt;</description></item><item><title>二叉树的Morris展开与中序遍历</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84morris%E5%B1%95%E5%BC%80%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</guid><description>&lt;h3 id="一什么是-morris-遍历"&gt;一、什么是 Morris 遍历？&lt;/h3&gt;
+&lt;p&gt;Morris 遍历是一种利用&lt;strong&gt;线索二叉树（threaded binary tree）&lt;/strong&gt; 思想的二叉树遍历算法，由 J. H. Morris 在 1979 年提出。其&lt;strong&gt;核心特点&lt;/strong&gt;如下：&lt;/p&gt;</description></item><item><title>滑动窗口</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/5-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid><description>&lt;h1 id="滑动窗口题型总结笔记"&gt;滑动窗口题型总结笔记&lt;/h1&gt;
+&lt;h2 id="1-题型特征与适用条件"&gt;1. 题型特征与适用条件&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;什么时候使用滑动窗口？&lt;/strong&gt;&lt;br&gt;
+滑动窗口适用于解决 &lt;strong&gt;子串/子数组&lt;/strong&gt; 问题，通常需要找到满足某种条件的最短、最长或固定长度的连续区间。常见特征：&lt;/p&gt;</description></item><item><title>环形链表与隐式环形链表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/15-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%E4%B8%8E%E9%9A%90%E5%BC%8F%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/</guid><description>&lt;h1 id="环形链表题型笔记"&gt;环形链表题型笔记&lt;/h1&gt;
 &lt;h2 id="一题型识别环形链表"&gt;一、题型识别：环形链表&lt;/h2&gt;
 &lt;p&gt;环形链表问题有三个层次：&lt;/p&gt;
 &lt;table&gt;
@@ -1404,230 +1295,17 @@ flowchart TB
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; ans;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="5-关键细节"&gt;5. 关键细节&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;为什么存下标？&lt;/strong&gt; 因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;为什么栈底预存 -1？&lt;/strong&gt; 统一长度计算公式。当有效子串从开头即匹配时（如 &lt;code&gt;&amp;quot;()&amp;quot;&lt;/code&gt;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id="二括号问题通用决策框架"&gt;二、括号问题通用决策框架&lt;/h1&gt;
-&lt;h2 id="核心三问"&gt;核心三问&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;用不用栈？&lt;/li&gt;
-&lt;li&gt;如果用栈，存什么（字符 or 下标）？&lt;/li&gt;
-&lt;li&gt;有没有更优的不用栈的解法？&lt;/li&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="5"&gt;
+&lt;li&gt;关键细节&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id="决策表"&gt;决策表&lt;/h2&gt;
-&lt;table&gt;
-	&lt;thead&gt;
-			&lt;tr&gt;
-					&lt;th&gt;问题特征&lt;/th&gt;
-					&lt;th&gt;用栈？&lt;/th&gt;
-					&lt;th&gt;栈存什么&lt;/th&gt;
-					&lt;th&gt;替代解法&lt;/th&gt;
-					&lt;th&gt;典型题目&lt;/th&gt;
-			&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;只判断整体有效性&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;字符（括号本身）&lt;/td&gt;
-					&lt;td&gt;无&lt;/td&gt;
-					&lt;td&gt;LC 20&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;求最长连续有效子串长度&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;下标&lt;/td&gt;
-					&lt;td&gt;DP、双向扫描&lt;/td&gt;
-					&lt;td&gt;LC 32&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;删除最少字符使有效&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;下标（标记待删位置）&lt;/td&gt;
-					&lt;td&gt;无&lt;/td&gt;
-					&lt;td&gt;LC 1249&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;含通配符 * 的有效性&lt;/td&gt;
-					&lt;td&gt;可选&lt;/td&gt;
-					&lt;td&gt;下标（双栈法）&lt;/td&gt;
-					&lt;td&gt;贪心（高低值）&lt;/td&gt;
-					&lt;td&gt;LC 678&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;求最少插入次数使有效&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;-&lt;/td&gt;
-					&lt;td&gt;平衡计数器&lt;/td&gt;
-					&lt;td&gt;LC 921&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;生成所有有效括号组合&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;-&lt;/td&gt;
-					&lt;td&gt;回溯/DFS&lt;/td&gt;
-					&lt;td&gt;LC 22&lt;/td&gt;
-			&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id="决策原则速记"&gt;决策原则速记&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;需要知道位置/长度/删除谁&lt;/strong&gt; → 用栈 + 存下标&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;只需知道是否合法&lt;/strong&gt; → 用栈 + 存字符&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;只需计数最少修改次数&lt;/strong&gt; → 不用栈，贪心平衡计数器&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;需要枚举所有组合&lt;/strong&gt; → 不用栈，回溯搜索&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id="三同类题目解法速查"&gt;三、同类题目解法速查&lt;/h1&gt;
-&lt;table&gt;
-	&lt;thead&gt;
-			&lt;tr&gt;
-					&lt;th&gt;题号&lt;/th&gt;
-					&lt;th&gt;题目&lt;/th&gt;
-					&lt;th&gt;解法关键字&lt;/th&gt;
-					&lt;th&gt;用栈&lt;/th&gt;
-					&lt;th&gt;存下标&lt;/th&gt;
-					&lt;th&gt;备注&lt;/th&gt;
-			&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;20&lt;/td&gt;
-					&lt;td&gt;有效的括号&lt;/td&gt;
-					&lt;td&gt;栈消除&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;遇右弹栈匹配&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;32&lt;/td&gt;
-					&lt;td&gt;最长有效括号&lt;/td&gt;
-					&lt;td&gt;栈/DP/双向扫描&lt;/td&gt;
-					&lt;td&gt;✅(栈法)&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;栈底存断点下标&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;678&lt;/td&gt;
-					&lt;td&gt;有效的括号字符串&lt;/td&gt;
-					&lt;td&gt;双栈/贪心&lt;/td&gt;
-					&lt;td&gt;可选&lt;/td&gt;
-					&lt;td&gt;✅(若用栈)&lt;/td&gt;
-					&lt;td&gt;贪心法 O(1) 空间&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;921&lt;/td&gt;
-					&lt;td&gt;使括号有效的最少添加&lt;/td&gt;
-					&lt;td&gt;平衡计数器&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;-&lt;/td&gt;
-					&lt;td&gt;维护 balance 变量&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;1249&lt;/td&gt;
-					&lt;td&gt;移除无效的括号&lt;/td&gt;
-					&lt;td&gt;栈标记删除&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;✅&lt;/td&gt;
-					&lt;td&gt;最后统一删除&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;22&lt;/td&gt;
-					&lt;td&gt;括号生成&lt;/td&gt;
-					&lt;td&gt;回溯&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;-&lt;/td&gt;
-					&lt;td&gt;DFS + 剪枝&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;301&lt;/td&gt;
-					&lt;td&gt;删除无效的括号&lt;/td&gt;
-					&lt;td&gt;BFS/DFS&lt;/td&gt;
-					&lt;td&gt;❌&lt;/td&gt;
-					&lt;td&gt;-&lt;/td&gt;
-					&lt;td&gt;求最少删除数&lt;/td&gt;
-			&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr&gt;
-&lt;h1 id="四典型题目解法要点"&gt;四、典型题目解法要点&lt;/h1&gt;
-&lt;h3 id="lc-20-有效的括号"&gt;LC 20 有效的括号&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;栈存&lt;/strong&gt;：字符&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;操作&lt;/strong&gt;：遇左压入，遇右弹栈并检查匹配。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;无需下标&lt;/strong&gt;：只返回布尔值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="lc-32-最长有效括号栈解法"&gt;LC 32 最长有效括号（栈解法）&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;栈存&lt;/strong&gt;：下标&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;操作&lt;/strong&gt;：初始 -1，遇 ( 压入 i，遇 ) 先弹栈，栈空则压入 i，否则计算 i - stk.top()。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;必须存下标&lt;/strong&gt;：长度依赖索引差。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="lc-678-有效的括号字符串"&gt;LC 678 有效的括号字符串&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;双栈法&lt;/strong&gt;：一个存 ( 下标，一个存 * 下标。遇 ) 优先匹配 (，其次用 *。最后检查剩余 ( 能否被后面的 * 抵消。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;贪心法（不用栈）&lt;/strong&gt;：维护 low、high 表示可能的最小/最大未匹配左括号数。遇 * 时 high++，low&amp;ndash;（low 不低于 0）。最后 low == 0 即有效。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="lc-921-使括号有效的最少添加"&gt;LC 921 使括号有效的最少添加&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;不用栈&lt;/strong&gt;：balance 计数。遇 ( 加一，遇 ) 减一；若 balance 变负，答案加一且重置 balance 为 0。最后答案加上剩余 balance。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id="lc-1249-移除无效的括号"&gt;LC 1249 移除无效的括号&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;栈存&lt;/strong&gt;：待删除括号的下标&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;操作&lt;/strong&gt;：
-&lt;ol&gt;
-&lt;li&gt;遍历，遇 ( 压栈；遇 ) 若栈非空则弹栈，否则标记当前 ) 待删。&lt;/li&gt;
-&lt;li&gt;遍历后栈中剩余下标对应的 ( 也标记待删。&lt;/li&gt;
-&lt;li&gt;构造新字符串，跳过所有标记位置。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id="五通用解法套路对比针对连续有效括号长度"&gt;五、通用解法套路对比（针对连续有效括号长度）&lt;/h1&gt;
-&lt;table&gt;
-	&lt;thead&gt;
-			&lt;tr&gt;
-					&lt;th&gt;方法&lt;/th&gt;
-					&lt;th&gt;核心&lt;/th&gt;
-					&lt;th&gt;时间复杂度&lt;/th&gt;
-					&lt;th&gt;空间复杂度&lt;/th&gt;
-					&lt;th&gt;能否输出子串内容&lt;/th&gt;
-			&lt;/tr&gt;
-	&lt;/thead&gt;
-	&lt;tbody&gt;
-			&lt;tr&gt;
-					&lt;td&gt;栈&lt;/td&gt;
-					&lt;td&gt;存下标，用断点计算长度&lt;/td&gt;
-					&lt;td&gt;O(n)&lt;/td&gt;
-					&lt;td&gt;O(n)&lt;/td&gt;
-					&lt;td&gt;✅ 可以&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;动态规划&lt;/td&gt;
-					&lt;td&gt;dp[i] 以 i 结尾的最长长度&lt;/td&gt;
-					&lt;td&gt;O(n)&lt;/td&gt;
-					&lt;td&gt;O(n)&lt;/td&gt;
-					&lt;td&gt;❌ 只有长度&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-					&lt;td&gt;双向扫描&lt;/td&gt;
-					&lt;td&gt;左右各扫一次，left/right 相等时更新&lt;/td&gt;
-					&lt;td&gt;O(n)&lt;/td&gt;
-					&lt;td&gt;O(1)&lt;/td&gt;
-					&lt;td&gt;❌ 只有长度&lt;/td&gt;
-			&lt;/tr&gt;
-	&lt;/tbody&gt;
-&lt;/table&gt;</description></item><item><title>连续子数组极值问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
+&lt;p&gt;· 为什么存下标？ 因为需要计算长度（位置差），长度 = 当前下标 − 栈顶下标。
+· 为什么栈底预存 -1？ 统一长度计算公式。当有效子串从开头即匹配时（如 &lt;code&gt;&amp;quot;()&amp;quot;&lt;/code&gt;），弹栈后栈变空，有了 -1 仍可计算差值。&lt;/p&gt;</description></item><item><title>连续子数组极值问题</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/3-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9E%81%E5%80%BC%E9%97%AE%E9%A2%98/</guid><description>&lt;h1 id="1-题型特征"&gt;1 题型特征&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;数组&lt;/strong&gt;：一维数组、环（变种）、可重复等&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;目标&lt;/strong&gt;：求&lt;strong&gt;连续子数组&lt;/strong&gt;的极值（和、乘积、长度）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;约束&lt;/strong&gt;：子数组是连续的（子序列不要求连续，相对顺序一致即可）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="2-解题套路总结"&gt;2 解题套路总结&lt;/h1&gt;
+&lt;h1 id="2-解题套路总结a"&gt;2 解题套路总结a&lt;/h1&gt;
 &lt;h2 id="21-一维数组-连续子数组-问题"&gt;2.1 一维数组 连续子数组 问题&lt;/h2&gt;
 &lt;h3 id="解题思路"&gt;解题思路&lt;/h3&gt;
 &lt;ul&gt;
@@ -1656,7 +1334,7 @@ flowchart TB
 &gt;https://en.cppreference.com/w/cpp/algorithm/next_permutation.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="2-原理"&gt;2 原理&lt;/h1&gt;
 &lt;h2 id="21-一句话总结原理"&gt;2.1 一句话总结原理&lt;/h2&gt;
-&lt;p&gt;从右向左找到第一个可以变大的元素的位置，将其替换为右边比它大的最小数字，然后将右边剩余部分重新排列为最小顺序。&lt;/p&gt;</description></item><item><title>双状态DP</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp"&gt;双状态 DP（Double-State DP）&lt;/h1&gt;
+&lt;p&gt;从右向左找到第一个可以变大的元素的位置，把它换成右边比它大的最小数字，然后把右边剩余部分重新排成最小顺序。&lt;/p&gt;</description></item><item><title>双状态DP</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/11-%E5%8F%8C%E7%8A%B6%E6%80%81dp/</guid><description>&lt;h1 id="双状态-dpdouble-state-dp"&gt;双状态 DP（Double-State DP）&lt;/h1&gt;
 &lt;h2 id="1-一句话定义"&gt;1. 一句话定义&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;同时维护“以当前位置结尾的最优值”和“最差值”&lt;/strong&gt;，解决因负数（或倒数）导致最优/最差互换的问题。&lt;/p&gt;</description></item><item><title>拓扑排序-Kahn算法与课程表</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/7-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-kahn%E7%AE%97%E6%B3%95%E4%B8%8E%E8%AF%BE%E7%A8%8B%E8%A1%A8/</guid><description>&lt;p&gt;我们来深入详细地讲解拓扑排序和Kahn算法，包括它们的原理、实现步骤、代码模板、常见技巧以及应用场景。&lt;/p&gt;</description></item><item><title>贪心系列</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/10-%E8%B4%AA%E5%BF%83%E7%B3%BB%E5%88%97/</guid><description>&lt;p&gt;贪心算法是一种在每一步选择中都采取当前最优决策，从而希望得到全局最优解的算法思想。它并不对所有问题都有效，但在满足“贪心选择性质”和“最优子结构”的问题中，能够以极高的效率得到正确答案。&lt;/p&gt;</description></item><item><title>下一个排列与排列题型</title><link>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/coding/coding-algorithm/14-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%8E%92%E5%88%97%E4%B8%8E%E6%8E%92%E5%88%97%E9%A2%98%E5%9E%8B/</guid><description>&lt;h1 id="排列permutation类题型算法复习笔记"&gt;排列（Permutation）类题型算法复习笔记&lt;/h1&gt;
 &lt;h2 id="1-题型识别"&gt;1. 题型识别&lt;/h2&gt;

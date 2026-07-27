@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/><title>时域降噪</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="时域降噪"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/"><meta name=twitter:title content="时域降噪"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/><title>时域降噪</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="时域降噪"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/"><meta name=twitter:title content="时域降噪"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/18-%E6%97%B6%E5%9F%9F%E9%99%8D%E5%99%AA/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -84,135 +84,14 @@ user prompt</a></li></ul></details></li></ul></details></li></ul></div><div clas
 </span></span><span style=display:flex><span>帧N：真实信号 + 噪声N
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>如果噪声是零均值的，把多帧平均后，噪声趋近于 0，信号保留。
-</span></span></code></pre></div><h3 id=12-时域降噪在完整降噪流程中的位置>1.2 时域降噪在完整降噪流程中的位置</h3><pre class=mermaid>
-flowchart LR
-    A["输入图像"] --> B["空域降噪<br>（单帧）"]
-    B --> C["时域降噪<br>（多帧）"]
-    C --> D["输出"]
+</span></span></code></pre></div><h3 id=12-时域降噪在完整降噪流程中的位置>1.2 时域降噪在完整降噪流程中的位置</h3><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBBWyLovpPlhaXlm77lg48iXSAtLT4gQlsi56m65Z+f6ZmN5ZmqPGJyLz7vvIjljZXluKfvvIkiXQogICAgQiAtLT4gQ1si5pe25Z+f6ZmN5ZmqPGJyLz7vvIjlpJrluKfvvIkiXQogICAgQyAtLT4gRFsi6L6T5Ye6Il0KICAgIAogICAgRVsi6L+Q5Yqo5Lyw6K6hIl0gLS4tPiBD>flowchart LR
+    A[&#34;输入图像&#34;] --&gt; B[&#34;空域降噪&lt;br/&gt;（单帧）&#34;]
+    B --&gt; C[&#34;时域降噪&lt;br/&gt;（多帧）&#34;]
+    C --&gt; D[&#34;输出&#34;]
     
-    E["运动估计"] -.-> C
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><blockquote><p><strong>注意</strong>：时域降噪与空域降噪是<strong>互补</strong>的，不是替代关系。一种常见做法是先用空域降噪做预处理，再用时域降噪做多帧融合，也可以反过来先时域后空域，具体根据场景和硬件限制决定顺序。</p></blockquote><h3 id=13-时域降噪的基本方法>1.3 时域降噪的基本方法</h3><h4 id=多图平均简单平均>多图平均（简单平均）</h4><p>最朴素的方法：对连续 N 帧的同一位置像素取平均。</p><p>$$
+    E[&#34;运动估计&#34;] -.-&gt; C</pre><blockquote><p><strong>注意</strong>：时域降噪与空域降噪是<strong>互补</strong>的，不是替代关系。一种常见做法是先用空域降噪做预处理，再用时域降噪做多帧融合，也可以反过来先时域后空域，根据具体场景和硬件限制决定顺序。</p></blockquote><h3 id=13-时域降噪的基本方法>1.3 时域降噪的基本方法</h3><h4 id=多图平均简单平均>多图平均（简单平均）</h4><p>最朴素的方法：对连续 N 帧的同一位置像素取平均。</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>I</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msub><mi>I</mi><mi>t</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
 I_{out}(x,y) = \frac{1}{N} \sum_{t=1}^{N} I_t(x,y)
-$$</p><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>假设真实信号 = 100，噪声标准差 σ=20
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.2806em><span style=top:-2.55em;margin-left:-.0785em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:3.0954em;vertical-align:-1.2671em></span><span class=mord><span class="mopen nulldelimiter"></span><span class=mfrac><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.3214em><span style=top:-2.314em><span class=pstrut style=height:3em></span><span class=mord><span class="mord mathnormal" style=margin-right:.10903em>N</span></span></span><span style=top:-3.23em><span class=pstrut style=height:3em></span><span class=frac-line style=border-bottom-width:.04em></span></span><span style=top:-3.677em><span class=pstrut style=height:3em></span><span class=mord><span class=mord>1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.686em><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class=mspace style=margin-right:.1667em></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:1.8283em><span style=top:-1.8829em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style=top:-3.05em><span class=pstrut style=height:3.05em></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style=top:-4.3em;margin-left:0><span class=pstrut style=height:3.05em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style=margin-right:.10903em>N</span></span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:1.2671em><span></span></span></span></span></span><span class=mspace style=margin-right:.1667em></span><span class=mord><span class="mord mathnormal" style=margin-right:.07847em>I</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.2806em><span style=top:-2.55em;margin-left:-.0785em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal" style=margin-right:.03588em>y</span><span class=mclose>)</span></span></span></span></span><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>假设真实信号 = 100，噪声标准差 σ=20
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>帧1：100 + 15 = 115
 </span></span><span style=display:flex><span>帧2：100 - 22 = 78
@@ -223,137 +102,16 @@ $$</p><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=
 </span></span><span style=display:flex><span>简单平均：(115 + 78 + 108 + 82 + 112) / 5 = 495 / 5 = 99
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>噪声从 ±20 降低到约 ±3.6（降低了约 5.5 倍）
-</span></span></code></pre></div><blockquote><p><strong>注意</strong>：简单平均在<strong>静止场景</strong>中效果极好，但只要有物体运动，就会产生拖影——运动物体的位置在每帧都不同，平均后出现“鬼影”。</p></blockquote><h2 id=2-运动估计与运动补偿>2. 运动估计与运动补偿</h2><h3 id=21-什么是运动补偿>2.1 什么是运动补偿</h3><blockquote><p><strong>术语解释</strong>：<strong>运动补偿（Motion Compensation）</strong> 是先估计物体在帧间的运动方向和大小（运动矢量），然后根据运动矢量把参考帧的像素“搬”到与当前帧对齐的位置，再进行时域滤波。</p></blockquote><p>在运动补偿中，<strong>运动估计</strong>决定“怎么搬”，<strong>运动补偿</strong>执行“搬”的动作。</p><pre class=mermaid>
-flowchart LR
-    A["当前帧"] --> D["运动估计"]
-    B["参考帧"] --> D
-    D --> E["运动矢量"]
-    E --> F["运动补偿<br>（对齐参考帧）"]
-    B --> F
-    F --> G["对齐后的参考帧"]
-    A --> H["时域滤波<br>（加权平均）"]
-    G --> H
-    H --> I["输出"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p>你说得对，我确实只展开了光流法和块匹配法，梯度法没有单独展开。另外光流法和块匹配法的原理也没有配合图示，理解起来不够直观。</p><p>我重新完善这个章节，把<strong>三种方法都展开讲</strong>，并给<strong>光流法和块匹配法配上示意图</strong>：</p><h3 id=22-运动估计算法>2.2 运动估计算法</h3><blockquote><p><strong>术语解释</strong>：<strong>运动估计（Motion Estimation）</strong> 是计算物体在相邻帧之间的位移量（运动矢量）的过程。</p></blockquote><table><thead><tr><th>方法</th><th>原理</th><th>特点</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>光流法</strong></td><td>计算每个像素的密集运动场</td><td>精度高，但计算量极大</td><td>高精度运动分析</td></tr><tr><td><strong>块匹配法</strong></td><td>把图像分成小块，搜索最佳匹配位置</td><td>计算量适中，ISP 常用</td><td>视频编码、实时去噪</td></tr><tr><td><strong>梯度法</strong></td><td>利用图像梯度（边缘方向）辅助判断运动方向</td><td>计算量小，适合快速运动检测</td><td>快速判断是否有运动</td></tr></tbody></table><h4 id=光流法>光流法</h4><blockquote><p><strong>术语解释</strong>：<strong>光流（Optical Flow）</strong> 描述物体在图像平面上运动的模式——每个像素在相邻帧之间的运动速度和方向。光流法计算出一张稠密的运动矢量场，每个像素都有对应的运动矢量。</p></blockquote><p><strong>基本原理</strong>：假设物体表面的亮度在运动中保持不变（亮度恒常性假设）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
+</span></span></code></pre></div><blockquote><p><strong>注意</strong>：简单平均在<strong>静止场景</strong>中效果极好，但只要有物体运动，就会产生拖影——运动物体的位置在每帧都不同，平均后出现“鬼影”。</p></blockquote><h2 id=2-运动估计与运动补偿>2. 运动估计与运动补偿</h2><h3 id=21-什么是运动补偿>2.1 什么是运动补偿</h3><blockquote><p><strong>术语解释</strong>：<strong>运动补偿（Motion Compensation）</strong> 是先估计物体在帧间的运动方向和大小（运动矢量），然后根据运动矢量把参考帧的像素“搬”到与当前帧对齐的位置，再进行时域滤波。</p></blockquote><p>在运动补偿中，<strong>运动估计</strong>决定“怎么搬”，<strong>运动补偿</strong>执行“搬”的动作。</p><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBBWyLlvZPliY3luKciXSAtLT4gRFsi6L+Q5Yqo5Lyw6K6hIl0KICAgIEJbIuWPguiAg+W4pyJdIC0tPiBECiAgICBEIC0tPiBFWyLov5Dliqjnn6Lph48iXQogICAgRSAtLT4gRlsi6L+Q5Yqo6KGl5YG/PGJyLz7vvIjlr7npvZDlj4LogIPluKfvvIkiXQogICAgQiAtLT4gRgogICAgRiAtLT4gR1si5a+56b2Q5ZCO55qE5Y+C6ICD5binIl0KICAgIEEgLS0+IEhbIuaXtuWfn+a7pOazojxici8+77yI5Yqg5p2D5bmz5Z2H77yJIl0KICAgIEcgLS0+IEgKICAgIEggLS0+IElbIui+k+WHuiJd>flowchart LR
+    A[&#34;当前帧&#34;] --&gt; D[&#34;运动估计&#34;]
+    B[&#34;参考帧&#34;] --&gt; D
+    D --&gt; E[&#34;运动矢量&#34;]
+    E --&gt; F[&#34;运动补偿&lt;br/&gt;（对齐参考帧）&#34;]
+    B --&gt; F
+    F --&gt; G[&#34;对齐后的参考帧&#34;]
+    A --&gt; H[&#34;时域滤波&lt;br/&gt;（加权平均）&#34;]
+    G --&gt; H
+    H --&gt; I[&#34;输出&#34;]</pre><p>你说得对，我确实只展开了光流法和块匹配法，梯度法没有单独展开。另外光流法和块匹配法的原理也没有配合图示，理解起来不够直观。</p><p>我重新完善这个章节，把<strong>三种方法都展开讲</strong>，并给<strong>光流法和块匹配法配上示意图</strong>：</p><h3 id=22-运动估计算法>2.2 运动估计算法</h3><blockquote><p><strong>术语解释</strong>：<strong>运动估计（Motion Estimation）</strong> 是计算物体在相邻帧之间的位移量（运动矢量）的过程。</p></blockquote><table><thead><tr><th>方法</th><th>原理</th><th>特点</th><th>适用场景</th></tr></thead><tbody><tr><td><strong>光流法</strong></td><td>计算每个像素的密集运动场</td><td>精度高，但计算量极大</td><td>高精度运动分析</td></tr><tr><td><strong>块匹配法</strong></td><td>把图像分成小块，搜索最佳匹配位置</td><td>计算量适中，ISP 常用</td><td>视频编码、实时去噪</td></tr><tr><td><strong>梯度法</strong></td><td>利用图像梯度（边缘方向）辅助判断运动方向</td><td>计算量小，适合快速运动检测</td><td>快速判断是否有运动</td></tr></tbody></table><h4 id=光流法>光流法</h4><blockquote><p><strong>术语解释</strong>：<strong>光流（Optical Flow）</strong> 描述物体在图像平面上运动的模式——每个像素在相邻帧之间的运动速度和方向。光流法计算出一张稠密的运动矢量场，每个像素都有对应的运动矢量。</p></blockquote><p><strong>基本原理</strong>：假设物体表面的亮度在运动中保持不变（亮度恒常性假设）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
 </span></span><span style=display:flex><span>│                    光流法原理：亮度恒常性假设                               │
 </span></span><span style=display:flex><span>├─────────────────────────────────────────────────────────────────────────────┤
 </span></span><span style=display:flex><span>│                                                                             │
@@ -414,531 +172,47 @@ flowchart LR
 </span></span><span style=display:flex><span>│  缺点：只能判断“有没有运动”，不能精确计算“运动了多少”                     │
 </span></span><span style=display:flex><span>│  用途：快速运动检测（决定是否启动更精细的运动补偿）                         │
 </span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
-</span></span></code></pre></div><blockquote><p><strong>注意</strong>：梯度法只能检测<strong>边缘方向的变化</strong>来判断是否有运动，不能输出精确的运动矢量。因此梯度法通常作为<strong>运动检测</strong>的快速预处理步骤，而不是运动估计的最终方案。要获得精确的运动矢量，仍需要块匹配法。</p></blockquote><h4 id=三种方法的对比>三种方法的对比</h4><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><blockquote><p><strong>注意</strong>：梯度法只能检测<strong>边缘方向的变化</strong>来判断是否有运动，不能输出精确的运动矢量。因此梯度法通常作为<strong>运动检测</strong>的快速预处理步骤，而不是运动估计的最终方案。要获得精确的运动矢量，仍需要块匹配法。</p></blockquote><h4 id=三种方法的对比>三种方法的对比</h4><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDmoq/luqbms5UKICAgICAgICBkaXJlY3Rpb24gTFIKICAgICAgICBJWyLovpPlhaXkuKTluKciXSAtLT4gSlsi6K6h566X5qKv5bqm5beu5byCIl0gLS0+IEtbIui/kOWKqC/pnZnmraLliKTmlq0iXSAtLT4gTFsi57K+5bqm77ya5L2OPGJyLz7pgJ/luqbvvJrlv6siXQogICAgZW5kCiAgICBzdWJncmFwaCDlnZfljLnphY3ms5UKICAgICAgICBkaXJlY3Rpb24gTFIKICAgICAgICBFWyLovpPlhaXkuKTluKciXSAtLT4gRlsi5YiG5Z2X5pCc57SiIl0gLS0+IEdbIuWdl+e6p+i/kOWKqOefoumHjyJdIC0tPiBIWyLnsr7luqbvvJrkuK08YnIvPumAn+W6pu+8muS4rSJdCiAgICBlbmQKICAgIHN1YmdyYXBoIOWFiea1geazlQogICAgICAgIGRpcmVjdGlvbiBMUgogICAgICAgIEFbIui+k+WFpeS4pOW4pyJdIC0tPiBCWyLpgJDlg4/ntKDorqHnrpciXSAtLT4gQ1si56ig5a+G6L+Q5Yqo5Zy6Il0gLS0+IERbIueyvuW6pu+8mumrmDxici8+6YCf5bqm77ya5oWiIl0KICAgIGVuZA==">flowchart LR
     subgraph 梯度法
         direction LR
-        I["输入两帧"] --> J["计算梯度差异"] --> K["运动/静止判断"] --> L["精度：低<br>速度：快"]
+        I[&#34;输入两帧&#34;] --&gt; J[&#34;计算梯度差异&#34;] --&gt; K[&#34;运动/静止判断&#34;] --&gt; L[&#34;精度：低&lt;br/&gt;速度：快&#34;]
     end
     subgraph 块匹配法
         direction LR
-        E["输入两帧"] --> F["分块搜索"] --> G["块级运动矢量"] --> H["精度：中<br>速度：中"]
+        E[&#34;输入两帧&#34;] --&gt; F[&#34;分块搜索&#34;] --&gt; G[&#34;块级运动矢量&#34;] --&gt; H[&#34;精度：中&lt;br/&gt;速度：中&#34;]
     end
     subgraph 光流法
         direction LR
-        A["输入两帧"] --> B["逐像素计算"] --> C["稠密运动场"] --> D["精度：高<br>速度：慢"]
-    end
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><table><thead><tr><th>方法</th><th>输出</th><th>精度</th><th>计算量</th><th>在 ISP 中的用途</th></tr></thead><tbody><tr><td><strong>光流法</strong></td><td>逐像素运动矢量</td><td>最高</td><td>最大</td><td>高精度运动分析（通常由 NPU 加速）</td></tr><tr><td><strong>块匹配法</strong></td><td>逐块运动矢量</td><td>较高</td><td>中等</td><td><strong>ISP 时域降噪的标准方法</strong></td></tr><tr><td><strong>梯度法</strong></td><td>运动/静止二值掩码</td><td>最低</td><td>最小</td><td>快速判断（是否触发完整运动估计）</td></tr></tbody></table><blockquote><p><strong>在常见 ISP 实现中</strong>，通常<strong>梯度法做快速初筛 → 块匹配法做精确运动估计</strong>，光流法受限于计算量一般不用于实时场景。</p></blockquote><h2 id=3-运动补偿时域滤波的核心算法>3. 运动补偿时域滤波的核心算法</h2><h3 id=31-基本时域滤波递归滤波--iir-滤波>3.1 基本时域滤波（递归滤波 / IIR 滤波）</h3><blockquote><p><strong>术语解释</strong>：<strong>递归时域滤波（Recursive Temporal Filtering）</strong> 是一种 IIR（无限脉冲响应）滤波方式——当前帧的去噪结果由当前帧和上一帧的去噪结果共同决定，状态会持续传递。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输出帧 = α × 当前帧 + (1-α) × 上一帧输出
-</span></span></code></pre></div><p>其中 $α$ 控制时域平滑的强度。你已经在你学过的 IIR 循环中见过这种递归结构了。</p><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>α = 0.6
+        A[&#34;输入两帧&#34;] --&gt; B[&#34;逐像素计算&#34;] --&gt; C[&#34;稠密运动场&#34;] --&gt; D[&#34;精度：高&lt;br/&gt;速度：慢&#34;]
+    end</pre><table><thead><tr><th>方法</th><th>输出</th><th>精度</th><th>计算量</th><th>在 ISP 中的用途</th></tr></thead><tbody><tr><td><strong>光流法</strong></td><td>逐像素运动矢量</td><td>最高</td><td>最大</td><td>高精度运动分析（通常由 NPU 加速）</td></tr><tr><td><strong>块匹配法</strong></td><td>逐块运动矢量</td><td>较高</td><td>中等</td><td><strong>ISP 时域降噪的标准方法</strong></td></tr><tr><td><strong>梯度法</strong></td><td>运动/静止二值掩码</td><td>最低</td><td>最小</td><td>快速判断（是否触发完整运动估计）</td></tr></tbody></table><blockquote><p><strong>在常见 ISP 实现中</strong>，通常<strong>梯度法做快速初筛 → 块匹配法做精确运动估计</strong>，光流法受限于计算量一般不用于实时场景。</p></blockquote><h2 id=3-运动补偿时域滤波的核心算法>3. 运动补偿时域滤波的核心算法</h2><h3 id=31-基本时域滤波递归滤波--iir-滤波>3.1 基本时域滤波（递归滤波 / IIR 滤波）</h3><blockquote><p><strong>术语解释</strong>：<strong>递归时域滤波（Recursive Temporal Filtering）</strong> 是一种 IIR（无限脉冲响应）滤波方式——当前帧的去噪结果由当前帧和上一帧的去噪结果共同决定，状态会持续传递。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输出帧 = α × 当前帧 + (1-α) × 上一帧输出
+</span></span></code></pre></div><p>其中 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">α</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.0037em>α</span></span></span></span> 控制时域平滑的强度。你已经在你学过的 IIR 循环中见过这种递归结构了。</p><p><strong>数字演示</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>α = 0.6
 </span></span><span style=display:flex><span>帧1原始：100 → 输出1 = 100
 </span></span><span style=display:flex><span>帧2原始：120 → 输出2 = 0.6×120 + 0.4×100 = 112
 </span></span><span style=display:flex><span>帧3原始：115 → 输出3 = 0.6×115 + 0.4×112 = 113.8
 </span></span><span style=display:flex><span>帧4原始：130 → 输出4 = 0.6×130 + 0.4×113.8 = 123.5
-</span></span></code></pre></div><h3 id=32-运动补偿时域滤波mc-tf>3.2 运动补偿时域滤波（MC-TF）</h3><blockquote><p><strong>术语解释</strong>：<strong>运动补偿时域滤波（Motion Compensated Temporal Filtering）</strong> 是块匹配 + 时域滤波的组合——先用块匹配找到参考帧中对应的位置，再对该位置的像素做时域滤波。</p></blockquote><pre class=mermaid>
-flowchart LR
-    A["当前帧像素 x"] --> B["块匹配搜索<br>（在参考帧中找最佳匹配）"]
-    B --> C["运动矢量"]
-    C --> D["对齐参考帧像素"]
-    A --> E["时域滤波"]
-    D --> E
-    E --> F["去噪像素"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=33-mastfmotion-adaptive-spatio-temporal-filter>3.3 MASTF（Motion Adaptive Spatio-Temporal Filter）</h3><blockquote><p><strong>术语解释</strong>：<strong>MASTF（Motion Adaptive Spatio-Temporal Filter，运动自适应时空滤波器）</strong> 是目前 ISP 中一种常见的降噪方案——根据运动强度的大小，<strong>自动调整空域和时域滤波的比例</strong>：在运动区域更依赖空域（防止拖影），在静止区域更依赖时域（去噪更强）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>决策逻辑：
+</span></span></code></pre></div><h3 id=32-运动补偿时域滤波mc-tf>3.2 运动补偿时域滤波（MC-TF）</h3><blockquote><p><strong>术语解释</strong>：<strong>运动补偿时域滤波（Motion Compensated Temporal Filtering）</strong> 是块匹配 + 时域滤波的组合——先用块匹配找到参考帧中对应的位置，再对该位置的像素做时域滤波。</p></blockquote><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLlvZPliY3luKflg4/ntKAgeCJdIC0tPiBCWyLlnZfljLnphY3mkJzntKI8YnIvPu+8iOWcqOWPguiAg+W4p+S4reaJvuacgOS9s+WMuemFje+8iSJdCiAgICBCIC0tPiBDWyLov5Dliqjnn6Lph48iXQogICAgQyAtLT4gRFsi5a+56b2Q5Y+C6ICD5bin5YOP57SgIl0KICAgIEEgLS0+IEVbIuaXtuWfn+a7pOazoiJdCiAgICBEIC0tPiBFCiAgICBFIC0tPiBGWyLljrvlmarlg4/ntKAiXQ==">flowchart LR
+    A[&#34;当前帧像素 x&#34;] --&gt; B[&#34;块匹配搜索&lt;br/&gt;（在参考帧中找最佳匹配）&#34;]
+    B --&gt; C[&#34;运动矢量&#34;]
+    C --&gt; D[&#34;对齐参考帧像素&#34;]
+    A --&gt; E[&#34;时域滤波&#34;]
+    D --&gt; E
+    E --&gt; F[&#34;去噪像素&#34;]</pre><h3 id=33-mastfmotion-adaptive-spatio-temporal-filter>3.3 MASTF（Motion Adaptive Spatio-Temporal Filter）</h3><blockquote><p><strong>术语解释</strong>：<strong>MASTF（Motion Adaptive Spatio-Temporal Filter，运动自适应时空滤波器）</strong> 是目前 ISP 中一种常见的降噪方案——根据运动强度的大小，<strong>自动调整空域和时域滤波的比例</strong>：在运动区域更依赖空域（防止拖影），在静止区域更依赖时域（去噪更强）。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>决策逻辑：
 </span></span><span style=display:flex><span>      运动强度大 → 空域滤波为主（不引入拖影）
 </span></span><span style=display:flex><span>      运动强度小 → 时域滤波为主（去噪更干净）
 </span></span><span style=display:flex><span>      完全静止   → 纯时域滤波（多帧平均）
-</span></span></code></pre></div><p><strong>MASTF 的核心思想</strong>：不是“用哪一种滤波”，而是“两种滤波如何协同”。它根据运动强度动态调整空域和时域滤波的权重，避免“一刀切”导致的拖影或降噪不足。</p><h2 id=4-时域降噪在拍照中的应用>4. 时域降噪在拍照中的应用</h2><p>拍照场景（单张照片拍摄）中，时域降噪的典型应用是<strong>多帧合成</strong>。</p><pre class=mermaid>
-flowchart LR
-    A["连续拍摄多帧<br>（如 4-15 帧）"] --> B["帧对齐<br>（手持抖动补偿）"]
-    B --> C["运动区域检测<br>（移动物体识别）"]
-    C --> D["多帧融合<br>（静止区域平均，运动区域特殊处理）"]
-    D --> E["输出单张去噪图"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
+</span></span></code></pre></div><p><strong>MASTF 的核心思想</strong>：不是“用哪一种滤波”，而是“两种滤波如何协同”。它根据运动强度动态调整空域和时域滤波的权重，避免“一刀切”导致的拖影或降噪不足。</p><h2 id=4-时域降噪在拍照中的应用>4. 时域降噪在拍照中的应用</h2><p>拍照场景（单张照片拍摄）中，时域降噪的典型应用是<strong>多帧合成</strong>。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLov57nu63mi43mkYTlpJrluKc8YnIvPu+8iOWmgiA0LTE1IOW4p++8iSJdIC0tPiBCWyLluKflr7npvZA8YnIvPu+8iOaJi+aMgeaKluWKqOihpeWBv++8iSJdCiAgICBCIC0tPiBDWyLov5DliqjljLrln5/mo4DmtYs8YnIvPu+8iOenu+WKqOeJqeS9k+ivhuWIq++8iSJdCiAgICBDIC0tPiBEWyLlpJrluKfono3lkIg8YnIvPu+8iOmdmeatouWMuuWfn+W5s+Wdh++8jOi/kOWKqOWMuuWfn+eJueauiuWkhOeQhu+8iSJdCiAgICBEIC0tPiBFWyLovpPlh7rljZXlvKDljrvlmarlm74iXQ==">flowchart LR
+    A[&#34;连续拍摄多帧&lt;br/&gt;（如 4-15 帧）&#34;] --&gt; B[&#34;帧对齐&lt;br/&gt;（手持抖动补偿）&#34;]
+    B --&gt; C[&#34;运动区域检测&lt;br/&gt;（移动物体识别）&#34;]
+    C --&gt; D[&#34;多帧融合&lt;br/&gt;（静止区域平均，运动区域特殊处理）&#34;]
+    D --&gt; E[&#34;输出单张去噪图&#34;]</pre><p><strong>拍照场景的特点</strong>：</p><ul><li>帧与帧之间有轻微偏移（手持抖动）→ 需要<strong>全局配准</strong>（图像配准/防抖）</li><li>场景中的运动物体（行人、车辆）→ 需要<strong>运动区域检测</strong>，否则运动物体产生拖影</li><li>帧数有限（通常 4-15 帧）→ 去噪效果受帧数限制</li></ul><p><strong>IIR 训练循环实际上模拟的就是这种多帧处理逻辑</strong>，只是训练循环是逐帧递归处理，而拍照多帧融合是批量处理所有帧后再融合。</p><h2 id=5-时域降噪在视频中的应用>5. 时域降噪在视频中的应用</h2><p>视频场景中，时域降噪实时处理每一帧，是 3DNR（三维降噪）的核心组成部分。</p><h3 id=51-3dnr-的概念>5.1 3DNR 的概念</h3><blockquote><p><strong>术语解释</strong>：<strong>3DNR（3D Noise Reduction，三维降噪）</strong> 是 2D（空域）+ 1D（时域）的组合。空域降噪处理单帧内的像素空间关系（第1和第2维：X、Y），时域降噪处理帧间关系（第3维：时间 T）。两者结合，能获得比单独任何一种都更好的效果。</p></blockquote><p><strong>典型 3DNR 流程</strong>：</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBBWyLovpPlhaXluKciXSAtLT4gQlsi56m65Z+f6aKE5ruk5rOiPGJyLz7vvIjlv6vpgJ/ljrvlmarvvIkiXQogICAgQiAtLT4gQ1si6L+Q5Yqo5Lyw6K6hPGJyLz7vvIjorqHnrpfov5Dliqjnn6Lph4/vvIkiXQogICAgQyAtLT4gRFsi5pe25Z+f5ruk5rOiPGJyLz7vvIjov5DliqjooaXlgb/lkI7liqDmnYPlubPlnYfvvIkiXQogICAgRCAtLT4gRVsi56m65Z+f5ZCO5ruk5rOiPGJyLz7vvIjnsr7nu4blpITnkIbovrnnvJjvvIkiXQogICAgRSAtLT4gRlsi6L6T5Ye65binIl0KICAgIAogICAgRCAtLT4gR1si5bin57yT5a2YPGJyLz7vvIjkv53lrZjljoblj7LluKfvvIkiXQogICAgRyAtLT4gQw==">flowchart LR
+    A[&#34;输入帧&#34;] --&gt; B[&#34;空域预滤波&lt;br/&gt;（快速去噪）&#34;]
+    B --&gt; C[&#34;运动估计&lt;br/&gt;（计算运动矢量）&#34;]
+    C --&gt; D[&#34;时域滤波&lt;br/&gt;（运动补偿后加权平均）&#34;]
+    D --&gt; E[&#34;空域后滤波&lt;br/&gt;（精细处理边缘）&#34;]
+    E --&gt; F[&#34;输出帧&#34;]
     
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>拍照场景的特点</strong>：</p><ul><li>帧与帧之间有轻微偏移（手持抖动）→ 需要<strong>全局配准</strong>（图像配准/防抖）</li><li>场景中的运动物体（行人、车辆）→ 需要<strong>运动区域检测</strong>，否则运动物体产生拖影</li><li>帧数有限（通常 4-15 帧）→ 去噪效果受帧数限制</li></ul><p><strong>IIR 训练循环实际上模拟的就是这种多帧处理逻辑</strong>，只是训练循环是逐帧递归处理，而拍照多帧融合是批量处理所有帧后再融合。</p><h2 id=5-时域降噪在视频中的应用>5. 时域降噪在视频中的应用</h2><p>视频场景中，时域降噪实时处理每一帧，是 3DNR（三维降噪）的核心组成部分。</p><h3 id=51-3dnr-的概念>5.1 3DNR 的概念</h3><blockquote><p><strong>术语解释</strong>：<strong>3DNR（3D Noise Reduction，三维降噪）</strong> 是 2D（空域）+ 1D（时域）的组合。空域降噪处理单帧内的像素空间关系（第1和第2维：X、Y），时域降噪处理帧间关系（第3维：时间 T）。两者结合，能获得比单独任何一种都更好的效果。</p></blockquote><p><strong>典型 3DNR 流程</strong>：</p><pre class=mermaid>
-flowchart LR
-    A["输入帧"] --> B["空域预滤波<br>（快速去噪）"]
-    B --> C["运动估计<br>（计算运动矢量）"]
-    C --> D["时域滤波<br>（运动补偿后加权平均）"]
-    D --> E["空域后滤波<br>（精细处理边缘）"]
-    E --> F["输出帧"]
-    
-    D --> G["帧缓存<br>（保存历史帧）"]
-    G --> C
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=52-视频时域降噪的实时性要求>5.2 视频时域降噪的实时性要求</h3><table><thead><tr><th>场景</th><th>帧率</th><th>算力要求</th><th>时域帧数</th></tr></thead><tbody><tr><td>监控安防</td><td>15-30fps</td><td>中等</td><td>8-16 帧</td></tr><tr><td>车载辅助驾驶</td><td>30-60fps</td><td>高（需低延迟）</td><td>4-8 帧</td></tr><tr><td>手机视频</td><td>30-60fps</td><td>中等（NPU 加速）</td><td>3-5 帧</td></tr></tbody></table><h2 id=6-时域降噪的问题难点与优化>6. 时域降噪的问题、难点与优化</h2><h3 id=61-配准问题>6.1 配准问题</h3><p><strong>问题</strong>：运动估计算法可能出错，导致帧与帧没有正确对齐，错误对齐的像素会被错误融合。</p><p><strong>优化方向</strong>：</p><ul><li>使用多尺度运动估计（由粗到精搜索）</li><li>结合边缘信息辅助配准</li><li>结合 IMU（惯性测量单元）数据辅助配准</li></ul><h3 id=62-拖影问题>6.2 拖影问题</h3><p><strong>问题</strong>：运动物体边缘、快速移动物体，时域滤波容易产生拖影（运动残留）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>运动物体拖影：
+    D --&gt; G[&#34;帧缓存&lt;br/&gt;（保存历史帧）&#34;]
+    G --&gt; C</pre><h3 id=52-视频时域降噪的实时性要求>5.2 视频时域降噪的实时性要求</h3><table><thead><tr><th>场景</th><th>帧率</th><th>算力要求</th><th>时域帧数</th></tr></thead><tbody><tr><td>监控安防</td><td>15-30fps</td><td>中等</td><td>8-16 帧</td></tr><tr><td>车载辅助驾驶</td><td>30-60fps</td><td>高（需低延迟）</td><td>4-8 帧</td></tr><tr><td>手机视频</td><td>30-60fps</td><td>中等（NPU 加速）</td><td>3-5 帧</td></tr></tbody></table><h2 id=6-时域降噪的问题难点与优化>6. 时域降噪的问题、难点与优化</h2><h3 id=61-配准问题>6.1 配准问题</h3><p><strong>问题</strong>：运动估计算法可能出错，导致帧与帧没有正确对齐，错误对齐的像素会被错误融合。</p><p><strong>优化方向</strong>：</p><ul><li>使用多尺度运动估计（由粗到精搜索）</li><li>结合边缘信息辅助配准</li><li>结合 IMU（惯性测量单元）数据辅助配准</li></ul><h3 id=62-拖影问题>6.2 拖影问题</h3><p><strong>问题</strong>：运动物体边缘、快速移动物体，时域滤波容易产生拖影（运动残留）。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>运动物体拖影：
 </span></span><span style=display:flex><span>┌─────────────────────────────────────────────────────────────────────────────┐
 </span></span><span style=display:flex><span>│  实际情况：                                                               │
 </span></span><span style=display:flex><span>│  帧1：🚗在左边                         帧2：🚗在右边                     │
@@ -948,4 +222,4 @@ flowchart LR
 </span></span><span style=display:flex><span>│  检测到运动区域 → 降低时域权重（甚至完全跳过时域滤波）                    │
 </span></span><span style=display:flex><span>│  只对静止区域做时域滤波                                                    │
 </span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────────────────────┘
-</span></span></code></pre></div><blockquote><p><strong>这一问题的本质</strong>：时域滤波利用了“相邻帧相同位置像素近似不变”的假设。当这个假设被打破（有运动），就需要降低对时域滤波的依赖。这与 IIR 训练循环中 <code>ref</code> 传递时用 <code>motion_mask</code> 控制 <code>background</code> 更新逻辑的原理一致——运动区域不更新背景，只更新当前输出。</p></blockquote><h3 id=63-性能问题>6.3 性能问题</h3><p><strong>问题</strong>：时域降噪需要：</p><ul><li>存储多帧图像（内存占用）</li><li>计算运动矢量（算力消耗）</li><li>多帧融合（带宽消耗）</li></ul><p><strong>优化方向</strong>：</p><ul><li>降低搜索范围（限制运动搜索窗口大小）</li><li>降低运动估计精度换取速度</li><li>使用硬件加速（NPU/GPU）</li><li>递归滤波，只存上一帧，不存多帧（IIR 结构）</li></ul><h2 id=7-一句话总结>7. 一句话总结</h2><blockquote><p><strong>时域降噪利用多帧之间的时间冗余去除噪声：静止区域通过多帧平均获得干净信号，运动区域通过运动补偿对齐后再做时域滤波，或直接跳过时域滤波避免拖影。运动估计的质量决定了时域降噪的上限，运动区域的处理决定了拖影的严重程度。时域降噪常与空域降噪组合成 3DNR，在训练层面通过 IIR 递归循环让模型学习如何利用历史帧信息。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+</span></span></code></pre></div><blockquote><p><strong>这一问题的本质</strong>：时域滤波利用了“相邻帧相同位置像素近似不变”的假设。当这个假设被打破（有运动），就需要降低对时域滤波的依赖。这与 IIR 训练循环中 <code>ref</code> 传递时用 <code>motion_mask</code> 控制 <code>background</code> 更新逻辑的原理一致——运动区域不更新背景，只更新当前输出。</p></blockquote><h3 id=63-性能问题>6.3 性能问题</h3><p><strong>问题</strong>：时域降噪需要：</p><ul><li>存储多帧图像（内存占用）</li><li>计算运动矢量（算力消耗）</li><li>多帧融合（带宽消耗）</li></ul><p><strong>优化方向</strong>：</p><ul><li>降低搜索范围（限制运动搜索窗口大小）</li><li>降低运动估计精度换取速度</li><li>使用硬件加速（NPU/GPU）</li><li>递归滤波，只存上一帧，不存多帧（IIR 结构）</li></ul><h2 id=7-一句话总结>7. 一句话总结</h2><blockquote><p><strong>时域降噪利用多帧之间的时间冗余去除噪声：静止区域通过多帧平均获得干净信号，运动区域通过运动补偿对齐后再做时域滤波，或直接跳过时域滤波避免拖影。运动估计的质量决定了时域降噪的上限，运动区域的处理决定了拖影的严重程度。时域降噪常与空域降噪组合成 3DNR，在训练层面通过 IIR 递归循环让模型学习如何利用历史帧信息。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

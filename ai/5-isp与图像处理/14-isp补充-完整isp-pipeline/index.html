@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/><title>ISP补充： 完整ISP Pipeline</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="ISP补充： 完整ISP Pipeline"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/"><meta name=twitter:title content="ISP补充： 完整ISP Pipeline"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/><title>ISP补充： 完整ISP Pipeline</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="ISP补充： 完整ISP Pipeline"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/"><meta name=twitter:title content="ISP补充： 完整ISP Pipeline"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/5-isp%E4%B8%8E%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/14-isp%E8%A1%A5%E5%85%85-%E5%AE%8C%E6%95%B4isp-pipeline/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -75,427 +75,64 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 <a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">ISP补充： 完整ISP Pipeline</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年7月11日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-isp-整体流程概览>1. ISP 整体流程概览</a></li><li><a href=#2-阶段一raw-域处理>2. 阶段一：RAW 域处理</a><ol><li><a href=#21-黑电平与线性化blc>2.1 黑电平与线性化（BLC）</a><ol><li><a href=#1-线性化是什么>1. 线性化是什么？</a></li><li><a href=#2--为什么-sensor-是非线性的>2. 为什么 Sensor 是非线性的？</a></li></ol></li><li><a href=#22-坏点矫正dpc>2.2 坏点矫正（DPC）</a><ol><li><a href=#1-坏点是什么>1. 坏点是什么？</a></li><li><a href=#2-坏点替换修复算法>2 坏点替换（修复）算法</a></li></ol></li><li><a href=#23-镜头暗角校正lens-shading-correctionlsc>2.3 镜头暗角校正（Lens Shading Correction，LSC）</a><ol><li><a href=#1-为什么边缘会暗物理根源>1. 为什么边缘会暗？（物理根源）</a></li><li><a href=#2-为什么边缘还会偏色颜色偏差>2. 为什么边缘还会偏色？（颜色偏差）</a></li><li><a href=#3-lsc-的校正方式>3. LSC 的校正方式</a></li><li><a href=#4-rgb-单独校正>4. RGB 单独校正</a></li></ol></li><li><a href=#24-白平衡增益white-balance-gain>2.4 白平衡增益（White Balance Gain）</a></li><li><a href=#25-绿平衡校正green-balance-correctiongbc>2.5 绿平衡校正（Green Balance Correction，GBC）</a><ol><li><a href=#1-为什么gr与gb会不一致>1. 为什么Gr与Gb会不一致</a></li><li><a href=#2-差异会导致什么视觉问题>2  差异会导致什么视觉问题？</a></li><li><a href=#3-校正方式>3 校正方式</a></li></ol></li></ol></li><li><a href=#3-阶段二rgb-域处理>3. 阶段二：RGB 域处理</a><ol><li><a href=#31-色差校正chromatic-aberration-correctionca>3.1 色差校正（Chromatic Aberration Correction，CA）</a><ol><li><a href=#1-色差的物理根源>1. 色差的物理根源</a></li><li><a href=#2-色差在图片上长什么样>2. 色差在图片上长什么样？</a></li><li><a href=#4-校正方式>4. 校正方式</a></li><li><a href=#5-校正方式isp-实现>5. 校正方式（ISP 实现）</a></li></ol></li><li><a href=#32-动态范围压缩dynamic-range-compressiondrc--wdr>3.2 动态范围压缩（Dynamic Range Compression，DRC / WDR）</a><ol><li><a href=#1-基础概念>1. 基础概念</a></li><li><a href=#2-为什么要做-drc>2. 为什么要做 DRC？</a></li><li><a href=#3-drc曲线>3. DRC曲线</a></li><li><a href=#4-常见-drc-算法>4. 常见 DRC 算法</a></li><li><a href=#5-drc-与-gamma-的区别>5. DRC 与 Gamma 的区别</a></li></ol></li><li><a href=#33-3d-lut三维查找表>3.3 3D LUT（三维查找表）</a></li></ol></li><li><a href=#4-阶段三yuv-域处理>4. 阶段三：YUV 域处理</a><ol><li><a href=#具体区别>具体区别</a></li><li><a href=#41-色彩增强color-enhancement>4.1 色彩增强（Color Enhancement）</a></li><li><a href=#42-细节增强detail-enhancement>4.2 细节增强（Detail Enhancement）</a></li><li><a href=#43-锐化sharpening>4.3 锐化（Sharpening）</a></li><li><a href=#44-yuv-域降噪ynr--cnr>4.4 YUV 域降噪（YNR / CNR）</a></li><li><a href=#45-色调映射tone-mapping>4.5 色调映射（Tone Mapping）</a></li></ol></li><li><a href=#5-主-pipeline-以外的处理>5. 主 Pipeline 以外的处理</a><ol><li><a href=#51-图像缩放scaler>5.1 图像缩放（Scaler）</a></li><li><a href=#52-图像压缩jpeg>5.2 图像压缩（JPEG）</a></li><li><a href=#53-畸变矫正distortion-correction>5.3 畸变矫正（Distortion Correction）</a></li><li><a href=#54-防抖ois--eis>5.4 防抖（OIS / EIS）</a></li><li><a href=#55-深度图dmap>5.5 深度图（DMAP）</a></li><li><a href=#56-jpeg-编码>5.6 JPEG 编码</a></li></ol></li><li><a href=#6-两条特殊处理链路>6. 两条特殊处理链路</a><ol><li><a href=#61-噪声处理流程>6.1 噪声处理流程</a></li><li><a href=#62-色彩重建流程>6.2 色彩重建流程</a></li></ol></li><li><a href=#7-一句话总结>7. 一句话总结</a></li></ol></nav></details><h1 id=isp-系统简介完整流水线解析>ISP 系统简介：完整流水线解析</h1><h2 id=1-isp-整体流程概览>1. ISP 整体流程概览</h2><pre class=mermaid>
-flowchart TB
+2026年7月11日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-isp-整体流程概览>1. ISP 整体流程概览</a></li><li><a href=#2-阶段一raw-域处理>2. 阶段一：RAW 域处理</a><ol><li><a href=#21-黑电平与线性化blc>2.1 黑电平与线性化（BLC）</a><ol><li><a href=#1-线性化是什么>1. 线性化是什么？</a></li><li><a href=#2--为什么-sensor-是非线性的>2. 为什么 Sensor 是非线性的？</a></li></ol></li><li><a href=#22-坏点矫正dpc>2.2 坏点矫正（DPC）</a><ol><li><a href=#1-坏点是什么>1. 坏点是什么？</a></li><li><a href=#2-坏点替换修复算法>2 坏点替换（修复）算法</a></li></ol></li><li><a href=#23-镜头暗角校正lens-shading-correctionlsc>2.3 镜头暗角校正（Lens Shading Correction，LSC）</a><ol><li><a href=#1-为什么边缘会暗物理根源>1. 为什么边缘会暗？（物理根源）</a></li><li><a href=#2-为什么边缘还会偏色颜色偏差>2. 为什么边缘还会偏色？（颜色偏差）</a></li><li><a href=#3-lsc-的校正方式>3. LSC 的校正方式</a></li><li><a href=#4-rgb-单独校正>4. RGB 单独校正</a></li></ol></li><li><a href=#24-白平衡增益white-balance-gain>2.4 白平衡增益（White Balance Gain）</a></li><li><a href=#25-绿平衡校正green-balance-correctiongbc>2.5 绿平衡校正（Green Balance Correction，GBC）</a><ol><li><a href=#1-为什么gr与gb会不一致>1. 为什么Gr与Gb会不一致</a></li><li><a href=#2-差异会导致什么视觉问题>2  差异会导致什么视觉问题？</a></li><li><a href=#3-校正方式>3 校正方式</a></li></ol></li></ol></li><li><a href=#3-阶段二rgb-域处理>3. 阶段二：RGB 域处理</a><ol><li><a href=#31-色差校正chromatic-aberration-correctionca>3.1 色差校正（Chromatic Aberration Correction，CA）</a><ol><li><a href=#1-色差的物理根源>1. 色差的物理根源</a></li><li><a href=#2-色差在图片上长什么样>2. 色差在图片上长什么样？</a></li><li><a href=#4-校正方式>4. 校正方式</a></li><li><a href=#5-校正方式isp-实现>5. 校正方式（ISP 实现）</a></li></ol></li><li><a href=#32-动态范围压缩dynamic-range-compressiondrc--wdr>3.2 动态范围压缩（Dynamic Range Compression，DRC / WDR）</a><ol><li><a href=#1-基础概念>1. 基础概念</a></li><li><a href=#2-为什么要做-drc>2. 为什么要做 DRC？</a></li><li><a href=#3-drc曲线>3. DRC曲线</a></li><li><a href=#4-常见-drc-算法>4. 常见 DRC 算法</a></li><li><a href=#5-drc-与-gamma-的区别>5. DRC 与 Gamma 的区别</a></li></ol></li><li><a href=#33-3d-lut三维查找表>3.3 3D LUT（三维查找表）</a></li></ol></li><li><a href=#4-阶段三yuv-域处理>4. 阶段三：YUV 域处理</a><ol><li><a href=#具体区别>具体区别</a></li><li><a href=#41-色彩增强color-enhancement>4.1 色彩增强（Color Enhancement）</a></li><li><a href=#42-细节增强detail-enhancement>4.2 细节增强（Detail Enhancement）</a></li><li><a href=#43-锐化sharpening>4.3 锐化（Sharpening）</a></li><li><a href=#44-yuv-域降噪ynr--cnr>4.4 YUV 域降噪（YNR / CNR）</a></li><li><a href=#45-色调映射tone-mapping>4.5 色调映射（Tone Mapping）</a></li></ol></li><li><a href=#5-主-pipeline-以外的处理>5. 主 Pipeline 以外的处理</a><ol><li><a href=#51-图像缩放scaler>5.1 图像缩放（Scaler）</a></li><li><a href=#52-图像压缩jpeg>5.2 图像压缩（JPEG）</a></li><li><a href=#53-畸变矫正distortion-correction>5.3 畸变矫正（Distortion Correction）</a></li><li><a href=#54-防抖ois--eis>5.4 防抖（OIS / EIS）</a></li><li><a href=#55-深度图dmap>5.5 深度图（DMAP）</a></li><li><a href=#56-jpeg-编码>5.6 JPEG 编码</a></li></ol></li><li><a href=#6-两条特殊处理链路>6. 两条特殊处理链路</a><ol><li><a href=#61-噪声处理流程>6.1 噪声处理流程</a></li><li><a href=#62-色彩重建流程>6.2 色彩重建流程</a></li></ol></li><li><a href=#7-一句话总结>7. 一句话总结</a></li></ol></nav></details><h1 id=isp-系统简介完整流水线解析>ISP 系统简介：完整流水线解析</h1><h2 id=1-isp-整体流程概览>1. ISP 整体流程概览</h2><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCDovpPlhaUKICAgICAgICBTWyJDTU9TIFNlbnNvcjxici8+77yIQmF5ZXIgUkFX77yJIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUxWyLpmLbmrrXkuIDvvJpSQVcg5Z+f5aSE55CGIl0KICAgICAgICBCTENbIuKRoCDpu5HnlLXlubPkuI7nur/mgKfljJYiXQogICAgICAgIERQQ1si4pGhIOWdj+eCueefq+atoyJdCiAgICAgICAgQk5SWyLikaIgUkFXIOWfn+mZjeWZqiJdCiAgICAgICAgTFNDWyLikaMg6ZWc5aS05pqX6KeS5qCh5q2jIl0KICAgICAgICBXQkdbIuKRpCDnmb3lubPooaHlop7nm4oiXQogICAgICAgIEdCQ1si4pGlIOe7v+W5s+ihoeagoeatoyJdCiAgICAgICAgREVNWyLikaYg5Y676ams6LWb5YWLIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDpmLbmrrUyWyLpmLbmrrXkuozvvJpSR0Ig5Z+f5aSE55CGIl0KICAgICAgICBDQVsi4pGnIOiJsuW3ruagoeatoyJdCiAgICAgICAgQ0NNWyLikagg6Imy5b2p5qCh5q2jIl0KICAgICAgICBEUkNbIuKRqSDliqjmgIHojIPlm7TljovnvKkiXQogICAgICAgIEdBTU1BWyLikaogR2FtbWEiXQogICAgICAgIExVVDNEWyLikasgM0RMVVQiXQogICAgZW5kCiAgICAKICAgIHN1YmdyYXBoIOmYtuautTNbIumYtuauteS4ie+8mllVViDln5/lpITnkIYiXQogICAgICAgIENFWyLikawg6Imy5b2p5aKe5by6Il0KICAgICAgICBERVsi4pGtIOe7huiKguWinuW8uiJdCiAgICAgICAgU0hBUlBbIuKRriDplJDljJYiXQogICAgICAgIFlOUlsi4pGvIFlVViDln5/pmY3lmaoiXQogICAgICAgIFRNWyLikbAg6Imy6LCD5pig5bCEIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDovpPlh7oKICAgICAgICBPWyJZVVYg6L6T5Ye6PGJyLz7vvIjmmL7npLov57yW56CB77yJIl0KICAgIGVuZAogICAgCiAgICBTIC0tPiBCTEMgLS0+IERQQyAtLT4gQk5SIC0tPiBMU0MgLS0+IFdCRyAtLT4gR0JDIC0tPiBERU0KICAgIERFTSAtLT4gQ0EgLS0+IENDTSAtLT4gRFJDIC0tPiBHQU1NQSAtLT4gTFVUM0QKICAgIExVVDNEIC0tPiBDRSAtLT4gREUgLS0+IFNIQVJQIC0tPiBZTlIgLS0+IFRNIC0tPiBP>flowchart TB
     subgraph 输入
-        S["CMOS Sensor<br>（Bayer RAW）"]
+        S[&#34;CMOS Sensor&lt;br/&gt;（Bayer RAW）&#34;]
     end
     
-    subgraph 阶段1["阶段一：RAW 域处理"]
-        BLC["① 黑电平与线性化"]
-        DPC["② 坏点矫正"]
-        BNR["③ RAW 域降噪"]
-        LSC["④ 镜头暗角校正"]
-        WBG["⑤ 白平衡增益"]
-        GBC["⑥ 绿平衡校正"]
-        DEM["⑦ 去马赛克"]
+    subgraph 阶段1[&#34;阶段一：RAW 域处理&#34;]
+        BLC[&#34;① 黑电平与线性化&#34;]
+        DPC[&#34;② 坏点矫正&#34;]
+        BNR[&#34;③ RAW 域降噪&#34;]
+        LSC[&#34;④ 镜头暗角校正&#34;]
+        WBG[&#34;⑤ 白平衡增益&#34;]
+        GBC[&#34;⑥ 绿平衡校正&#34;]
+        DEM[&#34;⑦ 去马赛克&#34;]
     end
     
-    subgraph 阶段2["阶段二：RGB 域处理"]
-        CA["⑧ 色差校正"]
-        CCM["⑨ 色彩校正"]
-        DRC["⑩ 动态范围压缩"]
-        GAMMA["⑪ Gamma"]
-        LUT3D["⑫ 3DLUT"]
+    subgraph 阶段2[&#34;阶段二：RGB 域处理&#34;]
+        CA[&#34;⑧ 色差校正&#34;]
+        CCM[&#34;⑨ 色彩校正&#34;]
+        DRC[&#34;⑩ 动态范围压缩&#34;]
+        GAMMA[&#34;⑪ Gamma&#34;]
+        LUT3D[&#34;⑫ 3DLUT&#34;]
     end
     
-    subgraph 阶段3["阶段三：YUV 域处理"]
-        CE["⑬ 色彩增强"]
-        DE["⑭ 细节增强"]
-        SHARP["⑮ 锐化"]
-        YNR["⑯ YUV 域降噪"]
-        TM["⑰ 色调映射"]
+    subgraph 阶段3[&#34;阶段三：YUV 域处理&#34;]
+        CE[&#34;⑬ 色彩增强&#34;]
+        DE[&#34;⑭ 细节增强&#34;]
+        SHARP[&#34;⑮ 锐化&#34;]
+        YNR[&#34;⑯ YUV 域降噪&#34;]
+        TM[&#34;⑰ 色调映射&#34;]
     end
     
     subgraph 输出
-        O["YUV 输出<br>（显示/编码）"]
+        O[&#34;YUV 输出&lt;br/&gt;（显示/编码）&#34;]
     end
     
-    S --> BLC --> DPC --> BNR --> LSC --> WBG --> GBC --> DEM
-    DEM --> CA --> CCM --> DRC --> GAMMA --> LUT3D
-    LUT3D --> CE --> DE --> SHARP --> YNR --> TM --> O
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h2 id=2-阶段一raw-域处理>2. 阶段一：RAW 域处理</h2><p>RAW 域是 ISP 流水线的第一阶段，处理的是 Sensor 直接输出的 Bayer 格式数据（未经过任何颜色插值）。这个阶段的核心目标是 <strong>“修复 Sensor 的物理缺陷，为后续色彩重建准备干净的数据”</strong>。</p><pre class=mermaid>
-flowchart LR
+    S --&gt; BLC --&gt; DPC --&gt; BNR --&gt; LSC --&gt; WBG --&gt; GBC --&gt; DEM
+    DEM --&gt; CA --&gt; CCM --&gt; DRC --&gt; GAMMA --&gt; LUT3D
+    LUT3D --&gt; CE --&gt; DE --&gt; SHARP --&gt; YNR --&gt; TM --&gt; O</pre><h2 id=2-阶段一raw-域处理>2. 阶段一：RAW 域处理</h2><p>RAW 域是 ISP 流水线的第一阶段，处理的是 Sensor 直接输出的 Bayer 格式数据（未经过任何颜色插值）。这个阶段的核心目标是 <strong>“修复 Sensor 的物理缺陷，为后续色彩重建准备干净的数据”</strong>。</p><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBSQVfln58KICAgICAgICBCTENbIum7keeUteW5s+S4jue6v+aAp+WMliJdCiAgICAgICAgRFBDWyLlnY/ngrnnn6vmraMiXQogICAgICAgIEJOUlsiUkFX5Z+f6ZmN5ZmqIl0KICAgICAgICBMU0NbIumVnOWktOaal+inkuagoeatoyJdCiAgICAgICAgV0JHWyLnmb3lubPooaHlop7nm4oiXQogICAgICAgIEdCQ1si57u/5bmz6KGh5qCh5q2jIl0KICAgICAgICBERU1bIuWOu+mprOi1m+WFiyJdCiAgICBlbmQKICAgIAogICAgQkxDIC0tPiBEUEMgLS0+IEJOUiAtLT4gTFNDIC0tPiBXQkcgLS0+IEdCQyAtLT4gREVN>flowchart LR
     subgraph RAW域
-        BLC["黑电平与线性化"]
-        DPC["坏点矫正"]
-        BNR["RAW域降噪"]
-        LSC["镜头暗角校正"]
-        WBG["白平衡增益"]
-        GBC["绿平衡校正"]
-        DEM["去马赛克"]
+        BLC[&#34;黑电平与线性化&#34;]
+        DPC[&#34;坏点矫正&#34;]
+        BNR[&#34;RAW域降噪&#34;]
+        LSC[&#34;镜头暗角校正&#34;]
+        WBG[&#34;白平衡增益&#34;]
+        GBC[&#34;绿平衡校正&#34;]
+        DEM[&#34;去马赛克&#34;]
     end
     
-    BLC --> DPC --> BNR --> LSC --> WBG --> GBC --> DEM
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=21-黑电平与线性化blc>2.1 黑电平与线性化（BLC）</h3><blockquote><p><strong>术语解释</strong>：<strong>黑电平（Black Level）</strong> 是 Sensor 在完全无光（全黑）条件下输出的像素值。理想情况下它应该是 0，但实际 Sensor 由于硬件特性，全黑输出是一个固定的正数（如 256 或 300）。<strong>校正（Correction）</strong> 就是把这个固定偏置减去，让黑色的起点归零。</p></blockquote><p>黑电平前面的笔记已讲解过，这里不详细展开。</p><h4 id=1-线性化是什么>1. 线性化是什么？</h4><p><strong>一句话定义</strong>：线性化就是把 Sensor 输出的“弯曲的亮度值”，掰回到“与光照强度成正比的直线”。</p><p>理想情况下，Sensor 是一个完美的物理测量仪器：<strong>光照强度翻倍，输出的数字值也应该翻倍</strong>。这叫做<strong>线性响应</strong>。</p><pre tabindex=0><code>理想线性关系：
+    BLC --&gt; DPC --&gt; BNR --&gt; LSC --&gt; WBG --&gt; GBC --&gt; DEM</pre><h3 id=21-黑电平与线性化blc>2.1 黑电平与线性化（BLC）</h3><blockquote><p><strong>术语解释</strong>：<strong>黑电平（Black Level）</strong> 是 Sensor 在完全无光（全黑）条件下输出的像素值。理想情况下它应该是 0，但实际 Sensor 由于硬件特性，全黑输出是一个固定的正数（如 256 或 300）。<strong>校正（Correction）</strong> 就是把这个固定偏置减去，让黑色的起点归零。</p></blockquote><p>黑电平前面的笔记已讲解过，这里不详细展开。</p><h4 id=1-线性化是什么>1. 线性化是什么？</h4><p><strong>一句话定义</strong>：线性化就是把 Sensor 输出的“弯曲的亮度值”，掰回到“与光照强度成正比的直线”。</p><p>理想情况下，Sensor 是一个完美的物理测量仪器：<strong>光照强度翻倍，输出的数字值也应该翻倍</strong>。这叫做<strong>线性响应</strong>。</p><pre tabindex=0><code>理想线性关系：
 光强：1倍 → 输出：100
 光强：2倍 → 输出：200（正好翻倍）
 光强：3倍 → 输出：300（正好翻倍）
-</code></pre><p><strong>但真实的 Sensor 不是这样的。</strong> 尤其在<strong>暗部区域</strong>，Sensor 的输出会“偷懒”或“迟钝”——光照强度增加了 2 倍，但输出值可能只增加了 1.5 倍，导致暗部细节糊在一起。这就是<strong>非线性响应</strong>。</p><h4 id=2--为什么-sensor-是非线性的>2. 为什么 Sensor 是非线性的？</h4><p>主要有两个原因：</p><p><strong>① Sensor 在暗区的“先天不足”</strong></p><p>在光线很暗的时候，光子数量极少，Sensor 产生的电信号非常微弱，几乎要被电路噪声淹没。为了让画面看起来不那么“一片死黑”，Sensor 内部会<strong>人为压低暗部的响应</strong>（把很暗的区域映射到更暗），这是一种硬件级的“去噪”策略。但代价是：<strong>暗部的亮度变化不再与光照强度成正比</strong>。</p><p><strong>② 为了“硬塞”更大的动态范围</strong></p><p>有些 Sensor 用非线性的方式（如对数响应）来压缩高亮信号，把 10 万级的光强度塞进 0-4095 的 12-bit 数字里。这样做的结果是：<strong>亮部和暗部的“刻度”不一样粗</strong>。</p><pre class=mermaid>
-xychart-beta
-    title "Sensor 响应曲线：线性 vs 非线性"
-    x-axis "光照强度 (物理光子数)"
-    y-axis "Sensor 输出数字值 (0-4095)"
+</code></pre><p><strong>但真实的 Sensor 不是这样的。</strong> 尤其在<strong>暗部区域</strong>，Sensor 的输出会“偷懒”或“迟钝”——光照强度增加了 2 倍，但输出值可能只增加了 1.5 倍，导致暗部细节糊在一起。这就是<strong>非线性响应</strong>。</p><h4 id=2--为什么-sensor-是非线性的>2. 为什么 Sensor 是非线性的？</h4><p>主要有两个原因：</p><p><strong>① Sensor 在暗区的“先天不足”</strong></p><p>在光线很暗的时候，光子数量极少，Sensor 产生的电信号非常微弱，几乎要被电路噪声淹没。为了让画面看起来不那么“一片死黑”，Sensor 内部会<strong>人为压低暗部的响应</strong>（把很暗的区域映射到更暗），这是一种硬件级的“去噪”策略。但代价是：<strong>暗部的亮度变化不再与光照强度成正比</strong>。</p><p><strong>② 为了“硬塞”更大的动态范围</strong></p><p>有些 Sensor 用非线性的方式（如对数响应）来压缩高亮信号，把 10 万级的光强度塞进 0-4095 的 12-bit 数字里。这样做的结果是：<strong>亮部和暗部的“刻度”不一样粗</strong>。</p><pre class=mermaid data-mermaid-source="eHljaGFydC1iZXRhCiAgICB0aXRsZSAiU2Vuc29yIOWTjeW6lOabsue6v++8mue6v+aApyB2cyDpnZ7nur/mgKciCiAgICB4LWF4aXMgIuWFieeFp+W8uuW6piAo54mp55CG5YWJ5a2Q5pWwKSIKICAgIHktYXhpcyAiU2Vuc29yIOi+k+WHuuaVsOWtl+WAvCAoMC00MDk1KSIKICAgIGxpbmUgWzAsIDEwMCwgMjAwLCAzMDAsIDQwMCwgNTAwLCA2MDAsIDcwMCwgODAwXQogICAgbGluZSBbMCwgODAsIDE1MCwgMjEwLCAyNjAsIDMxMCwgMzcwLCA0MzAsIDUwMF0=">xychart-beta
+    title &#34;Sensor 响应曲线：线性 vs 非线性&#34;
+    x-axis &#34;光照强度 (物理光子数)&#34;
+    y-axis &#34;Sensor 输出数字值 (0-4095)&#34;
     line [0, 100, 200, 300, 400, 500, 600, 700, 800]
-    line [0, 80, 150, 210, 260, 310, 370, 430, 500]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><blockquote><p><strong>图例说明</strong>：</p><ul><li><strong>蓝色曲线（第一条，直线）</strong>：理想线性响应（物理光照强度翻倍，输出数字值也翻倍）。</li><li><strong>红色曲线（第二条，弯曲的线）</strong>：实际 Sensor 响应（暗部被压低，亮部逐渐追赶）。</li></ul></blockquote><p><strong>如果不做线性化，后续的所有算法都会出现严重误差。</strong></p><h3 id=22-坏点矫正dpc>2.2 坏点矫正（DPC）</h3><h4 id=1-坏点是什么>1. 坏点是什么？</h4><p><strong>一句话定义</strong>：坏点（Defect Pixel）是 Sensor 像素阵列中<strong>响应异常的个别像素</strong>——它们该亮的时候不亮，该暗的时候不暗，或者完全“罢工”。</p><pre tabindex=0><code>Sensor 像素阵列中的坏点分布：
+    line [0, 80, 150, 210, 260, 310, 370, 430, 500]</pre><blockquote><p><strong>图例说明</strong>：</p><ul><li><strong>蓝色曲线（第一条，直线）</strong>：理想线性响应（物理光照强度翻倍，输出数字值也翻倍）。</li><li><strong>红色曲线（第二条，弯曲的线）</strong>：实际 Sensor 响应（暗部被压低，亮部逐渐追赶）。</li></ul></blockquote><p><strong>如果不做线性化，后续的所有算法都会出现严重误差。</strong></p><h3 id=22-坏点矫正dpc>2.2 坏点矫正（DPC）</h3><h4 id=1-坏点是什么>1. 坏点是什么？</h4><p><strong>一句话定义</strong>：坏点（Defect Pixel）是 Sensor 像素阵列中<strong>响应异常的个别像素</strong>——它们该亮的时候不亮，该暗的时候不暗，或者完全“罢工”。</p><pre tabindex=0><code>Sensor 像素阵列中的坏点分布：
 ┌─────────────────────────────────────────────────────────────┐
 │  ●  ●  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○ │
 │  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○  ○ │
@@ -582,137 +219,16 @@ Gb_gain = (Gr_avg + Gb_avg) / (2 × Gb_avg) = 390 / 380 = 1.026
 </code></pre><p>应用增益后：</p><pre tabindex=0><code>Gr_out = 200 × 0.975 = 195
 Gb_out = 190 × 1.026 = 195
 Gr_avg = Gb_avg = 195 → 平衡
-</code></pre><h2 id=3-阶段二rgb-域处理>3. 阶段二：RGB 域处理</h2><p>经过 Demosaic 后，数据从 Bayer 格式变成 RGB 三通道彩色图。RGB 域处理的核心目标是 <strong>“把颜色校正到人眼看起来自然的标准色彩空间”</strong>。</p><pre class=mermaid>
-flowchart LR
+</code></pre><h2 id=3-阶段二rgb-域处理>3. 阶段二：RGB 域处理</h2><p>经过 Demosaic 后，数据从 Bayer 格式变成 RGB 三通道彩色图。RGB 域处理的核心目标是 <strong>“把颜色校正到人眼看起来自然的标准色彩空间”</strong>。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBSR0Lln58KICAgICAgICBDQVsi6Imy5beu5qCh5q2jIl0KICAgICAgICBDQ01bIuiJsuW9qeagoeatoyJdCiAgICAgICAgRFJDWyLliqjmgIHojIPlm7TljovnvKkiXQogICAgICAgIEdBTU1BWyJHYW1tYSJdCiAgICAgICAgTFVUM0RbIjNETFVUIl0KICAgIGVuZAogICAgCiAgICBDQSAtLT4gQ0NNIC0tPiBEUkMgLS0+IEdBTU1BIC0tPiBMVVQzRA==">flowchart LR
     subgraph RGB域
-        CA["色差校正"]
-        CCM["色彩校正"]
-        DRC["动态范围压缩"]
-        GAMMA["Gamma"]
-        LUT3D["3DLUT"]
+        CA[&#34;色差校正&#34;]
+        CCM[&#34;色彩校正&#34;]
+        DRC[&#34;动态范围压缩&#34;]
+        GAMMA[&#34;Gamma&#34;]
+        LUT3D[&#34;3DLUT&#34;]
     end
     
-    CA --> CCM --> DRC --> GAMMA --> LUT3D
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=31-色差校正chromatic-aberration-correctionca>3.1 色差校正（Chromatic Aberration Correction，CA）</h3><h4 id=1-色差的物理根源>1. 色差的物理根源</h4><p><strong>一句话</strong>：不同颜色的光波长不同，在玻璃镜头里的“刹车距离”不一样。</p><p>所有颜色的光在真空中速度都一样，但进入玻璃镜头后，速度会降低。<strong>波长越短（蓝光），在玻璃里跑得越慢，被“掰弯”得越多；波长越长（红光），在玻璃里跑得越快，被“掰弯”得越少。</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>       离中心近 ←───────────→ 离中心远
+    CA --&gt; CCM --&gt; DRC --&gt; GAMMA --&gt; LUT3D</pre><h3 id=31-色差校正chromatic-aberration-correctionca>3.1 色差校正（Chromatic Aberration Correction，CA）</h3><h4 id=1-色差的物理根源>1. 色差的物理根源</h4><p><strong>一句话</strong>：不同颜色的光波长不同，在玻璃镜头里的“刹车距离”不一样。</p><p>所有颜色的光在真空中速度都一样，但进入玻璃镜头后，速度会降低。<strong>波长越短（蓝光），在玻璃里跑得越慢，被“掰弯”得越多；波长越长（红光），在玻璃里跑得越快，被“掰弯”得越少。</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>       离中心近 ←───────────→ 离中心远
 </span></span><span style=display:flex><span>			  ┌─────────────┐
 </span></span><span style=display:flex><span>			  │    Sensor    │
 </span></span><span style=display:flex><span>			  │  🟢  🔵     │  ← 绿光在中心侧，蓝光在边缘侧
@@ -764,661 +280,56 @@ ISP 执行 DRC（压缩到 SDR 范围）
     y-axis &#34;输出亮度 (0 → 255)&#34;
     line [0, 100, 200, 300, 400, 500, 600, 700, 800] &#34;理想线性映射（基准）&#34;
     line [0, 50, 100, 150, 200, 400, 600, 700, 800] &#34;实际 DRC 映射&#34;
-</code></pre><h4 id=3-drc曲线>3. DRC曲线</h4><pre class=mermaid>
-xychart-beta
-    title "DRC 亮度映射曲线"
-    x-axis "输入亮度 (0 → 4095)"
-    y-axis "输出亮度 (0 → 255)"
+</code></pre><h4 id=3-drc曲线>3. DRC曲线</h4><pre class=mermaid data-mermaid-source="eHljaGFydC1iZXRhCiAgICB0aXRsZSAiRFJDIOS6ruW6puaYoOWwhOabsue6vyIKICAgIHgtYXhpcyAi6L6T5YWl5Lqu5bqmICgwIOKGkiA0MDk1KSIKICAgIHktYXhpcyAi6L6T5Ye65Lqu5bqmICgwIOKGkiAyNTUpIgogICAgbGluZSBbMCwgMTAwLCAyMDAsIDMwMCwgNDAwLCA1MDAsIDYwMCwgNzAwLCA4MDBdCiAgICBsaW5lIFswLCA1MCwgMTAwLCAxNTAsIDIwMCwgNDAwLCA2MDAsIDcwMCwgODAwXQ==">xychart-beta
+    title &#34;DRC 亮度映射曲线&#34;
+    x-axis &#34;输入亮度 (0 → 4095)&#34;
+    y-axis &#34;输出亮度 (0 → 255)&#34;
     line [0, 100, 200, 300, 400, 500, 600, 700, 800]
-    line [0, 50, 100, 150, 200, 400, 600, 700, 800]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><blockquote><p>上图蓝色线（第一条）为理想线性映射（把 0-4095 线性缩放到 0-255），橙色线（第二条）为实际 DRC 映射（暗部展开、亮部压缩）。暗部细节被展开，亮部被压缩但不过曝。</p></blockquote><h4 id=4-常见-drc-算法>4. 常见 DRC 算法</h4><table><thead><tr><th>算法</th><th>原理</th><th>特点</th></tr></thead><tbody><tr><td><strong>全局直方图均衡（HE）</strong></td><td>统计全图亮度分布，让输出亮度均匀分布</td><td>简单，但可能产生不自然的对比度</td></tr><tr><td><strong>局部色调映射（LTM）</strong></td><td>每个像素根据局部区域亮度独立映射</td><td>效果好，细节保留多，但算力要求高</td></tr><tr><td><strong>Reinhard</strong></td><td>基于对数压缩，模拟人眼适应</td><td>经典算法，参数少</td></tr><tr><td><strong>Filmic</strong></td><td>S 型曲线，类似电影胶片响应</td><td>视觉上最自然</td></tr></tbody></table><h4 id=5-drc-与-gamma-的区别>5. DRC 与 Gamma 的区别</h4><blockquote><p><strong>容易混淆的点</strong>：DRC 和 Gamma 都是亮度映射曲线，但目的不同。</p></blockquote><ul><li><strong>DRC</strong>：把宽亮度范围压缩到<strong>显示设备能展示的范围</strong>（自适应变换，根据不同场景动态调整）</li><li><strong>Gamma</strong>：把物理亮度映射到<strong>人眼感知</strong>（固定变换，所有场景都用同一个公式）</li></ul><blockquote><p>Gamma 是“人眼校正”，固定不变；DRC 是“动态压缩”，随场景变化。它们都可以用一条曲线来描述亮度映射，但 Gamma 是常量，DRC 是变量。</p></blockquote><p><strong>具体对比</strong>：</p><table><thead><tr><th></th><th>Gamma</th><th>DRC</th></tr></thead><tbody><tr><td><strong>目的</strong></td><td>让物理亮度的变化符合人眼感受</td><td>让 HDR 场景的亮暗细节都能在屏幕上看到</td></tr><tr><td><strong>曲线是否固定</strong></td><td>✅ 固定（永远是 <code>y = x^0.45</code>，或者反过来）</td><td>❌ 自适应（根据画面统计结果动态变化）</td></tr><tr><td><strong>处理对象</strong></td><td>所有场景都一样处理</td><td>针对 HDR 场景（有极亮和极暗）才会动</td></tr><tr><td><strong>在流程中的位置</strong></td><td>通常固定，是所有 ISP 都会做的最后一步</td><td>通常只在 Sensor 支持 WDR 时才会出现</td></tr></tbody></table><h3 id=33-3d-lut三维查找表>3.3 3D LUT（三维查找表）</h3><blockquote><p><strong>术语解释</strong>：<strong>3D LUT（三维查找表）</strong> 是一个三维数组，用于实现复杂的颜色变换。与 1D LUT（仅对单个通道做变换）和 2D LUT（两个通道组合）不同，3D LUT 能将输入 RGB 三元组映射到另一个 RGB 三元组，实现人眼感知的颜色风格化（如电影感、鲜艳模式等）。在 ISP 中，它通常作为色彩校正（CCM）之后的最后一道颜色调整工序。</p></blockquote><p><strong>3D LUT 的工作原理</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 RGB (R, G, B) → 3D LUT 查表 → 输出 RGB (R&#39;, G&#39;, B&#39;)
+    line [0, 50, 100, 150, 200, 400, 600, 700, 800]</pre><blockquote><p>上图蓝色线（第一条）为理想线性映射（把 0-4095 线性缩放到 0-255），橙色线（第二条）为实际 DRC 映射（暗部展开、亮部压缩）。暗部细节被展开，亮部被压缩但不过曝。</p></blockquote><h4 id=4-常见-drc-算法>4. 常见 DRC 算法</h4><table><thead><tr><th>算法</th><th>原理</th><th>特点</th></tr></thead><tbody><tr><td><strong>全局直方图均衡（HE）</strong></td><td>统计全图亮度分布，让输出亮度均匀分布</td><td>简单，但可能产生不自然的对比度</td></tr><tr><td><strong>局部色调映射（LTM）</strong></td><td>每个像素根据局部区域亮度独立映射</td><td>效果好，细节保留多，但算力要求高</td></tr><tr><td><strong>Reinhard</strong></td><td>基于对数压缩，模拟人眼适应</td><td>经典算法，参数少</td></tr><tr><td><strong>Filmic</strong></td><td>S 型曲线，类似电影胶片响应</td><td>视觉上最自然</td></tr></tbody></table><h4 id=5-drc-与-gamma-的区别>5. DRC 与 Gamma 的区别</h4><blockquote><p><strong>容易混淆的点</strong>：DRC 和 Gamma 都是亮度映射曲线，但目的不同。</p></blockquote><ul><li><strong>DRC</strong>：把宽亮度范围压缩到<strong>显示设备能展示的范围</strong>（自适应变换，根据不同场景动态调整）</li><li><strong>Gamma</strong>：把物理亮度映射到<strong>人眼感知</strong>（固定变换，所有场景都用同一个公式）</li></ul><blockquote><p>Gamma 是“人眼校正”，固定不变；DRC 是“动态压缩”，随场景变化。它们都可以用一条曲线来描述亮度映射，但 Gamma 是常量，DRC 是变量。</p></blockquote><p><strong>具体对比</strong>：</p><table><thead><tr><th></th><th>Gamma</th><th>DRC</th></tr></thead><tbody><tr><td><strong>目的</strong></td><td>让物理亮度的变化符合人眼感受</td><td>让 HDR 场景的亮暗细节都能在屏幕上看到</td></tr><tr><td><strong>曲线是否固定</strong></td><td>✅ 固定（永远是 <code>y = x^0.45</code>，或者反过来）</td><td>❌ 自适应（根据画面统计结果动态变化）</td></tr><tr><td><strong>处理对象</strong></td><td>所有场景都一样处理</td><td>针对 HDR 场景（有极亮和极暗）才会动</td></tr><tr><td><strong>在流程中的位置</strong></td><td>通常固定，是所有 ISP 都会做的最后一步</td><td>通常只在 Sensor 支持 WDR 时才会出现</td></tr></tbody></table><h3 id=33-3d-lut三维查找表>3.3 3D LUT（三维查找表）</h3><blockquote><p><strong>术语解释</strong>：<strong>3D LUT（三维查找表）</strong> 是一个三维数组，用于实现复杂的颜色变换。与 1D LUT（仅对单个通道做变换）和 2D LUT（两个通道组合）不同，3D LUT 能将输入 RGB 三元组映射到另一个 RGB 三元组，实现人眼感知的颜色风格化（如电影感、鲜艳模式等）。在 ISP 中，它通常作为色彩校正（CCM）之后的最后一道颜色调整工序。</p></blockquote><p><strong>3D LUT 的工作原理</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>输入 RGB (R, G, B) → 3D LUT 查表 → 输出 RGB (R&#39;, G&#39;, B&#39;)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>3D LUT 是一个三维网格（如 17×17×17 = 4913 个节点）
 </span></span><span style=display:flex><span>对于不在网格节点上的颜色，使用三线性插值
-</span></span></code></pre></div><p><strong>用途</strong>：</p><ul><li>色彩风格化（电影色调、复古风格）</li><li>模拟不同胶片效果</li><li>用户自定义色彩模式（艳丽/自然/柔和）</li></ul><h2 id=4-阶段三yuv-域处理>4. 阶段三：YUV 域处理</h2><p>经过 RGB 域处理后，数据被转换成 YUV 色彩空间。YUV 域处理的核心目标是 <strong>“针对人眼感知特性，优化亮度、色彩、清晰度和动态范围”</strong>。</p><blockquote><p><strong>RGB</strong> 是“物理显示”的颜色空间（显示器怎么发光），<strong>YUV</strong> 是“人眼感知”的颜色空间（人眼怎么看）。</p></blockquote><h3 id=具体区别>具体区别</h3><table><thead><tr><th></th><th>RGB</th><th>YUV</th></tr></thead><tbody><tr><td><strong>通道含义</strong></td><td>R（红）、G（绿）、B（蓝）三个独立通道</td><td>Y（亮度）、U（蓝色色度）、V（红色色度）</td></tr><tr><td><strong>存储方式</strong></td><td>三个通道都要存，缺一不可</td><td>亮度存全分辨率，色度可以减半（人眼看不出来）</td></tr><tr><td><strong>人眼敏感度</strong></td><td>三个通道同样重要</td><td>对Y最敏感，对U/V不敏感</td></tr><tr><td><strong>在ISP中的位置</strong></td><td>去马赛克之后、YUV转换之前</td><td>Gamma之后、最终输出之前</td></tr><tr><td><strong>核心优势</strong></td><td>直观，适合显示设备</td><td>节省带宽，适合压缩和传输</td></tr></tbody></table><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><p><strong>用途</strong>：</p><ul><li>色彩风格化（电影色调、复古风格）</li><li>模拟不同胶片效果</li><li>用户自定义色彩模式（艳丽/自然/柔和）</li></ul><h2 id=4-阶段三yuv-域处理>4. 阶段三：YUV 域处理</h2><p>经过 RGB 域处理后，数据被转换成 YUV 色彩空间。YUV 域处理的核心目标是 <strong>“针对人眼感知特性，优化亮度、色彩、清晰度和动态范围”</strong>。</p><blockquote><p><strong>RGB</strong> 是“物理显示”的颜色空间（显示器怎么发光），<strong>YUV</strong> 是“人眼感知”的颜色空间（人眼怎么看）。</p></blockquote><h3 id=具体区别>具体区别</h3><table><thead><tr><th></th><th>RGB</th><th>YUV</th></tr></thead><tbody><tr><td><strong>通道含义</strong></td><td>R（红）、G（绿）、B（蓝）三个独立通道</td><td>Y（亮度）、U（蓝色色度）、V（红色色度）</td></tr><tr><td><strong>存储方式</strong></td><td>三个通道都要存，缺一不可</td><td>亮度存全分辨率，色度可以减半（人眼看不出来）</td></tr><tr><td><strong>人眼敏感度</strong></td><td>三个通道同样重要</td><td>对Y最敏感，对U/V不敏感</td></tr><tr><td><strong>在ISP中的位置</strong></td><td>去马赛克之后、YUV转换之前</td><td>Gamma之后、最终输出之前</td></tr><tr><td><strong>核心优势</strong></td><td>直观，适合显示设备</td><td>节省带宽，适合压缩和传输</td></tr></tbody></table><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBZVVbln58KICAgICAgICBDRVsi6Imy5b2p5aKe5by6Il0KICAgICAgICBERVsi57uG6IqC5aKe5by6Il0KICAgICAgICBTSEFSUFsi6ZSQ5YyWIl0KICAgICAgICBZTlJbIllVVuWfn+mZjeWZqiJdCiAgICAgICAgVE1bIuiJsuiwg+aYoOWwhCJdCiAgICBlbmQKICAgIAogICAgQ0UgLS0+IERFIC0tPiBTSEFSUCAtLT4gWU5SIC0tPiBUTQ==">flowchart LR
     subgraph YUV域
-        CE["色彩增强"]
-        DE["细节增强"]
-        SHARP["锐化"]
-        YNR["YUV域降噪"]
-        TM["色调映射"]
+        CE[&#34;色彩增强&#34;]
+        DE[&#34;细节增强&#34;]
+        SHARP[&#34;锐化&#34;]
+        YNR[&#34;YUV域降噪&#34;]
+        TM[&#34;色调映射&#34;]
     end
     
-    CE --> DE --> SHARP --> YNR --> TM
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=41-色彩增强color-enhancement>4.1 色彩增强（Color Enhancement）</h3><blockquote><p><strong>术语解释</strong>：<strong>色彩增强（Color Enhancement）</strong> 指调整图像的颜色饱和度、色相和对比度，使颜色更鲜艳、更讨喜。它不是校正颜色（那是 CCM 的任务），而是让颜色“更好看”。</p></blockquote><p><strong>常用操作</strong>：</p><ul><li>饱和度（Saturation）调节：让颜色更鲜艳或更素雅</li><li>色相（Hue）偏移：调整颜色的倾向（如让红色偏橙）</li><li>对比度（Contrast）调节：增强亮部和暗部的差异</li></ul><h3 id=42-细节增强detail-enhancement>4.2 细节增强（Detail Enhancement）</h3><blockquote><p><strong>术语解释</strong>：<strong>细节增强（Detail Enhancement）</strong> 指通过提取图像的高频分量（边缘、纹理）并叠加回原图，让图像看起来更清晰、更有质感。与锐化不同，细节增强通常使用更复杂的算法（如引导滤波、双边滤波），区分“细节”和“噪声”。</p></blockquote><p><strong>原理</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原图 = 基础层（低频）+ 细节层（高频）
+    CE --&gt; DE --&gt; SHARP --&gt; YNR --&gt; TM</pre><h3 id=41-色彩增强color-enhancement>4.1 色彩增强（Color Enhancement）</h3><blockquote><p><strong>术语解释</strong>：<strong>色彩增强（Color Enhancement）</strong> 指调整图像的颜色饱和度、色相和对比度，使颜色更鲜艳、更讨喜。它不是校正颜色（那是 CCM 的任务），而是让颜色“更好看”。</p></blockquote><p><strong>常用操作</strong>：</p><ul><li>饱和度（Saturation）调节：让颜色更鲜艳或更素雅</li><li>色相（Hue）偏移：调整颜色的倾向（如让红色偏橙）</li><li>对比度（Contrast）调节：增强亮部和暗部的差异</li></ul><h3 id=42-细节增强detail-enhancement>4.2 细节增强（Detail Enhancement）</h3><blockquote><p><strong>术语解释</strong>：<strong>细节增强（Detail Enhancement）</strong> 指通过提取图像的高频分量（边缘、纹理）并叠加回原图，让图像看起来更清晰、更有质感。与锐化不同，细节增强通常使用更复杂的算法（如引导滤波、双边滤波），区分“细节”和“噪声”。</p></blockquote><p><strong>原理</strong>：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>原图 = 基础层（低频）+ 细节层（高频）
 </span></span><span style=display:flex><span>细节增强 = 原图 + 细节层 × 增强系数
 </span></span></code></pre></div><h3 id=43-锐化sharpening>4.3 锐化（Sharpening）</h3><blockquote><p><strong>术语解释</strong>：<strong>锐化（Sharpening）</strong> 指增强图像边缘的对比度，使边缘更锐利。常见算法是反锐化掩模（Unsharp Mask，USM）——从原图中减去模糊后的图像得到边缘，再叠加回原图。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>USM 原理：
 </span></span><span style=display:flex><span>模糊图 = 高斯模糊(原图)
 </span></span><span style=display:flex><span>边缘 = 原图 - 模糊图
 </span></span><span style=display:flex><span>锐化图 = 原图 + 边缘 × 强度
-</span></span></code></pre></div><blockquote><p><strong>风险</strong>：过度锐化会产生“光晕”伪影（边缘出现白边）。</p></blockquote><h3 id=44-yuv-域降噪ynr--cnr>4.4 YUV 域降噪（YNR / CNR）</h3><blockquote><p><strong>术语解释</strong>：<strong>YUV 域降噪</strong> 指在 YUV 色彩空间中分别对亮度和色度通道做降噪。Y 通道（亮度）保留更多细节，降噪力度较轻；UV 通道（色度）人眼不敏感，可以做强降噪。</p></blockquote><table><thead><tr><th>通道</th><th>降噪策略</th><th>原因</th></tr></thead><tbody><tr><td><strong>Y（亮度）</strong></td><td>轻降噪，保留边缘细节</td><td>人眼对亮度最敏感</td></tr><tr><td><strong>U/V（色度）</strong></td><td>强降噪，可大幅平滑</td><td>人眼对色度不敏感</td></tr></tbody></table><h3 id=45-色调映射tone-mapping>4.5 色调映射（Tone Mapping）</h3><blockquote><p><strong>术语解释</strong>：<strong>色调映射（Tone Mapping）</strong> 指将高动态范围（HDR）图像的亮度范围映射到低动态范围（LDR）显示设备上，同时保持场景的视觉对比度和细节。与 DRC 类似，但 DRC 更侧重于压缩，色调映射更侧重于“保持视觉感知”。</p></blockquote><p><strong>常见色调映射算子</strong>：</p><ul><li>Reinhard（基于对数）</li><li>Drago（基于人眼模型）</li><li>Filmic（电影感曲线）</li></ul><h2 id=5-主-pipeline-以外的处理>5. 主 Pipeline 以外的处理</h2><p>除了主流水线（RAW → RGB → YUV），ISP 还有一些<strong>并行或旁路模块</strong>，用于处理特定功能。</p><pre class=mermaid>
-flowchart TB
+</span></span></code></pre></div><blockquote><p><strong>风险</strong>：过度锐化会产生“光晕”伪影（边缘出现白边）。</p></blockquote><h3 id=44-yuv-域降噪ynr--cnr>4.4 YUV 域降噪（YNR / CNR）</h3><blockquote><p><strong>术语解释</strong>：<strong>YUV 域降噪</strong> 指在 YUV 色彩空间中分别对亮度和色度通道做降噪。Y 通道（亮度）保留更多细节，降噪力度较轻；UV 通道（色度）人眼不敏感，可以做强降噪。</p></blockquote><table><thead><tr><th>通道</th><th>降噪策略</th><th>原因</th></tr></thead><tbody><tr><td><strong>Y（亮度）</strong></td><td>轻降噪，保留边缘细节</td><td>人眼对亮度最敏感</td></tr><tr><td><strong>U/V（色度）</strong></td><td>强降噪，可大幅平滑</td><td>人眼对色度不敏感</td></tr></tbody></table><h3 id=45-色调映射tone-mapping>4.5 色调映射（Tone Mapping）</h3><blockquote><p><strong>术语解释</strong>：<strong>色调映射（Tone Mapping）</strong> 指将高动态范围（HDR）图像的亮度范围映射到低动态范围（LDR）显示设备上，同时保持场景的视觉对比度和细节。与 DRC 类似，但 DRC 更侧重于压缩，色调映射更侧重于“保持视觉感知”。</p></blockquote><p><strong>常见色调映射算子</strong>：</p><ul><li>Reinhard（基于对数）</li><li>Drago（基于人眼模型）</li><li>Filmic（电影感曲线）</li></ul><h2 id=5-主-pipeline-以外的处理>5. 主 Pipeline 以外的处理</h2><p>除了主流水线（RAW → RGB → YUV），ISP 还有一些<strong>并行或旁路模块</strong>，用于处理特定功能。</p><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IFRCCiAgICBzdWJncmFwaCDkuLvmtYHmsLTnur8KICAgICAgICBkaXJlY3Rpb24gTFIKICAgICAgICBQMVsiUkFX5Z+fIl0gLS0+IFAyWyJSR0Lln58iXSAtLT4gUDNbIllVVuWfnyJdIC0tPiBQNFsi6L6T5Ye6Il0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDml4Hot6/mqKHlnZcKICAgICAgICBBRVsiQUUg6Ieq5Yqo5pud5YWJIl0KICAgICAgICBBV0JbIkFXQiDoh6rliqjnmb3lubPooaEiXQogICAgICAgIEFGWyJBRiDoh6rliqjlr7nnhKYiXQogICAgICAgIEZMQVNIWyLpl6rlhYnnga/mjqfliLYiXQogICAgICAgIFNDQUxFUlsi5Zu+5YOP57yp5pS+Il0KICAgICAgICBDT01QUkVTU1si5Zu+5YOP5Y6L57ypIl0KICAgICAgICBESVNUWyLnlbjlj5jnn6vmraMiXQogICAgICAgIE9JU1si6Ziy5oqW77yIT0lTL0VJU++8iSJdCiAgICAgICAgRE1BUFsi5rex5bqm5Zu+77yIRE1BUO+8iSJdCiAgICAgICAgSlBFR1siSlBFRyDnvJbnoIEiXQogICAgZW5kCiAgICAKICAgIFAxIC0uLT4gQUUKICAgIFAxIC0uLT4gQVdCCiAgICBQMiAtLi0+IEFGCiAgICBQMiAtLi0+IEZMQVNICiAgICBQNCAtLT4gU0NBTEVSCiAgICBQNCAtLT4gQ09NUFJFU1MKICAgIFA0IC0tPiBKUEVHCiAgICBQNCAtLT4gRE1BUA==">flowchart TB
     subgraph 主流水线
         direction LR
-        P1["RAW域"] --> P2["RGB域"] --> P3["YUV域"] --> P4["输出"]
+        P1[&#34;RAW域&#34;] --&gt; P2[&#34;RGB域&#34;] --&gt; P3[&#34;YUV域&#34;] --&gt; P4[&#34;输出&#34;]
     end
     
     subgraph 旁路模块
-        AE["AE 自动曝光"]
-        AWB["AWB 自动白平衡"]
-        AF["AF 自动对焦"]
-        FLASH["闪光灯控制"]
-        SCALER["图像缩放"]
-        COMPRESS["图像压缩"]
-        DIST["畸变矫正"]
-        OIS["防抖（OIS/EIS）"]
-        DMAP["深度图（DMAP）"]
-        JPEG["JPEG 编码"]
+        AE[&#34;AE 自动曝光&#34;]
+        AWB[&#34;AWB 自动白平衡&#34;]
+        AF[&#34;AF 自动对焦&#34;]
+        FLASH[&#34;闪光灯控制&#34;]
+        SCALER[&#34;图像缩放&#34;]
+        COMPRESS[&#34;图像压缩&#34;]
+        DIST[&#34;畸变矫正&#34;]
+        OIS[&#34;防抖（OIS/EIS）&#34;]
+        DMAP[&#34;深度图（DMAP）&#34;]
+        JPEG[&#34;JPEG 编码&#34;]
     end
     
-    P1 -.-> AE
-    P1 -.-> AWB
-    P2 -.-> AF
-    P2 -.-> FLASH
-    P4 --> SCALER
-    P4 --> COMPRESS
-    P4 --> JPEG
-    P4 --> DMAP
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=51-图像缩放scaler>5.1 图像缩放（Scaler）</h3><blockquote><p>将图像缩放到目标分辨率，使用双线性、双三次或更高质量的缩放算法。</p></blockquote><h3 id=52-图像压缩jpeg>5.2 图像压缩（JPEG）</h3><blockquote><p>将 YUV 图像编码为 JPEG 格式，用于存储或传输。</p></blockquote><h3 id=53-畸变矫正distortion-correction>5.3 畸变矫正（Distortion Correction）</h3><blockquote><p><strong>术语解释</strong>：<strong>畸变矫正（Distortion Correction）</strong> 指补偿镜头引入的几何畸变（桶形畸变、枕形畸变），使画面中的直线恢复为直线。通常在 YUV 域执行，使用预标定的畸变模型和网格表进行校正。</p></blockquote><h3 id=54-防抖ois--eis>5.4 防抖（OIS / EIS）</h3><blockquote><p><strong>OIS（光学防抖）</strong>：通过镜头或 Sensor 的物理移动补偿相机抖动。<strong>EIS（电子防抖）</strong>：通过裁剪和图像配准补偿抖动，在 ISP 或后处理中实现。</p></blockquote><h3 id=55-深度图dmap>5.5 深度图（DMAP）</h3><blockquote><p>用于双摄或多摄系统的深度估计，生成每个像素的深度信息。</p></blockquote><h3 id=56-jpeg-编码>5.6 JPEG 编码</h3><blockquote><p>将 YUV 图像压缩为 JPEG 文件格式。</p></blockquote><h2 id=6-两条特殊处理链路>6. 两条特殊处理链路</h2><h3 id=61-噪声处理流程>6.1 噪声处理流程</h3><pre class=mermaid>
-flowchart LR
-    DPC["坏点矫正"] --> BNR["RAW域降噪"] --> DE["细节增强"] --> SHARP["锐化"] --> YNR["YUV域降噪"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><blockquote><p>噪声在 ISP 的多个阶段被逐步处理：<strong>坏点矫正</strong>（修复异常像素）→ <strong>RAW 域降噪</strong>（去除基础噪声）→ <strong>细节增强/锐化</strong>（恢复纹理，但可能放大噪声）→ <strong>YUV 域降噪</strong>（最终抑制色度噪声）。这是一个“去噪 → 增强 → 再降噪”的平衡过程。</p></blockquote><h3 id=62-色彩重建流程>6.2 色彩重建流程</h3><pre class=mermaid>
-flowchart LR
-    BLC["黑电平与线性化"] --> GAMMA["Gamma"] --> LUT3D["3DLUT"] --> CE["色彩增强"] --> TM["色调映射"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><blockquote><p>色彩重建从 RAW 域开始，经过黑电平校正（恢复正确的线性信号）、Gamma 校正（进入感知空间）、3D LUT（风格化调色）、色彩增强（饱和度/对比度微调）和色调映射（适配显示设备），最终形成人眼看到的色彩。这些都是颜色从 Sensor 原始信号到人眼感知的转换过程。</p></blockquote><h2 id=7-一句话总结>7. 一句话总结</h2><blockquote><p><strong>ISP 完整流水线分为 RAW 域（修复 Sensor 缺陷）→ RGB 域（色彩重建）→ YUV 域（感知优化）三个阶段，主流水线之外还有 3A 控制、缩放、压缩、畸变矫正、防抖、深度图等旁路/后处理模块。噪声和色彩各有一条贯穿多阶段的独立处理链路。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+    P1 -.-&gt; AE
+    P1 -.-&gt; AWB
+    P2 -.-&gt; AF
+    P2 -.-&gt; FLASH
+    P4 --&gt; SCALER
+    P4 --&gt; COMPRESS
+    P4 --&gt; JPEG
+    P4 --&gt; DMAP</pre><h3 id=51-图像缩放scaler>5.1 图像缩放（Scaler）</h3><blockquote><p>将图像缩放到目标分辨率，使用双线性、双三次或更高质量的缩放算法。</p></blockquote><h3 id=52-图像压缩jpeg>5.2 图像压缩（JPEG）</h3><blockquote><p>将 YUV 图像编码为 JPEG 格式，用于存储或传输。</p></blockquote><h3 id=53-畸变矫正distortion-correction>5.3 畸变矫正（Distortion Correction）</h3><blockquote><p><strong>术语解释</strong>：<strong>畸变矫正（Distortion Correction）</strong> 指补偿镜头引入的几何畸变（桶形畸变、枕形畸变），使画面中的直线恢复为直线。通常在 YUV 域执行，使用预标定的畸变模型和网格表进行校正。</p></blockquote><h3 id=54-防抖ois--eis>5.4 防抖（OIS / EIS）</h3><blockquote><p><strong>OIS（光学防抖）</strong>：通过镜头或 Sensor 的物理移动补偿相机抖动。<strong>EIS（电子防抖）</strong>：通过裁剪和图像配准补偿抖动，在 ISP 或后处理中实现。</p></blockquote><h3 id=55-深度图dmap>5.5 深度图（DMAP）</h3><blockquote><p>用于双摄或多摄系统的深度估计，生成每个像素的深度信息。</p></blockquote><h3 id=56-jpeg-编码>5.6 JPEG 编码</h3><blockquote><p>将 YUV 图像压缩为 JPEG 文件格式。</p></blockquote><h2 id=6-两条特殊处理链路>6. 两条特殊处理链路</h2><h3 id=61-噪声处理流程>6.1 噪声处理流程</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBEUENbIuWdj+eCueefq+atoyJdIC0tPiBCTlJbIlJBV+Wfn+mZjeWZqiJdIC0tPiBERVsi57uG6IqC5aKe5by6Il0gLS0+IFNIQVJQWyLplJDljJYiXSAtLT4gWU5SWyJZVVbln5/pmY3lmaoiXQ==">flowchart LR
+    DPC[&#34;坏点矫正&#34;] --&gt; BNR[&#34;RAW域降噪&#34;] --&gt; DE[&#34;细节增强&#34;] --&gt; SHARP[&#34;锐化&#34;] --&gt; YNR[&#34;YUV域降噪&#34;]</pre><blockquote><p>噪声在 ISP 的多个阶段被逐步处理：<strong>坏点矫正</strong>（修复异常像素）→ <strong>RAW 域降噪</strong>（去除基础噪声）→ <strong>细节增强/锐化</strong>（恢复纹理，但可能放大噪声）→ <strong>YUV 域降噪</strong>（最终抑制色度噪声）。这是一个“去噪 → 增强 → 再降噪”的平衡过程。</p></blockquote><h3 id=62-色彩重建流程>6.2 色彩重建流程</h3><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBCTENbIum7keeUteW5s+S4jue6v+aAp+WMliJdIC0tPiBHQU1NQVsiR2FtbWEiXSAtLT4gTFVUM0RbIjNETFVUIl0gLS0+IENFWyLoibLlvanlop7lvLoiXSAtLT4gVE1bIuiJsuiwg+aYoOWwhCJd>flowchart LR
+    BLC[&#34;黑电平与线性化&#34;] --&gt; GAMMA[&#34;Gamma&#34;] --&gt; LUT3D[&#34;3DLUT&#34;] --&gt; CE[&#34;色彩增强&#34;] --&gt; TM[&#34;色调映射&#34;]</pre><blockquote><p>色彩重建从 RAW 域开始，经过黑电平校正（恢复正确的线性信号）、Gamma 校正（进入感知空间）、3D LUT（风格化调色）、色彩增强（饱和度/对比度微调）和色调映射（适配显示设备），最终形成人眼看到的色彩。这些都是颜色从 Sensor 原始信号到人眼感知的转换过程。</p></blockquote><h2 id=7-一句话总结>7. 一句话总结</h2><blockquote><p><strong>ISP 完整流水线分为 RAW 域（修复 Sensor 缺陷）→ RGB 域（色彩重建）→ YUV 域（感知优化）三个阶段，主流水线之外还有 3A 控制、缩放、压缩、畸变矫正、防抖、深度图等旁路/后处理模块。噪声和色彩各有一条贯穿多阶段的独立处理链路。</strong></p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

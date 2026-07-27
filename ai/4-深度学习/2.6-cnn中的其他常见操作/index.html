@@ -1,4 +1,4 @@
-<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/><title>6 CNN中的其他常见操作</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="6 CNN中的其他常见操作"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/"><meta name=twitter:title content="6 CNN中的其他常见操作"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.ca3d7ec252c0962adf3cad6702a740a7f182a09a946dba0700fba9b73e0ac8ab.css integrity="sha256-yj1+wlLAlirfPK1nAqdAp/GCoJqUbboHAPuptz4KyKs=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
+<!doctype html><html itemscope lang=zh-cn itemtype=http://schema.org/WebPage><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=5"><meta name=theme-name content="hugoplate"><link rel="shortcut icon" href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg type=image/x-icon><link rel=icon type=image/png sizes=48x48 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=icon type=image/png sizes=96x96 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=apple-touch-icon sizes=144x144 href=https://bluhuang.github.io/blogs-of-bluhuang/images/favicon.svg><link rel=manifest href=/blogs-of-bluhuang/manifest.webmanifest><meta name=msapplication-TileColor content="#ddd"><meta name=theme-color content="#ffffff"><base href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/><title>6 CNN中的其他常见操作</title><meta name=keywords content="blog,BluHuang,tech"><meta name=description content="BluHuang's personal tech blog"><meta name=author content="BluHuang"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:image" content="https://bluhuang.github.io/blogs-of-bluhuang/images/og-image.svg"><meta property="og:title" content="6 CNN中的其他常见操作"><meta property="og:description" content="BluHuang's personal tech blog"><meta property="og:type" content="website"><meta property="og:url" content="https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/"><meta name=twitter:title content="6 CNN中的其他常见操作"><meta name=twitter:description content="BluHuang's personal tech blog"><meta name=twitter:creator content="@BluHuang"><link rel=canonical href=https://bluhuang.github.io/blogs-of-bluhuang/ai/4-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.6-cnn%E4%B8%AD%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/ itemprop=url><meta name=robots content="index, follow"><script>let indexURL="https://bluhuang.github.io/blogs-of-bluhuang/searchindex.json",includeSectionsInSearch=["AI","coding","database"],search_no_results="没有找到结果",search_initial_message="输入关键词开始搜索..."</script><meta http-equiv=x-dns-prefetch-control content="on"><link rel=preconnect href=https://use.fontawesome.com crossorigin><link rel=preconnect href=//cdnjs.cloudflare.com><link rel=preconnect href=//www.googletagmanager.com><link rel=preconnect href=//www.google-analytics.com><link rel=dns-prefetch href=https://use.fontawesome.com><link rel=dns-prefetch href=//ajax.googleapis.com><link rel=dns-prefetch href=//cdnjs.cloudflare.com><link rel=dns-prefetch href=//www.googletagmanager.com><link rel=dns-prefetch href=//www.google-analytics.com><link rel=dns-prefetch href=//connect.facebook.net><link rel=dns-prefetch href=//platform.linkedin.com><link rel=dns-prefetch href=//platform.twitter.com><link crossorigin=anonymous media=all rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css integrity=sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rl+OelTgXHG+M0E5R2T7LG0 crossorigin=anonymous><link href=/blogs-of-bluhuang/css/style.8a2bf581e4b61615f768a9a404f84461b338f5ae9d602deae139113087edd7ca.css integrity="sha256-iiv1geS2FhX3aKmkBPhEYbM49a6dYC3q4TkRMIft18o=" rel=stylesheet><link rel=stylesheet href=/blogs-of-bluhuang/css/style-lazy.min.43724323b792497902ddcccaaad013522a09381505f9ad708059469e90286898.css integrity="sha256-Q3JDI7eSSXkC3czKqtATUioJOBUF+a1wgFlGnpAoaJg=" media=print onload='this.media="all",this.onload=null'></head><body class="flex flex-col min-h-screen"><header class="site-header sticky top-0 z-30"><nav class="navbar container"><div class=order-0><a class="navbar-brand block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><input id=nav-toggle type=checkbox class=hidden>
 <label for=nav-toggle class="order-3 cursor-pointer flex items-center lg:hidden text-text-dark dark:text-white lg:order-1"><svg id="show-button" class="h-6 fill-current block" viewBox="0 0 20 20"><title>Menu Open</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0V0z"/></svg>
 <svg id="hide-button" class="h-6 fill-current hidden" viewBox="0 0 20 20"><title>Menu Close</title><polygon points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2" transform="rotate(45 10 10)"/></svg></label><ul id=nav-menu class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/>首页</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/about/>关于</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/blogs/>博客</a></li><li class=nav-item><a class=nav-link href=/blogs-of-bluhuang/guestbook/>留言板</a></li></ul><div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0"><button aria-label=search class="border-border text-text-dark hover:text-primary
 dark:border-darkmode-border mr-5 inline-block border-r pr-5
@@ -15,7 +15,15 @@ text-xl dark:text-white cursor-pointer dark:hover:text-darkmode-primary" data-ta
 </span><span><kbd><svg width="12" height="12" fill="currentColor" style="display:inline-block" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.5 1.5a.5.5.0 01.5.5v4.8a2.5 2.5.0 01-2.5 2.5H2.707l3.347 3.346a.5.5.0 01-.708.708l-4.2-4.2a.5.5.0 010-.708l4-4a.5.5.0 11.708.708L2.707 8.3H12.5A1.5 1.5.0 0014 6.8V2a.5.5.0 01.5-.5z"/></svg>
 </kbd>选择
 </span><span class=search-result-info></span>
-<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span data-target=close-search-modal><kbd>ESC</kbd> 关闭</span></div></div></div><main class=grow><section class="section pt-7"><div class=container><div class="row gx-5"><div class="lg:col-3 mb-10 lg:mb-0"><h5 class=mb-4>目录</h5><ul class="space-y-0.5 text-sm" style=padding-left:0><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
+<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
+<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+skills
+<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+远程开发
+<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
+mac</a></li></ul></details></li><li><details open><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/ai/ class="flex-1 hover:underline truncate font-medium">AI</a>
 <span class="text-xs text-text-light ml-1.5">(59)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
@@ -51,14 +59,6 @@ coding algorithm
 std算法
 <span class="text-xs text-text-light ml-1.5">(1)</span></a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-<a href=/blogs-of-bluhuang/z_mixed/ class="flex-1 hover:underline truncate font-medium">z_mixed</a>
-<span class="text-xs text-text-light ml-1.5">(7)</span></summary><ul style=padding-left:12px><li><a href=/blogs-of-bluhuang/z_mixed/skills/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-skills
-<span class="text-xs text-text-light ml-1.5">(1)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-远程开发
-<span class="text-xs text-text-light ml-1.5">(6)</span></a></li><li><a href=/blogs-of-bluhuang/z_mixed/mac/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
-mac</a></li></ul></details></li><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
-<span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 <a href=/blogs-of-bluhuang/database/ class="flex-1 hover:underline truncate font-medium">database</a>
 <span class="text-xs text-text-light ml-1.5">(2)</span></summary><ul style=padding-left:12px><li><details><summary class="tree-section cursor-pointer flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light group"><span class="tree-arrow mr-1.5 text-xs transition-transform">&#9654;</span>
 <span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
@@ -75,11 +75,11 @@ RAG</a></li><li><details><summary class="tree-section cursor-pointer flex items-
 <a href=/blogs-of-bluhuang/z_efficiency/prompt/ class="flex-1 hover:underline truncate font-medium">prompt</a></summary><ul style=padding-left:24px><li><a href=/blogs-of-bluhuang/z_efficiency/prompt/user-prompt/ class="tree-section-link flex items-center py-1.5 px-2 rounded hover:bg-theme-light dark:hover:bg-darkmode-theme-light hover:underline truncate font-medium"><span class="tree-folder-icon mr-1.5 text-xs text-text-light">&#128193;</span>
 user prompt</a></li></ul></details></li></ul></details></li></ul></div><div class=lg:col-9><article><div class="article-hero mb-8"><h1 class="h2 mb-3">6 CNN中的其他常见操作</h1><ul class=mb-0><li class="mr-4 inline-block"><a href=/blogs-of-bluhuang/about/><i class="fa-regular fa-circle-user mr-2"></i>BluHuang</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-folder mr-2"></i>
 <a href=/blogs-of-bluhuang/categories/ai/>Ai</a></li><li class="mr-4 inline-block"><i class="fa-regular fa-clock mr-2"></i>
-2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-激活函数relu>1 激活函数（ReLU）</a><ol><li><a href=#11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</a></li><li><a href=#12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</a></li><li><a href=#13-为什么-relu-如此流行>1.3 为什么 ReLU 如此流行？</a></li><li><a href=#14-代码中的-relu>1.4 代码中的 ReLU</a></li><li><a href=#15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</a></li></ol></li><li><a href=#2-池化层pooling>2 池化层（Pooling）</a><ol><li><a href=#21-池化层是什么>2.1 池化层是什么？</a></li><li><a href=#22-池化层的两种类型>2.2 池化层的两种类型</a></li><li><a href=#23-池化层的作用>2.3 池化层的作用</a></li><li><a href=#24-池化层的局限>2.4 池化层的局限</a></li><li><a href=#25-代码中的池化层>2.5 代码中的池化层</a></li><li><a href=#26-卷积已经缩小尺寸提升感受野为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野，为什么还要有池化？</a><ol><li><a href=#第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</a></li><li><a href=#第二层功能区别池化提供平移不变性卷积提供可学习的下采样>第二层：功能区别——池化提供“平移不变性”，卷积提供“可学习的下采样”</a></li><li><a href=#第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</a></li></ol></li></ol></li><li><a href=#3-batch-normalization批量归一化>3 Batch Normalization（批量归一化）</a><ol><li><a href=#31-为什么需要-batch-normalization>3.1 为什么需要 Batch Normalization？</a></li><li><a href=#32-batch-normalization-做了什么>3.2 Batch Normalization 做了什么？</a></li><li><a href=#33-bn-的好处>3.3 BN 的好处</a></li><li><a href=#34-bn-的问题>3.4 BN 的问题</a></li><li><a href=#35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</a></li></ol></li><li><a href=#4-depthwise-convolution深度可分离卷积>4 Depthwise Convolution（深度可分离卷积）</a><ol><li><a href=#41-标准卷积的问题>4.1 标准卷积的问题</a></li><li><a href=#42-depthwise-卷积>4.2 Depthwise 卷积</a></li><li><a href=#43-参数量对比>4.3 参数量对比</a></li><li><a href=#44-为什么-npu-喜欢-depthwise>4.4 为什么 NPU 喜欢 Depthwise？</a></li><li><a href=#45-代码中的-depthwise>4.5 代码中的 Depthwise</a></li></ol></li><li><a href=#5-分组卷积group-convolution>5 分组卷积（Group Convolution）</a><ol><li><a href=#51-分组卷积是什么>5.1 分组卷积是什么？</a></li><li><a href=#52-分组卷积的参数量>5.2 分组卷积的参数量</a></li><li><a href=#53-代码中的分组卷积>5.3 代码中的分组卷积</a></li><li><a href=#54-三种卷积的对比>5.4 三种卷积的对比</a></li></ol></li><li><a href=#6-本章小结>6 本章小结</a></li></ol></nav></details><h1 id=卷积神经网络中的其他常见操作>卷积神经网络中的其他常见操作</h1><blockquote><p><strong>前置知识</strong>：你已经了解了卷积层的基本计算（单通道、多通道）、Bayer RAW 的特殊处理、感受野的概念，以及完整的去噪网络结构（DMNet、UNet、Bnet_base.py）。现在，我们来补充 CNN 中其他常见的“零件”——它们不一定每个都在你的代码里出现，但理解它们能帮你读懂更广泛的模型，也理解为什么你的代码做了某些设计选择。</p></blockquote><h2 id=1-激活函数relu>1 激活函数（ReLU）</h2><h3 id=11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</h3><p>在“神经网络工作原理”里学过神经元的公式：</p><p>$$
+2026年6月25日</li></ul></div><div class="content mb-10"><details open class="table-of-content blog"><summary>目录</summary><nav id=TableOfContents><ol><li><a href=#1-激活函数relu>1 激活函数（ReLU）</a><ol><li><a href=#11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</a></li><li><a href=#12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</a></li><li><a href=#13-为什么-relu-如此流行>1.3 为什么 ReLU 如此流行？</a></li><li><a href=#14-代码中的-relu>1.4 代码中的 ReLU</a></li><li><a href=#15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</a></li></ol></li><li><a href=#2-池化层pooling>2 池化层（Pooling）</a><ol><li><a href=#21-池化层是什么>2.1 池化层是什么？</a></li><li><a href=#22-池化层的两种类型>2.2 池化层的两种类型</a></li><li><a href=#23-池化层的作用>2.3 池化层的作用</a></li><li><a href=#24-池化层的局限>2.4 池化层的局限</a></li><li><a href=#25-代码中的池化层>2.5 代码中的池化层</a></li><li><a href=#26-卷积已经缩小尺寸提升感受野为什么还要有池化>2.6 卷积已经缩小尺寸提升感受野，为什么还要有池化？</a><ol><li><a href=#第一层历史原因池化层便宜>第一层：历史原因——池化层“便宜”</a></li><li><a href=#第二层功能区别池化提供平移不变性卷积提供可学习的下采样>第二层：功能区别——池化提供“平移不变性”，卷积提供“可学习的下采样”</a></li><li><a href=#第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</a></li></ol></li></ol></li><li><a href=#3-batch-normalization批量归一化>3 Batch Normalization（批量归一化）</a><ol><li><a href=#31-为什么需要-batch-normalization>3.1 为什么需要 Batch Normalization？</a></li><li><a href=#32-batch-normalization-做了什么>3.2 Batch Normalization 做了什么？</a></li><li><a href=#33-bn-的好处>3.3 BN 的好处</a></li><li><a href=#34-bn-的问题>3.4 BN 的问题</a></li><li><a href=#35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</a></li></ol></li><li><a href=#4-depthwise-convolution深度可分离卷积>4 Depthwise Convolution（深度可分离卷积）</a><ol><li><a href=#41-标准卷积的问题>4.1 标准卷积的问题</a></li><li><a href=#42-depthwise-卷积>4.2 Depthwise 卷积</a></li><li><a href=#43-参数量对比>4.3 参数量对比</a></li><li><a href=#44-为什么-npu-喜欢-depthwise>4.4 为什么 NPU 喜欢 Depthwise？</a></li><li><a href=#45-代码中的-depthwise>4.5 代码中的 Depthwise</a></li></ol></li><li><a href=#5-分组卷积group-convolution>5 分组卷积（Group Convolution）</a><ol><li><a href=#51-分组卷积是什么>5.1 分组卷积是什么？</a></li><li><a href=#52-分组卷积的参数量>5.2 分组卷积的参数量</a></li><li><a href=#53-代码中的分组卷积>5.3 代码中的分组卷积</a></li><li><a href=#54-三种卷积的对比>5.4 三种卷积的对比</a></li></ol></li><li><a href=#6-本章小结>6 本章小结</a></li></ol></nav></details><h1 id=卷积神经网络中的其他常见操作>卷积神经网络中的其他常见操作</h1><blockquote><p><strong>前置知识</strong>：你已经了解了卷积层的基本计算（单通道、多通道）、Bayer RAW 的特殊处理、感受野的概念，以及完整的去噪网络结构（DMNet、UNet、Bnet_base.py）。现在，我们来补充 CNN 中其他常见的“零件”——它们不一定每个都在你的代码里出现，但理解它们能帮你读懂更广泛的模型，也理解为什么你的代码做了某些设计选择。</p></blockquote><h2 id=1-激活函数relu>1 激活函数（ReLU）</h2><h3 id=11-回顾神经元需要非线性>1.1 回顾：神经元需要“非线性”</h3><p>在“神经网络工作原理”里学过神经元的公式：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>a</mi><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><msub><mi>w</mi><mn>1</mn></msub><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>w</mi><mn>2</mn></msub><msub><mi>x</mi><mn>2</mn></msub><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>w</mi><mi>n</mi></msub><msub><mi>x</mi><mi>n</mi></msub><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
 a = \sigma(w_1 x_1 + w_2 x_2 + \dots + w_n x_n + b)
-$$</p><p>公式里的 $\sigma$ 就是<strong>激活函数</strong>。它的作用是<strong>引入非线性</strong>——如果没有它，无论堆叠多少层，网络都只能表达线性关系（直线、平面），无法拟合现实世界的复杂问题。</p><blockquote><p><strong>术语解释</strong>：<strong>激活函数（Activation Function）</strong> 是一个对神经元输出做非线性变换的数学函数。它在神经网络中的位置是“卷积层/全连接层之后，输出之前”。简单理解：卷积层算出一个数，激活函数决定“这个数要不要传递给下一层、以什么强度传递”。</p></blockquote><h3 id=12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</h3><p><strong>ReLU</strong>（Rectified Linear Unit，修正线性单元）是目前深度学习中<strong>最常用</strong>的激活函数，公式极其简单：</p><p>$$
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal">a</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal" style=margin-right:.03588em>σ</span><span class=mopen>(</span><span class=mord><span class="mord mathnormal" style=margin-right:.02691em>w</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0269em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal">x</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.02691em>w</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:-.0269em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal">x</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.3011em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.6667em;vertical-align:-.0833em></span><span class=minner>⋯</span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:.7333em;vertical-align:-.15em></span><span class=mord><span class="mord mathnormal" style=margin-right:.02691em>w</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:-.0269em;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mord><span class="mord mathnormal">x</span><span class=msupsub><span class="vlist-t vlist-t2"><span class=vlist-r><span class=vlist style=height:.1514em><span style=top:-2.55em;margin-left:0;margin-right:.05em><span class=pstrut style=height:2.7em></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class=vlist-s>​</span></span><span class=vlist-r><span class=vlist style=height:.15em><span></span></span></span></span></span></span><span class=mspace style=margin-right:.2222em></span><span class=mbin>+</span><span class=mspace style=margin-right:.2222em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord mathnormal">b</span><span class=mclose>)</span></span></span></span></span><p>公式里的 <span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi></mrow><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.03588em>σ</span></span></span></span> 就是<strong>激活函数</strong>。它的作用是<strong>引入非线性</strong>——如果没有它，无论堆叠多少层，网络都只能表达线性关系（直线、平面），无法拟合现实世界的复杂问题。</p><blockquote><p><strong>术语解释</strong>：<strong>激活函数（Activation Function）</strong> 是一个对神经元输出做非线性变换的数学函数。它在神经网络中的位置是“卷积层/全连接层之后，输出之前”。简单理解：卷积层算出一个数，激活函数决定“这个数要不要传递给下一层、以什么强度传递”。</p></blockquote><h3 id=12-relu最常用的激活函数>1.2 ReLU：最常用的激活函数</h3><p><strong>ReLU</strong>（Rectified Linear Unit，修正线性单元）是目前深度学习中<strong>最常用</strong>的激活函数，公式极其简单：</p><span class=katex-display><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>ReLU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">
 \text{ReLU}(x) = \max(0, x)
-$$</p><pre tabindex=0><code class=language-desmos-graph data-lang=desmos-graph>left=-5
+</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class="mord text"><span class=mord>ReLU</span></span><span class=mopen>(</span><span class="mord mathnormal">x</span><span class=mclose>)</span><span class=mspace style=margin-right:.2778em></span><span class=mrel>=</span><span class=mspace style=margin-right:.2778em></span></span><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mop>max</span><span class=mopen>(</span><span class=mord>0</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></span><pre tabindex=0><code class=language-desmos-graph data-lang=desmos-graph>left=-5
 right=5
 bottom=-1
 top=5
@@ -103,7 +103,7 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># hi_relu2 是 ReLU 的一个变体，做了细微调整</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># 本质仍然是 ReLU(x) = max(0, x)</span>
-</span></span></code></pre></div><h3 id=15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</h3><table><thead><tr><th>变体</th><th>公式</th><th>特点</th></tr></thead><tbody><tr><td><strong>Leaky ReLU</strong></td><td>$\max(0.01x, x)$</td><td>负数区域有一个很小的坡度，避免“神经元死亡”</td></tr><tr><td><strong>PReLU</strong></td><td>$\max(\alpha x, x)$，$\alpha$ 可学习</td><td>负数区域的坡度由数据决定</td></tr><tr><td><strong>ELU</strong></td><td>负数区域用指数函数</td><td>输出均值接近 0，可能更快收敛</td></tr></tbody></table><p>在常见代码中，主要使用的是标准的 ReLU 和 <code>hi_relu2</code>（一个自定义的轻微变体）。</p><h2 id=2-池化层pooling>2 池化层（Pooling）</h2><h3 id=21-池化层是什么>2.1 池化层是什么？</h3><p><strong>池化层（Pooling Layer）</strong> 是一种“缩小图像尺寸”的操作，在图像上滑动一个窗口，每次取窗口内的<strong>最大值</strong>或<strong>平均值</strong>作为输出。</p><blockquote><p><strong>术语解释</strong>：<strong>池化层</strong> 是一种下采样操作，在 CNN 中通常放在连续的卷积层之间，用来缩小特征图的尺寸。它的位置在“卷积层之后，下一个卷积层之前”。池化层没有可训练的参数，只是做固定的数学运算。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>最大池化（Max Pooling）—— 2×2 窗口，步长=2：
+</span></span></code></pre></div><h3 id=15-relu-的其他变体了解即可>1.5 ReLU 的其他变体（了解即可）</h3><table><thead><tr><th>变体</th><th>公式</th><th>特点</th></tr></thead><tbody><tr><td><strong>Leaky ReLU</strong></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mn>0.01</mn><mi>x</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\max(0.01x, x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mop>max</span><span class=mopen>(</span><span class=mord>0.01</span><span class="mord mathnormal">x</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span></td><td>负数区域有一个很小的坡度，避免“神经元死亡”</td></tr><tr><td><strong>PReLU</strong></td><td><span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>max</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>α</mi><mi>x</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\max(\alpha x, x)</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:1em;vertical-align:-.25em></span><span class=mop>max</span><span class=mopen>(</span><span class="mord mathnormal">αx</span><span class=mpunct>,</span><span class=mspace style=margin-right:.1667em></span><span class="mord mathnormal">x</span><span class=mclose>)</span></span></span></span>，<span class=katex><span class=katex-mathml><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class=katex-html aria-hidden=true><span class=base><span class=strut style=height:.4306em></span><span class="mord mathnormal" style=margin-right:.0037em>α</span></span></span></span> 可学习</td><td>负数区域的坡度由数据决定</td></tr><tr><td><strong>ELU</strong></td><td>负数区域用指数函数</td><td>输出均值接近 0，可能更快收敛</td></tr></tbody></table><p>在常见代码中，主要使用的是标准的 ReLU 和 <code>hi_relu2</code>（一个自定义的轻微变体）。</p><h2 id=2-池化层pooling>2 池化层（Pooling）</h2><h3 id=21-池化层是什么>2.1 池化层是什么？</h3><p><strong>池化层（Pooling Layer）</strong> 是一种“缩小图像尺寸”的操作，在图像上滑动一个窗口，每次取窗口内的<strong>最大值</strong>或<strong>平均值</strong>作为输出。</p><blockquote><p><strong>术语解释</strong>：<strong>池化层</strong> 是一种下采样操作，在 CNN 中通常放在连续的卷积层之间，用来缩小特征图的尺寸。它的位置在“卷积层之后，下一个卷积层之前”。池化层没有可训练的参数，只是做固定的数学运算。</p></blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>最大池化（Max Pooling）—— 2×2 窗口，步长=2：
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>输入 4×4：                   输出 2×2：
 </span></span><span style=display:flex><span>┌────────────┐               ┌─────────┐
@@ -154,7 +154,8 @@ y = \max(0, x)
 ┌─────────┐    ┌─────────┐
 │ 有特征   │    │ 有特征   │
 └─────────┘    └─────────┘
-</code></pre><p><strong>无论眼睛在窗口的哪个位置，只要它出现在 2×2 区域内，最大池化都会输出“有特征”。</strong> 这就是<strong>平移不变性（Translation Invariance）</strong>——模型对物体的精确位置不敏感，只关心“有没有”。</p><p><strong>用步长卷积</strong>：</p><p>步长卷积对每个像素位置做加权求和，<strong>位置偏移 2 个像素，输出数值就会变化</strong>。它保留了位置信息，但牺牲了对轻微位移的容忍度。</p><blockquote><p><strong>术语解释</strong>：<strong>平移不变性</strong>指输入中的物体发生位置偏移时，模型的输出保持不变。这在大规模图像分类任务中很有用（“猫在图片的左边还是右边，它都是猫”）。</p></blockquote><h4 id=第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</h4><p>原因在于去噪任务的目标和分类任务完全不同：</p><table><thead><tr><th>任务</th><th>关心的是什么</th><th>是否需要平移不变性</th><th>对细节的要求</th></tr></thead><tbody><tr><td><strong>图像分类</strong></td><td>“有没有猫？”</td><td>✅ 需要（猫在哪不重要）</td><td>低（轮廓模糊也能认）</td></tr><tr><td><strong>图像去噪</strong></td><td>“这个像素是不是噪点？”</td><td>❌ 不需要（噪点在哪很重要）</td><td>极高（每个像素都要算对）</td></tr></tbody></table><pre tabindex=0><code>去噪任务中，如果使用最大池化：
+</code></pre><p><strong>无论眼睛在窗口的哪个位置，只要它出现在 2×2 区域内，最大池化都会输出“有特征”。</strong> 这就是<strong>平移不变性（Translation Invariance）</strong>——模型对物体的精确位置不敏感，只关心“有没有”。</p><p><strong>用步长卷积</strong>：
+步长卷积对每个像素位置做加权求和，<strong>位置偏移 2 个像素，输出数值就会变化</strong>。它保留了位置信息，但牺牲了对轻微位移的容忍度。</p><blockquote><p><strong>术语解释</strong>：<strong>平移不变性</strong>指输入中的物体发生位置偏移时，模型的输出保持不变。这在大规模图像分类任务中很有用（“猫在图片的左边还是右边，它都是猫”）。</p></blockquote><h4 id=第三层为什么去噪任务不用池化层>第三层：为什么去噪任务不用池化层？</h4><p>原因在于去噪任务的目标和分类任务完全不同：</p><table><thead><tr><th>任务</th><th>关心的是什么</th><th>是否需要平移不变性</th><th>对细节的要求</th></tr></thead><tbody><tr><td><strong>图像分类</strong></td><td>“有没有猫？”</td><td>✅ 需要（猫在哪不重要）</td><td>低（轮廓模糊也能认）</td></tr><tr><td><strong>图像去噪</strong></td><td>“这个像素是不是噪点？”</td><td>❌ 不需要（噪点在哪很重要）</td><td>极高（每个像素都要算对）</td></tr></tbody></table><pre tabindex=0><code>去噪任务中，如果使用最大池化：
 
 原始细节：                经过最大池化后：
 ┌──────────────────┐      ┌──────────────┐
@@ -182,135 +183,14 @@ y = \max(0, x)
 </span></span><span style=display:flex><span>    yᵢ = γ × x̂ᵢ + β
 </span></span><span style=display:flex><span>    ↑                              ↑
 </span></span><span style=display:flex><span>  可学习的缩放因子              可学习的偏移量
-</span></span></code></pre></div><pre class=mermaid>
-flowchart LR
-    A["输入 x<br>（分布不稳定）"] 
-    B["减去均值 μ<br>（中心化）"]
-    C["除以标准差 σ<br>（标准化）"]
-    D["γ × 归一化值 + β<br>（可学习的变换）"]
-    E["输出 y<br>（分布稳定，网络自适应的范围）"]
+</span></span></code></pre></div><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBBWyLovpPlhaUgeDxici8+77yI5YiG5biD5LiN56iz5a6a77yJIl0gCiAgICBCWyLlh4/ljrvlnYflgLwgzrw8YnIvPu+8iOS4reW/g+WMlu+8iSJdCiAgICBDWyLpmaTku6XmoIflh4blt64gz4M8YnIvPu+8iOagh+WHhuWMlu+8iSJdCiAgICBEWyLOsyDDlyDlvZLkuIDljJblgLwgKyDOsjxici8+77yI5Y+v5a2m5Lmg55qE5Y+Y5o2i77yJIl0KICAgIEVbIui+k+WHuiB5PGJyLz7vvIjliIbluIPnqLPlrprvvIznvZHnu5zoh6rpgILlupTnmoTojIPlm7TvvIkiXQogICAgCiAgICBBIC0tPiBCIC0tPiBDIC0tPiBEIC0tPiBF>flowchart LR
+    A[&#34;输入 x&lt;br/&gt;（分布不稳定）&#34;] 
+    B[&#34;减去均值 μ&lt;br/&gt;（中心化）&#34;]
+    C[&#34;除以标准差 σ&lt;br/&gt;（标准化）&#34;]
+    D[&#34;γ × 归一化值 &#43; β&lt;br/&gt;（可学习的变换）&#34;]
+    E[&#34;输出 y&lt;br/&gt;（分布稳定，网络自适应的范围）&#34;]
     
-    A --> B --> C --> D --> E
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=33-bn-的好处>3.3 BN 的好处</h3><table><thead><tr><th>好处</th><th>解释</th></tr></thead><tbody><tr><td><strong>加速训练</strong></td><td>每层输入分布稳定，可以用更大的学习率，训练更快</td></tr><tr><td><strong>提高稳定性</strong></td><td>减少梯度消失/爆炸的问题</td></tr><tr><td><strong>减少对初始化的依赖</strong></td><td>参数初始化不好，BN 能“救回来”一部分</td></tr><tr><td><strong>有轻微的正则化效果</strong></td><td>因为每个 mini-batch 的均值方差略有不同，相当于添加了噪声</td></tr></tbody></table><h3 id=34-bn-的问题>3.4 BN 的问题</h3><table><thead><tr><th>问题</th><th>解释</th><th>对你的影响</th></tr></thead><tbody><tr><td><strong>训练和推理行为不同</strong></td><td>训练时用当前 batch 的均值/方差；推理时用历史积累的全局均值/方差</td><td>模型转换时容易出错</td></tr><tr><td><strong>依赖 batch size</strong></td><td>batch size 太小，统计不够准确，效果变差</td><td>部署到移动端（小 batch）可能出问题</td></tr><tr><td><strong>额外计算开销</strong></td><td>推理时要额外做归一化计算</td><td>对 NPU/移动端不友好</td></tr></tbody></table><h3 id=35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</h3><p>在 Bnet 代码中，BN 被<strong>刻意避免</strong>了。<code>Bnet_base.py</code> 的设计明确采用 <strong>“No BN”</strong> 策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Bnet_base.py 中的下采样块（命名包含 NoBN）</span>
+    A --&gt; B --&gt; C --&gt; D --&gt; E</pre><h3 id=33-bn-的好处>3.3 BN 的好处</h3><table><thead><tr><th>好处</th><th>解释</th></tr></thead><tbody><tr><td><strong>加速训练</strong></td><td>每层输入分布稳定，可以用更大的学习率，训练更快</td></tr><tr><td><strong>提高稳定性</strong></td><td>减少梯度消失/爆炸的问题</td></tr><tr><td><strong>减少对初始化的依赖</strong></td><td>参数初始化不好，BN 能“救回来”一部分</td></tr><tr><td><strong>有轻微的正则化效果</strong></td><td>因为每个 mini-batch 的均值方差略有不同，相当于添加了噪声</td></tr></tbody></table><h3 id=34-bn-的问题>3.4 BN 的问题</h3><table><thead><tr><th>问题</th><th>解释</th><th>对你的影响</th></tr></thead><tbody><tr><td><strong>训练和推理行为不同</strong></td><td>训练时用当前 batch 的均值/方差；推理时用历史积累的全局均值/方差</td><td>模型转换时容易出错</td></tr><tr><td><strong>依赖 batch size</strong></td><td>batch size 太小，统计不够准确，效果变差</td><td>部署到移动端（小 batch）可能出问题</td></tr><tr><td><strong>额外计算开销</strong></td><td>推理时要额外做归一化计算</td><td>对 NPU/移动端不友好</td></tr></tbody></table><h3 id=35-为什么-bnet-不用-bn>3.5 为什么 Bnet 不用 BN？</h3><p>在 Bnet 代码中，BN 被<strong>刻意避免</strong>了。<code>Bnet_base.py</code> 的设计明确采用 <strong>“No BN”</strong> 策略：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># Bnet_base.py 中的下采样块（命名包含 NoBN）</span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>down_res_block_add_NoRelu2_stride2</span>(nn<span style=color:#f92672>.</span>Module):
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 注意 &#34;NoBN&#34; 字样 —— 这个模块没有 Batch Normalization</span>
 </span></span><span style=display:flex><span>    <span style=color:#75715e># 取而代之的是：卷积 → 激活 → 卷积 → 激活（直接堆叠）</span>
@@ -344,140 +224,19 @@ flowchart LR
 </span></span><span style=display:flex><span>│                                                             │
 </span></span><span style=display:flex><span>│  用 1×1 卷积把各个通道的信息混合起来                        │
 </span></span><span style=display:flex><span>└─────────────────────────────────────────────────────────────┘
-</span></span></code></pre></div><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCBEZXB0aHdpc2UKICAgICAgICBJMVsi6L6T5YWlPGJyLz5DX2luIOmAmumBkyJdCiAgICAgICAgRFsi5q+P5Liq6YCa6YGTPGJyLz7ni6znq4sgM8OXMyDljbfnp68iXQogICAgICAgIE8xWyLkuK3pl7TovpPlh7o8YnIvPkNfaW4g6YCa6YGTIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCBQb2ludHdpc2UKICAgICAgICBQWyIxw5cxIOWNt+enrzxici8+6Leo6YCa6YGT6J6N5ZCIIl0KICAgICAgICBPWyLmnIDnu4jovpPlh7o8YnIvPkNfb3V0IOmAmumBkyJdCiAgICBlbmQKICAgIAogICAgSTEgLS0+IEQgLS0+IE8xIC0tPiBQIC0tPiBP>flowchart LR
     subgraph Depthwise
-        I1["输入<br>C_in 通道"]
-        D["每个通道<br>独立 3×3 卷积"]
-        O1["中间输出<br>C_in 通道"]
+        I1[&#34;输入&lt;br/&gt;C_in 通道&#34;]
+        D[&#34;每个通道&lt;br/&gt;独立 3×3 卷积&#34;]
+        O1[&#34;中间输出&lt;br/&gt;C_in 通道&#34;]
     end
     
     subgraph Pointwise
-        P["1×1 卷积<br>跨通道融合"]
-        O["最终输出<br>C_out 通道"]
+        P[&#34;1×1 卷积&lt;br/&gt;跨通道融合&#34;]
+        O[&#34;最终输出&lt;br/&gt;C_out 通道&#34;]
     end
     
-    I1 --> D --> O1 --> P --> O
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=43-参数量对比>4.3 参数量对比</h3><p><strong>场景</strong>：输入 32 通道 → 输出 64 通道，3×3 卷积</p><table><thead><tr><th>方式</th><th>参数计算</th><th>总参数</th><th>倍数</th></tr></thead><tbody><tr><td><strong>标准卷积</strong></td><td>64 × 32 × 9</td><td><strong>18,432</strong></td><td>1×</td></tr><tr><td><strong>Depthwise + Pointwise</strong></td><td>(32 × 9) + (64 × 32 × 1)</td><td>288 + 2,048 = <strong>2,336</strong></td><td><strong>约 7.9× 更少</strong></td></tr></tbody></table><p>用具体数字走一遍：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积：
+    I1 --&gt; D --&gt; O1 --&gt; P --&gt; O</pre><h3 id=43-参数量对比>4.3 参数量对比</h3><p><strong>场景</strong>：输入 32 通道 → 输出 64 通道，3×3 卷积</p><table><thead><tr><th>方式</th><th>参数计算</th><th>总参数</th><th>倍数</th></tr></thead><tbody><tr><td><strong>标准卷积</strong></td><td>64 × 32 × 9</td><td><strong>18,432</strong></td><td>1×</td></tr><tr><td><strong>Depthwise + Pointwise</strong></td><td>(32 × 9) + (64 × 32 × 1)</td><td>288 + 2,048 = <strong>2,336</strong></td><td><strong>约 7.9× 更少</strong></td></tr></tbody></table><p>用具体数字走一遍：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积：
 </span></span><span style=display:flex><span>  参数量 = C_out × C_in × kh × kw
 </span></span><span style=display:flex><span>        = 64 × 32 × 3 × 3 = 18,432
 </span></span><span style=display:flex><span>
@@ -503,145 +262,24 @@ flowchart LR
 </span></span><span style=display:flex><span>输入通道 25-32     输出通道 13-16
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>每组内部是标准卷积（全连接），组与组之间不通信。
-</span></span></code></pre></div><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDliIbnu4QxCiAgICAgICAgSTFbIui+k+WFpemAmumBkyAxLTE2Il0KICAgICAgICBDMVsi5qCH5YeG5Y2356evPGJyLz7vvIjnu4TlhoXlhajov57mjqXvvIkiXQogICAgICAgIE8xWyLovpPlh7rpgJrpgZMgMS04Il0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDliIbnu4QyCiAgICAgICAgSTJbIui+k+WFpemAmumBkyAxNy0zMiJdCiAgICAgICAgQzJbIuagh+WHhuWNt+enrzxici8+77yI57uE5YaF5YWo6L+e5o6l77yJIl0KICAgICAgICBPMlsi6L6T5Ye66YCa6YGTIDktMTYiXQogICAgZW5kCiAgICAKICAgIEkxIC0tPiBDMSAtLT4gTzEKICAgIEkyIC0tPiBDMiAtLT4gTzIKICAgIE8xIC0tPiBDb25jYXRbIuaLvOaOpSJdCiAgICBPMiAtLT4gQ29uY2F0CiAgICBDb25jYXQgLS0+IE91dFsi6L6T5Ye66YCa6YGTIDEtMTYiXQ==">flowchart LR
     subgraph 分组1
-        I1["输入通道 1-16"]
-        C1["标准卷积<br>（组内全连接）"]
-        O1["输出通道 1-8"]
+        I1[&#34;输入通道 1-16&#34;]
+        C1[&#34;标准卷积&lt;br/&gt;（组内全连接）&#34;]
+        O1[&#34;输出通道 1-8&#34;]
     end
     
     subgraph 分组2
-        I2["输入通道 17-32"]
-        C2["标准卷积<br>（组内全连接）"]
-        O2["输出通道 9-16"]
+        I2[&#34;输入通道 17-32&#34;]
+        C2[&#34;标准卷积&lt;br/&gt;（组内全连接）&#34;]
+        O2[&#34;输出通道 9-16&#34;]
     end
     
-    I1 --> C1 --> O1
-    I2 --> C2 --> O2
-    O1 --> Concat["拼接"]
-    O2 --> Concat
-    Concat --> Out["输出通道 1-16"]
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><h3 id=52-分组卷积的参数量>5.2 分组卷积的参数量</h3><p>输入 C_in，输出 C_out，分成 g 组：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积参数量 = C_out × C_in × kh × kw
+    I1 --&gt; C1 --&gt; O1
+    I2 --&gt; C2 --&gt; O2
+    O1 --&gt; Concat[&#34;拼接&#34;]
+    O2 --&gt; Concat
+    Concat --&gt; Out[&#34;输出通道 1-16&#34;]</pre><h3 id=52-分组卷积的参数量>5.2 分组卷积的参数量</h3><p>输入 C_in，输出 C_out，分成 g 组：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>标准卷积参数量 = C_out × C_in × kh × kw
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>分组卷积参数量 = C_out × (C_in/g) × kh × kw
 </span></span><span style=display:flex><span>              = 标准卷积参数量 / g
@@ -662,274 +300,32 @@ flowchart LR
 </span></span><span style=display:flex><span>self.conv2d1_3x3 = Group_Conv2d(in_chn, inter_chn, kernel_size=3, stride=1, groups=4)
 </span></span><span style=display:flex><span>                                                                              ↑
 </span></span><span style=display:flex><span>                                                                        分组数=4
-</span></span></code></pre></div><h3 id=54-三种卷积的对比>5.4 三种卷积的对比</h3><pre class=mermaid>
-flowchart LR
+</span></span></code></pre></div><h3 id=54-三种卷积的对比>5.4 三种卷积的对比</h3><pre class=mermaid data-mermaid-source="Zmxvd2NoYXJ0IExSCiAgICBzdWJncmFwaCDmma7pgJrljbfnp68KICAgICAgICBBMVsi6L6T5YWlIDQg6YCa6YGTIl0gLS0+IEEyWyIx5Liq5qC4PGJyLz7ljprluqY9NCJdIC0tPiBBM1si6L6T5Ye6IDEg6YCa6YGTIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCDliIbnu4Tljbfnp68KICAgICAgICBCMVsi6L6T5YWlIDQg6YCa6YGTPGJyLz7liIYy57uEIl0gLS0+IEIyWyIy5Liq5qC4PGJyLz7mr4/kuKrljprluqY9MiJdIC0tPiBCM1si6L6T5Ye6IDIg6YCa6YGTIl0KICAgIGVuZAogICAgCiAgICBzdWJncmFwaCBEZXB0aHdpc2UKICAgICAgICBDMVsi6L6T5YWlIDQg6YCa6YGTPGJyLz7liIY057uEIl0gLS0+IEMyWyI05Liq5qC4PGJyLz7mr4/kuKrljprluqY9MSJdIC0tPiBDM1si6L6T5Ye6IDQg6YCa6YGTIl0KICAgIGVuZA==">flowchart LR
     subgraph 普通卷积
-        A1["输入 4 通道"] --> A2["1个核<br>厚度=4"] --> A3["输出 1 通道"]
+        A1[&#34;输入 4 通道&#34;] --&gt; A2[&#34;1个核&lt;br/&gt;厚度=4&#34;] --&gt; A3[&#34;输出 1 通道&#34;]
     end
     
     subgraph 分组卷积
-        B1["输入 4 通道<br>分2组"] --> B2["2个核<br>每个厚度=2"] --> B3["输出 2 通道"]
+        B1[&#34;输入 4 通道&lt;br/&gt;分2组&#34;] --&gt; B2[&#34;2个核&lt;br/&gt;每个厚度=2&#34;] --&gt; B3[&#34;输出 2 通道&#34;]
     end
     
     subgraph Depthwise
-        C1["输入 4 通道<br>分4组"] --> C2["4个核<br>每个厚度=1"] --> C3["输出 4 通道"]
-    end
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
+        C1[&#34;输入 4 通道&lt;br/&gt;分4组&#34;] --&gt; C2[&#34;4个核&lt;br/&gt;每个厚度=1&#34;] --&gt; C3[&#34;输出 4 通道&#34;]
+    end</pre><table><thead><tr><th>卷积类型</th><th>groups 参数</th><th>每个核的厚度</th><th>特点</th></tr></thead><tbody><tr><td><strong>普通卷积</strong></td><td>groups=1</td><td>C_in</td><td>所有通道充分混合，表达力最强，参数量最大</td></tr><tr><td><strong>分组卷积</strong></td><td>groups=g (1 &lt; g &lt; C_in)</td><td>C_in/g</td><td>组内混合，降低参数量，适合大模型并行</td></tr><tr><td><strong>Depthwise</strong></td><td>groups=C_in</td><td>1</td><td>通道间不混合，参数量最低，适合轻量部署</td></tr></tbody></table><h2 id=6-本章小结>6 本章小结</h2><pre class=mermaid data-mermaid-source=Zmxvd2NoYXJ0IFRECiAgICBBWyJDTk4g5bi46KeB5pON5L2cIl0gLS0+IEJbIua/gOa0u+WHveaVsCAoUmVMVSkiXQogICAgQSAtLT4gQ1si5rGg5YyW5bGCIl0KICAgIEEgLS0+IERbIkJhdGNoIE5vcm1hbGl6YXRpb24iXQogICAgQSAtLT4gRVsiRGVwdGh3aXNlIOWNt+enryJdCiAgICBBIC0tPiBGWyLliIbnu4Tljbfnp68iXQogICAgCiAgICBCIC0tPiBCMVsi5L2N572u77yaQ29udiDihpIgUmVMVTxici8+5L2c55So77ya5byV5YWl6Z2e57q/5oCnPGJyLz7ku6PnoIHvvJpubi5SZUxVKCkiXQogICAgQyAtLT4gQzFbIuS9nOeUqO+8mue8qeWwj+WwuuWvuDxici8+5Y675Zmq5Lit5bCR55SoPGJyLz7ku6PnoIHvvJrlh6DkuY7ml6AiXQogICAgRCAtLT4gRDFbIuS9nOeUqO+8mueos+Wumuiuree7gzxici8+Qm5ldCDliLvmhI/kuI3nlKg8YnIvPuWOn+WboO+8mk5QVSDpg6jnvbIiXQogICAgRSAtLT4gRTFbIuS9nOeUqO+8mumZjeS9jueul+WKmzxici8+5Y+C5pWw6YeP57qmIDEvODxici8+5Luj56CB77yaZ3JvdXBzPUNfaW4iXQogICAgRiAtLT4gRjFbIuS9nOeUqO+8muWIhue7hOa3t+WQiDxici8+RGVwdGh3aXNlIOaYr+eJueS+izxici8+5Luj56CB77yaR3JvdXBfQ29udjJkIl0KICAgIAogICAgc3R5bGUgQiBmaWxsOiNlM2YyZmQKICAgIHN0eWxlIEMgZmlsbDojZmZmM2UwCiAgICBzdHlsZSBEIGZpbGw6I2ZmY2RkMgogICAgc3R5bGUgRSBmaWxsOiNjOGU2YzkKICAgIHN0eWxlIEYgZmlsbDojYjNlNWZj>flowchart TD
+    A[&#34;CNN 常见操作&#34;] --&gt; B[&#34;激活函数 (ReLU)&#34;]
+    A --&gt; C[&#34;池化层&#34;]
+    A --&gt; D[&#34;Batch Normalization&#34;]
+    A --&gt; E[&#34;Depthwise 卷积&#34;]
+    A --&gt; F[&#34;分组卷积&#34;]
     
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><table><thead><tr><th>卷积类型</th><th>groups 参数</th><th>每个核的厚度</th><th>特点</th></tr></thead><tbody><tr><td><strong>普通卷积</strong></td><td>groups=1</td><td>C_in</td><td>所有通道充分混合，表达力最强，参数量最大</td></tr><tr><td><strong>分组卷积</strong></td><td>groups=g (1 &lt; g &lt; C_in)</td><td>C_in/g</td><td>组内混合，降低参数量，适合大模型并行</td></tr><tr><td><strong>Depthwise</strong></td><td>groups=C_in</td><td>1</td><td>通道间不混合，参数量最低，适合轻量部署</td></tr></tbody></table><h2 id=6-本章小结>6 本章小结</h2><pre class=mermaid>
-flowchart TD
-    A["CNN 常见操作"] --> B["激活函数 (ReLU)"]
-    A --> C["池化层"]
-    A --> D["Batch Normalization"]
-    A --> E["Depthwise 卷积"]
-    A --> F["分组卷积"]
-    
-    B --> B1["位置：Conv → ReLU<br>作用：引入非线性<br>代码：nn.ReLU()"]
-    C --> C1["作用：缩小尺寸<br>去噪中少用<br>代码：几乎无"]
-    D --> D1["作用：稳定训练<br>Bnet 刻意不用<br>原因：NPU 部署"]
-    E --> E1["作用：降低算力<br>参数量约 1/8<br>代码：groups=C_in"]
-    F --> F1["作用：分组混合<br>Depthwise 是特例<br>代码：Group_Conv2d"]
+    B --&gt; B1[&#34;位置：Conv → ReLU&lt;br/&gt;作用：引入非线性&lt;br/&gt;代码：nn.ReLU()&#34;]
+    C --&gt; C1[&#34;作用：缩小尺寸&lt;br/&gt;去噪中少用&lt;br/&gt;代码：几乎无&#34;]
+    D --&gt; D1[&#34;作用：稳定训练&lt;br/&gt;Bnet 刻意不用&lt;br/&gt;原因：NPU 部署&#34;]
+    E --&gt; E1[&#34;作用：降低算力&lt;br/&gt;参数量约 1/8&lt;br/&gt;代码：groups=C_in&#34;]
+    F --&gt; F1[&#34;作用：分组混合&lt;br/&gt;Depthwise 是特例&lt;br/&gt;代码：Group_Conv2d&#34;]
     
     style B fill:#e3f2fd
     style C fill:#fff3e0
     style D fill:#ffcdd2
     style E fill:#c8e6c9
-    style F fill:#b3e5fc
-</pre><script type=module>
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/+esm";
-
-  
-  const FRONTMATTER_REGEX = /---\s*\n(?:.*\n)*?---/;
-  const CONFIG_REGEX = /(---\s*\n(?:.*\n)*?config:\s*\n)((?:.*\n)*?)(---)/m;
-  const THEME_REGEX = /^\s*theme:/;
-  const THEME_VARS_REGEX = /^\s*themeVariables:/;
-
-  
-  const getMermaidConfig = (startOnLoad = true) => ({
-    startOnLoad,
-    theme: "default",
-    securityLevel: "loose",
-    flowchart: { curve: "basis" },
-  });
-
-  
-  function processContent(content, isDarkMode) {
-    if (!isDarkMode) return content;
-
-    const hasFrontmatter = FRONTMATTER_REGEX.test(content);
-
-    if (hasFrontmatter) {
-      return content.replace(CONFIG_REGEX, (match, before, configContent, after) => {
-        const lines = configContent.split("\n");
-        const filtered = [];
-        let skipUntilDedent = false;
-        let themeVarIndent = 0;
-
-        for (const line of lines) {
-          const indent = line.search(/\S/);
-
-          if (THEME_REGEX.test(line)) continue;
-
-          if (THEME_VARS_REGEX.test(line)) {
-            skipUntilDedent = true;
-            themeVarIndent = indent;
-            continue;
-          }
-
-          if (skipUntilDedent) {
-            if (line.trim() && indent > themeVarIndent) continue;
-            skipUntilDedent = false;
-          }
-
-          filtered.push(line);
-        }
-
-        filtered.unshift("  theme: dark");
-        return before + filtered.join("\n") + after;
-      });
-    }
-    
-    return `---\nconfig:\n  theme: dark\n---\n${content}`;
-  }
-
-  
-  async function rerenderDiagrams() {
-    const isDark = document.documentElement.classList.contains("dark");
-    const elements = document.querySelectorAll(".mermaid");
-    
-    if (elements.length === 0) return;
-
-    const validElements = [];
-
-    for (const element of elements) {
-      if (!element.isConnected) continue;
-      
-      const originalContent = element.getAttribute("data-original");
-      if (originalContent) {
-        const content = processContent(originalContent, isDark);
-        element.textContent = content;
-        element.removeAttribute("data-processed");
-        validElements.push(element);
-      }
-    }
-
-    if (validElements.length === 0) return;
-
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    try {
-      await mermaid.run({ nodes: validElements });
-    } catch (error) {
-      console.error("Mermaid rendering error:", error);
-    }
-  }
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-    const isDark = document.documentElement.classList.contains("dark");
-
-    document.querySelectorAll(".mermaid").forEach((element) => {
-      if (!element.hasAttribute("data-original")) {
-        const originalContent = element.textContent.trim();
-        element.setAttribute("data-original", originalContent);
-        element.textContent = processContent(originalContent, isDark);
-      }
-    });
-  });
-
-  mermaid.initialize(getMermaidConfig());
-
-  
-  let previousDarkMode = document.documentElement.classList.contains("dark");
-
-  new MutationObserver(() => {
-    const currentDarkMode = document.documentElement.classList.contains("dark");
-
-    if (currentDarkMode !== previousDarkMode) {
-      previousDarkMode = currentDarkMode;
-      mermaid.initialize(getMermaidConfig(false));
-      rerenderDiagrams();
-    }
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-</script><p><strong>一句话总结</strong>：</p><blockquote><p>ReLU 是让网络“变弯”的非线性激活函数，几乎每层都用；池化层在去噪网络中被 stride=2 卷积替代；Batch Normalization 能加速训练但 Bnet 为 NPU 部署特意不用；Depthwise 卷积把参数量降到 1/8，是轻量部署的关键；分组卷积是 Depthwise 的“广义版本”，<code>groups=C_in</code> 时就是 Depthwise。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js type=application/javascript></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js type=application/javascript></script><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script>document.addEventListener("DOMContentLoaded",function(){typeof renderMathInElement=="function"&&renderMathInElement(document.querySelector(".content"),{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\[",right:"\\]",display:!0},{left:"\\(",right:"\\)",display:!1}],throwOnError:!1})})</script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>
+    style F fill:#b3e5fc</pre><p><strong>一句话总结</strong>：</p><blockquote><p>ReLU 是让网络“变弯”的非线性激活函数，几乎每层都用；池化层在去噪网络中被 stride=2 卷积替代；Batch Normalization 能加速训练但 Bnet 为 NPU 部署特意不用；Depthwise 卷积把参数量降到 1/8，是轻量部署的关键；分组卷积是 Depthwise 的“广义版本”，<code>groups=C_in</code> 时就是 Depthwise。</p></blockquote></div><div class=mt-16><h2 class="h4 mb-6">💬 留言</h2><div id=giscus></div><script src=https://giscus.app/client.js data-repo=bluhuang/blogs-of-bluhuang data-repo-id=R_kgDOStnEPg data-category=Announcements data-category-id=DIC_kwDOStnEPs4C-eIQ data-mapping=pathname data-reactions-enabled=true data-emit-metadata=false data-input-position=bottom data-lang=zh-CN data-theme=light crossorigin=anonymous async></script><script>(function(){var n=["light","noborder_light"],s=["noborder_dark","dark_dimmed","dark"];function o(){return document.documentElement.classList.contains("dark")?s[1]:n[0]}function e(){if(window.giscus&&typeof window.giscus.setTheme=="function")try{window.giscus.setTheme(o())}catch{}}function t(n){if(n=n||0,n>50)return;e(),(!window.giscus||typeof window.giscus.setTheme!="function")&&setTimeout(function(){t(n+1)},100)}t(),new MutationObserver(e).observe(document.documentElement,{attributes:!0,attributeFilter:["class"]}),document.addEventListener("click",function(t){var n=t.target;n&&(n.closest("[data-theme-switcher]")||n.closest(".theme-switcher"))&&setTimeout(e,50)})})()</script></div></article></div></div></div></section></main><footer class="bg-light dark:bg-darkmode-light"><div class=container><div class="row items-center py-10"><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:text-left"><a class="navbar-brand inline-block" href=/blogs-of-bluhuang/>BluHuang's Blog</a></div><div class="lg:col-6 mb-8 text-center lg:mb-0"><ul><li class="m-3 inline-block"><a href=/blogs-of-bluhuang/about/>关于</a></li></ul></div><div class="lg:col-3 mb-8 text-center lg:mb-0 lg:mt-0 lg:text-right"><ul class=social-icons><li><a target=_blank aria-label=github rel="nofollow noopener" href=https://github.com/bluhuang><i class="fab fa-github"></i></a></li></ul></div></div></div><div class="border-border dark:border-darkmode-border border-t py-7"><div class="text-text-light dark:text-darkmode-text-light container text-center"><p>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> & <a href=https://github.com/zeon-studio/hugoplate target=_blank>Hugoplate</a></p></div></div></footer><script crossorigin=anonymous integrity="sha256-LIxQmHm2wv8nQgk9cs7AsxR37WgKVli/Ggtr/x0PQb8=" src=/blogs-of-bluhuang/js/script.min.2c8c509879b6c2ff2742093d72cec0b31477ed680a5658bf1a0b6bff1d0f41bf.js></script><script defer async crossorigin=anonymous integrity="sha256-ERVlJv0r9BVw+veEd5+D3oOJuHI8UEMwuPAD0a8FNhY=" src=/blogs-of-bluhuang/js/script-lazy.min.11156526fd2bf41570faf784779f83de8389b8723c504330b8f003d1af053616.js></script><script type=module src=/blogs-of-bluhuang/js/mermaid-init.js></script><script>"serviceWorker"in navigator&&navigator.serviceWorker.register("/blogs-of-bluhuang/service-worker.js")</script></body></html>

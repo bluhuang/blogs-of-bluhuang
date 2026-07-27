@@ -11,9 +11,9 @@
 &gt;https://sqlite.org/appfunc.html&lt;/a&gt;&lt;/p&gt;
 &lt;h1 id="1-简介"&gt;1 简介&lt;/h1&gt;
 &lt;ol&gt;
-&lt;li&gt;SQLite 支持用户实现自定义回调方法，以完成某些特定的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
-&lt;li&gt;自定义的 SQLite UDF 可以是标量函数（scalar functions）、聚合函数（aggregate functions），也可以是窗口函数（window functions）。&lt;/li&gt;
-&lt;li&gt;创建可在 SQL 查询中使用的自定义函数。这些函数可以用 C 语言编写，也可以通过绑定在其他语言中实现（如 Python、Java 等）。&lt;/li&gt;
+&lt;li&gt;SQLite 支持用户实现自定义回调方法，以实现一些特殊的自定义功能，类似于用户定义函数（UDF）。&lt;/li&gt;
+&lt;li&gt;自定义的 SQLite UDF 可以是标量函数、聚合函数或窗口函数。&lt;/li&gt;
+&lt;li&gt;通过此机制可以创建可在 SQL 查询中使用的自定义函数，这些函数可以用 C 语言编写，也可以通过在 Python、Java 等其他语言中绑定实现。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id="2-相关接口"&gt;2 相关接口&lt;/h1&gt;
 &lt;h2 id="sqlite3_create_function-family"&gt;sqlite3_create_function family&lt;/h2&gt;
@@ -35,8 +35,8 @@
 &lt;li&gt;&lt;strong&gt;编码指定&lt;/strong&gt;：使用 &lt;code&gt;eTextRep&lt;/code&gt; 参数指定文本编码偏好&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;函数类型&lt;/strong&gt;：
 &lt;ul&gt;
-&lt;li&gt;若 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，则注册标量函数&lt;/li&gt;
-&lt;li&gt;若 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 均非 NULL，则注册聚合函数&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xFunc&lt;/code&gt; 非 NULL，注册标量函数&lt;/li&gt;
+&lt;li&gt;如果 &lt;code&gt;xStep&lt;/code&gt; 和 &lt;code&gt;xFinal&lt;/code&gt; 非 NULL，注册聚合函数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;应用数据&lt;/strong&gt;：通过 &lt;code&gt;pApp&lt;/code&gt; 传递用户数据&lt;/li&gt;
@@ -58,7 +58,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;UTF-16 支持&lt;/strong&gt;：函数名使用 UTF-16 编码&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;向后兼容&lt;/strong&gt;：为需要 UTF-16 函数名的应用提供支持&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;功能相同&lt;/strong&gt;：与 &lt;code&gt;sqlite3_create_function()&lt;/code&gt; 功能相同，仅函数名编码不同&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;功能相同&lt;/strong&gt;：与 &lt;code&gt;sqlite3_create_function()&lt;/code&gt; 功能相同，只是函数名编码不同&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
 &lt;ul&gt;
 &lt;li&gt;Windows API 集成（Windows 原生使用 UTF-16）&lt;/li&gt;
@@ -83,7 +83,7 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;增强版本&lt;/strong&gt;：在基础版本上增加了析构函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;自动清理&lt;/strong&gt;：通过 &lt;code&gt;xDestroy&lt;/code&gt; 回调自动清理 &lt;code&gt;pApp&lt;/code&gt; 数据&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更加安全&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存安全&lt;/strong&gt;：避免内存泄漏，更安全&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;推荐使用&lt;/strong&gt;：SQLite 官方推荐使用此版本&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="4-sqlite3_create_window_function"&gt;4 sqlite3_create_window_function&lt;/h3&gt;
@@ -107,7 +107,7 @@
 &lt;li&gt;&lt;strong&gt;反向处理&lt;/strong&gt;：支持 &lt;code&gt;xInverse&lt;/code&gt; 用于优化窗口函数性能&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;复杂功能&lt;/strong&gt;：支持滑动窗口、排序、分组等高级功能&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="3-udf类型"&gt;3 UDF类型&lt;/h1&gt;
+&lt;h1 id="3-udf-类型"&gt;3 UDF 类型&lt;/h1&gt;
 &lt;h2 id="31-标量函数-scalar-functions"&gt;3.1 标量函数 (Scalar Functions)&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;接受参数，返回单个值&lt;/li&gt;
@@ -140,34 +140,34 @@
 );
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id="41-zfunctionname"&gt;4.1 zFunctionName&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;该参数传入方法名：第二个参数是正在创建的 SQL 函数的名称。通常使用 UTF8 编码，但对于 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt;，名称应采用本地字节序的 UTF16。&lt;/li&gt;
-&lt;li&gt;SQL 函数名称的最大长度是 255 字节（UTF8）。如果试图创建更长名称的函数，将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
-&lt;li&gt;UDF 注册支持重载：可以多次调用 SQL 函数创建接口，使用相同的函数名。例如，如果两次调用具有相同的函数名但参数个数不同，则会注册两个不同参数数量的函数变体。&lt;/li&gt;
+&lt;li&gt;此参数传入方法名：第二个参数是要创建的 SQL 函数名。通常为 UTF8 编码，但 &lt;code&gt;sqlite3_create_function16()&lt;/code&gt; 要求使用本机字节序的 UTF16 编码。&lt;/li&gt;
+&lt;li&gt;函数名长度限制为 255 字节（UTF8）。尝试创建名称更长的函数将导致 &lt;code&gt;SQLITE_MISUSE&lt;/code&gt; 错误。&lt;/li&gt;
+&lt;li&gt;UDF 注册支持重载：可以用相同函数名多次调用这些创建接口。例如，若两次调用参数数量不同，则会注册同一函数名的两个变体，各接受不同数量的参数。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id="42-narg"&gt;4.2 nArg&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;表示参数数量，类型为 int&lt;/li&gt;
-&lt;li&gt;参数取值范围为 -1 到 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;（默认值为 127，最大值为 32767）。&lt;/li&gt;
+&lt;li&gt;表示参数数量，int 类型&lt;/li&gt;
+&lt;li&gt;参数大小范围为 -1 至 127（最大值为 &lt;code&gt;SQLITE_MAX_FUNCTION_ARG&lt;/code&gt;，即 32767）。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id="43-etextrep-文本编码"&gt;4.3 &lt;strong&gt;eTextRep&lt;/strong&gt; 文本编码&lt;/h2&gt;
+&lt;h2 id="43-etextrep-文本编码"&gt;4.3 eTextRep 文本编码&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt; - 位掩码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;int&lt;/code&gt;（位掩码）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：指定函数的文本编码偏好&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;取值&lt;/strong&gt;：
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF8&lt;/strong&gt; (0x01)：UTF-8 编码&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16LE&lt;/strong&gt; (0x02)：UTF-16 小端序&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16BE&lt;/strong&gt; (0x03)：UTF-16 大端序&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_UTF16&lt;/strong&gt; (0x04)：使用本地字节序的 UTF-16&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SQLITE_ANY&lt;/strong&gt;：接受任何编码（已废弃）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;组合标志&lt;/strong&gt;：可与确定性标志组合&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF8&lt;/code&gt; (0x01)：UTF-8 编码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16LE&lt;/code&gt; (0x02)：UTF-16 小端序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16BE&lt;/code&gt; (0x03)：UTF-16 大端序&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_UTF16&lt;/code&gt; (0x04)：使用本地字节序的 UTF-16&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SQLITE_ANY&lt;/code&gt;：接受任何编码（已废弃）&lt;/li&gt;
+&lt;li&gt;组合标志：可与确定性标志组合&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id="44-papp"&gt;4.4 pApp&lt;/h2&gt;
 &lt;h3 id="详细说明"&gt;详细说明&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt; - 任意类型指针&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;类型&lt;/strong&gt;：&lt;code&gt;void*&lt;/code&gt;（任意类型指针）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;作用&lt;/strong&gt;：传递用户自定义数据到函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;生命周期&lt;/strong&gt;：由 &lt;code&gt;xDestroy&lt;/code&gt; 回调管理&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;使用场景&lt;/strong&gt;：
@@ -192,9 +192,9 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description></item><item><title>HNSW索引学习笔记</title><link>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Tue, 02 Jun 2026 13:04:44 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/database/%E5%90%91%E9%87%8F/hnsw%E7%B4%A2%E5%BC%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;p&gt;HNSW 算法完全学习笔记&lt;/p&gt;
-&lt;p&gt;基于项目实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
+&lt;p&gt;基于实践与深入讨论整理，涵盖原理、操作、参数调优与工程实现。&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li&gt;概述&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库（Chroma、Milvus、Weaviate）和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;HNSW (Hierarchical Navigable Small World) 是一种基于图的近似最近邻（ANN）搜索算法。它通过构建多层图结构，将检索复杂度从暴力搜索的 O(N) 降低到 O(log N)，同时保持 90%+ 的召回率。广泛应用于向量数据库和 RAG 系统。&lt;/p&gt;</description></item></channel></rss>

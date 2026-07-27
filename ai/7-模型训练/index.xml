@@ -5,8 +5,8 @@
 &lt;/blockquote&gt;
 &lt;h2 id="1-为什么需要-ssim"&gt;1. 为什么需要 SSIM？&lt;/h2&gt;
 &lt;h3 id="11-l1l2-的局限逐像素比较的视觉盲区"&gt;1.1 L1/L2 的局限：逐像素比较的“视觉盲区”&lt;/h3&gt;
-&lt;p&gt;L1 和 L2 损失都是&lt;strong&gt;逐像素比较&lt;/strong&gt;：把两张图的每个对应像素相减，然后求平均或平方和。&lt;/p&gt;</description></item><item><title>模型训练全景</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</guid><description>&lt;h2 id="1-模型训练的完整生命周期"&gt;1. 模型训练的完整生命周期&lt;/h2&gt;
-&lt;p&gt;首先通过一张全景图建立整体认知：&lt;/p&gt;
+&lt;p&gt;L1 和 L2 损失都是&lt;strong&gt;逐像素比较&lt;/strong&gt;：将两张图像的每个对应像素相减，然后求平均或平方和。&lt;/p&gt;</description></item><item><title>模型训练全景</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%85%A8%E6%99%AF/</guid><description>&lt;h2 id="1-模型训练的完整生命周期"&gt;1. 模型训练的完整生命周期&lt;/h2&gt;
+&lt;p&gt;先看一张全景图，建立整体认知：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;┌─────────────────────────────────────────────────────────────────────────────┐
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ 一个 AI 模型的完整生命周期 │
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;├─────────────────────────────────────────────────────────────────────────────┤
@@ -38,7 +38,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;│ │
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;└─────────────────────────────────────────────────────────────────────────────┘
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这张图展示了模型的完整生命周期——从预训练到最终部署。&lt;/p&gt;</description></item><item><title>学习率调度（Learning Rate Scheduling）</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6learning-rate-scheduling/</link><pubDate>Tue, 07 Jul 2026 09:12:07 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/7-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/3-%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6learning-rate-scheduling/</guid><description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：&lt;strong&gt;为什么训练过程中学习率不能固定不变？怎么动态调整学习率才能让模型收敛得更好？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前置知识&lt;/strong&gt;：&lt;strong&gt;为什么训练过程中学习率不能固定不变？如何动态调整学习率以促进模型更好收敛？&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id="1-为什么需要动态调整学习率"&gt;1. 为什么需要动态调整学习率？&lt;/h2&gt;
 &lt;p&gt;如果从头到尾使用&lt;strong&gt;固定学习率&lt;/strong&gt;：&lt;/p&gt;</description></item></channel></rss>
