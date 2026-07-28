@@ -3318,9 +3318,6 @@ body:has(.home-redesign-page) .site-header button[data-target="search-modal"]:ho
   .top-1\/2 {
     top: calc(1 / 2 * 100%);
   }
-  .top-24 {
-    top: calc(var(--spacing) * 24);
-  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
@@ -4052,9 +4049,6 @@ body:has(.home-redesign-page) .site-header button[data-target="search-modal"]:ho
   .h-auto {
     height: auto;
   }
-  .max-h-\[75vh\] {
-    max-height: 75vh;
-  }
   .min-h-screen {
     min-height: 100vh;
   }
@@ -4216,9 +4210,6 @@ body:has(.home-redesign-page) .site-header button[data-target="search-modal"]:ho
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .overflow-y-auto {
-    overflow-y: auto;
   }
   .rounded {
     border-radius: 0.25rem;
