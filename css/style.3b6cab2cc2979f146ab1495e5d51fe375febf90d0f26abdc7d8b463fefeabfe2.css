@@ -1184,6 +1184,581 @@ h1, h2, h3, h4, h5, h6 {
 .article-content .code-block {
   margin: 28px 0 36px;
 }
+/* === Directory Listing Pages === */
+
+.directory-page {
+  --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  --label-primary: #1d1d1f;
+  --label-secondary: #6e6e73;
+  --label-tertiary: #aeaeb2;
+  --separator-opaque: rgba(0, 0, 0, 0.12);
+  --separator: rgba(0, 0, 0, 0.08);
+  --bg-secondary: rgba(0, 0, 0, 0.03);
+  --bg-elevated: #ffffff;
+  --sidebar-width: 268px;
+  --content-max-width: 900px;
+  --header-height: 60px;
+  --accent: #007AFF;
+  --accent-bg: rgba(0, 122, 255, 0.08);
+
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  font-family: var(--font-text);
+  color: var(--label-primary);
+}
+
+.dark .directory-page {
+  --label-primary: #f5f5f7;
+  --label-secondary: #aeaeb2;
+  --label-tertiary: #636366;
+  --separator-opaque: rgba(255, 255, 255, 0.12);
+  --separator: rgba(255, 255, 255, 0.08);
+  --bg-secondary: rgba(255, 255, 255, 0.05);
+  --bg-elevated: #1c1c1e;
+  --accent: #0A84FF;
+  --accent-bg: rgba(10, 132, 255, 0.12);
+}
+
+/* === Sidebar (desktop: fixed left) === */
+.directory-sidebar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .directory-sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--separator);
+    z-index: 30;
+    padding: 16px 0;
+  }
+}
+
+.directory-sidebar-header {
+  display: none;
+}
+
+.directory-sidebar-nav {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.directory-sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.directory-sidebar-section {
+  margin-bottom: 8px;
+}
+
+.directory-sidebar-section-title {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--label-tertiary);
+  padding: 8px 12px 4px;
+}
+
+.directory-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--label-primary);
+  text-decoration: none;
+  transition: background 150ms ease;
+  min-height: 36px;
+}
+
+.directory-sidebar-item:hover {
+  background: var(--bg-secondary);
+}
+
+.directory-sidebar-item--active,
+.directory-sidebar-item--active:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.directory-sidebar-item--all {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.directory-sidebar-item--recent {
+  font-size: 12px;
+  padding: 5px 12px 5px 20px;
+}
+
+.directory-sidebar-item--folder {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.directory-sidebar-item--subfolder {
+  font-size: 12px;
+  padding: 4px 12px 4px 24px;
+}
+
+.directory-sidebar-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.directory-sidebar-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.directory-sidebar-count {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--label-tertiary);
+  font-weight: 400;
+}
+
+.directory-sidebar-chevron {
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--label-tertiary);
+  transition: transform 180ms ease;
+}
+
+.directory-sidebar-chevron--open {
+  transform: rotate(0deg);
+}
+
+.directory-sidebar-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 2px 0;
+}
+
+.directory-sidebar-sublist--indent {
+  padding-left: 12px;
+}
+
+/* === Sidebar trigger button (mobile/tablet) === */
+.directory-sidebar-trigger {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .directory-sidebar-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    border: 1px solid var(--separator-opaque);
+    border-radius: 8px;
+    background: var(--bg-elevated);
+    color: var(--label-primary);
+    font-size: 14px;
+    cursor: pointer;
+    font-family: var(--font-text);
+  }
+
+  .directory-sidebar-trigger:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+.directory-sidebar-trigger-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* === Sidebar Drawer (mobile) === */
+@media (max-width: 1023px) {
+  .directory-sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    max-width: 85vw;
+    height: 100svh;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--separator-opaque);
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 280ms ease;
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .directory-sidebar.active {
+    transform: translateX(0);
+  }
+
+  .directory-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--separator);
+  }
+
+  .directory-sidebar-header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--label-primary);
+  }
+
+  .directory-sidebar-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--label-secondary);
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+
+  .directory-sidebar-close:hover {
+    color: var(--label-primary);
+  }
+}
+
+/* === Sidebar Overlay (mobile) === */
+.directory-sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .directory-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 299;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 280ms ease;
+  }
+
+  .directory-sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* === Content Area === */
+.directory-content {
+  margin-left: 0;
+}
+
+@media (min-width: 1024px) {
+  .directory-content {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+.directory-content-inner {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding: 32px 24px 80px;
+}
+
+/* === Breadcrumb === */
+.directory-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  font-size: 12px;
+  color: var(--label-tertiary);
+  margin-bottom: 20px;
+}
+
+.directory-breadcrumb-link {
+  color: var(--label-secondary);
+  text-decoration: none;
+}
+
+.directory-breadcrumb-link:hover {
+  color: var(--accent);
+}
+
+.directory-breadcrumb-sep {
+  margin: 0 6px;
+  color: var(--label-tertiary);
+}
+
+.directory-breadcrumb-current {
+  color: var(--label-primary);
+  font-weight: 500;
+}
+
+/* === Page Header === */
+.directory-page-header {
+  margin-bottom: 32px;
+}
+
+.directory-page-title {
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: var(--label-primary);
+  margin: 0 0 8px 0;
+}
+
+.directory-page-count {
+  font-size: 13px;
+  color: var(--label-secondary);
+}
+
+/* === Search Box === */
+.directory-search {
+  position: relative;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.directory-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--label-tertiary);
+  pointer-events: none;
+}
+
+.directory-search-input {
+  width: 100%;
+  padding: 10px 36px 10px 38px;
+  border: 1px solid var(--separator-opaque);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  color: var(--label-primary);
+  font-size: 14px;
+  font-family: var(--font-text);
+  outline: none;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.directory-search-input::placeholder {
+  color: var(--label-tertiary);
+}
+
+.directory-search-input:focus {
+  border-color: var(--accent);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+.dark .directory-search-input:focus {
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2);
+}
+
+.directory-search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: var(--label-tertiary);
+  cursor: pointer;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+.directory-search-clear:hover {
+  color: var(--label-primary);
+}
+
+/* === Section Groups === */
+.directory-section {
+  margin-top: 40px;
+}
+
+.directory-section:first-of-type {
+  margin-top: 0;
+}
+
+.directory-section-title {
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: normal;
+  color: var(--label-primary);
+  margin: 0 0 12px 0;
+}
+
+/* === Group List Container === */
+.directory-group-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.directory-group-list li + li {
+  border-top: 1px solid var(--separator);
+}
+
+/* === Group Item (directory link row) === */
+.directory-group-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--label-primary);
+  gap: 10px;
+  min-height: 48px;
+  transition: background 150ms ease;
+}
+
+.directory-group-item:hover {
+  background: var(--bg-secondary);
+}
+
+.directory-group-icon {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.directory-group-label {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--label-primary);
+}
+
+.directory-group-meta {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--label-tertiary);
+}
+
+.directory-group-chevron {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--label-tertiary);
+  font-weight: 300;
+}
+
+/* === Article Item (article link row) === */
+.directory-article-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--label-primary);
+  gap: 12px;
+  min-height: 48px;
+  transition: background 150ms ease;
+}
+
+.directory-article-item:hover {
+  background: var(--bg-secondary);
+}
+
+.directory-article-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.directory-article-title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--label-primary);
+}
+
+.directory-article-desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--label-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.directory-article-meta {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--label-tertiary);
+  white-space: nowrap;
+}
+
+/* === Accessibility / Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  .directory-sidebar {
+    transition: none !important;
+  }
+  .directory-sidebar-overlay {
+    transition: none !important;
+  }
+  .directory-sidebar-item,
+  .directory-group-item,
+  .directory-article-item {
+    transition: none !important;
+  }
+}
+
+/* === High Contrast === */
+@media (prefers-contrast: more) {
+  .directory-page {
+    --separator: rgba(0, 0, 0, 0.25);
+    --separator-opaque: rgba(0, 0, 0, 0.3);
+  }
+  .dark .directory-page {
+    --separator: rgba(255, 255, 255, 0.2);
+    --separator-opaque: rgba(255, 255, 255, 0.25);
+  }
+  .directory-group-list {
+    border-width: 1.5px;
+  }
+}
+
+/* === Reduced Transparency === */
+@media (prefers-reduced-transparency: reduce) {
+  .directory-sidebar-overlay {
+    background: rgba(0, 0, 0, 0.6) !important;
+  }
+  .directory-sidebar {
+    box-shadow: none !important;
+  }
+}
+
+/* === Prevent body scroll when drawer open === */
+body.directory-drawer-open {
+  overflow: hidden;
+}
 /*! tailwindcss v4.3.0 | MIT License | https://tailwindcss.com */
 /*!
  * Justified gallery style
