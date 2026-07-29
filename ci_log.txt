@@ -11,4 +11,8 @@ Already on 'gh-pages'
 Your branch is up to date with 'origin/gh-pages'.
 From https://github.com/bluhuang/blogs-of-bluhuang
  * branch              gh-pages   -> FETCH_HEAD
-Already up to date.
+   66c2fac9..a76dfe84  gh-pages   -> origin/gh-pages
+Updating 66c2fac9..a76dfe84
+Fast-forward
+ .github/workflows/sync-home-guestbook.yml | 287 ++++++++++++++++++++++++------
+ 1 file changed, 228 insertions(+), 59 deletions(-)
