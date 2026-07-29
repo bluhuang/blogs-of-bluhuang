@@ -3,8 +3,7 @@ name: Sync Homepage Guestbook
 on:
   push:
     branches: [gh-pages]
-    paths:
-      - '.github/workflows/sync-home-guestbook.yml'
+    paths: ['.github/workflows/sync-home-guestbook.yml']
   discussion_comment:
     types: [created, edited, deleted]
   schedule:
@@ -28,12 +27,10 @@ jobs:
         with:
           ref: gh-pages
           fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Update Discussion 2 snapshot
+      - name: Update snapshot
         env:
           GH_TOKEN: ${{ github.token }}
           EVENT_NAME: ${{ github.event_name }}
@@ -41,257 +38,89 @@ jobs:
           EVENT_PATH: ${{ github.event_path }}
         run: |
           python - <<'PY'
-          import json
-          import os
-          import urllib.request
+          import json, os, urllib.request
           from datetime import datetime, timezone
           from pathlib import Path
 
-          OWNER = 'bluhuang'
-          REPO = 'blogs-of-bluhuang'
-          DISCUSSION_NUMBER = 2
-          DISCUSSION_URL = f'https://github.com/{OWNER}/{REPO}/discussions/{DISCUSSION_NUMBER}'
-          SNAPSHOT_PATH = Path('data/home-guestbook.json')
+          OWNER, REPO, NUMBER = 'bluhuang', 'blogs-of-bluhuang', 2
+          URL = f'https://github.com/{OWNER}/{REPO}/discussions/{NUMBER}'
+          PATH = Path('data/home-guestbook.json')
 
-          def utc_now():
-              return datetime.now(timezone.utc).isoformat()
-
-          def default_snapshot():
-              return {
-                  'available': True,
-                  'discussionNumber': DISCUSSION_NUMBER,
-                  'discussionTitle': 'blogs-of-bluhuang/guestbook/',
-                  'discussionUrl': DISCUSSION_URL,
-                  'totalCount': 0,
-                  'comments': [],
-                  'generatedAt': utc_now(),
-              }
-
-          def load_snapshot():
-              if not SNAPSHOT_PATH.exists():
-                  return default_snapshot()
+          def now(): return datetime.now(timezone.utc).isoformat()
+          def identity(c): return str(c.get('id') or c.get('url') or '')
+          def ordered(items): return sorted(items, key=lambda c: c.get('createdAt') or '', reverse=True)
+          def load():
               try:
-                  payload = json.loads(SNAPSHOT_PATH.read_text(encoding='utf-8'))
-                  if not isinstance(payload, dict):
-                      raise ValueError('snapshot is not an object')
-                  payload.setdefault('comments', [])
-                  payload.setdefault('totalCount', len(payload['comments']))
-                  payload.setdefault('discussionUrl', DISCUSSION_URL)
-                  return payload
-              except Exception as exc:
-                  print(f'WARNING: cannot read existing snapshot: {exc}')
-                  return default_snapshot()
+                  data = json.loads(PATH.read_text(encoding='utf-8'))
+                  data.setdefault('comments', [])
+                  data.setdefault('totalCount', len(data['comments']))
+                  return data
+              except Exception:
+                  return {'available': True, 'discussionNumber': NUMBER, 'discussionTitle': 'blogs-of-bluhuang/guestbook/', 'discussionUrl': URL, 'totalCount': 0, 'comments': []}
+          def base(data):
+              copy = dict(data)
+              copy.pop('generatedAt', None)
+              return copy
+          def save(old, new):
+              if base(old) == base(new): return
+              new['generatedAt'] = now()
+              PATH.parent.mkdir(parents=True, exist_ok=True)
+              PATH.write_text(json.dumps(new, ensure_ascii=False, indent=2), encoding='utf-8')
+          def event_comment(raw):
+              user, reactions = raw.get('user') or {}, raw.get('reactions') or {}
+              return {'id': raw.get('node_id') or str(raw.get('id') or ''), 'bodyText': raw.get('body_text') or raw.get('body') or '', 'createdAt': raw.get('created_at'), 'updatedAt': raw.get('updated_at'), 'url': raw.get('html_url'), 'reactionCount': reactions.get('total_count', 0) or 0, 'author': {'login': user.get('login') or 'GitHub User', 'avatarUrl': user.get('avatar_url'), 'url': user.get('html_url')}}
+          def gql_comment(raw):
+              user = raw.get('author') or {}
+              return {'id': raw.get('id'), 'bodyText': raw.get('bodyText') or '', 'createdAt': raw.get('createdAt'), 'updatedAt': raw.get('updatedAt'), 'url': raw.get('url'), 'reactionCount': (raw.get('reactions') or {}).get('totalCount', 0), 'author': {'login': user.get('login') or 'GitHub User', 'avatarUrl': user.get('avatarUrl'), 'url': user.get('url')}}
+          def fetch_remote():
+              query = '''query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){discussion(number:$number){number title url comments(last:30){totalCount nodes{id bodyText createdAt updatedAt url author{login avatarUrl url} reactions{totalCount}}}}}}'''
+              req = urllib.request.Request('https://api.github.com/graphql', data=json.dumps({'query': query, 'variables': {'owner': OWNER, 'repo': REPO, 'number': NUMBER}}).encode(), headers={'Authorization': f"Bearer {os.environ['GH_TOKEN']}", 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}, method='POST')
+              with urllib.request.urlopen(req, timeout=25) as response: payload = json.load(response)
+              if payload.get('errors'): raise RuntimeError(payload['errors'])
+              d = payload['data']['repository']['discussion']
+              return {'available': True, 'discussionNumber': d['number'], 'discussionTitle': d['title'], 'discussionUrl': d['url'], 'totalCount': d['comments']['totalCount'], 'comments': [gql_comment(c) for c in reversed(d['comments']['nodes'] or [])]}
 
-          def semantic(payload):
-              comparable = dict(payload)
-              comparable.pop('generatedAt', None)
-              return comparable
-
-          def write_if_changed(existing, candidate):
-              if semantic(existing) == semantic(candidate):
-                  print('Guestbook snapshot content is already current.')
-                  return False
-              candidate['generatedAt'] = utc_now()
-              SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
-              SNAPSHOT_PATH.write_text(json.dumps(candidate, ensure_ascii=False, indent=2), encoding='utf-8')
-              return True
-
-          def comment_identity(comment):
-              return str(comment.get('id') or comment.get('url') or '')
-
-          def normalize_event_comment(comment):
-              user = comment.get('user') or comment.get('author') or {}
-              reactions = comment.get('reactions') or {}
-              node_id = comment.get('node_id') or comment.get('id')
-              html_url = comment.get('html_url') or comment.get('url')
-              return {
-                  'id': str(node_id) if node_id is not None else html_url,
-                  'bodyText': comment.get('body_text') or comment.get('body') or '',
-                  'createdAt': comment.get('created_at') or comment.get('createdAt'),
-                  'updatedAt': comment.get('updated_at') or comment.get('updatedAt'),
-                  'url': html_url,
-                  'reactionCount': reactions.get('total_count', reactions.get('totalCount', 0)) or 0,
-                  'author': {
-                      'login': user.get('login') or 'GitHub User',
-                      'avatarUrl': user.get('avatar_url') or user.get('avatarUrl'),
-                      'url': user.get('html_url') or user.get('url'),
-                  },
-              }
-
-          def normalize_graphql_comment(comment):
-              author = comment.get('author') or {}
-              return {
-                  'id': comment.get('id'),
-                  'bodyText': comment.get('bodyText') or '',
-                  'createdAt': comment.get('createdAt'),
-                  'updatedAt': comment.get('updatedAt'),
-                  'url': comment.get('url'),
-                  'reactionCount': (comment.get('reactions') or {}).get('totalCount', 0),
-                  'author': {
-                      'login': author.get('login') or 'GitHub User',
-                      'avatarUrl': author.get('avatarUrl'),
-                      'url': author.get('url'),
-                  },
-              }
-
-          def fetch_remote_snapshot():
-              query = '''
-              query HomeGuestbook($owner: String!, $repo: String!, $number: Int!) {
-                repository(owner: $owner, name: $repo) {
-                  discussion(number: $number) {
-                    number
-                    title
-                    url
-                    comments(last: 30) {
-                      totalCount
-                      nodes {
-                        id
-                        bodyText
-                        createdAt
-                        updatedAt
-                        url
-                        author { login avatarUrl url }
-                        reactions { totalCount }
-                      }
-                    }
-                  }
-                }
-              }
-              '''
-              request = urllib.request.Request(
-                  'https://api.github.com/graphql',
-                  data=json.dumps({
-                      'query': query,
-                      'variables': {'owner': OWNER, 'repo': REPO, 'number': DISCUSSION_NUMBER},
-                  }).encode('utf-8'),
-                  headers={
-                      'Authorization': f"Bearer {os.environ['GH_TOKEN']}",
-                      'Accept': 'application/vnd.github+json',
-                      'Content-Type': 'application/json',
-                      'X-GitHub-Api-Version': '2022-11-28',
-                  },
-                  method='POST',
-              )
-              with urllib.request.urlopen(request, timeout=25) as response:
-                  payload = json.load(response)
-              if payload.get('errors'):
-                  raise RuntimeError(payload['errors'])
-              discussion = payload['data']['repository']['discussion']
-              comments = [normalize_graphql_comment(item) for item in reversed(discussion['comments']['nodes'] or [])]
-              return {
-                  'available': True,
-                  'discussionNumber': discussion['number'],
-                  'discussionTitle': discussion['title'],
-                  'discussionUrl': discussion['url'],
-                  'totalCount': discussion['comments']['totalCount'],
-                  'comments': comments,
-              }
-
-          def sort_comments(comments):
-              return sorted(comments, key=lambda item: item.get('createdAt') or '', reverse=True)
-
-          existing = load_snapshot()
-          event_name = os.environ.get('EVENT_NAME', '')
-          event_action = os.environ.get('EVENT_ACTION', '')
-
-          if event_name == 'discussion_comment':
+          old = load()
+          if os.environ.get('EVENT_NAME') == 'discussion_comment':
               event = json.loads(Path(os.environ['EVENT_PATH']).read_text(encoding='utf-8'))
-              discussion = event.get('discussion') or {}
-              if int(discussion.get('number') or 0) != DISCUSSION_NUMBER:
-                  print('Ignoring a comment from another discussion.')
-                  raise SystemExit(0)
-
-              raw_comment = event.get('comment') or {}
-              if raw_comment.get('parent_id') is not None:
-                  print('Reply event does not change the top-level homepage list.')
-                  raise SystemExit(0)
-
-              normalized = normalize_event_comment(raw_comment)
-              target_id = comment_identity(normalized)
-              comments = list(existing.get('comments') or [])
-              current_total = max(0, int(existing.get('totalCount') or 0))
-
-              if event_action == 'created':
-                  comments = [normalized] + [item for item in comments if comment_identity(item) != target_id]
-                  current_total += 1
-              elif event_action == 'edited':
-                  replaced = False
-                  updated = []
-                  for item in comments:
-                      if comment_identity(item) == target_id:
-                          updated.append(normalized)
-                          replaced = True
-                      else:
-                          updated.append(item)
-                  comments = updated if replaced else [normalized] + comments
-              elif event_action == 'deleted':
-                  comments = [item for item in comments if comment_identity(item) != target_id]
-                  current_total = max(0, current_total - 1)
-              else:
-                  print(f'Unsupported action: {event_action}')
-                  raise SystemExit(0)
-
-              candidate = dict(existing)
-              candidate.update({
-                  'available': True,
-                  'discussionNumber': DISCUSSION_NUMBER,
-                  'discussionTitle': discussion.get('title') or existing.get('discussionTitle') or 'blogs-of-bluhuang/guestbook/',
-                  'discussionUrl': discussion.get('html_url') or discussion.get('url') or DISCUSSION_URL,
-                  'totalCount': max(current_total, len(comments)),
-                  'comments': sort_comments(comments)[:12],
-              })
-              write_if_changed(existing, candidate)
+              discussion, raw = event.get('discussion') or {}, event.get('comment') or {}
+              if int(discussion.get('number') or 0) != NUMBER or raw.get('parent_id') is not None: raise SystemExit(0)
+              item, action = event_comment(raw), os.environ.get('EVENT_ACTION')
+              key, comments = identity(item), list(old.get('comments') or [])
+              total = max(0, int(old.get('totalCount') or 0))
+              if action == 'created':
+                  comments = [item] + [c for c in comments if identity(c) != key]
+                  total += 1
+              elif action == 'edited':
+                  found = any(identity(c) == key for c in comments)
+                  comments = [item if identity(c) == key else c for c in comments]
+                  if not found: comments.insert(0, item)
+              elif action == 'deleted':
+                  comments = [c for c in comments if identity(c) != key]
+                  total = max(0, total - 1)
+              else: raise SystemExit(0)
+              new = dict(old)
+              new.update({'available': True, 'discussionNumber': NUMBER, 'discussionTitle': discussion.get('title') or old.get('discussionTitle'), 'discussionUrl': discussion.get('html_url') or URL, 'totalCount': max(total, len(comments)), 'comments': ordered(comments)[:12]})
           else:
-              remote = fetch_remote_snapshot()
-              existing_comments = list(existing.get('comments') or [])
-              remote_comments = list(remote.get('comments') or [])
-              remote_by_id = {comment_identity(item): item for item in remote_comments}
-
-              merged = []
-              seen = set()
-              for item in remote_comments:
-                  key = comment_identity(item)
+              remote = fetch_remote()
+              merged, seen = [], set()
+              for item in list(remote.get('comments') or []) + list(old.get('comments') or []):
+                  key = identity(item)
                   if key and key not in seen:
-                      merged.append(item)
-                      seen.add(key)
-              for item in existing_comments:
-                  key = comment_identity(item)
-                  if key and key not in seen:
-                      merged.append(item)
-                      seen.add(key)
-
-              candidate = dict(existing)
-              candidate.update({
-                  'available': True,
-                  'discussionNumber': remote.get('discussionNumber', DISCUSSION_NUMBER),
-                  'discussionTitle': remote.get('discussionTitle') or existing.get('discussionTitle'),
-                  'discussionUrl': remote.get('discussionUrl') or DISCUSSION_URL,
-                  'totalCount': max(
-                      int(existing.get('totalCount') or 0),
-                      int(remote.get('totalCount') or 0),
-                      len(merged),
-                  ),
-                  'comments': sort_comments(merged)[:12],
-              })
-              write_if_changed(existing, candidate)
+                      merged.append(item); seen.add(key)
+              new = dict(old)
+              new.update({'available': True, 'discussionNumber': NUMBER, 'discussionTitle': remote.get('discussionTitle') or old.get('discussionTitle'), 'discussionUrl': remote.get('discussionUrl') or URL, 'totalCount': max(int(old.get('totalCount') or 0), int(remote.get('totalCount') or 0), len(merged)), 'comments': ordered(merged)[:12]})
+          save(old, new)
           PY
-
-      - name: Commit refreshed snapshot
+      - name: Commit snapshot
         run: |
           git config user.name 'Guestbook Sync'
           git config user.email 'actions@users.noreply.github.com'
           git add data/home-guestbook.json
-          if git diff --cached --quiet; then
-            echo 'Guestbook snapshot is already current.'
-            exit 0
-          fi
+          git diff --cached --quiet && exit 0
           git commit -m 'Sync homepage guestbook [skip ci]'
           for attempt in 1 2 3; do
-            if git push origin gh-pages; then
-              exit 0
-            fi
-            echo "Push attempt ${attempt} failed; rebasing and retrying."
+            git push origin gh-pages && exit 0
             git pull --rebase origin gh-pages
           done
-          echo 'Unable to push guestbook snapshot after retries.' >&2
           exit 1
