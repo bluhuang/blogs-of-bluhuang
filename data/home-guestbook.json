@@ -1,0 +1,36 @@
+{
+  "available": true,
+  "discussionNumber": 2,
+  "discussionTitle": "blogs-of-bluhuang/guestbook/",
+  "discussionUrl": "https://github.com/bluhuang/blogs-of-bluhuang/discussions/2",
+  "totalCount": 2,
+  "comments": [
+    {
+      "id": "DC_kwDOStnEPs4BCxYM",
+      "bodyText": "很棒！",
+      "createdAt": "2026-07-02T01:26:59Z",
+      "updatedAt": "2026-07-02T01:26:59Z",
+      "url": "https://github.com/bluhuang/blogs-of-bluhuang/discussions/2#discussioncomment-17503756",
+      "reactionCount": 0,
+      "author": {
+        "login": "Josuach",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/52542659?v=4",
+        "url": "https://github.com/Josuach"
+      }
+    },
+    {
+      "id": "DC_kwDOStnEPs4BBukt",
+      "bodyText": "hi all",
+      "createdAt": "2026-06-09T01:29:38Z",
+      "updatedAt": "2026-06-09T01:29:38Z",
+      "url": "https://github.com/bluhuang/blogs-of-bluhuang/discussions/2#discussioncomment-17230125",
+      "reactionCount": 1,
+      "author": {
+        "login": "bluhuang",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/285915287?u=4bf7a5071e0aba2569178862e7ece46884065bc3&v=4",
+        "url": "https://github.com/bluhuang"
+      }
+    }
+  ],
+  "generatedAt": "2026-07-29T07:27:49.942848+00:00"
+}
