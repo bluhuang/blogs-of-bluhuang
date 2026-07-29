@@ -3,6 +3,8 @@ name: Sync Homepage Guestbook
 on:
   discussion_comment:
     types: [created, edited, deleted]
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,7 +17,7 @@ concurrency:
 
 jobs:
   sync:
-    if: github.event_name == 'workflow_dispatch' || github.event.discussion.number == 2
+    if: github.event_name != 'discussion_comment' || github.event.discussion.number == 2
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,7 +28,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Fetch Discussion 2 comments
+      - name: Fetch Discussion 2 comments and reactions
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
