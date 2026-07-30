@@ -3,21 +3,8 @@
   "discussionNumber": 2,
   "discussionTitle": "blogs-of-bluhuang/guestbook/",
   "discussionUrl": "https://github.com/bluhuang/blogs-of-bluhuang/discussions/2",
-  "totalCount": 4,
+  "totalCount": 3,
   "comments": [
-    {
-      "id": "DC_kwDOStnEPs4BECCv",
-      "bodyText": "test",
-      "createdAt": "2026-07-30T02:10:17Z",
-      "updatedAt": "2026-07-30T02:10:17Z",
-      "url": "https://github.com/bluhuang/blogs-of-bluhuang/discussions/2#discussioncomment-17834159",
-      "reactionCount": 0,
-      "author": {
-        "login": "bluhuang",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/285915287?v=4",
-        "url": "https://github.com/bluhuang"
-      }
-    },
     {
       "id": "DC_kwDOStnEPs4BD_t0",
       "bodyText": "我就是有趣的人:)",
@@ -58,5 +45,5 @@
       }
     }
   ],
-  "generatedAt": "2026-07-30T02:10:30.563885+00:00"
+  "generatedAt": "2026-07-30T02:10:42.649725+00:00"
 }
