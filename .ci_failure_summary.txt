@@ -1,7 +1,7 @@
-workflow_commit=c915ef55ff027c5f725c89206258d176ec18d4e0
-run_id=30545297650
+workflow_commit=5b417a35ee5e777c889703952b5fd899125dd150
+run_id=30546076785
 run_attempt=1
-created_at=2026-07-30T13:07:36Z
+created_at=2026-07-30T13:20:29Z
 
 ===== last 400 log lines =====
 Cloning into '.temp/source_repo'...
@@ -81,7 +81,6 @@ Updating files:  72% (347/481)
 Updating files:  73% (352/481)
 Updating files:  74% (356/481)
 Updating files:  75% (361/481)
-Updating files:  75% (362/481)
 Updating files:  76% (366/481)
 Updating files:  77% (371/481)
 Updating files:  78% (376/481)
@@ -234,7 +233,7 @@ Processing: AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bot
   [image] copied: mobilenetv2_compute_breakdown_3d.png
   [content] protected 240 structured span(s)
   DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 17598 chars (finish_reason: stop)
+  DeepSeek API returned 17681 chars (finish_reason: stop)
   [content] restored 240 structured span(s)
   -> wrote content/AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
 Processing: AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md ...
@@ -257,9 +256,119 @@ OK
   [image] copied: gan_denoising_loss_roles_3d.png
   [content] protected 299 structured span(s)
   DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 17839 chars (finish_reason: stop)
+  DeepSeek API returned 17710 chars (finish_reason: stop)
   [content] restored 299 structured span(s)
   -> wrote content/AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md
 Processing: AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md ...
-ERROR: Failed to process AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md, aborting.
-FATAL: Content processing failed: LaTeX lint failed: line 695: "bmatrix" row separator must be double backslash \\ (found: "R'\\"); line 696: "bmatrix" row separator must be double backslash \\ (found: "G'\\"); line 701: "bmatrix" row separator must be double backslash \\ (found: 'm_{11}&m_{12}&m_{13}\\'); line 702: "bmatrix" row separator must be double backslash \\ (found: 'm_{21}&m_{22}&m_{23}\\'); line 706: "bmatrix" row separator must be double backslash \\ (found: 'R\\'); line 707: "bmatrix" row separator must be double backslash \\ (found: 'G\\')
+  [content] protected 113 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 10330 chars (finish_reason: stop)
+  [content] restored 113 structured span(s)
+  -> wrote content/AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md
+Processing: AI/6 Model Training/5 YUV 色彩空间 Loss.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] remapped 1 Windows path(s) in code block 1
+  [section] executing python block 1/1 ...
+  [section] output: chments/rgb_to_yuv_space_3d.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/yuv_error_vectors_3d.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/yuv_loss_surface_3d.png
+  [section] excluded 1 section(s) from blog
+  [image] copied: rgb_to_yuv_space_3d.png
+  [image] copied: yuv_error_vectors_3d.png
+  [image] copied: yuv_loss_surface_3d.png
+  [content] protected 87 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6538 chars (finish_reason: stop)
+  [content] restored 87 structured span(s)
+  -> wrote content/AI/6 Model Training/5 YUV 色彩空间 Loss.md
+Processing: AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] remapped 1 Windows path(s) in code block 1
+  [section] executing python block 1/1 ...
+  [section] output: time_trajectory_3d.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/motion_alignment_residual.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/temporal_penalty_curves.png
+  [section] excluded 1 section(s) from blog
+  [image] copied: uv_temporal_signal.png
+  [image] copied: motion_alignment_residual.png
+  [image] copied: uv_time_trajectory_3d.png
+  [image] copied: temporal_penalty_curves.png
+  [content] protected 77 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 6029 chars (finish_reason: stop)
+  [content] restored 77 structured span(s)
+  -> wrote content/AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md
+Processing: AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] remapped 1 Windows path(s) in code block 1
+  [section] executing python block 1/1 ...
+  [section] output: bands.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/laplacian_blending_photo.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training/attachments/laplacian_detail_enhancement_photo.png
+OK
+  [section] excluded 1 section(s) from blog
+  [image] copied: laplacian_scale_progression_photo.png
+  [image] copied: laplacian_single_level_photo.png
+  [image] copied: laplacian_reconstruction_check_photo.png
+  [image] skipped (exists): laplacian_single_level_photo.png
+  [image] copied: laplacian_signed_residual_photo.png
+  [image] copied: laplacian_local_detail_crops_photo.png
+  [image] copied: laplacian_base_vs_residual_photo.png
+  [image] copied: laplacian_two_level_preview_photo.png
+  [image] copied: laplacian_aliasing_demo.png
+  [image] copied: laplacian_gaussian_pipeline_photo.png
+  [image] copied: laplacian_gaussian_pyramid_photo.png
+  [image] copied: laplacian_u_shape_overview.png
+  [image] copied: laplacian_level_extraction_photo.png
+  [image] copied: laplacian_band_details_photo.png
+  [image] copied: laplacian_pyramid_contents_photo.png
+  [image] skipped (exists): laplacian_u_shape_overview.png
+  [image] copied: laplacian_reconstruction_steps_photo.png
+  [image] copied: laplacian_frequency_bands.png
+  [image] copied: laplacian_blending_photo.png
+  [image] copied: laplacian_detail_enhancement_photo.png
+  [content] protected 228 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 17246 chars (finish_reason: stop)
+  [content] restored 228 structured span(s)
+  -> wrote content/AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md
+Deleted: content/AI/0 Paper/CV/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
+Deleted: content/AI/7 模型训练/5 YUV 色彩空间 Loss.md
+Deleted: content/AI/7 模型训练/6  UV 时域一致性 Loss、时域稳定性 Loss.md
+Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
+  Found 91 .md file(s)
+Updating front matter dates for 85 unchanged file(s) ...
+  Updated 85 file(s)
+  [section] created _index.md for AI/0 Paper/CNN-Net
+  [section] created _index.md for AI/0 Paper/GAN
+  [section] created _index.md for AI/4 DeepLearning
+  [section] created _index.md for AI/5 CV
+  [section] created _index.md for AI/6 Model Training
+  [section] created _index.md for Workflow and Tools
+  [section] created _index.md for Workflow and Tools/远程开发
+  [section] created _index.md for Workflow and Tools/skills
+Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
+  Found 91 .md file(s)
+Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
+  Found 91 .md file(s)
+Saved hash cache with 91 entries to .hash_cache.json
+Saved DeepSeek cache with 91 entries to .deepseek_cache.json
+Local vault not found; skipping personal image copy
+Processing complete.
+DeepSeek API calls: 6
+
+[3b/7] Generating navigation tree ...
+Wrote navigation tree (114 nodes) to static/navigation.json
+
+[3c/7] Exporting homepage guestbook ...
+Homepage guestbook snapshot: discussion #2, 3 recent / 3 total
+
+[4/7] Building Hugo site ...
+Building Hugo site (hugo --minify) ...
+FATAL: Hugo build failed: Hugo build failed with exit code 1.
+STDERR: ERROR Unable to render math at "/home/runner/work/auto-blog-poster/auto-blog-poster/content/AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md:486:1": template: _markup/render-passthrough.html:2:23: executing "_markup/render-passthrough.html" at <transform.ToMath>: error calling ToMath: KaTeX parse error: Undefined control sequence: \0 at position 61: …i,j\text{ 均为偶数}\̲0̲,&\text{其他位置}\e…
+ERROR error building site: logged 1 error(s)
+STDOUT (tail): Start building sites … 
+hugo v0.162.1-bba860e3eda3091efe8c6d1a96bc49a29ad2d5f6+extended linux/amd64 BuildDate=2026-05-28T17:40:44Z VendorInfo=gohugoio
+
+Total in 4194 ms
