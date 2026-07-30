@@ -324,6 +324,10 @@
     ]
   },
   {
+    "title": "blogs",
+    "url": "/blogs/"
+  },
+  {
     "title": "coding",
     "url": "/coding/",
     "children": [
@@ -444,6 +448,10 @@
         ]
       }
     ]
+  },
+  {
+    "title": "RAG",
+    "url": "/RAG/"
   },
   {
     "title": "Workflow and Tools",
