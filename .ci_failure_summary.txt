@@ -1,7 +1,7 @@
-workflow_commit=e7308f6a3b37e245d79a73fe199c8060e3dbfd7a
-run_id=30543880740
+workflow_commit=c915ef55ff027c5f725c89206258d176ec18d4e0
+run_id=30545297650
 run_attempt=1
-created_at=2026-07-30T12:49:23Z
+created_at=2026-07-30T13:07:36Z
 
 ===== last 400 log lines =====
 Cloning into '.temp/source_repo'...
@@ -81,6 +81,7 @@ Updating files:  72% (347/481)
 Updating files:  73% (352/481)
 Updating files:  74% (356/481)
 Updating files:  75% (361/481)
+Updating files:  75% (362/481)
 Updating files:  76% (366/481)
 Updating files:  77% (371/481)
 Updating files:  78% (376/481)
@@ -134,6 +135,51 @@ Restoring cache from bluhuang/blogs-of-bluhuang@processed-cache ...
   restored .file_times.json
 Cache restore complete.
 
+[2b/7] Detecting cache-preserving note moves ...
+  [rename] preserved cache: AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md -> AI/5 CV/14 ISP补充： 完整ISP Pipeline.md
+  [rename] preserved cache: AI/4 深度学习/2.2 多通道卷积.md -> AI/4 DeepLearning/2.2 多通道卷积.md
+  [rename] preserved cache: AI/5 ISP与图像处理/11 ISP 中的 3A 算法：AE、AWB、AF.md -> AI/5 CV/11 ISP 中的 3A 算法：AE、AWB、AF.md
+  [rename] preserved cache: AI/4 深度学习/2.5 从卷积层到完整去噪网络.md -> AI/4 DeepLearning/2.5 从卷积层到完整去噪网络.md
+  [rename] preserved cache: AI/5 ISP与图像处理/17 频域降噪.md -> AI/5 CV/17 频域降噪.md
+  [rename] preserved cache: AI/5 ISP与图像处理/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md -> AI/5 CV/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md
+  [rename] preserved cache: z_mixed/远程开发/tmux 使用指南.md -> Workflow and Tools/远程开发/tmux 使用指南.md
+  [rename] preserved cache: AI/5 ISP与图像处理/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md -> AI/5 CV/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md
+  [rename] preserved cache: AI/4 深度学习/1.3 深度学习中的核心循环.md -> AI/4 DeepLearning/1.3 深度学习中的核心循环.md
+  [rename] preserved cache: z_mixed/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md -> Workflow and Tools/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md
+  [rename] preserved cache: AI/0 Paper/CV/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md -> AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md
+  [rename] preserved cache: AI/5 ISP与图像处理/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md -> AI/5 CV/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md
+  [rename] preserved cache: AI/6 AI去噪/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md -> AI/6 Model Training/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md
+  [rename] preserved cache: AI/4 深度学习/1.2 反向传播原理详解.md -> AI/4 DeepLearning/1.2 反向传播原理详解.md
+  [rename] preserved cache: AI/5 ISP与图像处理/5 ISP 图像信号处理器（Image Signal Processor）.md -> AI/5 CV/5 ISP 图像信号处理器（Image Signal Processor）.md
+  [rename] preserved cache: AI/5 ISP与图像处理/4 YUV 色彩空间：亮度和颜色的分离.md -> AI/5 CV/4 YUV 色彩空间：亮度和颜色的分离.md
+  [rename] preserved cache: AI/5 ISP与图像处理/7 BLC（Black Level Correction，黑电平校正）.md -> AI/5 CV/7 BLC（Black Level Correction，黑电平校正）.md
+  [rename] preserved cache: AI/5 ISP与图像处理/3 Gamma 校正与逆 Gamma.md -> AI/5 CV/3 Gamma 校正与逆 Gamma.md
+  [rename] preserved cache: z_mixed/远程开发/Tailscale 连接指南与使用详解.md -> Workflow and Tools/远程开发/Tailscale 连接指南与使用详解.md
+  [rename] preserved cache: AI/4 深度学习/1.1 深度学习循环原理.md -> AI/4 DeepLearning/1.1 深度学习循环原理.md
+  [rename] preserved cache: AI/4 深度学习/1.4 梯度与梯度下降.md -> AI/4 DeepLearning/1.4 梯度与梯度下降.md
+  [rename] preserved cache: AI/5 ISP与图像处理/16 空域降噪.md -> AI/5 CV/16 空域降噪.md
+  [rename] preserved cache: z_mixed/远程开发/Xcode 无线安装与远程调试完全指南.md -> Workflow and Tools/远程开发/Xcode 无线安装与远程调试完全指南.md
+  [rename] preserved cache: AI/5 ISP与图像处理/1 噪声的原理 —— 从物理源头到AI建模.md -> AI/5 CV/1 噪声的原理 —— 从物理源头到AI建模.md
+  [rename] preserved cache: AI/5 ISP与图像处理/13 Sensor基础.md -> AI/5 CV/13 Sensor基础.md
+  [rename] preserved cache: AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md -> AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md
+  [rename] preserved cache: z_mixed/远程开发/iOS 远程 Mac 开发环境搭建指南.md -> Workflow and Tools/远程开发/iOS 远程 Mac 开发环境搭建指南.md
+  [rename] preserved cache: z_mixed/skills/GPT连接Github - 授权不代表真连接.md -> Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md
+  [rename] preserved cache: AI/5 ISP与图像处理/18 时域降噪.md -> AI/5 CV/18 时域降噪.md
+  [rename] preserved cache: AI/0 Paper/CV/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md -> AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md
+  [rename] preserved cache: AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md -> AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md
+  [rename] preserved cache: AI/4 深度学习/2.1 卷积与CNN基础.md -> AI/4 DeepLearning/2.1 卷积与CNN基础.md
+  [rename] preserved cache: AI/5 ISP与图像处理/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md -> AI/5 CV/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md
+  [rename] preserved cache: z_mixed/远程开发/mac远程安装开发好的ios app实践 - SideStore.md -> Workflow and Tools/远程开发/mac远程安装开发好的ios app实践 - SideStore.md
+  [rename] preserved cache: AI/7 模型训练/3 学习率调度（Learning Rate Scheduling）.md -> AI/6 Model Training/3 学习率调度（Learning Rate Scheduling）.md
+  [rename] preserved cache: AI/4 深度学习/2.3 Bayer RAW图像的特殊处理.md -> AI/4 DeepLearning/2.3 Bayer RAW图像的特殊处理.md
+  [rename] preserved cache: AI/7 模型训练/2 SSIM（结构相似性指标）.md -> AI/6 Model Training/2 SSIM（结构相似性指标）.md
+  [rename] preserved cache: AI/5 ISP与图像处理/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md -> AI/5 CV/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md
+  [rename] preserved cache: AI/4 深度学习/2.4 感受野.md -> AI/4 DeepLearning/2.4 感受野.md
+  [rename] preserved cache: AI/4 深度学习/2.6 CNN中的其他常见操作.md -> AI/4 DeepLearning/2.6 CNN中的其他常见操作.md
+  [rename] preserved cache: AI/7 模型训练/1 模型训练全景.md -> AI/6 Model Training/1 模型训练全景.md
+  [rename] preserved cache: AI/7 模型训练/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md -> AI/6 Model Training/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md
+Preserved generated content for 42 renamed note(s).
+
 [3/7] Processing notes (incremental) ...
 Generating .file_times.json from git log (repo: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo) ...
   Wrote 16 entries to .file_times.json
@@ -141,125 +187,17 @@ Loaded DeepSeek cache with 88 entries from .deepseek_cache.json
 Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
   Found 91 .md file(s)
 Loaded hash cache with 88 entries from .hash_cache.json
-Files to process (48):
-  + AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md
-  + AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md
-  + AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md
+Files to process (6):
   + AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
   + AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md
-  + AI/4 DeepLearning/1.1 深度学习循环原理.md
-  + AI/4 DeepLearning/1.2 反向传播原理详解.md
-  + AI/4 DeepLearning/1.3 深度学习中的核心循环.md
-  + AI/4 DeepLearning/1.4 梯度与梯度下降.md
-  + AI/4 DeepLearning/2.1 卷积与CNN基础.md
-  + AI/4 DeepLearning/2.2 多通道卷积.md
-  + AI/4 DeepLearning/2.3 Bayer RAW图像的特殊处理.md
-  + AI/4 DeepLearning/2.4 感受野.md
-  + AI/4 DeepLearning/2.5 从卷积层到完整去噪网络.md
-  + AI/4 DeepLearning/2.6 CNN中的其他常见操作.md
-  + AI/5 CV/1 噪声的原理 —— 从物理源头到AI建模.md
-  + AI/5 CV/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md
-  + AI/5 CV/11 ISP 中的 3A 算法：AE、AWB、AF.md
-  + AI/5 CV/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md
-  + AI/5 CV/13 Sensor基础.md
-  + AI/5 CV/14 ISP补充： 完整ISP Pipeline.md
   + AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md
-  + AI/5 CV/16 空域降噪.md
-  + AI/5 CV/17 频域降噪.md
-  + AI/5 CV/18 时域降噪.md
-  + AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md
-  + AI/5 CV/3 Gamma 校正与逆 Gamma.md
-  + AI/5 CV/4 YUV 色彩空间：亮度和颜色的分离.md
-  + AI/5 CV/5 ISP 图像信号处理器（Image Signal Processor）.md
-  + AI/5 CV/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md
-  + AI/5 CV/7 BLC（Black Level Correction，黑电平校正）.md
-  + AI/5 CV/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md
-  + AI/5 CV/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md
-  + AI/6 Model Training/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md
-  + AI/6 Model Training/1 模型训练全景.md
-  + AI/6 Model Training/2 SSIM（结构相似性指标）.md
-  + AI/6 Model Training/3 学习率调度（Learning Rate Scheduling）.md
-  + AI/6 Model Training/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md
   + AI/6 Model Training/5 YUV 色彩空间 Loss.md
   + AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md
   + AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md
-  + Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md
-  + Workflow and Tools/远程开发/Tailscale 连接指南与使用详解.md
-  + Workflow and Tools/远程开发/Xcode 无线安装与远程调试完全指南.md
-  + Workflow and Tools/远程开发/iOS 远程 Mac 开发环境搭建指南.md
-  + Workflow and Tools/远程开发/mac远程安装开发好的ios app实践 - SideStore.md
-  + Workflow and Tools/远程开发/tmux 使用指南.md
-  + Workflow and Tools/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md
-Files to delete (45):
-  - AI/0 Paper/CV/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md
-  - AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md
-  - AI/0 Paper/CV/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md
+Files to delete (3):
   - AI/0 Paper/CV/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
-  - AI/4 深度学习/1.1 深度学习循环原理.md
-  - AI/4 深度学习/1.2 反向传播原理详解.md
-  - AI/4 深度学习/1.3 深度学习中的核心循环.md
-  - AI/4 深度学习/1.4 梯度与梯度下降.md
-  - AI/4 深度学习/2.1 卷积与CNN基础.md
-  - AI/4 深度学习/2.2 多通道卷积.md
-  - AI/4 深度学习/2.3 Bayer RAW图像的特殊处理.md
-  - AI/4 深度学习/2.4 感受野.md
-  - AI/4 深度学习/2.5 从卷积层到完整去噪网络.md
-  - AI/4 深度学习/2.6 CNN中的其他常见操作.md
-  - AI/5 ISP与图像处理/1 噪声的原理 —— 从物理源头到AI建模.md
-  - AI/5 ISP与图像处理/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md
-  - AI/5 ISP与图像处理/11 ISP 中的 3A 算法：AE、AWB、AF.md
-  - AI/5 ISP与图像处理/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md
-  - AI/5 ISP与图像处理/13 Sensor基础.md
-  - AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md
-  - AI/5 ISP与图像处理/16 空域降噪.md
-  - AI/5 ISP与图像处理/17 频域降噪.md
-  - AI/5 ISP与图像处理/18 时域降噪.md
-  - AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md
-  - AI/5 ISP与图像处理/3 Gamma 校正与逆 Gamma.md
-  - AI/5 ISP与图像处理/4 YUV 色彩空间：亮度和颜色的分离.md
-  - AI/5 ISP与图像处理/5 ISP 图像信号处理器（Image Signal Processor）.md
-  - AI/5 ISP与图像处理/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md
-  - AI/5 ISP与图像处理/7 BLC（Black Level Correction，黑电平校正）.md
-  - AI/5 ISP与图像处理/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md
-  - AI/5 ISP与图像处理/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md
-  - AI/6 AI去噪/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md
-  - AI/7 模型训练/1 模型训练全景.md
-  - AI/7 模型训练/2 SSIM（结构相似性指标）.md
-  - AI/7 模型训练/3 学习率调度（Learning Rate Scheduling）.md
-  - AI/7 模型训练/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md
   - AI/7 模型训练/5 YUV 色彩空间 Loss.md
   - AI/7 模型训练/6  UV 时域一致性 Loss、时域稳定性 Loss.md
-  - z_mixed/skills/GPT连接Github - 授权不代表真连接.md
-  - z_mixed/远程开发/Tailscale 连接指南与使用详解.md
-  - z_mixed/远程开发/Xcode 无线安装与远程调试完全指南.md
-  - z_mixed/远程开发/iOS 远程 Mac 开发环境搭建指南.md
-  - z_mixed/远程开发/mac远程安装开发好的ios app实践 - SideStore.md
-  - z_mixed/远程开发/tmux 使用指南.md
-  - z_mixed/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md
-Processing: AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md ...
-  [image] copied: DnCNN_Fig1_architecture.png
-  [image] copied: DnCNN_Fig4_visual_comparison.png
-  [image] copied: DnCNN_Fig5_visual_comparison.png
-  [image] copied: DnCNN_Fig6_color_denoise_1.png
-  [image] copied: DnCNN_Fig7_color_denoise_2.png
-  [image] copied: DnCNN_Fig8_real_image_denoise.png
-  [content] protected 49 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 16669 chars (finish_reason: stop)
-  [content] restored 49 structured span(s)
-  -> wrote content/AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md
-Processing: AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md ...
-  [content] protected 82 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 9157 chars (finish_reason: stop)
-  [content] restored 82 structured span(s)
-  -> wrote content/AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md
-Processing: AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md ...
-  [content] protected 79 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 12561 chars (finish_reason: stop)
-  [content] restored 79 structured span(s)
-  -> wrote content/AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md
 Processing: AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md ...
   [section] matched rule matplotlib_code: TAG: Matplot code
   [section] remapped 1 Windows path(s) in code block 1
@@ -296,17 +234,32 @@ Processing: AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bot
   [image] copied: mobilenetv2_compute_breakdown_3d.png
   [content] protected 240 structured span(s)
   DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 17681 chars (finish_reason: stop)
+  DeepSeek API returned 17598 chars (finish_reason: stop)
   [content] restored 240 structured span(s)
   -> wrote content/AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
 Processing: AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md ...
   [section] matched rule matplotlib_code: TAG: Matplot code
   [section] remapped 1 Windows path(s) in code block 1
   [section] executing python block 1/1 ...
-  [section] output: gan_distribution_matching_3d.png
-/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/CV/attachments/gan_failure_modes_3d.png
-/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/CV/attachments/gan_denoising_loss_roles_3d.png
+  [section] output: n_distribution_matching_3d.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/GAN/attachments/gan_failure_modes_3d.png
+/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/GAN/attachments/gan_denoising_loss_roles_3d.png
 OK
   [section] excluded 1 section(s) from blog
-ERROR: Failed to process AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md, aborting.
-FATAL: Content processing failed: Missing Obsidian image at /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md:64: attachments/gan_problem_space_3d.png
+  [image] copied: gan_problem_space_3d.png
+  [image] copied: gan_closed_loop_3d.png
+  [image] copied: gan_minimax_objective_3d.png
+  [image] copied: gan_alternating_training_3d.png
+  [image] copied: gan_latent_mapping_3d.png
+  [image] copied: gan_generator_gradient_3d.png
+  [image] copied: gan_distribution_matching_3d.png
+  [image] copied: gan_failure_modes_3d.png
+  [image] copied: gan_denoising_loss_roles_3d.png
+  [content] protected 299 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 17839 chars (finish_reason: stop)
+  [content] restored 299 structured span(s)
+  -> wrote content/AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md
+Processing: AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md ...
+ERROR: Failed to process AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md, aborting.
+FATAL: Content processing failed: LaTeX lint failed: line 695: "bmatrix" row separator must be double backslash \\ (found: "R'\\"); line 696: "bmatrix" row separator must be double backslash \\ (found: "G'\\"); line 701: "bmatrix" row separator must be double backslash \\ (found: 'm_{11}&m_{12}&m_{13}\\'); line 702: "bmatrix" row separator must be double backslash \\ (found: 'm_{21}&m_{22}&m_{23}\\'); line 706: "bmatrix" row separator must be double backslash \\ (found: 'R\\'); line 707: "bmatrix" row separator must be double backslash \\ (found: 'G\\')
