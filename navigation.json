@@ -8,7 +8,7 @@
         "url": "/AI/",
         "children": [
           {
-            "title": "CV",
+            "title": "CNN-Net",
             "url": "/AI/",
             "children": [
               {
@@ -28,20 +28,20 @@
                 "url": "/AI/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/"
               }
             ]
-          }
-        ]
-      },
-      {
-        "title": "0 基础",
-        "url": "/AI/",
-        "children": [
+          },
           {
-            "title": "Agent",
+            "title": "CV",
             "url": "/AI/"
           },
           {
-            "title": "AI基础",
-            "url": "/AI/"
+            "title": "GAN",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1  GAN - Generative Adversarial Nets",
+                "url": "/AI/1-gan---generative-adversarial-nets/"
+              }
+            ]
           }
         ]
       },
@@ -94,10 +94,6 @@
             "url": "/AI/9-什么是-rag/"
           }
         ]
-      },
-      {
-        "title": "1 RAG",
-        "url": "/AI/"
       },
       {
         "title": "2 RAG",
@@ -160,7 +156,7 @@
         ]
       },
       {
-        "title": "4 深度学习",
+        "title": "4 DeepLearning",
         "url": "/AI/",
         "children": [
           {
@@ -206,7 +202,7 @@
         ]
       },
       {
-        "title": "5 ISP与图像处理",
+        "title": "5 CV",
         "url": "/AI/",
         "children": [
           {
@@ -232,6 +228,10 @@
           {
             "title": "14 ISP补充： 完整ISP Pipeline",
             "url": "/AI/14-isp补充-完整isp-pipeline/"
+          },
+          {
+            "title": "15 图像噪声分类、RAW 域降噪意义与图像噪声评价",
+            "url": "/AI/15-图像噪声分类raw-域降噪意义与图像噪声评价/"
           },
           {
             "title": "16 空域降噪",
@@ -280,19 +280,13 @@
         ]
       },
       {
-        "title": "6 AI去噪",
+        "title": "6 Model Training",
         "url": "/AI/",
         "children": [
           {
             "title": "1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制",
             "url": "/AI/1-iir-训练循环-多帧去噪的递归引擎记忆机制/"
-          }
-        ]
-      },
-      {
-        "title": "7 模型训练",
-        "url": "/AI/",
-        "children": [
+          },
           {
             "title": "1 模型训练全景",
             "url": "/AI/1-模型训练全景/"
@@ -316,14 +310,18 @@
           {
             "title": "6  UV 时域一致性 Loss、时域稳定性 Loss",
             "url": "/AI/6-uv-时域一致性-loss时域稳定性-loss/"
+          },
+          {
+            "title": "7 拉普拉斯金字塔  Laplacian Pyramid",
+            "url": "/AI/7-拉普拉斯金字塔-laplacian-pyramid/"
           }
         ]
+      },
+      {
+        "title": "7 模型训练",
+        "url": "/AI/"
       }
     ]
-  },
-  {
-    "title": "blogs",
-    "url": "/blogs/"
   },
   {
     "title": "coding",
@@ -448,70 +446,46 @@
     ]
   },
   {
-    "title": "RAG",
-    "url": "/RAG/"
-  },
-  {
-    "title": "z_efficiency",
-    "url": "/z_efficiency/",
+    "title": "Workflow and Tools",
+    "url": "/Workflow and Tools/",
     "children": [
-      {
-        "title": "prompt",
-        "url": "/z_efficiency/",
-        "children": [
-          {
-            "title": "user prompt",
-            "url": "/z_efficiency/"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "z_mixed",
-    "url": "/z_mixed/",
-    "children": [
-      {
-        "title": "mac",
-        "url": "/z_mixed/"
-      },
       {
         "title": "skills",
-        "url": "/z_mixed/",
+        "url": "/Workflow and Tools/",
         "children": [
           {
             "title": "GPT连接Github - 授权不代表真连接",
-            "url": "/z_mixed/gpt连接github---授权不代表真连接/"
+            "url": "/Workflow and Tools/gpt连接github---授权不代表真连接/"
           }
         ]
       },
       {
         "title": "远程开发",
-        "url": "/z_mixed/",
+        "url": "/Workflow and Tools/",
         "children": [
           {
             "title": "iOS 远程 Mac 开发环境搭建指南",
-            "url": "/z_mixed/ios-远程-mac-开发环境搭建指南/"
+            "url": "/Workflow and Tools/ios-远程-mac-开发环境搭建指南/"
           },
           {
             "title": "mac远程安装开发好的ios app实践 - SideStore",
-            "url": "/z_mixed/mac远程安装开发好的ios-app实践---sidestore/"
+            "url": "/Workflow and Tools/mac远程安装开发好的ios-app实践---sidestore/"
           },
           {
             "title": "Tailscale 连接指南与使用详解",
-            "url": "/z_mixed/tailscale-连接指南与使用详解/"
+            "url": "/Workflow and Tools/tailscale-连接指南与使用详解/"
           },
           {
             "title": "tmux 使用指南",
-            "url": "/z_mixed/tmux-使用指南/"
+            "url": "/Workflow and Tools/tmux-使用指南/"
           },
           {
             "title": "Xcode 无线安装与远程调试完全指南",
-            "url": "/z_mixed/xcode-无线安装与远程调试完全指南/"
+            "url": "/Workflow and Tools/xcode-无线安装与远程调试完全指南/"
           },
           {
             "title": "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用",
-            "url": "/z_mixed/从零配置-sidestore-wireguard实现远程无线安装-ios-应用/"
+            "url": "/Workflow and Tools/从零配置-sidestore-wireguard实现远程无线安装-ios-应用/"
           }
         ]
       }

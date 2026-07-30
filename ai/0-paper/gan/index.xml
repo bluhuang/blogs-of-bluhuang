@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GAN on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/gan/</link><description>Recent content in GAN on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Thu, 30 Jul 2026 20:08:42 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/gan/index.xml" rel="self" type="application/rss+xml"/><item><title>GAN - Generative Adversarial Nets</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/gan/1--gan---generative-adversarial-nets/</link><pubDate>Thu, 30 Jul 2026 20:08:42 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/gan/1--gan---generative-adversarial-nets/</guid><description>&lt;h1 id="gangenerative-adversarial-nets"&gt;GAN：Generative Adversarial Nets&lt;/h1&gt;
+
+&lt;h2 id="1-生成任务与-gan-的核心思路"&gt;1. 生成任务与 GAN 的核心思路&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;论文标题&lt;/strong&gt;：Generative Adversarial Nets&lt;br&gt;
+&lt;strong&gt;会议&lt;/strong&gt;：NIPS 2014&lt;br&gt;
+&lt;strong&gt;论文定位&lt;/strong&gt;：首次系统提出 GAN 框架，通过生成器与判别器之间的对抗训练学习真实数据分布。&lt;/p&gt;</description></item></channel></rss>
