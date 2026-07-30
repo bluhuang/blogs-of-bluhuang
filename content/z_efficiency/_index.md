@@ -1,3 +1,0 @@
----
-title: "z_efficiency"
----

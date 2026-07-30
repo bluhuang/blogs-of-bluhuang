@@ -1,15 +1,18 @@
 {
-  "AI/0 Paper/CV/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md": {
+  "AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md": {
     "hash": "a0e157cf6a4d957f3bcfb2d1d3334ff9fa3fef2f02f7601043e79469e2688a59"
   },
-  "AI/0 Paper/CV/2 ResNet - Deep Residual Learning for Image Recognition.md": {
+  "AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md": {
     "hash": "9195ed6abf064cc507c585b8d60612c3715c151be73416966f5517a8aeee0017"
   },
-  "AI/0 Paper/CV/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md": {
+  "AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md": {
     "hash": "5419ae267d586eb033770dd0b5d17ce08f55810f314ac0b8350f41812824a13c"
   },
-  "AI/0 Paper/CV/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md": {
-    "hash": "afe5ab65cec2f306ff86490e090f9ad7580a6b7fd7e9b74843d231f55ea493bf"
+  "AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md": {
+    "hash": "fb60036ceb48b15ca5389e14d131d3716cf511f918b78e9b1dadd323734b4d37"
+  },
+  "AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md": {
+    "hash": "8497e9a8e33b1e827cea282cd29cea5ab61e626d8ef8806012e1cfdc0dfd7e95"
   },
   "AI/1 LLM/1 LLM基础必知必会.md": {
     "hash": "be12ff1a5fd15f1f5823aff2d42fe17e0351e5b91f22867a8565500a4fee08b3"
@@ -80,107 +83,134 @@
   "AI/3 Agent/2 ReAct - Reasoning + Acting.md": {
     "hash": "bc8dccc8de49baac5bce9095b24dbc64e411bd2a290755bff79a405cee0e6f0c"
   },
-  "AI/4 深度学习/1.1 深度学习循环原理.md": {
+  "AI/4 DeepLearning/1.1 深度学习循环原理.md": {
     "hash": "6e12ecc834afc6c575efe318d2bd18651d1659eff0addb031ec0d164231ecaa3"
   },
-  "AI/4 深度学习/1.2 反向传播原理详解.md": {
+  "AI/4 DeepLearning/1.2 反向传播原理详解.md": {
     "hash": "5aaa10f877852ce331c262bba85bc4830097d96ab92c4afddae962348e1215c6"
   },
-  "AI/4 深度学习/1.3 深度学习中的核心循环.md": {
+  "AI/4 DeepLearning/1.3 深度学习中的核心循环.md": {
     "hash": "4ae1fa0233cae1ccb6df780c3619fec2efa67a61b510ec3d4303ec6a19911d1f"
   },
-  "AI/4 深度学习/1.4 梯度与梯度下降.md": {
+  "AI/4 DeepLearning/1.4 梯度与梯度下降.md": {
     "hash": "730153140b761b761c3b806253c2f5faa235eab200f2ae081125701fbdfe4f9e"
   },
-  "AI/4 深度学习/2.1 卷积与CNN基础.md": {
+  "AI/4 DeepLearning/2.1 卷积与CNN基础.md": {
     "hash": "cc549bfe2babb3cdb2eaf2d7a5abef958160d1a3fb11a7a55b92b6776f0d2310"
   },
-  "AI/4 深度学习/2.2 多通道卷积.md": {
+  "AI/4 DeepLearning/2.2 多通道卷积.md": {
     "hash": "337142c30a59ee79f26a0b07aea46a594bc6b9d0f2474a2f96e8837fc4c0df25"
   },
-  "AI/4 深度学习/2.3 Bayer RAW图像的特殊处理.md": {
+  "AI/4 DeepLearning/2.3 Bayer RAW图像的特殊处理.md": {
     "hash": "dfc17929341c4144038e7d108fcdb6e43a2de1aad7d1aa03165c48977595c68f"
   },
-  "AI/4 深度学习/2.4 感受野.md": {
+  "AI/4 DeepLearning/2.4 感受野.md": {
     "hash": "ea6ef57d517ac20367e03a21bdcad80f4283e693687615b1b07e386e63ef1196"
   },
-  "AI/4 深度学习/2.5 从卷积层到完整去噪网络.md": {
+  "AI/4 DeepLearning/2.5 从卷积层到完整去噪网络.md": {
     "hash": "3fad861dc69afc1b893427a18a59d74e9eee84ae8a49b33aa632f37f91e9729d"
   },
-  "AI/4 深度学习/2.6 CNN中的其他常见操作.md": {
+  "AI/4 DeepLearning/2.6 CNN中的其他常见操作.md": {
     "hash": "ee1187885c7e886788de6a7327d7c87d40c76f0adc067af594a15492c54c27e2"
   },
-  "AI/5 ISP与图像处理/1 噪声的原理 —— 从物理源头到AI建模.md": {
+  "AI/5 CV/1 噪声的原理 —— 从物理源头到AI建模.md": {
     "hash": "8663eae4a2e6f8d3076ba1225f679d14ef26e3a12e2e89736fb41b1722ad0bb4"
   },
-  "AI/5 ISP与图像处理/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md": {
+  "AI/5 CV/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md": {
     "hash": "cedbb492d7cea77bedaa5c832a93d3da3b0b8e7664cf48cf600ac4312e98f099"
   },
-  "AI/5 ISP与图像处理/11 ISP 中的 3A 算法：AE、AWB、AF.md": {
+  "AI/5 CV/11 ISP 中的 3A 算法：AE、AWB、AF.md": {
     "hash": "34181e8f161a03aca50f0bae7bc105f6c70583bd3961ae97892b01669ddcc749"
   },
-  "AI/5 ISP与图像处理/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md": {
+  "AI/5 CV/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md": {
     "hash": "47a9bf3f6290a48f6c6ff93ce1ce4bae043cfae7eb09f0c59e3a1aeea079f3c7"
   },
-  "AI/5 ISP与图像处理/13 Sensor基础.md": {
+  "AI/5 CV/13 Sensor基础.md": {
     "hash": "8d009e4427a4d86240e70aa973df133fc2366890432f23374ec86b721eb06c5e"
   },
-  "AI/5 ISP与图像处理/14 ISP补充： 完整ISP Pipeline.md": {
+  "AI/5 CV/14 ISP补充： 完整ISP Pipeline.md": {
     "hash": "1e47981a7c21e1205a82da441be807db8f101ccd6b02e19dbe7388de6e757baf"
   },
-  "AI/5 ISP与图像处理/16 空域降噪.md": {
+  "AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md": {
+    "hash": "be3ce3f9fbadf5b8c612da1f12eef7cce75e99dd154bd037ffeb0df42ce1cc17"
+  },
+  "AI/5 CV/16 空域降噪.md": {
     "hash": "783d0b4831f57d8b9ed048d193d2fe79370a5dba269ccec280a14c350d5f9858"
   },
-  "AI/5 ISP与图像处理/17 频域降噪.md": {
+  "AI/5 CV/17 频域降噪.md": {
     "hash": "3ff5a3e6754a821c4d607d28c5a7757918a88a55e8909dde202af5b99c49e32b"
   },
-  "AI/5 ISP与图像处理/18 时域降噪.md": {
+  "AI/5 CV/18 时域降噪.md": {
     "hash": "9edeec3e41e82615926cca13838aa987ada5d7084ac977172bacc371b2ea8f59"
   },
-  "AI/5 ISP与图像处理/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
+  "AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "c63f03b9fd3126522853b3111ca8290604b173ea84f0023a4114594672bc84e9"
   },
-  "AI/5 ISP与图像处理/3 Gamma 校正与逆 Gamma.md": {
+  "AI/5 CV/3 Gamma 校正与逆 Gamma.md": {
     "hash": "637740627fe800ec580131f28fbb8174e6afab02a8578a38d19b7829b0bef871"
   },
-  "AI/5 ISP与图像处理/4 YUV 色彩空间：亮度和颜色的分离.md": {
+  "AI/5 CV/4 YUV 色彩空间：亮度和颜色的分离.md": {
     "hash": "5cab3276a673cad9da2173d929f3deb07c7f6067564e33a4e4853dfb036b8df0"
   },
-  "AI/5 ISP与图像处理/5 ISP 图像信号处理器（Image Signal Processor）.md": {
+  "AI/5 CV/5 ISP 图像信号处理器（Image Signal Processor）.md": {
     "hash": "5b0283939c8bb16aebb2ab7cc3f9aeaada436e5f33bcb8a9400472905bd3f5fb"
   },
-  "AI/5 ISP与图像处理/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md": {
+  "AI/5 CV/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md": {
     "hash": "453d1700889a98556eb6eddcc70ad46af22739b8860b59f6a28f3547c38b1c02"
   },
-  "AI/5 ISP与图像处理/7 BLC（Black Level Correction，黑电平校正）.md": {
+  "AI/5 CV/7 BLC（Black Level Correction，黑电平校正）.md": {
     "hash": "61ee06481d9202384a4654e394fab429183d726555b03e92b9427da4a5d2fc78"
   },
-  "AI/5 ISP与图像处理/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md": {
+  "AI/5 CV/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md": {
     "hash": "54ee7f81b971bec5f2dcbf2ee6a4d67fcdf1a723d13d5f91cc46e1aedc4056f7"
   },
-  "AI/5 ISP与图像处理/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
+  "AI/5 CV/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
     "hash": "ea0801afb7d5a57f466bccb4223d588a2f02cc6e7414d0194e791a5cab7d2df0"
   },
-  "AI/6 AI去噪/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
+  "AI/6 Model Training/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
     "hash": "564282a53be0ae8330a0b601149f80a783d3a46abef84257b30d450e5347bac5"
   },
-  "AI/7 模型训练/1 模型训练全景.md": {
+  "AI/6 Model Training/1 模型训练全景.md": {
     "hash": "f28d610bc9ed68eeea5f6844e7e53abf6d74b65df1074db4ced029c74d6f3cbe"
   },
-  "AI/7 模型训练/2 SSIM（结构相似性指标）.md": {
+  "AI/6 Model Training/2 SSIM（结构相似性指标）.md": {
     "hash": "e131fb6b73631d7a92b8fd2c477474e4621fd8207cdbb8fc0f24b058c0187355"
   },
-  "AI/7 模型训练/3 学习率调度（Learning Rate Scheduling）.md": {
+  "AI/6 Model Training/3 学习率调度（Learning Rate Scheduling）.md": {
     "hash": "de50cfd4c4747ff1db66329cd31817e9d8188c9d17bd43812c0fc15559b3128c"
   },
-  "AI/7 模型训练/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
+  "AI/6 Model Training/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
     "hash": "f7d389db6e68c29b6e3da9c5e0893fb280f53c8f5413f21e94f7ba74e717f243"
   },
-  "AI/7 模型训练/5 YUV 色彩空间 Loss.md": {
-    "hash": "d7591ec7451a6f0f6fa45e9b105446074179eb4ec8172f1c0ff876bf12e99d5e"
+  "AI/6 Model Training/5 YUV 色彩空间 Loss.md": {
+    "hash": "ca6d5cc784dc7f79298f571204626990a9cee3f8650dec90a7abed7e4c6ed232"
   },
-  "AI/7 模型训练/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
-    "hash": "388499bdb53c09c9ecbe1c13779e6d869f9a6125a8371a0c763cc09a8ab5b9a7"
+  "AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
+    "hash": "0b4066d0d35befdbfc079d789885c1d0af83f5b6a995b13b0acd554c91a2c5d0"
+  },
+  "AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
+    "hash": "87ac63c943848559a15aaec9228ed848ca6602176fa3372cea38383e8341728e"
+  },
+  "Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md": {
+    "hash": "9e20f3e7feb5af595bdcaff65a3f68aada8b95f66815ada62e504a006374e9c9"
+  },
+  "Workflow and Tools/远程开发/Tailscale 连接指南与使用详解.md": {
+    "hash": "6ba6bb36aecac82cfb0c7f8c1c8b78d0ec277e8a0358eebce805e8a135151924"
+  },
+  "Workflow and Tools/远程开发/Xcode 无线安装与远程调试完全指南.md": {
+    "hash": "7b2301109b62733ed3de97df27b68069a5eea98cb8fee7ab76489209be00d213"
+  },
+  "Workflow and Tools/远程开发/iOS 远程 Mac 开发环境搭建指南.md": {
+    "hash": "93eec947e554bb97d9a7ca38ece8f68d0c9aee6232da9fd41b1d6e7cb920de5e"
+  },
+  "Workflow and Tools/远程开发/mac远程安装开发好的ios app实践 - SideStore.md": {
+    "hash": "d5e2f02b04103400c7d2c8d5c99bff246c48bcdd02d5b63644eadc0814032a03"
+  },
+  "Workflow and Tools/远程开发/tmux 使用指南.md": {
+    "hash": "478533174efe007728e7b9ce135e609eea4fb86385dd821b25bcc230fd33c377"
+  },
+  "Workflow and Tools/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
+    "hash": "5149aac82c0ca0a91ef54ef2052ad1ae7824602ad486490fa77f6178c86c99e1"
   },
   "coding/coding algorithm/0 必考排序.md": {
     "hash": "9c66713e2845189861c8c70908ad5e15f74d8ba732f3519881b671743a43a6a9"
@@ -241,26 +271,5 @@
   },
   "database/向量/HNSW索引学习笔记.md": {
     "hash": "18dd1a14f7b75904b073e7243aad1db83b00653d94bd81bbc7574bac0995a61e"
-  },
-  "z_mixed/skills/GPT连接Github - 授权不代表真连接.md": {
-    "hash": "9e20f3e7feb5af595bdcaff65a3f68aada8b95f66815ada62e504a006374e9c9"
-  },
-  "z_mixed/远程开发/Tailscale 连接指南与使用详解.md": {
-    "hash": "6ba6bb36aecac82cfb0c7f8c1c8b78d0ec277e8a0358eebce805e8a135151924"
-  },
-  "z_mixed/远程开发/Xcode 无线安装与远程调试完全指南.md": {
-    "hash": "7b2301109b62733ed3de97df27b68069a5eea98cb8fee7ab76489209be00d213"
-  },
-  "z_mixed/远程开发/iOS 远程 Mac 开发环境搭建指南.md": {
-    "hash": "93eec947e554bb97d9a7ca38ece8f68d0c9aee6232da9fd41b1d6e7cb920de5e"
-  },
-  "z_mixed/远程开发/mac远程安装开发好的ios app实践 - SideStore.md": {
-    "hash": "d5e2f02b04103400c7d2c8d5c99bff246c48bcdd02d5b63644eadc0814032a03"
-  },
-  "z_mixed/远程开发/tmux 使用指南.md": {
-    "hash": "478533174efe007728e7b9ce135e609eea4fb86385dd821b25bcc230fd33c377"
-  },
-  "z_mixed/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
-    "hash": "5149aac82c0ca0a91ef54ef2052ad1ae7824602ad486490fa77f6178c86c99e1"
   }
 }
