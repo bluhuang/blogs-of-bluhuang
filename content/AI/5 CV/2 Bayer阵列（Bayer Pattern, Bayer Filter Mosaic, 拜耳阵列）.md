@@ -3,7 +3,7 @@ title: "Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-27T12:13:57+0800
 ---
 
 **Bayer阵列（Bayer Pattern / Bayer Filter Mosaic）** 是数码相机、手机摄像头等几乎所有消费级图像传感器的**底层核心技术**。

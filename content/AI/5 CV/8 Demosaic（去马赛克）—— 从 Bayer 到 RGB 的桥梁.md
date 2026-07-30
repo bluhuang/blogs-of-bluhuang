@@ -3,7 +3,7 @@ title: "Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-01T16:40:55+0800
 ---
 
 > **前置知识**：前面了解了 Bayer 阵列（每个像素只记录 R/G/B 中的一种颜色）、Space-to-Depth 操作（把 Bayer 马赛克拆成 RGGB 4 个通道），以及 ISP 的整体流程。现在要讨论的问题是：**4 通道的 Bayer 数据，如何变成 3 通道的彩色 RGB 图像？**

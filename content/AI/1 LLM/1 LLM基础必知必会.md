@@ -4,7 +4,7 @@ image: "/images/AI/1%20LLM/IMG_4302.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-01T15:23:20+0800
 ---
 
 # LLM 学习笔记：核心概念与实践方法

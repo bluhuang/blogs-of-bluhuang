@@ -4,7 +4,7 @@ image: "/images/AI/2%20RAG/Pasted%20image%2020260527154928.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-01T15:23:20+0800
 ---
 
 ## 1 RAG 评估体系层级

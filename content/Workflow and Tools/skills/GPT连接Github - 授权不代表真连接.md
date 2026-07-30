@@ -3,7 +3,7 @@ title: "GPT连接Github - 授权不代表真连接"
 categories: ["Workflow and Tools"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-25T11:33:29+0800
 ---
 
 最近我想让 ChatGPT 读取自己的 GitHub 私有仓库，结果在连接过程中踩了一个非常隐蔽的坑。

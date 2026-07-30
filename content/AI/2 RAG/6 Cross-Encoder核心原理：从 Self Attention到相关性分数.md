@@ -3,7 +3,7 @@ title: "Cross-Encoder核心原理：从 Self Attention到相关性分数"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-02T13:04:44+0800
 ---
 
 ## 1. Cross‑Encoder 的核心定位

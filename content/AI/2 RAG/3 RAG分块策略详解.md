@@ -3,7 +3,7 @@ title: "RAG分块策略详解"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-01T15:23:20+0800
 ---
 
 # RAG 系统中的文本分块（Chunking）学习笔记

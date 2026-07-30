@@ -3,7 +3,7 @@ title: "mac远程安装开发好的ios app实践 - SideStore"
 categories: ["Workflow and Tools"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-06-16T10:31:22+0800
 ---
 
 # SideStore 无线远程安装方案（Packpack 开发实践）

@@ -3,7 +3,7 @@ title: "AWB（Auto White Balance，自动白平衡）—— 让白色在任何�
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-01T16:40:55+0800
 ---
 
 # AWB（自动白平衡）—— 让白色在任何光源下都是白色

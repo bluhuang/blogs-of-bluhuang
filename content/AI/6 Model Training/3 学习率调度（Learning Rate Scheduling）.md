@@ -3,7 +3,7 @@ title: "学习率调度（Learning Rate Scheduling）"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-07T09:12:07+0800
 ---
 
 > **前置知识**：**为什么训练过程中学习率不能固定不变？如何动态调整学习率以促进模型更好收敛？**

@@ -3,7 +3,7 @@ title: "IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-07T09:12:07+0800
 ---
 
 ## 1. 什么是 IIR？

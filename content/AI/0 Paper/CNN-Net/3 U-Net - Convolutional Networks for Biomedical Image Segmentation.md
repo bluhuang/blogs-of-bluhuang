@@ -3,7 +3,7 @@ title: "U-Net - Convolutional Networks for Biomedical Image Segmentation"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-25T11:33:29+0800
 ---
 
 # U-Net: Convolutional Networks for Biomedical Image Segmentation

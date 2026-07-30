@@ -3,7 +3,7 @@ title: "CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-01T16:40:55+0800
 ---
 
 > **前置知识**：了解了 Demosaic（Bayer→RGB）和 AWB（白平衡）的原理。现在要回答的问题是：**为什么经过 AWB 之后，颜色还不够“准”？CCM 是怎么用一个 3×3 矩阵把颜色校正到标准色彩空间的？**

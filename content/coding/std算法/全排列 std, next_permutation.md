@@ -3,7 +3,7 @@ title: "全排列 std, next_permutation"
 categories: ["coding"]
 author: "BluHuang"
 date: 2026-06-02T13:04:44+0800
-lastmod: 2026-06-02T13:04:44+0800
+lastmod: 2026-06-01T15:23:20+0800
 ---
 
 # 1 C++官方文档

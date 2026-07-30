@@ -3,7 +3,7 @@ title: "ISP 中的 3A 算法：AE、AWB、AF"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-27T12:13:57+0800
 ---
 
 ## 1. 什么是 3A 算法？

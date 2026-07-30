@@ -3,7 +3,7 @@ title: "SSIM（结构相似性指标）"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-07T09:12:07+0800
 ---
 
 # SSIM（结构相似性指标）

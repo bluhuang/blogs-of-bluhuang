@@ -3,7 +3,7 @@ title: "Embedding模型原理"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-04T09:42:47+0800
 ---
 
 ## 一、核心概念

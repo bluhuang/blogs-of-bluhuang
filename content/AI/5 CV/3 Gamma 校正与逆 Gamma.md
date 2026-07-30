@@ -3,7 +3,7 @@ title: "Gamma 校正与逆 Gamma"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-01T16:40:55+0800
 ---
 
 ## 1. 从“亮度”说起

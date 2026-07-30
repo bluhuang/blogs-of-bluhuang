@@ -3,7 +3,7 @@ title: "视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, �
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-07-11T16:37:39+0800
 ---
 
 ## 1. DVPP 是什么？

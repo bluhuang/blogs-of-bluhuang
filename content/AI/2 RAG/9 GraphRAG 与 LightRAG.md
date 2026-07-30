@@ -4,7 +4,7 @@ image: "/images/AI/2%20RAG/823575cb1d227b3f.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
-lastmod: 2026-06-16T10:31:22+0800
+lastmod: 2026-06-09T17:41:49+0800
 ---
 
 # GraphRAG与LightRAG
