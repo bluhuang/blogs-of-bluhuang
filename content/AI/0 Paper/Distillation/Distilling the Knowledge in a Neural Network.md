@@ -1,13 +1,12 @@
 ---
 title: "Distilling the Knowledge in a Neural Network"
-image: "/images/AI/0%20Paper/Distillation/attachments/distillation_temperature_softening_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-06T19:17:24+0800
-lastmod: 2026-08-18T17:30:47+0800
+lastmod: 2026-08-18T17:41:31+0800
 ---
 
-> 论文：*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。
+> 论文：Geoffrey Hinton、Oriol Vinyals、Jeff Dean，*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。
 
 ## 1. 为什么需要知识蒸馏
 
@@ -67,7 +66,7 @@ $$
 
 硬目标和软目标不是“错误与正确”的区别，而是信息密度不同：硬标签来自人工标注，负责指出任务定义下的正确答案；软目标来自教师，负责补充教师学到的类别相似性和不确定性。
 
-论文特别关注错误类别之间的相对概率。即使教师把正确类别预测为 $0.999$，其余类别的概率都很小，$10^{-3}$、$10^{-6}$ 和 $10^{-9}$ 仍然不是同一种判断。某类车被误判成货车的概率可能很低，但仍然会远高于被误判成胡萝卜的概率。这种相对关系反映教师怎样组织类别。
+论文特别关注错误类别之间的相对概率。即使教师把正确类别预测为 $0.999$，其余类别的概率都很小，$10^{-3}$、$10^{-6}$ 和 $10^{-9}$ 仍然不是同一种判断。BMW 被误判成垃圾车的概率可能很低，但仍然会远高于被误判成胡萝卜的概率。这种相对关系反映教师怎样组织类别。
 
 后来人们常把这类隐藏在非正确类别概率中的信息称为 **Dark Knowledge，暗知识**（不是论文公式中的新变量，而是对教师输出中类别关系信息的概括）。
 
@@ -285,8 +284,6 @@ $$
 \text{类别 2 比类别 3 更接近类别 1}
 $$
 
-![](/images/AI/0%20Paper/Distillation/attachments/distillation_temperature_softening_3d.png)
-
 所以，温度不是创造了新的知识。
 教师原本的 Logit：
 
@@ -325,9 +322,7 @@ $$
 
 > 暗知识是教师输出中错误类别之间的相对概率关系，它反映教师学到的类别相似性和决策结构。
 
-![](/images/AI/0%20Paper/Distillation/attachments/distillation_dark_knowledge_3d.png)
-
-例如，假设图片真实类别是某类汽车，教师可能输出：
+例如，假设图片真实类别是 BMW，教师可能输出：
 ```text
 BMW：0.55
 Audi：0.24
@@ -336,7 +331,7 @@ Truck：0.05
 Carrot：0.01
 ```
 
-硬标签只保留某类汽车，其他类别全部写成 0。
+硬标签只保留 BMW，其他类别全部写成 0。
 
 软目标却告诉学生：
 
