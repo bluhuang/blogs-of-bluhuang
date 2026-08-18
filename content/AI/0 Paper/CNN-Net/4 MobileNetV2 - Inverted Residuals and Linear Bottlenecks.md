@@ -4,7 +4,7 @@ image: "/images/AI/0%20Paper/CNN-Net/mobilenetv2_memory_hierarchy_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-08-06T23:05:43+0800
 ---
 
 ## 1. 论文信息与问题：端侧网络到底在优化什么

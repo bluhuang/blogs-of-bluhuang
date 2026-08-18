@@ -4,7 +4,7 @@ image: "/images/AI/6%20Model%20Training/uv_temporal_signal.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-08-06T23:05:43+0800
 ---
 
 ## 1. 为什么单帧去噪正确，视频仍然会闪烁

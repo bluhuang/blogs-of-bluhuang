@@ -2,7 +2,7 @@
 title: "1 卷积与CNN基础"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-07-30T20:08:42+0800
+date: 2026-08-06T19:17:24+0800
 lastmod: 2026-06-25T00:00:48+0800
 ---
 

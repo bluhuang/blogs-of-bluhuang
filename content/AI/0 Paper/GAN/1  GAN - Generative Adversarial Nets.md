@@ -4,7 +4,7 @@ image: "/images/AI/0%20Paper/GAN/attachments/gan_problem_space_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
-lastmod: 2026-07-30T20:08:42+0800
+lastmod: 2026-08-06T23:05:43+0800
 ---
 
 # GAN：Generative Adversarial Nets

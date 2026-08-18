@@ -9,10 +9,16 @@
     "hash": "5419ae267d586eb033770dd0b5d17ce08f55810f314ac0b8350f41812824a13c"
   },
   "AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md": {
-    "hash": "fb60036ceb48b15ca5389e14d131d3716cf511f918b78e9b1dadd323734b4d37"
+    "hash": "ca6b83b5377195858e1b4f45c35dbfe7035f33df70d7aa11b311882d18bb9d6d"
+  },
+  "AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md": {
+    "hash": "bc0f9e0521ca3605f63c082d66ca102d92e690223314a177971d087bf3e75b83"
+  },
+  "AI/0 Paper/Distillation/Distilling the Knowledge in a Neural Network.md": {
+    "hash": "d49d5c2529bd94e33fc8efcea7139f15ff0033b6c33fcb6c495b0e6029d4aeb1"
   },
   "AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md": {
-    "hash": "8497e9a8e33b1e827cea282cd29cea5ab61e626d8ef8806012e1cfdc0dfd7e95"
+    "hash": "1a597f30bd123774d45101a0f5e48ef45ffc5a60a8a720071424cbf5e764205a"
   },
   "AI/1 LLM/1 LLM基础必知必会.md": {
     "hash": "be12ff1a5fd15f1f5823aff2d42fe17e0351e5b91f22867a8565500a4fee08b3"
@@ -83,35 +89,38 @@
   "AI/3 Agent/2 ReAct - Reasoning + Acting.md": {
     "hash": "bc8dccc8de49baac5bce9095b24dbc64e411bd2a290755bff79a405cee0e6f0c"
   },
-  "AI/4 DeepLearning/1.1 深度学习循环原理.md": {
-    "hash": "6e12ecc834afc6c575efe318d2bd18651d1659eff0addb031ec0d164231ecaa3"
-  },
-  "AI/4 DeepLearning/1.2 反向传播原理详解.md": {
+  "AI/4 DeepLearning/基础/1 反向传播原理详解.md": {
     "hash": "5aaa10f877852ce331c262bba85bc4830097d96ab92c4afddae962348e1215c6"
   },
-  "AI/4 DeepLearning/1.3 深度学习中的核心循环.md": {
+  "AI/4 DeepLearning/基础/10 CNN中的其他常见操作.md": {
+    "hash": "ee1187885c7e886788de6a7327d7c87d40c76f0adc067af594a15492c54c27e2"
+  },
+  "AI/4 DeepLearning/基础/2 深度学习循环原理.md": {
+    "hash": "6e12ecc834afc6c575efe318d2bd18651d1659eff0addb031ec0d164231ecaa3"
+  },
+  "AI/4 DeepLearning/基础/3 深度学习中的核心循环.md": {
     "hash": "4ae1fa0233cae1ccb6df780c3619fec2efa67a61b510ec3d4303ec6a19911d1f"
   },
-  "AI/4 DeepLearning/1.4 梯度与梯度下降.md": {
+  "AI/4 DeepLearning/基础/4 梯度与梯度下降.md": {
     "hash": "730153140b761b761c3b806253c2f5faa235eab200f2ae081125701fbdfe4f9e"
   },
-  "AI/4 DeepLearning/2.1 卷积与CNN基础.md": {
+  "AI/4 DeepLearning/基础/5 卷积与CNN基础.md": {
     "hash": "cc549bfe2babb3cdb2eaf2d7a5abef958160d1a3fb11a7a55b92b6776f0d2310"
   },
-  "AI/4 DeepLearning/2.2 多通道卷积.md": {
+  "AI/4 DeepLearning/基础/6 多通道卷积.md": {
     "hash": "337142c30a59ee79f26a0b07aea46a594bc6b9d0f2474a2f96e8837fc4c0df25"
   },
-  "AI/4 DeepLearning/2.3 Bayer RAW图像的特殊处理.md": {
+  "AI/4 DeepLearning/基础/7 Bayer RAW图像的特殊处理.md": {
     "hash": "dfc17929341c4144038e7d108fcdb6e43a2de1aad7d1aa03165c48977595c68f"
   },
-  "AI/4 DeepLearning/2.4 感受野.md": {
+  "AI/4 DeepLearning/基础/8 感受野.md": {
     "hash": "ea6ef57d517ac20367e03a21bdcad80f4283e693687615b1b07e386e63ef1196"
   },
-  "AI/4 DeepLearning/2.5 从卷积层到完整去噪网络.md": {
+  "AI/4 DeepLearning/基础/9 从卷积层到完整去噪网络.md": {
     "hash": "3fad861dc69afc1b893427a18a59d74e9eee84ae8a49b33aa632f37f91e9729d"
   },
-  "AI/4 DeepLearning/2.6 CNN中的其他常见操作.md": {
-    "hash": "ee1187885c7e886788de6a7327d7c87d40c76f0adc067af594a15492c54c27e2"
+  "AI/4 DeepLearning/计算/1 卷积完整理解：卷积核、通道与各种卷积的计算方式.md": {
+    "hash": "587264f4a499c85c10e834936dd2af5ed54580dcba383a38f0eaf6051cfb6237"
   },
   "AI/5 CV/1 噪声的原理 —— 从物理源头到AI建模.md": {
     "hash": "8663eae4a2e6f8d3076ba1225f679d14ef26e3a12e2e89736fb41b1722ad0bb4"
@@ -183,13 +192,13 @@
     "hash": "f7d389db6e68c29b6e3da9c5e0893fb280f53c8f5413f21e94f7ba74e717f243"
   },
   "AI/6 Model Training/5 YUV 色彩空间 Loss.md": {
-    "hash": "ca6d5cc784dc7f79298f571204626990a9cee3f8650dec90a7abed7e4c6ed232"
+    "hash": "be84cb417a3cd9b0398222d745c9e7d5eb7c7eda2afd5776b822203a365b80f2"
   },
   "AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
-    "hash": "0b4066d0d35befdbfc079d789885c1d0af83f5b6a995b13b0acd554c91a2c5d0"
+    "hash": "a0b6885289f9ab9ca76a54b05630a3f3786a8fcc8258b73a079d91ef865199b9"
   },
   "AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
-    "hash": "87ac63c943848559a15aaec9228ed848ca6602176fa3372cea38383e8341728e"
+    "hash": "752565b0cffd493a4dcdf1379ecc44d2ac2f16dc35ea90474e937c8e07b503d8"
   },
   "Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md": {
     "hash": "9e20f3e7feb5af595bdcaff65a3f68aada8b95f66815ada62e504a006374e9c9"
