@@ -1,12 +1,147 @@
 Cloning into '.temp/source_repo'...
-Updating files:   0% (1/481)Updating files:   1% (5/481)Updating files:   2% (10/481)Updating files:   3% (15/481)Updating files:   4% (20/481)Updating files:   5% (25/481)Updating files:   6% (29/481)Updating files:   7% (34/481)Updating files:   8% (39/481)Updating files:   9% (44/481)Updating files:  10% (49/481)Updating files:  11% (53/481)Updating files:  12% (58/481)Updating files:  13% (63/481)Updating files:  14% (68/481)Updating files:  15% (73/481)Updating files:  16% (77/481)Updating files:  17% (82/481)Updating files:  18% (87/481)Updating files:  19% (92/481)Updating files:  20% (97/481)Updating files:  21% (102/481)Updating files:  22% (106/481)Updating files:  23% (111/481)Updating files:  24% (116/481)Updating files:  25% (121/481)Updating files:  26% (126/481)Updating files:  27% (130/481)Updating files:  28% (135/481)Updating files:  29% (140/481)Updating files:  30% (145/481)Updating files:  31% (150/481)Updating files:  32% (154/481)Updating files:  33% (159/481)Updating files:  34% (164/481)Updating files:  35% (169/481)Updating files:  36% (174/481)Updating files:  37% (178/481)Updating files:  38% (183/481)Updating files:  39% (188/481)Updating files:  40% (193/481)Updating files:  41% (198/481)Updating files:  42% (203/481)Updating files:  43% (207/481)Updating files:  44% (212/481)Updating files:  45% (217/481)Updating files:  46% (222/481)Updating files:  47% (227/481)Updating files:  48% (231/481)Updating files:  49% (236/481)Updating files:  50% (241/481)Updating files:  51% (246/481)Updating files:  52% (251/481)Updating files:  53% (255/481)Updating files:  54% (260/481)Updating files:  55% (265/481)Updating files:  56% (270/481)Updating files:  57% (275/481)Updating files:  58% (279/481)Updating files:  59% (284/481)Updating files:  60% (289/481)Updating files:  61% (294/481)Updating files:  62% (299/481)Updating files:  63% (304/481)Updating files:  64% (308/481)Updating files:  65% (313/481)Updating files:  66% (318/481)Updating files:  67% (323/481)Updating files:  68% (328/481)Updating files:  69% (332/481)Updating files:  70% (337/481)Updating files:  71% (342/481)Updating files:  72% (347/481)Updating files:  73% (352/481)Updating files:  74% (356/481)Updating files:  75% (361/481)Updating files:  76% (366/481)Updating files:  77% (371/481)Updating files:  78% (376/481)Updating files:  79% (380/481)Updating files:  80% (385/481)Updating files:  81% (390/481)Updating files:  82% (395/481)Updating files:  83% (400/481)Updating files:  84% (405/481)Updating files:  85% (409/481)Updating files:  86% (414/481)Updating files:  87% (419/481)Updating files:  88% (424/481)Updating files:  89% (429/481)Updating files:  90% (433/481)Updating files:  91% (438/481)Updating files:  92% (443/481)Updating files:  93% (448/481)Updating files:  94% (453/481)Updating files:  95% (457/481)Updating files:  96% (462/481)Updating files:  97% (467/481)Updating files:  98% (472/481)Updating files:  99% (477/481)Updating files: 100% (481/481)Updating files: 100% (481/481), done.
+Updating files:   0% (1/527)Updating files:   1% (6/527)Updating files:   2% (11/527)Updating files:   3% (16/527)Updating files:   4% (22/527)Updating files:   5% (27/527)Updating files:   6% (32/527)Updating files:   7% (37/527)Updating files:   8% (43/527)Updating files:   9% (48/527)Updating files:  10% (53/527)Updating files:  11% (58/527)Updating files:  12% (64/527)Updating files:  13% (69/527)Updating files:  14% (74/527)Updating files:  15% (80/527)Updating files:  16% (85/527)Updating files:  17% (90/527)Updating files:  18% (95/527)Updating files:  19% (101/527)Updating files:  20% (106/527)Updating files:  21% (111/527)Updating files:  22% (116/527)Updating files:  23% (122/527)Updating files:  24% (127/527)Updating files:  25% (132/527)Updating files:  26% (138/527)Updating files:  27% (143/527)Updating files:  28% (148/527)Updating files:  29% (153/527)Updating files:  30% (159/527)Updating files:  31% (164/527)Updating files:  32% (169/527)Updating files:  33% (174/527)Updating files:  34% (180/527)Updating files:  35% (185/527)Updating files:  36% (190/527)Updating files:  37% (195/527)Updating files:  38% (201/527)Updating files:  39% (206/527)Updating files:  40% (211/527)Updating files:  41% (217/527)Updating files:  42% (222/527)Updating files:  43% (227/527)Updating files:  44% (232/527)Updating files:  45% (238/527)Updating files:  46% (243/527)Updating files:  47% (248/527)Updating files:  48% (253/527)Updating files:  49% (259/527)Updating files:  50% (264/527)Updating files:  51% (269/527)Updating files:  52% (275/527)Updating files:  53% (280/527)Updating files:  54% (285/527)Updating files:  55% (290/527)Updating files:  56% (296/527)Updating files:  57% (301/527)Updating files:  58% (306/527)Updating files:  59% (311/527)Updating files:  60% (317/527)Updating files:  61% (322/527)Updating files:  62% (327/527)Updating files:  63% (333/527)Updating files:  64% (338/527)Updating files:  65% (343/527)Updating files:  66% (348/527)Updating files:  67% (354/527)Updating files:  68% (359/527)Updating files:  69% (364/527)Updating files:  70% (369/527)Updating files:  71% (375/527)Updating files:  72% (380/527)Updating files:  73% (385/527)Updating files:  74% (390/527)Updating files:  75% (396/527)Updating files:  76% (401/527)Updating files:  77% (406/527)Updating files:  78% (412/527)Updating files:  79% (417/527)Updating files:  80% (422/527)Updating files:  81% (427/527)Updating files:  82% (433/527)Updating files:  83% (438/527)Updating files:  84% (443/527)Updating files:  85% (448/527)Updating files:  86% (454/527)Updating files:  87% (459/527)Updating files:  88% (464/527)Updating files:  89% (470/527)Updating files:  90% (475/527)Updating files:  91% (480/527)Updating files:  92% (485/527)Updating files:  93% (491/527)Updating files:  94% (496/527)Updating files:  95% (501/527)Updating files:  96% (506/527)Updating files:  97% (512/527)Updating files:  98% (517/527)Updating files:  99% (522/527)Updating files: 100% (527/527)Updating files: 100% (527/527), done.
 Cloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/cache_repo'...
 Switched to a new branch 'processed-cache'
 branch 'processed-cache' set up to track 'origin/processed-cache'.
 From https://github.com/bluhuang/blogs-of-bluhuang
  * branch              processed-cache -> FETCH_HEAD
 Already up to date.
-Cloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
+============================================================
+  Auto Blog Poster
+============================================================
+Source repo: bluhuang/blu-obsidian
+Output repo: bluhuang/blogs-of-bluhuang
+
+[1/7] Pulling source notes repository ...
+Cloning bluhuang/blu-obsidian (branch=main, full history)...
+Source notes ready at: .temp/source_repo/2 Notes
+
+[2/7] Restoring processed cache ...
+Restoring cache from bluhuang/blogs-of-bluhuang@processed-cache ...
+  (skip) about.md: protected, preserving local version
+  (skip) guestbook.md: protected, preserving local version
+  restored content
+  restored static/images
+  restored .hash_cache.json
+  restored .deepseek_cache.json
+  restored .file_times.json
+Cache restore complete.
+
+[2b/7] Detecting cache-preserving note moves ...
+  [rename] preserved cache: AI/4 DeepLearning/2.2 多通道卷积.md -> AI/4 DeepLearning/基础/6 多通道卷积.md
+  [rename] preserved cache: AI/4 DeepLearning/2.5 从卷积层到完整去噪网络.md -> AI/4 DeepLearning/基础/9 从卷积层到完整去噪网络.md
+  [rename] preserved cache: AI/4 DeepLearning/1.3 深度学习中的核心循环.md -> AI/4 DeepLearning/基础/3 深度学习中的核心循环.md
+  [rename] preserved cache: AI/4 DeepLearning/1.2 反向传播原理详解.md -> AI/4 DeepLearning/基础/1 反向传播原理详解.md
+  [rename] preserved cache: AI/4 DeepLearning/1.1 深度学习循环原理.md -> AI/4 DeepLearning/基础/2 深度学习循环原理.md
+  [rename] preserved cache: AI/4 DeepLearning/1.4 梯度与梯度下降.md -> AI/4 DeepLearning/基础/4 梯度与梯度下降.md
+  [rename] preserved cache: AI/4 DeepLearning/2.1 卷积与CNN基础.md -> AI/4 DeepLearning/基础/5 卷积与CNN基础.md
+  [rename] preserved cache: AI/4 DeepLearning/2.3 Bayer RAW图像的特殊处理.md -> AI/4 DeepLearning/基础/7 Bayer RAW图像的特殊处理.md
+  [rename] preserved cache: AI/4 DeepLearning/2.4 感受野.md -> AI/4 DeepLearning/基础/8 感受野.md
+  [rename] preserved cache: AI/4 DeepLearning/2.6 CNN中的其他常见操作.md -> AI/4 DeepLearning/基础/10 CNN中的其他常见操作.md
+Preserved generated content for 10 renamed note(s).
+
+[3/7] Processing notes (incremental) ...
+Generating .file_times.json from git log (repo: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo) ...
+  Wrote 18 entries to .file_times.json
+Loaded DeepSeek cache with 91 entries from .deepseek_cache.json
+Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
+  Found 94 .md file(s)
+Loaded hash cache with 91 entries from .hash_cache.json
+Files to process (8):
+  + AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
+  + AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md
+  + AI/0 Paper/Distillation/Distilling the Knowledge in a Neural Network.md
+  + AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md
+  + AI/4 DeepLearning/计算/1 卷积完整理解：卷积核、通道与各种卷积的计算方式.md
+  + AI/6 Model Training/5 YUV 色彩空间 Loss.md
+  + AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md
+  + AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md
+Processing: AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] executing python block 1/8 ...
+  [section] output: OK
+  [section] executing python block 2/8 ...
+  [section] output: OK
+  [section] executing python block 3/8 ...
+  [section] output: OK
+  [section] executing python block 4/8 ...
+  [section] output: OK
+  [section] executing python block 5/8 ...
+  [section] output: OK
+  [section] executing python block 6/8 ...
+  [section] output: OK
+  [section] executing python block 7/8 ...
+  [section] output: OK
+  [section] executing python block 8/8 ...
+  [section] output: OK
+  [section] excluded 1 section(s) from blog
+  [image] skipped (exists): mobilenetv2_memory_hierarchy_3d.png
+  [image] skipped (exists): mobilenetv2_conv_factorization_3d.png
+  [image] skipped (exists): mobilenetv2_group_connectivity_3d.png
+  [image] skipped (exists): mobilenetv2_relu_manifold_3d.png
+  [image] skipped (exists): mobilenetv2_block_evolution_3d.png
+  [image] skipped (exists): mobilenetv2_residual_comparison_3d.png
+  [image] skipped (exists): mobilenetv2_compute_breakdown_3d.png
+  [content] protected 240 structured span(s)
+  DeepSeek cache hit
+  [content] restored 240 structured span(s)
+  -> wrote content/AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md
+Processing: AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md ...
+  [image] copied: E8A5DBE8-CBC3-4F96-9F6F-900782A8F6F2.png
+  [content] protected 68 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 8166 chars (finish_reason: stop)
+  [content] restored 68 structured span(s)
+  -> wrote content/AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md
+Processing: AI/0 Paper/Distillation/Distilling the Knowledge in a Neural Network.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] executing python block 1/1 ...
+  [section] output: uments/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/0 Paper/Distillation/attachments/distillation_specialist_ensemble_3d.png
+/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/0 Paper/Distillation/attachments/distillation_compression_tradeoff_3d.png
+OK
+  [section] excluded 1 section(s) from blog
+  [image] copied: distillation_temperature_softening_3d.png
+  [image] copied: distillation_dark_knowledge_3d.png
+  [content] protected 158 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 14190 chars (finish_reason: stop)
+  [content] restored 158 structured span(s)
+  -> wrote content/AI/0 Paper/Distillation/Distilling the Knowledge in a Neural Network.md
+Processing: AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] executing python block 1/1 ...
+  [section] output: ing_3d.png
+/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/0 Paper/GAN/attachments/gan_failure_modes_3d.png
+/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/0 Paper/GAN/attachments/gan_denoising_loss_roles_3d.png
+OK
+  [section] excluded 1 section(s) from blog
+  [image] skipped (exists): gan_problem_space_3d.png
+  [image] skipped (exists): gan_closed_loop_3d.png
+  [image] skipped (exists): gan_minimax_objective_3d.png
+  [image] skipped (exists): gan_alternating_training_3d.png
+  [image] skipped (exists): gan_latent_mapping_3d.png
+  [image] skipped (exists): gan_generator_gradient_3d.png
+  [image] skipped (exists): gan_distribution_matching_3d.png
+  [image] skipped (exists): gan_failure_modes_3d.png
+  [image] skipped (exists): gan_denoising_loss_roles_3d.png
+  [content] protected 299 structured span(s)
+  DeepSeek cache hit
+  [content] restored 299 structured span(s)
+  -> wrote content/AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md
+Processing: AI/4 DeepLearning/计算/1 卷积完整理解：卷积核、通道与各种卷积的计算方式.md ...
+  [content] protected 119 structured span(s)
+  DeepSeek API call (attempt 1/3) ...
+  DeepSeek API returned 10053 chars (finish_reason: stop)
+  [content] restored 119 structured span(s)
+  -> wrote content/AI/4 DeepLearning/计算/1 卷积完整理解：卷积核、通道与各种卷积的计算方式.md
+Processing: AI/6 Model Training/5 YUV 色彩空间 Loss.md ...
+  [section] matched rule matplotlib_code: TAG: Matplot code
+  [section] executing python block 1/1 ...
+  [section] output: pace_3d.png
+/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/6 Model Training/attachments/yuv_error_vectors_3d.png
+/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/6 Model Training/attachments/yuv_loss_surface_3d.png
+  [section] excluded 1 section(s) from blog
+  [image] skipped (exists): rgb_to_yuv_space_3d.pngCloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
 Already on 'gh-pages'
 Your branch is up to date with 'origin/gh-pages'.
 From https://github.com/bluhuang/blogs-of-bluhuang

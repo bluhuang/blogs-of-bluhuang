@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CNN-Net on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/</link><description>Recent content in CNN-Net on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Thu, 30 Jul 2026 20:08:42 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/index.xml" rel="self" type="application/rss+xml"/><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Thu, 30 Jul 2026 20:08:42 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CNN-Net on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/</link><description>Recent content in CNN-Net on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Tue, 18 Aug 2026 09:21:58 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/index.xml" rel="self" type="application/rss+xml"/><item><title>An Encodeer-decoder U-Net like SNR Net</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/5-an-encodeer-decoder-u-net-like-snr-net/</link><pubDate>Tue, 18 Aug 2026 09:21:58 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/5-an-encodeer-decoder-u-net-like-snr-net/</guid><description>&lt;h1 id="snrnet-网络结构理解"&gt;SNRNet 网络结构理解&lt;/h1&gt;
+
+&lt;h2 id="1-网络结构"&gt;1 网络结构&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/images/AI/0%20Paper/CNN-Net/E8A5DBE8-CBC3-4F96-9F6F-900782A8F6F2.png"
+ alt="E8A5DBE8-CBC3-4F96-9F6F-900782A8F6F2"
+ loading="lazy"
+ decoding="async"
+ /&gt;
+&lt;/p&gt;
+
+&lt;h3 id="11-先理解网络要解决什么问题"&gt;1.1 先理解网络要解决什么问题&lt;/h3&gt;
+&lt;p&gt;V3 SNRNet 每次只输入一帧数据，但它并不是一个纯粹的单帧降噪网络。
+输入共有 11 个通道：&lt;/p&gt;</description></item><item><title>DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</link><pubDate>Thu, 30 Jul 2026 20:08:42 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cnn-net/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/</guid><description>&lt;h2 id="1-论文要解决什么问题"&gt;1. 论文要解决什么问题&lt;/h2&gt;
 &lt;p&gt;在 DnCNN 出现之前，图像去噪主要面临三个痛点：&lt;/p&gt;
 
 &lt;h3 id="11-痛点一传统方法依赖人工设计的先验"&gt;1.1 痛点一：传统方法依赖人工设计的先验&lt;/h3&gt;

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Distillation on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/distillation/</link><description>Recent content in Distillation on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Tue, 18 Aug 2026 17:30:47 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/distillation/index.xml" rel="self" type="application/rss+xml"/><item><title>Distilling the Knowledge in a Neural Network</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/distillation/distilling-the-knowledge-in-a-neural-network/</link><pubDate>Thu, 06 Aug 2026 19:17:24 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/distillation/distilling-the-knowledge-in-a-neural-network/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;论文：&lt;em&gt;Distilling the Knowledge in a Neural Network&lt;/em&gt;，arXiv:1503.02531，2015。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id="1-为什么需要知识蒸馏"&gt;1. 为什么需要知识蒸馏&lt;/h2&gt;
+&lt;p&gt;先看一个实际矛盾：训练模型时，我们希望尽可能提高准确率，因此可以使用更深、更宽的网络，也可以训练多个模型并对预测取平均；但模型真正部署到手机、服务器在线接口或实时语音系统时，又必须满足低延迟、低内存和低计算量。&lt;/p&gt;</description></item></channel></rss>
