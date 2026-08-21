@@ -38,8 +38,12 @@
             "url": "/AI/",
             "children": [
               {
-                "title": "Distilling the Knowledge in a Neural Network",
-                "url": "/AI/distilling-the-knowledge-in-a-neural-network/"
+                "title": "1 Distilling the Knowledge in a Neural Network",
+                "url": "/AI/1-distilling-the-knowledge-in-a-neural-network/"
+              },
+              {
+                "title": "2  Knowledge Distillation：A Survey",
+                "url": "/AI/2-knowledge-distillationa-survey/"
               }
             ]
           },
@@ -272,6 +276,10 @@
             "url": "/AI/18-时域降噪/"
           },
           {
+            "title": "19 MOT：Multi-Object Tracking",
+            "url": "/AI/19-motmulti-object-tracking/"
+          },
+          {
             "title": "2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）",
             "url": "/AI/2-bayer阵列bayer-pattern-bayer-filter-mosaic-拜耳阵列/"
           },
@@ -344,10 +352,6 @@
         ]
       }
     ]
-  },
-  {
-    "title": "blogs",
-    "url": "/blogs/"
   },
   {
     "title": "coding",
@@ -470,10 +474,6 @@
         ]
       }
     ]
-  },
-  {
-    "title": "RAG",
-    "url": "/RAG/"
   },
   {
     "title": "Workflow and Tools",
