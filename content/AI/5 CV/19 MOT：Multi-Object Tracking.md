@@ -7,7 +7,7 @@ date: 2026-08-21T15:53:07+0800
 lastmod: 2026-08-21T15:53:07+0800
 ---
 
-# 1 从“下一帧还是不是这个人”开始理解 MOT
+# 从“下一帧还是不是这个人”开始理解 MOT
 
 假设连续三帧视频中有两个人：
 ```text
@@ -18,7 +18,6 @@ A        B             A      B             A       B
 ```
 
 如果只有目标检测器，每一帧得到的是：
-
 ```text
 Frame 1：person, person
 Frame 2：person, person
@@ -29,7 +28,6 @@ Frame 3：person, person
 > **这一帧哪里有人？**
 
 但它不知道：
-
 > Frame 2 左边的人，是不是 Frame 1 的那个 A？
 
 MOT 要进一步输出：
@@ -40,7 +38,6 @@ Frame 3：ID=1   ID=2
 ```
 
 最终得到：
-
 ```text
 ID=1：位置1 → 位置2 → 位置3 → ...
 ID=2：位置1 → 位置2 → 位置3 → ...
@@ -62,7 +59,6 @@ flowchart LR
 ## 1.1 Detection 和 Tracking 的本质区别
 
 一个目标检测结果通常只有：
-
 ```text
 Bounding Box
 Class
@@ -70,7 +66,6 @@ Confidence
 ```
 
 例如：
-
 ```text
 person
 bbox = [x1, y1, x2, y2]
@@ -78,19 +73,16 @@ score = 0.92
 ```
 
 而 Tracking 还必须回答：
-
 ```text
 这个 person 是谁？
 ```
 
 于是增加：
-
 ```text
 Track ID = 17
 ```
 
 所以：
-
 ```text
 Detection：
 这一帧有什么？
@@ -120,7 +112,6 @@ ID 2  →      ←  ID 1
 ```
 
 如果 Tracker 把两个人的身份交换，就发生：
-
 **ID Switch（身份切换：同一个真实目标被错误地分配了另一个 Track ID）**。
 
 ## 1.2 MOT 真正困难的地方
@@ -138,7 +129,6 @@ Motion Blur
 ```
 
 所以问题不能简单写成：
-
 ```text
 上一帧最近的框
 =
@@ -163,7 +153,6 @@ DeepSORT 正是在 SORT 的运动匹配基础上引入 Appearance（外观）信
 # 2 一个目标在 Tracker 中到底是什么
 
 如果上一帧检测到：
-
 ```text
 ID 7
 ┌─────────┐
@@ -172,7 +161,6 @@ ID 7
 ```
 
 最简单的 Tracker 可以只保存：
-
 ```text
 Track 7:
 bbox = [...]
@@ -183,7 +171,6 @@ bbox = [...]
 因此实际的 Track 不能只是一个 Bounding Box。
 
 可以把 **Track（轨迹对象：Tracker 内部对一个真实目标的持续状态估计）**理解为：
-
 ```text
 Track
 ├── ID
@@ -200,7 +187,6 @@ Track
 ## 2.1 Bounding Box 只是观测结果
 
 例如当前 Detector 给出：
-
 ```text
 x = 400
 y = 250
@@ -234,14 +220,12 @@ y_next ≈ y + vy
 ## 2.2 Appearance Feature
 
 假设两个行人：
-
 ```text
 Person A：黑衣服
 Person B：白衣服
 ```
 
 仅比较位置可能出现：
-
 ```text
 A 和 B 交叉
 ↓
@@ -265,7 +249,6 @@ ReID Network
 这里的 **ReID（Re-Identification，重识别：根据目标外观判断不同图像中的目标是否是同一个身份）**，在 DeepSORT 中被用于辅助 Data Association。([arXiv](https://arxiv.org/abs/1703.07402 "[1703.07402] Simple Online and Realtime Tracking with a Deep Association Metric"))
 
 因此：
-
 ```text
 Motion：
 你应该在这里
@@ -279,19 +262,16 @@ Appearance：
 ## 2.3 Track 还要保存“不确定性”
 
 假设目标刚刚被检测到：
-
 ```text
 位置非常可信
 ```
 
 连续漏检 10 帧后：
-
 ```text
 预测位置越来越不可信
 ```
 
 所以：
-
 ```text
 预测位置 = (500, 300)
 ```
@@ -299,7 +279,6 @@ Appearance：
 还不够。
 
 Tracker 最好同时知道：
-
 ```text
 我认为在 (500,300)
 但误差可能有多大？
@@ -331,7 +310,6 @@ Tracker 最好同时知道：
 它是谁
 ```
 
-
 # 3 Motion Model：下一帧目标会在哪里
 
 现在有一个 Track：
@@ -361,13 +339,11 @@ SORT、DeepSORT 和 ByteTrack 等经典 tracking-by-detection 方法都使用过
 ## 3.1 最简单的 Constant Velocity Model
 
 假设 Track 状态为：
-
 $$
 \mathbf{x} [c_x,c_y,w,h,v_x,v_y,v_w,v_h]^T
 $$
 
 其中：
-
 ```text
 cx, cy
 → Bounding Box 中心
@@ -385,7 +361,6 @@ vw, vh
 假设相邻两帧间隔 $\Delta t=1$。
 
 那么：
-
 $$
 c_{x,t+1}=c_{x,t}+v_{x,t}
 $$
@@ -395,7 +370,6 @@ c_{y,t+1}=c_{y,t}+v_{y,t}
 $$
 
 例如过去：
-
 ```text
 Frame 1：x = 100
 Frame 2：x = 110
@@ -407,7 +381,6 @@ vx ≈ 10 pixel/frame
 ```
 
 那么：
-
 ```text
 Frame 3 predicted x ≈ 120
 ```
@@ -417,7 +390,6 @@ Frame 3 predicted x ≈ 120
 ## 3.2 为什么还需要 Kalman Filter
 
 真实世界并不是严格匀速：
-
 ```text
 目标可能加速
 检测框会抖动
@@ -430,7 +402,6 @@ Detector 有定位误差
 **Kalman Filter（卡尔曼滤波：在运动模型预测和带噪声观测之间，根据双方的不确定性进行加权融合）**解决的就是这个问题。
 
 整个思想只有两个阶段：
-
 ```mermaid
 flowchart LR
     A["上一帧状态"] --> B["Predict<br/>根据运动模型预测"]
@@ -439,8 +410,6 @@ flowchart LR
     C --> E
     E --> F["新的 Track 状态"]
 ```
-
----
 
 ## 3.3 Predict：先相信运动模型
 
@@ -455,7 +424,6 @@ $$
 - $\mathbf{x}^{-}_t$：看到当前检测结果之前的预测。
 
 同时预测不确定性：
-
 $$
 P^{-}_t=FP_{t-1}F^T+Q
 $$
@@ -476,13 +444,11 @@ $$
 ## 3.4 Update：Detection 来了以后修正
 
 Detector 给出的 Bounding Box 是：
-
 $$
 \mathbf{z}_t
 $$
 
 先计算 Prediction 和 Detection 的差：
-
 $$
 \mathbf{r}_t \mathbf{z}_t-H\mathbf{x}^{-}_t
 $$
@@ -490,14 +456,12 @@ $$
 $\mathbf{r}_t$ 叫 **Innovation / Residual（创新量：当前真实观测与预测观测之间的差）**。
 
 例如：
-
 ```text
 预测 x = 120
 检测 x = 124
 ```
 
 那么：
-
 ```text
 Residual = 4
 ```
@@ -510,14 +474,13 @@ Residual = 4
 因为 Detection 本身也有噪声。
 
 Kalman Filter 计算一个权重：
-
 $$
 K_t=P_t^-H^T(HP_t^-H^T+R)^{-1}
 $$
 
 其中 $R$ 是检测观测的不确定性。
-最终：
 
+最终：
 $$
 \mathbf{x}_t \mathbf{x}^{-}_t + K_t\mathbf{r}_t
 $$
@@ -551,11 +514,9 @@ Detection 很可信
 
 > **它不是简单平均，而是根据不确定性决定相信谁更多。**
 
-
 ## 3.5 Motion Model 如何帮助 Data Association
 
 现在预测：
-
 ```text
 ID=7 predicted box
 
@@ -565,7 +526,6 @@ ID=7 predicted box
 ```
 
 当前有三个 Detection：
-
 ```text
 D1          D2          D3
 
@@ -573,13 +533,11 @@ D1          D2          D3
 ```
 
 如果 D2 与预测位置高度接近，那么：
-
 ```text
 Track 7 ↔ D2
 ```
 
 就比：
-
 ```text
 Track 7 ↔ D1
 Track 7 ↔ D3
@@ -590,8 +548,6 @@ Track 7 ↔ D3
 所以 Motion Model 真正服务的是下一章：
 
 > **减少 Data Association 的搜索空间，并提供“这个 Detection 属于这个 Track”的运动证据。**
-
----
 
 ## 3.6 Motion Model 的局限
 
@@ -606,7 +562,6 @@ Camera →
 下一帧图像上所有目标的位置都会发生大幅变化。
 
 但普通 Constant Velocity Model 可能认为：
-
 ```text
 目标突然集体高速移动
 ```
@@ -622,7 +577,6 @@ Camera →
 这是 MOT 最核心的一步。
 
 假设现在有三个历史 Track：
-
 ```text
 T1
 T2
@@ -630,7 +584,6 @@ T3
 ```
 
 当前 Detector 给出：
-
 ```text
 D1
 D2
@@ -638,7 +591,6 @@ D3
 ```
 
 Data Association 要解决：
-
 ```text
 T1 ↔ ?
 T2 ↔ ?
@@ -646,7 +598,6 @@ T3 ↔ ?
 ```
 
 完整过程通常可以抽象成：
-
 ```mermaid
 flowchart LR
     A["Predicted Tracks"] --> C["Motion Similarity"]
@@ -660,14 +611,11 @@ flowchart LR
     G --> H["Track ↔ Detection"]
 ```
 
----
-
-## 4.1 IoU：Intersection over Union, 两个 Bounding Box 重合多少
+## 4.1 IoU：Intersection over Union，两个 Bounding Box 重合多少
 
 最简单的 Motion Association 可以使用 **IoU（Intersection over Union，交并比：两个 Bounding Box 重叠面积占总覆盖面积的比例）**。
 
 两个框：
-
 ```text
 ┌────────────┐
 │ Box A      │
@@ -679,25 +627,21 @@ flowchart LR
 ```
 
 先计算交集宽度：
-
 $$
 w_I \max \left( 0, \min(x^A_2,x^B_2)-\max(x^A_1,x^B_1) \right)
 $$
 
 交集高度：
-
 $$
 h_I \max \left( 0, \min(y^A_2,y^B_2)-\max(y^A_1,y^B_1) \right)
 $$
 
 所以交集面积：
-
 $$
 A_I=w_Ih_I
 $$
 
 两个框总覆盖区域不能直接：
-
 $$
 A_A+A_B
 $$
@@ -705,19 +649,16 @@ $$
 因为交集部分会算两次。
 
 因此：
-
 $$
 A_U=A_A+A_B-A_I
 $$
 
 最终：
-
 $$
 IoU=\frac{A_I}{A_U}
 $$
 
 范围：
-
 ```text
 0
 → 完全不重合
@@ -727,13 +668,11 @@ $$
 ```
 
 通常可以把 Cost 写成：
-
 $$
 C_{IoU}=1-IoU
 $$
 
 于是：
-
 ```text
 越像：
 IoU 越大
@@ -743,7 +682,6 @@ Cost 越小
 ## 4.2 为什么 IoU 不够
 
 考虑两个人交叉：
-
 ```text
 Frame t:
 
@@ -759,7 +697,6 @@ Frame t+1:
 预测框可能几乎重合。
 
 于是：
-
 ```text
 IoU(TA, DA) ≈ IoU(TA, DB)
 ```
@@ -768,47 +705,39 @@ IoU(TA, DA) ≈ IoU(TA, DB)
 
 这就是为什么 DeepSORT 在 SORT 基础上增加了视觉 Appearance Metric，用外观信息辅助 Measurement-to-Track Association。([arXiv](https://arxiv.org/abs/1703.07402 "[1703.07402] Simple Online and Realtime Tracking with a Deep Association Metric"))
 
-
 ## 4.3 Appearance Feature 怎么比较
 
 假设 Track A 保存一个 ReID Feature：
-
 $$
 \mathbf{f}_A
 $$
 
 当前 Detection 提取 Feature：
-
 $$
 \mathbf{f}_D
 $$
 
 常见比较方式是 **Cosine Similarity（余弦相似度：比较两个特征向量方向是否接近）**：
-
 $$
 s= \frac{\mathbf{f}_A^T\mathbf{f}_D} {|\mathbf{f}_A||\mathbf{f}_D|}
 $$
 
 如果 Feature 已经归一化：
-
 $$
 |\mathbf{f}_A|=|\mathbf{f}_D|=1
 $$
 
 那么：
-
 $$
 s=\mathbf{f}_A^T\mathbf{f}_D
 $$
 
 可以进一步定义：
-
 $$
 C_{appearance}=1-s
 $$
 
 于是：
-
 ```text
 长得越像
 ↓
@@ -822,7 +751,6 @@ DeepSORT 正是通过深度学习得到的 Appearance Feature 来增强 SORT 的
 ## 4.4 Cost Matrix：把所有候选关系一次列出来
 
 假设有三个 Track 和三个 Detection：
-
 ```text
         D1    D2    D3
 T1      ?     ?     ?
@@ -831,7 +759,6 @@ T3      ?     ?     ?
 ```
 
 分别计算 Cost：
-
 ```text
         D1     D2     D3
 
@@ -841,11 +768,9 @@ T3     0.90   0.65   0.12
 ```
 
 这就是：
-
 **Cost Matrix（代价矩阵：每个历史 Track 与每个当前 Detection 配对所需要付出的代价）**。
 
 一眼可以看出：
-
 ```text
 T1 ↔ D1
 T2 ↔ D2
@@ -855,13 +780,11 @@ T3 ↔ D3
 ## 4.5 Motion 和 Appearance 可以组合
 
 一种常见思想是：
-
 $$
 C_{ij} \lambda C^{motion}_{ij} + (1-\lambda)C^{appearance}_{ij}
 $$
 
 这里不是说所有 Tracker 都必须这么做，而是表达一种基本思想：
-
 ```text
 Motion：
 位置像不像
@@ -871,13 +794,11 @@ Appearance：
 ```
 
 如果两方面都支持：
-
 ```text
 很可能是同一个目标
 ```
 
 如果：
-
 ```text
 位置很近
 但外观完全不同
@@ -885,12 +806,9 @@ Appearance：
 
 就应该保持警惕。
 
----
-
 ## 4.6 Gating：先排除根本不可能的匹配
 
 假设：
-
 ```text
 Track A 在图像左上角
 Detection D 在右下角
@@ -899,11 +817,9 @@ Detection D 在右下角
 即使 Appearance Feature 偶然相似，也不应该匹配。
 
 所以通常先做：
-
 **Gating（门控：根据运动或距离约束提前禁止明显不合理的 Track–Detection 配对）**。
 
 概念上就是：
-
 ```text
 如果距离太大：
 
@@ -923,7 +839,6 @@ T2 也最喜欢 D1
 ```
 
 显然：
-
 ```text
 D1
 ```
@@ -935,13 +850,11 @@ D1
 > 找到一组一一对应关系，使总代价最小。
 
 也就是：
-
 $$
 \min \sum_{(i,j)\in M} C_{ij}
 $$
 
 其中：
-
 ```text
 M = 最终匹配集合
 ```
@@ -956,7 +869,6 @@ M = 最终匹配集合
 ## 4.8 ID Switch 是怎么产生的
 
 假设：
-
 ```text
 真实：
 A → A
@@ -991,7 +903,6 @@ ID Switch
 # 5 Track Management：匹配不上以后怎么办
 
 Data Association 完成后，一定会出现三种结果：
-
 ```text
 ① Track ↔ Detection 成功匹配
 
@@ -1001,10 +912,10 @@ Data Association 完成后，一定会出现三种结果：
 ```
 
 这时候就进入：
-
 **Track Management（轨迹管理：决定目标什么时候创建、保留、丢失、重新激活或删除）**。
 
 ## 5.1 匹配成功
+
 最简单：
 ```text
 Track 7
@@ -1026,6 +937,7 @@ Detection Feature
 通常还可以用于更新 Track 的外观信息。
 
 ## 5.2 Detection 没匹配到任何 Track
+
 例如有人第一次进入画面：
 ```text
 已有 Tracks：
@@ -1057,7 +969,6 @@ D3 也可能只是 False Positive
 ```
 
 因此一些 Tracker 会先把新轨迹设成：
-
 **Tentative Track（候选轨迹：刚出现、尚未积累足够连续证据的 Track）**。
 
 连续成功匹配几次后才升级为 Confirmed。
@@ -1095,7 +1006,6 @@ Frame 3：被人遮住
 ## 5.4 Lost Track
 
 一种典型状态流：
-
 ```mermaid
 flowchart LR
     A["Tentative"] --> B["Tracked / Confirmed"]
@@ -1107,7 +1017,6 @@ flowchart LR
 **Lost（丢失状态：当前没有匹配 Detection，但系统暂时保留这个 Track，等待目标重新出现）**。
 
 此时：
-
 ```text
 没有 Detection
 ↓
@@ -1117,7 +1026,6 @@ flowchart LR
 ```
 
 如果几帧后重新检测到：
-
 ```text
 Appearance / Motion 又能匹配
 ↓
@@ -1131,13 +1039,11 @@ ByteTrack 也会保留 unmatched tracks 一段时间作为 lost tracks，以支�
 ## 5.5 为什么 Lost 不能永远保留
 
 如果目标已经真正离开画面：
-
 ```text
 Track 7
 ```
 
 一直保留就会造成：
-
 ```text
 大量历史 Track
 ↓
@@ -1149,13 +1055,11 @@ Track 7
 ```
 
 因此 Track 通常存在一个：
-
 ```text
 age / time_since_update
 ```
 
 如果长期没观测：
-
 ```text
 Lost
 ↓
@@ -1167,7 +1071,6 @@ Removed
 ## 5.6 完整 Tracking Loop
 
 现在整个 MOT 已经可以串起来：
-
 ```mermaid
 flowchart LR
     A["Current Frame"] --> B["Detector"]
@@ -1190,7 +1093,6 @@ flowchart LR
 
 这就是 Tracking-by-Detection 的核心循环。
 
-
 # 6 从 SORT 到 DeepSORT、ByteTrack：它们到底改了什么
 
 学到这里，不需要把每一种 Tracker 当成全新的系统。
@@ -1200,7 +1102,6 @@ flowchart LR
 ## 6.1 SORT：先建立最基本骨架
 
 **SORT（Simple Online and Realtime Tracking）**可以粗略理解成：
-
 ```text
 Detector
 ↓
@@ -1222,7 +1123,6 @@ Track Management
 SORT 论文强调在线、实时、高效的目标关联，并指出 Detector 的质量会显著影响 Tracking 效果。([arXiv](https://arxiv.org/abs/1602.00763 "Simple Online and Realtime Tracking"))
 
 它的优势：
-
 ```text
 简单
 快
@@ -1230,7 +1130,6 @@ SORT 论文强调在线、实时、高效的目标关联，并指出 Detector �
 ```
 
 但问题也明显：
-
 ```text
 主要依赖位置 / IoU
 ↓
@@ -1244,7 +1143,6 @@ Motion 信息不够
 ## 6.2 DeepSORT：加入“这个人长什么样”
 
 DeepSORT 的核心升级可以压缩成：
-
 ```text
 SORT
 +
@@ -1252,7 +1150,6 @@ Appearance Feature / ReID
 ```
 
 原来：
-
 ```text
 是不是同一个目标？
 ↓
@@ -1260,7 +1157,6 @@ Appearance Feature / ReID
 ```
 
 现在：
-
 ```text
 是不是同一个目标？
 ↓
@@ -1272,7 +1168,6 @@ Appearance Feature / ReID
 DeepSORT 论文明确将深度 Appearance Metric 集成进 SORT，通过 Visual Appearance Space 进行关联，以增强长时间遮挡情况下的身份保持。([arXiv](https://arxiv.org/abs/1703.07402 "[1703.07402] Simple Online and Realtime Tracking with a Deep Association Metric"))
 
 所以：
-
 ```text
 SORT：
 你应该在这里。
@@ -1289,7 +1184,6 @@ DeepSORT：
 再考虑一个问题。
 
 某个人被遮挡：
-
 ```text
 正常：
 Detection score = 0.9
@@ -1299,7 +1193,6 @@ score = 0.4
 ```
 
 传统做法可能设置：
-
 ```text
 score < 0.5
 → 丢掉
@@ -1327,13 +1220,13 @@ ByteTrack 的关键观察就是：
 ## 6.4 ByteTrack 两阶段 Association
 
 先将 Detection 分：
-
 ```text
 High-score Detections
 Low-score Detections
 ```
 
 ### 第一轮
+
 ```text
 全部 Tracks
 +
@@ -1345,7 +1238,6 @@ Association
 正常、高可信目标先匹配。
 
 第一轮结束会剩下一些：
-
 ```text
 Unmatched Tracks
 ```
@@ -1384,7 +1276,6 @@ ByteTrack 的论文描述了先关联高分框，再用剩余 Track 与低分框
 这是 ByteTrack 思想中很关键的一环。
 
 低分框里面同时包含：
-
 ```text
 被遮挡真实目标
 +
@@ -1392,7 +1283,6 @@ ByteTrack 的论文描述了先关联高分框，再用剩余 Track 与低分框
 ```
 
 所以：
-
 ```text
 低分框 + 已存在 Track 匹配成功
 ```
@@ -1400,7 +1290,6 @@ ByteTrack 的论文描述了先关联高分框，再用剩余 Track 与低分框
 可以认为它获得了历史证据。
 
 但：
-
 ```text
 低分框没有任何历史 Track
 ```
@@ -1412,7 +1301,6 @@ ByteTrack 的论文描述了先关联高分框，再用剩余 Track 与低分框
 ## 6.6 三种算法的逻辑关系
 
 他们不是完全独立的三个独立算法。
-
 ```text
 SORT
 │
@@ -1443,14 +1331,12 @@ ByteTrack
 现在回到 AIISP。
 
 完整链路不是：
-
 ```text
 AIISP
 → 图片好不好看
 ```
 
 对于机器视觉，它还可能是：
-
 ```mermaid
 flowchart LR
     A["RAW"] --> B["ISP / AIISP"]
@@ -1468,7 +1354,6 @@ SORT 的研究就已经指出 Detector 质量是影响总体 Tracking 性能的�
 ## 7.1 AIISP 可能从两条路径影响 MOT
 
 第一条：
-
 ```text
 AIISP
 ↓
@@ -1476,7 +1361,6 @@ Detection
 ```
 
 例如严重噪声、运动模糊或目标细节损失可能使：
-
 ```text
 目标置信度降低
 Bounding Box 不稳定
@@ -1486,7 +1370,6 @@ Bounding Box 不稳定
 那么即使 Tracker 完全不变，MOT 也会受到影响。
 
 第二条：
-
 ```text
 AIISP
 ↓
@@ -1504,7 +1387,6 @@ Data Association
 单帧画质问题与时序问题不同。
 
 例如某个边缘：
-
 ```text
 Frame 1：位置 A
 Frame 2：位置 A+2
@@ -1512,14 +1394,12 @@ Frame 3：位置 A-1
 ```
 
 如果这种变化来自处理算法，而不是真实目标运动，那么下游看到的是：
-
 ```text
 Bounding Box / Feature
 不断变化
 ```
 
 这可能同时影响：
-
 ```text
 Motion Prediction
 +
@@ -1533,7 +1413,6 @@ Appearance Matching
 ## 7.3 怎么衡量 MOT 好不好
 
 不能只统计：
-
 ```text
 检测对了多少框
 ```
@@ -1541,7 +1420,6 @@ Appearance Matching
 因为 Tracking 还存在 Identity。
 
 常见指标包括：
-
 ```text
 MOTA
 IDF1
@@ -1560,19 +1438,16 @@ IDSW：身份切换
 ```
 
 公式：
-
 $$
 MOTA 1- \frac{FN+FP+IDSW} {GT}
 $$
 
 其中：
-
 ```text
 GT = Ground Truth 目标总数
 ```
 
 所以如果：
-
 ```text
 大量漏检
 ```
@@ -1588,7 +1463,6 @@ HOTA 对历史指标的分析指出，MOTA 对 Detection Error 的权重较重�
 > 整条 Tracking 过程中，身份对应是否正确。
 
 核心形式：
-
 $$
 IDF1= \frac{2IDTP} {2IDTP+IDFP+IDFN}
 $$
@@ -1618,7 +1492,6 @@ AssA
 ```
 
 在固定匹配阈值下，可以粗略理解其组合思想为：
-
 $$
 HOTA \approx \sqrt{DetA \times AssA}
 $$
@@ -1628,7 +1501,6 @@ $$
 这个拆分对于 AIISP 很有价值。
 
 比如某次算法调整以后：
-
 ```text
 DetA ↑
 AssA ↓
@@ -1652,7 +1524,6 @@ AssA ↑
 > AIISP A 和 AIISP B 哪个更适合下游 MOT？
 
 最好固定：
-
 ```text
 同一个视频
 同一个 Detector
@@ -1661,13 +1532,11 @@ AssA ↑
 ```
 
 只改变：
-
 ```text
 ISP / AIISP 输出
 ```
 
 然后至少同时观察：
-
 ```text
 Detection：
 FP / FN / DetA
@@ -1680,7 +1549,6 @@ HOTA
 ```
 
 这样才能区分：
-
 ```text
 是 Detector 变好了？
 

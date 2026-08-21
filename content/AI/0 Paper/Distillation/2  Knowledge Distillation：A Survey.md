@@ -8,9 +8,9 @@ lastmod: 2026-08-21T15:53:07+0800
 
 # Knowledge Distillation: A Survey 
 
-> 论文：Jianping Gou, Baosheng Yu, Stephen J. Maybank, Dacheng Tao, _Knowledge Distillation: A Survey_，arXiv:2006.05525。
+> 论文：《Knowledge Distillation: A Survey》，arXiv:2006.05525。
 > 
-> 本文不再重复 Hinton 2015 中已讨论过的 Temperature、Soft Target、Dark Knowledge、$T^2$ 与经典 KD Loss，而是回答一个更大的问题：
+> 这篇笔记不再重复经典 KD 论文（2015）中已经讨论过的 Temperature、Soft Target、Dark Knowledge、$T^2$ 与经典 KD Loss，而是回答一个更大的问题：
 > 
 > **当“模仿 Teacher 的输出概率”不再是唯一选择时，一个完整的 Knowledge Distillation 系统还能怎么设计？**
 
@@ -32,12 +32,12 @@ flowchart LR
     E --> F
 ```
 
-此前了解的 Hinton KD，本质上解决的是：
+此前了解的经典 KD，本质上解决的是：
 > **怎样让 Student 的最终预测行为接近 Teacher？**
 
-Survey 把这一类方法称为 **Response-Based Knowledge（基于响应的知识：将网络最终输出作为知识，让 Student 模仿 Teacher 的最终预测）**。论文指出，这种方法简单有效，但只利用最后一层输出，因此不能直接监督 Student 的中间表示。
+Survey 把这一类方法称为 **Response-Based Knowledge（基于响应的知识：把网络最终输出作为知识，让 Student 模仿 Teacher 的最终预测）**。论文指出，这种方法简单有效，但只利用最后一层输出，因此不能直接监督 Student 的中间表示。
 
-由此产生第一个自然问题：
+这就产生第一个自然问题：
 ```text
 Teacher 已经经过很多层计算：
 
@@ -54,7 +54,7 @@ Output
 为什么只把最后一个 Output 交给 Student？
 ```
 
-于是 KD 从“模仿答案”逐渐扩展为：
+于是 KD 从“模仿答案”逐渐扩展成：
 ```text
 模仿最终答案
       ↓
@@ -74,7 +74,7 @@ Output
 不同模态之间传知识
 ```
 
-论文因此把一个 KD 系统视为若干相互关联的设计问题：
+论文因此把一个 KD 系统看成几个相互关联的设计问题：
 ```mermaid
 flowchart LR
     A["Knowledge<br/>蒸馏什么"] --> D["KD System"]
@@ -84,16 +84,16 @@ flowchart LR
 ```
 
 真正需要从 Survey 中获得的不是九种、十几种算法名称，而是一套以后看到任何 KD 论文都能使用的分析框架：
-> **先问它蒸馏什么 Knowledge，再问 Teacher 与 Student 是谁、何时训练，最后才看它用了什么 Loss 或特殊算法。**
+> **先问它蒸馏什么 Knowledge，再问 Teacher 与 Student 是谁、什么时候训练，最后才看它用了什么 Loss 或特殊算法。**
 
 ### 本章总结
-Hinton KD 只是整个知识蒸馏设计空间中的 **Response-Based KD**。Survey 真正扩展的是三个维度：**知识可以不只是输出；Teacher 不一定预训练并冻结；Teacher 与 Student 的结构关系本身也是蒸馏效果的重要组成部分。**
+经典 KD 只是整个知识蒸馏设计空间中的 **Response-Based KD**。Survey 真正扩展的是三个维度：**知识可以不只是输出；Teacher 不一定预训练并冻结；Teacher 与 Student 的结构关系本身也是蒸馏效果的重要组成部分。**
 
 ---
 
 # 2 Knowledge：Teacher 到底可以教什么
 
-Survey 将知识分为三大类：
+Survey 把知识分成三大类：
 
 ```mermaid
 flowchart LR
@@ -106,11 +106,11 @@ flowchart LR
     D --> G["Relation-Based Knowledge"]
 ```
 
-这三种知识并不互斥。实际 KD 可以同时使用多种知识。论文最后也将“不同知识如何互补、如何统一建模”列为尚未完全解决的问题。
+这三种知识不是互斥的。实际 KD 可以同时使用多种知识。论文最后也把“不同知识如何互补、如何统一建模”列为仍然没有完全解决的问题。
 
 ## 2.1 Response-Based：模仿 Teacher 最后的判断
 
-这一部分只是承接。
+这一部分只做承接。
 对于分类：
 ```text
 Teacher logits
@@ -138,13 +138,13 @@ Response KD 只要求：
 Output_student ≈ Output_teacher
 ```
 
-至于 Student 中间应该怎样形成有用表示，则没有直接监督。
+至于 Student 中间应该怎样形成有用表示，没有直接监督。
 
 这正是 Feature-Based KD 出现的原因。
 
-# 2.2 Feature-Based Knowledge：直接学习 Teacher 的中间表示
+## 2.2 Feature-Based Knowledge：直接学习 Teacher 的中间表示
 
-深度网络的中间 Feature 并不是无意义的过渡结果。
+深度网络中的中间 Feature 不是无意义的过渡结果。
 
 随着网络加深，表示通常从：
 
@@ -163,7 +163,7 @@ Output_student ≈ Output_teacher
 
 因此，与其只告诉 Student 最终答案应该是什么，还可以进一步告诉它：**中间过程最好形成什么样的表示。**
 
-Survey 将这类方法概括为 **Feature-Based Knowledge（基于特征的知识：使用 Teacher 中间层 Feature Map 监督 Student 的中间表示）**，并指出 FitNets 的 Hint Learning 是这一方向的重要早期形式。
+Survey 将这种方法概括为 **Feature-Based Knowledge（基于特征的知识：使用 Teacher 中间层 Feature Map 监督 Student 的中间表示）**，并指出 FitNets 的 Hint Learning 是这一方向的重要早期形式。
 
 ## 2.3 最简单的 Feature Matching
 
@@ -187,7 +187,7 @@ $$
 L_{feature} |F_t-F_s|_2^2
 $$
 
-意思就是：
+其含义是：
 ```text
 Teacher Feature
       ↓
@@ -201,9 +201,9 @@ $$
 F_s\approx F_t
 $$
 
-Student 不必只从最终 Loss 中“猜”中间表示应如何组织，而是直接得到 Teacher 已经学好的表示作为额外监督。
+Student 就不必只从最终 Loss 中“猜”中间表示应该如何组织，而是直接获得 Teacher 已经学好的表示作为额外监督。
 
-# 2.4 但 Teacher 和 Student 的 Feature 往往根本不能直接比较
+## 2.4 但 Teacher 和 Student 的 Feature 往往根本不能直接比较
 
 实际中常见：
 ```text
@@ -222,7 +222,7 @@ $$
 
 根本无法计算。
 
-甚至可能出现：
+甚至可能：
 ```text
 Teacher：
 256 × 64 × 64
@@ -240,12 +240,12 @@ $$
 
 其中：
 - $F_t,F_s$：Teacher / Student Feature；
-- $\Phi_t,\Phi_s$：Feature Transformation（特征变换：将两边 Feature 映射到可比较的表示空间）；
+- $\Phi_t,\Phi_s$：Feature Transformation（特征变换：把两边 Feature 映射到可以比较的表示空间）；
 - $L_F$：两种表示之间的距离。
 
 这一步非常关键。
 
-Feature KD 并不是简单地说一句：“拿两个 Feature 做 MSE。”
+Feature KD 并不是简单一句：“拿两个 Feature 做 MSE。”
 
 完整逻辑是：
 
@@ -315,13 +315,13 @@ learnable mapping
 Teacher representation space
 ```
 
-这与之前学习 CNN 时 `1×1 Conv` 做 Channel Projection 的作用是一致的。
+这和之前学习 CNN 时 `1×1 Conv` 做 Channel Projection 的作用是一致的。
 
-# 2.6 Feature KD 有两个比 Loss 更重要的问题
+## 2.6 Feature KD 有两个比 Loss 更重要的问题
 
 Survey 明确指出 Feature-Based KD 的两个核心难点：
 1. **Teacher 哪一层应该作为 Hint Layer？**
-2. **Teacher 和 Student 不同 Shape、不同语义层级的 Feature 如何正确匹配？**
+2. **Teacher 和 Student 不同 Shape、不同语义层级的 Feature 怎样正确匹配？**
 
 例如：
 
@@ -330,14 +330,14 @@ Teacher 20层
 Student 8层
 ```
 
-不能机械地规定：
+你不能机械规定：
 ```text
 Teacher Layer 10
 ↔
 Student Layer 4
 ```
 
-因为虽然空间分辨率可能一样，但两层 Feature 的语义成熟程度不一定相同。
+因为虽然空间分辨率可能一样，但两层 Feature 的语义成熟程度不一定一样。
 
 所以 Feature KD 实际上有两个设计：
 ```text
@@ -350,7 +350,7 @@ How：
 
 这两个问题后面会和 Teacher–Student Architecture 重新连接起来。
 
-# 2.7 Relation-Based Knowledge：不要求 Feature 一模一样
+## 2.7 Relation-Based Knowledge：不要求 Feature 一模一样
 
 Feature KD 的目标通常类似：
 
@@ -358,7 +358,7 @@ $$
 F_s\approx F_t
 $$
 
-但如果 Teacher 和 Student 结构差异很大，这个要求可能太强。
+但是如果 Teacher 和 Student 结构差异很大，这个要求可能太强。
 
 假设 Teacher：
 ```text
@@ -413,7 +413,7 @@ Teacher Feature
 > Teacher 和 Student 的结构可能完全不同，要求两个 Feature 数值一模一样，约束可能太强。
 
 Relation-Based KD 换了一个思路：
-> **不要求 Student 的 Feature 长得和 Teacher 一样，只要求这些 Feature 之间的关系与 Teacher 类似。**
+> **我不要求 Student 的 Feature 长得和 Teacher 一样，只要求这些 Feature 之间的关系和 Teacher 类似。**
 
 ### 举个最简单的例子
 
@@ -583,9 +583,9 @@ Student 学这种转换关系
 
 > **Teacher 的信息从一层流向下一层时，内部 Feature 之间的关联方式。**
 
-FSP 原论文就是把这种两层之间的关系称为 solution procedure 的 flow。([Open Access](https://openaccess.thecvf.com/content_cvpr_2017/papers/Yim_A_Gift_From_CVPR_2017_paper.pdf?utm_source=chatgpt.com "A Gift from Knowledge Distillation:"))
+FSP 原论文就是把这种两层之间的关系称为 solution procedure 的 flow。([Open Access](https://openaccess.thecvf.com/content_cvpr_2017/papers/Yim_A_Gift_From_CVPR_2017_paper.pdf "A Gift from Knowledge Distillation:"))
 
-### Feature-Based KD 与 Relation-Based KD/FSP 的关系
+### Feature-Based KD 与 Relation-Based KD / FSP 的关系
 #### Feature-Based KD
 
 ```text
@@ -628,21 +628,22 @@ Student Layer B
 
 这三种不同的 KD 提供不同约束。
 
-实际中不一定需要三选一，完全可以：
+实际中不一定三选一，完全可以：
 $$
 L L_{task} + \lambda_rL_{response} + \lambda_fL_{feature} + \lambda_{rel}L_{relation}
 $$
 
-但多并不自动等于好。Survey 将“不同 Knowledge 如何形成统一、互补的监督，而不是互相干扰”直接列为挑战之一。
+但更多并不自动等于更好。Survey 把“不同 Knowledge 如何形成统一、互补的监督，而不是互相干扰”直接列为挑战之一。
 
 ## 2.10 本章总结
 
-Teacher 的 Knowledge 可以分成三个层次：**Response 告诉 Student 最终该输出什么，Feature 告诉 Student 中间表示应如何形成，Relation 则告诉 Student 不同表示之间应该保持什么结构。** Feature KD 的难点是选 Layer 和对齐表示；Relation KD 则进一步放松了“绝对 Feature 必须相同”的要求。
+Teacher 的 Knowledge 可以分成三个层次：**Response 告诉 Student 最终该输出什么，Feature 告诉 Student 中间表示应该怎样形成，Relation 则告诉 Student 不同表示之间应该保持什么结构。** Feature KD 的难点是选 Layer 和对齐表示；Relation KD 则进一步放松了“绝对 Feature 必须相同”的要求。
 
+---
 
 # 3 Distillation Scheme：谁教谁、什么时候教
 
-第二章关注的是：
+第二章我们关注的是：
 
 > 蒸馏什么？
 
@@ -650,7 +651,7 @@ Teacher 的 Knowledge 可以分成三个层次：**Response 告诉 Student 最�
 
 > **Teacher 是什么时候出现的？它在 Student 学习过程中会不会变化？**
 
-Survey 根据 Teacher 是否与 Student 同时更新，把训练范式分成三类：
+Survey 根据 Teacher 是否和 Student 同时更新，把训练范式分成三类：
 ```text
 Offline Distillation
 Online Distillation
@@ -680,7 +681,7 @@ Teacher
 Student 学习
 ```
 
-Survey 将其描述为典型的两阶段流程：先训练 Teacher，再从 Teacher 提取 logits 或中间 Feature 指导 Student。
+Survey 将它描述为典型的两阶段流程：先训练 Teacher，再从 Teacher 提取 logits 或中间 Feature 指导 Student。
 
 它的优点很直接：
 - Teacher 稳定；
@@ -697,13 +698,13 @@ Survey 将其描述为典型的两阶段流程：先训练 Teacher，再从 Teac
 ```
 
 而且 Teacher 一旦固定：
-> Student 学得困难时，Teacher 并不会因此改变自己的教学方式。
+> Student 学得困难，Teacher 并不会因此改变自己的教学方式。
 
 # 3.2 Online Distillation：大家一起学
 
 如果没有一个已经训练好的强 Teacher 呢？
 
-Online Distillation（在线蒸馏：Teacher 与 Student 在同一训练过程中共同更新）把流程改为：
+Online Distillation（在线蒸馏：Teacher 与 Student 在同一训练过程中共同更新）把流程改成：
 
 ```mermaid
 flowchart LR
@@ -716,7 +717,7 @@ flowchart LR
 Survey 的定义非常直接：
 > Online KD 中 Teacher 与 Student 同时更新，整个系统端到端训练。
 
-一个典型思想是 **Mutual Learning（互学习：多个模型同时训练，彼此将自己的预测作为额外监督）**：
+一个典型思想是 **Mutual Learning（互学习：多个模型同时训练，彼此把自己的预测作为额外监督）**：
 ```text
 Model A：
 Ground Truth
@@ -736,7 +737,7 @@ A 是 B 的 Teacher
 B 也是 A 的 Teacher
 ```
 
-这与 Offline KD 最大的区别不是 Loss，而是：
+这和 Offline KD 最大的区别不是 Loss，而是：
 > **Knowledge Source 本身也在变化。**
 
 ## 3.3 为什么互相教还能有效
@@ -768,7 +769,7 @@ Mutual Learning：
 
 它不是因为其中某一个从一开始就是专家，而是在训练中形成动态 Knowledge Source。
 
-Survey 也指出，Online KD 的优势是单阶段、端到端，但如何在 Online Setting 中构造真正高容量、高质量的 Teacher 仍值得进一步研究。
+Survey 也指出，Online KD 的优势是单阶段、端到端，但如何在 Online Setting 中构造真正高容量、高质量的 Teacher 仍然值得进一步研究。
 
 # 3.4 Self-Distillation：Teacher 和 Student 可以是自己
 
@@ -823,7 +824,6 @@ Later Epoch
 
 大模型 → 小模型只是其中最经典的一种实现。
 
-
 ## 3.5 三种 Scheme 对比
 
 |Scheme|Teacher 状态|Teacher / Student 关系|
@@ -838,6 +838,7 @@ Survey 还明确指出，这三类方式并不是绝对互斥，可以组合使�
 
 Distillation Scheme 解决的不是“蒸馏什么”，而是**Knowledge 在什么训练关系中产生**。Offline 是固定 Teacher 单向教学，Online 是多个模型共同学习，Self-Distillation 则把同一模型自身变成 Knowledge Source。理解这一点以后，KD 就不再等同于“先训练一个大 Teacher”。
 
+---
 
 # 4 Teacher–Student Architecture：Teacher 越强越好吗
 
@@ -853,7 +854,7 @@ Student 应该学得更好
 ```
 
 但 Survey 特别强调：
-> Teacher–Student Architecture 本身决定 Knowledge 能否被有效获取和迁移，而过大的 Model Capacity Gap 可能损害蒸馏效果。
+> Teacher–Student Architecture 本身决定 Knowledge 能否有效获取和迁移，而过大的 Model Capacity Gap 可能损害蒸馏效果。
 
 # 4.1 Student 可以怎么构造
 
@@ -882,11 +883,11 @@ Architecture Compression
 
 是两个不同维度。
 
-先决定 Student 长什么样，再决定怎样对其蒸馏，是非常正常的流程。
+先决定 Student 长什么样，再决定怎样给它蒸馏，是非常正常的流程。
 
 # 4.2 为什么 Teacher 太强可能反而不好教
 
-可以用函数逼近来理解。
+可以用函数逼近理解。
 
 Teacher 实现：
 
@@ -907,7 +908,7 @@ $$
 
 但假设 Teacher 的函数复杂度远高于 Student。
 
-即使优化完全成功，也存在：
+即使优化完全成功，仍存在：
 
 $$
 \min_{f_s\in\mathcal H_s} D(f_t,f_s)>0
@@ -953,7 +954,7 @@ Student Layer S
 如果 Teacher 与 Student 架构差异极大：
 > 哪一层对应哪一层本身就可能没有明显答案。
 
-因此前面第二章 Feature KD 的“Layer Alignment Problem”，实际上与这一章 Architecture Design 是同一个问题的两个侧面。
+因此前面第二章 Feature KD 的“Layer Alignment Problem”，实际上和这一章 Architecture Design 是同一个问题的两个侧面。
 
 # 4.4 Teacher Assistant：不要一步跨度太大
 
@@ -1025,7 +1026,7 @@ Assistant approximation
 Student approximation
 ```
 
-每一步都可能丢失信息。
+每一步都可能丢信息。
 
 所以本质上是在权衡：
 
@@ -1082,7 +1083,7 @@ Spatial alignment
 ```
 
 如果做 Relation KD：
-则可能不要求绝对 Feature 一样，从而在一定程度上降低 Architecture Mismatch 的影响。
+则可能不要求绝对 Feature 一样，可以降低一部分 Architecture Mismatch。
 因此这三个问题必须联合考虑：
 
 ```text
@@ -1097,6 +1098,8 @@ Survey 也指出，相比大量工作不断设计 Knowledge 和 Distillation Los
 
 ### 本章总结
 Teacher 并非越大越好。KD 的本质是一个受 Student Function Capacity 限制的知识迁移过程：如果 Teacher–Student Gap 太大，Student 可能根本无法表达 Teacher 的知识。Teacher Assistant、Layer Alignment 和 Projection 的共同目标，都是让 Knowledge 进入 Student 的“可学习范围”。
+
+---
 
 # 5 KD Algorithm Map：各种 KD 到底改变了哪个环节
 
@@ -1116,7 +1119,7 @@ NAS-Based KD
 
 逐个记住名称没有意义。
 
-更好的理解方式是问：
+更好的理解方法是问：
 
 > **它到底修改了 KD 系统中的哪个变量？**
 
@@ -1153,12 +1156,12 @@ Optimization path 不同
 
 可能拥有互补知识。
 
-最简单的做法是：
+最简单做法是：
 $$
 p_T \frac{1}{M} \sum_{m=1}^M p_{T_m}
 $$
 
-再让 Student 学习平均输出。
+再让 Student 学平均输出。
 
 但问题也马上出现：
 ```text
@@ -1177,9 +1180,9 @@ Teacher 2 在这个 Sample 上不可靠
 > 怎么加几个 Teacher。
 
 而是：
-> **不同 Teacher 的 Knowledge 怎样被选择、加权和融合？**
+> **不同 Teacher 的 Knowledge 怎样选择、加权和融合？**
 
-Survey 同样认为，多 Teacher 能带来更丰富的知识，但不同 Knowledge 如何有效整合仍需进一步研究。
+Survey 同样认为，多 Teacher 能带来更丰富知识，但不同 Knowledge 如何有效整合仍需进一步研究。
 
 ## Cross-Modal Distillation
 
@@ -1238,7 +1241,7 @@ $$
 A=\Phi(F)
 $$
 
-例如最简单地对 Channel 做聚合：
+例如最简单地聚合 Channel：
 $$
 A(h,w) \sum_c |F(c,h,w)|^2
 $$
@@ -1291,6 +1294,7 @@ Student 不是学某个节点的绝对 Feature，而是学：
 所以 Graph-Based KD 可以理解成 Relation-Based Knowledge 的结构化扩展。
 
 # 5.3 改变 Transfer Mechanism：不再只用距离 Loss
+
 ## Adversarial Distillation
 
 传统 KD：
@@ -1329,7 +1333,7 @@ Student：
 这种设计的动机是：
 > 不再人为指定“Feature 每个位置应该差多少”，而是让 Student 学习 Teacher Representation 的整体分布。
 
-Survey 将 GAN 思想用于 KD 的方法归入 Adversarial Distillation，同时指出 GAN 还可以用于产生 KD 所需的训练数据。
+Survey 将 GAN 思想用于 KD 的方法归入 Adversarial Distillation，同时指出 GAN 还可以用于产生 KD 所需要的训练数据。
 
 # 5.4 改变 Data Condition：没有原数据还能不能蒸馏
 
@@ -1359,7 +1363,7 @@ Teacher Model 有
 
 怎么办？
 
-**Data-Free KD（无数据蒸馏：在没有原训练集时，从 Teacher 自身包含的信息生成或重建用于蒸馏的数据）**。
+**Data-Free KD（无数据蒸馏：没有原训练集时，从 Teacher 自身包含的信息生成或重建用于蒸馏的数据）**。
 
 结构：
 
@@ -1378,10 +1382,10 @@ Survey 总结的方法包括：
 - 利用 Teacher Layer Activation 重建输入；
 - 从 Teacher Feature Representation 或 Softmax Space 合成样本。
 
-真正的难点是：
-> **Teacher 只告诉你自己会如何响应，但并不直接保存完整训练数据分布。**
+真正难点是：
+> **Teacher 只告诉你自己会怎么响应，但并不直接保存完整训练数据分布。**
 
-所以如果 Synthetic Data 只覆盖很窄的区域：
+所以 Synthetic Data 如果只覆盖很窄的区域：
 ```text
 Student
 只学到 Teacher
@@ -1389,10 +1393,10 @@ Student
 ```
 泛化仍可能很差。
 
-Survey 也将“如何生成高质量、多样的合成训练数据”列为 Data-Free KD 的关键难题。
-
+Survey 也把“怎样生成高质量、多样的合成训练数据”列为 Data-Free KD 的关键难题。
 
 # 5.5 改变 Student 的表示成本
+
 ## Quantized Distillation
 
 Quantization：
@@ -1437,7 +1441,7 @@ Architecture / Capacity Constraint
 Numerical Precision Constraint
 ```
 
-Teacher Knowledge 则作为额外监督，帮助低精度 Student 恢复性能。
+Teacher Knowledge 则作为额外监督帮助低精度 Student 恢复性能。
 
 Survey 将这种 Quantization + KD 的联合训练单独归为 Quantized Distillation。
 
@@ -1534,13 +1538,15 @@ Teacher–Student Architecture
 
 Survey 中各种 KD 算法并不是九套完全独立的技术。它们大多是在修改同一个 Teacher–Student 框架中的某个组成部分：**知识来源、知识表示、传递方式、数据条件、Student 约束、学习时间尺度或网络结构。**
 
+---
+
 # 6 如何真正设计一个 KD 系统
 
 到这里已经不应该再用：
 
 > “给模型加一个 KD Loss。”
 
-这种方式来思考。
+这种方式思考。
 
 一个完整 KD 系统至少要回答：
 
@@ -1564,7 +1570,7 @@ Capacity
 Student 吃得下吗？
 ```
 
-Survey 最后也将 **Knowledge Quality、Distillation Scheme、Teacher–Student Architecture 和理论理解**列为 KD 的核心挑战，并强调未来的重要问题包括 Teacher–Student 结构、学习什么 Knowledge，以及 Knowledge 蒸馏到 Student 的哪里。
+Survey 最后也把 **Knowledge Quality、Distillation Scheme、Teacher–Student Architecture 和理论理解**列为 KD 的核心挑战，并强调未来的重要问题包括 Teacher–Student 结构、学习什么 Knowledge，以及 Knowledge 蒸馏到 Student 的哪里。
 
 # 6.1 第一步：先确定部署目标，而不是先确定 Loss
 
@@ -1588,7 +1594,7 @@ Precision
 
 得到 Student Architecture。
 
-然后再考虑 KD。
+然后再问 KD。
 
 而不是：
 ```text
@@ -1675,11 +1681,11 @@ T4 ↔ S3
 确认哪些 Layer 真正提供收益
 ```
 
-Survey 明确指出，Feature KD 中如何选择 Hint Layer / Guided Layer 以及如何匹配不同 Feature Representation，仍没有一个通用答案。
+Survey 明确指出，Feature KD 中如何选择 Hint Layer / Guided Layer 以及如何匹配不同 Feature Representation 仍然没有一个通用答案。
 
 # 6.4 第四步：不要让 KD Loss 和 Task Loss 互相打架
 
-最常见的总体形式：
+最常见总体形式：
 
 $$
 L L_{task} + \lambda L_{KD}
@@ -1831,6 +1837,7 @@ Feature Loss
 而不是因为：
 > “经典论文都这么加。”
 
+---
 
 # 7 面对一个新 KD 任务时的检查表
 
@@ -1840,7 +1847,6 @@ Feature Loss
 ### ① Student 为什么需要 KD？
 
 如果 Student 已经达到目标，就没有必要增加训练复杂度。
-
 
 ### ② Teacher 的优势在哪里？
 ```text
@@ -1868,7 +1874,6 @@ Relation KD
 ```
 
 可能比强行 Feature Matching 更合理。
-
 
 ### ④ Teacher 在什么时候存在？
 
@@ -1925,7 +1930,7 @@ flowchart LR
 
 > **不是会复现某一个 KD Loss，而是能分析一个任务中 Knowledge 存在哪里，并把它转换成 Student 能够学习的监督。**
 
-# 6.8 这篇 Survey 最值得留下的三个问题
+# 8 这篇 Survey 最值得留下的三个问题
 
 Survey 最后列出很多挑战，但可以进一步压缩成三个长期问题。
 
@@ -1991,11 +1996,11 @@ Ablation
 Task-specific analysis
 ```
 
-而不是根据 Teacher Accuracy 机械地决定蒸馏策略。
+而不是根据 Teacher Accuracy 机械决定蒸馏策略。
 
 # 整体知识链
 
-整篇 Survey 可以最终压缩成一张图：
+整篇 Survey 可以最终压缩成这一张图：
 
 ```mermaid
 flowchart LR
