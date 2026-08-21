@@ -2,7 +2,7 @@
 title: "Distilling the Knowledge in a Neural Network"
 categories: ["AI"]
 author: "BluHuang"
-date: 2026-08-06T19:17:24+0800
+date: 2026-08-21T15:53:07+0800
 lastmod: 2026-08-18T17:41:31+0800
 ---
 

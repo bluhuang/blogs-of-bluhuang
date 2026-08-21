@@ -14,8 +14,11 @@
   "AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md": {
     "hash": "bc0f9e0521ca3605f63c082d66ca102d92e690223314a177971d087bf3e75b83"
   },
-  "AI/0 Paper/Distillation/Distilling the Knowledge in a Neural Network.md": {
+  "AI/0 Paper/Distillation/1 Distilling the Knowledge in a Neural Network.md": {
     "hash": "f90c40086c1bd61eb4181b7b1d47b650f5e93ff54a1da84db606fe6a441edb8d"
+  },
+  "AI/0 Paper/Distillation/2  Knowledge Distillation：A Survey.md": {
+    "hash": "1ac0af0134180055b6a3658532a668253a949898760d2b374ffe997587c4a52a"
   },
   "AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md": {
     "hash": "1a597f30bd123774d45101a0f5e48ef45ffc5a60a8a720071424cbf5e764205a"
@@ -151,6 +154,9 @@
   },
   "AI/5 CV/18 时域降噪.md": {
     "hash": "9edeec3e41e82615926cca13838aa987ada5d7084ac977172bacc371b2ea8f59"
+  },
+  "AI/5 CV/19 MOT：Multi-Object Tracking.md": {
+    "hash": "6231519943c78dded41286faf48af6884ea8676b608eec073536194d15b4b3b5"
   },
   "AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "c63f03b9fd3126522853b3111ca8290604b173ea84f0023a4114594672bc84e9"
