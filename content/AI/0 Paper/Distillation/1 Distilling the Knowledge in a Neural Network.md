@@ -1,12 +1,13 @@
 ---
 title: "Distilling the Knowledge in a Neural Network"
+image: "/images/AI/0%20Paper/Distillation/attachments/distillation_teacher_student_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-21T15:53:07+0800
-lastmod: 2026-08-25T20:24:00+0800
+lastmod: 2026-08-25T20:35:31+0800
 ---
 
-> 论文：Geoffrey Hinton、Oriol Vinyals、Jeff Dean，*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。
+> 论文：*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。
 
 ## 1. 为什么需要知识蒸馏
 
@@ -30,6 +31,8 @@ lastmod: 2026-08-25T20:24:00+0800
 - **Teacher Model，教师模型**：已经训练完成、负责提供知识的强模型，也可以是多个模型组成的集成；
 - **Student Model，学生模型**：接受教师监督、最终用于部署的较小模型；
 - **Transfer Set，迁移集**：蒸馏阶段送入教师和学生的样本集合，可以是原训练集，也可以包含没有人工标签的数据。
+
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_teacher_student_3d.png)
 
 这里最重要的观念是：知识不等同于教师的参数。教师可能是卷积网络，学生可能更浅、更窄，二者参数形状完全不同，无法逐层复制。论文把知识理解为模型学到的输入到输出映射：给定同一个输入，教师如何分配各类别概率，学生就学习如何产生类似判断。
 
@@ -64,9 +67,11 @@ $$
 
 这种分布称为**Soft Target，软目标**（教师对所有类别给出的概率分布，在蒸馏流程中作为学生的额外训练目标）。
 
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_hard_vs_soft_targets_3d.png)
+
 硬目标和软目标不是“错误与正确”的区别，而是信息密度不同：硬标签来自人工标注，负责指出任务定义下的正确答案；软目标来自教师，负责补充教师学到的类别相似性和不确定性。
 
-论文特别关注错误类别之间的相对概率。即使教师把正确类别预测为 $0.999$，其余类别的概率都很小，$10^{-3}$、$10^{-6}$ 和 $10^{-9}$ 仍然不是同一种判断。BMW 被误判成垃圾车的概率可能很低，但仍然会远高于被误判成胡萝卜的概率。这种相对关系反映教师怎样组织类别。
+论文特别关注错误类别之间的相对概率。即使教师把正确类别预测为 $0.999$，其余类别的概率都很小，$10^{-3}$、$10^{-6}$ 和 $10^{-9}$ 仍然不是同一种判断。某个汽车品牌被误判成垃圾车的概率可能很低，但仍然会远高于被误判成胡萝卜的概率。这种相对关系反映教师怎样组织类别。
 
 后来人们常把这类隐藏在非正确类别概率中的信息称为 **Dark Knowledge，暗知识**（不是论文公式中的新变量，而是对教师输出中类别关系信息的概括）。
 
@@ -284,6 +289,8 @@ $$
 \text{类别 2 比类别 3 更接近类别 1}
 $$
 
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_temperature_softening_3d.png)
+
 所以，温度不是创造了新的知识。
 教师原本的 Logit：
 
@@ -322,7 +329,9 @@ $$
 
 > 暗知识是教师输出中错误类别之间的相对概率关系，它反映教师学到的类别相似性和决策结构。
 
-例如，假设图片真实类别是 BMW，教师可能输出：
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_dark_knowledge_3d.png)
+
+例如，假设图片真实类别是某个汽车品牌，教师可能输出：
 ```text
 BMW：0.55
 Audi：0.24
@@ -331,7 +340,7 @@ Truck：0.05
 Carrot：0.01
 ```
 
-硬标签只保留 BMW，其他类别全部写成 0。
+硬标签只保留该汽车品牌，其他类别全部写成 0。
 
 软目标却告诉学生：
 
@@ -405,7 +414,7 @@ $$
 
 教师在这个过程中保持固定，只负责提供目标；反向传播只更新学生模型。
 
-### 3.6 为什么还需要真实标签
+### 3.7 为什么还需要真实标签
 
 温度软化后的教师分布能传递类别关系，但它也可能包含教师自己的错误。
 
@@ -576,6 +585,8 @@ Hard Loss：保证学生仍然面向任务的真实答案
 $$
 \mathcal{L}=\alpha T^2\mathcal{L}_{soft}+(1-\alpha)\mathcal{L}_{hard}
 $$
+
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_loss_components_3d.png)
 
 其中：
 - $\alpha$：软目标路径的权重；
@@ -869,6 +880,8 @@ $$
 学生很小：没有容量吸收教师的全部关系，需要忽略一部分低价值信息
 ```
 
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_compression_tradeoff_3d.png)
+
 这也给实际应用一个边界：知识蒸馏可以改善固定容量学生的训练目标，但不能让极小学生无损容纳任意复杂教师。教师与学生之间不是“复制文件”，而是受容量约束的函数逼近。
 
 ## 7. 专家模型、实际边界与应用方法
@@ -878,6 +891,8 @@ $$
 **Generalist Model，通才模型**（对全部类别进行预测的完整模型）负责处理所有输入，并找出当前样本最可能涉及的类别。
 
 **Specialist Model，专家模型**（专门区分一组容易互相混淆类别的模型）只重点学习某个类别簇，例如相似车型或相似动物。对于它不关心的其他类别，可以合并成一个 **Dustbin Class，兜底类别**（把专家范围外的类别统一汇总为一个输出）。
+
+![](/images/AI/0%20Paper/Distillation/attachments/distillation_specialist_ensemble_3d.png)
 
 专家类别不是随意划分。论文根据通才模型预测结果的协方差，把经常同时获得较高概率、容易混淆的类别聚在一起。推理时先运行通才模型，再只激活与通才最高预测类别相交的专家，最后组合通才和专家的分布。
 
