@@ -3,7 +3,7 @@ title: "Distilling the Knowledge in a Neural Network"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-21T15:53:07+0800
-lastmod: 2026-08-18T17:41:31+0800
+lastmod: 2026-08-25T20:24:00+0800
 ---
 
 > 论文：Geoffrey Hinton、Oriol Vinyals、Jeff Dean，*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。

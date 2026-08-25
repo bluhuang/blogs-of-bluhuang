@@ -15,7 +15,7 @@
     "hash": "bc0f9e0521ca3605f63c082d66ca102d92e690223314a177971d087bf3e75b83"
   },
   "AI/0 Paper/Distillation/1 Distilling the Knowledge in a Neural Network.md": {
-    "hash": "f90c40086c1bd61eb4181b7b1d47b650f5e93ff54a1da84db606fe6a441edb8d"
+    "hash": "922275f403ef8156a98cd25c29c234c6f89e3116c72efafb5af13147982ccd94"
   },
   "AI/0 Paper/Distillation/2  Knowledge Distillation：A Survey.md": {
     "hash": "1ac0af0134180055b6a3658532a668253a949898760d2b374ffe997587c4a52a"
@@ -156,7 +156,7 @@
     "hash": "9edeec3e41e82615926cca13838aa987ada5d7084ac977172bacc371b2ea8f59"
   },
   "AI/5 CV/19 MOT：Multi-Object Tracking.md": {
-    "hash": "6231519943c78dded41286faf48af6884ea8676b608eec073536194d15b4b3b5"
+    "hash": "ce02f45232d3b715dbf3e6db68faa0886e8f9d4c8a5e6e4f7ae30f8c7c6dba49"
   },
   "AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "c63f03b9fd3126522853b3111ca8290604b173ea84f0023a4114594672bc84e9"
@@ -188,6 +188,9 @@
   "AI/6 Model Training/1 模型训练全景.md": {
     "hash": "f28d610bc9ed68eeea5f6844e7e53abf6d74b65df1074db4ced029c74d6f3cbe"
   },
+  "AI/6 Model Training/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md": {
+    "hash": "efc35db5af6841b35446544f20ae593b8596ff485f329d5c5e8d7ef7a4258a61"
+  },
   "AI/6 Model Training/2 SSIM（结构相似性指标）.md": {
     "hash": "e131fb6b73631d7a92b8fd2c477474e4621fd8207cdbb8fc0f24b058c0187355"
   },
@@ -205,6 +208,12 @@
   },
   "AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
     "hash": "752565b0cffd493a4dcdf1379ecc44d2ac2f16dc35ea90474e937c8e07b503d8"
+  },
+  "AI/6 Model Training/8 时域中的两种IIR问题深度分析.md": {
+    "hash": "62a3eda247074f5f343c074c1465ca91129a59de0a54e27a3cfa76eeecda3906"
+  },
+  "AI/6 Model Training/9 时域中的两种IIR问题解决方案调研.md": {
+    "hash": "92a55eba796c64cf600c997d799126b0bbbd9c834dde4962f1753381aeee5ecc"
   },
   "Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md": {
     "hash": "9e20f3e7feb5af595bdcaff65a3f68aada8b95f66815ada62e504a006374e9c9"

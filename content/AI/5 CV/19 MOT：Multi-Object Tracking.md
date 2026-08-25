@@ -4,7 +4,7 @@ image: "/images/AI/5%20CV/attachments/mot_trajectory_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-21T15:53:07+0800
-lastmod: 2026-08-21T15:53:07+0800
+lastmod: 2026-08-25T20:24:00+0800
 ---
 
 # 从“下一帧还是不是这个人”开始理解 MOT
