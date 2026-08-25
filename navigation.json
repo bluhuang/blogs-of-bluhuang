@@ -326,6 +326,10 @@
             "url": "/AI/1-模型训练全景/"
           },
           {
+            "title": "10 DDP 分布式训练(Pytorch - DistributedDataParallel)",
+            "url": "/AI/10-ddp-分布式训练pytorch---distributeddataparallel/"
+          },
+          {
             "title": "2 SSIM（结构相似性指标）",
             "url": "/AI/2-ssim结构相似性指标/"
           },
@@ -348,10 +352,22 @@
           {
             "title": "7 拉普拉斯金字塔  Laplacian Pyramid",
             "url": "/AI/7-拉普拉斯金字塔-laplacian-pyramid/"
+          },
+          {
+            "title": "8 时域中的两种IIR问题深度分析",
+            "url": "/AI/8-时域中的两种iir问题深度分析/"
+          },
+          {
+            "title": "9 时域中的两种IIR问题解决方案调研",
+            "url": "/AI/9-时域中的两种iir问题解决方案调研/"
           }
         ]
       }
     ]
+  },
+  {
+    "title": "blogs",
+    "url": "/blogs/"
   },
   {
     "title": "coding",
@@ -474,6 +490,10 @@
         ]
       }
     ]
+  },
+  {
+    "title": "RAG",
+    "url": "/RAG/"
   },
   {
     "title": "Workflow and Tools",
