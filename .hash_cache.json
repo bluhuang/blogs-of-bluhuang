@@ -23,6 +23,9 @@
   "AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md": {
     "hash": "1a597f30bd123774d45101a0f5e48ef45ffc5a60a8a720071424cbf5e764205a"
   },
+  "AI/0 Paper/GAN/2 StyleGAN3 - Alias-Free Generative Adversarial Networks.md": {
+    "hash": "02a52dba7fbcab4765af058e47f3e6e8e8951bc7bb29cab283c72aecd897c8e0"
+  },
   "AI/1 LLM/1 LLM基础必知必会.md": {
     "hash": "be12ff1a5fd15f1f5823aff2d42fe17e0351e5b91f22867a8565500a4fee08b3"
   },
@@ -161,6 +164,9 @@
   "AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
     "hash": "c63f03b9fd3126522853b3111ca8290604b173ea84f0023a4114594672bc84e9"
   },
+  "AI/5 CV/20 光流 Optical Flow.md": {
+    "hash": "e9401366399a77b5d65abbe2559827555398b0dac4a2558116ed6741e1a4ec21"
+  },
   "AI/5 CV/3 Gamma 校正与逆 Gamma.md": {
     "hash": "637740627fe800ec580131f28fbb8174e6afab02a8578a38d19b7829b0bef871"
   },
@@ -182,38 +188,44 @@
   "AI/5 CV/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
     "hash": "ea0801afb7d5a57f466bccb4223d588a2f02cc6e7414d0194e791a5cab7d2df0"
   },
-  "AI/6 Model Training/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
+  "AI/6 Model Training & Quantization/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
     "hash": "564282a53be0ae8330a0b601149f80a783d3a46abef84257b30d450e5347bac5"
   },
-  "AI/6 Model Training/1 模型训练全景.md": {
+  "AI/6 Model Training & Quantization/1 模型训练全景.md": {
     "hash": "f28d610bc9ed68eeea5f6844e7e53abf6d74b65df1074db4ced029c74d6f3cbe"
   },
-  "AI/6 Model Training/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md": {
-    "hash": "efc35db5af6841b35446544f20ae593b8596ff485f329d5c5e8d7ef7a4258a61"
+  "AI/6 Model Training & Quantization/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md": {
+    "hash": "19367507ae9d8df2c0e7901edfd6d2ba3f2eec7022fedd5012f148338b61d949"
   },
-  "AI/6 Model Training/2 SSIM（结构相似性指标）.md": {
+  "AI/6 Model Training & Quantization/11 模型量化基础.md": {
+    "hash": "9c3551c09e11f5e4b5ef08f9f7b9f2dbec88d1932b91e9b8756a210f8ad74a12"
+  },
+  "AI/6 Model Training & Quantization/2 SSIM（结构相似性指标）.md": {
     "hash": "e131fb6b73631d7a92b8fd2c477474e4621fd8207cdbb8fc0f24b058c0187355"
   },
-  "AI/6 Model Training/3 学习率调度（Learning Rate Scheduling）.md": {
+  "AI/6 Model Training & Quantization/3 学习率调度（Learning Rate Scheduling）.md": {
     "hash": "de50cfd4c4747ff1db66329cd31817e9d8188c9d17bd43812c0fc15559b3128c"
   },
-  "AI/6 Model Training/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
+  "AI/6 Model Training & Quantization/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
     "hash": "f7d389db6e68c29b6e3da9c5e0893fb280f53c8f5413f21e94f7ba74e717f243"
   },
-  "AI/6 Model Training/5 YUV 色彩空间 Loss.md": {
+  "AI/6 Model Training & Quantization/5 YUV 色彩空间 Loss.md": {
     "hash": "be84cb417a3cd9b0398222d745c9e7d5eb7c7eda2afd5776b822203a365b80f2"
   },
-  "AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
+  "AI/6 Model Training & Quantization/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
     "hash": "a0b6885289f9ab9ca76a54b05630a3f3786a8fcc8258b73a079d91ef865199b9"
   },
-  "AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
-    "hash": "752565b0cffd493a4dcdf1379ecc44d2ac2f16dc35ea90474e937c8e07b503d8"
+  "AI/6 Model Training & Quantization/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
+    "hash": "bce0b9b115642bfa69fa8db287c176a9901229e93c0c395d8e2ac87fe0b2c10b"
   },
-  "AI/6 Model Training/8 时域中的两种IIR问题深度分析.md": {
+  "AI/6 Model Training & Quantization/8 时域中的两种IIR问题深度分析.md": {
     "hash": "62a3eda247074f5f343c074c1465ca91129a59de0a54e27a3cfa76eeecda3906"
   },
-  "AI/6 Model Training/9 时域中的两种IIR问题解决方案调研.md": {
+  "AI/6 Model Training & Quantization/9 时域中的两种IIR问题解决方案调研.md": {
     "hash": "92a55eba796c64cf600c997d799126b0bbbd9c834dde4962f1753381aeee5ecc"
+  },
+  "Workflow and Tools/IOS/Sidestore.md": {
+    "hash": "a7a2a947f184f753bf52e0593e595ac593899ab7b616ea2561e2dd57200d66c1"
   },
   "Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md": {
     "hash": "9e20f3e7feb5af595bdcaff65a3f68aada8b95f66815ada62e504a006374e9c9"
