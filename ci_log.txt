@@ -1,142 +1,12 @@
 Cloning into '.temp/source_repo'...
-Updating files:   0% (1/616)Updating files:   1% (7/616)Updating files:   2% (13/616)Updating files:   3% (19/616)Updating files:   4% (25/616)Updating files:   5% (31/616)Updating files:   6% (37/616)Updating files:   7% (44/616)Updating files:   8% (50/616)Updating files:   9% (56/616)Updating files:  10% (62/616)Updating files:  11% (68/616)Updating files:  12% (74/616)Updating files:  13% (81/616)Updating files:  14% (87/616)Updating files:  15% (93/616)Updating files:  16% (99/616)Updating files:  17% (105/616)Updating files:  18% (111/616)Updating files:  19% (118/616)Updating files:  20% (124/616)Updating files:  21% (130/616)Updating files:  22% (136/616)Updating files:  23% (142/616)Updating files:  24% (148/616)Updating files:  25% (154/616)Updating files:  26% (161/616)Updating files:  27% (167/616)Updating files:  28% (173/616)Updating files:  29% (179/616)Updating files:  30% (185/616)Updating files:  31% (191/616)Updating files:  32% (198/616)Updating files:  33% (204/616)Updating files:  34% (210/616)Updating files:  35% (216/616)Updating files:  36% (222/616)Updating files:  37% (228/616)Updating files:  38% (235/616)Updating files:  39% (241/616)Updating files:  40% (247/616)Updating files:  41% (253/616)Updating files:  42% (259/616)Updating files:  42% (260/616)Updating files:  43% (265/616)Updating files:  44% (272/616)Updating files:  45% (278/616)Updating files:  46% (284/616)Updating files:  47% (290/616)Updating files:  48% (296/616)Updating files:  49% (302/616)Updating files:  50% (308/616)Updating files:  51% (315/616)Updating files:  52% (321/616)Updating files:  53% (327/616)Updating files:  54% (333/616)Updating files:  55% (339/616)Updating files:  56% (345/616)Updating files:  57% (352/616)Updating files:  58% (358/616)Updating files:  59% (364/616)Updating files:  60% (370/616)Updating files:  61% (376/616)Updating files:  62% (382/616)Updating files:  63% (389/616)Updating files:  64% (395/616)Updating files:  65% (401/616)Updating files:  66% (407/616)Updating files:  67% (413/616)Updating files:  68% (419/616)Updating files:  69% (426/616)Updating files:  70% (432/616)Updating files:  71% (438/616)Updating files:  72% (444/616)Updating files:  73% (450/616)Updating files:  74% (456/616)Updating files:  75% (462/616)Updating files:  76% (469/616)Updating files:  77% (475/616)Updating files:  78% (481/616)Updating files:  79% (487/616)Updating files:  80% (493/616)Updating files:  81% (499/616)Updating files:  82% (506/616)Updating files:  83% (512/616)Updating files:  84% (518/616)Updating files:  85% (524/616)Updating files:  86% (530/616)Updating files:  87% (536/616)Updating files:  88% (543/616)Updating files:  89% (549/616)Updating files:  90% (555/616)Updating files:  91% (561/616)Updating files:  92% (567/616)Updating files:  93% (573/616)Updating files:  94% (580/616)Updating files:  95% (586/616)Updating files:  96% (592/616)Updating files:  97% (598/616)Updating files:  98% (604/616)Updating files:  99% (610/616)Updating files: 100% (616/616)Updating files: 100% (616/616), done.
+Updating files:   0% (1/615)Updating files:   1% (7/615)Updating files:   2% (13/615)Updating files:   3% (19/615)Updating files:   4% (25/615)Updating files:   5% (31/615)Updating files:   6% (37/615)Updating files:   7% (44/615)Updating files:   8% (50/615)Updating files:   9% (56/615)Updating files:  10% (62/615)Updating files:  11% (68/615)Updating files:  12% (74/615)Updating files:  13% (80/615)Updating files:  14% (87/615)Updating files:  15% (93/615)Updating files:  16% (99/615)Updating files:  17% (105/615)Updating files:  18% (111/615)Updating files:  19% (117/615)Updating files:  20% (123/615)Updating files:  21% (130/615)Updating files:  22% (136/615)Updating files:  23% (142/615)Updating files:  24% (148/615)Updating files:  25% (154/615)Updating files:  26% (160/615)Updating files:  27% (167/615)Updating files:  28% (173/615)Updating files:  29% (179/615)Updating files:  30% (185/615)Updating files:  31% (191/615)Updating files:  32% (197/615)Updating files:  33% (203/615)Updating files:  34% (210/615)Updating files:  35% (216/615)Updating files:  36% (222/615)Updating files:  37% (228/615)Updating files:  38% (234/615)Updating files:  39% (240/615)Updating files:  40% (246/615)Updating files:  41% (253/615)Updating files:  42% (259/615)Updating files:  43% (265/615)Updating files:  44% (271/615)Updating files:  45% (277/615)Updating files:  46% (283/615)Updating files:  47% (290/615)Updating files:  48% (296/615)Updating files:  49% (302/615)Updating files:  50% (308/615)Updating files:  51% (314/615)Updating files:  52% (320/615)Updating files:  53% (326/615)Updating files:  54% (333/615)Updating files:  55% (339/615)Updating files:  56% (345/615)Updating files:  57% (351/615)Updating files:  58% (357/615)Updating files:  59% (363/615)Updating files:  60% (369/615)Updating files:  61% (376/615)Updating files:  62% (382/615)Updating files:  63% (388/615)Updating files:  64% (394/615)Updating files:  65% (400/615)Updating files:  66% (406/615)Updating files:  67% (413/615)Updating files:  68% (419/615)Updating files:  69% (425/615)Updating files:  70% (431/615)Updating files:  71% (437/615)Updating files:  72% (443/615)Updating files:  73% (449/615)Updating files:  74% (456/615)Updating files:  75% (462/615)Updating files:  76% (468/615)Updating files:  77% (474/615)Updating files:  78% (480/615)Updating files:  79% (486/615)Updating files:  80% (492/615)Updating files:  81% (499/615)Updating files:  82% (505/615)Updating files:  83% (511/615)Updating files:  84% (517/615)Updating files:  85% (523/615)Updating files:  86% (529/615)Updating files:  87% (536/615)Updating files:  88% (542/615)Updating files:  89% (548/615)Updating files:  90% (554/615)Updating files:  91% (560/615)Updating files:  92% (566/615)Updating files:  93% (572/615)Updating files:  94% (579/615)Updating files:  95% (585/615)Updating files:  96% (591/615)Updating files:  97% (597/615)Updating files:  98% (603/615)Updating files:  99% (609/615)Updating files: 100% (615/615)Updating files: 100% (615/615), done.
 Cloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/cache_repo'...
 Switched to a new branch 'processed-cache'
 branch 'processed-cache' set up to track 'origin/processed-cache'.
 From https://github.com/bluhuang/blogs-of-bluhuang
  * branch              processed-cache -> FETCH_HEAD
 Already up to date.
-============================================================
-  Auto Blog Poster
-============================================================
-Source repo: bluhuang/blu-obsidian
-Output repo: bluhuang/blogs-of-bluhuang
-
-[1/7] Pulling source notes repository ...
-Cloning bluhuang/blu-obsidian (branch=main, full history)...
-Source notes ready at: .temp/source_repo/2 Notes
-
-[2/7] Restoring processed cache ...
-Restoring cache from bluhuang/blogs-of-bluhuang@processed-cache ...
-  (skip) about.md: protected, preserving local version
-  (skip) guestbook.md: protected, preserving local version
-  restored content
-  restored static/images
-  restored .hash_cache.json
-  restored .deepseek_cache.json
-  restored .file_times.json
-Cache restore complete.
-
-[2b/7] Detecting cache-preserving note moves ...
-  [rename] preserved cache: AI/6 Model Training/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md -> AI/6 Model Training & Quantization/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md
-  [rename] preserved cache: AI/6 Model Training/8 时域中的两种IIR问题深度分析.md -> AI/6 Model Training & Quantization/8 时域中的两种IIR问题深度分析.md
-  [rename] preserved cache: AI/6 Model Training/9 时域中的两种IIR问题解决方案调研.md -> AI/6 Model Training & Quantization/9 时域中的两种IIR问题解决方案调研.md
-  [rename] preserved cache: AI/6 Model Training/6  UV 时域一致性 Loss、时域稳定性 Loss.md -> AI/6 Model Training & Quantization/6  UV 时域一致性 Loss、时域稳定性 Loss.md
-  [rename] preserved cache: AI/6 Model Training/5 YUV 色彩空间 Loss.md -> AI/6 Model Training & Quantization/5 YUV 色彩空间 Loss.md
-  [rename] preserved cache: AI/6 Model Training/3 学习率调度（Learning Rate Scheduling）.md -> AI/6 Model Training & Quantization/3 学习率调度（Learning Rate Scheduling）.md
-  [rename] preserved cache: AI/6 Model Training/2 SSIM（结构相似性指标）.md -> AI/6 Model Training & Quantization/2 SSIM（结构相似性指标）.md
-  [rename] preserved cache: AI/6 Model Training/1 模型训练全景.md -> AI/6 Model Training & Quantization/1 模型训练全景.md
-  [rename] preserved cache: AI/6 Model Training/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md -> AI/6 Model Training & Quantization/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md
-Preserved generated content for 9 renamed note(s).
-
-[3/7] Processing notes (incremental) ...
-Generating .file_times.json from git log (repo: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo) ...
-  Wrote 21 entries to .file_times.json
-Loaded DeepSeek cache with 99 entries from .deepseek_cache.json
-Scanning md files in: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes
-  Found 103 .md file(s)
-Loaded hash cache with 99 entries from .hash_cache.json
-Files to process (6):
-  + AI/0 Paper/GAN/2 StyleGAN3 - Alias-Free Generative Adversarial Networks.md
-  + AI/5 CV/20 光流 Optical Flow.md
-  + AI/6 Model Training & Quantization/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md
-  + AI/6 Model Training & Quantization/11 模型量化基础.md
-  + AI/6 Model Training & Quantization/7 拉普拉斯金字塔  Laplacian Pyramid.md
-  + Workflow and Tools/IOS/Sidestore.md
-Files to delete (2):
-  - AI/6 Model Training/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md
-  - AI/6 Model Training/7 拉普拉斯金字塔  Laplacian Pyramid.md
-Processing: AI/0 Paper/GAN/2 StyleGAN3 - Alias-Free Generative Adversarial Networks.md ...
-  [section] matched rule matplotlib_code: TAG: Matplot code
-  [section] remapped 1 Windows path(s) in code block 1
-  [section] executing python block 1/1 ...
-  [section] output: og-poster/.temp/source_repo/2 Notes/AI/0 Paper/GAN/attachments/stylegan3_figure5_results.png
-Figure 5: PDF page 9
-Saved: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/0 Paper/GAN/attachments/stylegan3_figure6_internal_representations.png
-Figure 6: PDF page 10
-Done.
-  [section] excluded 1 section(s) from blog
-  [image] copied: stylegan3_figure1_texture_sticking.png
-  [image] copied: stylegan3_figure2_continuous_discrete.png
-  [image] skipped (exists): stylegan3_figure2_continuous_discrete.png
-  [image] copied: stylegan3_figure3_step_by_step.png
-  [image] copied: stylegan3_figure4_alias_free_design.png
-  [image] copied: stylegan3_figure5_results.png
-  [image] copied: stylegan3_figure6_internal_representations.png
-  [content] protected 197 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 33869 chars (finish_reason: stop)
-  [content] restored 197 structured span(s)
-  -> wrote content/AI/0 Paper/GAN/2 StyleGAN3 - Alias-Free Generative Adversarial Networks.md
-Processing: AI/5 CV/20 光流 Optical Flow.md ...
-  [section] matched rule matplotlib_code: TAG: Matplot code
-  [section] remapped 1 Windows path(s) in code block 1
-  [section] executing python block 1/1 ...
-  [section] output: ts/optical_flow_color_wheel.png
-/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/5 CV/attachments/optical_flow_bad_flow_artifacts.png
-/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/5 CV/attachments/optical_flow_forward_backward.png
-OK
-  [section] excluded 1 section(s) from blog
-  [image] copied: optical_flow_vector_field.png
-  [image] copied: optical_flow_color_wheel.png
-  [image] copied: optical_flow_middlebury_example.png
-  [image] copied: optical_flow_brightness_constancy_3d.png
-  [image] copied: optical_flow_taylor_small_motion.png
-  [image] copied: optical_flow_constraint_line.png
-  [image] copied: optical_flow_aperture_problem.png
-  [image] copied: optical_flow_lk_constraints.png
-  [image] copied: optical_flow_flat_edge_corner.png
-  [image] copied: optical_flow_hs_smoothness.png
-  [image] copied: optical_flow_pyramid_large_motion.png
-  [image] copied: optical_flow_warping_before_after.png
-  [image] copied: pwc_network_official.png
-  [image] copied: optical_flow_occlusion.png
-  [image] copied: optical_flow_correlation_heatmap.png
-  [image] copied: raft_paper_overview.png
-  [image] copied: optical_flow_raft_iterations.png
-  [image] skipped (exists): optical_flow_color_wheel.png
-  [image] copied: optical_flow_bad_flow_artifacts.png
-  [image] copied: optical_flow_forward_backward.png
-  [content] protected 287 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 21763 chars (finish_reason: stop)
-  [content] restored 287 structured span(s)
-  -> wrote content/AI/5 CV/20 光流 Optical Flow.md
-Processing: AI/6 Model Training & Quantization/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md ...
-  [section] matched rule matplotlib_code: TAG: Matplot code
-  [section] executing python block 1/1 ...
-  [section] output: 
-/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/6 Model Training/attachments/ddp_06_collective_hang.png
-/home/runner/Library/Mobile Documents/iCloud~md~obsidian/Documents/blu obsidian/2 Notes/AI/6 Model Training/attachments/ddp_07_scaling_efficiency.png
-OK
-  [section] excluded 1 section(s) from blog
-  [image] copied: ddp_01_data_parallel.png
-  [image] copied: ddp_02_process_rank.png
-  [image] copied: ddp_03_sampler_batch.png
-  [image] copied: ddp_04_allreduce.png
-  [image] copied: ddp_05_iteration_timeline.png
-  [image] copied: ddp_06_collective_hang.png
-  [image] copied: ddp_07_scaling_efficiency.png
-  [content] protected 195 structured span(s)
-  DeepSeek API call (attempt 1/3) ...
-  DeepSeek API returned 20977 chars (finish_reason: stop)
-  [content] restored 195 structured span(s)
-  -> wrote content/AI/6 Model Training & Quantization/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md
-Processing: AI/6 Model Training & Quantization/11 模型量化基础.md ...
-  [section] matched rule matplotlib_code: TAG: Matplot code
-  [section] executing python block 1/1 ...
-  [section] output: /auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training & Quantization/attachments/quant_ch6_qdq_graph.png
-Validation ladder: /home/runner/work/auto-blog-poster/auto-blog-poster/.temp/source_repo/2 Notes/AI/6 Model Training & Quantization/attachments/quant_ch6_numerical_validation_ladder.pngCloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
+Cloning into '/home/runner/work/auto-blog-poster/auto-blog-poster/.temp/deploy_repo'...
 Already on 'gh-pages'
 Your branch is up to date with 'origin/gh-pages'.
 From https://github.com/bluhuang/blogs-of-bluhuang
