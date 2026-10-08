@@ -54,6 +54,10 @@
               {
                 "title": "1  GAN - Generative Adversarial Nets",
                 "url": "/AI/1-gan---generative-adversarial-nets/"
+              },
+              {
+                "title": "2 StyleGAN3 - Alias-Free Generative Adversarial Networks",
+                "url": "/AI/2-stylegan3---alias-free-generative-adversarial-networks/"
               }
             ]
           }
@@ -284,6 +288,10 @@
             "url": "/AI/2-bayer阵列bayer-pattern-bayer-filter-mosaic-拜耳阵列/"
           },
           {
+            "title": "20 光流 Optical Flow",
+            "url": "/AI/20-光流-optical-flow/"
+          },
+          {
             "title": "3 Gamma 校正与逆 Gamma",
             "url": "/AI/3-gamma-校正与逆-gamma/"
           },
@@ -315,6 +323,10 @@
       },
       {
         "title": "6 Model Training",
+        "url": "/AI/"
+      },
+      {
+        "title": "6 Model Training & Quantization",
         "url": "/AI/",
         "children": [
           {
@@ -328,6 +340,10 @@
           {
             "title": "10 DDP 分布式训练(Pytorch - DistributedDataParallel)",
             "url": "/AI/10-ddp-分布式训练pytorch---distributeddataparallel/"
+          },
+          {
+            "title": "11 模型量化基础",
+            "url": "/AI/11-模型量化基础/"
           },
           {
             "title": "2 SSIM（结构相似性指标）",
@@ -364,10 +380,6 @@
         ]
       }
     ]
-  },
-  {
-    "title": "blogs",
-    "url": "/blogs/"
   },
   {
     "title": "coding",
@@ -492,13 +504,19 @@
     ]
   },
   {
-    "title": "RAG",
-    "url": "/RAG/"
-  },
-  {
     "title": "Workflow and Tools",
     "url": "/Workflow and Tools/",
     "children": [
+      {
+        "title": "IOS",
+        "url": "/Workflow and Tools/",
+        "children": [
+          {
+            "title": "Sidestore",
+            "url": "/Workflow and Tools/sidestore/"
+          }
+        ]
+      },
       {
         "title": "skills",
         "url": "/Workflow and Tools/",
