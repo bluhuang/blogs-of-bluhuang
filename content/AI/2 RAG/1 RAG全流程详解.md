@@ -1,6 +1,6 @@
 ---
 title: "RAG全流程详解"
-image: "/images/AI/2%20RAG/f5ea2081fd5716f6.png"
+image: "/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -9,7 +9,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 ## 1. 什么是 RAG？为什么需要 RAG？
 
-![](架构设计：RAG全流程解析-17ee89cdfdd5727ecf0eeb2a07be8483.png)
+![](/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483.png)
 
 ### 大模型的天然局限
 
@@ -40,7 +40,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 ## 2. RAG核心流程（两条链路）
 
-![](架构设计：RAG全流程解析-11552bb04f9bb0cd73d1590948f7e5d0.png)
+![](/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-11552bb04f9bb0cd73d1590948f7e5d0.png)
 
 - **提问前（数据准备-离线）**：分片 → Embedding → 存储  
 - **提问后（回答生成-在线）**：召回 → 重排 → 生成
@@ -51,7 +51,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 目标：把原始文档转化为可检索的向量数据库。
 
-![](架构设计：RAG全流程解析-ea96a7f3c7762a35f03fe37b5f4653a4.png)
+![](/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-ea96a7f3c7762a35f03fe37b5f4653a4.png)
 
 ### 3.1 分块（Chunking）
 
@@ -434,7 +434,7 @@ VERIFICATION_PROMPT = """
 
 ## 5. 完整流程示例
 
-![](架构设计：RAG全流程解析-fbc2d6895fefa1e2e08fc805adc5be56.png)
+![](/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-fbc2d6895fefa1e2e08fc805adc5be56.png)
 
 **离线阶段**：
 1. 产品手册 500 页 → 采用递归分片（段落优先，超长段落再按句子切），每片 400 tokens，重叠 20%，得到 3000 个 chunks。

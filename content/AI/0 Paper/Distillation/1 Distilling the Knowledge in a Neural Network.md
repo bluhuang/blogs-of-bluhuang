@@ -4,7 +4,7 @@ image: "/images/AI/0%20Paper/Distillation/attachments/distillation_teacher_stude
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-21T15:53:07+0800
-lastmod: 2026-08-25T20:35:31+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 > 论文：*Distilling the Knowledge in a Neural Network*，arXiv:1503.02531，2015。

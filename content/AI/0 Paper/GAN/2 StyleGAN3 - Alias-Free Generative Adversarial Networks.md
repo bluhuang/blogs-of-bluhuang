@@ -4,7 +4,7 @@ image: "/images/AI/0%20Paper/GAN/attachments/stylegan3_figure1_texture_sticking.
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-10-08T09:18:37+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 # 1. 从 Texture Sticking 到像素坐标泄漏：网络为什么会学会屏幕坐标？

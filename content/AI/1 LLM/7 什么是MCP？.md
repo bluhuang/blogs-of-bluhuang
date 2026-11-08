@@ -1,5 +1,6 @@
 ---
 title: "什么是MCP？"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-d3a0c94d2277a61d5dbb04adf28824d7.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -79,13 +80,13 @@ lastmod: 2026-06-16T10:31:22+0800
 
 MCP 要解决的核心问题，可以用一句话概括： **把工具的「写好」和「用起来」彻底拆开。**
 
-![](什么是MCP？-d3a0c94d2277a61d5dbb04adf28824d7.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-d3a0c94d2277a61d5dbb04adf28824d7.png)
 
 举个生活中的例子：在 USB-C 统一之前，各家手机厂商各有各的充电口，苹果用 Lightning、安卓早期用 Micro-USB，各品牌之间完全不兼容，出门得带三四根不同的充电线。USB-C 出来之后，只要设备支持 USB-C，任何 USB-C 的线都能用，充电器、数据线全部通用。
 
 **MCP 对于 AI 工具世界的意义，就和 USB-C 对于充电口的意义一模一样。**
 
-![](什么是MCP？-b356960ae62209c7aff10d731b204617.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-b356960ae62209c7aff10d731b204617.png)
 
 工具开发者只需要实现一套 MCP Server，把工具能力按 MCP 协议暴露出来，之后所有支持 MCP 的 AI 应用，都能直接接入，不需要任何额外适配。
 
@@ -99,7 +100,7 @@ AI 开发者只需要接入 MCP Client，就能调用整个 MCP 生态里所有�
 
 MCP 架构里有三个核心角色，弄清楚它们是谁、各自做什么，MCP 就说明白一大半了。
 
-![](什么是MCP？-03570e6969812c513243d5e9e0d1bb44.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-03570e6969812c513243d5e9e0d1bb44.png)
 
 ### Host（宿主）
 
@@ -119,7 +120,7 @@ Server 和 Host 可以运行在同一台机器上（本地 Server），也可以
 
 三者的关系用一张图来看：
 
-![](什么是MCP？-646507fd5709adf52c70db42fff09419.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-646507fd5709adf52c70db42fff09419.png)
 
 用户提问给 Host，Host 借助 Client 调用一个或多个 MCP Server，Server 执行完毕把结果回传，Host 拿到结果后给用户生成最终答案。
 
@@ -143,7 +144,7 @@ MCP 解决的问题是：工具怎么被统一注册、统一发现、统一调�
 
 把两者放进整个调用链条，位置就一目了然：
 
-![](什么是MCP？-a3ce8c4020e14607885212500f44c540.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-a3ce8c4020e14607885212500f44c540.png)
 
 Function Calling 负责上半段：大模型用 Function Calling 格式告诉 Agent「调哪个工具、传什么参数」。
 
@@ -191,7 +192,7 @@ Prompts 是预定义的可复用提示词模板。当你有一些常用的、固
 
 用「帮我查一下代码托管平台上 React 仓库最近的 commit」这个任务，走一遍完整的 MCP 调用流程：
 
-![](什么是MCP？-5f1c866d5bd35e64c756dd9f6ed5ee51.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFMCP%EF%BC%9F-5f1c866d5bd35e64c756dd9f6ed5ee51.png)
 
 1. **用户提问**：在 Host（比如 AI桌面应用）里输入「帮我查一下 React 仓库最近的 commit」
 

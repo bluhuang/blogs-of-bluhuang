@@ -1,10 +1,10 @@
 ---
 title: "YUV 色彩空间 Loss"
-image: "/images/AI/6%20Model%20Training/rgb_to_yuv_space_3d.png"
+image: "/images/AI/6%20Model%20Training%20%26%20Quantization/rgb_to_yuv_space_3d.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-08-06T23:05:43+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 ## 1. YUV Loss 要解决什么问题
@@ -88,7 +88,7 @@ flowchart LR
     B --> D["U、V<br/>颜色相关信息"]
 ```
 
-![](/images/AI/6%20Model%20Training/rgb_to_yuv_space_3d.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/rgb_to_yuv_space_3d.png)
 
 严格来说，深度学习代码中常被称为 YUV 的数字变换，很多实际更接近 **YCbCr**。
 
@@ -160,7 +160,7 @@ $$
 
 YUV 通过不同的线性组合，把这两类变化投影到不同通道中。
 
-![](/images/AI/6%20Model%20Training/yuv_error_vectors_3d.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/yuv_error_vectors_3d.png)
 
 ### 3.1 亮度变化主要进入 Y 通道
 
@@ -294,7 +294,7 @@ $$
 - $\lambda_Y$：控制亮度误差的重要程度；
 - $\lambda_{UV}$：控制颜色误差的重要程度。
 
-![](/images/AI/6%20Model%20Training/yuv_loss_surface_3d.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/yuv_loss_surface_3d.png)
 
 这种拆分让训练目标可以分别回答：
 

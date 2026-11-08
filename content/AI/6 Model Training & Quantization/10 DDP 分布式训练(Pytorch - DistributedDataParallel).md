@@ -4,7 +4,7 @@ image: "/images/AI/6%20Model%20Training%20%26%20Quantization/ddp_01_data_paralle
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-10-08T09:18:37+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 > **DDP（DistributedDataParallel，分布式数据并行）**要解决的问题是：模型本身可以放入单张 GPU，但希望让多张 GPU 同时处理不同数据，从而加速训练。

@@ -1,10 +1,10 @@
 ---
 title: "UV 时域一致性 Loss、时域稳定性 Loss"
-image: "/images/AI/6%20Model%20Training/uv_temporal_signal.png"
+image: "/images/AI/6%20Model%20Training%20%26%20Quantization/uv_temporal_signal.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-08-06T23:05:43+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 ## 1. 为什么单帧去噪正确，视频仍然会闪烁
@@ -144,7 +144,7 @@ flowchart LR
 真实场景保持稳定时，预测不能随机跳变
 ```
 
-![](/images/AI/6%20Model%20Training/uv_temporal_signal.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/uv_temporal_signal.png)
 
 ## 4. UV 时域一致性 Loss 怎么计算
 
@@ -242,7 +242,7 @@ flowchart LR
     D --> E["与当前帧 Ct 比较"]
 ```
 
-![](/images/AI/6%20Model%20Training/motion_alignment_residual.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/motion_alignment_residual.png)
 
 最简单的对齐 UV Loss 为：
 
@@ -301,7 +301,7 @@ $$
 
 这种形式不会把所有真实变化都压成 0，因此比单纯要求相邻输出一致更合理。
 
-![](/images/AI/6%20Model%20Training/uv_time_trajectory_3d.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/uv_time_trajectory_3d.png)
 
 ## 5. 为什么需要有效区域掩码
 
@@ -433,7 +433,7 @@ $$
 
 时域约束不足会保留闪烁，时域约束过强则可能使输出趋向过度平滑。
 
-![](/images/AI/6%20Model%20Training/temporal_penalty_curves.png)
+![](/images/AI/6%20Model%20Training%20%26%20Quantization/temporal_penalty_curves.png)
 
 ## 7. RAW 域训练中怎么使用
 

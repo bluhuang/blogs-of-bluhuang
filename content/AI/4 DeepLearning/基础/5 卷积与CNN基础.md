@@ -1,5 +1,5 @@
 ---
-title: "1 卷积与CNN基础"
+title: "卷积与CNN基础"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-06T19:17:24+0800

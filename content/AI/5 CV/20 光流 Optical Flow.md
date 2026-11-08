@@ -4,7 +4,7 @@ image: "/images/AI/5%20CV/attachments/optical_flow_vector_field.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-10-08T09:18:37+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 光流要解决的问题很具体：

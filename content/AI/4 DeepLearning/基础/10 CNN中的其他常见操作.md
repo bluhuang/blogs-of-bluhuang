@@ -1,5 +1,5 @@
 ---
-title: "6 CNN中的其他常见操作"
+title: "CNN中的其他常见操作"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-06T19:17:24+0800

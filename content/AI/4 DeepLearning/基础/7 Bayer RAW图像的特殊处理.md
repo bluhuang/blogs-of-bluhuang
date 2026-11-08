@@ -1,5 +1,5 @@
 ---
-title: "3 Bayer RAW图像的特殊处理"
+title: "Bayer RAW图像的特殊处理"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-08-06T19:17:24+0800

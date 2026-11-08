@@ -1,6 +1,6 @@
 ---
 title: "DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising"
-image: "/images/AI/0%20Paper/CV/DnCNN_Fig1_architecture.png"
+image: "/images/AI/0%20Paper/CNN-Net/DnCNN_Fig1_architecture.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-07-30T20:08:42+0800
@@ -70,7 +70,7 @@ DnCNN 论文中使用了 SGD 优化器（带动量），学习率从 `1e-1` 开�
 ## 2. 核心方法
 
 ### 2.1 网络结构（三层设计 + 17层深度）
-![](/images/AI/0%20Paper/CV/DnCNN_Fig1_architecture.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig1_architecture.png)
 【Fig. 1】
 
 #### 2.1.1 整体架构
@@ -505,8 +505,8 @@ DnCNN 不仅能处理不同强度的**高斯噪声**，还能处理其他类型�
 - 原因：非局部相似性方法（如 BM3D）在重复结构图像上表现更好；判别式方法（如 DnCNN）在不规则纹理图像上表现更好
 
 ### 3.3 定性结果（视觉效果）
-![](/images/AI/0%20Paper/CV/DnCNN_Fig4_visual_comparison.png)
-![](/images/AI/0%20Paper/CV/DnCNN_Fig5_visual_comparison.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig4_visual_comparison.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig5_visual_comparison.png)
 
 | 方法                       | 优点                   | 缺点                  |
 | ------------------------ | -------------------- | ------------------- |
@@ -518,14 +518,14 @@ DnCNN 不仅能处理不同强度的**高斯噪声**，还能处理其他类型�
 **关键结论**：【Fig. 4-5】显示 DnCNN 能同时做到：保留锐利边缘、恢复精细纹理、平滑区域干净无伪影。
 
 #### 彩色图像去噪
-![](/images/AI/0%20Paper/CV/DnCNN_Fig6_color_denoise_1.png)
-![](/images/AI/0%20Paper/CV/DnCNN_Fig7_color_denoise_2.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig6_color_denoise_1.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig7_color_denoise_2.png)
 【Fig. 6-7】CDnCNN-B 与 CBM3D 对比：
 - CBM3D：在某些区域产生**假色伪影**
 - CDnCNN-B：颜色更自然、边缘更锐利、细节更丰富
 
 #### 真实图像去噪
-![](/images/AI/0%20Paper/CV/DnCNN_Fig8_real_image_denoise.png)
+![](/images/AI/0%20Paper/CNN-Net/DnCNN_Fig8_real_image_denoise.png)
 【Fig. 8】DnCNN-B 和 CDnCNN-B 在真实噪声图像上的表现：
 - 虽然只训练了高斯噪声，但 DnCNN 能很好地处理**真实噪声图像**
 - 即使噪声不是严格高斯分布，残差学习的去内容机制仍然有效

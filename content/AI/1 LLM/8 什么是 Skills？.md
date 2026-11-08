@@ -1,5 +1,6 @@
 ---
 title: "什么是 Skills？"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Skills%EF%BC%9F-a10fb66149c1f8fb11a6fff656333a74.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -32,7 +33,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 用白话说，这就是 **大模型和外部世界打交道的一种“底层暗号”**。
 
-![](<什么是 Skills？-a10fb66149c1f8fb11a6fff656333a74.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Skills%EF%BC%9F-a10fb66149c1f8fb11a6fff656333a74.png)
 
 你想让 AI 查今天深圳的天气，它自己查不到，但你可以给它提供一个 `get_weather` 的函数说明书。AI 看到你的需求和说明书后，不会直接回答天气，而是输出一段 JSON 代码：“我决定调用 `get_weather` ，参数是 `深圳` ”。 然后你的代码拿着这个参数去真正调用 API，查到结果后再喂给 AI，AI 最后总结成人类语言回复你。
 
@@ -50,7 +51,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 这时候， **MCP（Model Context Protocol，模型上下文协议）** 闪亮登场。
 
-![](<什么是 Skills？-ea7ead105944bf47f68b97c69bdf0ade.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Skills%EF%BC%9F-ea7ead105944bf47f68b97c69bdf0ade.png)
 
 用大白话说，MCP 就是 AI 世界里的 **“Type-C 接口标准”**。
 
@@ -82,7 +83,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 **什么是 Skill？** Skill 就像是给 AI 定制的一份 **“标准作业程序 (SOP)”**。它把解决特定问题所需的 **背景设定 (Prompt)**、 **执行步骤** 和 **所需的工具 (MCP)**，打包成了一个干净利落的代码文件。
 
-![](<什么是 Skills？-d2e8432578bc86d22d07dbe3805045bd.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Skills%EF%BC%9F-d2e8432578bc86d22d07dbe3805045bd.png)
 
 **咱们来看看用了 Skills 之后的方案：**
 
@@ -190,7 +191,7 @@ Claude 会自动扫描 `skills/` 目录，读取 `SKILL.md` 理解整个工作�
 
 最后，我再用一句话帮大家总结一下今天聊的这三个核心概念：
 
-![](<什么是 Skills？-dfad3afaf804be85f0b24b74e803a2e4.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Skills%EF%BC%9F-dfad3afaf804be85f0b24b74e803a2e4.png)
 
 * **Function Calling（函数调用）：** 是底层技术，让大模型拥有了“伸手”调取外部工具的 **能力**。
 

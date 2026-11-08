@@ -1,5 +1,6 @@
 ---
 title: "什么是Harness工程？"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-3f3b8a9dfaab9691a799b1c5d5b68243.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -40,7 +41,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号一篇博客里。作者叫某位工程师。
 
-![](什么是Harness工程？-3f3b8a9dfaab9691a799b1c5d5b68243.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-3f3b8a9dfaab9691a799b1c5d5b68243.png)
 
 标题叫《My AI Adoption Journey》，中文大概是「我接纳 AI 的历程」。
 
@@ -54,7 +55,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 然后到了第五步，他给自己这套做法起了个名字，就叫 Engineer the Harness，打磨这套马具。
 
-![](什么是Harness工程？-bc354bb8eb4ec5df72b4c64b248b4774.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-bc354bb8eb4ec5df72b4c64b248b4774.png)
 
 他给的定义特别简洁，我把原话翻译过来：
 
@@ -68,11 +69,11 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 每一次 Agent 犯错，环境就会变强一点；环境变强一点，Agent 下一次就更少犯错；犯错变少，你改进的速度就更快。时间一长，你的 Harness 会越来越坚固，Agent 在你这个项目里会越跑越稳。
 
-![](什么是Harness工程？-cb1ce54acdbbb401bb6d27891a60ecff.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-cb1ce54acdbbb401bb6d27891a60ecff.png)
 
 博客发出来一周后，某AI公司紧接着也发布了一篇官方博客，标题就叫《Harness engineering: leveraging Codex in an agent-first world》。
 
-![](什么是Harness工程？-c682ce95059ca83def279c4b4c1da9b8.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-c682ce95059ca83def279c4b4c1da9b8.png)
 
 这篇博客讲的是他们内部一个从 3 人起步的小团队，从一个空仓库出发，用 5 个月时间，靠 Agent 写出了 100 万行代码、合并了 1500 个 PR，全程没人手动写过一行代码。
 
@@ -88,7 +89,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 你去复盘一下过去两年 AI 圈的变化就会发现一件特别有意思的事：AI 工程的重心，其实已经悄悄换过三次了。
 
-![](什么是Harness工程？-a06bcd7574692a92eb546f6a9ff99b4b.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-a06bcd7574692a92eb546f6a9ff99b4b.png)
 
 一开始大家在聊的是 Prompt Engineering，提示词工程。那个时候所有人都相信一件事：模型不是不会，只是你没把话讲明白，只要提示词写得够好，啥都能搞定。
 
@@ -106,7 +107,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 * Harness Engineering 解决的是：怎么让模型在真实执行里「持续做对」一连串的事
 
-![](什么是Harness工程？-6776c7b7db30351a3e26b94429f1fda4.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-6776c7b7db30351a3e26b94429f1fda4.png)
 
 听起来三句话好像差不多对吧？但你一定要相信我，这三件事的难度和工作量，是层层放大的。
 
@@ -116,7 +117,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 差的往往不是模型，而是 **围绕模型搭起来的那套东西，到底有没有做到位**。
 
-![](什么是Harness工程？-fad77e86b29c42c8173009c617a31132.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-fad77e86b29c42c8173009c617a31132.png)
 
 所以接下来，我就按照「从提示词到 Harness」这条路径，带你一个阶段一个阶段往下走。
 
@@ -134,7 +135,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 你平时用 ChatGPT 也好，用 Claude 也好，看到的都是一个对话框，输入一句话，下面给你输出一段话。但如果把这层外壳扒掉，里面其实就一个东西：一个特别大的参数文件，存在硬盘上，加载到显卡的内存里。
 
-![](什么是Harness工程？-4003575f13ade98b2eaefe5e82b1d352.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-4003575f13ade98b2eaefe5e82b1d352.png)
 
 这个文件本身啥也不是。给它配一个 HTTP 接口，它就成了所谓的「大模型 API 服务」。给这个 API 套一个聊天界面，它就成了 ChatGPT；套一个代码编辑器，它就成了 Cursor、Trae 这种 AI IDE。
 
@@ -142,7 +143,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 注意我说的是「预测」，不是「思考」，这个区别很重要。它本质上是在猜你想要什么，然后把它觉得最可能的字一个一个往外吐。你给它的输入越模糊，它猜的范围就越大；你给它的输入越具体，它猜的范围就越收敛。
 
-![](什么是Harness工程？-cbab69f2fc16802e2655a132d067ac40.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-cbab69f2fc16802e2655a132d067ac40.png)
 
 知道了这个原理，你就能理解为啥同一个问题，换个说法效果能差十倍。
 
@@ -160,7 +161,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 正因为这种敏感性，大家慢慢摸索出了一套「提示词配方」。一个稍微正式一点的提示词，一般会包含这么几个部分：
 
-![](什么是Harness工程？-714976c10cd28c858c42e9cfd4166649.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-714976c10cd28c858c42e9cfd4166649.png)
 
 * 角色设定：你是谁？比如「你是一个有十年经验的后端工程师」
 
@@ -184,7 +185,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 举个例子。你让大模型帮你「分析一下我们公司去年的财报」，它再聪明，没看过你的财报，它能分析啥？你让它「按照公司内部的代码规范帮我写一个新功能」，它没看过你们的规范，它怎么知道该怎么写？你让它「在我们已有的几十个 API 之间做一些调用组合」，它根本不知道你有哪些 API。
 
-![](什么是Harness工程？-dfa0d5b0fb3eb08bb0af70330286f2c0.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-dfa0d5b0fb3eb08bb0af70330286f2c0.png)
 
 这个时候你就会发现一个很尴尬的事实：提示词写得再漂亮，也替代不了「事实」本身。
 
@@ -202,7 +203,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 但后来 Agent 火了，模型不再只是「回答问题」，而是要进到真实环境里去「干活」。它要多轮对话，要调用工具，要写代码，要查数据库，要在多个步骤之间传递中间结果，还要根据外部反馈不断修正自己的计划。
 
-![](什么是Harness工程？-be19839689690995cc7a114e8570c80d.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-be19839689690995cc7a114e8570c80d.png)
 
 这个时候问题就完全变了。系统面对的已经不是「这一次回答对不对」，而是「整条链路能不能跑通」。
 
@@ -232,7 +233,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 而我们之前聊的提示词，只是上下文里很小的一部分。一个完整的上下文还包括：用户输入、历史对话、检索到的资料、工具返回的结果、当前的任务状态、中间产物、系统规则、安全约束等等等等。
 
-![](什么是Harness工程？-76b9f2dd333f4b45454c6d24e1d1e7e7.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-76b9f2dd333f4b45454c6d24e1d1e7e7.png)
 
 理解了这一层，你就能理解 Context Engineering 是在干啥了。它的核心思想就一句话：
 
@@ -242,7 +243,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 这里就有一个让人头疼的现实：大模型一次能处理的上下文是有上限的。这个上限叫「上下文窗口」。
 
-![](什么是Harness工程？-3bea017bf8cbd539f33e1bef5fc8659d.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-3bea017bf8cbd539f33e1bef5fc8659d.png)
 
 你可以把它想象成大模型的「短期记忆容量」。再聪明的模型，一次也只能记住这么多东西。
 
@@ -254,7 +255,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 实践下来，它基本上可以拆成三个步骤：
 
-![](什么是Harness工程？-19ee4cf374ece139f497c2f75da25135.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-19ee4cf374ece139f497c2f75da25135.png)
 
 * 第一步， **召回**。说白了就是「找信息」。从一大堆资料里找出跟当前任务最相关的那部分。这里面就涉及到大家熟悉的 RAG 技术：把你的所有文档切成小块，转成向量存起来，每次有问题进来，先去向量数据库里搜出最相关的几块。
 
@@ -262,7 +263,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 * 第三步， **组装**。压完之后还要按一定的顺序、一定的格式组装起来。为啥顺序很重要？因为大模型对「靠后的信息」更敏感。所以重要的指令、当前的任务，往往要放在靠后的位置。
 
-![](什么是Harness工程？-79ce7e48508ef2b0d568ce4f7bbfe264.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-79ce7e48508ef2b0d568ce4f7bbfe264.png)
 
 不同的 AI 工具，这三步的实现各不相同。
 
@@ -276,7 +277,7 @@ Harness Engineering 这个词最早被正式叫响，是在 2026 年 2 月 5 号
 
 为啥？还是那句话：上下文窗口是稀缺资源，信息一多注意力就会被稀释。模型看到的东西一多，反而抓不住当前任务真正需要的那部分。
 
-![](什么是Harness工程？-c3fb0576b01e92e517b877b43eda67a8.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-c3fb0576b01e92e517b877b43eda67a8.png)
 
 Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模型看每个能力的「目录」，告诉它「我有这些工具、这些 SOP、这些参考」。
 
@@ -306,7 +307,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 * 跑着跑着突然忘了自己最初要干啥
 
-![](什么是Harness工程？-2d98a57eb1331c8790e725f11feafba8.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-2d98a57eb1331c8790e725f11feafba8.png)
 
 你仔细品品这个问题。提示词工程优化的是「意图的表达」，上下文工程优化的是「信息的供给」，但这两个其实都还停留在「输入侧」。
 
@@ -316,7 +317,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 **Harness** 这个英文词，直译过来叫「马具」，或者说「缰绳」。
 
-![](什么是Harness工程？-b20b733b02d3ae657a055ffcdb7e1932.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-b20b733b02d3ae657a055ffcdb7e1932.png)
 
 为啥用这么一个词来命名一个 AI 工程概念？想象一下你骑马的场景：马本身有强大的力量，能跑能跳能驮东西，但如果没有缰绳和马具，这股力量就是失控的。马可能往悬崖上跑，可能甩你下来，可能跑去吃草不回来了。马具的作用，就是让这股力量为你所用。
 
@@ -352,7 +353,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 关于 Harness 的边界，圈子里流传着一个特别简洁的等式：
 
-![](什么是Harness工程？-a666ce0dd3e5e487268e95d39f9fa0d5.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-a666ce0dd3e5e487268e95d39f9fa0d5.png)
 
 翻译成人话：在一个 AI Agent 系统里面，除了模型本身之外，几乎所有决定它能不能稳定交付的东西，都属于 Harness。
 
@@ -364,7 +365,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 不是的。这三者根本不是替代关系，而是包含关系。
 
-![](什么是Harness工程？-1f35812579baf52159e5d4f37a07a625.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-1f35812579baf52159e5d4f37a07a625.png)
 
 * Prompt 是对「指令」的工程化
 
@@ -384,7 +385,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 这不是巧合。而是因为「让一个 Agent 在真实世界里稳定工作」这个命题，天然就会推着所有人往同一个方向收敛。一个成熟的 Harness 大致可以拆成六块核心组件，我把它们叫做六层，每一层都在解决「驾驭」这件事的一个独立维度。
 
-![](什么是Harness工程？-2ee6ed80433a9fcd0b23c51dfd336bfd.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-2ee6ed80433a9fcd0b23c51dfd336bfd.png)
 
 这六层看起来有点多，但其实可以按「它在干啥」分成三组：
 
@@ -419,7 +420,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 这里有个特别关键的修饰词，「每次被调用的时候」。我专门强调它是因为这一层很容易和第四层（记忆与状态）搞混。简单区分一下：
 
-![](什么是Harness工程？-50f51670cfb64ec632fa6a4a064c9642.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-50f51670cfb64ec632fa6a4a064c9642.png)
 
 * **第一层（上下文的精细化）管的是「空间」**：这一轮发给模型的那一坨上下文，长啥样、装了些啥、怎么排布
 
@@ -441,7 +442,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 **你塞给它越多无关信息，它的注意力就越散**。这个现象某AI研究机构在他们的博客里专门命名了，叫「context rot」（上下文腐化）。他们给的解法是「just-in-time retrieval」，也就是让 Agent 边干活边按需抓信息，而不是一上来就把所有可能有用的东西一股脑塞进去。
 
-![](什么是Harness工程？-b3492286d87af7230938259c8e595181.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-b3492286d87af7230938259c8e595181.png)
 
 所以这一层的核心工作可以浓缩成三件事：
 
@@ -457,7 +458,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 没有工具的大模型本质上还是一个文本预测器。它能告诉你一个 PR 应该怎么审，但它没法 **真的去 GitHub 上读那个 PR**；它能写出一段 Slack 消息的文本，但它没法 **真的把这段消息发到你的频道**。
 
-![](什么是Harness工程？-a25fc23d83261c4ebddd0d900b89c454.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-a25fc23d83261c4ebddd0d900b89c454.png)
 
 接上工具之后，PR Review Agent 才真正活过来。但工具不是接得越多越好。某AI公司做 Codex 早期踩过这个坑：他们一开始给 Agent 接了一堆工具，想着「选择多总是好的」，结果 Agent 频繁用错工具、用错时机。后来砍掉一大半，效果反而上去了。
 
@@ -481,7 +482,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 你最近听得很多的 **MCP（Model Context Protocol）**，本质上就是在做工具层的标准化，让任何工具都能用同一种方式接到任何 Agent 上，大家不用再各自重复造轮子。
 
-![](什么是Harness工程？-95f6463ea380af37c56fecd83baedd89.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-95f6463ea380af37c56fecd83baedd89.png)
 
 ### 第三层，任务执行的全局编排
 
@@ -489,7 +490,7 @@ Agent Skills 提出的思路叫「 **渐进式披露**」：一开始只给模�
 
 这里我直接把一句你需要记住的话摆出来： **Agent 的本质，说白了就是一个 for 循环**。思考一步 → 行动一步 → 观察结果 → 再思考下一步。这个循环结构有个很经典的名字叫 **ReAct**（Reasoning + Acting）。
 
-![](什么是Harness工程？-5fe9cff5e0a815e8248c19c9819afe99.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-5fe9cff5e0a815e8248c19c9819afe99.png)
 
 听起来很朴素对吧？但魔鬼就藏在这个循环里。
 
@@ -503,7 +504,7 @@ Agent 经常翻车的场景是： **每一步它都会做，但把所有步骤�
 
 除了 ReAct 之外，还有几个业界常见的编排模式你可以记一下名字： **Plan-and-Execute**（先规划完整计划再执行，适合长链路任务）、 **Reflexion**（每次失败都让 Agent 反思一下再重试）、 **Tree of Thoughts**（同时探索多条思路再选最好的）。不同场景会用不同的编排策略。
 
-![](什么是Harness工程？-5f1379c667e36156b581b56f05eba1ac.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-5f1379c667e36156b581b56f05eba1ac.png)
 
 ### 第四层，记忆与状态的分层管理
 
@@ -519,7 +520,7 @@ Agent 经常翻车的场景是： **每一步它都会做，但把所有步骤�
 
 某AI研究机构在《Effective harnesses for long-running agents》里给出的具体做法是让 Agent 维护一个 `claude-progress.txt` 日志、一个 `init.sh` 启动脚本、加上完整的 git history，作为「长期记忆介质」。下一轮换一个全新的、干净的上下文窗口接手时，从这些文件里一读，立刻就知道「现在到哪一步了」。
 
-![](什么是Harness工程？-a47d67ca1dcaeca77ab4788ac93ae294.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-a47d67ca1dcaeca77ab4788ac93ae294.png)
 
 放到 PR Review Agent 上，你可以做同样的事。它需要管的状态至少有三类， **必须分层存**：
 
@@ -543,7 +544,7 @@ Agent 经常翻车的场景是： **每一步它都会做，但把所有步骤�
 
 不是它不出结果，而是它每次都出结果，但一半时候是错的。问题在于这两周里没人发现，因为根本没有机制能告诉团队「它这次到底做得对不对」。
 
-![](什么是Harness工程？-4e9f915c6dc03b9f3f977f98510ae1b2.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-4e9f915c6dc03b9f3f977f98510ae1b2.png)
 
 这就是没有第五层的下场。
 
@@ -579,7 +580,7 @@ Eval 集（evaluation set）是做 Agent 开发的业界标准做法，也是这
 
 你的 PR Review Agent 真跑起来之后，一定会遇到各种奇形怪状的失败：GitHub API 限流、某个 PR 的 diff 太大把上下文冲爆、Slack webhook 过期、Agent 误判了一个无关 PR 然后疯狂读代码把 token 耗光一半预算……如果没有恢复机制，每次失败都是从头再来。
 
-![](什么是Harness工程？-188cf4ee4e6a166667e6fa1ce9f5d0cd.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-188cf4ee4e6a166667e6fa1ce9f5d0cd.png)
 
 这一层要做三件事：
 
@@ -595,7 +596,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 讲到这儿，六层就全部展开完了。现在你可以再回去翻一眼章节开头那张「六问对应表」，把每一层和它对应的那个问题在心里重新对一遍。
 
-![](什么是Harness工程？-2ee6ed80433a9fcd0b23c51dfd336bfd-1.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-2ee6ed80433a9fcd0b23c51dfd336bfd-1.png)
 
 这一轮你对这六个问题的理解，应该和一开始看的时候完全不一样了，那些问题背后的门道你都见过了。
 
@@ -639,7 +640,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 现象是这样的：一开始 Agent 表现挺好，目标清晰，步骤明确。但跑着跑着，你会发现它开始「忘」。它忘了最初定的目标，忘了之前已经做过的决定，开始重复劳动，开始偏离主线。
 
-![](什么是Harness工程？-3fd54121b8b1c896ceada90a0675d3c7.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-3fd54121b8b1c896ceada90a0675d3c7.png)
 
 更诡异的是，某初创公司（就是做某 AI 编程产品的那家）在用某模型重做产品的时候，观察到一个特别有意思的现象，他们把它叫做「 **上下文焦虑**」（Context Anxiety）。
 
@@ -647,7 +648,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 更神奇的是，研究发现模型对自己「还剩多少上下文」的估计非常不准，经常以为自己快没空间了，其实还剩一大半。
 
-![](什么是Harness工程？-32f09766d9f8331634543065e4096796.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-32f09766d9f8331634543065e4096796.png)
 
 你品品这个现象，是不是特别像一个被任务压垮的人？
 
@@ -663,7 +664,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 另一家AI研究机构在他们的另一篇《Effective harnesses for long-running agents》博客里给出了一套具体做法： **让 Agent 跨多轮接力跑，状态全部外化到文件系统**。
 
-![](什么是Harness工程？-02030fd63ded06ad37f5410e9bb4b8f7.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-02030fd63ded06ad37f5410e9bb4b8f7.png)
 
 具体怎么做？整个系统其实 **只有一个 Agent**，系统提示词、工具集、整套 harness 全都一样。
 
@@ -691,7 +692,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 但实际效果呢？Agent 永远觉得自己干得不错。
 
-![](什么是Harness工程？-a81af1d522ca6e204beaa518eadda81b.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-a81af1d522ca6e204beaa518eadda81b.png)
 
 特别是在那些没有标准答案的任务上，比如「设计一个用户界面」「写一篇有说服力的文案」「评估这段代码的可读性」，自评的偏差会特别明显。它会自动忽略自己做得不好的部分，然后给自己打一个还不错的分。
 
@@ -701,7 +702,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 所以他们在另一篇《Harness design for long-running application development》里搞出了一个三角分工：
 
-![](什么是Harness工程？-6637690754ed4531a4c29c3857d74731.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-6637690754ed4531a4c29c3857d74731.png)
 
 * **Planner（规划者）**：负责把模糊的需求扩展成完整的规格说明
 
@@ -725,7 +726,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 他们干了一件在传统程序员看来非常离谱的事：在 Codex 那个百万行代码的项目里， **人类工程师几乎不写一行代码，全部由 Agent 来写**。
 
-![](什么是Harness工程？-9de6c66e089ebc4d8fc83f419772241d.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-9de6c66e089ebc4d8fc83f419772241d.png)
 
 那人类工程师到底在干啥？从他们这套实践里，你能看到工程师的工作重心其实都压在了三件事上面：
 
@@ -741,7 +742,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 而 Codex 团队的做法是： **给 Agent 接上 lint、单测、运行环境，让它自己写完自己跑，看见 bug 自己改**。同样一个问题，前者是在求模型发挥，后者是在改造环境，彻底决定了 Agent 下次会不会再犯。
 
-![](什么是Harness工程？-3391bb8d08c6d408bdb54d156c66e24d.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-3391bb8d08c6d408bdb54d156c66e24d.png)
 
 所以你看，在 Codex 这种 Agent 主导的工程体系里，工程师的价值不再是「我一天能写多少行代码」，而是「我能为 Agent 设计多好的一套运行环境」。这才是未来程序员真正的技术含量所在。
 
@@ -753,7 +754,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 某AI公司早期做 Codex 的时候，搞了一个特别大的 AGENTS.md 文件，把所有的规范、所有的约定、所有的最佳实践全部塞进去。他们当时的想法是：把规则写得越全越好，Agent 就越不会出错。
 
-![](什么是Harness工程？-02bd8c1ebeb5550d8ccf697bdfc190c3.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-02bd8c1ebeb5550d8ccf697bdfc190c3.png)
 
 结果呢？Agent 更糊涂了。
 
@@ -769,7 +770,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 * Agent 平时只看目录，只有真的需要某一部分的时候，才钻进对应的子文档
 
-![](什么是Harness工程？-092151fefcd2a090c6470c746ce71d01.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-092151fefcd2a090c6470c746ce71d01.png)
 
 这套做法其实就是我们前面讲的 **渐进式披露**（Progressive Disclosure）。
 
@@ -787,7 +788,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 好的模式会被复制，坏的模式也会被复制。一旦早期某段代码写歪了，Agent 会把那个歪的写法当成「惯例」，越堆越多，越堆越歪，最后整个代码库开始「腐烂」。这个现象某AI公司团队给它起了一个很扎心的名字，叫 **AI slop**，AI 代码泔水。
 
-![](什么是Harness工程？-10088e18ec0701bb615c1a68b8cccdb4.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-10088e18ec0701bb615c1a68b8cccdb4.png)
 
 某AI公司团队一开始是怎么解决这个问题的？用最朴素的办法： **靠人工清理**。
 
@@ -797,7 +798,7 @@ GitHub 限流 → 等一段时间后重试；Slack 发送失败 → 先落到本
 
 那某AI公司最后是怎么改的？他们用一个非常 Harness 的思路解决了这个问题。做法分两步：
 
-![](什么是Harness工程？-77b468f3705e463720b9d6167ac2d4c5.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-77b468f3705e463720b9d6167ac2d4c5.png)
 
 * **第一步，把人类工程师关于"什么是好代码"的经验，写成一套「Golden Principles」（黄金原则）沉进仓库**。比如「优先用共享工具包而不是手写 helper」「不要瞎猜数据格式，必须校验边界或用带类型的 SDK」，这些都是有经验的工程师脑子里的隐性知识，以前只存在 code review 的讨论里，现在被显式地写成了规则。
 
@@ -821,7 +822,7 @@ Agent 对那些被人类称为「boring」的老技术反而掌握得最好。
 
 为啥？某AI公司原文给了三个原因： **组合性好、API 稳定、训练数据里出现得多**。
 
-![](什么是Harness工程？-750e56f2ef6730bc93d4aeabef9b26e7.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-750e56f2ef6730bc93d4aeabef9b26e7.png)
 
 你想想这个逻辑就通了：AI 训练数据里，一个出现了十几二十年的老库，相关的代码示例、StackOverflow 问答、博客文章多如牛毛，AI 对它的各种用法了如指掌。而一个昨天才出的新框架，AI 只看过零星几篇文档，很容易张冠李戴。
 
@@ -847,7 +848,7 @@ Agent 对那些被人类称为「boring」的老技术反而掌握得最好。
 
 写到这儿，我想给你把整篇文章的思路再梳理一遍。
 
-![](什么是Harness工程？-80bf14802356d699c66a5b15b7664b66.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-80bf14802356d699c66a5b15b7664b66.png)
 
 AI 工程的重心，过去两年换过三次：
 
@@ -867,7 +868,7 @@ Prompt 是 Context 的一部分，Context 是 Harness 的一部分。
 
 模型决定了一个 Agent 的天花板，但 Harness 决定了它能不能落地、能不能稳定交付、能不能真正跑在生产环境里。这就是为啥同样的模型，在不同的产品里效果差距会这么大。
 
-![](什么是Harness工程？-7ba03a9e10bafe931ab069432e4ef68b.png)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AFHarness%E5%B7%A5%E7%A8%8B%EF%BC%9F-7ba03a9e10bafe931ab069432e4ef68b.png)
 
 如果你最近也在做 Agent 相关的事情，我特别建议你：别再把所有精力都花在调模型、调提示词上了。
 

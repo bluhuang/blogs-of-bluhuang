@@ -1,5 +1,6 @@
 ---
 title: "什么是 Agent？"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-eec824743f1dba3aab176b28c318a555.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -48,7 +49,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 **Agent（智能体）**，是一个以大模型为"大脑"，能自主感知环境、做出决策、调用工具、完成多步骤任务的程序。
 
-![](<什么是 Agent？-eec824743f1dba3aab176b28c318a555.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-eec824743f1dba3aab176b28c318a555.png)
 
 拆开来看几个关键词：
 
@@ -92,7 +93,7 @@ Agent 的价值在于：把大模型的 **灵活推理能力** 和真实工具�
 
 Agent 由四个组件构成，缺一不可：
 
-![](<什么是 Agent？-096af9599dfc28d36ce8c9586d3b51b1.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-096af9599dfc28d36ce8c9586d3b51b1.png)
 
 1. **大模型（LLM），大脑**
 
@@ -122,7 +123,7 @@ Agent 的"引擎"。不断重复"思考 → 行动 → 观察"这个循环，直
 
 目前最主流的 Agent 工作范式叫做 **ReAct**，全称 Reasoning + Acting： **推理（Think）→ 行动（Act）→ 观察（Observe）→ 再推理……**
 
-![](<什么是 Agent？-3d73134d1ae1ee3417e86d412f3d0e72.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-3d73134d1ae1ee3417e86d412f3d0e72.png)
 
 用一个完整的 OnCall 场景走一遍：
 
@@ -162,7 +163,7 @@ ReAct 很好用，但有一个先天的弱点。
 
 ReAct 是「边想边做」，每一步只看眼前，这一步的结果决定下一步的方向。对于 2-3 步能解决的短任务，这完全没问题。但如果任务很复杂、步骤很多呢？
 
-![](<什么是 Agent？-24f0a668b5e94edcb36dba3a103ba662.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-24f0a668b5e94edcb36dba3a103ba662.png)
 
 **问题一：长任务容易「迷路」**
 
@@ -182,7 +183,7 @@ ReAct 每一轮都要把完整的对话历史带上。步骤越多，每轮的 c
 
 核心思路用一句话说清楚： **先让大模型把整个任务规划成一份清单，再逐步按清单执行，而不是走一步看一步。**
 
-![](<什么是 Agent？-9b779638ec1f5dcada30ce8b1c298fef.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-9b779638ec1f5dcada30ce8b1c298fef.png)
 
 用出行来类比两种模式的区别：
 
@@ -215,7 +216,7 @@ Planner 输出的计划：
 
 计划有了，开始逐步执行。每个步骤可以是一次简单的工具调用，也可以是一个小的 ReAct 循环，步骤复杂就跑几轮，步骤简单就一步到位。
 
-![](<什么是 Agent？-3f10a22a70a34464b0b4dee0e977eb82.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-3f10a22a70a34464b0b4dee0e977eb82.png)
 
 ```markdown
 执行步骤 1：
@@ -243,7 +244,7 @@ Planner 输出的计划：
 
 用一张图把整个流程串起来：
 
-![](<什么是 Agent？-2c18f6e922ac932e787d79bf617d8e43.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-2c18f6e922ac932e787d79bf617d8e43.png)
 
 ```markdown
 用户任务
@@ -288,7 +289,7 @@ Planner 输出的计划：
 
 这是初学者最容易搞混的问题，也是实际选型最关键的判断。
 
-![](<什么是 Agent？-11c6849028bf3031b040e59eff10ffc3.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-11c6849028bf3031b040e59eff10ffc3.png)
 
 **Workflow（工作流）** 是你提前写好所有步骤和分支逻辑的流程：先做 A，再做 B，如果 B 的结果是 X 就走流程 C，否则走流程 D。大模型只是其中某个步骤里被调用一次，整体流程是硬编码的。
 
@@ -316,7 +317,7 @@ Planner 输出的计划：
 
 学完了怎么好用，也要知道坑在哪，不然上手就容易踩雷。
 
-![](<什么是 Agent？-d4465e51e01ad06201c516243245fb66.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-d4465e51e01ad06201c516243245fb66.png)
 
 **挑战 1：幻觉传导**
 
@@ -372,7 +373,7 @@ def run_agent(user_message):
 
 这就是 Agent 的骨架，整个循环的核心逻辑就这么点：
 
-![](<什么是 Agent？-269502a91fac34d5ec722746e7aeb4d3.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Agent%EF%BC%9F-269502a91fac34d5ec722746e7aeb4d3.png)
 
 1. 调大模型，让它决策
 

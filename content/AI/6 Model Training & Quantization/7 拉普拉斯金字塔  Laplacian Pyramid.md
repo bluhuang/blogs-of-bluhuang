@@ -4,7 +4,7 @@ image: "/images/AI/6%20Model%20Training%20%26%20Quantization/laplacian_scale_pro
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-10-08T09:18:37+0800
-lastmod: 2026-10-08T09:18:37+0800
+lastmod: 2026-11-08T18:44:11+0800
 ---
 
 # Laplacian Pyramid

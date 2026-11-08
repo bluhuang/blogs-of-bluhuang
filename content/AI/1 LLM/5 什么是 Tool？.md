@@ -1,5 +1,6 @@
 ---
 title: "什么是 Tool？"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-b93812c1bdffe664a7f782203b584bfd.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -46,7 +47,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 用一个外卖平台来类比这三个角色的关系：
 
-![](<什么是 Tool？-b93812c1bdffe664a7f782203b584bfd.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-b93812c1bdffe664a7f782203b584bfd.png)
 
 * **你（用户）**：下单的人，提需求
 
@@ -62,7 +63,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 具体来说，当你给 Agent 下一条指令：「帮我读取 C 盘目录下的 hello\_world.cpp 文件，移动到 D 盘目录下，最后给我总结一下这个文件的核心内容」，整个执行流程是这样的：
 
-![](<什么是 Tool？-b73968c9e7bab4051db98a900d33e42a.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-b73968c9e7bab4051db98a900d33e42a.png)
 
 1. **Agent 把需求 + 工具清单打包，发给大模型**：「用户想做这件事，你有这些工具可以用，第一步该怎么做？」
 
@@ -104,7 +105,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 ## 三、Tool 的四要素
 
-![](<什么是 Tool？-7e900cf103d8944b7e37298eaa898931.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-7e900cf103d8944b7e37298eaa898931.png)
 
 ### 函数本体，真正干活的代码
 
@@ -222,7 +223,7 @@ Agent 在每次对话开始前，会把所有可用工具的 name + description 
 
 大模型每次做决策，实际上是在读这份清单，然后判断：「当前任务需要什么操作？哪个工具能完成？该怎么调用？」
 
-![](<什么是 Tool？-51a3768bafe818a2cdc44826eeb6ea56.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-51a3768bafe818a2cdc44826eeb6ea56.png)
 
 用一个场景帮你理解：你入职一家新公司，第一天 HR 给你发了一份《内部系统清单》，
 
@@ -240,7 +241,7 @@ Agent 在每次对话开始前，会把所有可用工具的 name + description 
 
 这里有一个结论很重要，要记牢：
 
-![](<什么是 Tool？-214fc576dc2b5ca32007e34df550ea27.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Tool%EF%BC%9F-214fc576dc2b5ca32007e34df550ea27.png)
 
 **大模型选对工具的能力，不只取决于模型有多聪明，更取决于工具描述写得有多清晰。**
 

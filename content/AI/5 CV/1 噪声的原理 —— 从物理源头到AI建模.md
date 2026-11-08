@@ -158,8 +158,7 @@ $$
 
 **标定公式**：
 $$
-\text{Mean} = \frac{1}{N}\sum_{i=1}^{N} \text{Frame}_i \quad,\quad
-\text{Variance} = \frac{1}{N}\sum_{i=1}^{N} (\text{Frame}_i - \text{Mean})^2
+\text{Mean} = \frac{1}{N}\sum_{i=1}^{N} \text{Frame}_i \quad,\quad \text{Variance} = \frac{1}{N}\sum_{i=1}^{N} (\text{Frame}_i - \text{Mean})^2
 $$
 
 **N越大，平均结果越接近真实信号，方差估计越准确。**

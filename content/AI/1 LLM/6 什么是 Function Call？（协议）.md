@@ -1,5 +1,6 @@
 ---
 title: "什么是 Function Call？（协议）"
+image: "/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Function%20Call%EF%BC%9F-eae4436ac998b58db23067f53ef24db8.png"
 categories: ["AI"]
 author: "BluHuang"
 date: 2026-06-16T10:31:22+0800
@@ -81,7 +82,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 **Function Calling 的本质，是一套大模型和 Agent 之间的标准化工具调用协议**，不再用自然语言告诉 AI“你可以用这个工具”，而是用一套固定的 JSON 格式定义工具；大模型也不再自由发挥，而是严格按照固定的 JSON 结构返回调用指令。
 
-![](<什么是 Function Call？-eae4436ac998b58db23067f53ef24db8.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Function%20Call%EF%BC%9F-eae4436ac998b58db23067f53ef24db8.png)
 
 整个过程变成：给大模型标准格式的工具说明书，大模型返回标准格式的调用指令，双向约定，零歧义，零猜测。
 
@@ -109,7 +110,7 @@ lastmod: 2026-06-16T10:31:22+0800
 
 接下来，以天气查询场景为例，将 Function Calling 完整的三部分结构拆解清楚，每一部分的作用都详细说明。
 
-![](<什么是 Function Call？-1620207ed0fd1ff12167942d26d4411b.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Function%20Call%EF%BC%9F-1620207ed0fd1ff12167942d26d4411b.png)
 
 ### 第一部分：工具定义（Tool Definition），给大模型的“工具说明书”
 
@@ -221,7 +222,7 @@ Agent 执行完工具（第 3 步）后，获取结果，按规范格式打包�
 
 用一张图标注对应关系：
 
-![](<什么是 Function Call？-230b54c325e0db01696d9c5ed1af6a50.png>)
+![](/images/AI/1%20LLM/%E4%BB%80%E4%B9%88%E6%98%AF%20Function%20Call%EF%BC%9F-230b54c325e0db01696d9c5ed1af6a50.png)
 
 Function Calling 将第 1、2、4 步的数据格式全部标准化了，这三步恰好是大模型和 Agent 之间所有的“信息交换点”。有了这套规范，双方使用同一种语言，不再依赖猜测。
 
