@@ -30,6 +30,24 @@
               {
                 "title": "5 An Encodeer-decoder U-Net like SNR Net",
                 "url": "/AI/5-an-encodeer-decoder-u-net-like-snr-net/"
+              },
+              {
+                "title": "6 An Encoder-Decoder SNR Net with Better Overall Image Quality(8)",
+                "url": "/AI/6-an-encoder-decoder-snr-net-with-better-overall-image-quality8/"
+              },
+              {
+                "title": "7 CNN网络中的Motion Attention",
+                "url": "/AI/7-cnn网络中的motion-attention/"
+              }
+            ]
+          },
+          {
+            "title": "CV",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "Noise Modeling in One Hour：Minimizing Preparation Efforts for Self-supervised Low-Light RAW Image Denoising",
+                "url": "/AI/noise-modeling-in-one-hourminimizing-preparation-efforts-for-self-supervised-low-light-raw-image-denoising/"
               }
             ]
           },
@@ -290,6 +308,10 @@
           {
             "title": "20 光流 Optical Flow",
             "url": "/AI/20-光流-optical-flow/"
+          },
+          {
+            "title": "21 Bayer Scaler",
+            "url": "/AI/21-bayer-scaler/"
           },
           {
             "title": "3 Gamma 校正与逆 Gamma",

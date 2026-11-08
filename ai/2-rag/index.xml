@@ -49,8 +49,8 @@
 
 &lt;h3 id="11-检索层评估--衡量能不能精准找到相关信息"&gt;1.1 检索层评估 —— 衡量“能不能精准找到相关信息”&lt;/h3&gt;
 &lt;p&gt;检索是 RAG 的基础。若检索到的文档片段（Chunk）与用户问题无关，生成环节再优也会导致“答非所问”。&lt;/p&gt;</description></item><item><title>RAG全流程详解</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3/</link><pubDate>Tue, 16 Jun 2026 10:31:22 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/2-rag/1-rag%E5%85%A8%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3/</guid><description>&lt;h2 id="1-什么是-rag为什么需要-rag"&gt;1. 什么是 RAG？为什么需要 RAG？&lt;/h2&gt;
-&lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1%ef%bc%9aRAG%e5%85%a8%e6%b5%81%e7%a8%8b%e8%a7%a3%e6%9e%90-17ee89cdfdd5727ecf0eeb2a07be8483.png"
- alt="架构设计：RAG全流程解析-17ee89cdfdd5727ecf0eeb2a07be8483"
+&lt;p&gt;&lt;img src="https://bluhuang.github.io/blogs-of-bluhuang/images/AI/2%20RAG/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483.png"
+ alt="%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%9ARAG%E5%85%A8%E6%B5%81%E7%A8%8B%E8%A7%A3%E6%9E%90-17ee89cdfdd5727ecf0eeb2a07be8483"
  loading="lazy"
  decoding="async"
  /&gt;
