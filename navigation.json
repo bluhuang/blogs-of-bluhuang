@@ -1,0 +1,514 @@
+[
+  {
+    "title": "AI",
+    "url": "/AI/",
+    "children": [
+      {
+        "title": "0 Paper",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "CNN-Net",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising",
+                "url": "/AI/1-dncnn---beyond-a-gaussian-denoiser---residual-learning-of-deep-cnn-for-image-denoising/"
+              },
+              {
+                "title": "2 ResNet - Deep Residual Learning for Image Recognition",
+                "url": "/AI/2-resnet---deep-residual-learning-for-image-recognition/"
+              },
+              {
+                "title": "3 U-Net - Convolutional Networks for Biomedical Image Segmentation",
+                "url": "/AI/3-u-net---convolutional-networks-for-biomedical-image-segmentation/"
+              },
+              {
+                "title": "4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks",
+                "url": "/AI/4-mobilenetv2---inverted-residuals-and-linear-bottlenecks/"
+              },
+              {
+                "title": "5 An Encodeer-decoder U-Net like SNR Net",
+                "url": "/AI/5-an-encodeer-decoder-u-net-like-snr-net/"
+              },
+              {
+                "title": "6 An Encoder-Decoder SNR Net with Better Overall Image Quality(8)",
+                "url": "/AI/6-an-encoder-decoder-snr-net-with-better-overall-image-quality8/"
+              },
+              {
+                "title": "7 CNN网络中的Motion Attention",
+                "url": "/AI/7-cnn网络中的motion-attention/"
+              }
+            ]
+          },
+          {
+            "title": "CV",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 Noise Modeling in One Hour：Minimizing Preparation Efforts for Self-supervised Low-Light RAW Image Denoising",
+                "url": "/AI/1-noise-modeling-in-one-hourminimizing-preparation-efforts-for-self-supervised-low-light-raw-image-denoising/"
+              },
+              {
+                "title": "2 EMVD：Efficient Multi-Stage Video Denoising with Recurrent Spatio-Temporal Fusion",
+                "url": "/AI/2-emvdefficient-multi-stage-video-denoising-with-recurrent-spatio-temporal-fusion/"
+              }
+            ]
+          },
+          {
+            "title": "Distillation",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 Distilling the Knowledge in a Neural Network",
+                "url": "/AI/1-distilling-the-knowledge-in-a-neural-network/"
+              },
+              {
+                "title": "2  Knowledge Distillation：A Survey",
+                "url": "/AI/2-knowledge-distillationa-survey/"
+              }
+            ]
+          },
+          {
+            "title": "GAN",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1  GAN - Generative Adversarial Nets",
+                "url": "/AI/1-gan---generative-adversarial-nets/"
+              },
+              {
+                "title": "2 StyleGAN3 - Alias-Free Generative Adversarial Networks",
+                "url": "/AI/2-stylegan3---alias-free-generative-adversarial-networks/"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "1 LLM",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 LLM基础必知必会",
+            "url": "/AI/1-llm基础必知必会/"
+          },
+          {
+            "title": "10 什么是向量数据库？",
+            "url": "/AI/10-什么是向量数据库/"
+          },
+          {
+            "title": "11 什么是Harness工程？",
+            "url": "/AI/11-什么是harness工程/"
+          },
+          {
+            "title": "2 什么是大模型？",
+            "url": "/AI/2-什么是大模型/"
+          },
+          {
+            "title": "3 什么是Prompt？",
+            "url": "/AI/3-什么是prompt/"
+          },
+          {
+            "title": "4 什么是 Agent？",
+            "url": "/AI/4-什么是-agent/"
+          },
+          {
+            "title": "5 什么是 Tool？",
+            "url": "/AI/5-什么是-tool/"
+          },
+          {
+            "title": "6 什么是 Function Call？（协议）",
+            "url": "/AI/6-什么是-function-call协议/"
+          },
+          {
+            "title": "7 什么是MCP？",
+            "url": "/AI/7-什么是mcp/"
+          },
+          {
+            "title": "8 什么是 Skills？",
+            "url": "/AI/8-什么是-skills/"
+          },
+          {
+            "title": "9 什么是 RAG？",
+            "url": "/AI/9-什么是-rag/"
+          }
+        ]
+      },
+      {
+        "title": "2 RAG",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 RAG全流程详解",
+            "url": "/AI/1-rag全流程详解/"
+          },
+          {
+            "title": "2 RAG评估体系",
+            "url": "/AI/2-rag评估体系/"
+          },
+          {
+            "title": "3 RAG分块策略详解",
+            "url": "/AI/3-rag分块策略详解/"
+          },
+          {
+            "title": "4 融合搜索、BM25、RRF详解",
+            "url": "/AI/4-融合搜索bm25rrf详解/"
+          },
+          {
+            "title": "5 重排序 Rerank 详解",
+            "url": "/AI/5-重排序-rerank-详解/"
+          },
+          {
+            "title": "6 Cross-Encoder核心原理：从 Self Attention到相关性分数",
+            "url": "/AI/6-cross-encoder核心原理从-self-attention到相关性分数/"
+          },
+          {
+            "title": "7 Embedding模型原理",
+            "url": "/AI/7-embedding模型原理/"
+          },
+          {
+            "title": "8 高级RAG技术：HyDE 与 Self-RAG",
+            "url": "/AI/8-高级rag技术hyde-与-self-rag/"
+          },
+          {
+            "title": "9 GraphRAG 与 LightRAG",
+            "url": "/AI/9-graphrag-与-lightrag/"
+          },
+          {
+            "title": "z_RAG 面试题汇总",
+            "url": "/AI/z-rag-面试题汇总/"
+          }
+        ]
+      },
+      {
+        "title": "3 Agent",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 Agent基础必知必会",
+            "url": "/AI/1-agent基础必知必会/"
+          },
+          {
+            "title": "2 ReAct - Reasoning + Acting",
+            "url": "/AI/2-react---reasoning-acting/"
+          }
+        ]
+      },
+      {
+        "title": "4 DeepLearning",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "基础",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 反向传播原理详解",
+                "url": "/AI/1-反向传播原理详解/"
+              },
+              {
+                "title": "10 CNN中的其他常见操作",
+                "url": "/AI/10-cnn中的其他常见操作/"
+              },
+              {
+                "title": "2 深度学习循环原理",
+                "url": "/AI/2-深度学习循环原理/"
+              },
+              {
+                "title": "3 深度学习中的核心循环",
+                "url": "/AI/3-深度学习中的核心循环/"
+              },
+              {
+                "title": "4 梯度与梯度下降",
+                "url": "/AI/4-梯度与梯度下降/"
+              },
+              {
+                "title": "5 卷积与CNN基础",
+                "url": "/AI/5-卷积与cnn基础/"
+              },
+              {
+                "title": "6 多通道卷积",
+                "url": "/AI/6-多通道卷积/"
+              },
+              {
+                "title": "7 Bayer RAW图像的特殊处理",
+                "url": "/AI/7-bayer-raw图像的特殊处理/"
+              },
+              {
+                "title": "8 感受野",
+                "url": "/AI/8-感受野/"
+              },
+              {
+                "title": "9 从卷积层到完整去噪网络",
+                "url": "/AI/9-从卷积层到完整去噪网络/"
+              }
+            ]
+          },
+          {
+            "title": "计算",
+            "url": "/AI/",
+            "children": [
+              {
+                "title": "1 卷积完整理解：卷积核、通道与各种卷积的计算方式",
+                "url": "/AI/1-卷积完整理解卷积核通道与各种卷积的计算方式/"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "5 CV",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 噪声的原理 —— 从物理源头到AI建模",
+            "url": "/AI/1-噪声的原理-从物理源头到ai建模/"
+          },
+          {
+            "title": "10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间",
+            "url": "/AI/10-ccm-color-correction-matrix色彩校正矩阵-把-sensor-的颜色拉回标准空间/"
+          },
+          {
+            "title": "11 ISP 中的 3A 算法：AE、AWB、AF",
+            "url": "/AI/11-isp-中的-3a-算法aeawbaf/"
+          },
+          {
+            "title": "12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）",
+            "url": "/AI/12-视频编解码与图形处理dvpp-digital-vision-pre-processing-数字视频预处理/"
+          },
+          {
+            "title": "13 Sensor基础",
+            "url": "/AI/13-sensor基础/"
+          },
+          {
+            "title": "14 ISP补充： 完整ISP Pipeline",
+            "url": "/AI/14-isp补充-完整isp-pipeline/"
+          },
+          {
+            "title": "15 图像噪声分类、RAW 域降噪意义与图像噪声评价",
+            "url": "/AI/15-图像噪声分类raw-域降噪意义与图像噪声评价/"
+          },
+          {
+            "title": "16 空域降噪",
+            "url": "/AI/16-空域降噪/"
+          },
+          {
+            "title": "17 频域降噪",
+            "url": "/AI/17-频域降噪/"
+          },
+          {
+            "title": "18 时域降噪",
+            "url": "/AI/18-时域降噪/"
+          },
+          {
+            "title": "19 MOT：Multi-Object Tracking",
+            "url": "/AI/19-motmulti-object-tracking/"
+          },
+          {
+            "title": "2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）",
+            "url": "/AI/2-bayer阵列bayer-pattern-bayer-filter-mosaic-拜耳阵列/"
+          },
+          {
+            "title": "20 光流 Optical Flow",
+            "url": "/AI/20-光流-optical-flow/"
+          },
+          {
+            "title": "21 Bayer Scaler",
+            "url": "/AI/21-bayer-scaler/"
+          },
+          {
+            "title": "3 Gamma 校正与逆 Gamma",
+            "url": "/AI/3-gamma-校正与逆-gamma/"
+          },
+          {
+            "title": "4 YUV 色彩空间：亮度和颜色的分离",
+            "url": "/AI/4-yuv-色彩空间亮度和颜色的分离/"
+          },
+          {
+            "title": "5 ISP 图像信号处理器（Image Signal Processor）",
+            "url": "/AI/5-isp-图像信号处理器image-signal-processor/"
+          },
+          {
+            "title": "6  BNR，Bayer Noise Reduction（拜耳域降噪）",
+            "url": "/AI/6-bnrbayer-noise-reduction拜耳域降噪/"
+          },
+          {
+            "title": "7 BLC（Black Level Correction，黑电平校正）",
+            "url": "/AI/7-blcblack-level-correction黑电平校正/"
+          },
+          {
+            "title": "8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁",
+            "url": "/AI/8-demosaic去马赛克-从-bayer-到-rgb-的桥梁/"
+          },
+          {
+            "title": "9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色",
+            "url": "/AI/9-awbauto-white-balance自动白平衡-让白色在任何光源下都是白色/"
+          }
+        ]
+      },
+      {
+        "title": "6 Model Training",
+        "url": "/AI/"
+      },
+      {
+        "title": "6 Model Training & Quantization",
+        "url": "/AI/",
+        "children": [
+          {
+            "title": "1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制",
+            "url": "/AI/1-iir-训练循环-多帧去噪的递归引擎记忆机制/"
+          },
+          {
+            "title": "1 模型训练全景",
+            "url": "/AI/1-模型训练全景/"
+          },
+          {
+            "title": "10 DDP 分布式训练(Pytorch - DistributedDataParallel)",
+            "url": "/AI/10-ddp-分布式训练pytorch---distributeddataparallel/"
+          },
+          {
+            "title": "11 模型量化基础",
+            "url": "/AI/11-模型量化基础/"
+          },
+          {
+            "title": "2 SSIM（结构相似性指标）",
+            "url": "/AI/2-ssim结构相似性指标/"
+          },
+          {
+            "title": "3 学习率调度（Learning Rate Scheduling）",
+            "url": "/AI/3-学习率调度learning-rate-scheduling/"
+          },
+          {
+            "title": "4 Raw - L1 Loss、SSIM Loss 与组合 Loss",
+            "url": "/AI/4-raw---l1-lossssim-loss-与组合-loss/"
+          },
+          {
+            "title": "5 YUV 色彩空间 Loss",
+            "url": "/AI/5-yuv-色彩空间-loss/"
+          },
+          {
+            "title": "6  UV 时域一致性 Loss、时域稳定性 Loss",
+            "url": "/AI/6-uv-时域一致性-loss时域稳定性-loss/"
+          },
+          {
+            "title": "7 拉普拉斯金字塔  Laplacian Pyramid",
+            "url": "/AI/7-拉普拉斯金字塔-laplacian-pyramid/"
+          },
+          {
+            "title": "8 时域中的两种IIR问题深度分析",
+            "url": "/AI/8-时域中的两种iir问题深度分析/"
+          },
+          {
+            "title": "9 时域中的两种IIR问题解决方案调研",
+            "url": "/AI/9-时域中的两种iir问题解决方案调研/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "blogs",
+    "url": "/blogs/"
+  },
+  {
+    "title": "database",
+    "url": "/database/",
+    "children": [
+      {
+        "title": "sqlite",
+        "url": "/database/",
+        "children": [
+          {
+            "title": "programming interfaces",
+            "url": "/database/",
+            "children": [
+              {
+                "title": "Application-Defined SQL Functions",
+                "url": "/database/application-defined-sql-functions/"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "向量",
+        "url": "/database/",
+        "children": [
+          {
+            "title": "HNSW索引学习笔记",
+            "url": "/database/hnsw索引学习笔记/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "RAG",
+    "url": "/RAG/"
+  },
+  {
+    "title": "Workflow and Tools",
+    "url": "/Workflow and Tools/",
+    "children": [
+      {
+        "title": "IOS",
+        "url": "/Workflow and Tools/",
+        "children": [
+          {
+            "title": "Sidestore",
+            "url": "/Workflow and Tools/sidestore/"
+          }
+        ]
+      },
+      {
+        "title": "skills",
+        "url": "/Workflow and Tools/",
+        "children": [
+          {
+            "title": "GPT连接Github - 授权不代表真连接",
+            "url": "/Workflow and Tools/gpt连接github---授权不代表真连接/"
+          }
+        ]
+      },
+      {
+        "title": "远程开发",
+        "url": "/Workflow and Tools/",
+        "children": [
+          {
+            "title": "iOS 远程 Mac 开发环境搭建指南",
+            "url": "/Workflow and Tools/ios-远程-mac-开发环境搭建指南/"
+          },
+          {
+            "title": "mac远程安装开发好的ios app实践 - SideStore",
+            "url": "/Workflow and Tools/mac远程安装开发好的ios-app实践---sidestore/"
+          },
+          {
+            "title": "Tailscale 连接指南与使用详解",
+            "url": "/Workflow and Tools/tailscale-连接指南与使用详解/"
+          },
+          {
+            "title": "tmux 使用指南",
+            "url": "/Workflow and Tools/tmux-使用指南/"
+          },
+          {
+            "title": "Xcode 无线安装与远程调试完全指南",
+            "url": "/Workflow and Tools/xcode-无线安装与远程调试完全指南/"
+          },
+          {
+            "title": "从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用",
+            "url": "/Workflow and Tools/从零配置-sidestore-wireguard实现远程无线安装-ios-应用/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "guestbook",
+    "url": "/guestbook.md/guestbook/"
+  },
+  {
+    "title": "private-space",
+    "url": "/private-space.md/private-space/"
+  }
+]

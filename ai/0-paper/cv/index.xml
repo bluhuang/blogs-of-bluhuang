@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CV on BluHuang's Blog</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/</link><description>Recent content in CV on BluHuang's Blog</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Wed, 25 Nov 2026 09:28:11 +0800</lastBuildDate><atom:link href="https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/index.xml" rel="self" type="application/rss+xml"/><item><title>EMVD：Efficient Multi-Stage Video Denoising with Recurrent Spatio-Temporal Fusion</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-emvdefficient-multi-stage-video-denoising-with-recurrent-spatio-temporal-fusion/</link><pubDate>Wed, 25 Nov 2026 09:23:42 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/2-emvdefficient-multi-stage-video-denoising-with-recurrent-spatio-temporal-fusion/</guid><description>&lt;h3 id="论文基本信息"&gt;论文基本信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;标题&lt;/strong&gt;：Efficient Multi-Stage Video Denoising with Recurrent Spatio-Temporal Fusion&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作者&lt;/strong&gt;：Matteo Maggioni 等（华为诺亚方舟实验室）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发表&lt;/strong&gt;：CVPR 2021&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;：用递归融合 + 单帧去噪 + 细节恢复的三阶段架构，在变换域中完成视频去噪，复杂度比 SOTA 低几个数量级，但性能不降甚至更好。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id="1-问题背景与已有方法的困境"&gt;1. 问题背景与已有方法的困境&lt;/h1&gt;
+&lt;p&gt;这篇论文要解决的核心问题不是单纯提高视频降噪效果，而是：&lt;strong&gt;如何充分利用视频中的时域信息，在保证降噪质量的同时，大幅降低计算复杂度，使 RAW 视频降噪能够在移动端实时运行？&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Noise Modeling in One Hour：Minimizing Preparation Efforts for Self-supervised Low-Light RAW Image Denoising</title><link>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-noise-modeling-in-one-hourminimizing-preparation-efforts-for-self-supervised-low-light-raw-image-denoising/</link><pubDate>Wed, 25 Nov 2026 09:23:42 +0800</pubDate><guid>https://bluhuang.github.io/blogs-of-bluhuang/ai/0-paper/cv/1-noise-modeling-in-one-hourminimizing-preparation-efforts-for-self-supervised-low-light-raw-image-denoising/</guid><description>&lt;h1 id="1-论文背景与前置知识"&gt;1. 论文背景与前置知识&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;论文&lt;/strong&gt;：Feiran Li, Haiyang Jiang, Daisuke Iso. &lt;em&gt;Noise Modeling in One Hour: Minimizing Preparation Efforts for Self-supervised Low-Light RAW Image Denoising&lt;/em&gt;. CVPR 2025, pp. 5699–5708。&lt;br&gt;
+&lt;strong&gt;原文&lt;/strong&gt;：&lt;a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Li_Noise_Modeling_in_One_Hour_Minimizing_Preparation_Efforts_for_Self-supervised_CVPR_2025_paper.pdf"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;CVPR Open Access PDF&lt;/a&gt; · &lt;a href="https://arxiv.org/abs/2505.00045"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;arXiv:2505.00045&lt;/a&gt; · &lt;a href="https://github.com/SonyResearch/raw_image_denoising"
+
+
+
+
+ target="_blank"
+ 
+
+
+&gt;官方代码&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

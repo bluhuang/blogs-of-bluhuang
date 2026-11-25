@@ -1,0 +1,126 @@
+name: Sync Homepage Guestbook
+
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['.github/workflows/sync-home-guestbook.yml']
+  discussion_comment:
+    types: [created, edited, deleted]
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  discussions: read
+
+concurrency:
+  group: homepage-guestbook-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.event_name != 'discussion_comment' || github.event.discussion.number == 2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Update snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          EVENT_PATH: ${{ github.event_path }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          OWNER, REPO, NUMBER = 'bluhuang', 'blogs-of-bluhuang', 2
+          URL = f'https://github.com/{OWNER}/{REPO}/discussions/{NUMBER}'
+          PATH = Path('data/home-guestbook.json')
+
+          def now(): return datetime.now(timezone.utc).isoformat()
+          def identity(c): return str(c.get('id') or c.get('url') or '')
+          def ordered(items): return sorted(items, key=lambda c: c.get('createdAt') or '', reverse=True)
+          def load():
+              try:
+                  data = json.loads(PATH.read_text(encoding='utf-8'))
+                  data.setdefault('comments', [])
+                  data.setdefault('totalCount', len(data['comments']))
+                  return data
+              except Exception:
+                  return {'available': True, 'discussionNumber': NUMBER, 'discussionTitle': 'blogs-of-bluhuang/guestbook/', 'discussionUrl': URL, 'totalCount': 0, 'comments': []}
+          def base(data):
+              copy = dict(data)
+              copy.pop('generatedAt', None)
+              return copy
+          def save(old, new):
+              if base(old) == base(new): return
+              new['generatedAt'] = now()
+              PATH.parent.mkdir(parents=True, exist_ok=True)
+              PATH.write_text(json.dumps(new, ensure_ascii=False, indent=2), encoding='utf-8')
+          def event_comment(raw):
+              user, reactions = raw.get('user') or {}, raw.get('reactions') or {}
+              return {'id': raw.get('node_id') or str(raw.get('id') or ''), 'bodyText': raw.get('body_text') or raw.get('body') or '', 'createdAt': raw.get('created_at'), 'updatedAt': raw.get('updated_at'), 'url': raw.get('html_url'), 'reactionCount': reactions.get('total_count', 0) or 0, 'author': {'login': user.get('login') or 'GitHub User', 'avatarUrl': user.get('avatar_url'), 'url': user.get('html_url')}}
+          def gql_comment(raw):
+              user = raw.get('author') or {}
+              return {'id': raw.get('id'), 'bodyText': raw.get('bodyText') or '', 'createdAt': raw.get('createdAt'), 'updatedAt': raw.get('updatedAt'), 'url': raw.get('url'), 'reactionCount': (raw.get('reactions') or {}).get('totalCount', 0), 'author': {'login': user.get('login') or 'GitHub User', 'avatarUrl': user.get('avatarUrl'), 'url': user.get('url')}}
+          def fetch_remote():
+              query = '''query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){discussion(number:$number){number title url comments(last:30){totalCount nodes{id bodyText createdAt updatedAt url author{login avatarUrl url} reactions{totalCount}}}}}}'''
+              req = urllib.request.Request('https://api.github.com/graphql', data=json.dumps({'query': query, 'variables': {'owner': OWNER, 'repo': REPO, 'number': NUMBER}}).encode(), headers={'Authorization': f"Bearer {os.environ['GH_TOKEN']}", 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'}, method='POST')
+              with urllib.request.urlopen(req, timeout=25) as response: payload = json.load(response)
+              if payload.get('errors'): raise RuntimeError(payload['errors'])
+              d = payload['data']['repository']['discussion']
+              return {'available': True, 'discussionNumber': d['number'], 'discussionTitle': d['title'], 'discussionUrl': d['url'], 'totalCount': d['comments']['totalCount'], 'comments': [gql_comment(c) for c in reversed(d['comments']['nodes'] or [])]}
+
+          old = load()
+          if os.environ.get('EVENT_NAME') == 'discussion_comment':
+              event = json.loads(Path(os.environ['EVENT_PATH']).read_text(encoding='utf-8'))
+              discussion, raw = event.get('discussion') or {}, event.get('comment') or {}
+              if int(discussion.get('number') or 0) != NUMBER or raw.get('parent_id') is not None: raise SystemExit(0)
+              item, action = event_comment(raw), os.environ.get('EVENT_ACTION')
+              key, comments = identity(item), list(old.get('comments') or [])
+              total = max(0, int(old.get('totalCount') or 0))
+              if action == 'created':
+                  comments = [item] + [c for c in comments if identity(c) != key]
+                  total += 1
+              elif action == 'edited':
+                  found = any(identity(c) == key for c in comments)
+                  comments = [item if identity(c) == key else c for c in comments]
+                  if not found: comments.insert(0, item)
+              elif action == 'deleted':
+                  comments = [c for c in comments if identity(c) != key]
+                  total = max(0, total - 1)
+              else: raise SystemExit(0)
+              new = dict(old)
+              new.update({'available': True, 'discussionNumber': NUMBER, 'discussionTitle': discussion.get('title') or old.get('discussionTitle'), 'discussionUrl': discussion.get('html_url') or URL, 'totalCount': max(total, len(comments)), 'comments': ordered(comments)[:12]})
+          else:
+              remote = fetch_remote()
+              merged, seen = [], set()
+              for item in list(remote.get('comments') or []) + list(old.get('comments') or []):
+                  key = identity(item)
+                  if key and key not in seen:
+                      merged.append(item); seen.add(key)
+              new = dict(old)
+              new.update({'available': True, 'discussionNumber': NUMBER, 'discussionTitle': remote.get('discussionTitle') or old.get('discussionTitle'), 'discussionUrl': remote.get('discussionUrl') or URL, 'totalCount': max(int(old.get('totalCount') or 0), int(remote.get('totalCount') or 0), len(merged)), 'comments': ordered(merged)[:12]})
+          save(old, new)
+          PY
+      - name: Commit snapshot
+        run: |
+          git config user.name 'Guestbook Sync'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/home-guestbook.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Sync homepage guestbook [skip ci]'
+          for attempt in 1 2 3; do
+            git push origin gh-pages && exit 0
+            git pull --rebase origin gh-pages
+          done
+          exit 1
