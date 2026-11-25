@@ -1,0 +1,272 @@
+{
+  "AI/0 Paper/CNN-Net/1 DnCNN - Beyond a Gaussian Denoiser - Residual Learning of Deep CNN for Image Denoising.md": {
+    "hash": "3e6057ab5a16919013f2bea311efe72e45d242d2e85cf3150d52335520d174ed"
+  },
+  "AI/0 Paper/CNN-Net/2 ResNet - Deep Residual Learning for Image Recognition.md": {
+    "hash": "4af575326068d4efafe855a85f3e039f672dd64e3b51541ec4221cbd1bae4d10"
+  },
+  "AI/0 Paper/CNN-Net/3 U-Net - Convolutional Networks for Biomedical Image Segmentation.md": {
+    "hash": "b3a740b7a865939c38cf348672825bf6b677924914cd1a6d5902c3460a462e98"
+  },
+  "AI/0 Paper/CNN-Net/4 MobileNetV2 - Inverted Residuals and Linear Bottlenecks.md": {
+    "hash": "ee9e3f752c7e17177f20c0551747b164729c11083a9671798c1fc93f43277fa5"
+  },
+  "AI/0 Paper/CNN-Net/5 An Encodeer-decoder U-Net like SNR Net.md": {
+    "hash": "faff1aa62cd330889729e403e9cf27057f338906edda56a34322d96db20413d3"
+  },
+  "AI/0 Paper/CNN-Net/6 An Encoder-Decoder SNR Net with Better Overall Image Quality(8).md": {
+    "hash": "f4f039c96581b63c0213865da4ee786984b264819c3720b6fbb6f4b904e7e01a"
+  },
+  "AI/0 Paper/CNN-Net/7 CNN网络中的Motion Attention.md": {
+    "hash": "03865a00641fb1626185ab66ee38fb57ba6dff534c3b7521db55637552ad6863"
+  },
+  "AI/0 Paper/CV/1 Noise Modeling in One Hour：Minimizing Preparation Efforts for Self-supervised Low-Light RAW Image Denoising.md": {
+    "hash": "549bde70a12022628ee21085072d6606aa28a49a2dc00c47de9c96d13ca9974f:without-deepseek"
+  },
+  "AI/0 Paper/CV/2 EMVD：Efficient Multi-Stage Video Denoising with Recurrent Spatio-Temporal Fusion.md": {
+    "hash": "3233d9b40cff26545d580c881f3be11928132d01d1c1e594c0a429a62365076c:without-deepseek"
+  },
+  "AI/0 Paper/Distillation/1 Distilling the Knowledge in a Neural Network.md": {
+    "hash": "d442ebf96b667eaeeb2ec13094f11389b05e091f7e4e87f194c61775368420ef"
+  },
+  "AI/0 Paper/Distillation/2  Knowledge Distillation：A Survey.md": {
+    "hash": "9ac56f1725dc2f6800692f1c723a1c9310bb082d246294a3a7e53d30c238a9d5"
+  },
+  "AI/0 Paper/GAN/1  GAN - Generative Adversarial Nets.md": {
+    "hash": "2379408986f8867bdca54be46fdd430c144853f9ca243a50613c5f91ed6a4a05"
+  },
+  "AI/0 Paper/GAN/2 StyleGAN3 - Alias-Free Generative Adversarial Networks.md": {
+    "hash": "39102c664e7639cc3486a3ca7dd0808be0abaa59a331d21634feee4a5e851ec8"
+  },
+  "AI/1 LLM/1 LLM基础必知必会.md": {
+    "hash": "64e0a24b1a74f3f1344e1399c57dc077052dd430e1ed1fd1d5214a7d3c9cc432"
+  },
+  "AI/1 LLM/10 什么是向量数据库？.md": {
+    "hash": "375fd03eff0c3a45062f3bad36809806d09e96473ffe1badb74880cc9330dbe7"
+  },
+  "AI/1 LLM/11 什么是Harness工程？.md": {
+    "hash": "e92b01f9de1444f127a49506a2df06ddca93321b0d4f73e8202fd2546eea432e"
+  },
+  "AI/1 LLM/2 什么是大模型？.md": {
+    "hash": "8c1963df810088abf428131355d384f0f3065b5aa46deb9644f319ad393ee9db"
+  },
+  "AI/1 LLM/3 什么是Prompt？.md": {
+    "hash": "546cd3deadf00686cb04f54d83e72caefacaa276032cb101f8388a3f08bf519e"
+  },
+  "AI/1 LLM/4 什么是 Agent？.md": {
+    "hash": "ddf92777d97ac75ef176e8bca571a852bb44ec3f0e6afbc247f4a90d65ae9ee8"
+  },
+  "AI/1 LLM/5 什么是 Tool？.md": {
+    "hash": "f63f37a09e00f4562c9f9694e8de6b4ee0b525fb199f42cff84339b2fc1e55cc"
+  },
+  "AI/1 LLM/6 什么是 Function Call？（协议）.md": {
+    "hash": "cb011a779062033a6fe7e31b15678d3894cc8dae41cf0b2dc978797e10abba7a"
+  },
+  "AI/1 LLM/7 什么是MCP？.md": {
+    "hash": "89c3fe99e2153c03730777e33bfc66b97e11d2118a98078b91b14d0ec4e1c0f0"
+  },
+  "AI/1 LLM/8 什么是 Skills？.md": {
+    "hash": "2c67305343d7c69917f00fa5bd16c7c7fe16bfe772b8933170346f26d6ce62ee"
+  },
+  "AI/1 LLM/9 什么是 RAG？.md": {
+    "hash": "c21f7bd1d15eea28c189e269e4d2fda41760d00b65630f75a4a33c0d516e794d"
+  },
+  "AI/2 RAG/1 RAG全流程详解.md": {
+    "hash": "e39368c4d2e94c8cdde5ccb3175238de849807eb5fca924007eae8f78d734a78"
+  },
+  "AI/2 RAG/2 RAG评估体系.md": {
+    "hash": "e812fcc040fdf0646ed6593c3d1f2b4197039024edfcb6932e420810409459f3"
+  },
+  "AI/2 RAG/3 RAG分块策略详解.md": {
+    "hash": "1f130e391dcf6c68c501cb58faf94b1739d94351cd0ebbeec7d1a6bc2d7804e4"
+  },
+  "AI/2 RAG/4 融合搜索、BM25、RRF详解.md": {
+    "hash": "69bcf565543327027c29b186a5641b8fe36c658b8c1a6837db00f4a6c30699b5"
+  },
+  "AI/2 RAG/5 重排序 Rerank 详解.md": {
+    "hash": "48ae4976e4fb13399f036e136a904db12577b503bdce3d1992bc979fd8afebe7"
+  },
+  "AI/2 RAG/6 Cross-Encoder核心原理：从 Self Attention到相关性分数.md": {
+    "hash": "4bd379b27f4928ca9a29226e87bd39de8961407de1dba7eed4e161eb66aab890"
+  },
+  "AI/2 RAG/7 Embedding模型原理.md": {
+    "hash": "06a961e941c29016e4fa5cd766ec1696b04f2211c3a0915286ac34581caf9600"
+  },
+  "AI/2 RAG/8 高级RAG技术：HyDE 与 Self-RAG.md": {
+    "hash": "139913caf29694b9ce927b65beb7859a357e6b13e22a4d666b5b54ed0c6d4341"
+  },
+  "AI/2 RAG/9 GraphRAG 与 LightRAG.md": {
+    "hash": "d0ed47792a10d4d6c21de91403fc040ad84e70236a7d9863e518a47672c4ecc4"
+  },
+  "AI/2 RAG/z_RAG 面试题汇总.md": {
+    "hash": "6d18fa051323878893b670a0332b4c72b20dacbc1ae3d910f1c20cc0539dd6d8"
+  },
+  "AI/3 Agent/1 Agent基础必知必会.md": {
+    "hash": "28480b772a0dca7bfb0aab981cd92ff9f148614577206f6056fbbbe788bafff1"
+  },
+  "AI/3 Agent/2 ReAct - Reasoning + Acting.md": {
+    "hash": "b762925d133b333725813e02c2b8e17da68465565f2d119c37825040b9f40680"
+  },
+  "AI/4 DeepLearning/基础/1 反向传播原理详解.md": {
+    "hash": "5c086a8b2f9ed8aa021be359316a0ce5021c1436a8701c30b8e8a37e15bf9383"
+  },
+  "AI/4 DeepLearning/基础/10 CNN中的其他常见操作.md": {
+    "hash": "c5f6a8edc40d470567c4e8924777e5530ef2fb00cc2e64f3ed8b0201ff12f846"
+  },
+  "AI/4 DeepLearning/基础/2 深度学习循环原理.md": {
+    "hash": "de702c969b9a4018eaf6696819c10cf8edccec6255ae2cce55a003ffc5d974a0"
+  },
+  "AI/4 DeepLearning/基础/3 深度学习中的核心循环.md": {
+    "hash": "f99971626638606cc8b2154ac0083aea18abe896a184431f50385870c7b6008d"
+  },
+  "AI/4 DeepLearning/基础/4 梯度与梯度下降.md": {
+    "hash": "195455dd29695e2ac79e22c9bc3b31d89fc9e1e44050dc3838b0cbf0b4ca878e"
+  },
+  "AI/4 DeepLearning/基础/5 卷积与CNN基础.md": {
+    "hash": "b4ff447e2bd5b1f49908cceb7f27b08ca499e8c9a63846e4c89083d0db31a4b1"
+  },
+  "AI/4 DeepLearning/基础/6 多通道卷积.md": {
+    "hash": "7fe7f87969e9012bde26f46801ce9a64d2bdf0e08bb047af1aff14e9765c9e2c"
+  },
+  "AI/4 DeepLearning/基础/7 Bayer RAW图像的特殊处理.md": {
+    "hash": "f979bdf8da1583c526d77c6f64f826fd617d5a97fb7d62f9bf59685a37d3bab7"
+  },
+  "AI/4 DeepLearning/基础/8 感受野.md": {
+    "hash": "45fa0a62188494926b0503e9160dca5494c909e6885d71cb1ed0b5ffa8fe3c6a"
+  },
+  "AI/4 DeepLearning/基础/9 从卷积层到完整去噪网络.md": {
+    "hash": "3f88c903460830862f45903c65d57f3125ca92a5b697de24b055272e9b4423ff"
+  },
+  "AI/4 DeepLearning/计算/1 卷积完整理解：卷积核、通道与各种卷积的计算方式.md": {
+    "hash": "ad9bb475469c8e28dea262ad97dea288bf1009743a0337334f0616ff03e4eb63"
+  },
+  "AI/5 CV/1 噪声的原理 —— 从物理源头到AI建模.md": {
+    "hash": "379468609500886be877978e6168763aa6fc8656d8debc09f821a72be1240cea"
+  },
+  "AI/5 CV/10 CCM （Color Correction Matrix，色彩校正矩阵）— 把 Sensor 的颜色“拉回”标准空间.md": {
+    "hash": "72358ef5fb4bd1c29cd85632f700c25d8897b41aa02fcfb970a91a02ac2144f4"
+  },
+  "AI/5 CV/11 ISP 中的 3A 算法：AE、AWB、AF.md": {
+    "hash": "74d3978af8a5c01cc5308a31ec345379b03421a6538e320a0bd1d05ceb364f55"
+  },
+  "AI/5 CV/12 视频编解码与图形处理（DVPP, Digital Vision Pre-Processing, 数字视频预处理）.md": {
+    "hash": "2d98203596c7f79b45709c812635c39ad05b779d5755714e82015d5414777bb1"
+  },
+  "AI/5 CV/13 Sensor基础.md": {
+    "hash": "a04dba2e590deaf5b4f7daa29652b93b16f0b3be8239ec7de3fb536a0550e9a3"
+  },
+  "AI/5 CV/14 ISP补充： 完整ISP Pipeline.md": {
+    "hash": "17c51adf2065ea90e5f7044a9561f44a43b6e6efa42d285906c36477038847c2"
+  },
+  "AI/5 CV/15 图像噪声分类、RAW 域降噪意义与图像噪声评价.md": {
+    "hash": "e2d336d2eebc422b4d364b6eedd2cda154677c704df2f236484ef0fef44bb5d3"
+  },
+  "AI/5 CV/16 空域降噪.md": {
+    "hash": "992822ed30c6cb92844dcc43b643e028d7bfe82b9a2a4e17631f65d86459314d"
+  },
+  "AI/5 CV/17 频域降噪.md": {
+    "hash": "e61c3067d1a65bf98c37c691aedd79e0886f4fc47030db7344bd7f035eb345e3"
+  },
+  "AI/5 CV/18 时域降噪.md": {
+    "hash": "a818c9b3e096b547ece6f36e0253472d5efc4c56048b1ca4e1878cf8221cb9d1"
+  },
+  "AI/5 CV/19 MOT：Multi-Object Tracking.md": {
+    "hash": "7759077f943d13aaca5e8e4ac3d776657a465f12b79c4de81e4fde389473d039"
+  },
+  "AI/5 CV/2 Bayer阵列（Bayer Pattern, Bayer Filter Mosaic, 拜耳阵列）.md": {
+    "hash": "7f0c267e01307e7d15618f1736e503249d3b060b433fc0808c85607e2a214fcd"
+  },
+  "AI/5 CV/20 光流 Optical Flow.md": {
+    "hash": "942f9349f8005138aa85ca8f37eae0e6a13d3f0d72c8dcfc0ba2ba68e127050e"
+  },
+  "AI/5 CV/21 Bayer Scaler.md": {
+    "hash": "bbfe78021a6c65b93c7925e8d376acc06b437dc49561cd300f0a135969af0871:without-deepseek"
+  },
+  "AI/5 CV/3 Gamma 校正与逆 Gamma.md": {
+    "hash": "e3372fa1668bdef1bcf0a865c61c3006959c608e8c2a51bc198d3f3f7a735b24"
+  },
+  "AI/5 CV/4 YUV 色彩空间：亮度和颜色的分离.md": {
+    "hash": "ffeb327b767cbf3210b7901b9935b1748d0c5d5d1b8d902cfba1b6aeb606e3f8"
+  },
+  "AI/5 CV/5 ISP 图像信号处理器（Image Signal Processor）.md": {
+    "hash": "7606d98ae9eb59645b919bef33f29d7ef05e3e6a6538b13948bc67479642798d"
+  },
+  "AI/5 CV/6  BNR，Bayer Noise Reduction（拜耳域降噪）.md": {
+    "hash": "ab170b2434d6859a2caf9247d9a715265d23cea05948029a539c611b61075f5c"
+  },
+  "AI/5 CV/7 BLC（Black Level Correction，黑电平校正）.md": {
+    "hash": "2bfdcfa7508be647855436c25b97dad6ff0840b9816e3960f5ed4d461b448ab6"
+  },
+  "AI/5 CV/8 Demosaic（去马赛克）—— 从 Bayer 到 RGB 的桥梁.md": {
+    "hash": "1fa641885cdbd5aadcc678cf04ff2a112690fec4fcc00484edc44a17c75c3599"
+  },
+  "AI/5 CV/9 AWB（Auto White Balance，自动白平衡）—— 让白色在任何光源下都是白色.md": {
+    "hash": "be2083201a82d66d16e6c5c491f221301175f7f685d9edb98e9bd44fa5c1b98e"
+  },
+  "AI/6 Model Training & Quantization/1 IIR 训练循环 —— 多帧去噪的“递归引擎”、“记忆”机制.md": {
+    "hash": "3989cee8c183b4a462cc6c18d6c37b9b6db42898ac7292b3fda7bb88cd3e178a"
+  },
+  "AI/6 Model Training & Quantization/1 模型训练全景.md": {
+    "hash": "4aee65340c2bf97579506afde621bd3053887b0c56af5acb5958ea84ed4b4432"
+  },
+  "AI/6 Model Training & Quantization/10 DDP 分布式训练(Pytorch - DistributedDataParallel).md": {
+    "hash": "976881ab7b4e5e0d2f31b883dd61a87b49a76b29850df4d0f7b23296db6a4195"
+  },
+  "AI/6 Model Training & Quantization/11 模型量化基础.md": {
+    "hash": "30140da64d6c6d6216ae7cdf14392d15f1fbadf90b6f3bbf510f3a0a362bf407"
+  },
+  "AI/6 Model Training & Quantization/2 SSIM（结构相似性指标）.md": {
+    "hash": "cdecf9a986ced6128007bd96df226dfab8e9264e7defb23236e5ae4bb5db7660"
+  },
+  "AI/6 Model Training & Quantization/3 学习率调度（Learning Rate Scheduling）.md": {
+    "hash": "4917ce86afa5a382e3df74e73c7cc8fdbcd7c4b79130d79633d9538f5c0ffc96"
+  },
+  "AI/6 Model Training & Quantization/4 Raw - L1 Loss、SSIM Loss 与组合 Loss.md": {
+    "hash": "d26d4a29a020f2bb1b537c3582168e067eac9a3b4d85dfbe98a670a56448783b"
+  },
+  "AI/6 Model Training & Quantization/5 YUV 色彩空间 Loss.md": {
+    "hash": "4e0a553e19c043f36f8b94173050cd898987bb6277ad7c422ccef7639974d455"
+  },
+  "AI/6 Model Training & Quantization/6  UV 时域一致性 Loss、时域稳定性 Loss.md": {
+    "hash": "5455949d811200fbb5da5719808435b6d005e1b204ded9e78419b14ecdf691b2"
+  },
+  "AI/6 Model Training & Quantization/7 拉普拉斯金字塔  Laplacian Pyramid.md": {
+    "hash": "ec85be32fe82ce4e6fe0f2a188de40257ee8cfafb14098314615729342966ee2"
+  },
+  "AI/6 Model Training & Quantization/8 时域中的两种IIR问题深度分析.md": {
+    "hash": "0c9f9e7093c186efab26198337bf9db951fdd0881588927da1cad650d9b4c861"
+  },
+  "AI/6 Model Training & Quantization/9 时域中的两种IIR问题解决方案调研.md": {
+    "hash": "621cfba3f4f0890e3ccebaf11231a3fa3892cf3f0ce307f49c2b74e82f467e1a"
+  },
+  "Workflow and Tools/IOS/Sidestore.md": {
+    "hash": "e4b6be9109546b1be5986c4bd48d65d9ecb371812219dfc5b3d645f95d011556"
+  },
+  "Workflow and Tools/skills/GPT连接Github - 授权不代表真连接.md": {
+    "hash": "6ef6833b630df555bbceb1ed1e32068daf3148f8d2dad365f83aec2e85148050"
+  },
+  "Workflow and Tools/远程开发/Tailscale 连接指南与使用详解.md": {
+    "hash": "ade3778238ee40cdb8293453852ff9b8d34c8d188a5493b0a701fca757715454"
+  },
+  "Workflow and Tools/远程开发/Xcode 无线安装与远程调试完全指南.md": {
+    "hash": "6b0bc2910abbd048fc4f549d4e1afa2529c7c87b8e03f87ce7b833ce6f089d76"
+  },
+  "Workflow and Tools/远程开发/iOS 远程 Mac 开发环境搭建指南.md": {
+    "hash": "ca9b1f5618db9babf9bd73dc5ea932a8ea6d642f98bcc28a7c4d775aa63e12e7"
+  },
+  "Workflow and Tools/远程开发/mac远程安装开发好的ios app实践 - SideStore.md": {
+    "hash": "814b2d1d44019f85b968e0d0eb94ceb084ab30f5e5c629797e7edab3318e6782"
+  },
+  "Workflow and Tools/远程开发/tmux 使用指南.md": {
+    "hash": "43b19f1eafe3056d2cbbac8c48be43d24df298020f0ef7b6b3ca39b6e8ecfb69"
+  },
+  "Workflow and Tools/远程开发/从零配置 SideStore & WireGuard：实现远程无线安装 iOS 应用.md": {
+    "hash": "00f3d7b61eb05a666a8128d50ef49cbca1b27f5cba4ea27b1f4d712e4607181d"
+  },
+  "database/sqlite/programming interfaces/Application-Defined SQL Functions.md": {
+    "hash": "4b6f8c01a484f1981aa2f1ef43059872a9643b4b3fc89371a7167182a5f019be"
+  },
+  "database/向量/HNSW索引学习笔记.md": {
+    "hash": "2cceaf4c27a6ea31c9e857edbaa744a4df8ebfc96260bd888d652a26d241ff28"
+  }
+}
