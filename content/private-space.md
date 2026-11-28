@@ -4,7 +4,7 @@ layout: private-space
 url: private-space/
 params:
   private_space: true
-  private_bundle_revision: 1e6ae293ff74f83c89540fadfd1ee9e501b8c42008d9054ea7e36014f5d4825f
+  private_bundle_revision: 75c60cbc8d006ca95f44a973ca5bd2c18e31d77b3917da79d80064dbaa8cae40
 build:
   list: never
   render: always
